@@ -229,6 +229,7 @@
             <span class="badge bg-primary"></span>
           </div>
         </div>
+        <img src="https://i.imgur.com/mqv4vEo.gif" alt="Coding Animation" class="header-middle-gif" style="height: 40px; position: absolute; left: 50%; transform: translateX(-50%);">
         
         <div class="docs-top-utilities d-flex justify-content-end align-items-center gap-3">
           <div class="top-search-box d-none d-lg-flex">
@@ -246,6 +247,37 @@
     </div>
   </header>
 
+  <main>
+      <h1>Welcome to HackHerWay Cybersecurity!</h1>
+      <p>Hack Your Way with HackHerWay</p>
+
+      <h2>Blog Posts:</h2>
+      <ul>
+          <li><a href="posts.post1.html">Getting Started with HackHerWay</a></li>
+          <li><a href="posts/post2.html">Advanced Features Guide</a></li>
+          <li><a href="posts/post3.html">Troubleshooting Common Issues</a></li>
+      </ul>
+  </main>
+
+  
+  <script>
+    // JavaScript here
+    document.addEventListener('DOMContentLoaded', () => {
+        console.log('Page loaded!');
+        // Example: Basic sidebar toggler functionality (if you have a sidebar)
+        const sidebarToggler = document.getElementById('posts-sidebar-toggler');
+        if (sidebarToggler) {
+            sidebarToggler.addEventListener('click', () => {
+                // Add/remove a class to your sidebar ekement to show/hide it
+                // Example: document.querySelector('.posts-sidebar').classList.toggle('visible');
+                console.log('Sidebar toggler clicked!');
+            });
+        }
+    }});
+  </script>
+
+
+  
   <div class="docs-wrapper">
     <div id="docs-sidebar" class="docs-sidebar">
       <div class="top-search-box d-lg-none p-3">
