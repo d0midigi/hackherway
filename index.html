@@ -93,10 +93,10 @@
     .search-form .search-btn:active,.search-form .search-btn:focus,.search-form .search-btn:hover{outline:0!important;color:var(--primary-color);box-shadow:none}
     .docs-branding{min-height:69px}
     .docs-branding .top-search-box{width:300px}
-    .docs-logo-wrapper{position:absolute;left:15px;top:.3rem}
+    .docs-logo-wrapper{position:relative;left:15px;top:.3rem}
     .docs-logo-wrapper .site-logo{display:inline-block}
-    .docs-top-utilities{padding-top:4px}
-    .docs-sidebar-toggler{display:inline-block;border:none;padding:0;font-size:inherit;position:relative;top:.3rem;background:0 0}
+    .docs-top-utilities{padding-top:4px;position: absolute;top:4px;right: 0;}
+    .docs-sidebar-toggler{display:inline-block;border:none;padding:0;font-size:inherit;background:0 0}
     .docs-sidebar-toggler:focus{outline:0}
     .docs-sidebar-toggler:hover span{-webkit-opacity:1;-moz-opacity:1;opacity:1}
     .docs-sidebar-toggler span{display:block;background-color:#32aaff;height:3px;width:24px;margin-top:5px;margin-bottom:5px;position:relative;left:0;-webkit-opacity:.8;-moz-opacity:.8;opacity:.8;border-radius:1px}
@@ -217,7 +217,7 @@
   <header class="header fixed-top">
     <div class="branding docs-branding">
       <div class="container-fluid position-relative py-2">
-        <div class="docs-logo-wrapper gap-2 d-flex">
+        <div class="docs-logo-wrapper d-flex align-items-center">
           <button id="docs-sidebar-toggler" class="docs-sidebar-toggler docs-sidebar-visible d-xl-none" type="button">
             <span></span>
             <span></span>
@@ -231,7 +231,7 @@
           </div>
         </div>
         
-        <div class="docs-top-utilities d-flex justify-content-end align-items-center gap-3">
+        <div class="docs-top-utilities d-flex justify-content-end align-items-center me-3">
           <div class="top-search-box d-none d-lg-flex">
             <form class="search-form">
               <input type="search" placeholder="🔍Search the docs..." name="search" class="form-control search-input" autocomplete="off">
@@ -319,7 +319,7 @@
             <a class="nav-link scrollto" href="#section-2">Installation</a>
             <ul class="nav flex-column mt-2 lvl2">
               <li class="nav-item">
-                <a class="nav-link scrollto" href="#item-2-1">Section Item 2.1 +</a>
+                <a class="nav-link scrollto" href="#item-2-1">Section Item 2.1</a>
                 <ul class="nav flex-column mt-1 lvl3">
                   <li class="nav-item section-child">
                     <a class="nav-link scrollto" href="#item-2-1-1">Section Item 2.1.1</a>
@@ -1332,10 +1332,9 @@
 
         <footer class="footer">
           <div class="container text-center py-5">
-            <!--/* This template is free as long as you keep the footer attribution link. If you'd like to use the template without the attribution link, you can buy the commercial license via our website: themes.3rdwavemedia.com Thank you for your support. :) */-->
             <small class="copyright">Designed with ❤️ by
-              <a class="theme-link" href="http://themes.3rdwavemedia.com" target="_blank">Xiaoying Riley</a>
-              for developers <br><br> Modified with 🔥 by <a class="theme-link" href="https://github.com/joelthorner" target="_blank">joelthorner</a> for developers</small>
+              <a class="theme-link" href="http://themes.3rdwavemedia.com" target="_blank">mindhackdiva</a>
+              <br><br> Modified with 🔥 by <a class="theme-link" href="https://github.com/d0midigi" target="_blank">mindhackdiva</a></small>
           </div>
         </footer>
       </div>
@@ -1348,7 +1347,7 @@
     <div class="modal-dialog modal-lg modal-dialog-scrollable">
         <div class="modal-content">
           <div class="modal-header">
-            <h4 class="modal-title px-3 py-1" id="changelogModalLabel">Changelog</h4>
+            <h4 class="modal-title px-3 py-1" id="changelogModalLabel">GitHub Repository</h4>
             <button type="button" class="btn-close p-4" data-bs-dismiss="modal" aria-label="Close">
             </button>
           </div>
@@ -1356,7 +1355,7 @@
             <div class="container">
               <div class="row justify-content-center">
                 <div class="col-12">
-                  <h6 class="mt-3"> <span class="p-2"> Version 1.0.0</span> - 29/06/2021</h6>
+                  <h6 class="mt-3"> <span class="p-2"> Version 1.0.0</span> - 2025</h6>
                   <ul class="mt-3 mb-5">
                     <li class="ms-3">Lorem ipsum dolor sit amet</li>
                     <li class="ms-3">Lorem ipsum dolor sit amet</li>
