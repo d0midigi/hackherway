@@ -50,7 +50,6 @@
     margin-left: 15px;
 }
 </style>
-
 <style>
 /* Make sidebar sticky */
 .docs-sidebar {
@@ -74,7 +73,27 @@
   opacity: 1;
 }
 </style>
-</head>
+<style>
+.docs-sidebar .dropdown-icon::before {
+    content: "▸";
+    display: inline-block;
+    margin-right: 6px;
+    transition: transform 0.3s ease;
+}
+.docs-sidebar .dropdown-toggle.open .dropdown-icon::before {
+    transform: rotate(90deg);
+}
+.docs-sidebar .parent > ul {
+    overflow: hidden;
+    max-height: 0;
+    opacity: 0;
+    transition: max-height 0.3s ease, opacity 0.3s ease;
+}
+.docs-sidebar .parent.open > ul {
+    max-height: 500px;
+    opacity: 1;
+}
+</style></head>
 <body>
 <button id="myBtn" onclick="topFunction()" title="Go to top"><i aria-hidden="true" class="fa fa-chevron-up"></i></button>
 <script>
@@ -133,7 +152,7 @@
 <!-- end section -->
 <div class="row">
 <div class="col-md-3">
-<nav class="docs-sidebar" data-offset-bottom="200" data-offset-top="300" data-spy="affix" role="navigation" style="">
+<nav class="docs-sidebar" data-offset-bottom="200" data-offset-top="300" data-spy="affix" role="navigation" style="position: sticky; top: 80px; max-height: calc(100vh - 80px); overflow-y: auto; z-index: 100;">
 <ul class="nav">
 <li class="parent" style=""><a class="dropdown-toggle" href="#line1" onclick="toggleDropdown(this)"><span class="dropdown-icon"></span>Getting Started</a><ul><li><a href="#fake-subtopic-1">Fake Subtopic 1</a></li><li><a href="#fake-subtopic-2">Fake Subtopic 2</a></li></ul></li>
 <li class="parent" style=""><a class="dropdown-toggle" href="#line2" onclick="toggleDropdown(this)"><span class="dropdown-icon"></span>How to Install WordPress</a><ul><li><a href="#fake-subtopic-1">Fake Subtopic 1</a></li><li><a href="#fake-subtopic-2">Fake Subtopic 2</a></li></ul></li>
@@ -721,16 +740,18 @@
 <script src="js/syntax-highlighter/scripts/shBrushXml.js"></script>
 <script src="js/syntax-highlighter/scripts/shBrushCss.js"></script>
 <script src="js/syntax-highlighter/scripts/shBrushJScript.js"></script>
+
 <script>
-function toggleDropdown(element) {
-    element.classList.toggle("open");
-    var nested = element.nextElementSibling;
-    if (nested && nested.tagName.toLowerCase() === 'ul') {
-        nested.style.display = (nested.style.display === 'block') ? 'none' : 'block';
-    }
-}
-</script>
-<script>
+document.addEventListener('DOMContentLoaded', function () {
+  document.querySelectorAll('.dropdown-toggle').forEach(function (toggle) {
+    toggle.addEventListener('click', function (e) {
+      e.preventDefault();
+      const parent = this.closest('.parent');
+      parent.classList.toggle('open');
+    });
+  });
+});
+</script><script>
 document.addEventListener('DOMContentLoaded', function () {
   document.querySelectorAll('.dropdown-toggle').forEach(function (toggle) {
     toggle.addEventListener('click', function (e) {
