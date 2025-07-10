@@ -74,51 +74,42 @@
 }
 </style>
 <style>
+/* Sticky Sidebar */
+.docs-sidebar {
+  position: sticky;
+  top: 80px;
+  z-index: 1000;
+  max-height: calc(100vh - 80px);
+  overflow-y: auto;
+}
+
+/* Dropdown Icon Rotation */
 .docs-sidebar .dropdown-icon::before {
-    content: "▸";
-    display: inline-block;
-    margin-right: 6px;
-    transition: transform 0.3s ease;
+  content: "▸";
+  margin-right: 6px;
+  display: inline-block;
+  transition: transform 0.3s ease;
 }
-.docs-sidebar .dropdown-toggle.open .dropdown-icon::before {
-    transform: rotate(90deg);
+.docs-sidebar .dropdown-toggle.open .dropdown-icon::before,
+.docs-sidebar .parent.open .dropdown-icon::before {
+  transform: rotate(90deg);
 }
+
+/* Submenu Animation */
 .docs-sidebar .parent > ul {
-    overflow: hidden;
-    max-height: 0;
-    opacity: 0;
-    transition: max-height 0.3s ease, opacity 0.3s ease;
+  max-height: 0;
+  overflow: hidden;
+  opacity: 0;
+  transition: all 0.3s ease;
 }
 .docs-sidebar .parent.open > ul {
-    max-height: 500px;
-    opacity: 1;
+  max-height: 500px;
+  opacity: 1;
 }
 </style></head>
 <body>
 <button id="myBtn" onclick="topFunction()" title="Go to top"><i aria-hidden="true" class="fa fa-chevron-up"></i></button>
-<script>
-        var mybutton = document.getElementById("myBtn");
-        window.onscroll = function() {scrollFunction()};
-        function scrollFunction() {
-            if (document.body.scrollTop > 1000 || document.documentElement.scrollTop > 1000) {
-                mybutton.style.display = "block";
-            } else {
-                mybutton.style.display = "none";
-            }
-        }
-        function topFunction() {
-            window.scrollTo({ top: 0, behavior: 'smooth' })
-            document.documentElement.scrollTo({ top: 0, behavior: 'smooth' })
-        }
 
-        document.addEventListener("DOMContentLoaded", () => {
-            document.querySelector('#mode').addEventListener('click',()=>{
-                document.querySelector('html').classList.toggle('dark');
-            })
-        });
-
-
-    </script>
 <div id="wrapper">
 <div id="mode">
 <div class="dark">
@@ -152,7 +143,7 @@
 <!-- end section -->
 <div class="row">
 <div class="col-md-3">
-<nav class="docs-sidebar" data-offset-bottom="200" data-offset-top="300" data-spy="affix" role="navigation" style="position: sticky; top: 80px; max-height: calc(100vh - 80px); overflow-y: auto; z-index: 100;">
+<nav class="docs-sidebar" data-offset-bottom="200" data-offset-top="300" data-spy="affix" role="navigation" style="position: sticky; top: 80px; z-index: 999; max-height: calc(100vh - 80px); overflow-y: auto;">
 <ul class="nav">
 <li class="parent" style=""><a class="dropdown-toggle" href="#line1" onclick="toggleDropdown(this)"><span class="dropdown-icon"></span>Getting Started</a><ul><li><a href="#fake-subtopic-1">Fake Subtopic 1</a></li><li><a href="#fake-subtopic-2">Fake Subtopic 2</a></li></ul></li>
 <li class="parent" style=""><a class="dropdown-toggle" href="#line2" onclick="toggleDropdown(this)"><span class="dropdown-icon"></span>How to Install WordPress</a><ul><li><a href="#fake-subtopic-1">Fake Subtopic 1</a></li><li><a href="#fake-subtopic-2">Fake Subtopic 2</a></li></ul></li>
@@ -742,16 +733,6 @@
 <script src="js/syntax-highlighter/scripts/shBrushJScript.js"></script>
 
 <script>
-document.addEventListener('DOMContentLoaded', function () {
-  document.querySelectorAll('.dropdown-toggle').forEach(function (toggle) {
-    toggle.addEventListener('click', function (e) {
-      e.preventDefault();
-      const parent = this.closest('.parent');
-      parent.classList.toggle('open');
-    });
-  });
-});
-</script><script>
 document.addEventListener('DOMContentLoaded', function () {
   document.querySelectorAll('.dropdown-toggle').forEach(function (toggle) {
     toggle.addEventListener('click', function (e) {
