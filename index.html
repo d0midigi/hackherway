@@ -885,10 +885,11 @@ function toggleDropdown(element) {
   element.classList.toggle('open');
 }
 
-document.addEventListener('DOMContentLoaded', function () {
+window.addEventListener("load", function () {
   document.querySelectorAll('.dropdown-toggle').forEach(toggle => {
     toggle.addEventListener('click', function (e) {
       e.preventDefault();
+      e.stopPropagation();
       toggleDropdown(this);
     });
   });
