@@ -7,6 +7,29 @@
 <!--<![endif]-->
 
 <head>
+    <style>
+.dropdown-icon::before {
+  content: "▸";
+  margin-right: 6px;
+  display: inline-block;
+  transition: transform 0.3s ease;
+}
+.dropdown-toggle.open .dropdown-icon::before,
+.parent.open .dropdown-icon::before {
+  transform: rotate(90deg);
+}
+.parent > ul {
+  max-height: 0;
+  overflow: hidden;
+  opacity: 0;
+  transition: all 0.3s ease;
+}
+.parent.open > ul {
+  max-height: 500px;
+  opacity: 1;
+}
+</style>
+
 
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -110,27 +133,60 @@
                 <div class="col-md-3">
                     <nav class="docs-sidebar" data-spy="affix" data-offset-top="300" data-offset-bottom="200" role="navigation">
                         <ul class="nav">
-                            <li><a href="#line1">Getting Started</a></li>
-                            <li><a href="#line2">How to Install WordPress</a></li>
-                            <li><a href="#line3">How to Install Theme</a></li>
-                            <li><a href="#line4">Necessary Plugins</a></li>
-                            <li><a href="#line5">Creating Blog Pages</a></li>
-                            <li><a href="#line6">Revolution Slider</a></li>
-                            <li><a href="#line7">How to Use Option Panel</a>
-                                <ul class="nav">
-                                    <li><a href="#line7_1">General Options</a></li>
-                                    <li><a href="#line7_2">Style Options</a></li>
-                                    <li><a href="#line7_3">Header Options</a></li>
-                                    <li><a href="#line7_4">Font Options</a></li>
-                                    <li><a href="#line7_5">Slider Options</a></li>
-                                    <li><a href="#line7_6">Page Options</a></li>
-                                    <li><a href="#line7_7">Import & Export</a></li>
-                                </ul>
-                            </li>
-                            <li><a href="#line8">Support Desk</a></li>
-                            <li><a href="#line9">Files & Sources</a></li>
-                            <li><a href="#line10">Version History (Changelog)</a></li>
-                            <li><a href="#line11">Copyright and license</a></li>
+                            <li class="parent">
+  <a href="#line1" class="dropdown-toggle" onclick="toggleDropdown(this)">
+    <span class="dropdown-icon"></span> Getting Started
+  </a>
+  <ul>
+    <li><a href="#line1-1">System Requirements</a></li>
+    <li><a href="#line1-2">Installation Overview</a></li>
+  </ul>
+</li>
+
+<li class="parent">
+  <a href="#line2" class="dropdown-toggle" onclick="toggleDropdown(this)">
+    <span class="dropdown-icon"></span> How to Install WordPress
+  </a>
+  <ul>
+    <li><a href="#line2-1">Download WordPress</a></li>
+    <li><a href="#line2-2">Upload to Server</a></li>
+    <li><a href="#line2-3">Database Setup</a></li>
+  </ul>
+</li>
+
+<li class="parent">
+  <a href="#line3" class="dropdown-toggle" onclick="toggleDropdown(this)">
+    <span class="dropdown-icon"></span> How to Install Theme
+  </a>
+  <ul>
+    <li><a href="#line3-1">Upload via WordPress Admin</a></li>
+    <li><a href="#line3-2">Activate Theme</a></li>
+  </ul>
+</li>
+
+<li><a href="#line4">Necessary Plugins</a></li>
+<li><a href="#line5">Creating Blog Pages</a></li>
+<li><a href="#line6">Revolution Slider</a></li>
+
+<li class="parent">
+  <a href="#line7" class="dropdown-toggle" onclick="toggleDropdown(this)">
+    <span class="dropdown-icon"></span> How to Use Option Panel
+  </a>
+  <ul>
+    <li><a href="#line7_1">General Options</a></li>
+    <li><a href="#line7_2">Style Options</a></li>
+    <li><a href="#line7_3">Header Options</a></li>
+    <li><a href="#line7_4">Font Options</a></li>
+    <li><a href="#line7_5">Slider Options</a></li>
+    <li><a href="#line7_6">Page Options</a></li>
+    <li><a href="#line7_7">Import & Export</a></li>
+  </ul>
+</li>
+
+<li><a href="#line8">Support Desk</a></li>
+<li><a href="#line9">Files & Sources</a></li>
+<li><a href="#line10">Version History (Changelog)</a></li>
+<li><a href="#line11">Copyright and license</a></li>
                         </ul>
                     </nav >
                 </div>
@@ -821,6 +877,22 @@
     <script src="js/syntax-highlighter/scripts/shBrushXml.js"></script>
     <script src="js/syntax-highlighter/scripts/shBrushCss.js"></script>
     <script src="js/syntax-highlighter/scripts/shBrushJScript.js"></script>
+<script>
+function toggleDropdown(element) {
+  const parent = element.closest('.parent');
+  parent.classList.toggle('open');
+  element.classList.toggle('open');
+}
+
+document.addEventListener('DOMContentLoaded', function () {
+  document.querySelectorAll('.dropdown-toggle').forEach(toggle => {
+    toggle.addEventListener('click', function (e) {
+      e.preventDefault();
+      toggleDropdown(this);
+    });
+  });
+});
+</script>
 
 </body>
 
