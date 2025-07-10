@@ -51,6 +51,25 @@
 .docs-sidebar .has-submenu.open .submenu-toggle i {
   transform: rotate(180deg);
 }
+</style><style>
+.docs-sidebar .has-submenu > a {
+  position: relative;
+  padding-right: 20px;
+  transition: background-color 0.3s ease;
+}
+
+.docs-sidebar .has-submenu > a:hover {
+  background-color: #f0f0f0;
+}
+
+.docs-sidebar .submenu-toggle i {
+  margin-left: auto;
+  transition: transform 0.3s ease;
+}
+
+.docs-sidebar .has-submenu.open > .submenu-toggle i {
+  transform: rotate(180deg);
+}
 </style></head>
 <body>
 <button id="myBtn" onclick="topFunction()" title="Go to top"><i aria-hidden="true" class="fa fa-chevron-up"></i></button>
@@ -118,8 +137,8 @@
 <li><a href="#line4">Necessary Plugins</a></li>
 <li><a href="#line5">Creating Blog Pages</a></li>
 <li><a href="#line6">Revolution Slider</a></li>
-<li class="has-submenu"><a class="submenu-toggle" href="#line7">How to Use Option Panel <i class="fa fa-chevron-down"></i></a>
-<ul class="nav submenu">
+<li class="has-submenu has-submenu"><a class="submenu-toggle submenu-toggle" href="#line7">How to Use Option Panel <i class="fa fa-chevron-down"></i></a>
+<ul class="nav submenu submenu" style="display: none;">
 <li><a href="#line7_1">General Options</a></li>
 <li><a href="#line7_2">Style Options</a></li>
 <li><a href="#line7_3">Header Options</a></li>
