@@ -40,24 +40,18 @@
 
 
 <style>
-.docs-sidebar {
-  position: sticky;
-  top: 20px;
-  max-height: calc(100vh - 40px);
-  overflow-y: auto;
-  transition: all 0.3s ease;
+.docs-sidebar .dropdown-icon::before {
+    content: "▸";
+    display: inline-block;
+    margin-right: 6px;
+    transition: transform 0.3s ease;
 }
-.docs-sidebar .nav ul {
-  display: none;
-  list-style: none;
-  padding-left: 1rem;
-  transition: max-height 0.3s ease;
+.docs-sidebar .dropdown-toggle.open .dropdown-icon::before {
+    transform: rotate(90deg);
 }
-.docs-sidebar .nav li.active > ul {
-  display: block;
-}
-.docs-sidebar .nav li > a {
-  cursor: pointer;
+.docs-sidebar .parent > ul {
+    display: none;
+    margin-left: 15px;
 }
 </style>
 
@@ -847,21 +841,13 @@
 
 
 <script>
-document.addEventListener('DOMContentLoaded', () => {
-  const navItems = document.querySelectorAll('.docs-sidebar .nav > li');
-
-  navItems.forEach(item => {
-    const subMenu = item.querySelector('ul');
-    const link = item.querySelector('a');
-
-    if (subMenu) {
-      link.addEventListener('click', (e) => {
-        e.preventDefault();
-        item.classList.toggle('active');
-      });
+function toggleDropdown(element) {
+    element.classList.toggle("open");
+    var nested = element.nextElementSibling;
+    if (nested && nested.tagName.toLowerCase() === 'ul') {
+        nested.style.display = (nested.style.display === 'block') ? 'none' : 'block';
     }
-  });
-});
+}
 </script>
 
 </body>
