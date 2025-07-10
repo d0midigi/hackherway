@@ -38,23 +38,6 @@
       <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
 
-
-<style>
-.docs-sidebar .dropdown-icon::before {
-    content: "▸";
-    display: inline-block;
-    margin-right: 6px;
-    transition: transform 0.3s ease;
-}
-.docs-sidebar .dropdown-toggle.open .dropdown-icon::before {
-    transform: rotate(90deg);
-}
-.docs-sidebar .parent > ul {
-    display: none;
-    margin-left: 15px;
-}
-</style>
-
 </head>
 
 <body>
@@ -838,17 +821,6 @@
     <script src="js/syntax-highlighter/scripts/shBrushXml.js"></script>
     <script src="js/syntax-highlighter/scripts/shBrushCss.js"></script>
     <script src="js/syntax-highlighter/scripts/shBrushJScript.js"></script>
-
-
-<script>
-function toggleDropdown(element) {
-    element.classList.toggle("open");
-    var nested = element.nextElementSibling;
-    if (nested && nested.tagName.toLowerCase() === 'ul') {
-        nested.style.display = (nested.style.display === 'block') ? 'none' : 'block';
-    }
-}
-</script>
 
 </body>
 
