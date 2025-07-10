@@ -50,6 +50,30 @@
     margin-left: 15px;
 }
 </style>
+
+<style>
+/* Make sidebar sticky */
+.docs-sidebar {
+  position: -webkit-sticky;
+  position: sticky;
+  top: 80px;
+  max-height: calc(100vh - 80px);
+  overflow-y: auto;
+  z-index: 100;
+}
+
+/* Smooth submenu transitions */
+.docs-sidebar .parent > ul {
+  transition: max-height 0.3s ease, opacity 0.3s ease;
+  overflow: hidden;
+  max-height: 0;
+  opacity: 0;
+}
+.docs-sidebar .parent.open > ul {
+  max-height: 500px; /* arbitrary max height for animation */
+  opacity: 1;
+}
+</style>
 </head>
 <body>
 <button id="myBtn" onclick="topFunction()" title="Go to top"><i aria-hidden="true" class="fa fa-chevron-up"></i></button>
@@ -706,5 +730,15 @@ function toggleDropdown(element) {
     }
 }
 </script>
-</body>
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+  document.querySelectorAll('.dropdown-toggle').forEach(function (toggle) {
+    toggle.addEventListener('click', function (e) {
+      e.preventDefault();
+      const parent = this.closest('.parent');
+      parent.classList.toggle('open');
+    });
+  });
+});
+</script></body>
 </html>
