@@ -41,75 +41,36 @@
     transform: rotate(90deg);
 }
 .docs-sidebar .parent > ul {
-  position: absolute;
-  left: 100%;
-  top: 0;
-  white-space: nowrap;
-
     display: none;
     margin-left: 15px;
 }
 </style>
-<style>
-/* Make sidebar sticky */
-.docs-sidebar {
-  position: -webkit-sticky;
-  position: sticky;
-  top: 80px;
-  max-height: calc(100vh - 80px);
-  overflow-y: auto;
-  z-index: 100;
-}
-
-/* Smooth submenu transitions */
-.docs-sidebar .parent > ul {
-  transition: max-height 0.3s ease, opacity 0.3s ease;
-  overflow: hidden;
-  max-height: 0;
-  opacity: 0;
-}
-.docs-sidebar .parent.open > ul {
-  max-height: 500px; /* arbitrary max height for animation */
-  opacity: 1;
-}
-</style>
-<style>
-/* Sticky Sidebar */
-.docs-sidebar {
-  position: sticky;
-  top: 80px;
-  z-index: 1000;
-  max-height: calc(100vh - 80px);
-  overflow-y: auto;
-}
-
-/* Dropdown Icon Rotation */
-.docs-sidebar .dropdown-icon::before {
-  content: "▸";
-  margin-right: 6px;
-  display: inline-block;
-  transition: transform 0.3s ease;
-}
-.docs-sidebar .dropdown-toggle.open .dropdown-icon::before,
-.docs-sidebar .parent.open .dropdown-icon::before {
-  transform: rotate(90deg);
-}
-
-/* Submenu Animation */
-.docs-sidebar .parent > ul {
-  max-height: 0;
-  overflow: hidden;
-  opacity: 0;
-  transition: all 0.3s ease;
-}
-.docs-sidebar .parent.open > ul {
-  max-height: 500px;
-  opacity: 1;
-}
-</style></head>
+</head>
 <body>
 <button id="myBtn" onclick="topFunction()" title="Go to top"><i aria-hidden="true" class="fa fa-chevron-up"></i></button>
+<script>
+        var mybutton = document.getElementById("myBtn");
+        window.onscroll = function() {scrollFunction()};
+        function scrollFunction() {
+            if (document.body.scrollTop > 1000 || document.documentElement.scrollTop > 1000) {
+                mybutton.style.display = "block";
+            } else {
+                mybutton.style.display = "none";
+            }
+        }
+        function topFunction() {
+            window.scrollTo({ top: 0, behavior: 'smooth' })
+            document.documentElement.scrollTo({ top: 0, behavior: 'smooth' })
+        }
 
+        document.addEventListener("DOMContentLoaded", () => {
+            document.querySelector('#mode').addEventListener('click',()=>{
+                document.querySelector('html').classList.toggle('dark');
+            })
+        });
+
+
+    </script>
 <div id="wrapper">
 <div id="mode">
 <div class="dark">
@@ -143,29 +104,29 @@
 <!-- end section -->
 <div class="row">
 <div class="col-md-3">
-<nav class="docs-sidebar" data-offset-bottom="200" data-offset-top="300" data-spy="affix" role="navigation" style="position: sticky; top: 80px; z-index: 999; max-height: calc(100vh - 80px); overflow-y: auto;">
+<nav class="docs-sidebar" data-offset-bottom="200" data-offset-top="300" data-spy="affix" role="navigation">
 <ul class="nav">
-<li class="parent" style=""><a class="dropdown-toggle" href="#line1" onclick="toggleDropdown(this)"><span class="dropdown-icon"></span>Getting Started</a><ul><li><a href="#fake-subtopic-1">Fake Subtopic 1</a></li><li><a href="#fake-subtopic-2">Fake Subtopic 2</a></li></ul></li>
-<li class="parent" style=""><a class="dropdown-toggle" href="#line2" onclick="toggleDropdown(this)"><span class="dropdown-icon"></span>How to Install WordPress</a><ul><li><a href="#fake-subtopic-1">Fake Subtopic 1</a></li><li><a href="#fake-subtopic-2">Fake Subtopic 2</a></li></ul></li>
-<li class="parent" style=""><a class="dropdown-toggle" href="#line3" onclick="toggleDropdown(this)"><span class="dropdown-icon"></span>How to Install Theme</a><ul><li><a href="#fake-subtopic-1">Fake Subtopic 1</a></li><li><a href="#fake-subtopic-2">Fake Subtopic 2</a></li></ul></li>
-<li class="parent" style=""><a class="dropdown-toggle" href="#line4" onclick="toggleDropdown(this)"><span class="dropdown-icon"></span>Necessary Plugins</a><ul><li><a href="#fake-subtopic-1">Fake Subtopic 1</a></li><li><a href="#fake-subtopic-2">Fake Subtopic 2</a></li></ul></li>
-<li class="parent" style=""><a class="dropdown-toggle" href="#line5" onclick="toggleDropdown(this)"><span class="dropdown-icon"></span>Creating Blog Pages</a><ul><li><a href="#fake-subtopic-1">Fake Subtopic 1</a></li><li><a href="#fake-subtopic-2">Fake Subtopic 2</a></li></ul></li>
-<li class="parent" style=""><a class="dropdown-toggle" href="#line6" onclick="toggleDropdown(this)"><span class="dropdown-icon"></span>Revolution Slider</a><ul><li><a href="#fake-subtopic-1">Fake Subtopic 1</a></li><li><a href="#fake-subtopic-2">Fake Subtopic 2</a></li></ul></li>
-<li class="parent" style=""><a class="dropdown-toggle" href="#line7" onclick="toggleDropdown(this)"><span class="dropdown-icon"></span>How to Use Option Panel</a>
+<li><a href="#line1">Getting Started</a></li>
+<li><a href="#line2">How to Install WordPress</a></li>
+<li><a href="#line3">How to Install Theme</a></li>
+<li><a href="#line4">Necessary Plugins</a></li>
+<li><a href="#line5">Creating Blog Pages</a></li>
+<li><a href="#line6">Revolution Slider</a></li>
+<li class="parent"><a class="dropdown-toggle" href="#line7" onclick="toggleDropdown(this)"><span class="dropdown-icon"></span>How to Use Option Panel</a>
 <ul class="nav">
-<li class="parent" style=""><a class="dropdown-toggle" href="#line7_1" onclick="toggleDropdown(this)"><span class="dropdown-icon"></span>General Options</a><ul><li><a href="#fake-subtopic-1">Fake Subtopic 1</a></li><li><a href="#fake-subtopic-2">Fake Subtopic 2</a></li></ul></li>
-<li class="parent" style=""><a class="dropdown-toggle" href="#line7_2" onclick="toggleDropdown(this)"><span class="dropdown-icon"></span>Style Options</a><ul><li><a href="#fake-subtopic-1">Fake Subtopic 1</a></li><li><a href="#fake-subtopic-2">Fake Subtopic 2</a></li></ul></li>
-<li class="parent" style=""><a class="dropdown-toggle" href="#line7_3" onclick="toggleDropdown(this)"><span class="dropdown-icon"></span>Header Options</a><ul><li><a href="#fake-subtopic-1">Fake Subtopic 1</a></li><li><a href="#fake-subtopic-2">Fake Subtopic 2</a></li></ul></li>
-<li class="parent" style=""><a class="dropdown-toggle" href="#line7_4" onclick="toggleDropdown(this)"><span class="dropdown-icon"></span>Font Options</a><ul><li><a href="#fake-subtopic-1">Fake Subtopic 1</a></li><li><a href="#fake-subtopic-2">Fake Subtopic 2</a></li></ul></li>
-<li class="parent" style=""><a class="dropdown-toggle" href="#line7_5" onclick="toggleDropdown(this)"><span class="dropdown-icon"></span>Slider Options</a><ul><li><a href="#fake-subtopic-1">Fake Subtopic 1</a></li><li><a href="#fake-subtopic-2">Fake Subtopic 2</a></li></ul></li>
-<li class="parent" style=""><a class="dropdown-toggle" href="#line7_6" onclick="toggleDropdown(this)"><span class="dropdown-icon"></span>Page Options</a><ul><li><a href="#fake-subtopic-1">Fake Subtopic 1</a></li><li><a href="#fake-subtopic-2">Fake Subtopic 2</a></li></ul></li>
-<li class="parent" style=""><a class="dropdown-toggle" href="#line7_7" onclick="toggleDropdown(this)"><span class="dropdown-icon"></span>Import &amp; Export</a><ul><li><a href="#fake-subtopic-1">Fake Subtopic 1</a></li><li><a href="#fake-subtopic-2">Fake Subtopic 2</a></li></ul></li>
+<li><a href="#line7_1">General Options</a></li>
+<li><a href="#line7_2">Style Options</a></li>
+<li><a href="#line7_3">Header Options</a></li>
+<li><a href="#line7_4">Font Options</a></li>
+<li><a href="#line7_5">Slider Options</a></li>
+<li><a href="#line7_6">Page Options</a></li>
+<li><a href="#line7_7">Import &amp; Export</a></li>
 </ul>
 </li>
-<li class="parent" style=""><a class="dropdown-toggle" href="#line8" onclick="toggleDropdown(this)"><span class="dropdown-icon"></span>Support Desk</a><ul><li><a href="#fake-subtopic-1">Fake Subtopic 1</a></li><li><a href="#fake-subtopic-2">Fake Subtopic 2</a></li></ul></li>
-<li class="parent" style=""><a class="dropdown-toggle" href="#line9" onclick="toggleDropdown(this)"><span class="dropdown-icon"></span>Files &amp; Sources</a><ul><li><a href="#fake-subtopic-1">Fake Subtopic 1</a></li><li><a href="#fake-subtopic-2">Fake Subtopic 2</a></li></ul></li>
-<li class="parent" style=""><a class="dropdown-toggle" href="#line10" onclick="toggleDropdown(this)"><span class="dropdown-icon"></span>Version History (Changelog)</a><ul><li><a href="#fake-subtopic-1">Fake Subtopic 1</a></li><li><a href="#fake-subtopic-2">Fake Subtopic 2</a></li></ul></li>
-<li class="parent" style=""><a class="dropdown-toggle" href="#line11" onclick="toggleDropdown(this)"><span class="dropdown-icon"></span>Copyright and license</a><ul><li><a href="#fake-subtopic-1">Fake Subtopic 1</a></li><li><a href="#fake-subtopic-2">Fake Subtopic 2</a></li></ul></li>
+<li><a href="#line8">Support Desk</a></li>
+<li><a href="#line9">Files &amp; Sources</a></li>
+<li><a href="#line10">Version History (Changelog)</a></li>
+<li><a href="#line11">Copyright and license</a></li>
 </ul>
 </nav>
 </div>
@@ -731,16 +692,14 @@
 <script src="js/syntax-highlighter/scripts/shBrushXml.js"></script>
 <script src="js/syntax-highlighter/scripts/shBrushCss.js"></script>
 <script src="js/syntax-highlighter/scripts/shBrushJScript.js"></script>
-
 <script>
-document.addEventListener('DOMContentLoaded', function () {
-  document.querySelectorAll('.dropdown-toggle').forEach(function (toggle) {
-    toggle.addEventListener('click', function (e) {
-      e.preventDefault();
-      const parent = this.closest('.parent');
-      parent.classList.toggle('open');
-    });
-  });
-});
-</script></body>
+function toggleDropdown(element) {
+    element.classList.toggle("open");
+    var nested = element.nextElementSibling;
+    if (nested && nested.tagName.toLowerCase() === 'ul') {
+        nested.style.display = (nested.style.display === 'block') ? 'none' : 'block';
+    }
+}
+</script>
+</body>
 </html>
