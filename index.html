@@ -896,6 +896,18 @@ window.addEventListener("load", function () {
 });
 </script>
 
+
+<script>
+$(document).ready(function () {
+  $('.docs-sidebar li.parent > a').on('click', function (e) {
+    e.preventDefault();
+    var $submenu = $(this).next('ul');
+    $('.docs-sidebar li.parent ul').not($submenu).slideUp(); // close others
+    $submenu.slideToggle(); // toggle clicked one
+  });
+});
+</script>
+
 </body>
 
 </html>
