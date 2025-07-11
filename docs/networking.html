@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -5,7 +6,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Blog with Sidebar | YourSiteName</title>
   <style>
-    body {
+    html, body {
+      height: 100%;
       margin: 0;
       font-family: system-ui, sans-serif;
       background: #f7f7f7;
@@ -13,8 +15,7 @@
     }
     .container {
       display: flex;
-      max-width: 1200px;
-      margin: 0 auto;
+      margin: 0;
     }
     .sidebar {
       width: 250px;
@@ -22,8 +23,10 @@
       color: white;
       padding: 1rem;
       height: 100vh;
-      position: sticky;
+      position: fixed;
       top: 0;
+      left: 0;
+      bottom: 0;
     }
     .sidebar h2 {
       font-size: 1.25rem;
@@ -45,12 +48,34 @@
     }
     .content {
       flex: 1;
+      margin-left: 250px;
       padding: 2rem;
       background: white;
       box-shadow: 0 0 10px rgba(0,0,0,0.05);
+      min-height: 100vh;
     }
     h1 {
       margin-top: 0;
+    }
+    .scroll-top {
+      display: inline-block;
+      margin-right: 1rem;
+      padding: 0.5rem 1rem;
+      background: #444;
+      color: white;
+      text-decoration: none;
+      border-radius: 4px;
+    }
+    .back-home {
+      display: inline-block;
+      padding: 0.5rem 1rem;
+      background: #222;
+      color: white;
+      text-decoration: none;
+      border-radius: 4px;
+    }
+    .bottom-links {
+      margin-top: 3rem;
     }
   </style>
 </head>
@@ -75,6 +100,11 @@
       <p class="meta">Published on July 11, 2025 • by <strong>Your Name</strong></p>
       <p>This is a placeholder for your blog content. You can update this section with your writing, code samples, and images as needed.</p>
       <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam sit amet sapien dignissim, vehicula nisi ut, interdum lorem.</p>
+
+      <div class="bottom-links">
+        <a href="#" class="scroll-top" onclick="window.scrollTo({top: 0, behavior: 'smooth'}); return false;">⬆ Scroll to Top</a>
+        <a href="index.html" class="back-home">🏠 Back to Home</a>
+      </div>
     </main>
   </div>
 </body>
