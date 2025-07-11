@@ -896,12 +896,23 @@ window.addEventListener("load", function () {
 
 
 <script>
-$(document).ready(function () {
-  $('.docs-sidebar li.parent > a').on('click', function (e) {
-    e.preventDefault();
-    var $submenu = $(this).next('ul');
-    $('.docs-sidebar li.parent ul').not($submenu).slideUp(); // close others
-    $submenu.slideToggle(); // toggle clicked one
+document.addEventListener("DOMContentLoaded", function () {
+  document.querySelectorAll(".docs-sidebar li.parent > a").forEach(function (link) {
+    link.addEventListener("click", function (e) {
+      e.preventDefault();
+      e.stopPropagation();
+
+      const parent = link.closest("li.parent");
+      const submenu = parent.querySelector("ul");
+
+      document.querySelectorAll(".docs-sidebar li.parent ul").forEach(function (ul) {
+        if (ul !== submenu) ul.style.display = "none";
+      });
+
+      if (submenu) {
+        submenu.style.display = (submenu.style.display === "block") ? "none" : "block";
+      }
+    });
   });
 });
 </script>
