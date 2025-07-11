@@ -77,6 +77,32 @@
     .bottom-links {
       margin-top: 3rem;
     }
+  
+    .card-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 1.5rem;
+      margin-top: 2rem;
+    }
+    .card {
+      background: #f2f2f2;
+      padding: 1rem;
+      border-radius: 8px;
+      box-shadow: 0 1px 4px rgba(0,0,0,0.1);
+      transition: transform 0.2s;
+    }
+    .card:hover {
+      transform: translateY(-5px);
+    }
+    .card a {
+      color: #222;
+      text-decoration: none;
+      display: block;
+    }
+    .card h3 {
+      margin-top: 0;
+    }
+
   </style>
 </head>
 <body>
@@ -100,6 +126,15 @@
       <p class="meta">Published on July 11, 2025 • by <strong>Your Name</strong></p>
       <p>This is a placeholder for your blog content. You can update this section with your writing, code samples, and images as needed.</p>
       <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam sit amet sapien dignissim, vehicula nisi ut, interdum lorem.</p>
+
+      
+      <div class="card-grid">
+        <div class="card"><a href="#"><h3>Post 1</h3><p>Brief summary of post 1.</p></a></div>
+        <div class="card"><a href="#"><h3>Post 2</h3><p>Brief summary of post 2.</p></a></div>
+        <div class="card"><a href="#"><h3>Post 3</h3><p>Brief summary of post 3.</p></a></div>
+        <div class="card"><a href="#"><h3>Post 4</h3><p>Brief summary of post 4.</p></a></div>
+      </div>
+
 
       <div class="bottom-links">
         <a href="#" class="scroll-top" onclick="window.scrollTo({top: 0, behavior: 'smooth'}); return false;">⬆ Scroll to Top</a>
