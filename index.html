@@ -96,6 +96,11 @@
   max-height: calc(100vh - 100px);
   overflow-y: auto;
 }
+.docs-sidebar li.parent ul {
+  display: none;
+  list-style: none;
+  padding-left: 15px;
+}
 </style>
 
 </head>
@@ -932,37 +937,20 @@ window.addEventListener("load", function () {
 </script>
 
 
-<script>
-document.addEventListener("DOMContentLoaded", function () {
-  document.querySelectorAll(".docs-sidebar li.parent > a").forEach(function (link) {
-    link.addEventListener("click", function (e) {
-      e.preventDefault();
-      e.stopPropagation();
 
-      const parent = link.closest("li.parent");
-      const submenu = parent.querySelector("ul");
-
-      document.querySelectorAll(".docs-sidebar li.parent ul").forEach(function (ul) {
-        if (ul !== submenu) ul.style.display = "none";
-      });
-
-      if (submenu) {
-        submenu.style.display = (submenu.style.display === "block") ? "none" : "block";
-      }
-    });
-  });
-});
-</script>
 
 
 <script>
 document.addEventListener("DOMContentLoaded", function () {
-  document.querySelectorAll(".docs-sidebar li.parent > a").forEach(function (link) {
+  const dropdownLinks = document.querySelectorAll(".docs-sidebar li.parent > a");
+
+  dropdownLinks.forEach(function (link) {
     link.addEventListener("click", function (e) {
       e.preventDefault();
       e.stopPropagation();
+      e.stopImmediatePropagation(); // bulletproof against jQuery hijack
 
-      const parent = link.closest("li.parent");
+      const parent = this.closest("li.parent");
       const submenu = parent.querySelector("ul");
 
       document.querySelectorAll(".docs-sidebar li.parent ul").forEach(function (ul) {
