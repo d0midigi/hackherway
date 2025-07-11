@@ -2,88 +2,80 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Blog Title | YourSiteName</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Blog with Sidebar | YourSiteName</title>
   <style>
     body {
-      font-family: system-ui, sans-serif;
-      line-height: 1.6;
       margin: 0;
-      padding: 0;
+      font-family: system-ui, sans-serif;
       background: #f7f7f7;
       color: #333;
     }
-    header {
+    .container {
+      display: flex;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    .sidebar {
+      width: 250px;
       background: #222;
       color: white;
       padding: 1rem;
-      text-align: center;
+      height: 100vh;
+      position: sticky;
+      top: 0;
     }
-    main {
-      max-width: 768px;
-      margin: auto;
-      background: white;
+    .sidebar h2 {
+      font-size: 1.25rem;
+      margin-bottom: 1rem;
+    }
+    .sidebar ul {
+      list-style: none;
+      padding: 0;
+    }
+    .sidebar li {
+      margin-bottom: 0.75rem;
+    }
+    .sidebar a {
+      color: #ccc;
+      text-decoration: none;
+    }
+    .sidebar a:hover {
+      color: white;
+    }
+    .content {
+      flex: 1;
       padding: 2rem;
+      background: white;
       box-shadow: 0 0 10px rgba(0,0,0,0.05);
     }
     h1 {
-      font-size: 2rem;
       margin-top: 0;
-    }
-    .meta {
-      color: #777;
-      font-size: 0.9rem;
-      margin-bottom: 2rem;
-    }
-    img {
-      max-width: 100%;
-      border-radius: 6px;
-    }
-    pre {
-      background: #eee;
-      padding: 1rem;
-      overflow-x: auto;
-    }
-    footer {
-      text-align: center;
-      font-size: 0.85rem;
-      color: #888;
-      margin: 2rem auto;
-    }
-    @media (max-width: 600px) {
-      main {
-        padding: 1rem;
-      }
     }
   </style>
 </head>
 <body>
+  <div class="container">
+    <aside class="sidebar">
+      <h2>Blog Topics</h2>
+      <ul>
+        <li><a href="#">Introduction</a></li>
+        <li><a href="#">Networking</a></li>
+        <li><a href="#">Reconnaissance</a></li>
+        <li><a href="#">Vulnerability Scanning</a></li>
+        <li><a href="#">Privilege Escalation</a></li>
+        <li><a href="#">Persistence</a></li>
+        <li><a href="#">Exfiltration</a></li>
+        <li><a href="#">Blue Team Tactics</a></li>
+      </ul>
+    </aside>
 
-<header>
-  <h1>Your Blog Name</h1>
-</header>
-
-<main>
-  <h1>Blog Post Title Goes Here</h1>
-  <p class="meta">Published on July 11, 2025 • by <strong>Your Name</strong></p>
-
-  <p>This is your blog introduction. It explains what the post is about, why it's important, and what the reader will learn.</p>
-
-  <h2>Section Heading</h2>
-  <p>You can write as many paragraphs as you want. Use <code>&lt;pre&gt;</code> blocks for code:</p>
-
-  <pre><code>npm install example-package</code></pre>
-
-  <h2>Another Section</h2>
-  <p>You can also include images:</p>
-  <img src="your-image.jpg" alt="Descriptive text" />
-
-  <p>Wrap up your blog with a summary or call-to-action.</p>
-</main>
-
-<footer>
-  &copy; 2025 YourSiteName. Built with 💻 and ☕.
-</footer>
-
+    <main class="content">
+      <h1>Blog Post Title</h1>
+      <p class="meta">Published on July 11, 2025 • by <strong>Your Name</strong></p>
+      <p>This is a placeholder for your blog content. You can update this section with your writing, code samples, and images as needed.</p>
+      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam sit amet sapien dignissim, vehicula nisi ut, interdum lorem.</p>
+    </main>
+  </div>
 </body>
 </html>
