@@ -21,6 +21,23 @@
 <link rel="stylesheet" type="text/css" href="assets/vendor/highlight.js/styles/github.css" />
 <!-- Custom Stylesheet -->
 <link rel="stylesheet" type="text/css" href="assets/css/stylesheet.css" />
+<style>
+	/* Show caret for folders and indent children */
+.nav-item.has-children > .nav-link::after {
+  content: " ▼";
+  font-size: 0.7em;
+  float: right;
+}
+.nav .nav.flex-column {
+  margin-left: 1rem;
+}
+.nav .nav.flex-column.collapse {
+  display: none;
+}
+.nav .nav.flex-column.show {
+  display: block;
+}
+</style>
 </head>
 
 <body data-spy="scroll" data-target=".idocs-navigation" data-offset="125">
@@ -1443,5 +1460,21 @@
 <script src="assets/vendor/magnific-popup/jquery.magnific-popup.min.js"></script> 
 <!-- Custom Script -->
 <script src="assets/js/theme.js"></script>
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+  document.querySelectorAll('.nav-item > .nav-link').forEach(function (link) {
+    var nextUl = link.nextElementSibling;
+    if (nextUl && nextUl.classList.contains('flex-column')) {
+      link.parentNode.classList.add('has-children');
+      nextUl.classList.add('collapse');
+      link.addEventListener('click', function (e) {
+        e.preventDefault();
+        nextUl.classList.toggle('show');
+      });
+    }
+  });
+});
+</script>
+
 </body>
 </html>
