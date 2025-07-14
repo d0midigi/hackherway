@@ -46,6 +46,77 @@
 .nav .nav.flex-column.show {
   display: block;
 }
+<style>
+/* Sidebar Caret and Dropdown */
+.nav-item.has-children > .nav-link::after {
+  content: "▼";
+  font-size: 0.8em;
+  float: right;
+  margin-left: 8px;
+  color: #aaa;
+  transition: transform 0.2s;
+  position: relative;
+  right: 0;
+}
+.nav-item.has-children > .nav-link.expanded::after {
+  transform: rotate(180deg);
+}
+
+.nav .nav.flex-column {
+  margin-left: 1rem;
+}
+.nav .nav.flex-column.collapse {
+  display: none;
+}
+.nav .nav.flex-column.show {
+  display: block;
+}
+
+/* --- Dark mode overrides: header, sidebar, body, content, footer --- */
+body,
+header#header,
+nav.primary-menu,
+#content,
+.idocs-content,
+footer#footer {
+  background: #000 !important;
+  color: #fff !important;
+}
+
+.idocs-navigation,
+.docs-navigation-dark,
+.bg-dark {
+  background: #000 !important;
+  color: #fff !important;
+}
+
+.idocs-content,
+#content,
+section,
+.container {
+  background: #000 !important;
+  color: #fff !important;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  color: #fff !important;
+}
+
+a, a:visited {
+  color: #80c0ff !important;
+}
+pre, code {
+  background: #222 !important;
+}
+hr, .divider, .table, .table-bordered, .border {
+  border-color: #222 !important;
+}
+.alert, .alert-info, .alert-warning, .alert-danger, .alert-success {
+  background: #222 !important;
+  color: #fff !important;
+  border-color: #444 !important;
+}
+
 </style>
 </head>
 
