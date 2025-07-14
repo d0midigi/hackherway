@@ -98,25 +98,19 @@ hr, .divider, .table, .table-bordered, .border {
 <!-- Preloader End --> 
 
 <div id="main-wrapper"> 
-  <!-- Header with Centered GIF -->
+  <!-- Header -->
   <header id="header" class="sticky-top"> 
-    <nav class="primary-menu navbar navbar-expand-lg bg-dark navbar-text-light">
-      <div class="container-fluid d-flex flex-column align-items-center" style="min-height: 130px; position:relative;">
-        <!-- Logo Row -->
-        <div class="w-100 d-flex align-items-center mb-1" style="position:relative;">
-          <button id="sidebarCollapse" class="navbar-toggler d-block d-md-none" type="button"><span></span><span class="w-75"></span><span class="w-50"></span></button>
-          <a class="logo ml-md-3" href="index.html" title="iDocs Template">
-            <img src="assets/images/logo.png" alt="iDocs Template" style="height:38px;" />
-          </a>
-          <span class="text-2 ml-2" style="font-size: 1.25rem;">hackherway</span>
-          <div class="flex-grow-1"></div>
-        </div>
-        <!-- Centered GIF Row -->
-        <div class="w-100 d-flex justify-content-center align-items-center" style="min-height:56px;">
-          <img src="https://i.imgur.com/J4D9wwN.gif" alt="Centered GIF" style="height:48px; max-width:90vw; pointer-events:none;"/>
-        </div>
-        <!-- Navbar Items -->
-        <div id="header-nav" class="collapse navbar-collapse justify-content-end w-100 mt-2">
+    <nav class="primary-menu navbar navbar-expand-lg bg-dark navbar-text-light" style="padding-top:0;padding-bottom:0;">
+      <div class="container-fluid d-flex align-items-center" style="min-height: 60px;">
+        <!-- Sidebar Toggler -->
+        <button id="sidebarCollapse" class="navbar-toggler d-block d-md-none" type="button"><span></span><span class="w-75"></span><span class="w-50"></span></button>
+        <!-- Logo --> 
+        <a class="logo ml-md-3" href="index.html" title="iDocs Template"> 
+          <img src="assets/images/logo.png" alt="iDocs Template" style="height:38px;"/> 
+        </a>
+        <span class="text-2 ml-2" style="font-size: 1.25rem;">hackherway</span>
+        <div class="flex-grow-1"></div>
+        <div id="header-nav" class="collapse navbar-collapse justify-content-end">
           <ul class="navbar-nav">
             <li class="dropdown"> <a class="dropdown-toggle" href="#">Dropdown</a>
               <ul class="dropdown-menu">
@@ -137,7 +131,7 @@ hr, .divider, .table, .table-bordered, .border {
             <li><a target="_blank" href="https://themeforest.net/user/harnishdesign/#contact?ref=HarnishDesign">Support</a></li>
           </ul>
         </div>
-        <ul class="social-icons social-icons-sm ml-lg-2 mr-2">
+        <ul class="social-icons social-icons-sm ml-lg-2 mr-2" style="margin-bottom: 0;">
           <li class="social-icons-twitter"><a data-toggle="tooltip" href="http://www.twitter.com/harnishdesign/" target="_blank" title="" data-original-title="Twitter"><i class="fab fa-twitter"></i></a></li>
           <li class="social-icons-facebook"><a data-toggle="tooltip" href="http://www.facebook.com/harnishdesign/" target="_blank" title="" data-original-title="Facebook"><i class="fab fa-facebook-f"></i></a></li>
           <li class="social-icons-dribbble"><a data-toggle="tooltip" href="http://www.dribbble.com/harnishdesign/" target="_blank" title="" data-original-title="Dribbble"><i class="fab fa-dribbble"></i></a></li>
@@ -145,7 +139,10 @@ hr, .divider, .table, .table-bordered, .border {
       </div>
     </nav>
   </header>
-  <!-- Header End -->
+  <!-- Centered GIF - OUTSIDE HEADER, below nav, above content -->
+  <div style="width:100%;text-align:center;margin:16px 0 12px 0;">
+    <img src="https://i.imgur.com/J4D9wwN.gif" alt="Centered GIF" style="width:420px;max-width:90vw;height:auto;display:inline-block;pointer-events:none;">
+  </div>
 
   <!-- Main Content: Sidebar + Docs Content -->
   <div id="content" role="main" class="container-fluid">
