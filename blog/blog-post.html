@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>My Blog Post | HackHerWay</title>
+<link rel="stylesheet" type="text/css" href="assets/vendor/bootstrap/css/bootstrap.min.css" />
+<link rel="stylesheet" type="text/css" href="assets/vendor/font-awesome/css/all.min.css" />
+<link rel="stylesheet" type="text/css" href="assets/css/stylesheet.css" />
+<style>
+/* Sidebar + Dropdown Styles */
+.nav-item.has-children > .nav-link::after {
+  content: "▼";
+  font-size: 0.8em;
+  float: right;
+  margin-left: 8px;
+  color: #aaa;
+  transition: transform 0.2s;
+  position: relative;
+  right: 0;
+}
+.nav-item.has-children > .nav-link.expanded::after {
+  transform: rotate(180deg);
+}
+.nav .nav.flex-column {
+  margin-left: 1rem;
+}
+.nav .nav.flex-column.collapse { display: none; }
+.nav .nav.flex-column.show { display: block; }
+
+/* Colors: Black site, dark blue sidebar */
+body,
+header#header,
+#content,
+.idocs-content,
+footer#footer {
+  background: #000 !important;
+  color: #fff !important;
+}
+.idocs-navigation,
+.docs-navigation-dark,
+.bg-dark {
+  background: #071828 !important; /* Dark blue sidebar */
+  color: #fff !important;
+}
+h1, h2, h3, h4, h5, h6 { color: #fff !important; }
+a, a:visited { color: #80c0ff !important; }
+pre, code { background: #222 !important; }
+hr, .divider, .table, .table-bordered, .border { border-color: #222 !important; }
+.alert, .alert-info, .alert-warning, .alert-danger, .alert-success {
+  background: #222 !important;
+  color: #fff !important;
+  border-color: #444 !important;
+}
+/* Make sidebar stick */
+.idocs-navigation {
+  min-height: 100vh;
+  position: fixed;
+  left: 0; top: 0;
+  width: 280px;
+  z-index: 10;
+  border-right: 1px solid #192644;
+  padding-top: 80px; /* header space */
+  overflow-y: auto;
+}
+#content {
+  margin-left: 280px;
+  padding-top: 80px;
+  min-height: 100vh;
+}
+@media (max-width: 991px) {
+  .idocs-navigation {
+    position: static;
+    width: 100%;
+    min-height: auto;
+    border-right: none;
+    padding-top: 0;
+  }
+  #content { margin-left: 0; padding-top: 100px; }
+}
+</style>
+</head>
+<body>
+
+<!-- Header (Simple) -->
+<header id="header" class="sticky-top" style="background:#000;">
+  <nav class="navbar navbar-expand-lg" style="background:#000;">
+    <div class="container-fluid">
+      <a class="navbar-brand text-white" href="index.html">
+        <img src="assets/images/logo.png" alt="Logo" style="height:30px;vertical-align:middle;"> 
+        <span class="ml-2">HackHerWay</span>
+      </a>
+    </div>
+  </nav>
+</header>
+
+<!-- Sidebar Navigation (copy/paste from homepage!) -->
+<div class="idocs-navigation bg-dark docs-navigation-dark">
+  <ul class="nav flex-column">
+    <li class="nav-item">
+      <a class="nav-link" href="index.html">Home</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" href="#cyber-vault">Cyber Vault</a>
+      <ul class="nav flex-column">
+        <li class="nav-item">
+          <a class="nav-link" href="#docs_cyber-domains">Cyber Domains</a>
+          <ul class="nav flex-column">
+            <li class="nav-item">
+              <a class="nav-link" href="/docs/fundamental-concepts">Fundamental Concepts</a>
+            </li>
+          </ul>
+        </li>
+        <li class="nav-item"><a class="nav-link" href="#idocs_html_structure">HTML Structure</a></li>
+        <!-- ...add more as needed... -->
+      </ul>
+    </li>
+    <li class="nav-item"><a class="nav-link" href="#idocs_layout">Layout</a></li>
+    <li class="nav-item"><a class="nav-link" href="#idocs_content">Content</a></li>
+    <li class="nav-item"><a class="nav-link" href="#idocs_faq">FAQ</a></li>
+    <li class="nav-item"><a class="nav-link" href="#idocs_support">Support</a></li>
+  </ul>
+</div>
+
+<!-- Blog Post Content -->
+<div id="content">
+  <div class="idocs-content container py-5">
+    <article>
+      <h1>How to Defend Against DCShadow Attacks</h1>
+      <p class="text-muted">by MindhackDiva &mdash; July 2025</p>
+      <hr>
+      <p>
+        <b>In this post,</b> we’ll walk through how DCShadow attacks work, how to spot the indicators, and best practices for defending your Active Directory.
+      </p>
+      <h2>What is DCShadow?</h2>
+      <p>
+        DCShadow is a red team technique for injecting malicious objects directly into Active Directory replication...
+      </p>
+      <!-- Blog post body here... -->
+      <h2>How to Detect</h2>
+      <ul>
+        <li>Monitor for new DC registrations</li>
+        <li>Watch for DRS replication from non-DCs</li>
+      </ul>
+      <h2>Defensive Tips</h2>
+      <ol>
+        <li>Restrict privileged access</li>
+        <li>Audit replication permissions regularly</li>
+      </ol>
+      <hr>
+      <div>
+        <a href="blog.html" class="btn btn-primary mt-3">Back to Blog</a>
+        <a href="index.html" class="btn btn-outline-light mt-3 float-right">Back to Homepage</a>
+      </div>
+    </article>
+  </div>
+</div>
+
+<!-- Dropdown Toggle Script (copy from homepage) -->
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+  document.querySelectorAll('.nav-item > .nav-link').forEach(function (link) {
+    var nextUl = link.nextElementSibling;
+    if (nextUl && nextUl.classList.contains('flex-column')) {
+      link.parentNode.classList.add('has-children');
+      nextUl.classList.add('collapse');
+      link.addEventListener('click', function (e) {
+        e.preventDefault();
+        nextUl.classList.toggle('show');
+        link.classList.toggle('expanded');
+      });
+    }
+  });
+});
+</script>
+</body>
+</html>
