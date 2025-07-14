@@ -24,10 +24,19 @@
 <style>
 	/* Show caret for folders and indent children */
 .nav-item.has-children > .nav-link::after {
-  content: " ▼";
-  font-size: 0.7em;
+  content: "▼";
+  font-size: 0.8em;
   float: right;
+	margin-left: 8px;
+	color: #aaa;
+	transition: transform 0.2s;
+	position: relative;
+	right: 0;
 }
+.nav-item.has-children > .nav-link.expanded::after {
+	content: "▼";
+}
+	
 .nav .nav.flex-column {
   margin-left: 1rem;
 }
@@ -1470,6 +1479,7 @@ document.addEventListener('DOMContentLoaded', function () {
       link.addEventListener('click', function (e) {
         e.preventDefault();
         nextUl.classList.toggle('show');
+	link.classList.toggle('expanded');
       });
     }
   });
