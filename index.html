@@ -121,14 +121,9 @@ hr, .divider, .table, .table-bordered, .border {
 }
 
 .centered-gif {
-position: absolute;
-left: 0;
-right: 0;
 text-align: center;
-pointer-events: none;
+margin: 24px 0; /* space above and below */
 width: 100%;
-top: 20px; /* adjust as needed */
-z-index: 10;
 }
 .centered-gif img {
 width: 70vw;
@@ -170,7 +165,7 @@ display: inline-block;
 		<span class="text-2 ml-2">hackherway</span> 
 	    <!-- Logo End -->
 	        <!-- Centered GIF (insert this line after version span) -->
-<div class="centered-gif mx-auto d-none d-lg-block">
+<div class="centered-gif">
       <img src="https://i.imgur.com/J4D9wwN.gif" alt="Centered GIF"
     </div>
 
