@@ -98,28 +98,25 @@ hr, .divider, .table, .table-bordered, .border {
 <!-- Preloader End --> 
 
 <div id="main-wrapper"> 
-  <!-- Header -->
-  <header id="header" class="sticky-top" style="position: relative;">
-    <!-- Centered GIF absolutely centered in header -->
-    <div style="width: 100%; position: absolute; left: 0; top: 0; height: 80px; pointer-events:none; z-index:10; display: flex; justify-content: center; align-items: center;">
-        <div style="display: flex; justify-content: center; align-items: center; height: 100%;">
-      <img src="https://i.imgur.com/J4D9wwN.gif" alt="Centered GIF" style="height:56px; max-width:80vw;">
-    </div>
-    </div>
+  <!-- Header with Centered GIF -->
+  <header id="header" class="sticky-top"> 
     <nav class="primary-menu navbar navbar-expand-lg bg-dark navbar-text-light">
-      <div class="container-fluid d-flex align-items-center" style="min-height: 80px;">
-        <!-- Sidebar Toggler -->
-        <button id="sidebarCollapse" class="navbar-toggler d-block d-md-none" type="button"><span></span><span class="w-75"></span><span class="w-50"></span></button>
-        <!-- Logo --> 
-        <div class="d-flex align-items-center mr-3">
+      <div class="container-fluid d-flex flex-column align-items-center" style="min-height: 130px; position:relative;">
+        <!-- Logo Row -->
+        <div class="w-100 d-flex align-items-center mb-1" style="position:relative;">
+          <button id="sidebarCollapse" class="navbar-toggler d-block d-md-none" type="button"><span></span><span class="w-75"></span><span class="w-50"></span></button>
           <a class="logo ml-md-3" href="index.html" title="iDocs Template">
-            <img src="assets/images/logo.png" alt="iDocs Template"/>
+            <img src="assets/images/logo.png" alt="iDocs Template" style="height:38px;" />
           </a>
           <span class="text-2 ml-2" style="font-size: 1.25rem;">hackherway</span>
+          <div class="flex-grow-1"></div>
         </div>
-        <!-- Navbar Toggler -->
-        <button class="navbar-toggler ml-auto" type="button" data-toggle="collapse" data-target="#header-nav"><span></span><span></span><span></span></button>
-        <div id="header-nav" class="collapse navbar-collapse justify-content-end">
+        <!-- Centered GIF Row -->
+        <div class="w-100 d-flex justify-content-center align-items-center" style="min-height:56px;">
+          <img src="https://i.imgur.com/J4D9wwN.gif" alt="Centered GIF" style="height:48px; max-width:90vw; pointer-events:none;"/>
+        </div>
+        <!-- Navbar Items -->
+        <div id="header-nav" class="collapse navbar-collapse justify-content-end w-100 mt-2">
           <ul class="navbar-nav">
             <li class="dropdown"> <a class="dropdown-toggle" href="#">Dropdown</a>
               <ul class="dropdown-menu">
