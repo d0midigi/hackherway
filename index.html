@@ -120,6 +120,22 @@ hr, .divider, .table, .table-bordered, .border {
   border-color: #444 !important;
 }
 
+.centered-gif {
+position: absolute;
+left: 0;
+right: 0;
+text-align: center;
+pointer-events: none;
+width: 100%;
+top: 20px; /* adjust as needed */
+z-index: 10;
+}
+.centered-gif img {
+width: 70vw;
+max-width: 900px;
+height: auto;
+display: inline-block;
+}
 </style>
 </head>
 
@@ -154,10 +170,8 @@ hr, .divider, .table, .table-bordered, .border {
 		<span class="text-2 ml-2">hackherway</span> 
 	    <!-- Logo End -->
 	        <!-- Centered GIF (insert this line after version span) -->
-    <div class="mx-auto d-none d-lg-block" 
-         style="position: absolute; left: 0; right: 0; text-align: center; pointer-events: none;">
+<div class="centered-gif mx-auto d-none d-lg-block">
       <img src="https://i.imgur.com/J4D9wwN.gif" alt="Centered GIF"
-    style="width: 700px; max-width: 90vw; height: auto;">
     </div>
 
         
