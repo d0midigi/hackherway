@@ -27,14 +27,14 @@
   content: "▼";
   font-size: 0.8em;
   float: right;
-	margin-left: 8px;
-	color: #aaa;
-	transition: transform 0.2s;
-	position: relative;
-	right: 0;
+  margin-left: 8px;
+  color: #aaa;
+  transition: transform 0.2s;
+  position: relative;
+  right: 0;
 }
 .nav-item.has-children > .nav-link.expanded::after {
-	content: "▼";
+	transform: rotate(180deg);
 }
 	
 .nav .nav.flex-column {
@@ -124,13 +124,13 @@
 <div class="idocs-navigation bg-dark docs-navigation-dark">
   <ul class="nav flex-column">
     <li class="nav-item">
-      <a class="nav-link active" href="#idocs_start">Cyber Vault</a>
+      <a class="nav-link" href="#cyber-vault">Cyber Vault</a>
       <ul class="nav flex-column">
         <li class="nav-item">
           <a class="nav-link" href="#docs_cyber-domains">Cyber Domains</a>
           <ul class="nav flex-column">
             <li class="nav-item">
-              <a class="nav-link" href="/docs/cyber-domains/career-pathways.md">Career Pathways</a>
+              <a class="nav-link" href="/docs/fundamental-concepts">Fundamental Concepts</a>
             </li>
             <!-- Add more Cyber Domains subtopics here if needed -->
           </ul>
