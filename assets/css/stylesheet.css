@@ -619,7 +619,7 @@ hr {
 /*  3. Layouts
 /* =================================== */
 #main-wrapper {
-  background: #fff;
+  background: #000;
 }
 
 .box #main-wrapper {
@@ -663,10 +663,10 @@ hr {
   position: relative;
   padding: 6px 30px;
   line-height: 25px;
-  font-weight: 600;
+  font-weight: 300;
 }
 .idocs-navigation .nav .nav-item:hover > .nav-link, .idocs-navigation .nav .nav-item .nav-link.active {
-  font-weight: 700;
+  font-weight: 300;
 }
 .idocs-navigation .nav .nav {
   display: none;
@@ -706,7 +706,7 @@ hr {
   content: " ";
   top: 50%;
   right: 18px;
-  border-color: #000;
+  border-color: #32a;
   border-top: 2px solid;
   border-right: 2px solid;
   width: 7px;
@@ -995,7 +995,7 @@ hr {
   position: absolute;
   top: 50%;
   left: 50%;
-  border-color: #000;
+  border-color: #32a;
   border-top: 1px solid;
   border-right: 1px solid;
   width: 6px;
@@ -2748,7 +2748,7 @@ a.bg-primary:focus, a.bg-primary:hover, button.bg-primary:focus, button.bg-prima
 }
 
 .border-primary {
-  border-color: #0366d6 !important;
+  border-color: #32a !important;
 }
 
 .border-secondary {
@@ -2827,7 +2827,7 @@ a.bg-primary:focus, a.bg-primary:hover, button.bg-primary:focus, button.bg-prima
   color: #0366d6;
 }
 .page-link:hover {
-  color: #0355b3;
+  color: #32a;
 }
 
 /* Pagination */
