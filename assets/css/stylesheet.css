@@ -1,11 +1,4 @@
-/*===========================================================
-
-   Template Name: iDocs - One Page Documentation HTML Template
-   Author: Harnish Design
-   Template URL: http://demo.harnishdesign.net/html/idocs
-   Author URL: https://themeforest.net/user/harnishdesign
-   File Description : Main css file of the template
-	
+/*===========================================================	
 =================================================
   Table of Contents
 =================================================
@@ -276,6 +269,8 @@ dl, ol, ul, pre, blockquote, .table {
 .text-2 {
   font-size: 14px !important;
   font-size: 0.875rem !important;
+  font-family: 'Lexend Zetta', sans-serif !important;
+
 }
 
 .text-3 {
