@@ -11,7 +11,6 @@
 
 <link href="https://fonts.googleapis.com/css2?family=Lexend+Zetta:wght@400;700&display=swap" rel="stylesheet">
 
-
 <!-- Stylesheet -->
 <link rel="stylesheet" type="text/css" href="assets/vendor/bootstrap/css/bootstrap.min.css" />
 <link rel="stylesheet" type="text/css" href="assets/vendor/font-awesome/css/all.min.css" />
@@ -19,6 +18,14 @@
 <link rel="stylesheet" type="text/css" href="assets/vendor/highlight.js/styles/github.css" />
 <link rel="stylesheet" type="text/css" href="assets/css/stylesheet.css" />
 <style>
+/* FULL PAGE BACKGROUND IMAGE */
+body {
+  background: #000 url('https://i.imgur.com/VjbmK58.png') no-repeat center center fixed !important;
+  background-size: cover !important;
+  color: #f51994 !important;
+  min-height: 100vh;
+}
+
 /* Terminal Animation */
 .card {
   padding: 1rem;
@@ -42,9 +49,7 @@
 .terminal {
   display: flex;
   flex-direction: column;
-
-  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas,
-    "Liberation Mono", "Courier New", monospace;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
 }
 .head {
   display: flex;
@@ -139,7 +144,7 @@
   white-space: nowrap;
   overflow: hidden;
   background-color: transparent;
-  animation: inputs 8s steps(22) infinite;
+  animation: inputs 8s steps(60) infinite;
 }
 .cmd::after {
   content: "";
@@ -153,33 +158,16 @@
 }
 
 @keyframes blinking {
-  20%,
-  80% {
-    transform: scaleY(1);
-  }
-  50% {
-    transform: scaleY(0);
-  }
+  20%, 80% { transform: scaleY(1); }
+  50% { transform: scaleY(0); }
 }
 @keyframes cursor {
-  50% {
-    border-right-color: transparent;
-  }
+  50% { border-right-color: transparent; }
 }
 @keyframes inputs {
-  0%,
-  100% {
-    width: 0;
-  }
-  10%,
-  90% {
-    width: 58px;
-  }
-  30%,
-  70% {
-    width: 215px;
-    max-width: max-content;
-  }
+  0%, 100% { width: 0; }
+  10%, 90% { width: 120px; }
+  30%, 70% { width: 1000px; max-width: max-content; }
 }
 @keyframes clipboard-check {
   100% {
@@ -191,7 +179,7 @@
 }
 /* End Terminal Animation */
   
-  /* Sidebar Caret and Dropdown */
+/* Sidebar Caret and Dropdown */
 .nav-item.has-children > .nav-link::after {
   content: "▼";
   font-size: 0.8em;
@@ -214,13 +202,12 @@
 .nav .nav.flex-column.show {
   display: block;
 }
-body,
 header#header,
 nav.primary-menu,
 #content,
 .idocs-content,
 footer#footer {
-  background: #000 !important;
+  background: transparent !important;
   color: #f51994 !important;
 }
 .idocs-navigation,
@@ -236,7 +223,7 @@ footer#footer {
 #content,
 section,
 .container {
-  background: #000 !important;
+  background: transparent !important;
   color: #fff !important;
 }
 h1, h2, h3, h4, h5, h6 {
@@ -258,7 +245,6 @@ hr, .divider, .table, .table-bordered, .border {
 }
 </style>
 </head>
-
 <body data-spy="scroll" data-target=".idocs-navigation" data-offset="125">
 
 <!-- Preloader -->
