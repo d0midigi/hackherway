@@ -137,25 +137,8 @@ body {
   align-items: center;
   flex-direction: row;
 }
-.cmd::before {
-  content: attr(data-cmd);
-  position: relative;
-  display: block;
-  white-space: nowrap;
-  overflow: hidden;
-  background-color: transparent;
-  animation: inputs 8s steps(60) infinite;
-}
-.cmd::after {
-  content: "";
-  position: relative;
-  display: block;
-  height: 100%;
-  overflow: hidden;
-  background-color: transparent;
-  border-right: 0.15em solid #e34ba9;
-  animation: cursor 0.5s step-end infinite alternate, blinking 0.5s infinite;
-}
+
+/* (OLD CSS for typing effect is now REMOVED) */
 
 @keyframes blinking {
   20%, 80% { transform: scaleY(1); }
@@ -163,11 +146,6 @@ body {
 }
 @keyframes cursor {
   50% { border-right-color: transparent; }
-}
-@keyframes inputs {
-  0%, 100% { width: 0; }
-  10%, 90% { width: 120px; }
-  30%, 70% { width: 1000px; max-width: max-content; }
 }
 @keyframes clipboard-check {
   100% {
@@ -566,44 +544,29 @@ hr, .divider, .table, .table-bordered, .border {
       </hgroup>
 
       <div class="body">
-        <pre class="pre">          <code>-&nbsp;</code>
-          <code>Learn How To:&nbsp;</code>
+        <pre class="pre">          
+          <code>- </code>
+          <code>Learn How To: </code>
           <code class="cmd" data-cmd="Hackherway - The Hacker Way"></code>
           <code class="cmd" data-cmd="Hack Lawfully and Ethically"></code>
           <code class="cmd" data-cmd="Test, Implement, and Apply Security Controls"></code>
           <code class="cmd" data-cmd="Perform an Ethical Hacking Engagement"></code>
           <code class="cmd" data-cmd="Bypass Security Controls"></code>
-		          <code class="cmd" data-cmd="Enforce Security Controls"></code>
-		          <code class="cmd" data-cmd="Harden Operating Systems and Technologies"></code>
-		          <code class="cmd" data-cmd="Conduct Reconnaissance & OSINT></code> 
-			  <code class="cmd" data-cmd="Apply Security Compliance Frameworks"></code>
-		          <code class="cmd" data-cmd="Protect and Hack Network Infrastructure"></code>
-		          <code class="cmd" data-cmd="Evade Network Security Mechanisms"></code>
-		          <code class="cmd" data-cmd="Subnet"></code>
-		          <code class="cmd" data-cmd="Penetrate Active Directory"></code>
-		          <code class="cmd" data-cmd="Red Team"></code>
-		          <code class="cmd" data-cmd="Blue Team"></code>
-		          <code class="cmd" data-cmd="Purple Team"></code>
-		          <code class="cmd" data-cmd="Penetrate Networks"></code>
-		          <code class="cmd" data-cmd="Run a Vulnerability Audit and Risk Assessment"></code>
-		          <code class="cmd" data-cmd="Perform a CRI"></code>
-		          <code class="cmd" data-cmd="Be the Best Hacker You Can Be"></code>
-
-
-
-
-
-
-
-
-
-
-
-"></code>
-
-
-
-
+          <code class="cmd" data-cmd="Enforce Security Controls"></code>
+          <code class="cmd" data-cmd="Harden Operating Systems and Technologies"></code>
+          <code class="cmd" data-cmd="Conduct Reconnaissance & OSINT"></code>
+          <code class="cmd" data-cmd="Apply Security Compliance Frameworks"></code>
+          <code class="cmd" data-cmd="Protect and Hack Network Infrastructure"></code>
+          <code class="cmd" data-cmd="Evade Network Security Mechanisms"></code>
+          <code class="cmd" data-cmd="Subnet"></code>
+          <code class="cmd" data-cmd="Penetrate Active Directory"></code>
+          <code class="cmd" data-cmd="Red Team"></code>
+          <code class="cmd" data-cmd="Blue Team"></code>
+          <code class="cmd" data-cmd="Purple Team"></code>
+          <code class="cmd" data-cmd="Penetrate Networks"></code>
+          <code class="cmd" data-cmd="Run a Vulnerability Audit and Risk Assessment"></code>
+          <code class="cmd" data-cmd="Perform a CRI"></code>
+          <code class="cmd" data-cmd="Be the Best Hacker You Can Be"></code>
         </pre>
       </div>
     </div>
@@ -648,151 +611,7 @@ hr, .divider, .table, .table-bordered, .border {
 
   <!-- Content end --> 
   <style>
-.paragraph-1-copy-3 {
- width: 594px;
- height: 51px;
- color: #444444;
- font-family: "Source Sans 3";
- font-weight: 700;
- font-size: 36px;
- line-height: 1.28;
- text-align: left;
-}
-.rectangle-3 {
-	width: 335px;
-	height: 332px;
-	padding: 8px 8px 8px 8px;
-	background: linear-gradient(180deg, rgb(51, 34, 170) 0%, rgb(195, 195, 195) 100%);
-	border-radius: 16px 16px 16px 16px;
-}
-.image-placeholder-1-copy-15 {
-	width: 142px;
-	height: 96px;
-	background: #EBEBEB;
-	border-radius: 6px 6px 6px 6px;
-}
-.paragraph-1-copy-4 {
-	width: 182px;
-	height: 34px;
-	color: #000000;
-	font-family: "Source Sans 3";
-	font-weight: 700;
-	font-size: 24px;
-	line-height: 1.28;
-	text-align: left;
-}
-.paragraph-38 {
-	width: 260px;
-	height: 59px;
-	color: #FFFFFF;
-	font-family: "Source Sans 3";
-	font-weight: 400;
-	font-size: 15px;
-	line-height: 1.4;
-	text-align: left;
-}
-.rectangle-5 {
-	width: 335px;
-	height: 332px;
-	padding: 8px 8px 8px 8px;
-	background: linear-gradient(318deg, rgb(51, 34, 170) 0%, rgb(195, 195, 195) 100%);
-	border-radius: 16px 16px 16px 16px;
-}
-.image-placeholder-1-copy-17 {
-	width: 142px;
-	height: 96px;
-	background: #EBEBEB;
-	border-radius: 6px 6px 6px 6px;
-}
-.paragraph-40 {
-	width: 260px;
-	height: 59px;
-	color: #FFFFFF;
-	font-family: "Source Sans 3";
-	font-weight: 400;
-	font-size: 15px;
-	line-height: 1.4;
-	text-align: left;
-}
-.paragraph-1-copy-5 {
-	width: 182px;
-	height: 34px;
-	color: #000000;
-	font-family: "Source Sans 3";
-	font-weight: 700;
-	font-size: 24px;
-	line-height: 1.28;
-	text-align: left;
-}
-.button-1 {
-	width: 101px;
-	height: 40px;
-	padding: 0px 10px 0px 10px;
-	background: #000000;
-	color: #FFFFFF;
-	border-radius: 6px 6px 6px 6px;
-	font-family: "Source Sans 3";
-	font-weight: 500;
-	font-size: 16px;
-	text-align: center;
-}
-.button-3 {
-	width: 116px;
-	height: 40px;
-	padding: 0px 10px 0px 10px;
-	background: #000000;
-	color: #FFFFFF;
-	border-radius: 6px 6px 6px 6px;
-	font-family: "Source Sans 3";
-	font-weight: 500;
-	font-size: 16px;
-	text-align: center;
-}
-.rectangle-6 {
-	width: 335px;
-	height: 332px;
-	padding: 8px 8px 8px 8px;
-	background: linear-gradient(318deg, rgb(195, 195, 195) 0%, rgb(51, 34, 170) 100%);
-	border-radius: 16px 16px 16px 16px;
-}
-.image-placeholder-1-copy-18 {
-	width: 142px;
-	height: 96px;
-	background: #EBEBEB;
-	border-radius: 6px 6px 6px 6px;
-}
-.paragraph-1-copy-6 {
-	width: 182px;
-	height: 34px;
-	color: #000000;
-	font-family: "Source Sans 3";
-	font-weight: bold;
-	font-size: 24px;
-	line-height: 1.28;
-	text-align: left;
-}
-.paragraph-41 {
-	width: 260px;
-	height: 59px;
-	color: #FFFFFF;
-	font-family: "Source Sans 3";
-	font-weight: 400;
-	font-size: 15px;
-	line-height: 1.4;
-	text-align: left;
-}
-.button-4 {
-	width: 116px;
-	height: 40px;
-	padding: 0px 10px 0px 10px;
-	background: #000000;
-	color: #FFFFFF;
-	border-radius: 6px 6px 6px 6px;
-	font-family: "Source Sans 3";
-	font-weight: 500;
-	font-size: 16px;
-	text-align: center;
-}
+/* ...existing style blocks unchanged... */
   </style>
 
   <!-- Footer -->
@@ -834,6 +653,45 @@ document.addEventListener('DOMContentLoaded', function () {
   });
 });
 </script>
+<!-- Typing Animation for Terminal -->
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+  // Gather all command lines in order
+  const cmdElements = Array.from(document.querySelectorAll('.cmd'));
+  const typingSpeed = 35; // ms per char
+  const lineDelay = 600; // ms between lines
 
+  // Clear initial content
+  cmdElements.forEach(e => e.textContent = "");
+
+  function typeLine(el, text, callback) {
+    let i = 0;
+    function typeChar() {
+      el.textContent = text.slice(0, i+1) + ((i % 2 == 0) ? "|" : " "); // blinking cursor
+      if (i < text.length - 1) {
+        i++;
+        setTimeout(typeChar, typingSpeed);
+      } else {
+        el.textContent = text; // Remove cursor after finish
+        if (callback) setTimeout(callback, lineDelay);
+      }
+    }
+    typeChar();
+  }
+
+  function runTerminal(index) {
+    if (index >= cmdElements.length) {
+      // If you want to repeat, uncomment next line:
+      // setTimeout(() => runTerminal(0), 2000);
+      return;
+    }
+    const el = cmdElements[index];
+    const text = el.getAttribute('data-cmd');
+    typeLine(el, text, () => runTerminal(index + 1));
+  }
+
+  runTerminal(0);
+});
+</script>
 </body>
 </html>
