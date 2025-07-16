@@ -1,160 +1,250 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <title>Recon Tools</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <!-- Optionally add styles here -->
-</head>
-<body>
+  <head>
+    <title>Blog Post Layout</title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width" />
+    <link rel="stylesheet" href="styles.css" />
+    <style>body{
+  font-size:14px;
+  font-family: 'Poppins', sans-serif;
+  color:#333;
+  background:#000;
+  overflow-x:hidden
+}
+a{
+  text-decoration:none;
+  color:#aaa
+}
+nav{
+  position:fixed;
+  background:rgba(20,20,20,0.9);
+  z-index:9;
+  width:100%;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  top:-90px;
+  transition:all 0.4s
+}
+nav a{
+  font-size:1em;
+  padding:2em 1.5em;
+  transition:all 0.4s
+}
+nav a:hover{
+   background: rgba(252, 198, 0, 0.6);
+   color: #333;
+}
+/* Logo here */
+nav:before{
+  content:"NodCMS";
+  position:absolute;
+  left:10px;
+  font-size:10px;
+  border:1px solid;
+  border-radius:5px;
+  padding:9px 5px
+}
+.wrapper{
+  position: relative;
+  padding-bottom: 56.25125%;
+  height: 0;
+}
+.hero {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  min-height:200px;
+  background-color:#999;
+  background-position:center;
+  background-repeat:no-repeat;
+  background-size:100% 100%;
+  overflow:hidden;
+  animation: fader 60s  infinite;
+}
+.hero:before{
+  content:" ";
+  position:absolute;
+  width:100%;
+  height:100%;
+  background: linear-gradient(to bottom, rgba(0,0,0,0.2) 90%,rgba(0,0,0,0.65) 100%);
+  z-index:0
+}
+@keyframes fader {
+  0%,30%,100%{ background-image:url(https://i.pinimg.com/736x/f2/b9/45/f2b94538475404f42c32921012a267fe.jpg)}
+33%,60% { background-image: url(blob:chrome-untrusted://media-app/8d5d57c9-62a6-44b5-ac66-d8ade063dbb2); }
+63%,97% { background-image: url(https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9GcTC0aAjycw-pe1pocJxl2Kf5nGY1Enr5DZtuKCF7qLl-anUQ32S) }
+}
+.hero h1{
+  padding:.5em;
+  width:50%;
+  min-width:190px;
+  position:absolute;
+  bottom:0
+}
+.hero a{
+  text-decoration:none;
+  box-decoration-break: clone;
+  -webkit-box-decoration-break: clone;
+  background:#fff;
+  padding:0.12em 0.5em;
+  font-family: share;
+  font-size: calc(1vw + 1vh + 3.5vmin);
+  line-height:calc(1vw + 1vh + 6.5vmin);
+  color:#000;
+  text-transform:uppercase;
+  mix-blend-mode:screen;
+  transition:all 0.4s
+}
+.hero a:hover{
+  line-height:1.3em;
+  mix-blend-mode:exclusion;
+}
+.container{
+  padding:0.1em 1em;
+  text-align:justify;
+  line-height:1.5em;
+  letter-spacing:0.02em;
+  background:#fff;
+  margin:1em
+}
 
-  <!-- Header Section -->
-  <section id="header">
-    <p>
-      <img src="https://github.com/nahberry/Recon-Tools/blob/main/Logo/Recon-Tools.PNG" alt="header-image">
-    </p>
-    <h1 id="recon-tools-awesome">
-      Recon Tools
-      <a href="https://awesome.re">
-        <img src="https://awesome.re/badge-flat2.svg" alt="Awesome">
-      </a>
-    </h1>
-    <blockquote>
-      <p>A compiled list of tools for reconnaissance and footprinting.</p>
-    </blockquote>
-    <div align="left" style="display:flex;flex-direction:column;">
-      <p>
-        <a href="https://ctt.ac/cz2om">
-          <img alt="Tweet" src="https://img.shields.io/twitter/url?logoColor=%23000&style=social&url=https%3A%2F%2Fctt.ac%2Fcz2om">
-        </a>
-      </p>
-    </div>
-  </section>
 
-  <!-- Contents Section -->
-  <section id="contents">
-    <h2>Contents</h2>
-    <ul>
-      <li>
-        <a href="#domain-and-network-recon">Domain and Network Recon</a>
-        - Tools for grabbing network related information.
-      </li>
-      <li>
-        <a href="#personal-information-and-email-footprinting">Personal Information and Email Footprinting</a>
-        - Tools for finding personal information such as social networks and emails as well as footprinting tools for mail.
-      </li>
-      <li>
-        <a href="#hacking-with-google">Hacking with Google</a>
-        - Use Google commands to your advantage
-      </li>
-    </ul>
-  </section>
+.gen,.sel,.men{
+  display:flex;
+  position:absolute;
+  align-items:center;
+  justify-content:center;
+  right:30px;
+  bottom:30px;
+  color:#333;
+  background:rgba(255,255,255,0.8);
+  width:30px;
+  height:30px;
+  text-align:center;
+  border-radius:50%;
+  transition:all 0.2s;
+  z-index:5
+}
+.men{
+  background:rgba(0,0,0,0.1);
+  color:#fff;
+  top:20px;
+  height:1.4em;
+  width:1.5em;
+  overflow:hidden;
+  bottom:auto !important;
+  border-radius:0;
+  font-size:1.8em;
+  font-weight:700
+}
+.men:hover{
+  background:rgba(220,220,220,0.91);
+  color:#111;
+}
+.men:hover + nav, nav:hover{
+  top:0;
+}
+.sel{
+  right:70px;
+}
+.gen:hover,.sel:hover{
+  background:#0a2f54;
+  color:#ddd
+}
 
-  <!-- Domain and Network Recon Section -->
-  <section id="domain-and-network-recon">
-    <h2>Domain and Network Recon</h2>
-    <blockquote>
-      <p>Robust tools for gathering domain and network information.</p>
-    </blockquote>
+footer{
+  background:#0a0c10;
+  padding:1em;
+  text-align:center;
+  color:#ddd;
+  font-size:11px
+}
 
-    <h3>Programs and Web Applications</h3>
-    <ul>
-      <li><a href="https://arin.net/about/welcom/region">ARIN Whois/RDAP</a> - A public resource that allows a user to retrieve information about IP number resources, organizations, and Points of Contact registered with ARIN.</li>
-      <li><a href="https://github.com/michenriksen/aquatone">Aquatone</a> - A tool for visual inspection of websites across a large amount of hosts. Very convenient for quickly gaining an overview of HTTP-based attack surfaces.</li>
-      <li><a href="http://sabsoft.com">Batch IP Converter</a> - An award-winning network tool to work with IP addresses. Domain-to-IP Converter, Batch Ping, Tracert, Whois, and more.</li>
-      <li><a href="https://builtwith.com">BuiltWith</a> - Scans for over 46,953 different web technologies. Discover what tools a site uses such as shopping carts, hosting, analytics, and more.</li>
-      <li><a href="https://censys.io">Censys</a> - Mines a global internet dataset to enumerate assets that may compromise an attack surface.</li>
-      <li><a href="https://github.com/DataSploit/datasploit">DataSploit</a> - Performs automated OSINT on a domain/email/username/phone and finds relevant information from different sources.</li>
-      <li><a href="https://dnsdumpster.com">DNSDumpster</a> - Can discover hosts related to a domain. Map an organizations attack surface with a virtual "dumpster dive."</li>
-      <li><a href="https://whois.domaintools.com">Domaintools</a> - Find Whois information quickly and easily including registrar, name servers, and etc.</li>
-      <li><a href="https://findsubdomains.com">FindSubDomains</a> - From Spyse. Awesome tool to find subdomains.</li>
-      <li><a href="https://firecompass.com">FireCompass</a> - Discovers and organization's digital attack surface.</li>
-      <li><a href="https://website.informer.com/">Informer</a> - Retrieves a quick aggregated view of everything the Web can promptly tell you about a site.</li>
-      <li><a href="https://maltego.com">Maltego</a> - Open Source Intelligence (OSINT) and graphical link analysis tool for gathering and connecting information for investigative tasks.</li>
-      <li><a href="https://netcraft.com">Netcraft</a> - Multiple tools from site report to DNS search.</li>
-      <li><a href="https://network-tools.com">Professional Toolset</a> - Ping, Tracert, HTTP Headers, and more!</li>
-      <li><a href="https://shodan.io">Shodan</a> - Shodan has servers around the world that crawl the internet 24/7 to provide the latest internet intelligence.</li>
-      <li><a href="https://www.spiderfoot.net/">SpiderFoot</a> - Automated OSINT collection!</li>
-      <li><a href="https://solarwinds.com/free-tools/traceroute-ng">Traceroute NG</a> - Continuous probing, detects path changes, supports IPv4 &amp; IPv6, Creates a txt logfile.</li>
-      <li><a href="https://pentest-tools.com/website-vulnerability-scanning/discover-hidden-directories-and-files#">URL Fuzzer</a> - Free light scan for hidden files and directories.</li>
-      <li><a href="http://www.visualroute.com">VisualRoute</a> - Continuous trace routing, reverse tracing, port probing, route analysis, and much more!</li>
-      <li><a href="https://yougetsignal.com">You Get Signal</a> - Port forwarding, network location, visual trace route, reverse IP domain check, and more!</li>
-      <li><a href="https://www.wappalyzer.com">Wappalyzer</a> - Identify technologies on websites. Find out the technology stack of any website.</li>
-      <li><a href="https://github.com/wereallfeds/webshag">WebShag</a> - Multi-threaded, multi-platform web server audit tool. Gathers useful functionalities for web server auditing like website crawling, URL scanning, or file fuzzing.</li>
-      <li><a href="https://wireshark.org">Wireshark</a> - The world's foremost and widely-used network protocol analyzer.</li>
-      <li><a href="https://whois.net">Whois.net</a> - Quick and easy Whois lookup. Domain name search, registration and availability, and more.</li>
-    </ul>
 
-    <h3>Windows CLI</h3>
-    <ul>
-      <li><a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/nslookup">nslookup</a> - Command-line tool for querying the Domain Name System to obtain name or IP address mapping and other DNS records.</li>
-      <li><a href="https://docs.microsoft.com/en-us/windows-server/administration/windows-commands/tracert">tracert</a> - Commmand-line tool for displaying a route and measuring transit delays of packets across an Internal Protocol network.</li>
-    </ul>
+[data-tip]::after {
+  text-transform: none;
+  font-size: .9em;
+  line-height: 1;
+  user-select: none;
+  pointer-events: none;
+  position: absolute;
+  display: none;
+  opacity: 0;
+  top:40px;
+  left: 50%;
+  transform: translate(-50%, 0);
+  content: attr(data-tip);
+  font-family: sans-serif;
+  text-align: center;
+  min-width: 3em;
+  max-width: 21em;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  padding: 1em 1.5em;
+  box-shadow: 0 1em 2em -.5em rgba(0, 0, 0, 0.5);
+  background: rgba(0, 0, 0, 0.85);
+  color: #fff;
+  z-index: 1000;
+}
 
-    <h3>Linux CLI // Kali</h3>
-    <ul>
-      <li><a href="https://linuxhandbook.com/dig-command/">dig</a> - Domain Information Groper - Queries the DNS of a given server.</li>
-      <li><a href="https://tools.kali.org/information-gathering/dnsrecon">dnsrecon</a> - Check NS Records for Zone Transfers, enumerate general DNS records, check cached DNS records, and more.</li>
-      <li><a href="https://tools.kali.org/information-gathering/dnstracer">dnstracer</a> - Determines where a given Domain Name Server gets its information from for a given hostname.</li>
-      <li><a href="https://github.com/mschwager/fierce">Fierce</a> - DNS reconnaissance tool for locating non-contiguous IP space.</li>
-      <li><a href="https://github.com/BullsEye0/ghost_eye">Ghost Eye</a> - Information gathering tool for Whois, DNS, EtherApe, Nmap, and more.</li>
-      <li><a href="https://github.com/lanmaster53/recon-ng">recon-ng</a> - Provides a powerful environment to conduct open source web-based reconnaissance quickly and thoroughly.</li>
-      <li><a href="https://github.com/ronin-rb/ronin-recon#readme">ronin-recon</a> - Recursive recon engine and framework that can enumerate subdomains, DNS records, port scan, grab TLS certs, spider websites, and collect email addresses.</li>
-      <li><a href="https://www.commandlinux.com/man-page/man1/traceroute.db.1.html">traceroute</a> - Print the route packets trace to network host.</li>
-      <li><a href="https://tools.kali.org/information-gathering/unicornscan">unicornscan</a> - Provides a superior interface for introducing a stimulus into and measuring a response from a TCP/IP enabled device or network.</li>
-      <li><a href="https://www.commandlinux.com/man-page/man1/whois.1.html">whois</a> - Quick and easy client for the whois directory service.</li>
-    </ul>
-  </section>
+[data-tip]:hover::after {
+  display: block;
+  opacity:1
+}
 
-  <!-- Personal Information and Email Footprinting Section -->
-  <section id="personal-information-and-email-footprinting">
-    <h2>Personal Information and Email Footprinting</h2>
-    <blockquote>
-      <p>Tools for gathering personal information, social networks, and email footprinting.</p>
-    </blockquote>
+#btn-twtr{
+  clear:both;
+  color:#fff;
+  border:2px solid;
+  border-radius:3px;
+  text-align:center;
+  text-decoration:none;
+  display:block;
+  font-family:sans-serif;
+  font-size:14px;
+  width:13em;
+  padding:5px 10px;
+  font-weight:600;
+  margin:40px auto;
+  background:rgba(0,0,0,0.2);
+  box-shadow:0 0 0px 3px rgba(0,0,0,0.2);
+  opacity:0.8
+}#btn-twtr:hover{color:#fff;opacity:1}</style>
+  </head>
+  <body>
+  <div class="wrapper">
+  <a href="#" class="men">☰</a>
+   <nav>
+   <a href="#">Menu Item</a>  <a href="#">Menu Item</a>  <a href="#">Menu Item</a>
+ </nav>
+   <div class="hero"><h1><a href="#">Fundamental Concepts</a></h1>
+   </div>
+    <a href="#" data-tip="Share" class="gen">⚒</a>
+   <a href="#" data-tip="Favorites" class="sel">★</a>
+ </div>
+ <div class="container">
+<h2>Information Technology (IT)</h2>
+ <p>Information Technology (IT) is a constantly evolving and deeply interconnected field, built on a foundation of core concepts that ensure the smooth functioning of digital systems. At its heart, IT focuses on integrating and managing technology to support effective communications, data processing, and user management. Mobile devices play a crucial role by offering portable computing and instant access on the go. Networking acts as the backbone of IT, allowing devices to connect, communicate, and share information seamlessly. Hardware provides the physical foundation, including servers, computers, and peripherals that power these systems. Technologies like virtualization and cloud computing boost scalability and optimize resource use. Consistent troubleshooting - whether for hardware, software, or networks - maintains system reliability and performance. Operating systems bridge the gap between users and the underlying hardware, while stringent security policies and practices safeguard against threats. Software troubleshooting helps resolve specific application issues, and well-defined operational procedures set standards for managing systems consistently. Together, these essential elements form a comprehensive framework that enables organizations and individuals to navigate the complex world of Information Technology.
+   </p>
+<h2>Mobile Device Computing</h2>
+   <p>
+Mobile devices include a wide range of portable computing tools designed to maximize mobility and connectivity for users. Among these, laptops stand out as versatile devices, built from key hardware components such as the Central Processing Unit (CPU), memory, storage, and various input/output peripherals. Many laptops allow for upgrades or replacements of these elements, enabling improved performance over time. Securing mobile devices is critical, often involving both physical security measures like locks and technical safeguards such as encryption to protect sensitive data.<br>
 
-    <h3>Programs and Web Applications</h3>
-    <ul>
-      <li><a href="https://beenverified.com">BeenVerified</a> - Background checks with loads of information.</li>
-      <li><a href="https://emailtrackerpro.com">eMailTrackerPro</a> - Pull detailed information from an email header. Also includes spam filtering.</li>
-      <li><a href="https://followerwonk.com">Followerwonk</a> - Information scraped from Twitter.</li>
-      <li><a href="https://github.com/m4ll0k/infoga">Infoga</a> - Gather email OSINT. Domains, sources, breaches, and more.</li>
-      <li><a href="https://www.jigsawsecurityenterprise.com/">Jigsaw</a> - OSINT-X Intelligence Collection Tool from Jigsaw allows for the collection of data from RSS feeds, the dark web, Twitter, Facebook, and other sources.</li>
-      <li><a href="https://peekyou.com">PeekYou</a> - Locate personal information from family members to social media accounts.</li>
-    </ul>
+Display components - like screens, touch panels, and graphics processors - play a major role in shaping the user's visutal experience and interactions with the device. Connectivity options, including USB, HDMI, and Thunderbolt ports, allow for easy integration with external devices and accessories. Essential accessories like chargers, cases, and docking stations further enhance convenience and personalization.<br>
 
-    <h3>Linux CLI // Kali</h3>
-    <ul>
-      <li><a href="https://github.com/sherlock-project/sherlock">sherlock</a> - Crawls the web for social profiles.</li>
-      <li><a href="https://tools.kali.org/information-gathering/theharvester">theHarvester</a> - Pulls a list of email addresses of a specific domain from multiple search engines.</li>
-    </ul>
-  </section>
+The integration of wireless and cellular data networks, Bluetooth, and location services ensures seamless communications, device pairing, and accurate positioning. Mobile device synchronization is also vital, keeping data consistent and up to date across multiple devices so users can access and modify their information from anywhere. Altogether, these elements form the foundation of mobile device functionality, covering hardware, security, connectivity, and the overall user experience.
+   </p>
 
-  <!-- Hacking with Google Section -->
-  <section id="hacking-with-google">
-    <h2>Hacking with Google</h2>
-    <blockquote>
-      <p>Commands (or "dorks") for the world's most popular search engine</p>
-    </blockquote>
-    <ul>
-      <li><strong>cache</strong> - this command will show you the cached version of any website. <code>cache: securitytrails.com</code></li>
-      <li><strong>allintext</strong> - searches for specific text contained on any web page. <code>allintext: hacking tools</code></li>
-      <li><strong>allintitle</strong> - exactly the same as allintext, but will show pages that contain titles with X characters. <code>allintitle:"Security Companies"</code></li>
-      <li><strong>allinurl</strong> - it can be used to fetch results whose URL contains all the specified characters. <code>allinurl client area</code></li>
-      <li><strong>filetype</strong> - used to search for any kind of file extensions, for example, if you want to search for jpg files you can use: <code>filetype: jpg</code></li>
-      <li><strong>inurl</strong> - this is exactly the same as allinurl, but it is only useful for one single keyword. <code>inurl: admin</code></li>
-      <li><strong>intitle</strong> - used to search for various keywords inside the title, for example, <code>intitle:security tools</code> will search for titles beginning with “security” but “tools” can be somewhere else in the page.</li>
-      <li><strong>inanchor</strong> - this is useful when you need to search for an exact anchor text used on any links. <code>inanchor:"cyber security"</code></li>
-      <li><strong>intext</strong> - useful to locate pages that contain certain characters or strings inside their text. <code>intext:"safe internet"</code></li>
-      <li><strong>link</strong> - will show the list of web pages that have links to the specified URL. <code>link: microsoft.com</code></li>
-      <li><strong>site</strong> - will show you the full list of all indexed URLs for the specified domain and subdomain. <code>site:securitytrails.com</code></li>
-      <li><strong>*</strong> - wildcard used to search pages that contain “anything” before your word. For example, <code>how to * a website</code>, will return “how to…” design/create/hack, etc… “a website”.</li>
-      <li><strong>|</strong> - this is a logical operator, for example, <code>"security" "tips"</code> will show all the sites which contain “security” or “tips,” or both words.</li>
-      <li><strong>+</strong> - used to concatenate words, useful to detect pages that use more than one specific key. <code>security + trails</code></li>
-      <li><strong>–</strong> - minus operator is used to avoiding showing results that contain certain words, for example, <code>security -trails</code> will show pages that use “security” in their text, but not those that have the word “trails.”</li>
-    </ul>
-  </section>
+ <a href="#" id="btn-twtr" target="_b">Follow me on Twitter</a>
+ </div>
+ <footer>
+ <p>Text generated by <a href="#">Startup Ipsum</a></p>
+ </footer>
 
-</body>
+  </body>
 </html>
-
