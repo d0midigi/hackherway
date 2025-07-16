@@ -1,931 +1,180 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Cyberepo | HackHerWay</title>
-<link rel="stylesheet" type="text/css" href="assets/vendor/bootstrap/css/bootstrap.min.css" />
-<link rel="stylesheet" type="text/css" href="assets/vendor/font-awesome/css/all.min.css" />
-<link rel="stylesheet" type="text/css" href="assets/css/stylesheet.css" />
-<style>
-/* Sidebar + Dropdown Styles */
-.nav-item.has-children > .nav-link::after {
-  content: "▼";
-  font-size: 0.8em;
-  float: right;
-  margin-left: 8px;
-  color: #aaa;
-  transition: transform 0.2s;
-  position: relative;
-  right: 0;
-}
-.nav-item.has-children > .nav-link.expanded::after {
-  transform: rotate(180deg);
-}
-.nav .nav.flex-column {
-  margin-left: 1rem;
-}
-.nav .nav.flex-column.collapse { display: none; }
-.nav .nav.flex-column.show { display: block; }
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1.0">
+  <title>Help Center Blog Page</title>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --primary: #304ffe;
+      --bg: #f7f9fc;
+      --card-bg: #fff;
+      --text: #222;
+      --border: #e0e0e0;
+      --shadow: 0 6px 20px rgba(36, 39, 44, 0.07);
+      --radius: 1rem;
+    }
 
-/* Colors: Black site, dark blue sidebar */
-body,
-header#header,
-#content,
-.idocs-content,
-footer#footer {
-  background: #000 !important;
-  color: #fff !important;
-}
-.idocs-navigation,
-.docs-navigation-dark,
-.bg-dark {
-  background: #071828 !important; /* Dark blue sidebar */
-  color: #fff !important;
-}
-h1, h2, h3, h4, h5, h6 { color: #fff !important; }
-a, a:visited { color: #80c0ff !important; }
-pre, code { background: #222 !important; }
-hr, .divider, .table, .table-bordered, .border { border-color: #222 !important; }
-.alert, .alert-info, .alert-warning, .alert-danger, .alert-success {
-  background: #222 !important;
-  color: #fff !important;
-  border-color: #444 !important;
-}
-/* Make sidebar stick */
-.idocs-navigation {
-  min-height: 100vh;
-  position: fixed;
-  left: 0; top: 0;
-  width: 280px;
-  z-index: 10;
-  border-right: 1px solid #192644;
-  padding-top: 80px; /* header space */
-  overflow-y: auto;
-}
-#content {
-  margin-left: 280px;
-  padding-top: 80px;
-  min-height: 100vh;
-}
-@media (max-width: 991px) {
-  .idocs-navigation {
-    position: static;
-    width: 100%;
-    min-height: auto;
-    border-right: none;
-    padding-top: 0;
-  }
-  #content { margin-left: 0; padding-top: 100px; }
-}
+    body {
+      font-family: 'Montserrat', Arial, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      margin: 0;
+      padding: 0;
+      min-height: 100vh;
+    }
 
-.rectangle-2 {
-	width: 1366px;
-	height: 360px;
-	padding: 8px 8px 8px 8px;
-	background: #0B0A0A;
-}
-.paragraph-1-copy-1 {
-	width: 918px;
-	height: 63px;
-	box-shadow: 0px 5px 5px rgba(0, 0, 0, 0.75);
-	color: #FA099A;
-	font-family: "Lexend Zetta";
-	font-weight: 200;
-	font-size: 42px;
-	line-height: 1;
-	letter-spacing: -0.2px;
-	text-align: center;
-}
-.the-hackherway-cyberepo-is-a-curated-collection-of {
-	width: 248px;
-	height: 226px;
-	opacity: 75%
-	color: #F7F6F6;
-	font-family: "Source Sans 3";
-	font-weight: 400;
-	font-size: 16px;
-	text-decoration: underline;
-	line-height: 1.3;
-	text-align: justify;
-}
-.image-pasted-2025-16-07-at-01-34-02-png {
-	width: 267px;
-	height: 267px;
-	background: #00000000;
-}
-.rectangle-17 {
-	width: 335px;
-	height: 240px;
-	padding: 8px 8px 8px 8px;
-	box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.1);
-	background: #232323;
-	border-color: #3322AA;
-	border-width: 2px;
-	border-style: solid;
-	border-radius: 24px 24px 24px 24px;
-}
-.security-scripts-enumeration-tools-attack-techni {
-	width: 274px;
-	height: 75px;
-	opacity: 75%
-	box-shadow: 0px 5px 5px rgba(0, 0, 0, 0.75);
-	color: #F7F6F6;
-	font-family: "Source Sans 3";
-	font-weight: 400;
-	font-size: 16px;
-	text-decoration: underline;
-	line-height: 1.3;
-	text-align: justify;
-}
-.paragraph-1-copy-3 {
-	width: 274px;
-	height: 38px;
-	box-shadow: 0px 5px 5px rgba(0, 0, 0, 0.75);
-	color: #C9F1FD;
-	font-family: "Lexend Zetta";
-	font-weight: 200;
-	font-size: 22px;
-	line-height: 1;
-	text-align: center;
-}
-.credit-card-icon-1 {
-	width: 42px;
-	height: 42px;
-	box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-	background: #232323;
-	border-color: #3322AA;
-	border-width: 2px;
-	border-style: solid;
-}
-.rectangle-25 {
-	width: 335px;
-	height: 240px;
-	padding: 8px 8px 8px 8px;
-	box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.1);
-	background: #232323;
-	border-color: #3322AA;
-	border-width: 2px;
-	border-style: solid;
-	border-radius: 24px 24px 24px 24px;
-}
-.curated-scripts-exploits-scanners-payloads-pas {
-	width: 274px;
-	height: 81px;
-	opacity: 75%
-	color: #F7F6F6;
-	font-family: "Source Sans 3";
-	font-weight: 400;
-	font-size: 16px;
-	text-decoration: underline;
-	line-height: 1.3;
-	text-align: justify;
-}
-.paragraph-1-copy-12 {
-	width: 327px;
-	height: 25px;
-	box-shadow: 0px 5px 5px rgba(0, 0, 0, 0.75);
-	color: #C9F1FD;
-	font-family: "Lexend Zetta";
-	font-weight: 200;
-	font-size: 22px;
-	line-height: 1;
-	text-align: center;
-}
-.bookmark-icon-10 {
-	width: 42px;
-	height: 42px;
-	background: #232323;
-	border-color: #3322AA;
-	border-width: 2px;
-	border-style: solid;
-}
-.directory-domain-icon-1 {
-	width: 60px;
-	height: 60px;
-	background: #F6FB02;
-}
-.lightning-sword-icon-1 {
-	width: 60px;
-	height: 60px;
-	background: #EF2045;
-}
-.-stay-safe-stay-vigilant-stay-informed- {
-	width: 973px;
-	height: 33px;
-	opacity: 75%
-	color: #F7F6F6;
-	font-family: "Source Sans 3";
-	font-weight: bold;
-	font-size: 16px;
-	font-style: italic;
-	text-decoration: underline;
-	line-height: 1.3;
-	text-align: center;
-}
-.rectangle-19 {
-	width: 335px;
-	height: 240px;
-	padding: 8px 8px 8px 8px;
-	box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.1);
-	background: #232323;
-	border-color: #3322AA;
-	border-width: 2px;
-	border-style: solid;
-	border-radius: 24px 24px 24px 24px;
-}
-.tools-scripts-checklists-automation-search-eng {
-	width: 274px;
-	height: 105px;
-	opacity: 75%
-	color: #F7F6F6;
-	font-family: "Source Sans 3";
-	font-weight: 400;
-	font-size: 16px;
-	text-decoration: underline;
-	line-height: 1.3;
-	text-align: justify;
-}
-.paragraph-1-copy-5 {
-	width: 274px;
-	height: 25px;
-	box-shadow: 0px 5px 5px rgba(0, 0, 0, 0.75);
-	color: #91E4FB;
-	font-family: "Lexend Zetta";
-	font-weight: 200;
-	font-size: 22px;
-	line-height: 1;
-	text-align: center;
-}
-.user-icon-1 {
-	width: 42px;
-	height: 42px;
-	background: #232323;
-	border-color: #3322AA;
-	border-width: 2px;
-	border-style: solid;
-}
-.rectangle-20 {
-	width: 335px;
-	height: 240px;
-	padding: 8px 8px 8px 8px;
-	box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.1);
-	background: #232323;
-	border-color: #3322AA;
-	border-width: 2px;
-	border-style: solid;
-	border-radius: 24px 24px 24px 24px;
-}
-.ip-addressing-protocol-analyzers-config-template {
-	width: 274px;
-	height: 114px;
-	opacity: 75%
-	color: #F7F6F6;
-	font-family: "Source Sans 3";
-	font-weight: 400;
-	font-size: 16px;
-	text-decoration: underline;
-	line-height: 1.3;
-	text-align: justify;
-}
-.paragraph-1-copy-6 {
-	width: 274px;
-	height: 38px;
-	box-shadow: 0px 5px 5px rgba(0, 0, 0, 0.75);
-	color: #C9F1FD;
-	font-family: "Lexend Zetta";
-	font-weight: 200;
-	font-size: 22px;
-	line-height: 1;
-	text-align: center;
-}
-.truck-icon-1 {
-	width: 42px;
-	height: 42px;
-	background: #232323;
-	border-color: #3322AA;
-	border-width: 2px;
-	border-style: solid;
-}
-.rectangle-22 {
-	width: 335px;
-	height: 240px;
-	padding: 8px 8px 8px 8px;
-	box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.1);
-	background: #232323;
-	border-color: #3322AA;
-	border-width: 2px;
-	border-style: solid;
-	border-radius: 24px 24px 24px 24px;
-}
-.send-icon-1 {
-	width: 42px;
-	height: 42px;
-	background: #232323;
-	border-color: #3322AA;
-	border-width: 2px;
-	border-style: solid;
-}
-.rectangle-23 {
-	width: 335px;
-	height: 240px;
-	padding: 8px 8px 8px 8px;
-	box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.1);
-	background: #232323;
-	border-color: #3322AA;
-	border-width: 2px;
-	border-style: solid;
-	border-radius: 24px 24px 24px 24px;
-}
-.smartphone-icon-1 {
-	width: 42px;
-	height: 42px;
-	background: #232323;
-	border-color: #3322AA;
-	border-width: 2px;
-	border-style: solid;
-}
-.person-search-icon-1 {
-	width: 60px;
-	height: 60px;
-	background: #FA099A;
-}
-.bolt-circle-icon-1 {
-	width: 60px;
-	height: 60px;
-	background: #E61610;
-}
-.bolt-circle-fill-icon-1 {
-	width: 60px;
-	height: 60px;
-	background: #1464F6;
-}
-.1f310-icon-1 {
-	width: 60px;
-	height: 60px;
-	background: #E90E0E;
-}
-.paragraph-1-copy-9 {
-	width: 274px;
-	height: 38px;
-	box-shadow: 0px 5px 5px rgba(0, 0, 0, 0.75);
-	color: #C9F1FD;
-	font-family: "Lexend Zetta";
-	font-weight: 200;
-	font-size: 22px;
-	line-height: 1;
-	text-align: center;
-}
-.paragraph-1-copy-10 {
-	width: 274px;
-	height: 38px;
-	box-shadow: 0px 5px 5px rgba(0, 0, 0, 0.75);
-	color: #C9F1FD;
-	font-family: "Lexend Zetta";
-	font-weight: 200;
-	font-size: 22px;
-	line-height: 1;
-	text-align: center;
-}
-.defensive-tools-log-analysis-siem-edr-playbook {
-	width: 274px;
-	height: 82px;
-	opacity: 75%
-	color: #F7F6F6;
-	font-family: "Source Sans 3";
-	font-weight: 400;
-	font-size: 16px;
-	text-decoration: underline;
-	line-height: 1.3;
-	text-align: justify;
-}
-.attack-simulation-tools-adversarial-emulation-c2 {
-	width: 274px;
-	height: 80px;
-	opacity: 75%
-	color: #F7F6F6;
-	font-family: "Source Sans 3";
-	font-weight: 400;
-	font-size: 16px;
-	text-decoration: underline;
-	line-height: 1.3;
-	text-align: justify;
-}
-.rectangle-18 {
-	width: 335px;
-	height: 240px;
-	padding: 8px 8px 8px 8px;
-	box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.1);
-	background: #232323;
-	border-color: #3322AA;
-	border-width: 2px;
-	border-style: solid;
-	border-radius: 24px 24px 24px 24px;
-}
-.firewall-hardening-scripts-ids-ips-scanners-mon {
-	width: 274px;
-	height: 75px;
-	opacity: 75%
-	box-shadow: 0px 5px 5px rgba(0, 0, 0, 0.75);
-	color: #F7F6F6;
-	font-family: "Source Sans 3";
-	font-weight: 400;
-	font-size: 16px;
-	text-decoration: underline;
-	line-height: 1.3;
-	text-align: justify;
-}
-.paragraph-1-copy-4 {
-	width: 291px;
-	height: 23px;
-	box-shadow: 0px 5px 5px rgba(0, 0, 0, 0.75);
-	color: #C9F1FD;
-	font-family: "Lexend Zetta";
-	font-weight: 200;
-	font-size: 22px;
-	line-height: 1;
-	text-align: center;
-}
-.shopping-cart-icon-1 {
-	width: 42px;
-	height: 42px;
-	background: #232323;
-	border-color: #3333AA;
-	border-width: 2px;
-	border-style: solid;
-}
-.rectangle-21 {
-	width: 335px;
-	height: 240px;
-	padding: 8px 8px 8px 8px;
-	box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.1);
-	background: #232323;
-	border-color: #3322AA;
-	border-width: 2px;
-	border-style: solid;
-	border-radius: 24px 24px 24px 24px;
-}
-.exploit-scripts-reconnaissance-tools-reporting-t {
-	width: 274px;
-	height: 107px;
-	opacity: 75%
-	color: #F7F6F6;
-	font-family: "Source Sans 3";
-	font-weight: 400;
-	font-size: 16px;
-	text-decoration: underline;
-	line-height: 1.3;
-	text-align: justify;
-}
-.paragraph-1-copy-7 {
-	width: 274px;
-	height: 38px;
-	box-shadow: 0px 5px 5px rgba(0, 0, 0, 0.75);
-	color: #C9F1FD;
-	font-family: "Lexend Zetta";
-	font-weight: 200;
-	font-size: 22px;
-	line-height: 1;
-	text-align: center;
-}
-.shopping-bag-icon-1 {
-	width: 42px;
-	height: 42px;
-	background: #232323;
-	border-color: #3322AA;
-	border-width: 2px;
-	border-style: solid;
-}
-.rectangle-24 {
-	width: 335px;
-	height: 240px;
-	padding: 8px 8px 8px 8px;
-	box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.1);
-	background: #232323;
-	border-color: #3322AA;
-	border-width: 2px;
-	border-style: solid;
-	border-radius: 24px 24px 24px 24px;
-}
-.analysis-scripts-detection-tools-reverse-enginee {
-	width: 274px;
-	height: 75px;
-	opacity: 75%
-	color: #F7F6F6;
-	font-family: "Source Sans 3";
-	font-weight: 400;
-	font-size: 16px;
-	text-decoration: underline;
-	line-height: 1.3;
-	text-align: justify;
-}
-.paragraph-1-copy-11 {
-	width: 550px;
-	height: 47px;
-	box-shadow: 0px 5px 5px rgba(0, 0, 0, 0.75);
-	color: #C9F1FD;
-	font-family: "Lexend Zetta";
-	font-weight: 200;
-	font-size: 22px;
-	line-height: 1;
-	text-align: center;
-}
-.life-buoy-icon-1 {
-	width: 42px;
-	height: 42px;
-	background: #232323;
-	border-color: #3322AA;
-	border-width: 2px;
-	border-style: solid;
-}
-.firewall-icon-1 {
-	width: 60px;
-	height: 60px;
-	background: #02FB1B;
-}
-.rectangle-26 {
-	width: 335px;
-	height: 240px;
-	padding: 8px 8px 8px 8px;
-	box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.1);
-	background: #232323;
-	border-color: #3322AA;
-	border-width: 2px;
-	border-style: solid;
-	border-radius: 24px 24px 24px 24px;
-}
-.incident-response-scripts-playbooks-memory-analy {
-	width: 274px;
-	height: 81px;
-	opacity: 75%
-	color: #F7F6F6;
-	font-family: "Source Sans 3";
-	font-weight: 400;
-	font-size: 16px;
-	text-decoration: underline;
-	line-height: 1.3;
-	text-align: justify;
-}
-.paragraph-1-copy-8 {
-	width: 343px;
-	height: 46px;
-	box-shadow: 0px 5px 5px rgba(0, 0, 0, 0.75);
-	color: #C9F1FD;
-	font-family: "Lexend Zetta";
-	font-weight: 200;
-	font-size: 22px;
-	line-height: 1;
-	text-align: center;
-}
-.credit-card-icon-2 {
-	width: 42px;
-	height: 42px;
-	background: #232323;
-}
-.rectangle-27 {
-	width: 335px;
-	height: 240px;
-	padding: 8px 8px 8px 8px;
-	box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.1);
-	background: #232323;
-	border-color: #3322AA;
-	border-width: 2px;
-	border-style: solid;
-	border-radius: 24px 24px 24px 24px;
-}
-.detection-rules-hunting-queries-behavioral-analy {
-	width: 274px;
-	height: 81px;
-	opacity: 75%
-	color: #F7F6F6;
-	font-family: "Source Sans 3";
-	font-weight: 400;
-	font-size: 16px;
-	text-decoration: underline;
-	line-height: 1.3;
-	text-align: justify;
-}
-.paragraph-1-copy-13 {
-	width: 274px;
-	height: 38px;
-	box-shadow: 0px 5px 5px rgba(0, 0, 0, 0.75);
-	color: #C9F1FD;
-	font-family: "Lexend Zetta";
-	font-weight: 200;
-	font-size: 22px;
-	line-height: 1;
-	text-align: center;
-}
-.shopping-cart-icon-2 {
-	width: 42px;
-	height: 42px;
-	background: #232323;
-}
-.rectangle-28 {
-	width: 335px;
-	height: 240px;
-	padding: 8px 8px 8px 8px;
-	box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.1);
-	background: #232323;
-	border-color: #3322AA;
-	border-width: 2px;
-	border-style: solid;
-	border-radius: 24px 24px 24px 24px;
-}
-.paragraph-1-copy-14 {
-	width: 274px;
-	height: 49px;
-	box-shadow: 0px 5px 5px rgba(0, 0, 0, 0.75);
-	color: #C9F1FD;
-	font-family: "Lexend Zetta";
-	font-weight: 200;
-	font-size: 22px;
-	line-height: 1;
-	text-align: center;
-}
-.user-icon-2 {
-	width: 42px;
-	height: 42px;
-	background: #232323;
-}
-.rectangle-29 {
-	width: 335px;
-	height: 240px;
-	padding: 8px 8px 8px 8px;
-	box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.1);
-	background: #232323;
-	border-color: #3322AA;
-	border-width: 2px;
-	border-style: solid;
-	border-radius: 24px 24px 24px 24px;
-}
-.paragraph-1-copy-15 {
-	width: 274px;
-	height: 38px;
-	box-shadow: 0px 5px 5px rgba(0, 0, 0, 0.75);
-	color: #F7F6F6;
-	font-family: "Lexend Zetta";
-	font-weight: 200;
-	font-size: 22px;
-	line-height: 1;
-	text-align: center;
-}
-.truck-icon-2 {
-	width: 42px;
-	height: 42px;
-	background: #232323;
-}
-.rectangle-30 {
-	width: 335px;
-	height: 240px;
-	padding: 8px 8px 8px 8px;
-	box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.1);
-	background: #232323;
-	border-color: #3322AA;
-	border-width: 2px;
-	border-style: solid;
-	border-radius: 24px 24px 24px 24px;
-}
-.paragraph-1-copy-16 {
-	width: 274px;
-	height: 49px;
-	box-shadow: 0px 5px 5px rgba(0, 0, 0, 0.75);
-	color: #C9F1FD;
-	font-family: "Lexend Zetta";
-	font-weight: 200;
-	font-size: 22px;
-	line-height: 1;
-	text-align: center;
-}
-.shopping-bag-icon-2 {
-	width: 42px;
-	height: 42px;
-	background: #232323;
-}
-.rectangle-34 {
-	width: 335px;
-	height: 240px;
-	padding: 8px 8px 8px 8px;
-	box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.1);
-	background: #232323;
-	border-color: #3322AA;
-	border-width: 2px;
-	border-style: solid;
-	border-radius: 24px 24px 24px 24px;
-}
-.scanners-assessment-scripts-patch-automation-cv {
-	width: 274px;
-	height: 75px;
-	opacity: 75%
-	color: #F7F6F6;
-	font-family: "Source Sans 3";
-	font-weight: 400;
-	font-size: 16px;
-	text-decoration: underline;
-	line-height: 1.3;
-	text-align: justify;
-}
-.paragraph-1-copy-20 {
-	width: 274px;
-	height: 51px;
-	box-shadow: 0px 5px 5px rgba(0, 0, 0, 0.75);
-	color: #C9F1FD;
-	font-family: "Lexend Zetta";
-	font-weight: 200;
-	font-size: 22px;
-	line-height: 1;
-	text-align: center;
-}
-.bookmark-icon-11 {
-	width: 42px;
-	height: 42px;
-	background: #232323;
-	border-color: #3322AA;
-	border-width: 2px;
-	border-style: solid;
-}
-.security-services-icon-2 {
-	width: 60px;
-	height: 60px;
-	background: #0BFAFA;
-}
-.monster-skull-icon-1 {
-	width: 60px;
-	height: 60px;
-	background: #54EF0B;
-}
-.blade-bite-icon-1 {
-	width: 60px;
-	height: 60px;
-	background: #D757F6;
-}
-.bolt-shield-icon-1 {
-	width: 74px;
-	height: 74px;
-	background: #F82F53F2;
-}
-.magnifying-glass-circle-icon-1 {
-	width: 60px;
-	height: 60px;
-	background: #FEFB64;
-}
-.cog-icon-1 {
-	width: 60px;
-	height: 60px;
-	background: #0BFAFA;
-}
-.cloud-icon-1 {
-	width: 60px;
-	height: 60px;
-	background: #0844A4;
-}
-.aura-icon-1 {
-	width: 60px;
-	height: 60px;
-	background: #FA099A;
-}
-.here-you-ll-find-tools-and-scripts-i-ve-used-and {
-	width: 267px;
-	height: 265px;
-	opacity: 75%
-	color: #F7F6F6;
-	font-family: "Source Sans 3";
-	font-weight: 400;
-	font-size: 16px;
-	text-decoration: underline;
-	line-height: 1.3;
-	text-align: justify;
-}
-.phishing-kits-payload-generators-training-materi {
-	width: 274px;
-	height: 75px;
-	opacity: 75%
-	color: #F7F6F6;
-	font-family: "Source Sans 3";
-	font-weight: 400;
-	font-size: 16px;
-	text-decoration: underline;
-	line-height: 1.3;
-	text-align: justify;
-}
-.hardening-scripts-misconfiguration-bucket-scanner {
-	width: 274px;
-	height: 79px;
-	opacity: 75%
-	color: #F7F6F6;
-	font-family: "Source Sans 3";
-	font-weight: 400;
-	font-size: 16px;
-	text-decoration: underline;
-	line-height: 1.3;
-	text-align: justify;
-}
-.disassemblers-decompilers-unpackers-droppers-s {
-	width: 274px;
-	height: 89px;
-	opacity: 75%
-	color: #F7F6F6;
-	font-family: "Source Sans 3";
-	font-weight: 400;
-	font-size: 16px;
-	text-decoration: underline;
-	line-height: 1.3;
-	text-align: justify;
-}
-</style>
+    .container {
+      max-width: 1200px;
+      margin: 2.5rem auto;
+      padding: 0 1rem;
+    }
+
+    header {
+      text-align: center;
+      padding: 2.5rem 0 2rem 0;
+    }
+
+    header h1 {
+      font-size: 2.5rem;
+      margin: 0;
+      color: var(--primary);
+      font-weight: 700;
+    }
+    header p {
+      margin-top: 1rem;
+      color: #5f6368;
+      font-size: 1.15rem;
+    }
+
+    .card-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 2rem;
+      margin-top: 2rem;
+    }
+
+    .card {
+      display: flex;
+      flex-direction: column;
+      background: var(--card-bg);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      border: 1px solid var(--border);
+      text-decoration: none;
+      color: inherit;
+      transition: box-shadow 0.2s, transform 0.15s;
+      overflow: hidden;
+      position: relative;
+      min-height: 260px;
+    }
+
+    .card:hover, .card:focus {
+      box-shadow: 0 12px 28px rgba(36, 39, 44, 0.18);
+      transform: translateY(-4px) scale(1.015);
+      text-decoration: none;
+    }
+
+    .card-img {
+      width: 100%;
+      height: 160px;
+      background: #dde1e8;
+      object-fit: cover;
+      display: block;
+    }
+
+    .card-body {
+      padding: 1.5rem;
+      flex: 1 1 auto;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .card-title {
+      font-size: 1.35rem;
+      font-weight: 700;
+      color: var(--primary);
+      margin: 0 0 0.5rem 0;
+      line-height: 1.3;
+    }
+
+    .card-desc {
+      font-size: 1.05rem;
+      color: #444;
+      margin-bottom: 1rem;
+      flex-grow: 1;
+    }
+
+    .card-meta {
+      font-size: 0.97rem;
+      color: #888;
+      margin-top: auto;
+      margin-bottom: 0;
+    }
+
+    @media (max-width: 600px) {
+      header h1 {
+        font-size: 2rem;
+      }
+      .card-img {
+        height: 110px;
+      }
+      .container {
+        padding: 0 0.3rem;
+      }
+    }
+  </style>
 </head>
 <body>
-
-<!-- Header (Simple) -->
-<header id="header" class="sticky-top" style="background:#000;">
-  <nav class="navbar navbar-expand-lg" style="background:#000;">
-    <div class="container-fluid">
-      <a class="navbar-brand text-white" href="index.html">
-        <img src="assets/images/logo.png" alt="Logo" style="height:30px;vertical-align:middle;"> 
-        <span class="ml-2">HackHerWay</span>
+  <div class="container">
+    <header>
+      <h1>Help Center Blog</h1>
+      <p>Your source for security news, guides, and knowledge base articles.</p>
+    </header>
+    <div class="card-grid">
+      <a class="card" href="#">
+        <img class="card-img" src="https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=600&q=80" alt="Security Awareness">
+        <div class="card-body">
+          <h2 class="card-title">Security Awareness Basics</h2>
+          <p class="card-desc">Get started with essential tips to keep your digital life secure—from password hygiene to phishing detection.</p>
+          <span class="card-meta">Updated: July 2025</span>
+        </div>
+      </a>
+      <a class="card" href="#">
+        <img class="card-img" src="https://images.unsplash.com/photo-1461749280684-dccba630e2f6?auto=format&fit=crop&w=600&q=80" alt="Incident Response">
+        <div class="card-body">
+          <h2 class="card-title">Incident Response Guide</h2>
+          <p class="card-desc">Step-by-step playbook for responding to security incidents, including ransomware, data breaches, and malware infections.</p>
+          <span class="card-meta">Updated: June 2025</span>
+        </div>
+      </a>
+      <a class="card" href="#">
+        <img class="card-img" src="https://images.unsplash.com/photo-1519389950473-47ba0277781c?auto=format&fit=crop&w=600&q=80" alt="Active Directory">
+        <div class="card-body">
+          <h2 class="card-title">Active Directory Hardening</h2>
+          <p class="card-desc">Best practices to secure your AD environment and defend against the latest attack vectors.</p>
+          <span class="card-meta">Updated: May 2025</span>
+        </div>
+      </a>
+      <a class="card" href="#">
+        <img class="card-img" src="https://images.unsplash.com/photo-1465101046530-73398c7f28ca?auto=format&fit=crop&w=600&q=80" alt="Malware Analysis">
+        <div class="card-body">
+          <h2 class="card-title">Malware Analysis 101</h2>
+          <p class="card-desc">Learn the basics of analyzing suspicious files, from static analysis to dynamic sandboxing techniques.</p>
+          <span class="card-meta">Updated: March 2025</span>
+        </div>
+      </a>
+      <a class="card" href="#">
+        <img class="card-img" src="https://images.unsplash.com/photo-1482062364825-616fd23b8fc1?auto=format&fit=crop&w=600&q=80" alt="Cloud Security">
+        <div class="card-body">
+          <h2 class="card-title">Cloud Security Fundamentals</h2>
+          <p class="card-desc">Understand the risks and defenses needed to secure your workloads in the cloud.</p>
+          <span class="card-meta">Updated: April 2025</span>
+        </div>
       </a>
     </div>
-  </nav>
-</header>
-
-<!-- Sidebar Navigation (copy/paste from homepage!) -->
-<div class="idocs-navigation bg-dark docs-navigation-dark">
-  <ul class="nav flex-column">
-    <li class="nav-item">
-      <a class="nav-link" href="index.html">Home</a>
-    </li>
-    <li class="nav-item">
-      <a class="nav-link" href="#cyber-vault">Cyber Vault</a>
-      <ul class="nav flex-column">
-        <li class="nav-item">
-          <a class="nav-link" href="#docs_cyber-domains">Cyber Domains</a>
-          <ul class="nav flex-column">
-            <li class="nav-item">
-              <a class="nav-link" href="/docs/fundamental-concepts">Fundamental Concepts</a>
-            </li>
-          </ul>
-        </li>
-        <li class="nav-item"><a class="nav-link" href="#idocs_html_structure">HTML Structure</a></li>
-        <!-- ...add more as needed... -->
-      </ul>
-    </li>
-    <li class="nav-item"><a class="nav-link" href="#idocs_layout">Layout</a></li>
-    <li class="nav-item"><a class="nav-link" href="#idocs_content">Content</a></li>
-    <li class="nav-item"><a class="nav-link" href="#idocs_faq">FAQ</a></li>
-    <li class="nav-item"><a class="nav-link" href="#idocs_support">Support</a></li>
-  </ul>
-</div>
-
-<!-- Blog Post Content -->
-<div id="content">
-  <div class="idocs-content container py-5">
-    <article>
-      <h1>How to Defend Against DCShadow Attacks</h1>
-      <p class="text-muted">by MindhackDiva &mdash; July 2025</p>
-      <hr>
-      <p>
-        <b>In this post,</b> we’ll walk through how DCShadow attacks work, how to spot the indicators, and best practices for defending your Active Directory.
-      </p>
-      <h2>What is DCShadow?</h2>
-      <p>
-        DCShadow is a red team technique for injecting malicious objects directly into Active Directory replication...
-      </p>
-      <!-- Blog post body here... -->
-      <h2>How to Detect</h2>
-      <ul>
-        <li>Monitor for new DC registrations</li>
-        <li>Watch for DRS replication from non-DCs</li>
-      </ul>
-      <h2>Defensive Tips</h2>
-      <ol>
-        <li>Restrict privileged access</li>
-        <li>Audit replication permissions regularly</li>
-      </ol>
-      <hr>
-      <div>
-        <a href="blog.html" class="btn btn-primary mt-3">Back to Blog</a>
-        <a href="index.html" class="btn btn-outline-light mt-3 float-right">Back to Homepage</a>
-      </div>
-    </article>
   </div>
-</div>
-
-<!-- Dropdown Toggle Script (copy from homepage) -->
-<script>
-document.addEventListener('DOMContentLoaded', function () {
-  document.querySelectorAll('.nav-item > .nav-link').forEach(function (link) {
-    var nextUl = link.nextElementSibling;
-    if (nextUl && nextUl.classList.contains('flex-column')) {
-      link.parentNode.classList.add('has-children');
-      nextUl.classList.add('collapse');
-      link.addEventListener('click', function (e) {
-        e.preventDefault();
-        nextUl.classList.toggle('show');
-        link.classList.toggle('expanded');
-      });
-    }
-  });
-});
-</script>
 </body>
 </html>
