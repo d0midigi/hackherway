@@ -109,17 +109,28 @@ body {
   margin: 0;
   white-space: pre-line;
 }
-.typewrite > .wrap {
-  border-right: 0.1em solid #e34ba9;
-  padding-right: 2px;
+/* Flashes only while typing, not while paused */
+.typewrite .flashing-border {
+  border-right: 0.18em solid #e34ba9;
   animation: blink-caret 0.7s steps(1) infinite;
-  font-family: inherit;
+  padding-right: 2px;
 }
 @keyframes blink-caret {
   from, to { border-color: transparent }
   50% { border-color: #e34ba9; }
 }
-/* --- All other site styles unchanged below this point --- */
+/* --- Sidebar Carets for Dropdowns --- */
+.idocs-navigation .has-children > .nav-link::after {
+  content: "▼";
+  font-size: 0.75em;
+  float: right;
+  margin-top: 4px;
+  margin-left: 7px;
+  transition: transform 0.2s;
+}
+.idocs-navigation .has-children.expanded > .nav-link::after {
+  transform: rotate(-180deg);
+}
 </style>
 </head>
 <body data-spy="scroll" data-target=".idocs-navigation" data-offset="125">
@@ -361,23 +372,27 @@ body {
 <script src="assets/vendor/jquery.easing/jquery.easing.min.js"></script> 
 <script src="assets/vendor/magnific-popup/jquery.magnific-popup.min.js"></script> 
 <script src="assets/js/theme.js"></script>
+
+<!-- Sidebar Dropdown JS FIXED -->
 <script>
-document.addEventListener('DOMContentLoaded', function () {
-  document.querySelectorAll('.nav-item > .nav-link').forEach(function (link) {
-    var nextUl = link.nextElementSibling;
-    if (nextUl && nextUl.classList.contains('flex-column')) {
-      link.parentNode.classList.add('has-children');
-      nextUl.classList.add('collapse');
-      link.addEventListener('click', function (e) {
+$(function() {
+  $('.idocs-navigation .nav-item > .nav-link').each(function() {
+    var $link = $(this);
+    var $submenu = $link.siblings('ul.flex-column');
+    if ($submenu.length) {
+      $link.addClass('has-children collapsed').attr('href', '#');
+      $submenu.addClass('collapse');
+      $link.off('click').on('click', function(e) {
         e.preventDefault();
-        nextUl.classList.toggle('show');
-        link.classList.toggle('expanded');
+        $submenu.collapse('toggle');
+        $link.toggleClass('expanded');
       });
     }
   });
 });
 </script>
-<!-- Typewriting Animation JS (from your upload, improved for ES5/ES6 compatibility) -->
+
+<!-- Typewriter Animation with Flashing Border Fix -->
 <script>
 var TxtType = function(el, toRotate, period) {
   this.toRotate = toRotate;
@@ -392,19 +407,31 @@ var TxtType = function(el, toRotate, period) {
 TxtType.prototype.tick = function() {
   var i = this.loopNum % this.toRotate.length;
   var fullTxt = this.toRotate[i];
+  var wrapEl = this.el.querySelector('.wrap');
+  var typingNow = false;
+
   if (this.isDeleting) {
     this.txt = fullTxt.substring(0, this.txt.length - 1);
-  } else {
+    typingNow = true;
+  } else if (this.txt !== fullTxt) {
     this.txt = fullTxt.substring(0, this.txt.length + 1);
+    typingNow = true;
   }
-  this.el.querySelector('.wrap').innerHTML = this.txt;
+
+  // Set text and border effect
+  wrapEl.innerHTML = this.txt;
+  if (typingNow) {
+    wrapEl.classList.add('flashing-border');
+  } else {
+    wrapEl.classList.remove('flashing-border');
+  }
 
   var that = this;
   var delta = 80 - Math.random() * 40;
-
   if (this.isDeleting) { delta /= 2; }
 
   if (!this.isDeleting && this.txt === fullTxt) {
+    wrapEl.classList.remove('flashing-border'); // remove border after finishing
     delta = this.period;
     this.isDeleting = true;
   } else if (this.isDeleting && this.txt === '') {
