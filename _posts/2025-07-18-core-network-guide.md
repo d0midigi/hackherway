@@ -1,5 +1,5 @@
 ---
-layout: default
+layout: sample-blog-post
 title: "My First Post"
 date: 2024-07-18
 ---
