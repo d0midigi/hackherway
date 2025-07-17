@@ -1,4 +1,8 @@
 ---
+layout: sample-blog-post
+title: "Lab Building"
+date: 2025-07-18
+---
 
 # Lab Building
 
