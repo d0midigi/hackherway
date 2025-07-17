@@ -1,7 +1,7 @@
 ---
 layout: sample-blog-post
 title: "Core Network Guide"
-date: 2024-07-18
+date: 2025-07-18
 ---
 
 # Networking 101
