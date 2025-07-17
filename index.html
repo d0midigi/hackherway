@@ -17,7 +17,7 @@
 <link rel="stylesheet" type="text/css" href="assets/vendor/magnific-popup/magnific-popup.min.css" />
 <link rel="stylesheet" type="text/css" href="assets/vendor/highlight.js/styles/github.css" />
 <link rel="stylesheet" type="text/css" href="assets/css/stylesheet.css" />
-<link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="text/css" href="assets/css/styles.css">
 
 
 <style>
@@ -259,6 +259,11 @@ body {
         <div class="container">
           <section id="idocs_start">
             <!-- BEGIN: Typing Animation Block -->
+<div class="container">
+        <span class="text first-text">I'm a</span>
+        <span class="text sec-text">Freelancer</span>
+    </div>
+           <!-- END -->
             <div class="card typewriter-terminal">
               <div class="wrap">
                 <div class="terminal">
@@ -454,6 +459,22 @@ document.addEventListener("DOMContentLoaded", function() {
     }
   }
 });
+        const text = document.querySelector(".sec-text");
+
+        const textLoad = () => {
+            setTimeout(() => {
+                text.textContent = "Freelancer";
+            }, 0);
+            setTimeout(() => {
+                text.textContent = "Blogger";
+            }, 4000);
+            setTimeout(() => {
+                text.textContent = "YouTuber";
+            }, 8000); //1s = 1000 milliseconds
+        }
+
+        textLoad();
+        setInterval(textLoad, 12000);    
 </script>
 </body>
 </html>
