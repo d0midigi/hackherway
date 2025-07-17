@@ -1,5 +1,5 @@
 ---
-layout: simple-post
+layout: single-post
 title: "Core Network Guide"
 date: 2025-07-18
 ---
