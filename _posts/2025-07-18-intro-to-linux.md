@@ -1,5 +1,5 @@
 ---
-layout: simple-post
+layout: single-post
 title: "Intro to Linux"
 date: 2025-07-18
 ---
