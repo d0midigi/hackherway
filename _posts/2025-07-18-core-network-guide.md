@@ -1,5 +1,5 @@
 ---
-layout: sample-blog-post
+layout: simple-post
 title: "Core Network Guide"
 date: 2025-07-18
 ---
