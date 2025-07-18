@@ -1,2 +1,5 @@
 title: hackherway cyberepo
 description: Blog built by mindhackdiva with ❤︎ using Jekyll
+
+baseurl: "/hackherway"
+
