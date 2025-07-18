@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <title>{{ page.title }}</title>
-  <link rel="stylesheet" href="/assets/css/stylesheet.css">
+  <link rel="stylesheet" href="{{ site.baseurl }}/assets/css/stylesheet.css">
   <!-- Any other styles/scripts here -->
   <style>
     .navbar-typewriter { display: flex; align-items: center; gap: 1em; }
@@ -13,8 +13,10 @@
 <body>
   <header>
     <nav style="display: flex; align-items: center; gap: 2em; padding: 0.8em 2em;">
-      <div class="navbar-typewriter" style="flex:1; display:flex; align-items:center; gap:0.75em;">
-        <span style="font-size: 1.1rem; font-weight: 600; color: #fff;">learn how to:</span>
+      
+    <div class="navbar-typewriter" style="flex:1; display:flex; align-items:center;">
+      <span style="font-size: 1.1rem; font-weight: 600; color: #fff;">
+        learn how to:&nbsp;
         <span class="typewrite text-light" style="font-size: 1.1rem; font-weight: 600;" data-period="1800" data-type='[
           "Bypass Security Controls",
           "Hackherway - The Hacker Way",
@@ -24,11 +26,13 @@
         ]'>
           <span class="wrap"></span>
         </span>
-      </div>
+      </span>
+    </div>
+    
       <!-- Example of right nav links -->
       <div style="display:flex;gap:1em;">
-        <a href="/" style="color:#fff;text-decoration:none;font-weight:600;">Home</a>
-        <a href="/blog/" style="color:#fff;text-decoration:none;font-weight:600;">Blog</a>
+        <a href="{{ site.baseurl }}/" style="color:#fff;text-decoration:none;font-weight:600;">Home</a>
+        <a href="{{ site.baseurl }}/blog/" style="color:#fff;text-decoration:none;font-weight:600;">Blog</a>
       </div>
     </nav>
   </header>
