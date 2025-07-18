@@ -1,7 +1,6 @@
 ---
-layout: single-post
+layout: blog
 title: "Core Network Guide"
-date: 2025-07-18
 ---
 
 # Networking 101
