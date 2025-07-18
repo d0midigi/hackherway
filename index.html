@@ -405,13 +405,13 @@ TxtType.prototype.tick = function() {
   }
 
   // Set text and border effect
-  wrapEl.innerHTML = this.txt;
+/*  wrapEl.innerHTML = this.txt;
   if (typingNow) {
     wrapEl.classList.add('flashing-border');
   } else {
     wrapEl.classList.remove('flashing-border');
   }
-
+*/
   var that = this;
   var delta = 80 - Math.random() * 40;
   if (this.isDeleting) { delta /= 2; }
