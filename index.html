@@ -133,6 +133,20 @@ body {
 .idocs-navigation .has-children.expanded > .nav-link::after {
   transform: rotate(-180deg);
 }
+  /* Sidebar dropdowns: hide nested by default */
+.idocs-navigation .nav .nav {
+  display: none;
+  margin-left: 10px;
+  padding-left: 10px;
+  border-left: 1px dashed #333;
+}
+.idocs-navigation .has-children.expanded > .nav {
+  display: block;
+}
+.idocs-navigation .has-children > .nav-link {
+  cursor: pointer;
+  user-select: none;
+}
 </style>
 </head>
 <body data-spy="scroll" data-target=".idocs-navigation" data-offset="125">
@@ -202,65 +216,82 @@ body {
   <div id="content" role="main" class="container-fluid">
     <div class="row">
       <!-- Sidebar (nav) -->
-      <nav class="col-md-3 idocs-navigation bg-dark docs-navigation-dark">
-        <ul class="nav flex-column">
-          <li class="nav-item"><a class="nav-link active" href="#cyber-vault">Cyber Vault</a>
-            <ul class="nav flex-column">
-              <li class="nav-item"><a class="nav-link" href="#docs_cyber-domains">Cyber Domains</a>
-                <ul class="nav flex-column">
-                  <li class="nav-item"><a class="nav-link" href="https://d0midigi.github.io/hackherway/blog/posts-2025/fundamental-concepts.html">Fundamental Concepts</a></li>
-                </ul>
-              </li>
-              <li class="nav-item"><a class="nav-link" href="#idocs_html_structure">HTML Structure</a></li>
-              <li class="nav-item"><a class="nav-link" href="#idocs_sass">Sass</a></li>
-              <li class="nav-item"><a class="nav-link" href="#idocs_color_schemes">Color Schemes</a></li>
-              <li class="nav-item"><a class="nav-link" href="#idocs_theme_customization">Customization</a></li>
-              <li class="nav-item"><a class="nav-link" href="#idocs_logo_settings">Logo Settings</a></li>
-            </ul>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#idocs_layout">Layout</a>
-            <ul class="nav flex-column">
-              <li class="nav-item"><a class="nav-link" href="#idocs_header">Header</a></li>
-              <li class="nav-item"><a class="nav-link" href="#idocs_navbar">Navbar</a></li>
-              <li class="nav-item"><a class="nav-link" href="#idocs_sidebar">Sidebar</a></li>
-              <li class="nav-item"><a class="nav-link" href="#idocs_footer">Footer</a></li>
-              <li class="nav-item"><a class="nav-link" href="#idocs_box_layout">Box Layout</a></li>
-            </ul>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#idocs_content">Content</a>
-            <ul class="nav flex-column">
-              <li class="nav-item"><a class="nav-link" href="#idocs_typography">Typography</a></li>
-              <li class="nav-item"><a class="nav-link" href="#idocs_code">Code</a></li>
-              <li class="nav-item"><a class="nav-link" href="#idocs_table">Table</a></li>
-              <li class="nav-item"><a class="nav-link" href="#idocs_icons">Icons</a></li>
-              <li class="nav-item"><a class="nav-link" href="#idocs_image">Image</a></li>
-              <li class="nav-item"><a class="nav-link" href="#idocs_video">Video</a></li>
-            </ul>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#idocs_components">Components</a>
-            <ul class="nav flex-column">
-              <li class="nav-item"><a class="nav-link" href="#idocs_accordion">Accordion</a></li>
-              <li class="nav-item"><a class="nav-link" href="#idocs_tabs">Tabs</a></li>
-              <li class="nav-item"><a class="nav-link" href="#idocs_social_icon">Social Icon</a></li>
-              <li class="nav-item"><a class="nav-link" href="#idocs_helper_classes">Helper Classes</a></li>
-            </ul>
-          </li>
-          <li class="nav-item"><a class="nav-link" href="#idocs_faq">FAQ</a></li>
-          <li class="nav-item"><a class="nav-link" href="#idocs_source_credits">Source & Credits</a></li>
-          <li class="nav-item"><a class="nav-link" href="#idocs_support">Support</a></li>
-          <li class="nav-item"><a class="nav-link" href="#idocs_templates">More Templates</a></li>
-          <li class="nav-item">
-            <a class="nav-link" href="#idocs_changelog">Changelog</a>
-            <ul class="nav flex-column">
-              <li class="nav-item"><a class="nav-link" href="#v1-1">v1.1</a></li>
-              <li class="nav-item"><a class="nav-link" href="#v1-0">v1.0</a></li>
-            </ul>
-          </li>
-        </ul>
-      </nav>
+     <nav class="col-md-3 idocs-navigation bg-dark docs-navigation-dark" id="sidebar">
+  <ul class="nav flex-column">
+    <li class="nav-item has-children">
+      <a class="nav-link" href="#cyber-vault">Cyber Vault</a>
+      <ul class="nav flex-column">
+        <li class="nav-item has-children">
+          <a class="nav-link" href="#docs_cyber-domains">Cyber Domains</a>
+          <ul class="nav flex-column">
+            <li class="nav-item"><a class="nav-link" href="#">Fundamental Concepts</a></li>
+            <li class="nav-item has-children">
+              <a class="nav-link" href="#">Dummy Child 1</a>
+              <ul class="nav flex-column">
+                <li class="nav-item"><a class="nav-link" href="#">Subtopic A</a></li>
+                <li class="nav-item"><a class="nav-link" href="#">Subtopic B</a></li>
+              </ul>
+            </li>
+            <li class="nav-item"><a class="nav-link" href="#">Dummy Child 2</a></li>
+          </ul>
+        </li>
+        <li class="nav-item"><a class="nav-link" href="#">HTML Structure</a></li>
+        <li class="nav-item"><a class="nav-link" href="#">Sass</a></li>
+        <li class="nav-item"><a class="nav-link" href="#">Color Schemes</a></li>
+        <li class="nav-item has-children">
+          <a class="nav-link" href="#">Customization</a>
+          <ul class="nav flex-column">
+            <li class="nav-item"><a class="nav-link" href="#">Theme Settings</a></li>
+            <li class="nav-item"><a class="nav-link" href="#">Advanced</a></li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+    <li class="nav-item has-children">
+      <a class="nav-link" href="#idocs_layout">Layout</a>
+      <ul class="nav flex-column">
+        <li class="nav-item"><a class="nav-link" href="#">Header</a></li>
+        <li class="nav-item has-children">
+          <a class="nav-link" href="#">Navbar</a>
+          <ul class="nav flex-column">
+            <li class="nav-item"><a class="nav-link" href="#">Dummy Topic 1</a></li>
+            <li class="nav-item"><a class="nav-link" href="#">Dummy Topic 2</a></li>
+          </ul>
+        </li>
+        <li class="nav-item"><a class="nav-link" href="#">Sidebar</a></li>
+        <li class="nav-item"><a class="nav-link" href="#">Footer</a></li>
+      </ul>
+    </li>
+    <li class="nav-item has-children">
+      <a class="nav-link" href="#idocs_content">Content</a>
+      <ul class="nav flex-column">
+        <li class="nav-item"><a class="nav-link" href="#">Typography</a></li>
+        <li class="nav-item"><a class="nav-link" href="#">Code</a></li>
+        <li class="nav-item has-children">
+          <a class="nav-link" href="#">Table</a>
+          <ul class="nav flex-column">
+            <li class="nav-item"><a class="nav-link" href="#">Dummy Sub 1</a></li>
+            <li class="nav-item"><a class="nav-link" href="#">Dummy Sub 2</a></li>
+          </ul>
+        </li>
+        <li class="nav-item"><a class="nav-link" href="#">Icons</a></li>
+      </ul>
+    </li>
+    <li class="nav-item has-children">
+      <a class="nav-link" href="#idocs_components">Components</a>
+      <ul class="nav flex-column">
+        <li class="nav-item"><a class="nav-link" href="#">Accordion</a></li>
+        <li class="nav-item"><a class="nav-link" href="#">Tabs</a></li>
+        <li class="nav-item"><a class="nav-link" href="#">Social Icon</a></li>
+        <li class="nav-item"><a class="nav-link" href="#">Helper Classes</a></li>
+      </ul>
+    </li>
+    <li class="nav-item"><a class="nav-link" href="#idocs_faq">FAQ</a></li>
+    <li class="nav-item"><a class="nav-link" href="#idocs_source_credits">Source & Credits</a></li>
+    <li class="nav-item"><a class="nav-link" href="#idocs_support">Support</a></li>
+    <li class="nav-item"><a class="nav-link" href="#idocs_templates">More Templates</a></li>
+  </ul>
+</nav>
       <!-- Main Content -->
       <main class="col-md-9 idocs-content">
         <div class="container">
@@ -478,7 +509,18 @@ document.addEventListener("DOMContentLoaded", function() {
         }
 
         textLoad();
-        setInterval(textLoad, 12000);    
+        setInterval(textLoad, 12000);   
+  <script>
+document.addEventListener('DOMContentLoaded', function () {
+  // Sidebar dropdown logic
+  document.querySelectorAll('.idocs-navigation .has-children > .nav-link').forEach(function(link) {
+    link.addEventListener('click', function (e) {
+      e.preventDefault();
+      const parent = link.parentElement;
+      parent.classList.toggle('expanded');
+    });
+  });
+});
 </script>
 </body>
 </html>
