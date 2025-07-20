@@ -17,8 +17,7 @@
 <link rel="stylesheet" type="text/css" href="assets/vendor/magnific-popup/magnific-popup.min.css" />
 <link rel="stylesheet" type="text/css" href="assets/vendor/highlight.js/styles/github.css" />
 <link rel="stylesheet" type="text/css" href="assets/css/stylesheet.css" />
-<link rel="stylesheet" href="text/css" href="assets/css/styles.css">
-
+<link rel="stylesheet" type="text/css" href="assets/css/styles.css">
 
 <style>
 body {
@@ -44,8 +43,6 @@ body {
   gap: 1rem;
   position: relative;
   z-index: 10;
- /* border: 0.5px solid #525252;
-  border-radius: 8px; */
   overflow: hidden;
 }
 .terminal {
@@ -98,7 +95,6 @@ body {
   width: 20px;
   height: 20px;
 }
-/* ---- Typing Effect ---- */
 .typewrite-headline {
   color: #e34ba9;
   background: #111;
@@ -111,16 +107,6 @@ body {
   margin: 0;
   white-space: pre-line;
 }
-/* Flashes only while typing, not while paused */
-/* .typewrite .flashing-border {
-  border-right: 0.18em solid #e34ba9;
-  animation: blink-caret 0.7s steps(1) infinite;
-  padding-right: 2px;
-} */
-/* @keyframes blink-caret {
-  from, to { border-color: transparent }
-  50% { border-color: #e34ba9; }
-} */
 /* --- Sidebar Carets for Dropdowns --- */
 .idocs-navigation .has-children > .nav-link::after {
   content: "▼";
@@ -133,7 +119,6 @@ body {
 .idocs-navigation .has-children.expanded > .nav-link::after {
   transform: rotate(-180deg);
 }
-  /* Sidebar dropdowns: hide nested by default */
 .idocs-navigation .nav .nav {
   display: none;
   margin-left: 10px;
@@ -209,11 +194,16 @@ body {
 </nav>
         <div class="flex-grow-1"></div>
         <div id="header-nav" class="collapse navbar-collapse justify-content-end">
+          <!-- == MAIN NAVBAR DROPDOWN: Bootstrap Spec == -->
           <ul class="navbar-nav">
-            <li class="dropdown"> <a class="dropdown-toggle" href="#">Dropdown</a>
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                Dropdown
+              </a>
               <ul class="dropdown-menu">
                 <li><a class="dropdown-item" href="#">Action</a></li>
-                <li class="dropdown"><a class="dropdown-item dropdown-toggle" href="#">Dropdown Action</a>
+                <li class="dropdown-submenu">
+                  <a class="dropdown-item dropdown-toggle" href="#">Dropdown Action</a>
                   <ul class="dropdown-menu">
                     <li><a class="dropdown-item" href="index.html">Action</a></li>
                     <li><a class="dropdown-item" href="feature-header-dark.html">Another Action</a></li>
@@ -221,21 +211,20 @@ body {
                     <li><a class="dropdown-item" href="index-2.html">Another Link</a></li>
                   </ul>
                 </li>
-                <li><a class="dropdown-item" href="#">Another Action</a>
+                <li><a class="dropdown-item" href="#">Another Action</a></li>
                 <li><a class="dropdown-item" href="#">Something Else Here</a></li>
               </ul>
             </li>
-            <li><a target="_blank" href="#">Other Template</a></li>
-            <li><a target="_blank" href="#">Support</a></li>
+            <li class="nav-item"><a class="nav-link" target="_blank" href="#">Other Template</a></li>
+            <li class="nav-item"><a class="nav-link" target="_blank" href="#">Support</a></li>
           </ul>
         </div>
         <ul class="social-icons social-icons-sm ml-lg-2 mr-2" style="margin-bottom: 0;">
-          <li class="social-icons-twitter"><a data-toggle="tooltip" href="http://www.twitter.com/d0midigi/" target="_blank" title="" data-original-title="Twitter"><i class="fab fa-twitter"></i></a></li>
+          <li class="social-icons-twitter"><a data-toggle="tooltip" href="https://www.twitter.com/d0midigi/" target="_blank" title="" data-original-title="Twitter"><i class="fab fa-twitter"></i></a></li>
         </ul>
       </div>
     </nav>
   </header>
-  <!-- Centered GIF - OUTSIDE HEADER, below nav, above content -->
   <div style="width:100%;text-align:center;margin:16px 0 12px 0;">
     <img src="https://imgur.com/a/9TEXhZ8" alt="Centered GIF" style="width:720px;max-width:90vw;height:auto;display:inline-block;pointer-events:none;">
   </div>
@@ -343,7 +332,6 @@ body {
             <p class="alert alert-info">If you have any questions that are beyond the scope of this help file, Please feel free to email via <a target="_blank" href="#">Item Support Page</a>.</p>
           </section>
           <hr class="divider">
-          <!-- Add the rest of your sections/content here as needed -->
           <section id="idocs_html_structure">
             <h2>HTML Structure</h2>
             <p>iDocs follows a simple and easy to customize coding structure. Here is the sample for your reference:<br>
@@ -358,12 +346,12 @@ body {
       </main>
     </div>
   </div>
-  <!-- Footer and rest of page unchanged -->
+  <!-- Footer -->
   <footer id="footer" class="section bg-dark footer-text-light">
     <div class="container">
       <ul class="social-icons social-icons-lg social-icons-muted justify-content-center mb-3">
         <li><a data-toggle="tooltip" href="https://twitter.com/d0midigi/" target="_blank" title="" data-original-title="Twitter"><i class="fab fa-twitter"></i></a></li>
-        <li><a data-toggle="tooltip" href="http://www.github.com/d0midigi" target="_blank" title="" data-original-title="GitHub"><i class="fab fa-github"></i></a></li>
+        <li><a data-toggle="tooltip" href="https://www.github.com/d0midigi" target="_blank" title="" data-original-title="GitHub"><i class="fab fa-github"></i></a></li>
       </ul>
       <p class="text-center">Copyright &copy; 2025 <a href="https://github.com/d0midigi">hackherway</a>. Null Rights Reserved.</p>
       <p class="text-2 text-center mb-0">Designed with ❤️ by mindhackdiva|d0midigi<br>
@@ -381,7 +369,6 @@ body {
 <script src="assets/vendor/magnific-popup/jquery.magnific-popup.min.js"></script> 
 <script src="assets/js/theme.js"></script>
 
-
 <!-- Typewriter Animation -->
 <script>
 var TxtType = function(el, toRotate, period) {
@@ -393,13 +380,11 @@ var TxtType = function(el, toRotate, period) {
   this.isDeleting = false;
   this.tick();
 };
-
 TxtType.prototype.tick = function() {
   var i = this.loopNum % this.toRotate.length;
   var fullTxt = this.toRotate[i];
   var wrapEl = this.el.querySelector('.wrap');
   var typingNow = false;
-
   if (this.isDeleting) {
     this.txt = fullTxt.substring(0, this.txt.length - 1);
     typingNow = true;
@@ -407,21 +392,17 @@ TxtType.prototype.tick = function() {
     this.txt = fullTxt.substring(0, this.txt.length + 1);
     typingNow = true;
   }
-
-  // Set text and border effect
   wrapEl.innerHTML = this.txt;
   if (typingNow) {
     wrapEl.classList.add('flashing-border');
   } else {
     wrapEl.classList.remove('flashing-border');
   }
-
   var that = this;
   var delta = 80 - Math.random() * 40;
   if (this.isDeleting) { delta /= 2; }
-
   if (!this.isDeleting && this.txt === fullTxt) {
-    wrapEl.classList.remove('flashing-border'); // remove border after finishing
+    wrapEl.classList.remove('flashing-border');
     delta = this.period;
     this.isDeleting = true;
   } else if (this.isDeleting && this.txt === '') {
@@ -431,7 +412,6 @@ TxtType.prototype.tick = function() {
   }
   setTimeout(function() { that.tick(); }, delta);
 };
-
 document.addEventListener("DOMContentLoaded", function() {
   var elements = document.getElementsByClassName('typewrite');
   for (var i=0; i<elements.length; i++) {
@@ -442,26 +422,49 @@ document.addEventListener("DOMContentLoaded", function() {
     }
   }
 });
-</script>   
-  <script>
+</script>
+
+<!-- SIDEBAR DROPDOWN (Accordion, only one expands) -->
+<script>
 document.addEventListener('DOMContentLoaded', function () {
-  // Sidebar dropdown logic
+  // Only one sidebar dropdown expands at a time (accordion mode)
   document.querySelectorAll('.idocs-navigation .has-children > .nav-link').forEach(function(link) {
     link.addEventListener('click', function (e) {
       e.preventDefault();
-      const parent = link.parentElement;
+      var parent = link.parentElement;
+      // Accordion: collapse others
+      document.querySelectorAll('.idocs-navigation .has-children.expanded').forEach(function(item) {
+        if (item !== parent) item.classList.remove('expanded');
+      });
       parent.classList.toggle('expanded');
     });
   });
 });
 </script>
-  <script>
+
+<!-- MAIN NAVBAR NESTED DROPDOWN (Bootstrap 4 fix for nested) -->
+<script>
 document.addEventListener('DOMContentLoaded', function () {
-  document.querySelectorAll('.idocs-navigation .has-children > .nav-link').forEach(function(link) {
-    link.addEventListener('click', function(e) {
+  // Fix for Bootstrap 4 nested dropdowns
+  document.querySelectorAll('.dropdown-submenu .dropdown-toggle').forEach(function(element) {
+    element.addEventListener('click', function(e) {
+      e.stopPropagation();
       e.preventDefault();
-      var parent = link.parentElement;
-      parent.classList.toggle('expanded');
+      var submenu = element.nextElementSibling;
+      if (submenu && submenu.classList.contains('dropdown-menu')) {
+        submenu.classList.toggle('show');
+        // Close other open submenus at same level
+        var siblings = element.parentElement.parentElement.querySelectorAll('.dropdown-menu.show');
+        siblings.forEach(function(sib) {
+          if (sib !== submenu) sib.classList.remove('show');
+        });
+      }
+    });
+  });
+  // On click outside, close all open submenus
+  document.addEventListener('click', function() {
+    document.querySelectorAll('.dropdown-menu.show').forEach(function(menu){
+      menu.classList.remove('show');
     });
   });
 });
