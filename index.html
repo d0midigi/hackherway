@@ -132,6 +132,12 @@ body {
   cursor: pointer;
   user-select: none;
 }
+  .typewrite,
+.typewrite .wrap {
+  display: inline;
+  white-space: pre;
+  vertical-align: baseline;
+}
 </style>
 </head>
 <body data-spy="scroll" data-target=".idocs-navigation" data-offset="125">
@@ -160,9 +166,9 @@ body {
         </a>
       <nav style="display: flex; align-items: center; gap: 2em; padding: 0.8em 2em;">
   <div class="navbar-typewriter" style="flex:1; display:flex; align-items:center;">
-    <span style="font-size: 1.1rem; font-weight: 600; color: #fff;">
-      learn how to:&nbsp;
-      <span class="typewrite text-light" style="font-size: 1.1rem; font-weight: 600;" data-period="1800" data-type='[
+<span style="font-size: 1.1rem; font-weight: 600; color: #fff;">
+  learn how to:&nbsp;
+  <span class="typewrite text-light" style="font-size: 1.1rem; font-weight: 600;" data-period="1800" data-type='[
     "Hackherway - The Hacker Way",
     "Hack Lawfully and Ethically",
     "Test, Implement, and Apply Security Controls",
@@ -186,6 +192,7 @@ body {
   ]'>
    <span class="wrap"></span>
   </span>
+</span>
 </div>
 <div style="display:flex;gap:1em;">
     <a href="/" style="color:#fff;text-decoration:none;font-weight:600;">Home</a>
