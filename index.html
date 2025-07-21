@@ -26,7 +26,8 @@
 	<style>
   /* Align nav links and icons */
   <style>
-  .idocs-navigation .nav-item .nav-link {
+  /* Essential styles for dropdown functionality */
+.idocs-navigation .nav-item .nav-link {
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -36,66 +37,52 @@
     font-size: 0.95rem;
     background-color: transparent;
     transition: background 0.3s;
-  }
+}
 
-  .idocs-navigation .nav-item .nav-link:hover {
+.idocs-navigation .nav-item .nav-link:hover {
     background-color: rgba(255, 255, 255, 0.05);
     text-decoration: none;
-  }
+}
 
-  .idocs-navigation .nav-item .nav-link .dropdown-icon {
+.idocs-navigation .nav-item .nav-link .dropdown-icon {
     transition: transform 0.3s ease;
-  }
+}
 
-  .idocs-navigation .nav-item .nav-link.collapsed .dropdown-icon {
+.idocs-navigation .nav-item .nav-link.collapsed .dropdown-icon {
     transform: rotate(0deg);
-  }
+}
 
-  .idocs-navigation .nav-item .nav-link:not(.collapsed) .dropdown-icon {
+.idocs-navigation .nav-item .nav-link:not(.collapsed) .dropdown-icon {
     transform: rotate(90deg);
-  }
+}
 
-  .idocs-navigation .nav-item .collapse .nav-link {
+.idocs-navigation .nav-item .collapse .nav-link {
     padding-left: 30px;
     font-size: 0.9rem;
-  }
+}
 
-  .idocs-navigation .nav-item .collapse .collapse .nav-link {
+.idocs-navigation .nav-item .collapse .collapse .nav-link {
     padding-left: 50px;
     font-size: 0.85rem;
-  }
+}
 
-  .idocs-navigation ul,
-  .idocs-navigation li {
+/* Essential structural styles */
+.idocs-navigation ul,
+.idocs-navigation li {
     list-style: none;
     padding-left: 0;
     margin-bottom: 0;
-  }
+}
 
-  .docs-navigation-dark {
+.docs-navigation-dark {
     background-color: #1f1f1f;
-  }
+}
 
-  body {
-    background: #111;
-    color: #fff;
-    font-family: sans-serif;
-    margin: 0;
-    padding: 0;
-    display: flex;
-  }
-
-  .sidebar {
+.sidebar {
     width: 300px;
     height: 100vh;
     overflow-y: auto;
-  }
-
-  .main-content {
-    padding: 20px;
-    flex: 1;
-  }
-</style>
+}
 </style>
 </head>
 
@@ -172,57 +159,353 @@
 	<!-- Sidebar Navigation
 	============================ -->
 	<div class="idocs-navigation bg-dark docs-navigation-dark">
-      <ul class="nav flex-column ">
-        <li class="nav-item"><a 
-class="nav-link d-flex justify-content-between align-items-center" href="#idocs_start" data-toggle="collapse" data-target="#gettingStartedSub" aria-expanded="true" aria-controls="gettingStartedSub">
-            Getting Started <i class="fas fa-chevron-right dropdown-icon"></i>
-          </a>
-          <div id="gettingStartedSub" class="collapse show" data-parent=".idocs-navigation">
-            <ul class="nav flex-column">
-              <li class="nav-item"><a class="nav-link" href="#idocs_installation">Installation</a></li>
-              <li class="nav-item"><a class="nav-link" href="#idocs_html_structure">HTML Structure</a></li>
-              <li class="nav-item"><a class="nav-link" href="#idocs_sass">Sass</a></li>
-              <!-- Dummy Subtopics -->
-              <li class="nav-item"><a class="nav-link" href="#dummy_subtopic_1_1">Dummy Subtopic 1.1</a></li>
-              <li class="nav-item"><a class="nav-link" href="#dummy_subtopic_1_2">Dummy Subtopic 1.2</a></li>
-              <li class="nav-item"><a class="nav-link" href="#dummy_subtopic_1_3">Dummy Subtopic 1.3</a></li>
-            </ul>
-          </div>
+    <ul class="nav flex-column">
+        <!-- Getting Started -->
+        <li class="nav-item">
+            <a class="nav-link d-flex justify-content-between align-items-center" 
+               href="#idocs_start" 
+               data-toggle="collapse" 
+               data-target="#gettingStartedSub" 
+               aria-expanded="true" 
+               aria-controls="gettingStartedSub">
+                Getting Started <i class="fas fa-chevron-right dropdown-icon"></i>
+            </a>
+            <div id="gettingStartedSub" 
+                 class="collapse show" 
+                 data-parent=".idocs-navigation">
+                <ul class="nav flex-column">
+                    <li class="nav-item">
+                        <a class="nav-link d-flex justify-content-between align-items-center" 
+                           href="#idocs_installation" 
+                           data-toggle="collapse" 
+                           data-target="#installationSub" 
+                           aria-expanded="true" 
+                           aria-controls="installationSub">
+                            Installation <i class="fas fa-chevron-right dropdown-icon"></i>
+                        </a>
+                        <div id="installationSub" 
+                             class="collapse show" 
+                             data-parent="#gettingStartedSub">
+                            <ul class="nav flex-column">
+                                <li class="nav-item"><a class="nav-link" href="#dummy_install_1">Installation Subtopic 1</a></li>
+                                <li class="nav-item"><a class="nav-link" href="#dummy_install_2">Installation Subtopic 2</a></li>
+                                <li class="nav-item"><a class="nav-link" href="#dummy_install_3">Installation Subtopic 3</a></li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link d-flex justify-content-between align-items-center" 
+                           href="#idocs_html_structure" 
+                           data-toggle="collapse" 
+                           data-target="#htmlStructureSub" 
+                           aria-expanded="true" 
+                           aria-controls="htmlStructureSub">
+                            HTML Structure <i class="fas fa-chevron-right dropdown-icon"></i>
+                        </a>
+                        <div id="htmlStructureSub" 
+                             class="collapse show" 
+                             data-parent="#gettingStartedSub">
+                            <ul class="nav flex-column">
+                                <li class="nav-item"><a class="nav-link" href="#dummy_html_1">HTML Structure Subtopic 1</a></li>
+                                <li class="nav-item"><a class="nav-link" href="#dummy_html_2">HTML Structure Subtopic 2</a></li>
+                                <li class="nav-item"><a class="nav-link" href="#dummy_html_3">HTML Structure Subtopic 3</a></li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link d-flex justify-content-between align-items-center" 
+                           href="#idocs_sass" 
+                           data-toggle="collapse" 
+                           data-target="#sassSub" 
+                           aria-expanded="true" 
+                           aria-controls="sassSub">
+                            Sass <i class="fas fa-chevron-right dropdown-icon"></i>
+                        </a>
+                        <div id="sassSub" 
+                             class="collapse show" 
+                             data-parent="#gettingStartedSub">
+                            <ul class="nav flex-column">
+                                <li class="nav-item"><a class="nav-link" href="#dummy_sass_1">Sass Subtopic 1</a></li>
+                                <li class="nav-item"><a class="nav-link" href="#dummy_sass_2">Sass Subtopic 2</a></li>
+                                <li class="nav-item"><a class="nav-link" href="#dummy_sass_3">Sass Subtopic 3</a></li>
+                            </ul>
+                        </div>
+                    </li>
+                </ul>
+            </div>
         </li>
+
         <!-- Layout -->
         <li class="nav-item">
-          <a class="nav-link d-flex justify-content-between align-items-center" href="#idocs_layout" data-toggle="collapse" data-target="#layoutSub" aria-expanded="false" aria-controls="layoutSub">
-            Layout <i class="fas fa-chevron-right dropdown-icon"></i>
-          </a>
-          <div id="layoutSub" class="collapse" data-parent=".idocs-navigation">
-            <ul class="nav flex-column">
-              <li class="nav-item"><a class="nav-link" href="#idocs_header">Header</a></li>
-              <li class="nav-item"><a class="nav-link" href="#idocs_navbar">Navbar</a></li>
-              <li class="nav-item"><a class="nav-link" href="#idocs_sidebar">Sidebar</a></li>
-              <!-- Dummy Subtopics -->
-              <li class="nav-item"><a class="nav-link" href="#dummy_subtopic_2_1">Dummy Subtopic 2.1</a></li>
-              <li class="nav-item"><a class="nav-link" href="#dummy_subtopic_2_2">Dummy Subtopic 2.2</a></li>
-              <li class="nav-item"><a class="nav-link" href="#dummy_subtopic_2_3">Dummy Subtopic 2.3</a></li>
-            </ul>
-          </div>
+            <a class="nav-link d-flex justify-content-between align-items-center" 
+               href="#idocs_layout" 
+               data-toggle="collapse" 
+               data-target="#layoutSub" 
+               aria-expanded="true" 
+               aria-controls="layoutSub">
+                Layout <i class="fas fa-chevron-right dropdown-icon"></i>
+            </a>
+            <div id="layoutSub" 
+                 class="collapse show" 
+                 data-parent=".idocs-navigation">
+                <ul class="nav flex-column">
+                    <li class="nav-item">
+                        <a class="nav-link d-flex justify-content-between align-items-center" 
+                           href="#idocs_header" 
+                           data-toggle="collapse" 
+                           data-target="#headerSub" 
+                           aria-expanded="true" 
+                           aria-controls="headerSub">
+                            Header <i class="fas fa-chevron-right dropdown-icon"></i>
+                        </a>
+                        <div id="headerSub" 
+                             class="collapse show" 
+                             data-parent="#layoutSub">
+                            <ul class="nav flex-column">
+                                <li class="nav-item"><a class="nav-link" href="#dummy_header_1">Header Subtopic 1</a></li>
+                                <li class="nav-item"><a class="nav-link" href="#dummy_header_2">Header Subtopic 2</a></li>
+                                <li class="nav-item"><a class="nav-link" href="#dummy_header_3">Header Subtopic 3</a></li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link d-flex justify-content-between align-items-center" 
+                           href="#idocs_navbar" 
+                           data-toggle="collapse" 
+                           data-target="#navbarSub" 
+                           aria-expanded="true" 
+                           aria-controls="navbarSub">
+                            Navbar <i class="fas fa-chevron-right dropdown-icon"></i>
+                        </a>
+                        <div id="navbarSub" 
+                             class="collapse show" 
+                             data-parent="#layoutSub">
+                            <ul class="nav flex-column">
+                                <li class="nav-item"><a class="nav-link" href="#dummy_navbar_1">Navbar Subtopic 1</a></li>
+                                <li class="nav-item"><a class="nav-link" href="#dummy_navbar_2">Navbar Subtopic 2</a></li>
+                                <li class="nav-item"><a class="nav-link" href="#dummy_navbar_3">Navbar Subtopic 3</a></li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link d-flex justify-content-between align-items-center" 
+                           href="#idocs_sidebar" 
+                           data-toggle="collapse" 
+                           data-target="#sidebarSub" 
+                           aria-expanded="true" 
+                           aria-controls="sidebarSub">
+                            Sidebar <i class="fas fa-chevron-right dropdown-icon"></i>
+                        </a>
+                        <div id="sidebarSub" 
+                             class="collapse show" 
+                             data-parent="#layoutSub">
+                            <ul class="nav flex-column">
+                                <li class="nav-item"><a class="nav-link" href="#dummy_sidebar_1">Sidebar Subtopic 1</a></li>
+                                <li class="nav-item"><a class="nav-link" href="#dummy_sidebar_2">Sidebar Subtopic 2</a></li>
+                                <li class="nav-item"><a class="nav-link" href="#dummy_sidebar_3">Sidebar Subtopic 3</a></li>
+                            </ul>
+                        </div>
+                    </li>
+                </ul>
+            </div>
         </li>
+
         <!-- Content -->
         <li class="nav-item">
-          <a class="nav-link d-flex justify-content-between align-items-center" href="#idocs_content" data-toggle="collapse" data-target="#contentSub" aria-expanded="false" aria-controls="contentSub">
-            Content <i class="fas fa-chevron-right dropdown-icon"></i>
-          </a>
-          <div id="contentSub" class="collapse" data-parent=".idocs-navigation">
-            <ul class="nav flex-column">
-              <li class="nav-item"><a class="nav-link" href="#idocs_typography">Typography</a></li>
-              <li class="nav-item"><a class="nav-link" href="#idocs_code">Code</a></li>
-              <li class="nav-item"><a class="nav-link" href="#idocs_table">Table</a></li>
-              <!-- Dummy Subtopics -->
-              <li class="nav-item"><a class="nav-link" href="#dummy_subtopic_3_1">Dummy Subtopic 3.1</a></li>
-              <li class="nav-item"><a class="nav-link" href="#dummy_subtopic_3_2">Dummy Subtopic 3.2</a></li>
-              <li class="nav-item"><a class="nav-link" href="#dummy_subtopic_3_3">Dummy Subtopic 3.3</a></li>
-            </ul>
-          </div>
+            <a class="nav-link d-flex justify-content-between align-items-center" 
+               href="#idocs_content" 
+               data-toggle="collapse" 
+               data-target="#contentSub" 
+               aria-expanded="true" 
+               aria-controls="contentSub">
+                Content <i class="fas fa-chevron-right dropdown-icon"></i>
+            </a>
+            <div id="contentSub" 
+                 class="collapse show" 
+                 data-parent=".idocs-navigation">
+                <ul class="nav flex-column">
+                    <li class="nav-item">
+                        <a class="nav-link d-flex justify-content-between align-items-center" 
+                           href="#idocs_typography" 
+                           data-toggle="collapse" 
+                           data-target="#typographySub" 
+                           aria-expanded="true" 
+                           aria-controls="typographySub">
+                            Typography <i class="fas fa-chevron-right dropdown-icon"></i>
+                        </a>
+                        <div id="typographySub" 
+                             class="collapse show" 
+                             data-parent="#contentSub">
+                            <ul class="nav flex-column">
+                                <li class="nav-item"><a class="nav-link" href="#dummy_typography_1">Typography Subtopic 1</a></li>
+                                <li class="nav-item"><a class="nav-link" href="#dummy_typography_2">Typography Subtopic 2</a></li>
+                                <li class="nav-item"><a class="nav-link" href="#dummy_typography_3">Typography Subtopic 3</a></li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link d-flex justify-content-between align-items-center" 
+                           href="#idocs_code" 
+                           data-toggle="collapse" 
+                           data-target="#codeSub" 
+                           aria-expanded="true" 
+                           aria-controls="codeSub">
+                            Code <i class="fas fa-chevron-right dropdown-icon"></i>
+                        </a>
+                        <div id="codeSub" 
+                             class="collapse show" 
+                             data-parent="#contentSub">
+                            <ul class="nav flex-column">
+                                <li class="nav-item"><a class="nav-link" href="#dummy_code_1">Code Subtopic 1</a></li>
+                                <li class="nav-item"><a class="nav-link" href="#dummy_code_2">Code Subtopic 2</a></li>
+                                <li class="nav-item"><a class="nav-link" href="#dummy_code_3">Code Subtopic 3</a></li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link d-flex justify-content-between align-items-center" 
+                           href="#idocs_table" 
+                           data-toggle="collapse" 
+                           data-target="#tableSub" 
+                           aria-expanded="true" 
+                           aria-controls="tableSub">
+                            Table <i class="fas fa-chevron-right dropdown-icon"></i>
+                        </a>
+                        <div id="tableSub" 
+                             class="collapse show" 
+                             data-parent="#contentSub">
+                            <ul class="nav flex-column">
+                                <li class="nav-item"><a class="nav-link" href="#dummy_table_1">Table Subtopic 1</a></li>
+                                <li class="nav-item"><a class="nav-link" href="#dummy_table_2">Table Subtopic 2</a></li>
+                                <li class="nav-item"><a class="nav-link" href="#dummy_table_3">Table Subtopic 3</a></li>
+                            </ul>
+                        </div>
+                    </li>
+                </ul>
+            </div>
         </li>
+
+        <!-- Components -->
+        <li class="nav-item">
+            <a class="nav-link d-flex justify-content-between align-items-center" 
+               href="#idocs_components" 
+               data-toggle="collapse" 
+               data-target="#componentsSub" 
+               aria-expanded="true" 
+               aria-controls="componentsSub">
+                Components <i class="fas fa-chevron-right dropdown-icon"></i>
+            </a>
+            <div id="componentsSub" 
+                 class="collapse show" 
+                 data-parent=".idocs-navigation">
+                <ul class="nav flex-column">
+                    <li class="nav-item">
+                        <a class="nav-link d-flex justify-content-between align-items-center" 
+                           href="#idocs_accordion" 
+                           data-toggle="collapse" 
+                           data-target="#accordionSub" 
+                           aria-expanded="true" 
+                           aria-controls="accordionSub">
+                            Accordion <i class="fas fa-chevron-right dropdown-icon"></i>
+                        </a>
+                        <div id="accordionSub" 
+                             class="collapse show" 
+                             data-parent="#componentsSub">
+                            <ul class="nav flex-column">
+                                <li class="nav-item"><a class="nav-link" href="#dummy_accordion_1">Accordion Subtopic 1</a></li>
+                                <li class="nav-item"><a class="nav-link" href="#dummy_accordion_2">Accordion Subtopic 2</a></li>
+                                <li class="nav-item"><a class="nav-link" href="#dummy_accordion_3">Accordion Subtopic 3</a></li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link d-flex justify-content-between align-items-center" 
+                           href="#idocs_tabs" 
+                           data-toggle="collapse" 
+                           data-target="#tabsSub" 
+                           aria-expanded="true" 
+                           aria-controls="tabsSub">
+                            Tabs <i class="fas fa-chevron-right dropdown-icon"></i>
+                        </a>
+                        <div id="tabsSub" 
+                             class="collapse show" 
+                             data-parent="#componentsSub">
+                            <ul class="nav flex-column">
+                                <li class="nav-item"><a class="nav-link" href="#dummy_tabs_1">Tabs Subtopic 1</a></li>
+                                <li class="nav-item"><a class="nav-link" href="#dummy_tabs_2">Tabs Subtopic 2</a></li>
+                                <li class="nav-item"><a class="nav-link" href="#dummy_tabs_3">Tabs Subtopic 3</a></li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link d-flex justify-content-between align-items-center" 
+                           href="#idocs_social_icon" 
+                           data-toggle="collapse" 
+                           data-target="#socialIconSub" 
+                           aria-expanded="true" 
+                           aria-controls="socialIconSub">
+                            Social Icon <i class="fas fa-chevron-right dropdown-icon"></i>
+                        </a>
+                        <div id="socialIconSub" 
+                             class="collapse show" 
+                             data-parent="#componentsSub">
+                            <ul class="nav flex-column">
+                                <li class="nav-item"><a class="nav-link" href="#dummy_social_1">Social Icon Subtopic 1</a></li>
+                                <li class="nav-item"><a class="nav-link" href="#dummy_social_2">Social Icon Subtopic 2</a></li>
+                                <li class="nav-item"><a class="nav-link" href="#dummy_social_3">Social Icon Subtopic 3</a></li>
+                            </ul>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </li>
+
+        <!-- Static Links -->
+        <li class="nav-item"><a class="nav-link" href="#idocs_faq">FAQ</a></li>
+        <li class="nav-item"><a class="nav-link" href="#idocs_source_credits">Source & Credits</a></li>
+        <li class="nav-item"><a class="nav-link" href="#idocs_support">Support</a></li>
+        <li class="nav-item"><a class="nav-link" href="#idocs_templates">More Templates</a></li>
+
+        <!-- Changelog -->
+        <li class="nav-item">
+            <a class="nav-link d-flex justify-content-between align-items-center" 
+               href="#idocs_changelog" 
+               data-toggle="collapse" 
+               data-target="#changelogSub" 
+               aria-expanded="true" 
+               aria-controls="changelogSub">
+                Changelog <i class="fas fa-chevron-right dropdown-icon"></i>
+            </a>
+            <div id="changelogSub" 
+                 class="collapse show" 
+                 data-parent=".idocs-navigation">
+                <ul class="nav flex-column">
+                    <li class="nav-item"><a class="nav-link" href="#v1-1">v1.1</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#v1-0">v1.0</a></li>
+                    <li class="nav-item">
+                        <a class="nav-link d-flex justify-content-between align-items-center" 
+                           href="#idocs_changelog_dummy" 
+                           data-toggle="collapse" 
+                           data-target="#changelogDummySub" 
+                           aria-expanded="true" 
+                           aria-controls="changelogDummySub">
+                            Dummy Topics <i class="fas fa-chevron-right dropdown-icon"></i>
+                        </a>
+                        <div id="changelogDummySub" 
+                             class="collapse show" 
+                             data-parent="#changelogSub">
+                            <ul class="nav flex-column">
+                                <li class="nav-item"><a class="nav-link" href="#dummy_changelog_1">Changelog Subtopic 1</a></li>
+                                <li class="nav-item"><a class="nav-link" href="#dummy_changelog_2">Changelog Subtopic 2</a></li>
+                                <li class="nav-item"><a class="nav-link" href="#dummy_changelog_3">Changelog Subtopic 3</a></li>
+                            </ul>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </li>
+    </ul>
+</div>
         <!-- Components -->
         <li class="nav-item">
           <a class="nav-link d-flex justify-content-between align-items-center" href="#idocs_components" data-toggle="collapse" data-target="#componentsSub" aria-expanded="false" aria-controls="componentsSub">
@@ -1545,41 +1828,24 @@ class="nav-link d-flex justify-content-between align-items-center" href="#idocs_
 <script src="assets/vendor/magnific-popup/jquery.magnific-popup.min.js"></script> 
 <!-- Custom Script -->
 <script src="assets/js/theme.js"></script>
-<script>
-  $(document).ready(function() {
-    // Add click event listener to nav-link elements with data-toggle="collapse"
+<script>$(document).ready(function() {
     $('.idocs-navigation .nav-item .nav-link[data-toggle="collapse"]').on('click', function(e) {
-      e.preventDefault(); // Prevent default anchor behavior
-      var $this = $(this);
-      var $targetCollapse = $($this.data('target'));
-
-      // Toggle the collapse state
-      $targetCollapse.collapse('toggle');
-
-      // Toggle the 'collapsed' class and rotate the icon
-      $this.toggleClass('collapsed');
+        e.preventDefault();
+        var $this = $(this);
+        var $targetCollapse = $($this.data('target'));
+        
+        // Toggle the collapse state
+        $targetCollapse.collapse('toggle');
+        
+        // Toggle the 'collapsed' class and rotate the icon
+        $this.toggleClass('collapsed');
+        
+        // Handle nested collapses
+        if ($this.parent().find('.collapse').length > 0) {
+            $this.parent().find('.collapse').collapse('hide');
+        }
     });
-
-    // Handle initial state of icons based on collapse state
-    $('.idocs-navigation .nav-item .collapse').each(function() {
-      var $this = $(this);
-      var $navLink = $('[data-target="#' + $this.attr('id') + '"]');
-      if ($this.hasClass('show')) {
-        $navLink.removeClass('collapsed');
-      } else {
-        $navLink.addClass('collapsed');
-      }
-    });
-
-    // Update icon rotation on Bootstrap collapse events
-    $('.idocs-navigation .nav-item .collapse').on('show.bs.collapse', function() {
-      var $navLink = $('[data-target="#' + $(this).attr('id') + '"]');
-      $navLink.removeClass('collapsed');
-    }).on('hide.bs.collapse', function() {
-      var $navLink = $('[data-target="#' + $(this).attr('id') + '"]');
-      $navLink.addClass('collapsed');
-    });
-  });
+});
 </script>
 </body>
 </html>
