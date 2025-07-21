@@ -96,56 +96,111 @@
 	<!-- Sidebar Navigation
 	============================ -->
 	<div class="idocs-navigation bg-dark docs-navigation-dark">
-      <ul class="nav flex-column ">
-        <li class="nav-item"><a class="nav-link active" href="#idocs_start">Getting Started</a>
-          <ul class="nav flex-column">
-            <li class="nav-item"><a class="nav-link" href="#idocs_installation">Installation</a></li>
-            <li class="nav-item"><a class="nav-link" href="#idocs_html_structure">HTML Structure</a></li>
-            <li class="nav-item"><a class="nav-link" href="#idocs_sass">Sass</a></li>
-            <li class="nav-item"><a class="nav-link" href="#idocs_color_schemes">Color Schemes</a></li>
-            <li class="nav-item"><a class="nav-link" href="#idocs_theme_customization">Customization</a></li>
-            <li class="nav-item"><a class="nav-link" href="#idocs_logo_settings">Logo Settings</a></li>
+  <ul class="nav flex-column">
+
+    <!-- Getting Started with 3-level submenu -->
+    <li class="nav-item">
+      <a class="nav-link d-flex justify-content-between align-items-center" data-toggle="collapse" href="#submenuGettingStarted" role="button" aria-expanded="false" aria-controls="submenuGettingStarted">
+        Getting Started <i class="fas fa-chevron-down ml-1"></i>
+      </a>
+      <ul class="collapse nav flex-column" id="submenuGettingStarted">
+        <li class="nav-item">
+          <a class="nav-link" data-toggle="collapse" href="#submenuInstall" role="button" aria-expanded="false" aria-controls="submenuInstall">
+            Installation <i class="fas fa-chevron-right ml-1"></i>
+          </a>
+          <ul class="collapse nav flex-column ml-3" id="submenuInstall">
+            <li class="nav-item">
+              <a class="nav-link" href="#installDummy1">Dummy Submenu 1</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#installDummy2">Dummy Submenu 2</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#installDummy3">Dummy Submenu 3</a>
+            </li>
           </ul>
         </li>
-        <li class="nav-item"><a class="nav-link" href="#idocs_layout">Layout</a>
-          <ul class="nav flex-column">
-			<li class="nav-item"><a class="nav-link" href="#idocs_header">Header</a></li>
-			<li class="nav-item"><a class="nav-link" href="#idocs_navbar">Navbar</a></li>
-			<li class="nav-item"><a class="nav-link" href="#idocs_sidebar">Sidebar</a></li>
-			<li class="nav-item"><a class="nav-link" href="#idocs_footer">Footer</a></li>
-			<li class="nav-item"><a class="nav-link" href="#idocs_box_layout">Box Layout</a></li>
-          </ul>
+        <li class="nav-item">
+          <a class="nav-link" href="#structureDummy">HTML Structure</a>
         </li>
-        <li class="nav-item"><a class="nav-link" href="#idocs_content">Content</a>
-			<ul class="nav flex-column">
-            <li class="nav-item"><a class="nav-link" href="#idocs_typography">Typography</a></li>
-            <li class="nav-item"><a class="nav-link" href="#idocs_code">Code</a></li>
-            <li class="nav-item"><a class="nav-link" href="#idocs_table">Table</a></li>
-			<li class="nav-item"><a class="nav-link" href="#idocs_icons">Icons</a></li>
-            <li class="nav-item"><a class="nav-link" href="#idocs_image">Image</a></li>
-			<li class="nav-item"><a class="nav-link" href="#idocs_video">Video</a></li>
-          </ul>
-		</li>
-        <li class="nav-item"><a class="nav-link" href="#idocs_components">Components</a>
-          <ul class="nav flex-column">
-            <li class="nav-item"><a class="nav-link" href="#idocs_accordion">Accordion</a></li>
-            <li class="nav-item"><a class="nav-link" href="#idocs_tabs">Tabs</a></li>
-            <li class="nav-item"><a class="nav-link" href="#idocs_social_icon">Social Icon</a></li>
-            <li class="nav-item"><a class="nav-link" href="#idocs_helper_classes">Helper Classes</a></li>
-          </ul>
+        <li class="nav-item">
+          <a class="nav-link" href="#sassDummy">Sass</a>
         </li>
-		<li class="nav-item"><a class="nav-link" href="#idocs_faq">FAQ</a></li>
-        <li class="nav-item"><a class="nav-link" href="#idocs_source_credits">Source & Credits</a></li>
-        <li class="nav-item"><a class="nav-link" href="#idocs_support">Support</a></li>
-		<li class="nav-item"><a class="nav-link" href="#idocs_templates">More Templates</a></li>
-		<li class="nav-item"><a class="nav-link" href="#idocs_changelog">Changelog</a>
-			<ul class="nav flex-column">
-            <li class="nav-item"><a class="nav-link" href="#v1-1">v1.1</a></li>
-            <li class="nav-item"><a class="nav-link" href="#v1-0">v1.0</a></li>
-          </ul>
-		</li>
       </ul>
-    </div>
+    </li>
+
+    <!-- Layout with 3-level submenu -->
+    <li class="nav-item">
+      <a class="nav-link d-flex justify-content-between align-items-center" data-toggle="collapse" href="#submenuLayout" role="button" aria-expanded="false" aria-controls="submenuLayout">
+        Layout <i class="fas fa-chevron-down ml-1"></i>
+      </a>
+      <ul class="collapse nav flex-column" id="submenuLayout">
+        <li class="nav-item">
+          <a class="nav-link" data-toggle="collapse" href="#submenuHeader" role="button" aria-expanded="false" aria-controls="submenuHeader">
+            Header <i class="fas fa-chevron-right ml-1"></i>
+          </a>
+          <ul class="collapse nav flex-column ml-3" id="submenuHeader">
+            <li class="nav-item">
+              <a class="nav-link" href="#headerDummy1">Header Submenu 1</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#headerDummy2">Header Submenu 2</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#headerDummy3">Header Submenu 3</a>
+            </li>
+          </ul>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#navbarDummy">Navbar</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#sidebarDummy">Sidebar</a>
+        </li>
+      </ul>
+    </li>
+
+    <!-- Content with 3-level submenu -->
+    <li class="nav-item">
+      <a class="nav-link d-flex justify-content-between align-items-center" data-toggle="collapse" href="#submenuContent" role="button" aria-expanded="false" aria-controls="submenuContent">
+        Content <i class="fas fa-chevron-down ml-1"></i>
+      </a>
+      <ul class="collapse nav flex-column" id="submenuContent">
+        <li class="nav-item">
+          <a class="nav-link" data-toggle="collapse" href="#submenuTypography" role="button" aria-expanded="false" aria-controls="submenuTypography">
+            Typography <i class="fas fa-chevron-right ml-1"></i>
+          </a>
+          <ul class="collapse nav flex-column ml-3" id="submenuTypography">
+            <li class="nav-item">
+              <a class="nav-link" href="#typographyDummy1">Typography Submenu 1</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#typographyDummy2">Typography Submenu 2</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#typographyDummy3">Typography Submenu 3</a>
+            </li>
+          </ul>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#codeDummy">Code</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#tableDummy">Table</a>
+        </li>
+      </ul>
+    </li>
+
+    <!-- Simple link, no submenu -->
+    <li class="nav-item">
+      <a class="nav-link" href="#components">Components</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" href="#faq">FAQ</a>
+    </li>
+  </ul>
+</div>
+
     
     <!-- Docs Content
 	============================ -->
