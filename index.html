@@ -63,7 +63,13 @@
 
         button.sidebar-link:focus {
             outline: none;
-        }    
+ 
+}
+	  .rotate {
+    transform: rotate(90deg);
+    transition: transform 0.2s;
+}
+
 </style>
 </head>
 
@@ -1681,45 +1687,51 @@
 <script src="assets/vendor/magnific-popup/jquery.magnific-popup.min.js"></script> 
 <!-- Custom Script -->
 <script src="assets/js/theme.js"></script>
-<script>$(document).ready(function() {
-    $('.idocs-navigation .nav-item .nav-link[data-toggle="collapse"]').on('click', function(e) {
-        e.preventDefault();
-        var $this = $(this);
-        var $targetCollapse = $($this.data('target'));
-        
-        // Toggle the collapse state
-        $targetCollapse.collapse('toggle');
-        
-        // Toggle the 'collapsed' class and rotate the icon
-        $this.toggleClass('collapsed');
-        
-        // Handle nested collapses
-        if ($this.parent().find('.collapse').length > 0) {
-            $this.parent().find('.collapse').collapse('hide');
-        }
+<script>
+document.querySelectorAll('#sidebar button[data-bs-toggle="collapse"]').forEach(btn => {
+    btn.addEventListener('click', function() {
+        // Find the icon inside the button
+        const icon = btn.querySelector('i');
+        const target = document.querySelector(btn.getAttribute('data-bs-target'));
+        setTimeout(() => {
+            if (target.classList.contains('show')) {
+                icon.classList.add('rotate');
+            } else {
+                icon.classList.remove('rotate');
+            }
+        }, 350); // Wait for collapse transition
     });
 });
 </script>
-	<!-- Required JS Scripts -->
+<!-- Add Bootstrap JS and Popper.js before </body> -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 
-	 <!-- Scripts -->
-   <script src="assets/vendor/jquery/jquery.min.js"></script>
-    <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-    <script>
-        document.querySelectorAll('[data-bs-toggle="collapse"]').forEach(btn => {
-            const icon = btn.querySelector('i');
-            const targetId = btn.getAttribute('data-bs-target');
-            const target = document.querySelector(targetId);
+<div id="sidebar" class="bg-dark">
+    <button class="sidebar-link d-flex justify-content-between align-items-center" 
+            data-bs-toggle="collapse" 
+            data-bs-target="#contentSubmenu" 
+            aria-expanded="false" 
+            aria-controls="contentSubmenu">
+        <span><i class="fas fa-angle-right me-2" id="contentIcon"></i> Content</span>
+    </button>
+    <div class="collapse sidebar-dropdown" id="contentSubmenu">
+        <a class="sidebar-link" href="#">Dummy Item 1</a>
+        <a class="sidebar-link" href="#">Dummy Item 2</a>
+        <a class="sidebar-link" href="#">Dummy Item 3</a>
+    </div>
 
-            target.addEventListener('show.bs.collapse', () => {
-                icon.classList.add('rotate');
-            });
-
-            target.addEventListener('hide.bs.collapse', () => {
-                icon.classList.remove('rotate');
-            });
-        });
-    </script>
+    <button class="sidebar-link d-flex justify-content-between align-items-center" 
+            data-bs-toggle="collapse" 
+            data-bs-target="#settingsSubmenu" 
+            aria-expanded="false" 
+            aria-controls="settingsSubmenu">
+        <span><i class="fas fa-angle-right me-2" id="settingsIcon"></i> Settings</span>
+    </button>
+    <div class="collapse sidebar-dropdown" id="settingsSubmenu">
+        <a class="sidebar-link" href="#">Dummy Setting 1</a>
+        <a class="sidebar-link" href="#">Dummy Setting 2</a>
+    </div>
+</div>
 
 </body>
 </html>
