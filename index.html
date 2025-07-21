@@ -41,12 +41,15 @@
             padding: 0.75rem 1rem;
             color: #fff;
             text-decoration: none;
+            background: none;
+            border: none;
+            width: 100%;
+            text-align: left;
         }
 
-        .sidebar-link:hover,
-        .sidebar-link.collapsed:hover {
+        .sidebar-link:hover {
             background: #495057;
-            text-decoration: none;
+            cursor: pointer;
         }
 
         .sidebar-dropdown {
@@ -57,7 +60,10 @@
         .rotate {
             transform: rotate(90deg);
         }
-    
+
+        button.sidebar-link:focus {
+            outline: none;
+        }    
 </style>
 </head>
 
@@ -135,18 +141,18 @@
 	============================ -->
 	<body>
     <div id="sidebar" class="bg-dark">
-        <a class="sidebar-link d-flex justify-content-between align-items-center" data-bs-toggle="collapse" href="#contentSubmenu" role="button" aria-expanded="false" aria-controls="contentSubmenu">
+        <button class="sidebar-link d-flex justify-content-between align-items-center" data-bs-toggle="collapse" data-bs-target="#contentSubmenu" aria-expanded="false" aria-controls="contentSubmenu">
             <span><i class="fas fa-angle-right me-2" id="contentIcon"></i> Content</span>
-        </a>
+        </button>
         <div class="collapse sidebar-dropdown" id="contentSubmenu">
             <a class="sidebar-link" href="#">Dummy Item 1</a>
             <a class="sidebar-link" href="#">Dummy Item 2</a>
             <a class="sidebar-link" href="#">Dummy Item 3</a>
         </div>
 
-        <a class="sidebar-link d-flex justify-content-between align-items-center" data-bs-toggle="collapse" href="#settingsSubmenu" role="button" aria-expanded="false" aria-controls="settingsSubmenu">
+        <button class="sidebar-link d-flex justify-content-between align-items-center" data-bs-toggle="collapse" data-bs-target="#settingsSubmenu" aria-expanded="false" aria-controls="settingsSubmenu">
             <span><i class="fas fa-angle-right me-2" id="settingsIcon"></i> Settings</span>
-        </a>
+        </button>
         <div class="collapse sidebar-dropdown" id="settingsSubmenu">
             <a class="sidebar-link" href="#">Dummy Setting 1</a>
             <a class="sidebar-link" href="#">Dummy Setting 2</a>
@@ -157,7 +163,6 @@
         <h1>Main Content Area</h1>
         <p>Click items in the sidebar to expand dropdowns.</p>
     </div>
-
         <!-- Content -->
         <li class="nav-item">
             <a class="nav-link d-flex justify-content-between align-items-center" 
@@ -1698,13 +1703,12 @@
 	<!-- Required JS Scripts -->
 
 	 <!-- Scripts -->
-    <script src="assets/vendor/jquery/jquery.min.js"></script>
+   <script src="assets/vendor/jquery/jquery.min.js"></script>
     <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
     <script>
-        // Toggle rotation on collapse show/hide
-        document.querySelectorAll('[data-bs-toggle="collapse"]').forEach(link => {
-            const icon = link.querySelector('i');
-            const targetId = link.getAttribute('href');
+        document.querySelectorAll('[data-bs-toggle="collapse"]').forEach(btn => {
+            const icon = btn.querySelector('i');
+            const targetId = btn.getAttribute('data-bs-target');
             const target = document.querySelector(targetId);
 
             target.addEventListener('show.bs.collapse', () => {
