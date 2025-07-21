@@ -95,7 +95,7 @@ body {
   width: 20px;
   height: 20px;
 }
-.typewrite-headline {
+/* .typewrite-headline {
   color: #e34ba9;
   background: #111;
   padding: 1.25rem 1.25rem 1.25rem 1.25rem;
@@ -105,7 +105,7 @@ body {
   min-width: 200px;
   font-family: inherit;
   margin: 0;
-  white-space: pre-line;
+  white-space: pre-line; */
 }
 /* --- Sidebar Carets for Dropdowns --- */
 .idocs-navigation .has-children > .nav-link::after {
@@ -138,6 +138,30 @@ body {
   white-space: pre;
   vertical-align: baseline;
 }
+<style>
+  .navbar-typewriter {
+  display: flex !important;
+  align-items: center !important;
+  gap: 0.5em;
+}
+
+.typewrite,
+.typewrite .wrap {
+  display: inline-block;
+  white-space: pre;
+  vertical-align: middle;
+}
+
+.typewrite.text-light {
+  margin-left: 0.2em;
+}
+
+@media (max-width: 700px) {
+  .navbar-typewriter {
+    font-size: 0.96rem !important;
+  }
+}
+
 </style>
 </head>
 <body data-spy="scroll" data-target=".idocs-navigation" data-offset="125">
@@ -165,34 +189,38 @@ body {
           <img src="assets/images/logo.png" alt="iDocs Template" style="height:38px;"/> 
         </a>
       <nav style="display: flex; align-items: center; gap: 2em; padding: 0.8em 2em;">
-  <div class="navbar-typewriter" style="flex:1; display:flex; align-items:center;">
-<span style="font-size: 1.1rem; font-weight: 600; color: #fff;">
-  learn how to:&nbsp;
-  <span class="typewrite text-light" style="font-size: 1.1rem; font-weight: 600;" data-period="1800" data-type='[
-    "Hackherway - The Hacker Way",
-    "Hack Lawfully and Ethically",
-    "Test, Implement, and Apply Security Controls",
-    "Perform an Ethical Hacking Engagement",
-    "Bypass Security Controls",
-    "Enforce Security Controls",
-    "Harden Operating Systems and Technologies",
-    "Conduct Reconnaissance & OSINT",
-    "Apply Security Compliance Frameworks",
-    "Protect and Hack Network Infrastructure",
-    "Evade Network Security Mechanisms",
-    "Subnet",
-    "Penetrate Active Directory",
-    "Red Team",
-    "Blue Team",
-    "Purple Team",
-    "Penetrate Networks",
-    "Run a Vulnerability Audit and Risk Assessment",
-    "Perform a CRI",
-    "Be the Best Hacker You Can Be"
-  ]'>
-   <span class="wrap"></span>
+<div class="navbar-typewriter" style="flex:1; display:flex; align-items:center;">
+  <span style="font-size: 1.1rem; font-weight: 600; color: #fff;">
+    learn how to:&nbsp;
   </span>
-</span>
+  <span class="typewrite text-light"
+        style="font-size: 1.1rem; font-weight: 600;"
+        data-period="1800"
+        data-type='[
+          "Hackherway - The Hacker Way",
+          "Hack Lawfully and Ethically",
+          "Test, Implement, and Apply Security Controls",
+          "Perform an Ethical Hacking Engagement",
+          "Bypass Security Controls",
+          "Enforce Security Controls",
+          "Harden Operating Systems and Technologies",
+          "Conduct Reconnaissance & OSINT",
+          "Apply Security Compliance Frameworks",
+          "Protect and Hack Network Infrastructure",
+          "Evade Network Security Mechanisms",
+          "Subnet",
+          "Penetrate Active Directory",
+          "Red Team",
+          "Blue Team",
+          "Purple Team",
+          "Penetrate Networks",
+          "Run a Vulnerability Audit and Risk Assessment",
+          "Perform a CRI",
+          "Be the Best Hacker You Can Be"
+        ]'>
+    <span class="wrap"></span>
+  </span>
+</div>
 </div>
 <div style="display:flex;gap:1em;">
     <a href="/" style="color:#fff;text-decoration:none;font-weight:600;">Home</a>
