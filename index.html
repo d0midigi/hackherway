@@ -22,11 +22,25 @@
 <!-- Custom Stylesheet -->
 <link rel="stylesheet" type="text/css" href="assets/css/stylesheet.css" />
 <style>
-  /* Custom styles for dropdowns and rotating icon */
+<style>
+	<style>
+  /* Align nav links and icons */
+  <style>
   .idocs-navigation .nav-item .nav-link {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    color: #fff;
+    text-decoration: none;
+    padding: 10px 15px;
+    font-size: 0.95rem;
+    background-color: transparent;
+    transition: background 0.3s;
+  }
+
+  .idocs-navigation .nav-item .nav-link:hover {
+    background-color: rgba(255, 255, 255, 0.05);
+    text-decoration: none;
   }
 
   .idocs-navigation .nav-item .nav-link .dropdown-icon {
@@ -42,8 +56,46 @@
   }
 
   .idocs-navigation .nav-item .collapse .nav-link {
-    padding-left: 30px; /* Indent subtopics */
+    padding-left: 30px;
+    font-size: 0.9rem;
   }
+
+  .idocs-navigation .nav-item .collapse .collapse .nav-link {
+    padding-left: 50px;
+    font-size: 0.85rem;
+  }
+
+  .idocs-navigation ul,
+  .idocs-navigation li {
+    list-style: none;
+    padding-left: 0;
+    margin-bottom: 0;
+  }
+
+  .docs-navigation-dark {
+    background-color: #1f1f1f;
+  }
+
+  body {
+    background: #111;
+    color: #fff;
+    font-family: sans-serif;
+    margin: 0;
+    padding: 0;
+    display: flex;
+  }
+
+  .sidebar {
+    width: 300px;
+    height: 100vh;
+    overflow-y: auto;
+  }
+
+  .main-content {
+    padding: 20px;
+    flex: 1;
+  }
+</style>
 </style>
 </head>
 
@@ -121,9 +173,8 @@
 	============================ -->
 	<div class="idocs-navigation bg-dark docs-navigation-dark">
       <ul class="nav flex-column ">
-        <!-- Getting Started -->
-        <li class="nav-item">
-          <a class="nav-link d-flex justify-content-between align-items-center" href="#idocs_start" data-toggle="collapse" data-target="#gettingStartedSub" aria-expanded="true" aria-controls="gettingStartedSub">
+        <li class="nav-item"><a 
+class="nav-link d-flex justify-content-between align-items-center" href="#idocs_start" data-toggle="collapse" data-target="#gettingStartedSub" aria-expanded="true" aria-controls="gettingStartedSub">
             Getting Started <i class="fas fa-chevron-right dropdown-icon"></i>
           </a>
           <div id="gettingStartedSub" class="collapse show" data-parent=".idocs-navigation">
