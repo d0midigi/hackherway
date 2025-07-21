@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+   f.write("""<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8" />
@@ -21,12 +21,24 @@
 
 <style>
 body {
-  background: #000 url(https://i.imgur.com/VjbmK58.png) no-repeat center center fixed !important;
-  background-size: cover !important;
+  background: #000 !important;
   color: #f51994 !important;
   min-height: 100vh;
 }
-/* ---- Typing Animation Terminal Card ---- */
+.center-under-header {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  margin: 18px 0 0 0;
+}
+.under-header-img {
+  max-width: 90vw;
+  width: 720px;
+  height: auto;
+  display: block;
+  pointer-events: none;
+}
 .card.typewriter-terminal {
   padding: 1rem;
   overflow: hidden;
@@ -38,76 +50,28 @@ body {
   margin-bottom: 2rem;
 }
 .wrap {
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
-  position: relative;
-  z-index: 10;
-  overflow: hidden;
+  display: inline-block;
+  white-space: pre;
+  vertical-align: middle;
 }
-.terminal {
-  display: flex;
-  flex-direction: column;
-  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+.typewrite {
+  display: inline-block;
+  white-space: pre;
+  vertical-align: middle;
 }
-.head {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  overflow: hidden;
-  min-height: 40px;
-  padding-inline: 12px;
-  border-top-left-radius: 8px;
-  border-top-right-radius: 8px;
-  background-color: #202425;
+.navbar-typewriter {
+  display: flex !important;
+  align-items: center !important;
+  gap: 0.5em;
 }
-.title {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  height: 2.5rem;
-  user-select: none;
-  font-weight: 600;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-  color: #f51994;
+.typewrite.text-light {
+  margin-left: 0.2em;
 }
-.title > svg {
-  height: 18px;
-  width: 18px;
-  margin-top: 2px;
-  color: #32aaff;
+@media (max-width: 700px) {
+  .navbar-typewriter {
+    font-size: 0.96rem !important;
+  }
 }
-.copy_toggle {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 0.25rem;
-  border: 0.65px solid #32a;
-  margin-left: auto;
-  border-radius: 6px;
-  background-color: #202425;
-  color: #8e8e8e;
-  cursor: pointer;
-}
-.copy_toggle > svg {
-  width: 20px;
-  height: 20px;
-}
-/* .typewrite-headline {
-  color: #e34ba9;
-  background: #111;
-  padding: 1.25rem 1.25rem 1.25rem 1.25rem;
-  border-radius: 0 0 8px 8px;
-  font-size: 18px;
-  min-height: 40px;
-  min-width: 200px;
-  font-family: inherit;
-  margin: 0;
-  white-space: pre-line; */
-}
-/* --- Sidebar Carets for Dropdowns --- */
 .idocs-navigation .has-children > .nav-link::after {
   content: "▼";
   font-size: 0.75em;
@@ -132,36 +96,6 @@ body {
   cursor: pointer;
   user-select: none;
 }
-  .typewrite,
-.typewrite .wrap {
-  display: inline;
-  white-space: pre;
-  vertical-align: baseline;
-}
-<style>
-  .navbar-typewriter {
-  display: flex !important;
-  align-items: center !important;
-  gap: 0.5em;
-}
-
-.typewrite,
-.typewrite .wrap {
-  display: inline-block;
-  white-space: pre;
-  vertical-align: middle;
-}
-
-.typewrite.text-light {
-  margin-left: 0.2em;
-}
-
-@media (max-width: 700px) {
-  .navbar-typewriter {
-    font-size: 0.96rem !important;
-  }
-}
-
 </style>
 </head>
 <body data-spy="scroll" data-target=".idocs-navigation" data-offset="125">
@@ -188,45 +122,41 @@ body {
         <a class="logo ml-md-3" href="index.html" title="iDocs Template"> 
           <img src="assets/images/logo.png" alt="iDocs Template" style="height:38px;"/> 
         </a>
-      <nav style="display: flex; align-items: center; gap: 2em; padding: 0.8em 2em;">
-<div class="navbar-typewriter" style="flex:1; display:flex; align-items:center;">
-  <span style="font-size: 1.1rem; font-weight: 600; color: #fff;">
-    learn how to:&nbsp;
-  </span>
-  <span class="typewrite text-light"
-        style="font-size: 1.1rem; font-weight: 600;"
-        data-period="1800"
-        data-type='[
-          "Hackherway - The Hacker Way",
-          "Hack Lawfully and Ethically",
-          "Test, Implement, and Apply Security Controls",
-          "Perform an Ethical Hacking Engagement",
-          "Bypass Security Controls",
-          "Enforce Security Controls",
-          "Harden Operating Systems and Technologies",
-          "Conduct Reconnaissance & OSINT",
-          "Apply Security Compliance Frameworks",
-          "Protect and Hack Network Infrastructure",
-          "Evade Network Security Mechanisms",
-          "Subnet",
-          "Penetrate Active Directory",
-          "Red Team",
-          "Blue Team",
-          "Purple Team",
-          "Penetrate Networks",
-          "Run a Vulnerability Audit and Risk Assessment",
-          "Perform a CRI",
-          "Be the Best Hacker You Can Be"
-        ]'>
-    <span class="wrap"></span>
-  </span>
-</div>
-</div>
-<div style="display:flex;gap:1em;">
-    <a href="/" style="color:#fff;text-decoration:none;font-weight:600;">Home</a>
-    <a href="/blog/" style="color:#fff;text-decoration:none;font-weight:600;">Blog</a>
-  </div>
-</nav>
+        <!-- INLINED TYPEWRITER ANIMATION STARTS HERE -->
+        <div class="navbar-typewriter" style="flex:1; display:flex; align-items:center; gap:0.5em;">
+          <span style="font-size: 1.1rem; font-weight: 600; color: #fff;">learn how to:</span>
+          <span class="typewrite text-light"
+                style="font-size: 1.1rem; font-weight: 600;"
+                data-period="1800"
+                data-type='[
+                  "Hackherway - The Hacker Way",
+                  "Hack Lawfully and Ethically",
+                  "Test, Implement, and Apply Security Controls",
+                  "Perform an Ethical Hacking Engagement",
+                  "Bypass Security Controls",
+                  "Enforce Security Controls",
+                  "Harden Operating Systems and Technologies",
+                  "Conduct Reconnaissance & OSINT",
+                  "Apply Security Compliance Frameworks",
+                  "Protect and Hack Network Infrastructure",
+                  "Evade Network Security Mechanisms",
+                  "Subnet",
+                  "Penetrate Active Directory",
+                  "Red Team",
+                  "Blue Team",
+                  "Purple Team",
+                  "Penetrate Networks",
+                  "Run a Vulnerability Audit and Risk Assessment",
+                  "Perform a CRI",
+                  "Be the Best Hacker You Can Be"
+                ]'>
+            <span class="wrap"></span>
+          </span>
+        </div>
+        <div style="display:flex;gap:1em;">
+          <a href="/" style="color:#fff;text-decoration:none;font-weight:600;">Home</a>
+          <a href="/blog/" style="color:#fff;text-decoration:none;font-weight:600;">Blog</a>
+        </div>
         <div class="flex-grow-1"></div>
         <div id="header-nav" class="collapse navbar-collapse justify-content-end">
           <!-- == MAIN NAVBAR DROPDOWN: Bootstrap Spec == -->
@@ -260,9 +190,10 @@ body {
       </div>
     </nav>
   </header>
-<div class="center-under-header">
-  <img src="https://i.imgur.com/VjbmK58.png" alt="Centered Banner" class="under-header-img">
-</div>
+  <!-- Centered Banner Image -->
+  <div class="center-under-header">
+    <img src="https://i.imgur.com/VjbmK58.png" alt="Centered Banner" class="under-header-img">
+  </div>
   <div id="content" role="main" class="container-fluid">
     <div class="row">
       <!-- Sidebar (nav) -->
@@ -424,6 +355,10 @@ TxtType.prototype.tick = function() {
     this.txt = fullTxt.substring(0, this.txt.length - 1);
     typingNow = true;
   } else if (this.txt !== fullTxt) {
+    this.txt = fullTxt.substring(0, this.txt.length + 1);
+    typingNow = true;
+  }
+    } else if (this.txt !== fullTxt) {
     this.txt = fullTxt.substring(0, this.txt.length + 1);
     typingNow = true;
   }
