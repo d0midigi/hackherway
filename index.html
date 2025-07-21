@@ -1470,5 +1470,17 @@ $('.idocs-navigation .has-submenu').on('click', function(e) {
   $parent.toggleClass('open');
 });
 </script>
+	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+$('.idocs-navigation .has-submenu').on('click', function(e) {
+  e.preventDefault();
+  var $parent = $(this).parent();
+  // Close all other open submenus:
+  $parent.siblings('.open').removeClass('open');
+  // Toggle this one:
+  $parent.toggleClass('open');
+});
+</script>
+
 </body>
 </html>
