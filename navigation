@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+-<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8" />
@@ -194,11 +194,12 @@ body {
   <div class="center-under-header">
     <img src="https://i.imgur.com/VjbmK58.png" alt="Centered Banner" class="under-header-img">
   </div>
+
   <div id="content" role="main" class="container-fluid">
     <div class="row">
       <!-- Sidebar (nav) -->
-     <nav class="col-md-3 idocs-navigation bg-dark docs-navigation-dark" id="sidebar">
-  <ul class="nav flex-column">
+     <!-- <nav class="col-md-3 idocs-navigation bg-dark docs-navigation-dark" id="sidebar"> -->
+      <!-- <ul class="nav flex-column">
     <li class="nav-item has-children">
       <a class="nav-link" href="#cyber-vault">Cyber Vault</a>
       <ul class="nav flex-column">
