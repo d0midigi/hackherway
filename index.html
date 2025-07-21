@@ -21,6 +21,31 @@
 <link rel="stylesheet" type="text/css" href="assets/vendor/highlight.js/styles/github.css" />
 <!-- Custom Stylesheet -->
 <link rel="stylesheet" type="text/css" href="assets/css/stylesheet.css" />
+
+<style>
+/* Hide submenus unless parent is open */
+.idocs-navigation .submenu {
+  display: none;
+  padding-left: 18px;
+}
+.idocs-navigation .nav-item.open > .submenu {
+  display: block;
+}
+
+/* Show arrow for parent items */
+.idocs-navigation .has-submenu:after {
+  content: "›";
+  float: right;
+  font-size: 13px;
+  margin-left: 7px;
+  transition: transform 0.2s;
+}
+.idocs-navigation .nav-item.open > .has-submenu:after {
+  content: "˅";
+  transform: rotate(180deg);
+}
+</style>
+
 </head>
 
 <body data-spy="scroll" data-target=".idocs-navigation" data-offset="125">
@@ -96,56 +121,62 @@
 	<!-- Sidebar Navigation
 	============================ -->
 	<div class="idocs-navigation bg-dark docs-navigation-dark">
-      <ul class="nav flex-column ">
-        <li class="nav-item"><a class="nav-link active" href="#idocs_start">Getting Started</a>
-          <ul class="nav flex-column">
-            <li class="nav-item"><a class="nav-link" href="#idocs_installation">Installation</a></li>
-            <li class="nav-item"><a class="nav-link" href="#idocs_html_structure">HTML Structure</a></li>
-            <li class="nav-item"><a class="nav-link" href="#idocs_sass">Sass</a></li>
-            <li class="nav-item"><a class="nav-link" href="#idocs_color_schemes">Color Schemes</a></li>
-            <li class="nav-item"><a class="nav-link" href="#idocs_theme_customization">Customization</a></li>
-            <li class="nav-item"><a class="nav-link" href="#idocs_logo_settings">Logo Settings</a></li>
-          </ul>
-        </li>
-        <li class="nav-item"><a class="nav-link" href="#idocs_layout">Layout</a>
-          <ul class="nav flex-column">
-			<li class="nav-item"><a class="nav-link" href="#idocs_header">Header</a></li>
-			<li class="nav-item"><a class="nav-link" href="#idocs_navbar">Navbar</a></li>
-			<li class="nav-item"><a class="nav-link" href="#idocs_sidebar">Sidebar</a></li>
-			<li class="nav-item"><a class="nav-link" href="#idocs_footer">Footer</a></li>
-			<li class="nav-item"><a class="nav-link" href="#idocs_box_layout">Box Layout</a></li>
-          </ul>
-        </li>
-        <li class="nav-item"><a class="nav-link" href="#idocs_content">Content</a>
-			<ul class="nav flex-column">
-            <li class="nav-item"><a class="nav-link" href="#idocs_typography">Typography</a></li>
-            <li class="nav-item"><a class="nav-link" href="#idocs_code">Code</a></li>
-            <li class="nav-item"><a class="nav-link" href="#idocs_table">Table</a></li>
-			<li class="nav-item"><a class="nav-link" href="#idocs_icons">Icons</a></li>
-            <li class="nav-item"><a class="nav-link" href="#idocs_image">Image</a></li>
-			<li class="nav-item"><a class="nav-link" href="#idocs_video">Video</a></li>
-          </ul>
-		</li>
-        <li class="nav-item"><a class="nav-link" href="#idocs_components">Components</a>
-          <ul class="nav flex-column">
-            <li class="nav-item"><a class="nav-link" href="#idocs_accordion">Accordion</a></li>
-            <li class="nav-item"><a class="nav-link" href="#idocs_tabs">Tabs</a></li>
-            <li class="nav-item"><a class="nav-link" href="#idocs_social_icon">Social Icon</a></li>
-            <li class="nav-item"><a class="nav-link" href="#idocs_helper_classes">Helper Classes</a></li>
-          </ul>
-        </li>
-		<li class="nav-item"><a class="nav-link" href="#idocs_faq">FAQ</a></li>
-        <li class="nav-item"><a class="nav-link" href="#idocs_source_credits">Source & Credits</a></li>
-        <li class="nav-item"><a class="nav-link" href="#idocs_support">Support</a></li>
-		<li class="nav-item"><a class="nav-link" href="#idocs_templates">More Templates</a></li>
-		<li class="nav-item"><a class="nav-link" href="#idocs_changelog">Changelog</a>
-			<ul class="nav flex-column">
-            <li class="nav-item"><a class="nav-link" href="#v1-1">v1.1</a></li>
-            <li class="nav-item"><a class="nav-link" href="#v1-0">v1.0</a></li>
-          </ul>
-		</li>
+  <ul class="nav flex-column">
+    <li class="nav-item">
+      <a class="nav-link has-submenu" href="#">Getting Started</a>
+      <ul class="nav flex-column submenu">
+        <li class="nav-item"><a class="nav-link" href="#idocs_installation">Installation</a></li>
+        <li class="nav-item"><a class="nav-link" href="#idocs_html_structure">HTML Structure</a></li>
+        <li class="nav-item"><a class="nav-link" href="#idocs_sass">Sass</a></li>
+        <li class="nav-item"><a class="nav-link" href="#idocs_color_schemes">Color Schemes</a></li>
+        <li class="nav-item"><a class="nav-link" href="#idocs_theme_customization">Customization</a></li>
+        <li class="nav-item"><a class="nav-link" href="#idocs_logo_settings">Logo Settings</a></li>
       </ul>
-    </div>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link has-submenu" href="#">Layout</a>
+      <ul class="nav flex-column submenu">
+        <li class="nav-item"><a class="nav-link" href="#idocs_header">Header</a></li>
+        <li class="nav-item"><a class="nav-link" href="#idocs_navbar">Navbar</a></li>
+        <li class="nav-item"><a class="nav-link" href="#idocs_sidebar">Sidebar</a></li>
+        <li class="nav-item"><a class="nav-link" href="#idocs_footer">Footer</a></li>
+        <li class="nav-item"><a class="nav-link" href="#idocs_box_layout">Box Layout</a></li>
+      </ul>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link has-submenu" href="#">Content</a>
+      <ul class="nav flex-column submenu">
+        <li class="nav-item"><a class="nav-link" href="#idocs_typography">Typography</a></li>
+        <li class="nav-item"><a class="nav-link" href="#idocs_code">Code</a></li>
+        <li class="nav-item"><a class="nav-link" href="#idocs_table">Table</a></li>
+        <li class="nav-item"><a class="nav-link" href="#idocs_icons">Icons</a></li>
+        <li class="nav-item"><a class="nav-link" href="#idocs_image">Image</a></li>
+        <li class="nav-item"><a class="nav-link" href="#idocs_video">Video</a></li>
+      </ul>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link has-submenu" href="#">Components</a>
+      <ul class="nav flex-column submenu">
+        <li class="nav-item"><a class="nav-link" href="#idocs_accordion">Accordion</a></li>
+        <li class="nav-item"><a class="nav-link" href="#idocs_tabs">Tabs</a></li>
+        <li class="nav-item"><a class="nav-link" href="#idocs_social_icon">Social Icon</a></li>
+        <li class="nav-item"><a class="nav-link" href="#idocs_helper_classes">Helper Classes</a></li>
+      </ul>
+    </li>
+    <li class="nav-item"><a class="nav-link" href="#idocs_faq">FAQ</a></li>
+    <li class="nav-item"><a class="nav-link" href="#idocs_source_credits">Source & Credits</a></li>
+    <li class="nav-item"><a class="nav-link" href="#idocs_support">Support</a></li>
+    <li class="nav-item"><a class="nav-link" href="#idocs_templates">More Templates</a></li>
+    <li class="nav-item">
+      <a class="nav-link has-submenu" href="#">Changelog</a>
+      <ul class="nav flex-column submenu">
+        <li class="nav-item"><a class="nav-link" href="#v1-1">v1.1</a></li>
+        <li class="nav-item"><a class="nav-link" href="#v1-0">v1.0</a></li>
+      </ul>
+    </li>
+  </ul>
+</div>
+
     
     <!-- Docs Content
 	============================ -->
@@ -1429,5 +1460,15 @@
 <script src="assets/vendor/magnific-popup/jquery.magnific-popup.min.js"></script> 
 <!-- Custom Script -->
 <script src="assets/js/theme.js"></script>
+<script>
+$('.idocs-navigation .has-submenu').on('click', function(e) {
+  e.preventDefault();
+  var $parent = $(this).parent();
+  // Close others:
+  $parent.siblings('.open').removeClass('open');
+  // Toggle this one:
+  $parent.toggleClass('open');
+});
+</script>
 </body>
 </html>
