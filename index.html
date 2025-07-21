@@ -10,8 +10,10 @@
 <meta name="author" content="mindhackdiva">
 
 <link href="https://fonts.googleapis.com/css2?family=Lexend+Zetta:wght@400;700&display=swap" rel="stylesheet">
-
-<!-- Stylesheet -->
+<link rel="stylesheet" href="style.css" />
+    <!-- Fontawesome CDN Link -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css" />
+<style><!-- Stylesheet -->
 <link rel="stylesheet" type="text/css" href="assets/vendor/bootstrap/css/bootstrap.min.css" />
 <link rel="stylesheet" type="text/css" href="assets/vendor/font-awesome/css/all.min.css" />
 <link rel="stylesheet" type="text/css" href="assets/vendor/magnific-popup/magnific-popup.min.css" />
@@ -72,30 +74,143 @@ body {
     font-size: 0.96rem !important;
   }
 }
-.idocs-navigation .has-children > .nav-link::after {
-  content: "▼";
-  font-size: 0.75em;
-  float: right;
-  margin-top: 4px;
-  margin-left: 7px;
-  transition: transform 0.2s;
-}
-.idocs-navigation .has-children.expanded > .nav-link::after {
-  transform: rotate(-180deg);
-}
-.idocs-navigation .nav .nav {
-  display: none;
-  margin-left: 10px;
-  padding-left: 10px;
-  border-left: 1px dashed #333;
-}
-.idocs-navigation .has-children.expanded > .nav {
-  display: block;
-}
-.idocs-navigation .has-children > .nav-link {
-  cursor: pointer;
-  user-select: none;
-}
+</style>
+
+
+</head>
+  <body>
+    <nav class="sidebar">
+      <a href="#" class="logo">CodingLab</a>
+
+      <div class="menu-content">
+        <ul class="menu-items">
+          <div class="menu-title">Your menu title</div>
+
+          <li class="item">
+            <a href="#">Your first link</a>
+          </li>
+
+          <li class="item">
+            <div class="submenu-item">
+              <span>First submenu</span>
+              <i class="fa-solid fa-chevron-right"></i>
+            </div>
+
+            <ul class="menu-items submenu">
+              <div class="menu-title">
+                <i class="fa-solid fa-chevron-left"></i>
+                Your submenu title
+              </div>
+              <li class="item">
+                <a href="#">First sublink</a>
+              </li>
+              <li class="item">
+                <a href="#">First sublink</a>
+              </li>
+              <li class="item">
+                <a href="#">First sublink</a>
+              </li>
+            </ul>
+          </li>
+          <li class="item">
+            <div class="submenu-item">
+              <span>Second submenu</span>
+              <i class="fa-solid fa-chevron-right"></i>
+            </div>
+
+            <ul class="menu-items submenu">
+              <div class="menu-title">
+                <i class="fa-solid fa-chevron-left"></i>
+                Your submenu title
+              </div>
+              <li class="item">
+                <a href="#">Second sublink</a>
+              </li>
+              <li class="item">
+                <a href="#">Second sublink</a>
+              </li>
+              <li class="item">
+                <a href="#">Second sublink</a>
+              </li>
+              <li class="item">
+                <a href="#">Second sublink</a>
+              </li>
+              <li class="item">
+                <a href="#">Second sublink</a>
+              </li>
+              <li class="item">
+                <a href="#">Second sublink</a>
+              </li>
+              <li class="item">
+                <a href="#">Second sublink</a>
+              </li>
+              <li class="item">
+                <a href="#">Second sublink</a>
+              </li>
+              <li class="item">
+                <a href="#">Second sublink</a>
+              </li>
+              <li class="item">
+                <a href="#">Second sublink</a>
+              </li>
+              <li class="item">
+                <a href="#">Second sublink</a>
+              </li>
+              <li class="item">
+                <a href="#">Second sublink</a>
+              </li>
+              <li class="item">
+                <a href="#">Second sublink</a>
+              </li>
+              <li class="item">
+                <a href="#">Second sublink</a>
+              </li>
+              <li class="item">
+                <a href="#">Second sublink</a>
+              </li>
+              <li class="item">
+                <a href="#">Second sublink</a>
+              </li>
+              <li class="item">
+                <a href="#">Second sublink</a>
+              </li>
+              <li class="item">
+                <a href="#">Second sublink</a>
+              </li>
+              <li class="item">
+                <a href="#">Second sublink</a>
+              </li>
+              <li class="item">
+                <a href="#">Second sublink</a>
+              </li>
+              <li class="item">
+                <a href="#">Second sublink</a>
+              </li>
+            </ul>
+          </li>
+
+          <li class="item">
+            <a href="#">Your second link</a>
+          </li>
+
+          <li class="item">
+            <a href="#">Your third link</a>
+          </li>
+        </ul>
+      </div>
+    </nav>
+
+    <nav class="navbar">
+      <i class="fa-solid fa-bars" id="sidebar-close"></i>
+    </nav>
+
+    <main class="main">
+      <h1>Admin Dashboard Content</h1>
+    </main>
+
+    <script src="script.js"></script>
+  </body>*****
+
 </style>
 </head>
 <body data-spy="scroll" data-target=".idocs-navigation" data-offset="125">
@@ -197,7 +312,7 @@ body {
   <div id="content" role="main" class="container-fluid">
     <div class="row">
       <!-- Sidebar (nav) -->
-     <nav class="col-md-3 idocs-navigation bg-dark docs-navigation-dark" id="sidebar">
+     <!-- <nav class="col-md-3 idocs-navigation bg-dark docs-navigation-dark" id="sidebar">
   <ul class="nav flex-column">
     <li class="nav-item has-children">
       <a class="nav-link" href="#cyber-vault">Cyber Vault</a>
@@ -272,7 +387,7 @@ body {
     <li class="nav-item"><a class="nav-link" href="#idocs_support">Support</a></li>
     <li class="nav-item"><a class="nav-link" href="#idocs_templates">More Templates</a></li>
   </ul>
-</nav>
+</nav> -->
       <!-- Main Content -->
       <main class="col-md-9 idocs-content">
         <div class="container">
@@ -336,7 +451,7 @@ body {
 <script src="assets/js/theme.js"></script>
 
 <!-- Typewriter Animation -->
-<script>
+<!-- <script>
 var TxtType = function(el, toRotate, period) {
   this.toRotate = toRotate;
   this.el = el;
@@ -392,10 +507,11 @@ document.addEventListener("DOMContentLoaded", function() {
     }
   }
 });
-</script>
+</script> -->
+  
 
 <!-- SIDEBAR DROPDOWN (Accordion, only one expands) -->
-<script>
+<!-- <script>
 document.addEventListener('DOMContentLoaded', function () {
   // Only one sidebar dropdown expands at a time (accordion mode)
   document.querySelectorAll('.idocs-navigation .has-children > .nav-link').forEach(function(link) {
@@ -413,7 +529,7 @@ document.addEventListener('DOMContentLoaded', function () {
 </script>
 
 <!-- MAIN NAVBAR NESTED DROPDOWN (Bootstrap 4 fix for nested) -->
-<script>
+<!-- <script>
 document.addEventListener('DOMContentLoaded', function () {
   // Fix for Bootstrap 4 nested dropdowns
   document.querySelectorAll('.dropdown-submenu .dropdown-toggle').forEach(function(element) {
@@ -438,6 +554,33 @@ document.addEventListener('DOMContentLoaded', function () {
     });
   });
 });
-</script>
+</script> -->
+  <Script>const sidebar = document.querySelector(".sidebar");
+const sidebarClose = document.querySelector("#sidebar-close");
+const menu = document.querySelector(".menu-content");
+const menuItems = document.querySelectorAll(".submenu-item");
+const subMenuTitles = document.querySelectorAll(".submenu .menu-title");
+
+sidebarClose.addEventListener("click", () => sidebar.classList.toggle("close"));
+
+menuItems.forEach((item, index) => {
+  item.addEventListener("click", () => {
+    menu.classList.add("submenu-active");
+    item.classList.add("show-submenu");
+    menuItems.forEach((item2, index2) => {
+      if (index !== index2) {
+        item2.classList.remove("show-submenu");
+      }
+    });
+  });
+});
+
+subMenuTitles.forEach((title) => {
+  title.addEventListener("click", () => {
+    menu.classList.remove("submenu-active");
+  });
+});
+
+console.log(menuItems, subMenuTitles);</Script>
 </body>
 </html>
