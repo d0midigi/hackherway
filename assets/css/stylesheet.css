@@ -642,7 +642,8 @@ hr {
   width: 260px;
   height: calc(100% - 70px);
   z-index: 1;
-  border-right: 1px solid rgba(0, 0, 0, 0.05);
+  border: 2px solid #32a;
+  border-radius: 4px;
   transition: all 0.3s;
 }
 .idocs-navigation > .nav {
