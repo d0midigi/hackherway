@@ -44,6 +44,58 @@
   content: "˅";
   transform: rotate(180deg);
 }
+.card-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(270px, 1fr));
+  gap: 2rem;
+  margin: 2rem 0;
+}
+
+.card {
+  background: #16181c;
+  border-radius: 1.25rem;
+  box-shadow: 0 4px 32px #0008;
+  padding: 2rem 1.5rem 1.5rem 1.5rem;
+  color: #fff;
+  transition: transform 0.15s, box-shadow 0.15s;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.card h3 {
+  font-size: 1.35rem;
+  margin-bottom: 0.8rem;
+  color: #f51994;
+}
+
+.card p {
+  flex: 1;
+  margin-bottom: 1.2rem;
+  color: #dadada;
+}
+
+.card-btn {
+  display: inline-block;
+  background: #f51994;
+  color: #fff;
+  padding: 0.5rem 1.2rem;
+  border-radius: 2rem;
+  font-weight: bold;
+  text-decoration: none;
+  box-shadow: 0 2px 8px #0005;
+  transition: background 0.15s;
+}
+
+.card-btn:hover {
+  background: #a91066;
+}
+
+.card:hover {
+  transform: translateY(-7px) scale(1.025);
+  box-shadow: 0 12px 36px #000a;
+}
+
 </style>
 
 </head>
@@ -175,6 +227,24 @@
       </ul>
     </li>
   </ul>
+</div>
+<div class="card-grid">
+  <div class="card">
+    <h3>Card Title 1</h3>
+    <p>This is a sample card. You can put anything here: text, images, links, etc.</p>
+    <a href="#" class="card-btn">Learn More</a>
+  </div>
+  <div class="card">
+    <h3>Card Title 2</h3>
+    <p>Another card for your grid. Make as many as you like.</p>
+    <a href="#" class="card-btn">Learn More</a>
+  </div>
+  <div class="card">
+    <h3>Card Title 3</h3>
+    <p>Grid is fully responsive and mobile friendly.</p>
+    <a href="#" class="card-btn">Learn More</a>
+  </div>
+  <!-- Add more .card as needed -->
 </div>
 
     
