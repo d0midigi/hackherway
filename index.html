@@ -1623,6 +1623,24 @@ $('.idocs-navigation .has-submenu').on('click', function(e) {
   $parent.toggleClass('open');
 });
 </script>
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+  // Toggle open class for sidebar navigation
+  document.querySelectorAll('.idocs-navigation .has-submenu').forEach(function (el) {
+    el.addEventListener('click', function (e) {
+      e.preventDefault();
+      const parent = this.parentElement;
+      // If accordion style: close others
+      document.querySelectorAll('.idocs-navigation .nav-item.open').forEach(function (openItem) {
+        if (openItem !== parent) {
+          openItem.classList.remove('open');
+        }
+      });
+      parent.classList.toggle('open');
+    });
+  });
+});
+</script>
 
 </body>
 </html>
