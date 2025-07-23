@@ -1662,6 +1662,29 @@ document.addEventListener("DOMContentLoaded", function () {
   });
 });
 </script>
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+  // For every link with has-submenu class
+  document.querySelectorAll('.idocs-navigation .has-submenu').forEach(function(link) {
+    link.addEventListener('click', function(e) {
+      // Prevent navigation if href="#" or empty
+      if (this.getAttribute('href') === "#" || !this.getAttribute('href')) e.preventDefault();
+      var parent = this.parentElement;
+      // If already open, just close
+      var wasOpen = parent.classList.contains('open');
+      // Close all sibling .nav-item.open at this level (accordion behavior)
+      Array.from(parent.parentElement.children).forEach(function(sibling) {
+        if (sibling !== parent && sibling.classList.contains('open')) {
+          sibling.classList.remove('open');
+        }
+      });
+      // Toggle this one
+      if (!wasOpen) parent.classList.add('open');
+      else parent.classList.remove('open');
+    });
+  });
+});
+</script>
 
 </body>
 </html>
