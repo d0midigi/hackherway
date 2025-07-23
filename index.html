@@ -1644,6 +1644,24 @@ document.addEventListener("DOMContentLoaded", function () {
   });
 });
 </script>
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+  document.querySelectorAll('.idocs-navigation .has-submenu').forEach(function(link) {
+    link.addEventListener('click', function(e) {
+      // Prevent hash links from jumping
+      if (this.getAttribute('href') === '#') e.preventDefault();
+      var parent = this.parentElement;
+      // Accordion style: close all siblings at same level
+      var siblings = Array.from(parent.parentElement.children).filter(
+        li => li !== parent && li.classList.contains('nav-item')
+      );
+      siblings.forEach(li => li.classList.remove('open'));
+      // Toggle this
+      parent.classList.toggle('open');
+    });
+  });
+});
+</script>
 
 </body>
 </html>
