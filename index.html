@@ -95,11 +95,38 @@
   transform: translateY(-7px) scale(1.025);
   box-shadow: 0 12px 36px #000a;
 }
-
-</style>
-
+	/* watermark image */
+	body {
+      min-height: 100vh;
+      background: #fff; /* fallback color */
+    }
+    .watermark {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      width: 600px;
+      height: 600px;
+      z-index: 0;
+      opacity: 0.08;
+      transform: translate(-50%, -50%);
+      pointer-events: none;
+      background: url('https://imgur.com/a/bT3zW0P') no-repeat center center;
+      background-size: contain;
+    }
+    .content {
+      position: relative;
+      z-index: 1;
+      /* so your content sits above the watermark */
+    }
+  </style>
 </head>
-
+<body>
+  <div class="watermark"></div>
+  <div class="content">
+  </div>
+	<!--watermark image -->
+</style>
+</head>
 <body>
 
 <!-- Preloader -->
