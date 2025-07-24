@@ -1606,28 +1606,28 @@
 <!-- Custom Script -->
 <script src="assets/js/theme.js"></script>
 <script>
-$('.idocs-navigation .has-submenu').on('click', function(e) {
+/* $('.idocs-navigation .has-submenu').on('click', function(e) {
   e.preventDefault();
   var $parent = $(this).parent();
   // Close others:
   $parent.siblings('.open').removeClass('open');
   // Toggle this one:
   $parent.toggleClass('open');
-});
+}); */
 </script>
-	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+	<!-- <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script> -->
 <script>
-$('.idocs-navigation .has-submenu').on('click', function(e) {
+/* $('.idocs-navigation .has-submenu').on('click', function(e) {
   e.preventDefault();
   var $parent = $(this).parent();
   // Close all other open submenus:
   $parent.siblings('.open').removeClass('open');
   // Toggle this one:
   $parent.toggleClass('open');
-});
+}); /*
 </script>
 <script>
-document.addEventListener("DOMContentLoaded", function () {
+/* document.addEventListener("DOMContentLoaded", function () {
   // Toggle open class for sidebar navigation
   document.querySelectorAll('.idocs-navigation .has-submenu').forEach(function (el) {
     el.addEventListener('click', function (e) {
@@ -1642,10 +1642,10 @@ document.addEventListener("DOMContentLoaded", function () {
       parent.classList.toggle('open');
     });
   });
-});
+}); /*
 </script>
 <script>
-document.addEventListener("DOMContentLoaded", function () {
+/* document.addEventListener("DOMContentLoaded", function () {
   document.querySelectorAll('.idocs-navigation .has-submenu').forEach(function(link) {
     link.addEventListener('click', function(e) {
       // Prevent hash links from jumping
@@ -1660,10 +1660,10 @@ document.addEventListener("DOMContentLoaded", function () {
       parent.classList.toggle('open');
     });
   });
-});
+}); /*
 </script>
 <script>
-document.addEventListener("DOMContentLoaded", function () {
+/* document.addEventListener("DOMContentLoaded", function () {
   // For every link with has-submenu class
   document.querySelectorAll('.idocs-navigation .has-submenu').forEach(function(link) {
     link.addEventListener('click', function(e) {
@@ -1682,6 +1682,18 @@ document.addEventListener("DOMContentLoaded", function () {
       if (!wasOpen) parent.classList.add('open');
       else parent.classList.remove('open');
     });
+  });
+}); /*
+
+</script>
+<script>
+$(document).ready(function() {
+  $('.idocs-navigation .has-submenu').on('click', function(e) {
+    e.preventDefault();
+    var $parent = $(this).parent();
+    // Accordion: close all siblings
+    $parent.siblings('.open').removeClass('open');
+    $parent.toggleClass('open');
   });
 });
 </script>
