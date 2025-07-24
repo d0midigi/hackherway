@@ -2951,3 +2951,9 @@ input:-internal-autofill-selected {
   left: -40px;
   border-radius: 4px 0px 0px 4px;
 }
+img[src$=".gif"] {
+  width: 180px !important;
+  height: auto !important;
+  display: block;
+  margin: 20px auto;
+}
