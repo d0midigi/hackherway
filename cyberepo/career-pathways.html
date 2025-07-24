@@ -1,572 +1,492 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-    <meta charset="UTF-8">
-    <meta name="description" content="">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <!-- The above 4 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+<meta charset="UTF-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1.0, shrink-to-fit=no">
+<link href="assets/images/favicon.png" rel="icon" />
+<title>hackherway | cyberepo</title>
+<meta name="description" content="Learn How to HackHerWay - The Hacker Way">
+<meta name="author" content="mindhackdiva | d0midigi">
 
-    <!-- Title -->
-    <title>Newsbox - Modern Magazine &amp; Newspaper HTML Template</title>
+<!-- Stylesheet
+============================== -->
+<!-- Bootstrap -->
+<link rel="stylesheet" type="text/css" href="assets/vendor/bootstrap/css/bootstrap.min.css" />
+<!-- Font Awesome Icon -->
+<link rel="stylesheet" type="text/css" href="assets/vendor/font-awesome/css/all.min.css" />
+<!-- Magnific Popup -->
+<link rel="stylesheet" type="text/css" href="assets/vendor/magnific-popup/magnific-popup.min.css" />
+<!-- Highlight Syntax -->
+<link rel="stylesheet" type="text/css" href="assets/vendor/highlight.js/styles/github.css" />
+<!-- Custom Stylesheet -->
+<link rel="stylesheet" type="text/css" href="assets/css/stylesheet.css" />
 
-    <!-- Favicon -->
-    <link rel="icon" href="img/core-img/favicon.ico">
-
-    <!-- Stylesheet -->
-    <link rel="stylesheet" href="style.css">
-<style>:root {
-  --base-hue: 260;
-  --font-family: Inter;
-  --leading: 1.5;
-  
-  --bg-color: hsl(var(--base-hue) 25% 25%);
-  --bg-img-url: url(https://i.ibb.co/Qjt7TJn/milad-fakurian-E8-Ufcyxz514-unsplash-1.jpg);
-  --text-color: hsl(var(--base-hue) 40% 25%);
-  
-  --card-width: 500px;
-  --card-height: 200px;
-  --card-padding: 2.25rem;
-  --card-corner-radius: 1.5rem;
-  --card-bg-blur-amount: 1rem;
-  --card-shadow:     
-    0 0 0.5rem 2px hsl(var(--base-hue) 25% 25% / 35%),
-    inset 0 0 0.1rem hsl(var(--base-hue) 75% 40% / 20%),
-    inset 0 0 0.2rem 0.1rem hsl(var(--base-hue) 75% 40% / 15%),
-    inset 0 0 0.3rem 0.2rem hsl(var(--base-hue) 75% 40% / 10%);
+<style>
+/* Hide submenus unless parent is open */
+.idocs-navigation .submenu {
+  display: none;
+  padding-left: 18px;
+}
+.idocs-navigation .nav-item.open > .submenu {
+  display: block;
 }
 
-* {
-  &,
-  &:before,
-  &:after {
-    box-sizing: border-box;
-  }
+/* Show arrow for parent items */
+.idocs-navigation .has-submenu:after {
+  content: "›";
+  float: right;
+  font-size: 13px;
+  margin-left: 7px;
+  transition: transform 0.2s;
 }
-
-body {
-  margin: 0;
-  font: 1em/var(--leading) var(--font-family), sans-serif;
-  color: var(--text-color);
-  background: var(--bg-color) var(--bg-img-url) 
-    center / cover no-repeat fixed;
+.idocs-navigation .nav-item.open > .has-submenu:after {
+  content: "˅";
+  transform: rotate(180deg);
 }
-
-p {
-  margin: 0;
-  &:not(:last-child) {
-    margin-bottom: 1.5rem;
-  }
-}
-
-.site-container {
-  min-height: 100vh;
-  padding: 2rem;
+.card-grid {
   display: grid;
-  place-items: center;
+  grid-template-columns: repeat(auto-fit, minmax(270px, 1fr));
+  gap: 2rem;
+  margin: 2rem 0;
 }
 
 .card {
-  max-width: var(--card-width);
-  min-height: var(--card-height);
-  padding: var(--card-padding);
-  border-radius: var(--card-corner-radius);
-  background-color: hsl(var(--base-hue) 25% 95% / 45%);
+  background: #16181c;
+  border-radius: 1.25rem;
+  box-shadow: 0 4px 32px #0008;
+  padding: 2rem 1.5rem 1.5rem 1.5rem;
+  color: #fff;
+  transition: transform 0.15s, box-shadow 0.15s;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 }
 
-.card--glass {
-  font-size: 125%;
-  box-shadow: var(--card-shadow);
-  backdrop-filter: blur(var(--card-bg-blur-amount));
+.card h3 {
+  font-size: 1.35rem;
+  margin-bottom: 0.8rem;
+  color: #f51994;
 }
 
-.card-footer {
-  margin-top: 10rem;
-  font-size: 0.75rem;
-  opacity: 75%;
+.card p {
+  flex: 1;
+  margin-bottom: 1.2rem;
+  color: #dadada;
 }
+
+.card-btn {
+  display: inline-block;
+  background: #f51994;
+  color: #fff;
+  padding: 0.5rem 1.2rem;
+  border-radius: 2rem;
+  font-weight: bold;
+  text-decoration: none;
+  box-shadow: 0 2px 8px #0005;
+  transition: background 0.15s;
+}
+
+.card-btn:hover {
+  background: #a91066;
+}
+
+.card:hover {
+  transform: translateY(-7px) scale(1.025);
+  box-shadow: 0 12px 36px #000a;
+}
+#content {
+  margin-left: 50px;  /* Same as sidebar width */
+	}
+	/* watermark image */
+	body {
+      min-height: 100vh;
+      background: #fff; /* fallback color */
+    }
+    .watermark {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      width: 600px;
+      height: 600px;
+      z-index: 0;
+      opacity: 0.08;
+      transform: translate(-50%, -50%);
+      pointer-events: none;
+      background: url('https://i.imgur.com/662Rsv0.png') no-repeat center center;
+      background-size: contain;
+    }
+    .content {
+      position: relative;
+      z-index: 1;
+      /* so your content sits above the watermark */
+    }
+	.blog-post {
+  background: #181a20;
+  color: #eee;
+  max-width: 760px;
+  margin-left: 32px !important;
+  margin-right: auto;
+  border-radius: 1.3rem;
+  box-shadow: 0 6px 36px #000a;
+  padding: 2.5rem 2rem 2rem 2rem;
+  line-height: 1.8;
+  font-size: 1.14rem;
+}
+.blog-post h1, .blog-post h2, .blog-post h3 { color: #f51994; }
+.blog-post pre { background: #23242b; border-radius: 1em; padding: 1em; color: #f8f8f2; }
+.blog-post img { max-width: 100%; border-radius: 1rem; }
+
+  </style>
+</head>
+<body>
+  <div class="watermark"></div>
+  <div class="content">
+  </div>
+	<!--watermark image -->
 </style>
 </head>
-
 <body>
-    <!-- Preloader -->
-    <div class="preloader d-flex align-items-center justify-content-center">
-        <div class="lds-ellipsis">
-            <div></div>
-            <div></div>
-            <div></div>
-            <div></div>
-        </div>
-    </div>
 
-    <!-- ##### Header Area Start ##### -->
-    <header class="header-area">
-        <!-- Navbar Area -->
-        <div class="newsbox-main-menu">
-            <div class="classy-nav-container breakpoint-off">
-                <div class="container-fluid">
-                    <!-- Menu -->
-                    <nav class="classy-navbar justify-content-between" id="newsboxNav">
-
-                        <!-- Nav brand -->
-                        <a href="index.html" class="nav-brand"><img src="img/core-img/logo.png" alt=""></a>
-
-                        <!-- Navbar Toggler -->
-                        <div class="classy-navbar-toggler">
-                            <span class="navbarToggler"><span></span><span></span><span></span></span>
-                        </div>
-
-                        <!-- Menu -->
-                        <div class="classy-menu">
-
-                            <!-- Close Button -->
-                            <div class="classycloseIcon">
-                                <div class="cross-wrap"><span class="top"></span><span class="bottom"></span></div>
-                            </div>
-
-                            <!-- Nav Start -->
-                            <div class="classynav">
-                                <ul>
-                                    <li><a href="#">International</a>
-                                        <div class="megamenu">
-                                            <ul class="single-mega cn-col-4">
-                                                <li class="title">Europe</li>
-                                                <li><a href="#">United Kingdom</a></li>
-                                                <li><a href="#">Germany</a></li>
-                                                <li><a href="#">Latvia</a></li>
-                                                <li><a href="#">Poland</a></li>
-                                                <li><a href="#">Italy</a></li>
-                                                <li><a href="#">France</a></li>
-                                                <li><a href="#">Crotia</a></li>
-                                            </ul>
-                                            <ul class="single-mega cn-col-4">
-                                                <li class="title">Africa</li>
-                                                <li><a href="#">Algeria</a></li>
-                                                <li><a href="#">Angola</a></li>
-                                                <li><a href="#">Benin</a></li>
-                                                <li><a href="#">Botswana</a></li>
-                                                <li><a href="#">Burkina Faso</a></li>
-                                                <li><a href="#">Burundi</a></li>
-                                                <li><a href="#">Cameroon</a></li>
-                                            </ul>
-                                            <ul class="single-mega cn-col-4">
-                                                <li class="title">Asia</li>
-                                                <li><a href="#">Bangladesh</a></li>
-                                                <li><a href="#">Chaina</a></li>
-                                                <li><a href="#">India</a></li>
-                                                <li><a href="#">Afganistan</a></li>
-                                                <li><a href="#">Sri Lanka</a></li>
-                                                <li><a href="#">Nepal</a></li>
-                                                <li><a href="#">Bhutan</a></li>
-                                            </ul>
-                                            <ul class="single-mega cn-col-4">
-                                                <li class="title">USA &amp; Canada</li>
-                                                <li><a href="#">California</a></li>
-                                                <li><a href="#">Florida</a></li>
-                                                <li><a href="#">Alabama</a></li>
-                                                <li><a href="#">New Yorks</a></li>
-                                                <li><a href="#">Texas</a></li>
-                                                <li><a href="#">Lowa</a></li>
-                                                <li><a href="#">Montana</a></li>
-                                            </ul>
-                                        </div>
-                                    </li>
-                                    <li><a href="#">Local News</a></li>
-                                    <li><a href="#">Pages</a>
-                                        <ul class="dropdown">
-                                            <li><a href="index.html">Home</a></li>
-                                            <li><a href="catagory.html">Catagory</a></li>
-                                            <li><a href="single-post.html">Single Post</a></li>
-                                            <li><a href="contact.html">Contact</a></li>
-                                            <li><a href="elements.html">Elements</a></li>
-                                        </ul>
-                                    </li>
-                                    <li><a href="#">Sport</a>
-                                        <ul class="dropdown">
-                                            <li><a href="#">Archery</a></li>
-                                            <li><a href="#">Badminton</a></li>
-                                            <li><a href="#">Baseball</a></li>
-                                            <li><a href="#">Boxing</a></li>
-                                            <li><a href="#">Climbing</a></li>
-                                            <li><a href="#">Cricket</a></li>
-                                            <li><a href="#">Football</a></li>
-                                        </ul>
-                                    </li>
-                                    <li><a href="#">Lifestyle</a></li>
-                                </ul>
-
-                                <!-- Header Add Area -->
-                                <div class="header-add-area">
-                                    <a href="#">
-                                       <img src="img/bg-img/add.png" alt="">
-                                    </a>
-                                </div>
-                            </div>
-                            <!-- Nav End -->
-
-                        </div>
-                    </nav>
-                </div>
-            </div>
-        </div>
-    </header>
-    <!-- ##### Header Area End ##### -->
-
-    <!-- ##### Breaking News Area Start ##### -->
-    <div class="site-container">
-
-  <div class="card card--glass">
-    <p>A glass-like card to demonstrate the <strong>Glassmorphism UI design</strong> trend.</p>
-    <p class="card-footer">Created by Rahul C.</p>
+<!-- Preloader -->
+<div class="preloader">
+  <div class="lds-ellipsis">
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
   </div>
-
 </div>
-    <section class="breaking-news-area clearfix">
-        <div class="container-fluid">
-            <div class="row">
-                <div class="col-12">
-                    <!-- Breaking News Widget -->
-                    <div class="breaking-news-ticker d-flex flex-wrap align-items-center">
-                        <div class="title">
-                            <h6>Trending</h6>
-                        </div>
-                        <div id="breakingNewsTicker" class="ticker">
-                            <ul>
-                                <li><a href="#">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec malesuada lorem maximus mauris scelerisque, at rutrum nulla dictum.</a></li>
-                                <li><a href="#">Welcome to Colorlib Family.</a></li>
-                                <li><a href="#">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec malesuada lorem maximus mauris scelerisque</a></li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-    <!-- ##### Breaking News Area End ##### -->
+<!-- Preloader End --> 
 
-    <!-- ##### Post Details Title Area Start ##### -->
-    <div class="post-details-title-area bg-overlay clearfix" style="background-image: url(img/bg-img/22.jpg)">
-        <div class="container-fluid h-100">
-            <div class="row h-100 align-items-center">
-                <div class="col-12 col-lg-8">
-                    <!-- Post Content -->
-                    <div class="post-content">
-                        <p class="tag"><span>Local News</span></p>
-                        <p class="post-title">Live out your Mario Kart dreams on the streets of Tokyo</p>
-                        <div class="d-flex align-items-center">
-                            <span class="post-date mr-30">June 20, 2018</span>
-                            <span class="post-date">By Michael Smith</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
+<!-- Document Wrapper   
+=============================== -->
+<div id="main-wrapper"> 
+  
+  <!-- Header
+  ============================ -->
+  <header id="header" class="sticky-top"> 
+    <!-- Navbar -->
+<nav class="primary-menu navbar navbar-expand-lg bg-dark navbar-dark" style="min-height:56px;">
+<div class="d-flex align-items-center justify-content-between px-3 w-100" style="height:56px;">
+        <!-- Sidebar Toggler -->
+		<button id="sidebarCollapse" class="navbar-toggler d-block d-md-none" type="button"><span></span><span class="w-75"></span><span class="w-50"></span></button>
+		
+		<!-- Logo --> 
+        <a class="logo ml-md-3" href="index.html" title="iDocs Template"> <img src="assets/images/logo.png" alt="iDocs Template"/> </a> 
+		<span class="text-2 ml-2">v1.0</span> 
+        <!-- Logo End -->
+        
+		<!-- Navbar Toggler -->
+		<button class="navbar-toggler ml-auto" type="button" data-toggle="collapse" data-target="#header-nav"><span></span><span></span><span></span></button>
+        
+		<div id="header-nav" class="collapse navbar-collapse justify-content-end">
+          <ul class="navbar-nav">
+            <li class="dropdown"> <a class="dropdown-toggle" href="#">Dropdown</a>
+              <ul class="dropdown-menu">
+                <li><a class="dropdown-item" href="#">Action</a></li>
+                <li class="dropdown"><a class="dropdown-item dropdown-toggle" href="#">Dropdown Action</a>
+                  <ul class="dropdown-menu">
+                    <li><a class="dropdown-item" href="index.html">Action</a></li>
+                    <li><a class="dropdown-item" href="feature-header-dark.html">Another Action</a></li>
+                    <li><a class="dropdown-item" href="feature-header-primary.html">Something Else Here</a></li>
+                    <li><a class="dropdown-item" href="index-2.html">Another Link</a></li>
+                  </ul>
+                </li>
+                <li><a class="dropdown-item" href="#">Another Action</a>
+                <li><a class="dropdown-item" href="#">Something Else Here</a></li>
+              </ul>
+            </li>
+            <li><a target="_blank" href="#">Other Template</a></li>
+            <li><a target="_blank" href="#">Support</a></li>
+          </ul>
         </div>
+        <ul class="social-icons social-icons-sm ml-lg-2 mr-2">
+          <li class="social-icons-twitter"><a data-toggle="tooltip" href="#" target="_blank" title="" data-original-title="Twitter"><i class="fab fa-twitter"></i></a></li>
+          <li class="social-icons-facebook"><a data-toggle="tooltip" href="#" target="_blank" title="" data-original-title="Facebook"><i class="fab fa-facebook-f"></i></a></li>
+          <li class="social-icons-dribbble"><a data-toggle="tooltip" href="#" target="_blank" title="" data-original-title="Dribbble"><i class="fab fa-dribbble"></i></a></li>
+        </ul>
+      </div>
+    </nav>
+    <!-- Navbar End --> 
+  </header>
+  <!-- Header End --> 
+  
+  <!-- Content
+  ============================ -->
+  <div id="content" role="main">
+    
+	<!-- Sidebar Navigation
+	============================ -->
+	<div class="idocs-navigation bg-dark docs-navigation-dark">
+  <ul class="nav flex-column">
+    <li class="nav-item">
+      <a class="nav-link has-submenu" href="#">Cyberepo</a>
+      <ul class="nav flex-column submenu">
+	<li class="nav-item">
+	<a class="nav-link has-submenu" href="#">Cyber Domains</a>
+	<ul class="nav flex-column submenu">
+	<li class="nav-item">
+	<a class="nav-link" href="#fundamental-concepts">Fundamental Concepts</a>
+	</li>
+        <li class="nav-item">
+	<a class="nav-link" href="#career-pathways">Career Pathways</a>
+	</li>
+        <li class="nav-item">
+	<a class="nav-link" href="#cloud-security">Cloud Security</a>
+	</li>
+        <li class="nav-item">
+	<a class="nav-link" href="#cyber-defense">Cyber Defense</a>
+	</li>
+        <li class="nav-item">
+	<a class="nav-link" href="#devsecops">DevSecOps</a>
+	</li>
+        <li class="nav-item">
+	<a class="nav-link" href="#digital-forensics">Digital Forensics</a>
+	</li>
+        <li class="nav-item">
+	<a class="nav-link" href="#grc">Governance, Risk & Compliance</a>
+	</li>
+	<li class="nav-item">
+	<a class="nav-link" href="#incident-response">Incident Response</a>
+	</li>
+	<li class="nav-item">
+	<a class="nav-link" href="#osint">OSINT</a>
+	</li>
+	<li class="nav-item">
+	<a class="nav-link" href="#penetration-testing">Penetration Testing</a>
+	</li>
+	<li class="nav-item">
+	<a class="nav-link" href="#red-team">Red Team</a>
+	</li>
+	<li class="nav-item">
+	<a class="nav-link" href="#reverse-engineering">Reverse Engineering</a>
+	</li>
+	<li class="nav-item">
+	<a class="nav-link" href="#secure-software-development">Secure Software Development</a>
+	</li>
+	<li class="nav-item">
+	<a class="nav-link" href="#threat-hunting">Threat Hunting</a>
+	</li>
+	<li class="nav-item">
+	<a class="nav-link" href="#threat-intelligence">Threat Intelligence</a>
+	</li>
+	<li class="nav-item">
+	<a class="nav-link" href="#vulnerability-research">Vulnerability Research</a>
+	</li>
+      </ul>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link has-submenu" href="#">Layout</a>
+      <ul class="nav flex-column submenu">
+        <li class="nav-item"><a class="nav-link" href="#idocs_header">Header</a></li>
+        <li class="nav-item"><a class="nav-link" href="#idocs_navbar">Navbar</a></li>
+        <li class="nav-item"><a class="nav-link" href="#idocs_sidebar">Sidebar</a></li>
+        <li class="nav-item"><a class="nav-link" href="#idocs_footer">Footer</a></li>
+        <li class="nav-item"><a class="nav-link" href="#idocs_box_layout">Box Layout</a></li>
+      </ul>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link has-submenu" href="#">Content</a>
+      <ul class="nav flex-column submenu">
+        <li class="nav-item"><a class="nav-link" href="#idocs_typography">Typography</a></li>
+        <li class="nav-item"><a class="nav-link" href="#idocs_code">Code</a></li>
+        <li class="nav-item"><a class="nav-link" href="#idocs_table">Table</a></li>
+        <li class="nav-item"><a class="nav-link" href="#idocs_icons">Icons</a></li>
+        <li class="nav-item"><a class="nav-link" href="#idocs_image">Image</a></li>
+        <li class="nav-item"><a class="nav-link" href="#idocs_video">Video</a></li>
+      </ul>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link has-submenu" href="#">Components</a>
+      <ul class="nav flex-column submenu">
+        <li class="nav-item"><a class="nav-link" href="#idocs_accordion">Accordion</a></li>
+        <li class="nav-item"><a class="nav-link" href="#idocs_tabs">Tabs</a></li>
+        <li class="nav-item"><a class="nav-link" href="#idocs_social_icon">Social Icon</a></li>
+        <li class="nav-item"><a class="nav-link" href="#idocs_helper_classes">Helper Classes</a></li>
+      </ul>
+    </li>
+    <li class="nav-item"><a class="nav-link" href="#idocs_faq">FAQ</a></li>
+    <li class="nav-item"><a class="nav-link" href="#idocs_source_credits">Source & Credits</a></li>
+    <li class="nav-item"><a class="nav-link" href="#idocs_support">Support</a></li>
+    <li class="nav-item"><a class="nav-link" href="#idocs_templates">More Templates</a></li>
+    <li class="nav-item">
+      <a class="nav-link has-submenu" href="#">Changelog</a>
+      <ul class="nav flex-column submenu">
+        <li class="nav-item"><a class="nav-link" href="#v1-1">v1.1</a></li>
+        <li class="nav-item"><a class="nav-link" href="#v1-0">v1.0</a></li>
+      </ul>
+    </li>
+  </ul>
+</div>
+    
+    <!-- Docs Content
+	============================ -->
+    <div class="idocs-content">
+    <article class="blog-post my-5 py-4 px-md-5 shadow rounded bg-dark text-light">
+    <div class="card">
+      <header>
+        <h1 class="mb-3">[Your Blog Post Title Here]</h1>
+        <div class="mb-3 text-muted">
+          <span>by <b>mindhackdiva</b></span> |
+          <span>July 2025</span>
+        </div>
+      </header>
+<img src="https://i.imgur.com/dhDVMZZ.gif" style="display:block; margin: 18px auto; width: 220px; height: auto;">
+      <section>
+        <p class="lead">
+          Welcome to your first HackHerWay blog post! This area supports Markdown, code blocks, images, and more. Use this section to introduce your topic and grab the reader’s attention.
+        </p>
+        <h2>Section Heading Example</h2>
+        <p>
+          Add paragraphs, images, <b>formatted text</b>, or even code:
+        </p>
+        <pre><code>import this
+print("Hello, world!")</code></pre>
+        <img src="https://i.imgur.com/dhDVMZZ.gif" alt="Sample GIF" style="display:block; margin:30px auto; width:140px;">
+        <blockquote class="blockquote mt-4">
+          <p class="mb-0">"Knowledge shared is power multiplied."</p>
+        </blockquote>
+        <hr>
+        <p>Write more content here!</p>
+      </section>
+      <footer class="pt-4 mt-5 border-top text-right text-muted small">
+        <span>Last updated July 2025</span>
+      </footer>
+    </article>
+  </div>
+</div>
+            
+		
+  <!-- Content end --> 
+	
+  
+  <!-- Footer
+  ============================ -->
+  <footer id="footer" class="section bg-dark footer-text-light">
+    <div class="container">
+      <ul class="social-icons social-icons-lg social-icons-muted justify-content-center mb-3">
+        <li><a data-toggle="tooltip" href="#" target="_blank" title="" data-original-title="Twitter"><i class="fab fa-twitter"></i></a></li>
+        <li><a data-toggle="tooltip" href="#" target="_blank" title="" data-original-title="Facebook"><i class="fab fa-facebook-f"></i></a></li>
+        <li><a data-toggle="tooltip" href="#" target="_blank" title="" data-original-title="Dribbble"><i class="fab fa-dribbble"></i></a></li>
+        <li><a data-toggle="tooltip" href="#" target="_blank" title="" data-original-title="GitHub"><i class="fab fa-github"></i></a></li>
+      </ul>
+      <p class="text-center">Copyright &copy; 2025 <a href="https://d0midigi.github.io">hackherway</a>. Null Rights Reserved.</p>
+	  <p class="text-2 text-center mb-0">Designed &amp; Developed with ❤️ by mindhackdiva | d0midigi | a08🩷s02:j10💙b25:d08💚k14 | <a class="btn-link" target="_blank" href="http://www.harnishdesign.net/">HarnishDesign</a>.</p>
     </div>
-    <!-- ##### Post Details Title Area End ##### -->
+  </footer>
+  <!-- Footer end -->
+  
+</div>
+<!-- Document Wrapper end --> 
 
-    <!-- ##### Post Details Area Start ##### -->
-    <section class="post-news-area section-padding-100-0 mb-70">
-        <div class="container">
-            <div class="row justify-content-center">
-                <!-- Post Details Content Area -->
-                <div class="col-12 col-lg-8">
-                    <div class="post-details-content mb-100">
-                        <p>Nullam lacinia ex eleifend orci porttitor, suscipit interdum augue condimentum. Etiam pretium turpis eget nibh laoreet iaculis. Proin ac urna at lectus volutpat lobortis. Vestibulum venenatis iaculis diam vitae lobortis. Donec tincidunt viverra elit, sed consectetur est pr etium ac.</p>
-                        <p>Mauris nec mauris tellus. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed elit nisl, faucibus eu tempus vel, imperdiet at felis. Sed sed nibh et augue feugiat pharetra. Praesent ultrices nec tortor et gravida. Sed id rhoncus est. Interdum et malesuada fames ac ante ipsum primis in faucibus. Curabitur vitae luctus turpis. Maecenas diam ex, mattis vel dolor ut, fermentum consectetur ex.</p>
-                        <img class="mb-30" src="img/bg-img/31.jpg" alt="">
-                        <p>Nullam lacinia ex eleifend orci porttitor, suscipit interdum augue condimentum. Etiam pretium turpis eget nibh laoreet iaculis. Proin ac urna at lectus volutpat lobortis. Vestibulum venenatis iaculis diam vitae lobortis. Donec tincidunt viverra elit, sed consectetur est pr etium ac.</p>
-                        <p>Mauris nec mauris tellus. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed elit nisl, faucibus eu tempus vel, imperdiet at felis. Sed sed nibh et augue feugiat pharetra. Praesent ultrices nec tortor et gravida. Sed id rhoncus est. Interdum et malesuada fames ac ante ipsum primis in faucibus. Curabitur vitae luctus turpis. Maecenas diam ex, mattis vel dolor ut, fermentum consectetur ex. </p>
-                        <h5 class="mb-30">A good news after all</h5>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed elit nisl, faucibus eu tempus vel, imperdiet at felis. Sed sed nibh et augue feugiat pharetra. Praesent ultrices nec tortor et gravida. Sed id rhoncus est. Interdum et malesuada fames ac ante ipsum primis in faucibus. Curabitur vitae luctus turpis. Maecenas diam ex, mattis vel dolor ut, fermentum consectetur ex.</p>
-                    </div>
+<!-- Back To Top --> 
+<a id="back-to-top" data-toggle="tooltip" title="Back to Top" href="javascript:void(0)"><i class="fa fa-chevron-up"></i></a> 
 
-                    <!-- Comment Area Start -->
-                    <div class="comment_area clearfix mb-100">
-                        <h4 class="mb-50">Comments</h4>
+<!-- JavaScript
+============================ -->
+<script src="assets/vendor/jquery/jquery.min.js"></script> 
+<script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script> 
+<!-- Highlight JS -->
+<script src="assets/vendor/highlight.js/highlight.min.js"></script> 
+<!-- Easing --> 
+<script src="assets/vendor/jquery.easing/jquery.easing.min.js"></script> 
+<!-- Magnific Popup --> 
+<script src="assets/vendor/magnific-popup/jquery.magnific-popup.min.js"></script> 
+<!-- Custom Script -->
+<script src="assets/js/theme.js"></script>
+<script>
+/* $('.idocs-navigation .has-submenu').on('click', function(e) {
+  e.preventDefault();
+  var $parent = $(this).parent();
+  // Close others:
+  $parent.siblings('.open').removeClass('open');
+  // Toggle this one:
+  $parent.toggleClass('open');
+}); */
+</script>
+	<!-- <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script> -->
+<script>
+/* $('.idocs-navigation .has-submenu').on('click', function(e) {
+  e.preventDefault();
+  var $parent = $(this).parent();
+  // Close all other open submenus:
+  $parent.siblings('.open').removeClass('open');
+  // Toggle this one:
+  $parent.toggleClass('open');
+}); /*
+</script>
+<script>
+/* document.addEventListener("DOMContentLoaded", function () {
+  // Toggle open class for sidebar navigation
+  document.querySelectorAll('.idocs-navigation .has-submenu').forEach(function (el) {
+    el.addEventListener('click', function (e) {
+      e.preventDefault();
+      const parent = this.parentElement;
+      // If accordion style: close others
+      document.querySelectorAll('.idocs-navigation .nav-item.open').forEach(function (openItem) {
+        if (openItem !== parent) {
+          openItem.classList.remove('open');
+        }
+      });
+      parent.classList.toggle('open');
+    });
+  });
+}); /*
+</script>
+<script>
+/* document.addEventListener("DOMContentLoaded", function () {
+  document.querySelectorAll('.idocs-navigation .has-submenu').forEach(function(link) {
+    link.addEventListener('click', function(e) {
+      // Prevent hash links from jumping
+      if (this.getAttribute('href') === '#') e.preventDefault();
+      var parent = this.parentElement;
+      // Accordion style: close all siblings at same level
+      var siblings = Array.from(parent.parentElement.children).filter(
+        li => li !== parent && li.classList.contains('nav-item')
+      );
+      siblings.forEach(li => li.classList.remove('open'));
+      // Toggle this
+      parent.classList.toggle('open');
+    });
+  });
+}); /*
+</script>
+<script>
+/* document.addEventListener("DOMContentLoaded", function () {
+  // For every link with has-submenu class
+  document.querySelectorAll('.idocs-navigation .has-submenu').forEach(function(link) {
+    link.addEventListener('click', function(e) {
+      // Prevent navigation if href="#" or empty
+      if (this.getAttribute('href') === "#" || !this.getAttribute('href')) e.preventDefault();
+      var parent = this.parentElement;
+      // If already open, just close
+      var wasOpen = parent.classList.contains('open');
+      // Close all sibling .nav-item.open at this level (accordion behavior)
+      Array.from(parent.parentElement.children).forEach(function(sibling) {
+        if (sibling !== parent && sibling.classList.contains('open')) {
+          sibling.classList.remove('open');
+        }
+      });
+      // Toggle this one
+      if (!wasOpen) parent.classList.add('open');
+      else parent.classList.remove('open');
+    });
+  });
+}); /*
 
-                        <ol>
-                            <!-- Single Comment Area -->
-                            <li class="single_comment_area">
-                                <!-- Comment Content -->
-                                <div class="comment-content d-flex">
-                                    <!-- Comment Author -->
-                                    <div class="comment-author">
-                                        <img src="img/bg-img/32.jpg" alt="author">
-                                    </div>
-                                    <!-- Comment Meta -->
-                                    <div class="comment-meta">
-                                        <div class="d-flex">
-                                            <a href="#" class="post-author">Maria Williams</a>
-                                            <a href="#" class="post-date">June 23, 2018 </a>
-                                            <a href="#" class="reply">Reply</a>
-                                        </div>
-                                        <p>Consectetur adipiscing elit. Praesent vel tortor facilisis, volutpat nulla placerat, tinci dunt mi. Nullam vel orci dui. Su spendisse sit amet laoreet neque. Fusce sagittis sus cipit sem a consequat.</p>
-                                    </div>
-                                </div>
-                                <ol class="children">
-                                    <li class="single_comment_area">
-                                        <!-- Comment Content -->
-                                        <div class="comment-content d-flex">
-                                            <!-- Comment Author -->
-                                            <div class="comment-author">
-                                                <img src="img/bg-img/33.jpg" alt="author">
-                                            </div>
-                                            <!-- Comment Meta -->
-                                            <div class="comment-meta">
-                                                <div class="d-flex">
-                                                    <a href="#" class="post-author">Christian Williams</a>
-                                                    <a href="#" class="post-date">April 15, 2018</a>
-                                                    <a href="#" class="reply">Reply</a>
-                                                </div>
-                                                <p>Consectetur adipiscing elit. Praesent vel tortor facilisis, Nullam vel orci dui. Su spendisse sit amet laoreet neque.</p>
-                                            </div>
-                                        </div>
-                                    </li>
-                                </ol>
-                            </li>
+</script>
+<script>
+$(document).ready(function() {
+  $('.idocs-navigation .has-submenu').on('click', function(e) {
+    e.preventDefault();
+    var $parent = $(this).parent();
+    // Accordion: close all siblings
+    $parent.siblings('.open').removeClass('open');
+    $parent.toggleClass('open');
+  });
+});
+</script>
 
-                            <!-- Single Comment Area -->
-                            <li class="single_comment_area">
-                                <!-- Comment Content -->
-                                <div class="comment-content d-flex">
-                                    <!-- Comment Author -->
-                                    <div class="comment-author">
-                                        <img src="img/bg-img/32.jpg" alt="author">
-                                    </div>
-                                    <!-- Comment Meta -->
-                                    <div class="comment-meta">
-                                        <div class="d-flex">
-                                            <a href="#" class="post-author">Lisa Moore</a>
-                                            <a href="#" class="post-date">June 23, 2018</a>
-                                            <a href="#" class="reply">Reply</a>
-                                        </div>
-                                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent vel tortor facilisis, volutpat nulla placerat, tincidunt mi. Nullam vel orci dui. Su spendisse sit amet laoreet neque. Fusce sagittis suscipit.</p>
-                                    </div>
-                                </div>
-                            </li>
-                        </ol>
-                    </div>
-
-                    <div class="post-a-comment-area mb-30 clearfix">
-                        <h4 class="mb-50">Leave a reply</h4>
-
-                        <!-- Reply Form -->
-                        <div class="contact-form-area">
-                            <form action="#" method="post">
-                                <div class="row">
-                                    <div class="col-12 col-lg-6">
-                                        <input type="text" class="form-control" id="name" placeholder="Name*">
-                                    </div>
-                                    <div class="col-12 col-lg-6">
-                                        <input type="email" class="form-control" id="email" placeholder="Email*">
-                                    </div>
-                                    <div class="col-12">
-                                        <input type="text" class="form-control" id="subject" placeholder="Website">
-                                    </div>
-                                    <div class="col-12">
-                                        <textarea name="message" class="form-control" id="message" cols="30" rows="10" placeholder="Message"></textarea>
-                                    </div>
-                                    <div class="col-12">
-                                        <button class="btn newsbox-btn mt-30" type="submit">Submit Comment</button>
-                                    </div>
-                                </div>
-                            </form>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Sidebar Widget -->
-                <div class="col-12 col-sm-9 col-md-6 col-lg-4">
-                    <div class="sidebar-area">
-
-                        <!-- Newsletter Widget -->
-                        <div class="single-widget-area newsletter-widget mb-30">
-                            <h4>Subscribe to our newsletter</h4>
-                            <form action="#" method="post">
-                                <input type="email" name="nl-email" id="nlemail" placeholder="Your E-mail">
-                                <button type="submit" class="btn newsbox-btn w-100">Subscribe</button>
-                            </form>
-                            <p class="mt-30">Nullam lacinia ex eleifend orci porttitor, suscipit interdum augue condimentum. Etiam pretium turpis eget nibh . volutpat lobortis.</p>
-                        </div>
-
-                        <!-- Add Widget -->
-                        <div class="single-widget-area add-widget mb-30">
-                            <a href="#">
-                                <img src="img/bg-img/add3.png" alt="">
-                            </a>
-                        </div>
-
-                        <!-- Latest News Widget -->
-                        <div class="single-widget-area news-widget mb-30">
-                            <h4>Latest News</h4>
-
-                            <!-- Single News Area -->
-                            <div class="single-blog-post d-flex style-4 mb-30">
-                                <!-- Blog Thumbnail -->
-                                <div class="blog-thumbnail">
-                                    <a href="#"><img src="img/bg-img/16.jpg" alt=""></a>
-                                </div>
-
-                                <!-- Blog Content -->
-                                <div class="blog-content">
-                                    <span class="post-date">June 20, 2018</span>
-                                    <a href="#" class="post-title">Nearly a quarter have no emergency savings</a>
-                                </div>
-                            </div>
-
-                            <!-- Single News Area -->
-                            <div class="single-blog-post d-flex style-4 mb-30">
-                                <!-- Blog Thumbnail -->
-                                <div class="blog-thumbnail">
-                                    <a href="#"><img src="img/bg-img/17.jpg" alt=""></a>
-                                </div>
-
-                                <!-- Blog Content -->
-                                <div class="blog-content">
-                                    <span class="post-date">June 20, 2018</span>
-                                    <a href="#" class="post-title">Nearly a quarter have no emergency savings</a>
-                                </div>
-                            </div>
-
-                            <!-- Single News Area -->
-                            <div class="single-blog-post d-flex style-4 mb-30">
-                                <!-- Blog Thumbnail -->
-                                <div class="blog-thumbnail">
-                                    <a href="#"><img src="img/bg-img/18.jpg" alt=""></a>
-                                </div>
-
-                                <!-- Blog Content -->
-                                <div class="blog-content">
-                                    <span class="post-date">June 20, 2018</span>
-                                    <a href="#" class="post-title">Top bitcoin exchange says over $30 million stolen</a>
-                                </div>
-                            </div>
-
-                            <!-- Single News Area -->
-                            <div class="single-blog-post d-flex style-4 mb-30">
-                                <!-- Blog Thumbnail -->
-                                <div class="blog-thumbnail">
-                                    <a href="#"><img src="img/bg-img/19.jpg" alt=""></a>
-                                </div>
-
-                                <!-- Blog Content -->
-                                <div class="blog-content">
-                                    <span class="post-date">June 20, 2018</span>
-                                    <a href="#" class="post-title">Top bitcoin exchange says over $30 million stolen</a>
-                                </div>
-                            </div>
-
-                            <!-- Single News Area -->
-                            <div class="single-blog-post d-flex style-4 mb-30">
-                                <!-- Blog Thumbnail -->
-                                <div class="blog-thumbnail">
-                                    <a href="#"><img src="img/bg-img/20.jpg" alt=""></a>
-                                </div>
-
-                                <!-- Blog Content -->
-                                <div class="blog-content">
-                                    <span class="post-date">June 20, 2018</span>
-                                    <a href="#" class="post-title">Dow falls 287 points as trade war fears escalate</a>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Single Widget Area -->
-                        <div class="single-widget-area">
-
-                            <!-- Single News Area -->
-                            <div class="single-blog-post style-2 mb-5">
-                                <!-- Blog Thumbnail -->
-                                <div class="blog-thumbnail">
-                                    <a href="#"><img src="img/bg-img/14.jpg" alt=""></a>
-                                </div>
-
-                                <!-- Blog Content -->
-                                <div class="blog-content">
-                                    <span class="post-date">June 20, 2018</span>
-                                    <a href="#" class="post-title">Elon Musk: Tesla worker admitted to sabotage</a>
-                                    <a href="#" class="post-author">By Michael Smith</a>
-                                </div>
-                            </div>
-
-                            <!-- Single News Area -->
-                            <div class="single-blog-post style-2 mb-5">
-                                <!-- Blog Thumbnail -->
-                                <div class="blog-thumbnail">
-                                    <a href="#"><img src="img/bg-img/15.jpg" alt=""></a>
-                                </div>
-
-                                <!-- Blog Content -->
-                                <div class="blog-content">
-                                    <span class="post-date">June 20, 2018</span>
-                                    <a href="#" class="post-title">Rachel Sm ith breaks down while discussing border crisis</a>
-                                    <a href="#" class="post-author">By Michael Smith</a>
-                                </div>
-                            </div>
-                        </div>
-
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-    <!-- ##### Post Details Area End ##### -->
-
-    <!-- ##### Footer Area Start ##### -->
-    <footer class="footer-area">
-        <!-- Footer Logo -->
-        <div class="footer-logo mb-100">
-            <a href="index.html"><img src="img/core-img/logo.png" alt=""></a>
-        </div>
-        <!-- Footer Content -->
-        <div class="container">
-            <div class="row">
-                <div class="col-12">
-                    <div class="footer-content text-center">
-                        <!-- Footer Nav -->
-                        <div class="footer-nav">
-                            <ul>
-                                <li><a href="#">Contact Us</a></li>
-                                <li><a href="#">Closed Captioning</a></li>
-                                <li><a href="#">Site Map</a></li>
-                            </ul>
-                        </div>
-                        <!-- Social Info -->
-                        <div class="footer-social-info">
-                            <a href="#" data-toggle="tooltip" data-placement="top" title="pinterest"><i class="fa fa-pinterest" aria-hidden="true"></i></a>
-                            <a href="#" data-toggle="tooltip" data-placement="top" title="facebook"><i class="fa fa-facebook" aria-hidden="true"></i></a>
-                            <a href="#" data-toggle="tooltip" data-placement="top" title="twitter"><i class="fa fa-twitter" aria-hidden="true"></i></a>
-                            <a href="#" data-toggle="tooltip" data-placement="top" title="dribbble"><i class="fa fa-dribbble" aria-hidden="true"></i></a>
-                            <a href="#" data-toggle="tooltip" data-placement="top" title="behance"><i class="fa fa-behance" aria-hidden="true"></i></a>
-                            <a href="#" data-toggle="tooltip" data-placement="top" title="linkedin"><i class="fa fa-linkedin" aria-hidden="true"></i></a>
-                        </div>
-
-                        <p class="mb-15">Nullam lacinia ex eleifend orci porttitor, suscipit interdum augue condimentum. Etiam pretium turpis eget nibh laoreet iaculis. Proin ac urna at lectus volutpat lobortis. Vestibulum venenatis iaculis diam vitae lobortis. Donec tincidunt viverra elit, sed consectetur est pr etium ac. Mauris nec mauris tellus. </p>
-
-                        <!-- Copywrite Text -->
-                        <p class="copywrite-text"><a href="#">
-<!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved | This template is made with <i class="fa fa-heart-o" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">Colorlib</a>
-<!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. --></p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </footer>
-    <!-- ##### Footer Area Start ##### -->
-
-    <!-- ##### All Javascript Script ##### -->
-    <!-- jQuery-2.2.4 js -->
-    <script src="js/jquery/jquery-2.2.4.min.js"></script>
-    <!-- Popper js -->
-    <script src="js/bootstrap/popper.min.js"></script>
-    <!-- Bootstrap js -->
-    <script src="js/bootstrap/bootstrap.min.js"></script>
-    <!-- All Plugins js -->
-    <script src="js/plugins/plugins.js"></script>
-    <!-- Active js -->
-    <script src="js/active.js"></script>
 </body>
-
 </html>
