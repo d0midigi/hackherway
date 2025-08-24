@@ -44,6 +44,11 @@
   content: "˅";
   transform: rotate(180deg);
 }
+.layout {
+  width: 100%;
+  display: flex;
+  gap: 16px;
+}
 .card-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(270px, 1fr));
@@ -110,7 +115,7 @@
       width: 600px;
       height: 600px;
       z-index: 0;
-      opacity: 0.08;
+      opacity: 0.04;
       transform: translate(-50%, -50%);
       pointer-events: none;
       background: url('https://i.imgur.com/662Rsv0.png') no-repeat center center;
@@ -324,6 +329,12 @@
 					<li><strong>Author:</strong> <a href="#" target="_blank">mindhack|d0mi|invoke-theme</a></li>
 				</ul>
 			</div>
+
+			<section class="layout">
+  <div>1</div>
+  <div>2</div>
+  <div>3</div>
+</section>
 			<div class="col-sm-6 col-lg-4">
 				<ul class="list-unstyled">
 					<li><strong class="font-weight-700">Created:</strong> 8 April, 2020</li>
@@ -1699,3 +1710,4 @@ $(document).ready(function() {
 
 </body>
 </html>
+
