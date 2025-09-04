@@ -791,10 +791,53 @@
 		============================ -->
         <section id="idocs_adrecon">
           <h2>AD Recon</h2>
-          <p class="lead">Follow the steps below to setup your site template:</p>
-          <ol>
-            <li>Unzip the downloaded package and open the <strong>/HTML</strong> folder to find all the template files. You will need to upload these files to your hosting web server using FTP or localhost in order to use it on your website.</li>
-            <li>Below is the folder structure and needs to be uploaded to your website or localhost root directory:
+          <p class="lead">Active Directory reconnaissance is the systematic, pre-exploitation discovery of an AD environment's logical layout, trust relationships, privilege distrbution, and policy enforcement points. Its purpose is to transform an anonymous foothold-or an unprivileged domain account-into a navigable map that highlights the shortest path to high-value objectives such as Tier 0 assets, sensitive file shares, or cloud synchronization pipelines.</p>
+<br>
+		<p class="lead">Unlike generic network scanning, AD recon abuses the very protocols the directory was built to serve: LDAP, DNS, MS-RPC, SAM-R, and Kerberos. A single LDAP query such as <code>(objectCategory=group)(adminCount=1)</code> immediately reveals all "protected" groups whose members are exempt from default ACL inheritance. A follow-up query against <code>msDS-AllowedToActOnBehalfOfOtherIdentity</code> surfaces Resource-Based Constrained Delegation (RBCD) attack paths without ever touching a workstation. DNS wildcard enumeration <code>(adidnsdump)</code> exposes forgotten test records that point to decommissioned-but still domain-joined-hosts ideal for relay attacks. Kerberos itself leaks intelligence: requesting a TGS (Ticket Granting Service) ticket for every observed SPN (Service Principal Name)<code>GetUserSPNs.py)</code> yields a target list for offline TGS cracking and identifies service accounts that may possess elevated privileges.</p></br><br>
+
+		<p class="lead">Credential hygiene reconnaissance focuses on password policy inference <code>(Get-DomainPolicy),</code> historical password reuse <code>(msDS-KeyCredentialLink),</code> and accounts marked "Password never expires" or "Reversible encryption required." BloodHound (or the SharpHound ingestor) automates much of this by performing LDAP walks, local group enumeration, and remote SAM-R queries, then building a directed graph where nodes are users, groups, and computers, and edges model administrative rights, session placement, and delegation rights. The resulting path queries (e.g., "Shortest path from Domain Users to Domain Admins") convert abstract ACLs (Access Control Lists) into an actual attack ininerary.</p></br><br>
+
+		<p class="lead">Recon also extends to trust topology. Command-line utilities such as <code>nltest/domain_trusts</code> and PowerShell's <code>Get-ADTrust</code> reveal forest, external, and shortcut trusts, their transivity, and whether SID (Session ID) filtering is enabled. Cross-forest SPN (Service Principal Name)<code>Get-DomainUser-SPN-Domain target.com)</code> can identify service accounts in a partner forest that are reachable from the initially compromised domain, paving the way for inter-forest Kerberos delegation attacks.</p></br><br>
+
+		<p class="lead">Operational security (OPSEC) considerations dictate stealth: LDAP queries are batched with page sizes ≤ 500, SAM-R enumeration is throttled to one RID (Relative ID) at a time, and Kerberos pre-authentication is requested only for accounts that are already known to exist (avoiding Event ID 4768 "Kerberos pre-authentication failed" storms). When performed correctly, AD recon leaves minimal forensic aritfacts while providing the adversary-or the red team operator-with a complete blueprint of identity, privilege, and policy that dictates every subsequent move toward domain dominance.</p></br>
+
+<hr class="divider">
+
+<h1>PowerShell Scan</h1>
+<h3>Port Scan</h3>
+			
+<pre><code class="html">&lt;Import-Module Invoke-Portscan.ps1&gt;
+&lt;#&quot;&gt;
+Invoke-Portscan -Hosts "websrv.domain.local,wsus.domain.local,apps.domain.local" -TopPorts 50 echo websrv.domain.local | Invoke-Portscan -oG test.gnmap -f -ports "80,443,8080" Invoke-Portscan -Hosts 172.16.0.0/24 -T 4 -TopPorts 25 -oA localnet #>
+</code></pre>
+
+<hr class="divider">
+
+<p class="lead">
+The above snippet is a minimal usage guide for the PowerShell port-scanning module <code>Invoke-Portscan.ps1,</code> a native-code wrapper around the open-source <code>pscan</code> engine that ships with the PowerSploit post-exploitation framework. In effect, it is a command-line TCP/UDP scanner that runs entirely in-process, requires no administrative privileges on the scanning host, and outputs results in formats compatible with <code>nmap (-oG, -oA)</code> so they can be fed into other tools such as Metasploit, EyeWitness, or BloodHound's session-collection ingestors.</p>
+			
+<ol>
+<li>
+<code>Import-Module Invoke-Portscan.ps1</code> Loads the module into the current run-space. The file contains a compiled C# binary (<code>pscan.dll</code>) that is reflectively injected, giving the attacker a fast, low-profile scanner without dropping <code>nmap.exe</code> to disk.</li>
+	
+<li>
+Comment block <code><# ... #></code>
+<p class="lead">Demonstrates three common scan patterns:</p>
+
+<p class="lead">
+a. <code>Invoke-Portscan -Hosts "websrv.domain.local,wsus.domain.local,apps.domain.local" -TopPorts 50</code><br>
+Resolves the three supplied FQDNs (Fully Qualified Domain Names), then probes each IP for the top 50 most frequently open TCP ports (as ranked by <code>nmap-services</code>), Output is printed to the console in a human-readable table.</p>
+
+<p class="lead">
+b. <code>echo websrv.domain.local | Invoke-Portscan -oG test.gnmap -f ports "80,443,8080"</code><br>
+Pipes a single hostname into the scanner, forces <code>-f</code> a full TCP three-way handshake on ports 80, 443, and 8080, and writes grep-able (<code>-oG</code>) output to <code>test.gnmap.</code> The file can later be parsed with <code>grep</code> or imported into Metasploit's <code>db_import.</code></p>
+
+<p class="lead">
+c. <code>Invoke-Portscan -Hosts 172.16.0.0/24 -T 4- TopPorts 25 -oA localnet</code><br>
+Scans the entire <code>/24</code> subnet using timing template 4 (aggressive: ~1000 packets/second), tests the top 25 TCP ports, and saves results in "all formats" (<code>-oA</code>):<code>localnet.gnmap,</code><code>localnet.xml,</code> and <code>localnet.txt.</code> This is ideal for quickly mapping a newly compromised LAN segment before pivoting deeper into the network abyss.</p>
+	
+<p class="lead">
+In a red team context, the module is typically executed from a non-privleged PowerShell session on a compromised workstation. Because it never calls <code>CreateProcess</code> on <code>nmap.exe,</code> it avoids common application-allowlisting rules and leaves a minimal forensic footprint-only a .NET assembly loaded in memory and a handful of outbound TCP SYN packets that blend into normal workstation network traffic. The resulting port lists are then cross-referenced with BloodHound's session data to identify file servers, WSUS boxes, or SQL listeners that may provide next-hop credentials or relay opportunities.</p></li></ol>
             <ul>
 			<li><code>HTML/assets</code> - Contains all of the assets referenced
 			  <ul>
@@ -2122,5 +2165,6 @@
 <script src="assets/js/theme.js"></script>
 </body>
 </html>
+
 
 
