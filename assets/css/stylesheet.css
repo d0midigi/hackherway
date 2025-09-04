@@ -2951,9 +2951,11 @@ input:-internal-autofill-selected {
   left: -40px;
   border-radius: 4px 0px 0px 4px;
 }
-img[src$=".gif"] {
-  width: 180px !important;
-  height: auto !important;
+.header-gif {
   display: block;
-  margin: 20px auto;
+  width: 100%;          /* fill the column */
+  max-width: 800px;     /* never wider than this */
+  height: auto;         /* keep aspect ratio */
+  margin: 18px auto;    /* centered */
 }
+
