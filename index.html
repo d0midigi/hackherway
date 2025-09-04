@@ -7,14 +7,47 @@
   <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
-  <nav>
-    <h2>Documentation Menu </h2>
-    <a href="#intro">Introduction</a>
-    <a href="#setup">Getting Started</a>
-    <a href="#syntax">Syntax Overview</a>
-    <a href="#examples">Code Examples</a>
-    <a href="#tips">Best Practices</a>
-  </nav>
+<title>Collapsible Vector-style TOC</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <aside class="vector-toc-sidebar">
+    <div class="vector-dropdown-content">
+      <div id="vector-page-titlebar-toc-unpinned-container" class="vector-unpinned-container">
+        <div id="vector-toc" class="vector-toc vector-pinnable-element">
+
+          <!-- heading row that toggles the tree -->
+          <div class="vector-pinnable-header vector-toc-pinnable-header">
+            <h2 class="vector-pinnable-header-label">Contents</h2>
+            <!-- animated trident/chevron -->
+            <button id="toc-toggle" class="trident" aria-expanded="false"></button>
+          </div>
+
+          <!-- the actual list (lorem-ipsum sections) -->
+          <ul class="vector-toc-contents" id="mw-panel-toc-list">
+            <li class="vector-toc-list-item vector-toc-level-1">
+              <a href="#" class="vector-toc-link"><div class="vector-toc-text"><span>1</span><span>Lorem ipsum</span></div></a>
+              <ul class="vector-toc-list">
+                <li class="vector-toc-list-item vector-toc-level-2"><a href="#"><div class="vector-toc-text"><span>1.1</span><span>Dolor sit amet</span></div></a></li>
+                <li class="vector-toc-list-item vector-toc-level-2"><a href="#"><div class="vector-toc-text"><span>1.2</span><span>Consectetur adipiscing</span></div></a></li>
+              </ul>
+            </li>
+
+            <li class="vector-toc-list-item vector-toc-level-1">
+              <a href="#" class="vector-toc-link"><div class="vector-toc-text"><span>2</span><span>Elit sed do</span></div></a>
+              <ul class="vector-toc-list">
+                <li class="vector-toc-list-item vector-toc-level-2"><a href="#"><div class="vector-toc-text"><span>2.1</span><span>Eiusmod tempor</span></div></a></li>
+                <li class="vector-toc-list-item vector-toc-level-2"><a href="#"><div class="vector-toc-text"><span>2.2</span><span>Incididunt ut labore</span></div></a></li>
+              </ul>
+            </li>
+          </ul>
+
+        </div>
+      </div>
+    </div>
+  </aside>
+
+  <script src="script.js"></script>
   <main>
     <section id="intro">
       <h2>Introduction</h2>
