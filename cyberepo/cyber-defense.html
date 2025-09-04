@@ -1,1 +1,493 @@
 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1.0, shrink-to-fit=no">
+<link href="/hackherway/assets/images/favicon.png" rel="icon" />
+<title>hackherway | cyberepo</title>
+<meta name="description" content="Learn How to HackHerWay - The Hacker Way">
+<meta name="author" content="mindhackdiva | d0midigi">
+
+<!-- Stylesheet
+============================== -->
+<!-- Bootstrap -->
+<link rel="stylesheet" type="text/css" href="/hackherway/assets/vendor/bootstrap/css/bootstrap.min.css" />
+<!-- Font Awesome Icon -->
+<link rel="stylesheet" type="text/css" href="/hackherway/assets/vendor/font-awesome/css/all.min.css" />
+<!-- Magnific Popup -->
+<link rel="stylesheet" type="text/css" href="/hackherway/assets/vendor/magnific-popup/magnific-popup.min.css" />
+<!-- Highlight Syntax -->
+<link rel="stylesheet" type="text/css" href="/hackherway/assets/vendor/highlight.js/styles/github.css" />
+<!-- Custom Stylesheet -->
+<link rel="stylesheet" type="text/css" href="/hackherway/assets/css/stylesheet.css" />
+
+<style>
+/* Hide submenus unless parent is open */
+.idocs-navigation .submenu {
+  display: none;
+  padding-left: 18px;
+}
+.idocs-navigation .nav-item.open > .submenu {
+  display: block;
+}
+
+/* Show arrow for parent items */
+.idocs-navigation .has-submenu:after {
+  content: "›";
+  float: right;
+  font-size: 13px;
+  margin-left: 7px;
+  transition: transform 0.2s;
+}
+.idocs-navigation .nav-item.open > .has-submenu:after {
+  content: "˅";
+  transform: rotate(180deg);
+}
+.card-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(270px, 1fr));
+  gap: 2rem;
+  margin: 2rem 0;
+}
+
+.card {
+  background: #16181c;
+  border-radius: 1.25rem;
+  box-shadow: 0 4px 32px #0008;
+  padding: 2rem 1.5rem 1.5rem 1.5rem;
+  color: #fff;
+  transition: transform 0.15s, box-shadow 0.15s;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.card h3 {
+  font-size: 1.35rem;
+  margin-bottom: 0.8rem;
+  color: #f51994;
+}
+
+.card p {
+  flex: 1;
+  margin-bottom: 1.2rem;
+  color: #dadada;
+}
+
+.card-btn {
+  display: inline-block;
+  background: #f51994;
+  color: #fff;
+  padding: 0.5rem 1.2rem;
+  border-radius: 2rem;
+  font-weight: bold;
+  text-decoration: none;
+  box-shadow: 0 2px 8px #0005;
+  transition: background 0.15s;
+}
+
+.card-btn:hover {
+  background: #a91066;
+}
+
+.card:hover {
+  transform: translateY(-7px) scale(1.025);
+  box-shadow: 0 12px 36px #000a;
+}
+#content {
+  margin-left: 50px;  /* Same as sidebar width */
+	}
+	/* watermark image */
+	body {
+      min-height: 100vh;
+      background: #fff; /* fallback color */
+    }
+    .watermark {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      width: 600px;
+      height: 600px;
+      z-index: 0;
+      opacity: 0.08;
+      transform: translate(-50%, -50%);
+      pointer-events: none;
+      background: url('https://i.imgur.com/662Rsv0.png') no-repeat center center;
+      background-size: contain;
+    }
+    .content {
+      position: relative;
+      z-index: 1;
+      /* so your content sits above the watermark */
+    }
+	.blog-post {
+  background: #181a20;
+  color: #eee;
+  max-width: 760px;
+  margin-left: 32px !important;
+  margin-right: auto;
+  border-radius: 1.3rem;
+  box-shadow: 0 6px 36px #000a;
+  padding: 2.5rem 2rem 2rem 2rem;
+  line-height: 1.8;
+  font-size: 1.14rem;
+}
+.blog-post h1, .blog-post h2, .blog-post h3 { color: #f51994; }
+.blog-post pre { background: #23242b; border-radius: 1em; padding: 1em; color: #f8f8f2; }
+.blog-post img { max-width: 100%; border-radius: 1rem; }
+
+  </style>
+</head>
+<body>
+  <div class="watermark"></div>
+  <div class="content">
+  </div>
+	<!--watermark image -->
+</style>
+</head>
+<body>
+
+<!-- Preloader -->
+<div class="preloader">
+  <div class="lds-ellipsis">
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+  </div>
+</div>
+<!-- Preloader End --> 
+
+<!-- Document Wrapper   
+=============================== -->
+<div id="main-wrapper"> 
+  
+  <!-- Header
+  ============================ -->
+  <header id="header" class="sticky-top"> 
+    <!-- Navbar -->
+<nav class="primary-menu navbar navbar-expand-lg bg-dark navbar-dark" style="min-height:56px;">
+<div class="d-flex align-items-center justify-content-between px-3 w-100" style="height:56px;">
+        <!-- Sidebar Toggler -->
+		<button id="sidebarCollapse" class="navbar-toggler d-block d-md-none" type="button"><span></span><span class="w-75"></span><span class="w-50"></span></button>
+		
+		<!-- Logo --> 
+        <a class="logo ml-md-3" href="index.html" title="iDocs Template"> <img src="/hackherway/assets/images/logo.png" alt="iDocs Template"/> </a> 
+		<span class="text-2 ml-2">v1.0</span> 
+        <!-- Logo End -->
+        
+		<!-- Navbar Toggler -->
+		<button class="navbar-toggler ml-auto" type="button" data-toggle="collapse" data-target="#header-nav"><span></span><span></span><span></span></button>
+        
+		<div id="header-nav" class="collapse navbar-collapse justify-content-end">
+          <ul class="navbar-nav">
+            <li class="dropdown"> <a class="dropdown-toggle" href="#">Dropdown</a>
+              <ul class="dropdown-menu">
+                <li><a class="dropdown-item" href="#">Action</a></li>
+                <li class="dropdown"><a class="dropdown-item dropdown-toggle" href="#">Dropdown Action</a>
+                  <ul class="dropdown-menu">
+                    <li><a class="dropdown-item" href="index.html">Action</a></li>
+                    <li><a class="dropdown-item" href="feature-header-dark.html">Another Action</a></li>
+                    <li><a class="dropdown-item" href="feature-header-primary.html">Something Else Here</a></li>
+                    <li><a class="dropdown-item" href="index-2.html">Another Link</a></li>
+                  </ul>
+                </li>
+                <li><a class="dropdown-item" href="#">Another Action</a>
+                <li><a class="dropdown-item" href="#">Something Else Here</a></li>
+              </ul>
+            </li>
+            <li><a target="_blank" href="#">Other Template</a></li>
+            <li><a target="_blank" href="#">Support</a></li>
+          </ul>
+        </div>
+        <ul class="social-icons social-icons-sm ml-lg-2 mr-2">
+          <li class="social-icons-twitter"><a data-toggle="tooltip" href="#" target="_blank" title="" data-original-title="Twitter"><i class="fab fa-twitter"></i></a></li>
+          <li class="social-icons-facebook"><a data-toggle="tooltip" href="#" target="_blank" title="" data-original-title="Facebook"><i class="fab fa-facebook-f"></i></a></li>
+          <li class="social-icons-dribbble"><a data-toggle="tooltip" href="#" target="_blank" title="" data-original-title="Dribbble"><i class="fab fa-dribbble"></i></a></li>
+        </ul>
+      </div>
+    </nav>
+    <!-- Navbar End --> 
+  </header>
+  <!-- Header End --> 
+  
+  <!-- Content
+  ============================ -->
+  <div id="content" role="main">
+    
+	<!-- Sidebar Navigation
+	============================ -->
+	<div class="idocs-navigation bg-dark docs-navigation-dark">
+  <ul class="nav flex-column">
+    <li class="nav-item">
+      <a class="nav-link has-submenu" href="#">Cyberepo</a>
+      <ul class="nav flex-column submenu">
+	<li class="nav-item">
+	<a class="nav-link has-submenu" href="#">Cyber Domains</a>
+	<ul class="nav flex-column submenu">
+	<li class="nav-item">
+	<a class="nav-link" href="#fundamental-concepts">Fundamental Concepts</a>
+	</li>
+        <li class="nav-item">
+	<a class="nav-link" href="#career-pathways">Career Pathways</a>
+	</li>
+        <li class="nav-item">
+	<a class="nav-link" href="#cloud-security">Cloud Security</a>
+	</li>
+        <li class="nav-item">
+	<a class="nav-link" href="#cyber-defense">Cyber Defense</a>
+	</li>
+        <li class="nav-item">
+	<a class="nav-link" href="#devsecops">DevSecOps</a>
+	</li>
+        <li class="nav-item">
+	<a class="nav-link" href="#digital-forensics">Digital Forensics</a>
+	</li>
+        <li class="nav-item">
+	<a class="nav-link" href="#grc">Governance, Risk & Compliance</a>
+	</li>
+	<li class="nav-item">
+	<a class="nav-link" href="#incident-response">Incident Response</a>
+	</li>
+	<li class="nav-item">
+	<a class="nav-link" href="#osint">OSINT</a>
+	</li>
+	<li class="nav-item">
+	<a class="nav-link" href="#penetration-testing">Penetration Testing</a>
+	</li>
+	<li class="nav-item">
+	<a class="nav-link" href="#red-team">Red Team</a>
+	</li>
+	<li class="nav-item">
+	<a class="nav-link" href="#reverse-engineering">Reverse Engineering</a>
+	</li>
+	<li class="nav-item">
+	<a class="nav-link" href="#secure-software-development">Secure Software Development</a>
+	</li>
+	<li class="nav-item">
+	<a class="nav-link" href="#threat-hunting">Threat Hunting</a>
+	</li>
+	<li class="nav-item">
+	<a class="nav-link" href="#threat-intelligence">Threat Intelligence</a>
+	</li>
+	<li class="nav-item">
+	<a class="nav-link" href="#vulnerability-research">Vulnerability Research</a>
+	</li>
+      </ul>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link has-submenu" href="#">Layout</a>
+      <ul class="nav flex-column submenu">
+        <li class="nav-item"><a class="nav-link" href="#idocs_header">Header</a></li>
+        <li class="nav-item"><a class="nav-link" href="#idocs_navbar">Navbar</a></li>
+        <li class="nav-item"><a class="nav-link" href="#idocs_sidebar">Sidebar</a></li>
+        <li class="nav-item"><a class="nav-link" href="#idocs_footer">Footer</a></li>
+        <li class="nav-item"><a class="nav-link" href="#idocs_box_layout">Box Layout</a></li>
+      </ul>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link has-submenu" href="#">Content</a>
+      <ul class="nav flex-column submenu">
+        <li class="nav-item"><a class="nav-link" href="#idocs_typography">Typography</a></li>
+        <li class="nav-item"><a class="nav-link" href="#idocs_code">Code</a></li>
+        <li class="nav-item"><a class="nav-link" href="#idocs_table">Table</a></li>
+        <li class="nav-item"><a class="nav-link" href="#idocs_icons">Icons</a></li>
+        <li class="nav-item"><a class="nav-link" href="#idocs_image">Image</a></li>
+        <li class="nav-item"><a class="nav-link" href="#idocs_video">Video</a></li>
+      </ul>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link has-submenu" href="#">Components</a>
+      <ul class="nav flex-column submenu">
+        <li class="nav-item"><a class="nav-link" href="#idocs_accordion">Accordion</a></li>
+        <li class="nav-item"><a class="nav-link" href="#idocs_tabs">Tabs</a></li>
+        <li class="nav-item"><a class="nav-link" href="#idocs_social_icon">Social Icon</a></li>
+        <li class="nav-item"><a class="nav-link" href="#idocs_helper_classes">Helper Classes</a></li>
+      </ul>
+    </li>
+    <li class="nav-item"><a class="nav-link" href="#idocs_faq">FAQ</a></li>
+    <li class="nav-item"><a class="nav-link" href="#idocs_source_credits">Source & Credits</a></li>
+    <li class="nav-item"><a class="nav-link" href="#idocs_support">Support</a></li>
+    <li class="nav-item"><a class="nav-link" href="#idocs_templates">More Templates</a></li>
+    <li class="nav-item">
+      <a class="nav-link has-submenu" href="#">Changelog</a>
+      <ul class="nav flex-column submenu">
+        <li class="nav-item"><a class="nav-link" href="#v1-1">v1.1</a></li>
+        <li class="nav-item"><a class="nav-link" href="#v1-0">v1.0</a></li>
+      </ul>
+    </li>
+  </ul>
+</div>
+    
+    <!-- Docs Content
+	============================ -->
+    <div class="idocs-content">
+    <article class="blog-post my-5 py-4 px-md-5 shadow rounded bg-dark text-light">
+    <div class="card">
+      <header>
+        <h1 class="mb-3">[Your Blog Post Title Here]</h1>
+        <div class="mb-3 text-muted">
+          <span>by <b>mindhackdiva</b></span> |
+          <span>July 2025</span>
+        </div>
+      </header>
+<img src="https://i.imgur.com/dhDVMZZ.gif" style="display:block; margin: 18px auto; width: 220px; height: auto;">
+      <section>
+        <p class="lead">
+          Welcome to your first HackHerWay blog post! This area supports Markdown, code blocks, images, and more. Use this section to introduce your topic and grab the reader’s attention.
+        </p>
+        <h2>Section Heading Example</h2>
+        <p>
+          Add paragraphs, images, <b>formatted text</b>, or even code:
+        </p>
+        <pre><code>import this
+print("Hello, world!")</code></pre>
+        <img src="https://i.imgur.com/dhDVMZZ.gif" alt="Sample GIF" style="display:block; margin:30px auto; width:140px;">
+        <blockquote class="blockquote mt-4">
+          <p class="mb-0">"Knowledge shared is power multiplied."</p>
+        </blockquote>
+        <hr>
+        <p>Write more content here!</p>
+      </section>
+      <footer class="pt-4 mt-5 border-top text-right text-muted small">
+        <span>Last updated July 2025</span>
+      </footer>
+    </article>
+  </div>
+</div>
+            
+		
+  <!-- Content end --> 
+	
+  
+  <!-- Footer
+  ============================ -->
+  <footer id="footer" class="section bg-dark footer-text-light">
+    <div class="container">
+      <ul class="social-icons social-icons-lg social-icons-muted justify-content-center mb-3">
+        <li><a data-toggle="tooltip" href="#" target="_blank" title="" data-original-title="Twitter"><i class="fab fa-twitter"></i></a></li>
+        <li><a data-toggle="tooltip" href="#" target="_blank" title="" data-original-title="Facebook"><i class="fab fa-facebook-f"></i></a></li>
+        <li><a data-toggle="tooltip" href="#" target="_blank" title="" data-original-title="Dribbble"><i class="fab fa-dribbble"></i></a></li>
+        <li><a data-toggle="tooltip" href="#" target="_blank" title="" data-original-title="GitHub"><i class="fab fa-github"></i></a></li>
+      </ul>
+      <p class="text-center">Copyright &copy; 2025 <a href="https://d0midigi.github.io">hackherway</a>. Null Rights Reserved.</p>
+	  <p class="text-2 text-center mb-0">Designed &amp; Developed with ❤️ by mindhackdiva | d0midigi | a08🩷s02:j10💙b25:d08💚k14 | <a class="btn-link" target="_blank" href="http://www.harnishdesign.net/">HarnishDesign</a>.</p>
+    </div>
+  </footer>
+  <!-- Footer end -->
+  
+</div>
+<!-- Document Wrapper end --> 
+
+<!-- Back To Top --> 
+<a id="back-to-top" data-toggle="tooltip" title="Back to Top" href="javascript:void(0)"><i class="fa fa-chevron-up"></i></a> 
+
+<!-- JavaScript
+============================ -->
+<script src="/hackherway/assets/vendor/jquery/jquery.min.js"></script> 
+<script src="/hackherway/assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script> 
+<!-- Highlight JS -->
+<script src="/hackherway/assets/vendor/highlight.js/highlight.min.js"></script> 
+<!-- Easing --> 
+<script src="/hackherway/assets/vendor/jquery.easing/jquery.easing.min.js"></script> 
+<!-- Magnific Popup --> 
+<script src="/hackherway/assets/vendor/magnific-popup/jquery.magnific-popup.min.js"></script> 
+<!-- Custom Script -->
+<script src="/hackherway/assets/js/theme.js"></script>
+<script>
+/* $('.idocs-navigation .has-submenu').on('click', function(e) {
+  e.preventDefault();
+  var $parent = $(this).parent();
+  // Close others:
+  $parent.siblings('.open').removeClass('open');
+  // Toggle this one:
+  $parent.toggleClass('open');
+}); */
+</script>
+	<!-- <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script> -->
+<script>
+/* $('.idocs-navigation .has-submenu').on('click', function(e) {
+  e.preventDefault();
+  var $parent = $(this).parent();
+  // Close all other open submenus:
+  $parent.siblings('.open').removeClass('open');
+  // Toggle this one:
+  $parent.toggleClass('open');
+}); /*
+</script>
+<script>
+/* document.addEventListener("DOMContentLoaded", function () {
+  // Toggle open class for sidebar navigation
+  document.querySelectorAll('.idocs-navigation .has-submenu').forEach(function (el) {
+    el.addEventListener('click', function (e) {
+      e.preventDefault();
+      const parent = this.parentElement;
+      // If accordion style: close others
+      document.querySelectorAll('.idocs-navigation .nav-item.open').forEach(function (openItem) {
+        if (openItem !== parent) {
+          openItem.classList.remove('open');
+        }
+      });
+      parent.classList.toggle('open');
+    });
+  });
+}); /*
+</script>
+<script>
+/* document.addEventListener("DOMContentLoaded", function () {
+  document.querySelectorAll('.idocs-navigation .has-submenu').forEach(function(link) {
+    link.addEventListener('click', function(e) {
+      // Prevent hash links from jumping
+      if (this.getAttribute('href') === '#') e.preventDefault();
+      var parent = this.parentElement;
+      // Accordion style: close all siblings at same level
+      var siblings = Array.from(parent.parentElement.children).filter(
+        li => li !== parent && li.classList.contains('nav-item')
+      );
+      siblings.forEach(li => li.classList.remove('open'));
+      // Toggle this
+      parent.classList.toggle('open');
+    });
+  });
+}); /*
+</script>
+<script>
+/* document.addEventListener("DOMContentLoaded", function () {
+  // For every link with has-submenu class
+  document.querySelectorAll('.idocs-navigation .has-submenu').forEach(function(link) {
+    link.addEventListener('click', function(e) {
+      // Prevent navigation if href="#" or empty
+      if (this.getAttribute('href') === "#" || !this.getAttribute('href')) e.preventDefault();
+      var parent = this.parentElement;
+      // If already open, just close
+      var wasOpen = parent.classList.contains('open');
+      // Close all sibling .nav-item.open at this level (accordion behavior)
+      Array.from(parent.parentElement.children).forEach(function(sibling) {
+        if (sibling !== parent && sibling.classList.contains('open')) {
+          sibling.classList.remove('open');
+        }
+      });
+      // Toggle this one
+      if (!wasOpen) parent.classList.add('open');
+      else parent.classList.remove('open');
+    });
+  });
+}); /*
+
+</script>
+<script>
+$(document).ready(function() {
+  $('.idocs-navigation .has-submenu').on('click', function(e) {
+    e.preventDefault();
+    var $parent = $(this).parent();
+    // Accordion: close all siblings
+    $parent.siblings('.open').removeClass('open');
+    $parent.toggleClass('open');
+  });
+});
+</script>
+
+</body>
+</html>
