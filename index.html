@@ -867,6 +867,85 @@ In short, extracting and importing only <code>Microsoft.ActiveDirectory.Manageme
 <hr class="divider">
 <h2>General Functions of PowerView</h2>
 <h3>Miscellaneous Functions:</h3>
+<p class="lead">
+Below is a concise technician's notebook for each of the PowerView/PowerSploit helper functions. Every description states what the cmdlet actually returns or modifies, the protocol/Win32 API it abuses, and the single most common offensive use-cases.</p>
+<p class="alert alert-info">
+1. <code>Export-PowerViewCSV</code>					# Thread-safe wrapper around <code>[System.IO.File]::AppendAllText().</code> Output objects are serialized with <code>ConvertTo-Csv -NoTypeInformation</code> and written under a <code>Mutex</code> so parallel threads (e.g., <code>-Threads20</code> in <code>Invoke-ShareFinder</code>) does not corrupt the file.
+<em>Attack Value:</em> Keeps distributed recon results in one mergeable file for ingestion into the BloodHound tool.
+
+2. <code>Set-MacAttribute</code>					# Uses <code>SetFileTime,</code><code>SetFileAttributes,</code> and <code>DeviceIoControl</code> (<code>FSCTL_SET_OBJECT_ID</code>) to clone MAC (Modified-Access-Created) timestamps, the 8-byte object-ID, and even the 16-byte birth-volume ID from a donor file.
+<em>Attack Value:</em> Timestomps implants so that they match a legitimate <code>SYSVOL DLL</code> or a user's template document.
+
+3. <code>Copy-ClonedFile</code>						# Wrapper around <code>CopyFileEx + Set-MacAttribute.</code> Copies a payload to <code>\\target\C$\Temp</code> while keeping size, timestamps, and object-ID identical to the source.
+<em>Attack Value:</em> Drops an executable that evades "new file" SIEM rules or time-ranged triage.
+
+4. <code>Get-IPAddress</code>						# Simple <code>[System.Net.Dns]::GetHostEntry($Name).</code> If the host has Link-Local Multicast Name Resolution (LLMNR) disabled it falls back to NBNS.
+<em>Attack Value:</em> Converts harvested server names from Shares.csv into pivot targets without calling <code>nslookup.</code>
+
+5. <code>Test-Server</code>							# Tries <code>TCP445, 135,</code> or the port you supply via <code>-Port.</code> Uses <code>System.Net.Sockets.TcpClient</code> with a 1-second timeout by default.
+<em>Attack Value:</em> Fast up/down filter before running <code>Invoke-SMBClient</code> or <code>Invoke-WMICheck.</code>
+
+6. <code>Convert-NameToSid</code>					# Calls <code>LookupAccountName</code> against the remote LSA (Local Security Authority) policy database. Returns both the binary SID and the string SID.
+	<em>Attack Value:</em> Turns "DEV\SQL-Service" into <code>S-1-5-21-...-1104</code> for Silver Ticket forging.
+
+7. <code>Convert-SidToName</code>					# Inverse: <code>LookupAccountSid.</code> Useful for when all you have is a RID from <code>Get-DomainGroupMember.</code>
+<em>Attack Value:</em> Deobfuscates the human name behind a privileged SID discovered in an ACL.
+
+8. <code>Convert-NT4toCanonical</code>				# Uses <code>DsCrackNames</code> against the AD Global Catalog to translate <code>DOMAIN\user</code> to <code>domain.com/Users/User.</code>
+<em>Attack Value:</em> Feeds canonical names to <code>Get-ObjectAcl</code> without string-splitting logic.
+
+9. <code>Get-Proxy</code>							# Reads per-machine proxy settings from <code>HKLM:\SOFTWARE\Policies\Microsoft\Windows\CurrentVersion\Internet Settings</code> and per-user from <code>HKCU:\... .</code> Also honors WPAD/PAC URLs.
+<em>Attack Value:</em> Tells you which egress proxy to tunnel through before launching <code>Invoke-WebRequest</code> for payload download.
+
+10. <code>Get-PathAcl</code>						# Enumerates the security descriptor on a local or UNC (Universal Naming Convention) path via <code>GetNamedSecurityInfo.</code> Recursively expands group membership so you see every principal that can modify the file.
+<em>Attack Value:</em> Finds <code>C:\ProgramData\Vendor\Update.exe</code> that <code>Authenticated Users</code> can overwrite-privilege escalation.
+
+11. <code>Get-UserProperty</code>					# <strong>Note:</strong> You can also use <code>Get-ComputerProperty.</code> Generic LDAP search that can dump any attribute (or a comma-separated list) for every user / computer in the domain. Supports <code>-Properties*</code> or targeted properties like <code>msDS-AllowedToDelegateTo.</code>
+<em>Attack Value:</em> One-liner to harvest SPNs for Kerberoasting or to list machines with <code>ms-Mcs-AdmPwd</code> (LAPS - Local Administrator Password Solution) readable by the current user.
+
+12. <code>Find-InterestingFile</code>				# Recurses a path (local or UNC) and filters on <code>-Terms *password*,*config*,*secret*</code> or custom regex. Can inspect Office metadata and Alternate Data Streams.
+<em>Attack Value:</em> Locates <code>web.config.bak</code> containing plaintext SQL credentials on a share you just discovered.
+
+13. <code>Invoke-CheckLocalAdminAccess</code>		# Attempts to open the <code>SCManager</code> (<code>SC_MANAGER_ALL_ACCESS</code>). If the handle opens, you have local admin.
+<em>Attack Value:</em> Pre-filters a list of 500 hosts down to the ~40 you can dump hashes from.
+
+14. <code>Get-DomainSearcher</code>					# Returns a fully configured <code>System.DirectoryServices.DirectorySearcher</code> object pointed at the Global Catalog (or a specific DC) with the correct search base page size and referral chasing options. All other PowerView cmdlets consume this object.
+<em>Attack Value:</em> Gives you a reusable LDAP handle so you don't re-bind on every query, saving time and avoiding extra 4624 logons.
+
+15. <code>Get-ObjectAcl</code>						# Reads the <code>nTSecurityDescriptor</code> attribute of any AD object (user, group, GPO, OU, domainDNS) and translates the binary ACL into readable ACEs. Adds the object's owner and inheritance flags.
+<em>Attack Value:</em> Reveals that <code>Contractors\UserA</code> has <code>GenericAll</code> on the <code>Domain Admins</code> group >> path to privilege.
+
+16. <code>Add-ObjectAcl</code>						# Uses <code>System.DirectoryServices.ActiveDirectoryAccessRule</code> to add new ACE (e.g., <code>GenericAll, WriteDacl, WriteOwner</code> to get the target object. Requires a user account that already has <code>WriteDacl</code> or ownership.
+<em>Attack Value:</em> Persistence trick: grant yourself <code>GenericAll</code> on the GPO that links to the Domain Controllers OU.
+
+17. <code>Get-LastLoggedOn</code>					# Remotely reads the <code>HKU\.DEFAULT\Software\Microsoft\Windows\CurrentVersion\Explorer\SessionInfo</code> key (or falls back to WMI <code>Win32_LogonSession</code>) to find the last interactive user.
+<em>Attack Value:</em> Identifies which user's profile to pillage for cached credentials or browser cookies.
+
+18. <code>Get-CachedRDPConnection</code>			# Parses the <code>HKCU\Software\Microsoft\Terminal Server Client\Servers</code> registry hive for every user hive on the box. Returns server hostnames and usernames.
+<em>Attack Value:</em> Harvest internal jump box names that are not in DNS.
+
+19. <code>Invoke-ACLScanner</code>					# Automated wrapper around <code>Get-ObjectAcl</code> that filters for ACEs where the caller has <code>WriteDacl, WriteOwner, GenericWrite, WriteProperty,</code> or <code>ExtendedRight</code> (e.g., <code>User-Force-Change-Password</code>). Can process 100,000+ ACEs in minutes via <code>Invoke-ThreadedFunction.</code>
+<em>Attack Value:</em> Hands you a ready-made list of attack paths of least resistance without manually grepping ACLs.
+
+20. <code>Get-GUIDMap</code>						# Queries the AD <code>schema</code> partition to build a hashtable of <code>{rightsGUID > displayName}</code> for every extended right (e.g., <code>00299570-246d-11d0-a768-00aa006e0529</code> = <code>User-Force-Change-Password</code>).
+<em>Attack Value:</em> Translates raw GUIDs in ACEs into human-readable attack primitives.
+
+21. <code>Get-DomainSID</code>						# Returns the domain SID by querying the <code>objectSid</code> attribute of the <code>domainDNS</code> object. Output is used to construct Golden and Silver Tickets or to predict SIDs for cross-forest trusts.
+<em>Attack Value:</em> Saves you from having to hard-code or bake-in the SID in custom ticket-forging scripts.
+
+22. <code>Invoke-ThreadedFunction</code>			# Generic threading helper that spins up a runspace pool (default 20 threads) and feeds an input queue to a script block. Handles runspace cleanup and program reporting.
+<em>Attack Value:</em> Allows any single-threaded PowerView function to scale across thousands of hosts or ACLs in minutes vice hours.	
+</p>
+<hr class="divider">
+<h2>net * Functions</h2>
+<p class="lead">
+In PowerView, the <code>net *</code> functions are PowerShell replacements for the classic Windows <code>net</code> commands, designed to enumerate and manipulate domain and host-level information without relying on <code>net.exe.</code> They wrap Win32 API calls or LDAP queries to rerun richer, more AD-aware data. A concise map of the most common <code>net *</code> functions along with a description of what each one does is shown below.
+<p class="alert alert-info">
+1. <code>Get-NetDomain</code>				# Returns the DNS name of the domain that the current logon token belongs to. Internally calls <code>System.Net.NetworkInformation.IPGlobalProperties.GetIPGlobalProperties().DomainName</code>
+<em>Offensive Use:</em> Confirms which domain to target before running user enumeration.
+
+2. <code>Get-NetForest</code>
+
 ```powershell
 Export-PowerViewCSV             #  thread-safe CSV append
 Set-MacAttribute                #  Sets MAC attributes for a file based on another file or input (from Powersploit)
@@ -2222,6 +2301,7 @@ Invoke-ThreadedFunction         #  helper that wraps threaded invocation for oth
 <script src="assets/js/theme.js"></script>
 </body>
 </html>
+
 
 
 
