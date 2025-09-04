@@ -838,7 +838,78 @@ Scans the entire <code>/24</code> subnet using timing template 4 (aggressive: ~1
 	
 <p class="lead">
 In a red team context, the module is typically executed from a non-privleged PowerShell session on a compromised workstation. Because it never calls <code>CreateProcess</code> on <code>nmap.exe,</code> it avoids common application-allowlisting rules and leaves a minimal forensic footprint-only a .NET assembly loaded in memory and a handful of outbound TCP SYN packets that blend into normal workstation network traffic. The resulting port lists are then cross-referenced with BloodHound's session data to identify file servers, WSUS boxes, or SQL listeners that may provide next-hop credentials or relay opportunities.</p></li></ol>
-            <ul>
+
+<hr class="divider">
+			
+<h2>Active Directory Without RSAT</h2>
+<p class="lead">
+Running the Active Directory PowerShell module normally requires the Remote Server Administration Tools (RSAT) package to be installed. RSAT drops not only the dozen <em></em>.psm1/.ps1</em> XML help files but also the 100%-managed assembly <code>Microsoft.ActiveDirectory.Management.dll</code> (plus its satellite <code>*.resources.dll</code>). That single DLL contains every cmdlet (<code>Get-ADUser,</code><code>Get-ADGroup,</code><code>Get-ADComputer</code>) and the AD Web Service (ADWS) client stack that knows how to speak the WS-Transfer protocol to a domain controller's <code>ADWS</code> endpoint (port 9389).</p>
+
+<p class="lead">
+On hardened workstations or during red team engagements you rarely have the luxury of running <code>Add-WindowsFeature RSAT</code> - it needs elevated rights, reboots, or Internet access. The workaround is to <strong>sideload only the bare minimum:</strong></p>
+
+<p class="lead">
+1. Build (or borrow) a throw-away Windows VM, join it to any AD domain, and install RSAT through the normal GUI or with <code>Enable-WindowsOptionalFeature -Online- FeatureName RSATClient-Ad-PowerShell</code><br>
+The installer places the 64-bit assembly in <code>C:\Windows\Microsoft.NET\assembly\GAC_64\Microsoft.ActiveDirectory.Management\</code><br>
+Copy the folder contents-the main DLL and is language sub-folder-to your attack box (USB, encoded gzip, any other method).</p>
+
+<p class="lead">
+2. On the target workstation drop the DLL into any writeable directory, e.g.,:<code>C:\Users\Public\AD\Microsoft.ActiveDirectory.Management.dll</code></p>
+
+<p class="lead">
+3. Import the assembly directly-no RSAT, no manifest, no registry keys required: <code>Import-Module .\Microsoft.ActiveDirectory.Management.dll</code><br>
+PowerShell loads the assembly into the current AppDomain and auto-registers every cmdlet exported by <code>CompiledCmdlet</code> attributes inside the DLL.</p>
+
+<p class="lead">
+4. Proving it works:
+<code>Get-Command get-adcom*</code> should return cmdlets such as <code>Get-ADComputer,</code><code>Get-ADUser,</code><code>Get-ADGroup</code>, etc.<br>
+If you see them, the module is live; you can now run <code>Get-ADUser -Filter* -Properties MemberOf,PasswordLastSet</code> or any other AD cmdlet as long as the machine can reach a domain controller on <strong>TCP 9389 (ADWS)</strong> or <strong>TCP 445 (SMB for legacy ADSI)</strong> and you possess valid credentials (domain-joined session, <code>runas /netonly,</code> or explicit <code>-Credential.</code></p>
+
+<h3>Caveats & OPSEC Notes</h3>
+<ul>
+<li>No help files are present, so <code>Get-Help Get-ADUser</code> will fail unless you also copy the <code>about_*</code> text files, functionality remains intact.</li>
+<li>The DLL is pure managed code-no kernel drivers-so it bypasses most application allowlisting rules that only block unmanaged EXEs.</li>
+<li>All network traffic is signed/sealed under the authenticated user's context: use <code>runas /netonly</code> or <code>New-PSSession-Authentication CredSSP</code> when operating from an off-domain jump box.</li>
+<li>If ADWS is disabled on DCs (rare), fall back to <code>ADSI</code> via <code>([ADSI]"LDAP://DC=corp,DC=local")</code> - but that path requires 445/139 and is slower.</li>
+</ul>
+<p class="lead">
+In short, extracting and importing only <code>Microsoft.ActiveDirectory.Management.dll</code> gives you the full AD PowerShell arsenal without every having to install RSAT, leaving a minimal forensic footprint and zero need for local administrator rights on the scanning workstation.</p>
+
+<hr class="divider">
+
+<h2>General Functions of PowerView</h2>
+<h3>Miscellaneous Functions:</h3>
+```powershell
+<code>
+Export-PowerViewCSV             #  thread-safe CSV append
+Set-MacAttribute                #  Sets MAC attributes for a file based on another file or input (from Powersploit)
+Copy-ClonedFile                 #  copies a local file to a remote location, matching MAC properties
+Get-IPAddress                   #  resolves a hostname to an IP
+Test-Server                     #  tests connectivity to a specified server
+Convert-NameToSid               #  converts a given user/group name to a security identifier (SID)
+Convert-SidToName               #  converts a security identifier (SID) to a group/user name
+Convert-NT4toCanonical          #  converts a user/group NT4 name (i.e. dev/john) to canonical format
+Get-Proxy                       #  enumerates local proxy settings
+Get-PathAcl                     #  get the ACLs for a local/remote file path with optional group recursion
+Get-UserProperty                #  returns all properties specified for users, or a set of user:prop names
+Get-ComputerProperty            #  returns all properties specified for computers, or a set of computer:prop names
+Find-InterestingFile            #  search a local or remote path for files with specific terms in the name
+Invoke-CheckLocalAdminAccess    #  check if the current user context has local administrator access to a specified host
+Get-DomainSearcher              #  builds a proper ADSI searcher object for a given domain
+Get-ObjectAcl                   #  returns the ACLs associated with a specific active directory object
+Add-ObjectAcl                   #  adds an ACL to a specified active directory object
+Get-LastLoggedOn                #  return the last logged on user for a target host
+Get-CachedRDPConnection         #  queries all saved RDP connection entries on a target host
+Invoke-ACLScanner               #  enumerate -1000+ modifable ACLs on a specified domain
+Get-GUIDMap                     #  returns a hash table of current GUIDs -> display names
+Get-DomainSID                   #  return the SID for the specified domain
+Invoke-ThreadedFunction         #  helper that wraps threaded invocation for other functions
+```
+</code>
+					
+			
+			
+			<ul>
 			<li><code>HTML/assets</code> - Contains all of the assets referenced
 			  <ul>
                 <li><code>HTML/css</code> - Stylesheet files</li>
@@ -2165,6 +2236,7 @@ In a red team context, the module is typically executed from a non-privleged Pow
 <script src="assets/js/theme.js"></script>
 </body>
 </html>
+
 
 
 
