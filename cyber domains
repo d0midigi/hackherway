@@ -244,14 +244,13 @@
 		============================ -->
         <section id="idocs_start">
         <h1>Cyber Domains</h1>
-        <h2>Your ThemeForest Item Name Here</h2>
-        <p class="lead">Thank you so much for purchasing our item from themeforest.</p>
+	    <h3>Feed Your Brain</h3>
+        <p class="lead">The library is grouped by cyber domains so that you can quickly locate the exact resources you need for the topics you are researching. Happy learning</p>
 		<hr>
 		<div class="row">
 			<div class="col-sm-6 col-lg-4">
 				<ul class="list-unstyled">
 					<li><strong>Version:</strong> 1.0</li>
-					<li><strong>Author:</strong> <a href="http://www.harnishdesign.net" target="_blank">Harnish Design</a></li>
 				</ul>
 			</div>
 			<div class="col-sm-6 col-lg-4">
@@ -261,16 +260,112 @@
 				</ul>
 			</div>
 		</div>
-        <p class="alert alert-info">If you have any questions that are beyond the scope of this help file, Please feel free to email via <a target="_blank" href="https://themeforest.net/user/harnishdesign/#contact?ref=HarnishDesign">Item Support Page</a>.</p>
+        <p class="alert alert-info">woot</p>
         </section>
         
 		<hr class="divider">
         
 		  <!-- Fundamental Concepts
 		============================ -->
-        <section id="idocs_concepts">
-          <h2>Fundamental Concepts</h2>
-          <p class="lead">Follow the steps below to setup your site template:</p>
+    <section id="idocs_concepts">
+
+<h1>Fundamental Concepts</h1>
+<h3>Information Technology (IT) Fundamentals</h3>
+
+	<p>Information Technology (IT) is a convergent domain whose operational substrate is an orchestrated stack of abstractions-ranging from bare-metal physics to globally distributed, software-defined services-whose stable state is predicated on continuous, cross-layer optimization.</p>
+
+	<p><em>Compute endpoints</em>, increasingly mobile and ARM-based, extend the user plane beyond fixed topologies; their reachability and service continuity depend on Layer 2 and Layer 3 network fabrics that implement deterministic QoS, resilient routing, and zero trust segmentation.</p>
+
+	<p><em>Hardware</em> substrates-multi-socket NUMA servers, non-volatile memory hierarchies, GPU/TPU accelerators-are all logically multiplied through hardware-assisted virtualization and pooled into elastic cloud estates whose control planes expose declaractive APIs for declarative, policy-driven orchestration.</p>
+
+	<p><em>Hypervisors</em>, <em>container runtimes</em>, and <em>unikernels</em> instantiate isolated execution contexts while service-mesh sidecars enforce mTLS observability. Reliability is enforced via formal incident response runbooks and playbooks and ML-augmented AIOpes pipelines that correlate telemetric data (eBPF, NetFlow, IPFIX) to preduct MTBF (Mean-Time-Between-Failure) and automate MTTR (Mean-Time-To-Recovery/Restore).</p>
+
+	<p><em>Operating system kernels</em> (monolithic, micro, or exo-) arbitrate hardware access through preemptive schedulers and capability-based security models; userland exploits are mitigated by ASLR, Control-Flow Integrity, and hardware-enforced CET.</p>
+
+	<p>Security posture is further hardened through layered <em>defense in depth</em> approaches: PKI-backed identity, post-quantum agile cryptography, and immutable, policy-as-code supply chain governance.</p>
+
+	<p><em>Software defect remediation</em> follows iterative CI/CD gates (static analysis, fuzzing, canary phased rollouts) while operational procedures-documented in version-controlled playbooks-enforce Change Management (CM) rigor (ITIL v4, SRE error budgets) to guarantee contractual SLAs (Service Level Agreements) across hybrid on-prem and multi-cloud technologies.</p>
+
+<h1>Mobile Devices</h1>
+<h3>Portable Compute Endpoints</h3>
+
+	<p><em>Portable compute endpoints</em>-smartphones, tablets, laptops, wearables-consolidate <em>System-on-Chip (SoC)</em> or discrete CPU chipsets, LPDDR memory, non-volatile storage (UFS/NVMe/eMMC) into thermally constrained form factors. Serviceability ranges from sealed, glued down designs to more modular laptops whose SO-DIMMs, M.2 SSDs, and WiFi modules conform to FRU standards.</p>
+
+	<p><em>Physical security</em> is enforced through Kensington-style locking ports, hardware-rooted secure boot chains, TPM 2.0/Secure Enclave key stores, and full disk AES-256/XTS encryption with anti-replay counters.</p>
+
+	<p>The <em>human-interface</em> plane couples high-DPI IPS/OLED/mini-LED panels, capacitive multi-touch digitizers, haptic actuators, and variable refresh rates are calibrated via EDID and ICC profiles.</p>
+
+	<p><em>Expansion</em> occurs through standards-based I/O: USB-C/Thunderbolt 4 (PD 3.1, PCIe 4.0, DisplayPort 1.4 Alt Mode), HDMI 2.1, and 3.5 mm TRRS analog audio, each negotiated over CC-line or HPD signaling.</p>
+
+<h3>Accessories</h3>
+<p>GaN chargers, magnetic induction coils, smart batteries (SMBus/HDQ), ruggedized shells, and active styluses-extend runtime and environmental tolerance. Connectivity stacks integrate 5G NR Sub-6/mmWave, 802.11ax/be MU-MIMO, Bluetooth 5.3 LE-Audio with ISM-channel hopping, UWB (FiRa), and multi-constellation GNSS (L1/L5 dual-band) for centimeter-level positioning.</p>
+
+<h3>Synchronization Services</h3>
+<p>Synchronization services leverage cloud-resident conflict-free replicated data types (CRDTs), differential sync, and zero trust token exchange (OAuth 2.1, FIDO2) to maintain eventual consistency across heterogenous device graphs while enforcing endpoint posture compliance.</p>
+<hr class="divider">
+<h2>Laptop Hardware Installation & Configuration Guides</h2>
+<ul class="article-list:>
+<li>
+<a href="https://www.examcollection.com/certification-training/a-plus-installing-configuring-laptop-hardware-components.html" target="_blank" rel="noopener">
+	<h4>Installing and Configuring Laptop Hardware Components</h4>
+	</a>
+<p>A-to-Z walkthrough of every FRU you are likely to touch-so-DIMM, 2.5" HDD/SSD, Mini-PCIe WLAN card, DC-in jack, keyboard, touch-pad, plastics, speaker and system-board caveats-plus form-factor limits and tool choices.</p></li>
+	<li>
+<a href="https://library.mosse-institute.com/articles/2023/08/types-of-hardware-components.html" target="_blank" rel="noopener">
+	<h4>Major Types of a Laptop's Hardware Components and Their Replacements</h4></a>
+<p>Deep dive on eight high-value upgrades: CPU (socket/TDP/BIOS), RAM (DDR-type, dual-channel), HDD-SSD migration, d-GPU quirks, battery-cell options, display-panel matching, keyboard/touch-pad ribbon handling, and WiFi card BIOS-allowlist issues. </p></li>
+	<li>
+<a href="https://www.techrepublic.com/article/secure-your-laptop-with-a-kensington-lock/" target="_blank" rel="noopener">
+	<h4>How to Add a Kensington Lock Slot to a Laptop That Doesn't Have One</h4></a>
+<p>After-market adhewive lock plates and mini-security brackets, cable-anchor torque specs, and placement tricks so the lock doesn't rip our of the chassis.</p></li>
+	<li>
+<a href="https://www.laptopmag.com/features/ram-upgrade-guide" target="_blank" rel="noopener">
+	<h4>RAM Upgrade Guide: Choosing and Installing SO-DIMM Modules</h4></a>
+<p>Step-by-step for accessing the memory bay, identifying DDR-3/4/5 keying, verifying dual-channel symmetry, and stress-testing with <code>MemTest86</code> after thc initial click-in.</p></li>
+	<li>
+<a href="https://www.ifixit.com/Guide/Laptop+Battery+Replacement/247" target="_blank" rel="noopener">
+	<h4>Laptop Battery Replacement 101: Cells, Tools, and Calibration</h4>
+	</a>
+    <p>Illustrated teardown covering 6-cell vs. 9-cell sizing, connector polarity, glue-softening with isopropyl, and the three full charge–discharge cycles needed to re-calibrate the fuel gauge.</p>
+	  </li>
+
+  <li>
+    <a href="https://www.laptopmag.com/features/replace-laptop-screen" target="_blank" rel="noopener">
+      <h4>Screen Swap Walk-through: LCD, OLED, and Ribbon-Cable Gotchas</h4>
+    </a>
+    <p>Bezel removal, eDP vs. LVDS identification, 30-pin vs. 40-pin ribbons, adhesive tape reuse, and post-install backlight-bleed checks.</p>
+  </li>
+
+  <li>
+    <a href="https://www.pcworld.com/article/747931/how-to-upgrade-your-laptop-to-ssd.html" target="_blank" rel="noopener">
+      <h4>How to Upgrade Your Laptop to SSD</h4>
+    </a>
+    <p>Clone-or-clean-install decision tree, 2.5" SATA vs. NVMe M.2 sizing, spacer screws, BIOS switch to AHCI/NVMe mode, and aligning partitions to 4 KB boundaries.</p>
+  </li>
+
+  <li>
+    <a href="https://www.tomshardware.com/reviews/laptop-wifi-card-upgrade,4703.html" target="_blank" rel="noopener">
+      <h4>Laptop Wi-Fi Card Upgrade: Intel AX210 and BIOS Whitelists</h4>
+    </a>
+    <p>Mini-PCIe vs. M.2 E-key slot identification, antenna connector pop-off tool, regulatory ISO country codes, and whitelist bypass cautions.</p>
+  </li>
+
+  <li>
+    <a href="https://www.makeuseof.com/tag/laptop-keyboard-replacement-guide/" target="_blank" rel="noopener">
+      <h4>Laptop Keyboard Replacement: Ribbon Cables and Screw Maps</h4>
+    </a>
+    <p>Top-case vs. palm-rest removal paths, ZIF latch technique, multilingual layout matching, and backlight power-rail safety.</p>
+  </li>
+
+  <li>
+    <a href="https://www.howtogeek.com/762863/how-to-clean-a-laptop-fan-without-taking-it-apart/" target="_blank" rel="noopener">
+      <h4>Cleaning & Re-pasting the CPU/GPU Cooler Without Full Disassembly</h4>
+    </a>
+    <p>Compressed-air fan spin-lock prevention, external vent vacuum technique, and when to remove the heat-sink for liquid-metal or high-performance thermal-paste renewal.</p>
+  </li>
+</ul>
+
+	
           <ol>
             <li>Unzip the downloaded package and open the <strong>/HTML</strong> folder to find all the template files. You will need to upload these files to your hosting web server using FTP or localhost in order to use it on your website.</li>
             <li>Below is the folder structure and needs to be uploaded to your website or localhost root directory:
@@ -2301,6 +2396,7 @@ Invoke-ThreadedFunction         #  helper that wraps threaded invocation for oth
 <script src="assets/js/theme.js"></script>
 </body>
 </html>
+
 
 
 
