@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1.0, shrink-to-fit=no">
 <link href="assets/images/favicon.png" rel="icon" />
-<title>Documentation | Your ThemeForest item Name</title>
+<title>Hackherway | Your Cyberepo</title>
 <meta name="description" content="Your ThemeForest item Name and description">
 <meta name="author" content="harnishdesign.net">
 
@@ -107,6 +107,19 @@
             <li class="nav-item"><a class="nav-link" href="#idocs_logo_settings">Logo Settings</a></li>
           </ul>
         </li>
+		  <li class="nav-item"><a class="nav-link active" href="#idocs_start">AD Exploitation</a>
+          <ul class="nav flex-column">
+            <li class="nav-item"><a class="nav-link" href="#idocs_adrecon">AD Recon</a></li>
+            <li class="nav-item"><a class="nav-link" href="#idocs_domain_enum">Domain Enum</a></li>
+            <li class="nav-item"><a class="nav-link" href="#idocs_localprivesc">Local Privilege Escalation</a></li>
+            <li class="nav-item"><a class="nav-link" href="#idocs_user_hunting">User Hunting</a></li>
+            <li class="nav-item"><a class="nav-link" href="#idocs_conmon">ConMon</a></li>
+            <li class="nav-item"><a class="nav-link" href="#idocs_bloodhound">BloodHound</a></li>
+            <li class="nav-item"><a class="nav-link" href="#idocs_lateral_movement">Lateral Movement</a></li>
+			<li class="nav-item"><a class="nav-link" href="#idocs_persistence">Persistence</a></li>
+			<li class="nav-item"><a class="nav-link" href="#idocs_domain_adminpriv">Domain Admin Privileges</a></li>
+          </ul>
+        </li>
         <li class="nav-item"><a class="nav-link" href="#idocs_layout">Layout</a>
           <ul class="nav flex-column">
 			<li class="nav-item"><a class="nav-link" href="#idocs_header">Header</a></li>
@@ -205,11 +218,63 @@
         </section>
         
 		<hr class="divider">
-		
-        <!-- HTML Structure
+		  
+        <!-- Getting Started
 		============================ -->
-        <section id="idocs_html_structure">
-          <h2>HTML Structure</h2>
+        <section id="idocs_start">
+        <h1>AD Exploitation</h1>
+        <h2>Your ThemeForest Item Name Here</h2>
+        <p class="lead">Thank you so much for purchasing our item from themeforest.</p>
+		<hr>
+		<div class="row">
+			<div class="col-sm-6 col-lg-4">
+				<ul class="list-unstyled">
+					<li><strong>Version:</strong> 1.0</li>
+					<li><strong>Author:</strong> <a href="http://www.harnishdesign.net" target="_blank">Harnish Design</a></li>
+				</ul>
+			</div>
+			<div class="col-sm-6 col-lg-4">
+				<ul class="list-unstyled">
+					<li><strong class="font-weight-700">Created:</strong> 8 April, 2020</li>
+					<li><strong>Update:</strong> 12 May, 2020</li>
+				</ul>
+			</div>
+		</div>
+        <p class="alert alert-info">If you have any questions that are beyond the scope of this help file, Please feel free to email via <a target="_blank" href="https://themeforest.net/user/harnishdesign/#contact?ref=HarnishDesign">Item Support Page</a>.</p>
+        </section>
+        
+		<hr class="divider">
+        <!-- AD Recon
+		============================ -->
+        <section id="idocs_adrecon">
+          <h2>AD Recon</h2>
+          <p class="lead">Follow the steps below to setup your site template:</p>
+          <ol>
+            <li>Unzip the downloaded package and open the <strong>/HTML</strong> folder to find all the template files. You will need to upload these files to your hosting web server using FTP or localhost in order to use it on your website.</li>
+            <li>Below is the folder structure and needs to be uploaded to your website or localhost root directory:
+            <ul>
+			<li><code>HTML/assets</code> - Contains all of the assets referenced
+			  <ul>
+                <li><code>HTML/css</code> - Stylesheet files</li>
+                <li><code>HTML/images</code> - Images files</li>
+                <li><code>HTML/js</code> - Javacript files</li>
+                <li><code>HTML/sass</code> - Sass files</li>
+                <li><code>HTML/vendor</code> – All external libs.</li>
+              </ul>
+			</li>
+			<li><code>HTML/index.html</code> - Homepage
+			</ul>
+            </li>
+            <li>You should upload all or specific HTML files as per your need.</li>
+            <li>You are good to go for adding your content now!</li>
+          </ol>
+        </section>
+				<hr class="divider">
+
+        <!-- Domain Enumeration
+		============================ -->
+        <section id="idocs_domain_enum">
+          <h2>Domain Enumeration</h2>
           <p>iDocs follows a simple and easy to customize coding structure. Here is the sample for your reference:<br>
             The template is based on <a class="ml-1" target="_blank" href="https://getbootstrap.com/"><i class="fas fa-external-link-alt"></i> Bootstrap Framework</a></p>
           <pre><code class="html">&lt;!DOCTYPE html&gt;
@@ -271,10 +336,10 @@
         
 		<hr class="divider">
 		        
-		<!-- Sass
+		<!-- Local Privilege Escalation
 		============================ -->
-        <section id="idocs_sass">
-          <h2>Sass</h2>
+        <section id="idocs_localprivesc">
+          <h2>Local Privilege Escalation</h2>
           <p>We have added SASS <code>.scss</code> files in template. If you know how to use SASS you can change sass files and compile the css as well.
             You can find sass file here - <code>HTML/assets/sass</code></p>
           <p>Open the <code>sass/_variables.scss</code> and Edit the values according to your needs. If you need more Advanced Setup then you can Edit the Respective Files yourself which have been branched inside the same Folder. It is completely at your discretion only to include the Required <code>.scss</code> Files you need to minimize the amount of CSS & including only the Styles of the Blocks you need. This can be setup in your <code>stylesheet.scss</code> File.</p>
@@ -282,10 +347,10 @@
         
 		<hr class="divider">
 		
-		<!-- Color Schemes
+		<!-- User Hunting
 		============================ -->
-        <section id="idocs_color_schemes">
-          <h2>Color Schemes</h2>
+        <section id="idocs_user_hunting">
+          <h2>User Hunting</h2>
           <p>You can change your Website's Color Scheme in an instant. We have build <strong>10 Color</strong> css file for change template primary color.</p>
           <ul>
             <li><code>color-blue.css</code> - Blue Color</li>
@@ -323,10 +388,10 @@
         
 		<hr class="divider">
 		
-		<!-- Customization
+		<!-- ConMon
 		============================ -->
-        <section id="idocs_theme_customization">
-          <h2>Theme Customization</h2>
+        <section id="idocs_conmon">
+          <h2>Continuous Monitoring</h2>
           <p>We have include a Custom CSS File in the <code>css</code> Folder so that you can better handle your Customizations for New Styles or
             Overwriting Default Theme Styles. Simply add all your Custom CSS Codes in the <code>css/custom.css</code> File and link it in the Document <code>&lt;head&gt;</code> after the <code>css/stylesheet.css</code> Linking. Also make sure that this is the Last Linked CSS File in the Document <code>&lt;head&gt;</code> so that your Custom CSS Styles are Overwritten properly.</p>
           <pre><code class="html">&lt;head&gt;
@@ -351,10 +416,10 @@
         
 		<hr class="divider">
 		
-        <!-- Logo Settings
+        <!-- BloodHound
 		============================ -->
-        <section id="idocs_logo_settings">
-          <h2>Logo Settings</h2>
+        <section id="idocs_bloodhound">
+          <h2>BloodHound</h2>
           <p>The Logo Container can be found in the Header Container - <code>&lt;header&gt;</code></p>
           <pre><code class="html">&lt;!-- Logo --&gt; 
 &lt;a class=&quot;logo ml-3 ml-md-0&quot; href=&quot;index.html&quot; title=&quot;iDocs&quot;&gt;
@@ -364,7 +429,90 @@
 </code></pre>
         </section>
 		
+		  <hr class="divider">
         
+		  <!-- Lateral Movement
+		============================ -->
+        <section id="idocs_lateral_movement">
+          <h2>Lateral Movement</h2>
+          <p class="lead">Follow the steps below to setup your site template:</p>
+          <ol>
+            <li>Unzip the downloaded package and open the <strong>/HTML</strong> folder to find all the template files. You will need to upload these files to your hosting web server using FTP or localhost in order to use it on your website.</li>
+            <li>Below is the folder structure and needs to be uploaded to your website or localhost root directory:
+            <ul>
+			<li><code>HTML/assets</code> - Contains all of the assets referenced
+			  <ul>
+                <li><code>HTML/css</code> - Stylesheet files</li>
+                <li><code>HTML/images</code> - Images files</li>
+                <li><code>HTML/js</code> - Javacript files</li>
+                <li><code>HTML/sass</code> - Sass files</li>
+                <li><code>HTML/vendor</code> – All external libs.</li>
+              </ul>
+			</li>
+			<li><code>HTML/index.html</code> - Homepage
+			</ul>
+            </li>
+            <li>You should upload all or specific HTML files as per your need.</li>
+            <li>You are good to go for adding your content now!</li>
+          </ol>
+        </section>
+        
+		  <hr class="divider">
+        
+		  <!-- Persistence
+		============================ -->
+        <section id="idocs_persistence">
+          <h2>Persistence</h2>
+          <p class="lead">Follow the steps below to setup your site template:</p>
+          <ol>
+            <li>Unzip the downloaded package and open the <strong>/HTML</strong> folder to find all the template files. You will need to upload these files to your hosting web server using FTP or localhost in order to use it on your website.</li>
+            <li>Below is the folder structure and needs to be uploaded to your website or localhost root directory:
+            <ul>
+			<li><code>HTML/assets</code> - Contains all of the assets referenced
+			  <ul>
+                <li><code>HTML/css</code> - Stylesheet files</li>
+                <li><code>HTML/images</code> - Images files</li>
+                <li><code>HTML/js</code> - Javacript files</li>
+                <li><code>HTML/sass</code> - Sass files</li>
+                <li><code>HTML/vendor</code> – All external libs.</li>
+              </ul>
+			</li>
+			<li><code>HTML/index.html</code> - Homepage
+			</ul>
+            </li>
+            <li>You should upload all or specific HTML files as per your need.</li>
+            <li>You are good to go for adding your content now!</li>
+          </ol>
+        </section>
+
+		  <hr class="divider">
+        
+		  <!-- Domain Admin Privileges
+		============================ -->
+        <section id="idocs_domain_adminpriv">
+          <h2>Domain Admin Privileges Recon</h2>
+          <p class="lead">Follow the steps below to setup your site template:</p>
+          <ol>
+            <li>Unzip the downloaded package and open the <strong>/HTML</strong> folder to find all the template files. You will need to upload these files to your hosting web server using FTP or localhost in order to use it on your website.</li>
+            <li>Below is the folder structure and needs to be uploaded to your website or localhost root directory:
+            <ul>
+			<li><code>HTML/assets</code> - Contains all of the assets referenced
+			  <ul>
+                <li><code>HTML/css</code> - Stylesheet files</li>
+                <li><code>HTML/images</code> - Images files</li>
+                <li><code>HTML/js</code> - Javacript files</li>
+                <li><code>HTML/sass</code> - Sass files</li>
+                <li><code>HTML/vendor</code> – All external libs.</li>
+              </ul>
+			</li>
+			<li><code>HTML/index.html</code> - Homepage
+			</ul>
+            </li>
+            <li>You should upload all or specific HTML files as per your need.</li>
+            <li>You are good to go for adding your content now!</li>
+          </ol>
+        </section>
+
 		<hr class="divider">
 		
 		<!-- Layout
@@ -1431,3 +1579,4 @@
 <script src="assets/js/theme.js"></script>
 </body>
 </html>
+
