@@ -831,40 +831,30 @@ Resolves the three supplied FQDNs (Fully Qualified Domain Names), then probes ea
 <p class="lead">
 b. <code>echo websrv.domain.local | Invoke-Portscan -oG test.gnmap -f ports "80,443,8080"</code><br>
 Pipes a single hostname into the scanner, forces <code>-f</code> a full TCP three-way handshake on ports 80, 443, and 8080, and writes grep-able (<code>-oG</code>) output to <code>test.gnmap.</code> The file can later be parsed with <code>grep</code> or imported into Metasploit's <code>db_import.</code></p>
-
 <p class="lead">
 c. <code>Invoke-Portscan -Hosts 172.16.0.0/24 -T 4- TopPorts 25 -oA localnet</code><br>
 Scans the entire <code>/24</code> subnet using timing template 4 (aggressive: ~1000 packets/second), tests the top 25 TCP ports, and saves results in "all formats" (<code>-oA</code>):<code>localnet.gnmap,</code><code>localnet.xml,</code> and <code>localnet.txt.</code> This is ideal for quickly mapping a newly compromised LAN segment before pivoting deeper into the network abyss.</p>
-	
 <p class="lead">
 In a red team context, the module is typically executed from a non-privleged PowerShell session on a compromised workstation. Because it never calls <code>CreateProcess</code> on <code>nmap.exe,</code> it avoids common application-allowlisting rules and leaves a minimal forensic footprint-only a .NET assembly loaded in memory and a handful of outbound TCP SYN packets that blend into normal workstation network traffic. The resulting port lists are then cross-referenced with BloodHound's session data to identify file servers, WSUS boxes, or SQL listeners that may provide next-hop credentials or relay opportunities.</p></li></ol>
-
 <hr class="divider">
-			
 <h2>Active Directory Without RSAT</h2>
 <p class="lead">
 Running the Active Directory PowerShell module normally requires the Remote Server Administration Tools (RSAT) package to be installed. RSAT drops not only the dozen <em></em>.psm1/.ps1</em> XML help files but also the 100%-managed assembly <code>Microsoft.ActiveDirectory.Management.dll</code> (plus its satellite <code>*.resources.dll</code>). That single DLL contains every cmdlet (<code>Get-ADUser,</code><code>Get-ADGroup,</code><code>Get-ADComputer</code>) and the AD Web Service (ADWS) client stack that knows how to speak the WS-Transfer protocol to a domain controller's <code>ADWS</code> endpoint (port 9389).</p>
-
 <p class="lead">
 On hardened workstations or during red team engagements you rarely have the luxury of running <code>Add-WindowsFeature RSAT</code> - it needs elevated rights, reboots, or Internet access. The workaround is to <strong>sideload only the bare minimum:</strong></p>
-
 <p class="lead">
 1. Build (or borrow) a throw-away Windows VM, join it to any AD domain, and install RSAT through the normal GUI or with <code>Enable-WindowsOptionalFeature -Online- FeatureName RSATClient-Ad-PowerShell</code><br>
 The installer places the 64-bit assembly in <code>C:\Windows\Microsoft.NET\assembly\GAC_64\Microsoft.ActiveDirectory.Management\</code><br>
 Copy the folder contents-the main DLL and is language sub-folder-to your attack box (USB, encoded gzip, any other method).</p>
-
 <p class="lead">
 2. On the target workstation drop the DLL into any writeable directory, e.g.,:<code>C:\Users\Public\AD\Microsoft.ActiveDirectory.Management.dll</code></p>
-
 <p class="lead">
 3. Import the assembly directly-no RSAT, no manifest, no registry keys required: <code>Import-Module .\Microsoft.ActiveDirectory.Management.dll</code><br>
 PowerShell loads the assembly into the current AppDomain and auto-registers every cmdlet exported by <code>CompiledCmdlet</code> attributes inside the DLL.</p>
-
 <p class="lead">
 4. Proving it works:
 <code>Get-Command get-adcom*</code> should return cmdlets such as <code>Get-ADComputer,</code><code>Get-ADUser,</code><code>Get-ADGroup</code>, etc.<br>
 If you see them, the module is live; you can now run <code>Get-ADUser -Filter* -Properties MemberOf,PasswordLastSet</code> or any other AD cmdlet as long as the machine can reach a domain controller on <strong>TCP 9389 (ADWS)</strong> or <strong>TCP 445 (SMB for legacy ADSI)</strong> and you possess valid credentials (domain-joined session, <code>runas /netonly,</code> or explicit <code>-Credential.</code></p>
-
 <h3>Caveats & OPSEC Notes</h3>
 <ul>
 <li>No help files are present, so <code>Get-Help Get-ADUser</code> will fail unless you also copy the <code>about_*</code> text files, functionality remains intact.</li>
@@ -874,13 +864,10 @@ If you see them, the module is live; you can now run <code>Get-ADUser -Filter* -
 </ul>
 <p class="lead">
 In short, extracting and importing only <code>Microsoft.ActiveDirectory.Management.dll</code> gives you the full AD PowerShell arsenal without every having to install RSAT, leaving a minimal forensic footprint and zero need for local administrator rights on the scanning workstation.</p>
-
 <hr class="divider">
-
 <h2>General Functions of PowerView</h2>
 <h3>Miscellaneous Functions:</h3>
 ```powershell
-<code>
 Export-PowerViewCSV             #  thread-safe CSV append
 Set-MacAttribute                #  Sets MAC attributes for a file based on another file or input (from Powersploit)
 Copy-ClonedFile                 #  copies a local file to a remote location, matching MAC properties
@@ -905,7 +892,6 @@ Get-GUIDMap                     #  returns a hash table of current GUIDs -> disp
 Get-DomainSID                   #  return the SID for the specified domain
 Invoke-ThreadedFunction         #  helper that wraps threaded invocation for other functions
 ```
-</code>
 					
 			
 			
@@ -2236,6 +2222,7 @@ Invoke-ThreadedFunction         #  helper that wraps threaded invocation for oth
 <script src="assets/js/theme.js"></script>
 </body>
 </html>
+
 
 
 
