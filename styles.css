@@ -9,48 +9,87 @@ body {
   min-height: 100vh;
 }
 /* Sidebar Styles */
-nav {
-  width: 250px;
-  background-color: #1e1e2f;
-  color: #fff;
-  position: sticky;
+/* ---- reset/minimal base ---- */
+* { box-sizing: border-box; }
+body { margin: 0; font-family: system-ui, sans-serif; }
+
+/* ---- sidebar shell ---- */
+.vector-toc-sidebar {
+  position: fixed;
   top: 0;
+  left: 0;
+  width: 260px;
   height: 100vh;
+  background: #fff;
+  border-right: 1px solid #c8ccd1;
   overflow-y: auto;
-  padding: 20px;
+  padding: 1rem;
 }
-nav h2 {
-  margin-bottom: 20px;
-  font-size: 20px;
-  border-bottom: 2px solid #444;
-  padding-bottom: 10px;
+
+/* ---- header row that acts as trigger ---- */
+.vector-pinnable-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  cursor: pointer;
+  user-select: none;
+  padding: .5rem 0;
 }
-nav a {
-  display: block;
-  color: #ddd;
+
+.vector-pinnable-header-label {
+  margin: 0;
+  font-size: 1rem;
+  font-weight: 600;
+}
+
+/* ---- animated trident (pure-css chevron) ---- */
+.trident {
+  width: 18px;
+  height: 18px;
+  border: none;
+  background: transparent;
+  position: relative;
+  transition: transform .25s ease;
+}
+.trident::before,
+.trident::after {
+  content: "";
+  position: absolute;
+  width: 8px;
+  height: 2px;
+  background: #54595d;
+  top: 50%;
+  left: 0;
+  transform-origin: right center;
+}
+.trident::before { transform: rotate(-40deg); }
+.trident::after  { transform: rotate(40deg); }
+
+/* open state = points up */
+.trident[aria-expanded="true"] { transform: rotate(180deg); }
+
+/* ---- collapsible list ---- */
+.vector-toc-contents {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  max-height: 0;
+  transition: max-height .35s ease;
+}
+
+.vector-toc-contents.open {
+  max-height: 2000px; /* large enough */
+}
+
+.vector-toc-list-item a {
   text-decoration: none;
-  margin: 10px 0;
-  transition: color 0.2s ease-in-out;
+  color: #202122;
+  display: block;
+  padding: .35rem .5rem;
 }
-nav a:hover {
-  color: #00bcd4;
-}
-/* Main Content Styles */
-main {
-  flex: 1;
-  padding: 40px;
-  background-color: #f4f4f9;
-}
-main section {
-  margin-bottom: 50px;
-}
-main h2 {
-  color: #333;
-  margin-bottom: 10px;
-}
-main p {
-  line-height: 1.6;
-  color: #555;
+.vector-toc-list-item a:hover {
+  background: #eaecf0;
 }
 /* Responsive Design */
 @media (max-width: 768px) {
