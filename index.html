@@ -77,5 +77,19 @@
       <p>Use comments, consistent indentation, and modular CSS. Keep your code DRY (Don't Repeat Yourself) and responsive for different devices.</p>
     </section>
   </main>
+  // grab the toggle button and the list container
+const toggleBtn = document.getElementById('toc-toggle');
+const list      = document.getElementById('mw-panel-toc-list');
+
+// initial state
+toggleBtn.setAttribute('aria-expanded', 'false');
+list.classList.remove('open');
+
+// click handler
+toggleBtn.addEventListener('click', () => {
+  const open = toggleBtn.getAttribute('aria-expanded') === 'true';
+  toggleBtn.setAttribute('aria-expanded', String(!open));
+  list.classList.toggle('open', !open);
+});
 </body>
 </html>
