@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Enhanced Documentation</title>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/4.6.2/css/bootstrap.min.css" rel="stylesheet">
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+<style>
+:root {
+  --primary: #4f46e5;
+  --secondary: #8b5cf6;
+  --accent: #06b6d4;
+  --dark: #1e293b;
+  --light: #f8fafc;
+  --border: #e5e7eb;
+}
+
+body { font-family: -apple-system, BlinkMacSystemFont, sans-serif; }
+
+.preloader { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: white; display: flex; justify-content: center; align-items: center; z-index: 9999; }
+.lds-ellipsis { width: 80px; height: 80px; position: relative; }
+.lds-ellipsis div { position: absolute; top: 33px; width: 13px; height: 13px; border-radius: 50%; background: var(--primary); animation: lds1 0.6s infinite; }
+@keyframes lds1 { 0% { transform: scale(0); } 100% { transform: scale(1); } }
+
+#main-wrapper { min-height: 100vh; background: white; box-shadow: 0 10px 25px rgba(0,0,0,0.1); margin: 20px; border-radius: 20px; overflow: hidden; }
+
+#header { background: linear-gradient(135deg, var(--primary), var(--secondary)); box-shadow: 0 4px 20px rgba(79,70,229,0.3); }
+.navbar { padding: 1rem 2rem; background: transparent !important; }
+.navbar-nav .nav-link { color: rgba(255,255,255,0.9) !important; font-weight: 500; padding: 0.5rem 1rem !important; border-radius: 8px; transition: all 0.3s; }
+.navbar-nav .nav-link:hover { background: rgba(255,255,255,0.1); transform: translateY(-2px); }
+
+#content { display: flex; min-height: calc(100vh - 80px); }
+
+.idocs-navigation { width: 280px; background: var(--light); border-right: 1px solid var(--border); overflow-y: auto; height: calc(100vh - 80px); position: sticky; top: 0; }
+.idocs-navigation::-webkit-scrollbar { width: 6px; }
+.idocs-navigation::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
+
+.nav { padding: 1.5rem 0; }
+.nav-item { margin-bottom: 0.25rem; }
+.nav-link { color: #6b7280 !important; font-weight: 500; padding: 0.75rem 1.5rem !important; border-radius: 0 25px 25px 0; margin-right: 1rem; transition: all 0.3s; display: flex; align-items: center; justify-content: space-between; }
+.nav-link:hover { color: var(--primary) !important; background: rgba(79,70,229,0.1); transform: translateX(5px); }
+.nav-link.active { color: white !important; background: linear-gradient(135deg, var(--primary), var(--secondary)); box-shadow: 0 4px 15px rgba(79,70,229,0.3); }
+
+.nav .nav { padding: 0; margin-top: 0.5rem; display: none; }
+.nav .nav.show { display: block; }
+.nav .nav .nav-link { padding: 0.5rem 1rem 0.5rem 3rem !important; font-size: 0.9rem; margin-right: 0.5rem; }
+.nav .nav .nav-link:hover { color: var(--accent) !important; background: rgba(6,182,212,0.1); }
+.nav .nav .nav-link.active { background: var(--accent); }
+
+.nav .nav .nav .nav-link { padding: 0.4rem 1rem 0.4rem 4.5rem !important; font-size: 0.85rem; }
+.nav .nav .nav .nav-link:hover { color: var(--secondary) !important; background: rgba(139,92,246,0.1); }
+.nav .nav .nav .nav-link.active { background: var(--secondary); }
+
+.toggle-icon { font-size: 0.8rem; transition: transform 0.3s; }
+.nav-link[aria-expanded="true"] .toggle-icon { transform: rotate(180deg); }
+
+.idocs-content { flex: 1; padding: 2rem; background: white; }
+section { margin-bottom: 2rem; padding: 2rem; background: white; border-radius: 15px; box-shadow: 0 4px 20px rgba(0,0,0,0.08); border: 1px solid var(--border); transition: all 0.3s; }
+section:hover { box-shadow: 0 8px 30px rgba(0,0,0,0.12); transform: translateY(-2px); }
+
+h1 { font-size: 2.5rem; background: linear-gradient(135deg, var(--primary), var(--secondary)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+h2 { color: var(--primary); border-bottom: 3px solid var(--primary); padding-bottom: 0.5rem; }
+h3 { color: var(--accent); }
+h4 { color: var(--secondary); }
+
+pre { background: var(--dark); color: #e2e8f0; border-radius: 12px; padding: 1.5rem; }
+code { background: rgba(79,70,229,0.1); color: var(--primary); padding: 0.2rem 0.4rem; border-radius: 4px; }
+
+.alert { border: none; border-radius: 12px; padding: 1.5rem; border-left: 4px solid; }
+.alert-info { background: rgba(6,182,212,0.1); border-left-color: var(--accent); color: #0891b2; }
+
+.table { border-radius: 12px; overflow: hidden; box-shadow: 0 4px 15px rgba(0,0,0,0.08); }
+.table thead th { background: linear-gradient(135deg, var(--primary), var(--secondary)); color: white; }
+
+#footer { background: var(--dark); color: white; padding: 3rem 0; text-align: center; }
+
+@media (max-width: 768px) {
+  #main-wrapper { margin: 10px; }
+  #content { flex-direction: column; }
+  .idocs-navigation { width: 100%; height: auto; position: static; }
+  .idocs-content { padding: 1rem; }
+}
+</style>
+</head>
+
+<body>
+<div class="preloader"><div class="lds-ellipsis"><div></div><div></div><div></div><div></div></div></div>
+
+<div id="main-wrapper">
+  <header id="header" class="sticky-top">
+    <nav class="navbar navbar-expand-lg">
+      <div class="container-fluid">
+        <a class="navbar-brand text-white font-weight-bold" href="#">DocsHub</a>
+        <span class="text-white-50 ml-2">v2.0</span>
+        
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#header-nav">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        
+        <div id="header-nav" class="collapse navbar-collapse justify-content-end">
+          <ul class="navbar-nav">
+            <li class="nav-item"><a class="nav-link" href="#">GitHub</a></li>
+            <li class="nav-item"><a class="nav-link" href="#">Support</a></li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+  </header>
+  
+  <div id="content">
+    <div class="idocs-navigation">
+      <ul class="nav flex-column">
+        <li class="nav-item">
+          <a class="nav-link active" href="#getting_started" data-toggle="collapse" data-target="#getting-started-menu" aria-expanded="true">
+            Getting Started <i class="fas fa-chevron-down toggle-icon"></i>
+          </a>
+          <ul class="nav flex-column collapse show" id="getting-started-menu">
+            <li class="nav-item"><a class="nav-link" href="#quick_start">Quick Start</a></li>
+            <li class="nav-item"><a class="nav-link" href="#installation">Installation</a></li>
+            <li class="nav-item">
+              <a class="nav-link" href="#configuration" data-toggle="collapse" data-target="#config-menu">
+                Configuration <i class="fas fa-chevron-down toggle-icon"></i>
+              </a>
+              <ul class="nav flex-column collapse" id="config-menu">
+                <li class="nav-item"><a class="nav-link" href="#basic_config">Basic Setup</a></li>
+                <li class="nav-item"><a class="nav-link" href="#advanced_config">Advanced Options</a></li>
+              </ul>
+            </li>
+          </ul>
+        </li>
+        
+        <li class="nav-item">
+          <a class="nav-link" href="#api_reference" data-toggle="collapse" data-target="#api-menu">
+            API Reference <i class="fas fa-chevron-down toggle-icon"></i>
+          </a>
+          <ul class="nav flex-column collapse" id="api-menu">
+            <li class="nav-item">
+              <a class="nav-link" href="#authentication" data-toggle="collapse" data-target="#auth-menu">
+                Authentication <i class="fas fa-chevron-down toggle-icon"></i>
+              </a>
+              <ul class="nav flex-column collapse" id="auth-menu">
+                <li class="nav-item"><a class="nav-link" href="#api_keys">API Keys</a></li>
+                <li class="nav-item"><a class="nav-link" href="#oauth">OAuth 2.0</a></li>
+              </ul>
+            </li>
+            <li class="nav-item"><a class="nav-link" href="#endpoints">Endpoints</a></li>
+          </ul>
+        </li>
+        
+        <li class="nav-item">
+          <a class="nav-link" href="#guides" data-toggle="collapse" data-target="#guides-menu">
+            Guides <i class="fas fa-chevron-down toggle-icon"></i>
+          </a>
+          <ul class="nav flex-column collapse" id="guides-menu">
+            <li class="nav-item"><a class="nav-link" href="#react_guide">React</a></li>
+            <li class="nav-item"><a class="nav-link" href="#vue_guide">Vue.js</a></li>
+          </ul>
+        </li>
+        
+        <li class="nav-item"><a class="nav-link" href="#faq">FAQ</a></li>
+        <li class="nav-item"><a class="nav-link" href="#support">Support</a></li>
+      </ul>
+    </div>
+    
+    <div class="idocs-content">
+      <div class="container">
+        
+        <section id="getting_started">
+          <h1>Enhanced Documentation Hub</h1>
+          <h2>Welcome to DocsHub v2.0</h2>
+          <p class="lead">A modern documentation platform with nested navigation and visual effects.</p>
+          <div class="alert alert-info">
+            This template features nested sidebar navigation with smooth animations and modern design.
+          </div>
+        </section>
+        
+        <section id="quick_start">
+          <h2>Quick Start</h2>
+          <p>Get started with DocsHub in just a few minutes.</p>
+          <h3>Installation</h3>
+          <pre><code>npm install docshub
+npm start</code></pre>
+        </section>
+        
+        <section id="installation">
+          <h2>Installation</h2>
+          <p>Detailed installation instructions for different environments.</p>
+          <h4>Requirements</h4>
+          <ul>
+            <li>Node.js 16+</li>
+            <li>npm or yarn</li>
+          </ul>
+        </section>
+        
+        <section id="configuration">
+          <h2>Configuration</h2>
+          <p>Configure DocsHub for your specific needs.</p>
+        </section>
+        
+        <section id="basic_config">
+          <h3>Basic Setup</h3>
+          <p>Essential configuration options to get started.</p>
+          <pre><code>{
+  "theme": "modern",
+  "sidebar": true,
+  "search": true
+}</code></pre>
+        </section>
+        
+        <section id="advanced_config">
+          <h3>Advanced Options</h3>
+          <p>Advanced configuration for power users.</p>
+        </section>
+        
+        <section id="api_reference">
+          <h2>API Reference</h2>
+          <p>Complete API documentation and examples.</p>
+        </section>
+        
+        <section id="authentication">
+          <h3>Authentication</h3>
+          <p>Secure your API with proper authentication.</p>
+        </section>
+        
+        <section id="api_keys">
+          <h4>API Keys</h4>
+          <p>Generate and manage API keys for your applications.</p>
+          <table class="table table-bordered">
+            <thead>
+              <tr><th>Method</th><th>Endpoint</th><th>Description</th></tr>
+            </thead>
+            <tbody>
+              <tr><td>GET</td><td>/api/keys</td><td>List API keys</td></tr>
+              <tr><td>POST</td><td>/api/keys</td><td>Create new key</td></tr>
+            </tbody>
+          </table>
+        </section>
+        
+        <section id="oauth">
+          <h4>OAuth 2.0</h4>
+          <p>Implement OAuth 2.0 authentication flow.</p>
+        </section>
+        
+        <section id="endpoints">
+          <h3>Endpoints</h3>
+          <p>Available API endpoints and their usage.</p>
+        </section>
+        
+        <section id="guides">
+          <h2>Guides & Tutorials</h2>
+          <p>Step-by-step guides for common tasks.</p>
+        </section>
+        
+        <section id="react_guide">
+          <h3>React Integration</h3>
+          <p>Integrate DocsHub with React applications.</p>
+          <pre><code>import DocsHub from 'docshub-react';
+
+function App() {
+  return &lt;DocsHub config={config} /&gt;;
+}</code></pre>
+        </section>
+        
+        <section id="vue_guide">
+          <h3>Vue.js Integration</h3>
+          <p>Use DocsHub with Vue.js applications.</p>
+        </section>
+        
+        <section id="faq">
+          <h2>FAQ</h2>
+          <h4>How do I customize the theme?</h4>
+          <p>You can customize the theme by modifying the CSS variables or using our theme builder.</p>
+          
+          <h4>Is DocsHub mobile responsive?</h4>
+          <p>Yes, DocsHub is fully responsive and works great on all devices.</p>
+        </section>
+        
+        <section id="support">
+          <h2>Support</h2>
+          <p>Need help? We're here to assist you.</p>
+          <div class="alert alert-info">
+            For technical support, please visit our GitHub repository or contact our support team.
+          </div>
+        </section>
+        
+      </div>
+    </div>
+  </div>
+  
+  <footer id="footer">
+    <div class="container">
+      <p>&copy; 2024 DocsHub. All rights reserved.</p>
+    </div>
+  </footer>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/4.6.2/js/bootstrap.bundle.min.js"></script>
+<script>
+$(document).ready(function() {
+  // Hide preloader
+  setTimeout(() => $('.preloader').fadeOut(), 1000);
+  
+  // Smooth scrolling
+  $('a[href^="#"]').click(function(e) {
+    e.preventDefault();
+    const target = $(this.getAttribute('href'));
+    if (target.length) {
+      $('html, body').animate({ scrollTop: target.offset().top - 100 }, 500);
+    }
+  });
+  
+  // Active nav highlighting
+  $(window).scroll(function() {
+    const scrollPos = $(document).scrollTop() + 150;
+    $('section').each(function() {
+      const top = $(this).offset().top;
+      const bottom = top + $(this).outerHeight();
+      const id = $(this).attr('id');
+      
+      if (scrollPos >= top && scrollPos <= bottom) {
+        $('.nav-link').removeClass('active');
+        $(`.nav-link[href="#${id}"]`).addClass('active');
+      }
+    });
+  });
+});
+</script>
+</body>
+</html>
