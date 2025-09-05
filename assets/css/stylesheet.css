@@ -2367,10 +2367,10 @@ hr {
   color: #eee;
 }
 #footer.footer-text-light:not(.bg-primary) .social-icons-light.social-icons li a {
-  color: #ff2c54;
+  color: #000000;
 }
 #footer.footer-text-light:not(.bg-primary) .social-icons-light.social-icons li a:hover {
-  color: #ff2c54;
+  color: #eeeeee;
 }
 #footer.footer-text-light.bg-primary {
   color: #ff2c54;
