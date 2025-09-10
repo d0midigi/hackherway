@@ -934,7 +934,7 @@ hr {
   z-index: 1021;
 }
 .primary-menu ul.navbar-nav > li.dropdown > .dropdown-toggle .arrow {
-  display: visible;
+  display: none;
 }
 .primary-menu .dropdown-menu-right {
   left: auto !important;
