@@ -660,9 +660,9 @@ hr {
 }
 .idocs-navigation .nav .nav-link {
   position: relative;
-  padding: 2px 30px;
-  line-height: 25px;
-  font-weight: 500;
+  padding: 1px 30px;
+  line-height: 20px;
+  font-weight: 300;
 }
 .idocs-navigation .nav .nav-item:hover > .nav-link, .idocs-navigation .nav .nav-item .nav-link.active {
   font-weight: 300;
@@ -1936,7 +1936,7 @@ hr {
 
 /* 5.4 Nav */
 .nav .nav-item .nav-link {
-  color: #04FE00;
+  color: #eee;
 }
 
 .nav.nav-light .nav-item .nav-link {
@@ -1944,7 +1944,7 @@ hr {
 }
 
 .nav:not(.nav-pills) .nav-item .nav-link.active, .nav:not(.nav-pills) .nav-item .nav-link:hover {
-  color: #eee;
+  color: #BA437A;;
 }
 
 .nav-pills .nav-link:not(.active):hover {
