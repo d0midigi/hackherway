@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en" >
+<head>
+  <meta charset="UTF-8">
+  <title>Ionic Tabs + Side Menu</title>
+  <style>angular.module('starter', ['ionic', 'starter.controllers'])
+
+.run(function($ionicPlatform) {
+  $ionicPlatform.ready(function() {
+    // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
+    // for form inputs)
+    if (window.cordova && window.cordova.plugins.Keyboard) {
+      cordova.plugins.Keyboard.hideKeyboardAccessoryBar(true);
+    }
+    if (window.StatusBar) {
+      // org.apache.cordova.statusbar required
+      StatusBar.styleDefault();
+    }
+  });
+})
+
+.config(function($stateProvider, $urlRouterProvider) {
+  $stateProvider
+
+  .state('app', {
+    url: "/app",
+    abstract: true,
+    templateUrl: "templates/menu.html",
+    controller: 'AppCtrl'
+  })
+
+  .state('app.search', {
+    url: "/search",
+    views: {
+      'tab-search': {
+        templateUrl: "templates/search.html"
+      }
+    }
+  })
+
+  .state('app.browse', {
+    url: "/browse",
+    views: {
+      'tab-browse': {
+        templateUrl: "templates/browse.html"
+      }
+    }
+  })
+
+  .state('app.playlists', {
+    url: "/playlists",
+    views: {
+      'tab-playlists': {
+        templateUrl: "templates/playlists.html",
+        controller: 'PlaylistsCtrl'
+      }
+    }
+  })
+
+    .state('app.single', {
+      url: "/playlists/:playlistId",
+      views: {
+        'tab-playlists': {
+          templateUrl: "templates/playlist.html",
+          controller: 'PlaylistCtrl'
+        }
+      }
+    });
+  // if none of the above states are matched, use this as the fallback
+  $urlRouterProvider.otherwise('/app/playlists');
+});
+
+angular.module('starter.controllers', [])
+
+.controller('AppCtrl', function($scope, $ionicModal, $timeout) {
+
+})
+
+.controller('PlaylistsCtrl', function($scope) {
+  $scope.playlists = [
+    { title: 'Reggae', id: 1 },
+    { title: 'Chill', id: 2 },
+    { title: 'Dubstep', id: 3 },
+    { title: 'Indie', id: 4 },
+    { title: 'Rap', id: 5 },
+    { title: 'Cowbell', id: 6 }
+  ];
+})
+
+.controller('PlaylistCtrl', function($scope, $stateParams) {
+});</style>
+
+</head>
+<body>
+<!-- partial:index.partial.html -->
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width">
+
+  <title>Ionic Tabs + SideMenu</title>
+
+    <link href="//code.ionicframework.com/nightly/css/ionic.css" rel="stylesheet">
+    <script src="//code.ionicframework.com/nightly/js/ionic.bundle.js"></script>
+
+  <script src="https://code.ionicframework.com/collide/0.0.4/collide.js"></script>
+  
+  <script id="templates/browse.html" type="text/ng-template">
+    <ion-view view-title="Browse">
+      <ion-content>
+        <h1>Browse</h1>
+      </ion-content>
+    </ion-view>
+  </script>
+  
+  <script id="templates/menu.html" type="text/ng-template">
+    <ion-side-menus enable-menu-with-back-views="false">
+      <ion-side-menu-content>
+        <ion-nav-bar class="bar-stable">
+          <ion-nav-back-button>
+          </ion-nav-back-button>
+
+          <ion-nav-buttons side="left">
+            <button class="button button-icon button-clear ion-navicon" menu-toggle="left">
+            </button>
+          </ion-nav-buttons>
+        </ion-nav-bar>
+
+        <!-- TABS -->
+        <ion-tabs>
+
+          <ion-tab title="Search" icon-off="ion-search" icon-on="ion-search" href="#/app/search">
+            <ion-nav-view name="tab-search"></ion-nav-view>
+          </ion-tab>
+
+          <ion-tab title="Browse" icon-off="ion-ios-glasses" icon-on="ion-ios-glasses" href="#/app/browse">
+            <ion-nav-view name="tab-browse"></ion-nav-view>
+          </ion-tab>
+
+          <ion-tab title="Playlist" icon-off="ion-ipod" icon-on="ion-ipod" href="#/app/playlists">
+            <ion-nav-view name="tab-playlists"></ion-nav-view>
+          </ion-tab>
+
+        </ion-tabs>
+
+      </ion-side-menu-content>
+
+       <!-- Side Menu (left) -->
+      <ion-side-menu side="left">
+        <ion-header-bar class="bar-stable">
+          <h1 class="title">Left</h1>
+        </ion-header-bar>
+        <ion-content>
+          <ion-list>
+            <ion-item menu-close href="#/app/search">
+              Search
+            </ion-item>
+            <ion-item menu-close href="#/app/browse">
+              Browse
+            </ion-item>
+            <ion-item menu-close href="#/app/playlists">
+              Playlists
+            </ion-item>
+          </ion-list>
+        </ion-content>
+      </ion-side-menu>
+    </ion-side-menus>
+  </script>
+  
+  <script id="templates/playlist.html" type="text/ng-template">
+    <ion-view view-title="Playlist">
+      <ion-content>
+        <h1>Playlist</h1>
+      </ion-content>
+    </ion-view>
+  </script>
+  
+  <script id="templates/playlists.html" type="text/ng-template">
+    <ion-view view-title="Ionic Tabs + SideMenu">
+      <ion-content>
+        <ion-list>
+          <ion-item ng-repeat="playlist in playlists" href="#/app/playlists/{{playlist.id}}">
+            {{playlist.title}}
+          </ion-item>
+        </ion-list>
+      </ion-content>
+    </ion-view>
+  </script>
+  
+  <script id="templates/search.html" type="text/ng-template">
+    <ion-view view-title="Search">
+      <ion-content>
+        <h1>Search</h1>
+      </ion-content>
+    </ion-view>
+  </script>
+  
+</head>
+
+  <body ng-app="starter">
+    <ion-nav-view></ion-nav-view>
+  </body>
+
+</html>
+<!-- partial -->
+  <script  src="./script.js"></script>
+
+</body>
+</html>
