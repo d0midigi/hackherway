@@ -5,7 +5,103 @@
   <title>Hakim&#39;s Progress Nav Concept using the Intersection Observer API</title>
   <link rel="stylesheet" href="https://public.codepenassets.com/css/normalize-5.0.0.min.css">
 <link rel="stylesheet" href="./style.css">
-<style>@import url('https://fonts.googleapis.com/css2?family=PT+Mono&family=PT+Sans:wght@400;700&display=swap');
+	<link rel='stylesheet' href='//maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css'><link rel="stylesheet" href="./style.css">
+<style>body {
+  padding: 50px 0px 50px 0px;
+  -webkit-font-smoothing: antialiased;
+  background: #3a444e;
+}
+
+.fly {
+  -webkit-transform: translateX(-200px);
+  -webkit-transition: 0.4s;
+  -moz-transition: 0.4s;
+  -o-transition: 0.4s;
+  -ms-transition: 0.4s;
+  transition: 0.4s;
+}
+
+.flyIn {
+  -webkit-transform: translateX(0px);
+  -webkit-transition: 0.4s;
+  -moz-transition: 0.4s;
+  -o-transition: 0.4s;
+  -ms-transition: 0.4s;
+  transition: 0.4s;
+}
+
+.col-md-4:hover {
+  background: #f7f7f7;
+  -webkit-transition: 0.4s;
+  -moz-transition: 0.4s;
+  -o-transition: 0.4s;
+  -ms-transition: 0.4s;
+  transition: 0.4s;
+  -webkit-transform: translateX(20px);
+  -moz-transform: translateX(20px);
+  -o-transform: translateX(20px);
+  -ms-transform: translateX(20px);
+  transform: translateX(20px);
+  position: relative;
+  z-index: 5000;
+}
+
+.post:hover {
+  text-decoration: none;
+}
+
+.fa {
+  margin-right: 5px;
+}
+
+.col-md-4 {
+  height: auto;
+  overflow: hidden;
+  background: #2A3138;
+  border: 1px solid #1e2328;
+  position: relative;
+  z-index: 0;
+}
+.col-md-4 .inner {
+  padding: 20px;
+}
+.col-md-4 .inner .category {
+  color: #F26743;
+  font: 900 13px Lato;
+  text-transform: uppercase;
+}
+.col-md-4 .inner .date {
+  font: 900 13px Lato;
+  color: #9b9eab;
+  margin-left: 5px;
+}
+.col-md-4 .inner h2 {
+  font: 900 24px Lato;
+  text-transform: uppercase;
+  margin-bottom: 18px;
+  color: #fff;
+}
+.col-md-4 .inner p {
+  font: 400 14px Lato;
+  line-height: 22px;
+  color: #9b9eab;
+}
+.col-md-4 .inner .read-more {
+  color: #F26743;
+  display: block;
+  font: 900 13px Lato;
+  position: relative;
+  text-transform: uppercase;
+}
+.col-md-4 .inner .read-more:hover {
+  text-decoration: none;
+}
+
+a:active, a:focus {
+  color: #F26743;
+</style>
+	
+	<style>@import url('https://fonts.googleapis.com/css2?family=PT+Mono&family=PT+Sans:wght@400;700&display=swap');
 
 /* === Grid and base layout === */
 
@@ -377,5 +473,101 @@ drawPath();
 
 const observer = new IntersectionObserver(markVisibleSection);
 elementsToObserve.forEach(thisEl => observer.observe(thisEl));</script>
+<!-- partial:index.partial.html -->
+<link href='https://fonts.googleapis.com/css?family=Lato:100,300,400,900' rel='stylesheet' type='text/css'>
+<link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
+<div class="container">
+  <div class="row">
+    <a class="post" href="#"><div class="col-md-4">
+      <div class="inner">
+        <p class="category">News <span class="date"><i class="fa fa-clock-o"></i>2014.11.19</p>
+        <h2>World Poverty Statistics Reach High</h2>
+        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec suscipit justo ex, vel scelerisque magna volutpat ut. Nunc ultrices facilisis orci, pulvinar gravida orci mattis quis.</p>
+        <a class="read-more" href="#">Read More</a>
+      </div>   
+      </div></a>
+    <a class="post" href="#"><div class="col-md-4">
+      <div class="inner">
+        <p class="category">Sports <span class="date"><i class="fa fa-clock-o"></i>2014.11.23</p>
+        <h2>15 Points In Under 5 Minutes</h2>
+        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec suscipit justo ex, vel scelerisque magna volutpat ut. Nunc ultrices facilisis orci, pulvinar gravida orci mattis quis.</p>
+        <a class="read-more" href="#">Read More</a>
+      </div>   
+      </div></a>
+    <a class="post" href="#"><div class="col-md-4">
+      <div class="inner">
+        <p class="category">Life <span class="date"><i class="fa fa-clock-o"></i>2014.11.29</p>
+        <h2>How to be a codepen boss, code like a pro</h2>
+        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec suscipit justo ex, vel scelerisque magna volutpat ut. Nunc ultrices facilisis orci, pulvinar gravida orci mattis quis.</p>
+        <a class="read-more" href="#">Read More</a>
+      </div>   
+      </div></a>
+    <a class="post" href="#"><div class="col-md-4">
+      <div class="inner">
+        <p class="category">Crime <span class="date"><i class="fa fa-clock-o"></i>2014.11.31</p>
+        <h2>hide your kids, hide your wifes</h2>
+        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec suscipit justo ex, vel scelerisque magna volutpat ut. Nunc ultrices facilisis orci, pulvinar gravida orci mattis quis.</p>
+        <a class="read-more" href="#">Read More</a>
+      </div>   
+      </div></a>
+    <a class="post" href="#"><div class="col-md-4">
+      <div class="inner">
+        <p class="category">Daily <span class="date"><i class="fa fa-clock-o"></i>2014.10.28</p>
+        <h2>recent studies prove iphone 6 is bullshit</h2>
+        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec suscipit justo ex, vel scelerisque magna volutpat ut. Nunc ultrices facilisis orci, pulvinar gravida orci mattis quis.</p>
+        <a class="read-more" href="#">Read More</a>
+      </div>   
+      </div></a>
+    <a class="post" href="#"><div class="col-md-4">
+      <div class="inner">
+        <p class="category">History<span class="date"><i class="fa fa-clock-o"></i>2014.10.26</p>
+        <h2>aliens are really true, The in-depth story</h2>
+        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec suscipit justo ex, vel scelerisque magna volutpat ut. Nunc ultrices facilisis orci, pulvinar gravida orci mattis quis.</p>
+        <a class="read-more" href="#">Read More</a>
+      </div>   
+      </div></a>
+    <a class="post" href="#"><div class="col-md-4">
+      <div class="inner">
+        <p class="category">Breakthrough <span class="date"><i class="fa fa-clock-o"></i>2014.10.19</p>
+        <h2>charge your phone in 15 seconds</h2>
+        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec suscipit justo ex, vel scelerisque magna volutpat ut. Nunc ultrices facilisis orci, pulvinar gravida orci mattis quis.</p>
+        <a class="read-more" href="#">Read More</a>
+      </div>   
+      </div></a>
+    <a class="post" href="#"><div class="col-md-4">
+      <div class="inner">
+        <p class="category">World <span class="date"><i class="fa fa-clock-o"></i>2014.10.10</p>
+        <h2>The Coronavirus Will Kill Us All</h2>
+        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec suscipit justo ex, vel scelerisque magna volutpat ut. Nunc ultrices facilisis orci, pulvinar gravida orci mattis quis.</p>
+        <a class="read-more" href="#">Read More</a>
+      </div>   
+      </div></a>
+    <a class="post" href="#"><div class="col-md-4">
+      <div class="inner">
+        <p class="category">Tech <span class="date"><i class="fa fa-clock-o"></i>2014.11.2</p>
+        <h2>Refreshing New Blog Formats</h2>
+        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec suscipit justo ex, vel scelerisque magna volutpat ut. Nunc ultrices facilisis orci, pulvinar gravida orci mattis quis.</p>
+        <a class="read-more" href="#">Read More</a>
+      </div>   
+      </div></a>
+    
+    
+  </div>
+</div>
+<!-- partial -->
+  <script src='//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
+<script src='//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.1/js/bootstrap.min.js'></script><script  src="./script.js"></script>
+<script>$(".col-md-4").mouseover(function(){
+  $(this).find("h2").css("color","#F26743");
+  $(this).find(".read-more").removeClass("flyIn");
+  $(this).find(".read-more").addClass("fly");
+  
+}).mouseout(function(){
+  $("h2").css("color","#fff");
+  $(this).find(".read-more").removeClass("fly");
+  $(this).find(".read-more").addClass("flyIn");
+});</script>
+
+
 </body>
 </html>
