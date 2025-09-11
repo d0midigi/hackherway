@@ -283,12 +283,12 @@ dl, ol, ul, pre, blockquote, .table {
 }
 
 .text-4 {
-  font-size: 14px !important;
-font-size: 1rem !important;
+  font-size: 18px !important;
+  font-size: 1.125rem !important;
 }
 
 .text-5 {
-  font-size: 16px !important;
+  font-size: 21px !important;
   font-size: 1.3125rem !important;
 }
 
