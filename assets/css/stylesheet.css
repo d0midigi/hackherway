@@ -2954,6 +2954,13 @@ input:-internal-autofill-selected {
   left: -40px;
   border-radius: 4px 0px 0px 4px;
 }
+
+#starfield
+body {
+  background: #000000;
+  margin: 0px;
+  padding: 0px;
+}
 /* =====  YOUR OWN QUICK-OVERRIDE  ===== */
 .idocs-navigation,
 .idocs-navigation.docs-navigation-dark {   /* both normal + dark variants */
