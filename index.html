@@ -9,7 +9,57 @@
 <meta name="description" content="Learn how to hackherway - the hacker way!">
  <title>Starfield old school style</title>
   <link rel="stylesheet" type="text/css" href="assets/css/stylesheet.css" />
+<!-- Blinking Cursor -->
+	<style>@import "compass/css3";
 
+span {
+	font-family: monospace;
+	font-size: 2em;
+}
+span:after {
+	content:"_";
+	opacity: 0;
+	animation: cursor 1s infinite;
+}
+@keyframes cursor {
+	0% {
+		opacity: 0;
+	}
+	40% {
+		opacity: 0;
+	}
+	50% {
+		opacity: 1;
+	}
+	90% {
+		opacity: 1;
+	}
+	100% {
+		opacity: 0;
+	}
+}
+/* styling */
+ html {
+	width: 100%;
+	height: 100%;
+	background: radial-gradient(circle, #fff 0%, #aaa 100%) no-repeat;
+	overflow-x: hidden;
+	overflow-y: hidden;
+}
+body {
+	text-align: center;
+	display: table;
+	width: 100%;
+	height: 100%;
+	overflow-x: hidden;
+	overflow-y: hidden;
+}
+#wrap {
+	box-sizing: border-box;
+	display: table-cell;
+	vertical-align: middle;
+}
+	</style>
 <!-- Stylesheet
 ============================== -->
 <!-- Bootstrap -->
@@ -88,7 +138,9 @@
     <!-- Navbar End --> 
   </header>
   <!-- Header End --> 
- 
+ <div id="wrap">
+  <span>learn how to hackherway-the hacker way@home:~$ </span>
+</div>
   <!-- Content
   ============================ -->
   <div id="content" role="main">
