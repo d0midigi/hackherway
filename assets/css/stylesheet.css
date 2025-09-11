@@ -1,9 +1,9 @@
 /*===========================================================
 
 
-   Template Name: hackherway - One Page Documentation HTML Template
+   Name: hackherway - One Page HTML
    Author: mindhackdiva
-   File Description : Main css file of the template
+   File Description : Main CSS file of the template
 	
 =================================================
   Table of Contents
@@ -3102,6 +3102,26 @@ section:last-of-type,
 section:last-of-type p:last-of-type {
   margin-bottom: 0;
   padding-bottom: 0;
+}
+:root { --header-height: 72px; } /* adjust if your header height differs */
+html { scroll-behavior: smooth; scroll-padding-top: var(--header-height); }
+
+/* starfield lives only inside this section */
+.starfield-wrap {
+  position: relative;
+  min-height: 60vh;      /* change to taste */
+  overflow: hidden;      /* clip canvas to the section */
+  background: #000;
+}
+#starfield {
+  position: absolute;
+  inset: 0;              /* top/right/bottom/left: 0 */
+  width: 100%;
+  height: 100%;
+  display: block;
+  z-index: 0;
+}
+.hero-content { position: relative; z-index: 1; color: #fff; }
 }
 /* =====  YOUR OWN QUICK-OVERRIDE  ===== */
 .idocs-navigation,
