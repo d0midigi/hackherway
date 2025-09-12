@@ -1,3 +1,92 @@
+<!DOCTYPE html>
+<html lang="en" >
+<head>
+  <meta charset="UTF-8">
+  <title>Responsive Blog Homepage</title>
+  <link href='https://fonts.googleapis.com/css?family=Varela+Round' rel='stylesheet' type='text/css'>
+<link href='https://fonts.googleapis.com/css?family=Monoton' rel='stylesheet' type='text/css'><link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/skeleton/2.0.4/skeleton.min.css'><link rel="stylesheet" href="./style.css">
+<style>:root {
+	background-color: #7DC8CF;
+	font-family: system-ui;
+	font-variant-numeric: tabular-nums;
+}
+
+*,
+:after,
+:before {
+	box-sizing: border-box;
+}
+
+svg {
+	display: block;
+	font-size: 1.5rem;
+	font-weight: 900;
+	max-width: 100%;
+	height: auto;
+	max-height: 100%;
+}
+
+
+body {
+	height: 100vh;
+	margin: 0;
+	display: grid;
+	place-items: center;
+	background: lightblue;
+}
+
+.frame {
+	border: 6px solid #67442b;
+	border-radius: 16px;
+	background: #67442b;
+	// max-height: 100vh;
+}
+
+#game {
+	border-radius: 10px;
+	user-select: none;
+}
+
+.toast {
+	cursor: pointer;
+
+	&__wings {
+		animation: wings-flapping linear infinite .4s;
+		transform-origin: center 85%;
+		pointer-events: none;
+	}
+
+	&__eyes {
+		animation: blink linear infinite 2s;
+		transform-origin: 15px;
+	}
+
+}
+
+@keyframes wings-flapping {
+	0%,
+	100% {
+		scale: 1 1;
+	}
+	50% {
+		scale: 1 .8;
+	}
+}
+
+@keyframes blink {
+	0%,90% {
+		scale: 1 1;
+	}
+	100% {
+		scale: 1 0;
+	}
+}</style>
+</head>
+<body>
+<!-- partial:index.partial.html -->
+<div class="container">
+  <h1>Blog Posts</h1>
+  <div class="row">
 <div class="frame">
 	<svg id="game" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="450" height="680" fill="none" viewBox="0 0 450 680">
 		<path fill="#7DC8CF" d="M0 1h450v680H0z"/>
@@ -40,3 +129,145 @@
 		</symbol>
 	</svg>
 </div>
+	  <script>class Game {
+	constructor() {
+		this.svg = document.getElementById('game')
+		this.toastSymbolId = '#toast'
+		this.scoreEl = document.getElementById('score')
+		this.livesEl = document.getElementById('lives')
+		this.finalScoreInfoEl = document.getElementById('final-score-info')
+		this.gameOverScreenEl = document.getElementById('game-over-screen')
+		this.toasts = []
+		this.score = 0
+		this.spawnInterval = 2000
+		this.remainingLives = 5
+		this.gameOver = false
+		this.gameStartTime = performance.now()
+
+		this.loop = this.loop.bind(this)
+		this.spawnToast()
+		this.startSpawnTimer()
+		this.updateLives()
+		requestAnimationFrame(this.loop)
+	}
+
+	startSpawnTimer() {
+		if (this.spawnTimer) {
+			clearInterval(this.spawnTimer)
+		}
+		
+		const gameTimeSeconds = (performance.now() - this.gameStartTime) / 1000
+		this.spawnInterval = Math.max(500, 2000 - Math.floor(gameTimeSeconds / 10) * 100)
+		
+		this.spawnTimer = setInterval(() => {
+			if (!this.gameOver) {
+				this.spawnToast()
+				
+				this.startSpawnTimer()
+			}
+		}, this.spawnInterval)
+	}
+
+	spawnToast() {
+		if (this.gameOver) return
+
+		const startX = Math.random() * 350 + 25
+		const endX = Math.random() * 350 + 25
+		const peakY = 200 + Math.random() * 50
+
+		const toast = document.createElementNS('http://www.w3.org/2000/svg', 'use')
+		toast.setAttribute('href', this.toastSymbolId)
+		toast.setAttribute('class', 'toast')
+		toast.setAttribute('x', startX)
+		toast.setAttribute('y', 680)
+		this.svg.appendChild(toast)
+
+		const toastObj = {
+			el: toast,
+			startX,
+			endX,
+			startY: 680,
+			peakY,
+			startTime: performance.now(),
+			duration: 3000,
+			clicked: false,
+			upwardSpeed: -8,
+			reachedBottom: false
+		}
+
+		toast.addEventListener('pointerdown', () => {
+			if (!this.gameOver && !toastObj.clicked) {
+				this.score += 1
+				this.scoreEl.textContent = this.score.toString().padStart(8, '0')
+				toastObj.clicked = true
+			}
+		})
+
+		this.toasts.push(toastObj)
+	}
+
+	checkGameOver() {
+		if (this.remainingLives <= 0) {
+			this.gameOver = true
+			clearInterval(this.spawnTimer)
+
+			this.gameOverScreenEl.setAttribute('visibility','visible')
+			this.finalScoreInfoEl.textContent = `Final Score: ${this.score}`
+		}
+	}
+
+	loop(timestamp) {
+		if (this.gameOver) {
+			requestAnimationFrame(this.loop)
+			return
+		}
+
+		this.toasts = this.toasts.filter(toast => {
+			const t = (timestamp - toast.startTime) / toast.duration
+
+			if (toast.clicked) {
+				const currentY = parseFloat(toast.el.getAttribute('y'))
+				const newY = currentY + toast.upwardSpeed
+				toast.el.setAttribute('y', newY)
+				toast.el.setAttribute('pointer-events', 'none')
+				if (newY < -50) {
+					toast.el.remove()
+					return false
+				}
+			} else {
+
+				if (t > 1) {
+
+					if (!toast.reachedBottom) {
+						this.remainingLives--
+						this.updateLives()
+						this.checkGameOver()
+						toast.reachedBottom = true
+					}
+					toast.el.remove()
+					return false
+				}
+
+				const x = toast.startX + (toast.endX - toast.startX) * t
+				const y = toast.startY - (4 * t * (1 - t)) * (toast.startY - toast.peakY)
+
+				toast.el.setAttribute('x', x)
+				toast.el.setAttribute('y', y)
+			}
+
+			return true
+		})
+
+		requestAnimationFrame(this.loop)
+	}
+	
+	updateLives(){
+			this.livesEl.textContent = `${this.remainingLives}X`
+	}
+	
+}
+
+
+const game = new Game()</script>
+  </body>
+</html>
