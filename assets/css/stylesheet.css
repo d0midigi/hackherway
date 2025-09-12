@@ -2936,6 +2936,55 @@ a.bg-primary:focus, a.bg-primary:hover, button.bg-primary:focus, button.bg-prima
   height: 40px;
   padding: 0;
 }
+/* ===================================
+   Custom Overrides
+   =================================== */
+
+/* ===== Sidebar Fix ===== */
+.idocs-navigation {
+  position: fixed;
+  top: 80px;                /* below header */
+  left: 0;
+  bottom: 0;
+  width: 260px;             /* fixed width */
+  overflow-y: auto;
+  border-right: 1px solid #333;
+  background-color: #111;   /* dark sidebar */
+  color: #fff;
+  padding: 15px 0;
+  z-index: 1000;
+}
+
+.idocs-navigation .nav-link {
+  color: #ccc;
+  padding: 6px 20px;
+}
+
+.idocs-navigation .nav-link.active {
+  color: #fff;
+  font-weight: bold;
+  background: rgba(255,255,255,0.1);
+}
+
+/* ===== Content Area Adjust ===== */
+.idocs-content {
+  margin-left: 260px;   /* push right of sidebar */
+  padding: 40px;
+}
+
+/* ===== Navbar Fix (top-right menu) ===== */
+#header-nav {
+  flex-grow: 0;   /* don’t stretch */
+}
+
+#header-nav .navbar-nav {
+  align-items: center;
+}
+
+#header-nav .nav-link {
+  padding: 0.6rem 1rem;
+}
+
 #styles-switcher #reset-color {
   background: #e83e8c;
 }
