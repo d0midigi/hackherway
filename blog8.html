@@ -1,0 +1,752 @@
+<!DOCTYPE html>
+<html lang="en" >
+<head>
+  <meta charset="UTF-8">
+  <title>learn craft sidebar homepage</title>
+  
+
+</head>
+<body>
+<!-- partial:index.partial.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LearnCraft Forum</title>
+    <style>
+        :root {
+            --color-bg-primary: #0f1419;
+            --color-bg-secondary: #1a2332;
+            --color-bg-card: #2a3441;
+            --color-text-primary: #ffffff;
+            --color-text-secondary: #94a3b8;
+            --color-text-muted: #64748b;
+            --color-accent: #3b82f6;
+            --color-accent-hover: #2563eb;
+            --color-border: #334155;
+            --color-success: #10b981;
+            --color-warning: #f59e0b;
+            --color-danger: #ef4444;
+            --font-sans: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: var(--font-sans);
+            background-color: var(--color-bg-primary);
+            color: var(--color-text-primary);
+            line-height: 1.6;
+            min-height: 100vh;
+        }
+
+        .app-container {
+            display: flex;
+            min-height: 100vh;
+        }
+
+        /* Header */
+        .header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 100;
+            background: var(--color-bg-secondary);
+            border-bottom: 1px solid var(--color-border);
+            padding: 0.75rem 1rem;
+            backdrop-filter: blur(10px);
+        }
+
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 100%;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 800;
+            color: var(--color-text-primary);
+            text-decoration: none;
+            letter-spacing: 0.05em;
+        }
+
+        .header-actions {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .search-btn, .menu-btn, .chat-btn {
+            background: transparent;
+            border: 1px solid var(--color-border);
+            color: var(--color-text-secondary);
+            padding: 0.5rem;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .search-btn:hover, .menu-btn:hover, .chat-btn:hover {
+            color: var(--color-text-primary);
+            border-color: var(--color-accent);
+            background: rgba(59, 130, 246, 0.1);
+        }
+
+        .chat-btn {
+            background: var(--color-accent);
+            color: white;
+            border-color: var(--color-accent);
+        }
+
+        /* Main Layout */
+        .main-layout {
+            display: flex;
+            width: 100%;
+            margin-top: 60px; /* Account for fixed header */
+        }
+
+        /* Sidebar */
+        .sidebar {
+            width: 280px;
+            background: var(--color-bg-secondary);
+            border-right: 1px solid var(--color-border);
+            height: calc(100vh - 60px);
+            overflow-y: auto;
+            padding: 1rem;
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+
+        .sidebar::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        .sidebar::-webkit-scrollbar-track {
+            background: transparent;
+        }
+
+        .sidebar::-webkit-scrollbar-thumb {
+            background: var(--color-border);
+            border-radius: 3px;
+        }
+
+        .sidebar::-webkit-scrollbar-thumb:hover {
+            background: var(--color-text-muted);
+        }
+
+        .new-discussion-btn {
+            background: linear-gradient(135deg, var(--color-accent) 0%, #2563eb 100%);
+            color: white;
+            border: none;
+            padding: 0.75rem 1rem;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            box-shadow: 0 2px 8px rgba(59, 130, 246, 0.2);
+        }
+
+        .new-discussion-btn:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 4px 16px rgba(59, 130, 246, 0.3);
+        }
+
+        .sidebar-section {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .section-title {
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: var(--color-text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-bottom: 0.75rem;
+            padding: 0 0.5rem;
+        }
+
+        .nav-list {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 0.25rem;
+        }
+
+        .nav-item {
+            border-radius: 6px;
+            overflow: hidden;
+        }
+
+        .nav-link {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            padding: 0.6rem 0.75rem;
+            color: var(--color-text-secondary);
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+            border-radius: 6px;
+            position: relative;
+        }
+
+        .nav-link:hover {
+            color: var(--color-text-primary);
+            background: rgba(59, 130, 246, 0.1);
+        }
+
+        .nav-link.active {
+            color: var(--color-accent);
+            background: rgba(59, 130, 246, 0.15);
+        }
+
+        .nav-link.active::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            width: 3px;
+            background: var(--color-accent);
+        }
+
+        .nav-icon {
+            width: 18px;
+            height: 18px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1rem;
+        }
+
+        .nav-badge {
+            margin-left: auto;
+            background: var(--color-bg-primary);
+            color: var(--color-text-muted);
+            padding: 0.15rem 0.4rem;
+            border-radius: 10px;
+            font-size: 0.7rem;
+            font-weight: 600;
+            min-width: 20px;
+            text-align: center;
+        }
+
+        .nav-badge.highlight {
+            background: var(--color-accent);
+            color: white;
+        }
+
+        /* Main Content */
+        .main-content {
+            flex: 1;
+            background: var(--color-bg-primary);
+            overflow-y: auto;
+            height: calc(100vh - 60px);
+        }
+
+        .content-header {
+            padding: 1.5rem 2rem;
+            border-bottom: 1px solid var(--color-border);
+            background: var(--color-bg-secondary);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .content-title {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: var(--color-text-primary);
+        }
+
+        .filter-dropdown {
+            background: var(--color-bg-card);
+            border: 1px solid var(--color-border);
+            color: var(--color-text-secondary);
+            padding: 0.5rem 1rem;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 0.9rem;
+        }
+
+        .discussions-list {
+            padding: 0;
+        }
+
+        .discussion-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 1rem;
+            padding: 1.5rem 2rem;
+            border-bottom: 1px solid var(--color-border);
+            transition: background-color 0.3s ease;
+            cursor: pointer;
+        }
+
+        .discussion-item:hover {
+            background: rgba(59, 130, 246, 0.05);
+        }
+
+        .discussion-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 6px;
+            background: var(--color-bg-card);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            flex-shrink: 0;
+        }
+
+        .discussion-content {
+            flex: 1;
+            min-width: 0;
+        }
+
+        .discussion-title {
+            font-size: 1rem;
+            font-weight: 600;
+            color: var(--color-text-primary);
+            margin-bottom: 0.5rem;
+            line-height: 1.3;
+        }
+
+        .discussion-preview {
+            color: var(--color-text-secondary);
+            font-size: 0.9rem;
+            line-height: 1.4;
+            margin-bottom: 0.75rem;
+            overflow: hidden;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+        }
+
+        .discussion-meta {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            font-size: 0.8rem;
+            color: var(--color-text-muted);
+        }
+
+        .discussion-tag {
+            background: var(--color-accent);
+            color: white;
+            padding: 0.2rem 0.6rem;
+            border-radius: 12px;
+            font-size: 0.7rem;
+            font-weight: 600;
+        }
+
+        .discussion-tag.livewire {
+            background: #ef4444;
+        }
+
+        .discussion-tag.laravel {
+            background: #f59e0b;
+        }
+
+        .discussion-stats {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-left: auto;
+        }
+
+        .stat-item {
+            display: flex;
+            align-items: center;
+            gap: 0.25rem;
+            color: var(--color-text-muted);
+            font-size: 0.8rem;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .sidebar {
+                position: fixed;
+                left: -280px;
+                top: 60px;
+                z-index: 90;
+                transition: left 0.3s ease;
+            }
+
+            .sidebar.open {
+                left: 0;
+            }
+
+            .main-content {
+                margin-left: 0;
+            }
+
+            .discussion-item {
+                padding: 1rem;
+            }
+
+            .content-header {
+                padding: 1rem;
+            }
+
+            .discussion-stats {
+                display: none;
+            }
+        }
+
+        /* Mobile overlay */
+        .overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 80;
+            display: none;
+        }
+
+        .overlay.active {
+            display: block;
+        }
+    </style>
+</head>
+<body>
+    <div class="app-container">
+        <!-- Header -->
+        <header class="header">
+            <div class="header-content">
+                <a href="#" class="logo">LEARNCRAFT</a>
+                <div class="header-actions">
+                    <button class="search-btn">🔍</button>
+                    <button class="menu-btn" onclick="toggleSidebar()">☰</button>
+                    <button class="chat-btn">💬</button>
+                </div>
+            </div>
+        </header>
+
+        <div class="main-layout">
+            <!-- Sidebar -->
+            <aside class="sidebar" id="sidebar">
+                <button class="new-discussion-btn">
+                    ➕ New Discussion
+                </button>
+
+                <div class="sidebar-section">
+                    <h3 class="section-title">My Stuff</h3>
+                    <ul class="nav-list">
+                        <li class="nav-item">
+                            <a href="#" class="nav-link">
+                                <span class="nav-icon">📋</span>
+                                Social Feed
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="#" class="nav-link">
+                                <span class="nav-icon">👥</span>
+                                Following
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="#" class="nav-link">
+                                <span class="nav-icon">❓</span>
+                                My Questions
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="#" class="nav-link">
+                                <span class="nav-icon">💬</span>
+                                My Participation
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="#" class="nav-link">
+                                <span class="nav-icon">⭐</span>
+                                My Best Answers
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="sidebar-section">
+                    <h3 class="section-title">Discussions</h3>
+                    <ul class="nav-list">
+                        <li class="nav-item">
+                            <a href="#" class="nav-link active">
+                                <span class="nav-icon">💬</span>
+                                All Threads
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="#" class="nav-link">
+                                <span class="nav-icon">🔥</span>
+                                Popular This Week
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="#" class="nav-link">
+                                <span class="nav-icon">📈</span>
+                                Popular All Time
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="#" class="nav-link">
+                                <span class="nav-icon">✅</span>
+                                Solved
+                                <span class="nav-badge">142</span>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="#" class="nav-link">
+                                <span class="nav-icon">❌</span>
+                                Unsolved
+                                <span class="nav-badge highlight">23</span>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </aside>
+
+            <!-- Main Content -->
+            <main class="main-content">
+                <div class="content-header">
+                    <div class="content-title">
+                        Viewing Latest in
+                        <select class="filter-dropdown">
+                            <option>All</option>
+                            <option>Laravel</option>
+                            <option>React</option>
+                            <option>Vue</option>
+                            <option>PHP</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="discussions-list">
+                    <div class="discussion-item">
+                        <div class="discussion-avatar">🤖</div>
+                        <div class="discussion-content">
+                            <h3 class="discussion-title">Render caused problem</h3>
+                            <p class="discussion-preview">
+                                I have full page component where a user can buy ticket etc for more persons at once. I store the states in the component in one place for easy handling. I loop the persons, every person...
+                            </p>
+                            <div class="discussion-meta">
+                                <span>ghabe</span>
+                                <span>19h ago</span>
+                                <span class="discussion-tag livewire">Livewire</span>
+                            </div>
+                        </div>
+                        <div class="discussion-stats">
+                            <div class="stat-item">
+                                <span>💬</span>
+                                <span>1</span>
+                            </div>
+                            <div class="stat-item">
+                                <span>👀</span>
+                                <span>5 Views</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="discussion-item">
+                        <div class="discussion-avatar">🔧</div>
+                        <div class="discussion-content">
+                            <h3 class="discussion-title">PDOException: could not find driver (for SQLite)</h3>
+                            <p class="discussion-preview">
+                                Howdy, I've just started a fresh Laravel project, looking to approach it from a TDD point of view. With that in mind, I have setup a simple test, and as per the onboard series have set phpunit...
+                            </p>
+                            <div class="discussion-meta">
+                                <span>baumgars</span>
+                                <span>1h ago</span>
+                                <span class="discussion-tag laravel">Laravel</span>
+                            </div>
+                        </div>
+                        <div class="discussion-stats">
+                            <div class="stat-item">
+                                <span>💬</span>
+                                <span>8</span>
+                            </div>
+                            <div class="stat-item">
+                                <span>👀</span>
+                                <span>9,495 Views</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="discussion-item">
+                        <div class="discussion-avatar">⚠️</div>
+                        <div class="discussion-content">
+                            <h3 class="discussion-title">Need solution for this error</h3>
+                            <p class="discussion-preview">
+                                at the first I used Cache to show data than everything was working, but after a while the cache were gone so then same issue page is not found, so I removed cache, after removing the cache...
+                            </p>
+                            <div class="discussion-meta">
+                                <span>Razoan_Abir</span>
+                                <span>2h ago</span>
+                                <span class="discussion-tag livewire">Livewire</span>
+                            </div>
+                        </div>
+                        <div class="discussion-stats">
+                            <div class="stat-item">
+                                <span>💬</span>
+                                <span>0</span>
+                            </div>
+                            <div class="stat-item">
+                                <span>👀</span>
+                                <span>8 Views</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="discussion-item">
+                        <div class="discussion-avatar">🎨</div>
+                        <div class="discussion-content">
+                            <h3 class="discussion-title">Best practices for component organization in React</h3>
+                            <p class="discussion-preview">
+                                I'm working on a large React application and struggling with how to organize my components effectively. What are the current best practices for folder structure and component architecture?
+                            </p>
+                            <div class="discussion-meta">
+                                <span>sarah_dev</span>
+                                <span>3h ago</span>
+                                <span class="discussion-tag">React</span>
+                            </div>
+                        </div>
+                        <div class="discussion-stats">
+                            <div class="stat-item">
+                                <span>💬</span>
+                                <span>12</span>
+                            </div>
+                            <div class="stat-item">
+                                <span>👀</span>
+                                <span>156 Views</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="discussion-item">
+                        <div class="discussion-avatar">🔒</div>
+                        <div class="discussion-content">
+                            <h3 class="discussion-title">JWT Authentication vs Session-based Auth</h3>
+                            <p class="discussion-preview">
+                                I'm building a new API and trying to decide between JWT tokens and traditional session-based authentication. What are the pros and cons of each approach in modern applications?
+                            </p>
+                            <div class="discussion-meta">
+                                <span>mike_security</span>
+                                <span>5h ago</span>
+                                <span class="discussion-tag">Security</span>
+                            </div>
+                        </div>
+                        <div class="discussion-stats">
+                            <div class="stat-item">
+                                <span>💬</span>
+                                <span>24</span>
+                            </div>
+                            <div class="stat-item">
+                                <span>👀</span>
+                                <span>892 Views</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="discussion-item">
+                        <div class="discussion-avatar">📊</div>
+                        <div class="discussion-content">
+                            <h3 class="discussion-title">Database indexing strategies for large datasets</h3>
+                            <p class="discussion-preview">
+                                Working with a table that has over 10 million records and query performance is becoming an issue. Looking for advice on indexing strategies and query optimization techniques.
+                            </p>
+                            <div class="discussion-meta">
+                                <span>data_guru</span>
+                                <span>6h ago</span>
+                                <span class="discussion-tag">Database</span>
+                            </div>
+                        </div>
+                        <div class="discussion-stats">
+                            <div class="stat-item">
+                                <span>💬</span>
+                                <span>18</span>
+                            </div>
+                            <div class="stat-item">
+                                <span>👀</span>
+                                <span>445 Views</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </main>
+        </div>
+    </div>
+
+    <div class="overlay" id="overlay" onclick="toggleSidebar()"></div>
+
+    <script>
+        function toggleSidebar() {
+            const sidebar = document.getElementById('sidebar');
+            const overlay = document.getElementById('overlay');
+            
+            sidebar.classList.toggle('open');
+            overlay.classList.toggle('active');
+        }
+
+        // Close sidebar when clicking on main content on mobile
+        document.querySelector('.main-content').addEventListener('click', () => {
+            if (window.innerWidth <= 768) {
+                const sidebar = document.getElementById('sidebar');
+                const overlay = document.getElementById('overlay');
+                
+                sidebar.classList.remove('open');
+                overlay.classList.remove('active');
+            }
+        });
+
+        // Add click handlers for discussion items
+        document.querySelectorAll('.discussion-item').forEach(item => {
+            item.addEventListener('click', () => {
+                // Add active state or navigation logic here
+                console.log('Discussion clicked:', item.querySelector('.discussion-title').textContent);
+            });
+        });
+
+        // Add click handlers for nav links
+        document.querySelectorAll('.nav-link').forEach(link => {
+            link.addEventListener('click', (e) => {
+                e.preventDefault();
+                
+                // Remove active class from all links
+                document.querySelectorAll('.nav-link').forEach(l => l.classList.remove('active'));
+                
+                // Add active class to clicked link
+                link.classList.add('active');
+                
+                console.log('Nav clicked:', link.textContent.trim());
+            });
+        });
+    </script>
+</body>
+</html>
+<!-- partial -->
+  
+</body>
+</html>
