@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en" >
+<head>
+  <meta charset="UTF-8">
+  <title>Sidebar w/ Nested Dropdowns</title>
+  <link rel="stylesheet" href="./style.css">
+<style>.main
+{
+  width:250px;
+}
+
+p, ul, li, div, nav 
+{ 
+  padding:0; margin:0; 
+} 
+body { font-family:Calibri; }
+#menu 
+{ 
+  overflow: auto; position:relative;  width:220px; box-shadow:inset 0px 3px 6px rgba(0,0,0,0.23);
+}
+.parent-menu { background-color: rgb(242, 126, 104); min-width:220px; overflow:auto; }  
+#menu ul { list-style-type:none; }
+#menu ul li a { padding:10px 15px; display:block; color:#fff; text-decoration:none;  }
+#menu ul li a:hover {  text-indent:5px; font-weight:bold; }
+
+#menu ul li a{
+
+}
+
+li ul {
+display : none;
+}
+
+#menu ul li > ul {  background-color:rgb(0, 87, 106);
+ -webkit-box-shadow: inset 0px 0px 10px 0px rgba(0,0,0,0.75);
+-moz-box-shadow: inset 0px 0px 10px 0px rgba(0,0,0,0.75);
+box-shadow: inset 0px 0px 10px 0px rgba(0,0,0,0.75); 
+}
+
+#menu ul li > ul > li > ul {  background-color:rgb(121, 136, 96);   
+}
+</style>
+</head>
+<body>
+<!-- partial:index.partial.html -->
+<div class="main">
+<nav id="menu">
+  <ul class="parent-menu">
+  <li><a class="span1" href="#" data-toggle="dropdown">Work Flow <span class="caret"></span></a>
+    <ul class="1">
+      <li><a class="span2" href="#">MANAGEMENT <span class="caret"></span> </a>
+          <ul class="2">
+            <li><a href="" >Team Information </a></li>
+            <li><a href="" >User Availability</a></li>
+            <li><a href="" >Reassign / Terminate</a></li>
+            <li><a href="" >Unassigned Work Item</a></li>
+          </ul>
+      </li>
+      <li><a href="" target="folderFrame">Work Item List</a></li>
+      <li><a href="" target="folderFrame">Sup. Reassign</a></li>
+    </ul>
+  </li>
+  <li><a class="span1" href="#">STC <span class="caret"></span></a>
+    <ul class="1">
+      <li><a href="" >Approve/Terminate Plan</a></li>
+      <li><a href="" >Enter/Modify Plan</a></li>
+    </ul>
+  </li>
+    <li><a class="span1" href="#">Call In Notice <span class="caret"></span></a>
+      <ul class="1">
+        <li><a href="" >Create Call In Notice</a></li>
+        <li><a href="" >Follow Up Call In Notice</a></li>
+      </ul>
+    </li> 
+    <li><a class="span1" href="#">TOLA <span class="caret"></span></a>
+		  <ul class="1">
+		    <li><a class="span2" href="#">Prosecution<span class="caret"></span></a>
+          <ul class="2">
+            <li><a href="" target="folderFrame">Create Prosecution</a></li>
+            <li><a href="" target="folderFrame">Modify Prosecution</a></li>
+            <li><a href="" target="folderFrame">Create Jurisdiction</a></li>
+            <li><a href="" target="folderFrame">Modify Jurisdiction</a></li>
+            <li><a href="" target="folderFrame">Forms</a></li>
+            <li><a href="" target="folderFrame">Search Jurisdiction</a></li>
+          </ul>
+        </li>
+        <li><a class="span2" href="#">Bankruptcy<span class="caret"></span></a>
+          <ul class="2">
+            <li><a href="" target="folderFrame">Create Bankruptcy</a></li>
+            <li><a href="" target="folderFrame">Modify Bankruptcy</a></li>
+            <li><a href="" target="folderFrame">Search Bankruptcy</a></li>
+          </ul></li>
+        <li><a class="span2" href="#">Civil Collection<span class="caret"></span></a>
+          <ul class="2">
+            <li><a href="" target="folderFrame">Add/Modify</a></li>
+            <li><a href="" target="folderFrame">Selection Criteria</a></li>
+            <li><a href="" target="folderFrame">Search</a></li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+    
+    
+    
+    
+  </ul>
+</nav>
+</div>
+<!-- partial -->
+  <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.0/jquery.min.js'></script><script  src="./script.js"></script>
+<script>$( document ).ready(function() {
+	var arrow = ['&#9660;','&#9650;'];
+	
+	$('.parent-menu li:has(ul) span').html( arrow[0] ).data('a',0);
+
+	$('.span1').click(function() {
+	   $(this).parent().find('.1').slideToggle();
+	   $(this).toggleClass('active');
+	   var arrw = $(this).data('a');
+	   $(this).html( arrow[++arrw%2] ).data('a', arrw);
+	});
+	
+	$('.span2').click(function() {
+	   $(this).parent().find('.2').slideToggle();
+	   var arrw = $(this).data('a');
+	   $(this).html( arrow[++arrw%2] ).data('a', arrw);
+	});
+
+
+});</script>
+</body>
+</html>
