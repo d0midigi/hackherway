@@ -6,84 +6,100 @@
 <!---  <link rel="stylesheet" href="./style.css"> -->
   <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet" />
   <style>
-    /* --- your existing CSS (truncated for clarity, keep yours) --- */
-    body { padding-block-start: 72px; background: var(--cultured); }
+   <style>
+  .layout {
+    display: flex;
+    min-height: 100vh;
+  }
 
-    /* Layout for sidebar + main */
-    .layout {
-      display: flex;
-      min-height: 100vh;
-    }
+  .sidebar {
+    width: 250px;
+    background-color: #2e2e2e;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
 
-    .sidebar {
-      width: 250px;
-      background-color: #2e2e2e;
-      padding: 20px;
-      display: flex;
-      flex-direction: column;
+    /* Sticky behavior */
+    position: fixed;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    overflow-y: auto; /* scroll if menu grows */
+  }
 
-      position: fixed;
-      top: 0;
-      left: 0;
-      bottom: 0;
-      overflow-y: auto;
-    }
+  .sidebar .logo {
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 20px;
+    color: #fff;
+  }
 
-    .sidebar .logo {
-      font-size: 24px;
-      font-weight: bold;
-      margin-bottom: 20px;
-      color: #fff;
-    }
+  .menu {
+    list-style: none;
+  }
 
-    .menu { list-style: none; }
-    .menu-item { margin-bottom: 10px; }
-    .menu-title {
-      display: flex;
-      align-items: center;
-      cursor: pointer;
-      padding: 10px;
-      border-radius: 5px;
-      transition: background 0.2s;
-      color: #fff;
-    }
-    .menu-title:hover { background-color: #3a3a3a; }
-    .icon { margin-right: 10px; }
+  .menu-item {
+    margin-bottom: 10px;
+  }
 
-    .submenu {
-      list-style: none;
-      margin-left: 20px;
-      margin-top: 5px;
-      display: none;
-    }
+  .menu-title {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    padding: 10px;
+    border-radius: 5px;
+    transition: background 0.2s;
+    color: #fff;
+  }
 
-    .submenu li {
-      position: relative;
-      padding: 5px 10px;
-      color: #ddd;
-    }
+  .menu-title:hover {
+    background-color: #3a3a3a;
+  }
 
-    .submenu li::before {
-      content: '';
-      position: absolute;
-      left: -20px;
-      top: 0;
-      bottom: 0;
-      width: 1px;
-      background-color: #3a3a3a;
-      transition: background-color 0.2s;
-    }
+  .icon {
+    margin-right: 10px;
+  }
 
-    .submenu li:hover::before { background-color: #ffffff; }
-    .menu-item.open .submenu { display: block; }
+  .submenu {
+    list-style: none;
+    margin-left: 20px;
+    margin-top: 5px;
+    display: none;
+  }
 
-    /* Push content over so it’s not under sidebar */
-    .main-content {
-      flex: 1;
-      margin-left: 250px;
-      background: var(--cultured);
-    }
-  </style>
+  .submenu li {
+    position: relative;
+    padding: 5px 10px;
+    color: #ddd;
+  }
+
+  .submenu li::before {
+    content: '';
+    position: absolute;
+    left: -20px;
+    top: 0;
+    bottom: 0;
+    width: 1px;
+    background-color: #3a3a3a;
+    transition: background-color 0.2s;
+  }
+
+  .submenu li:hover::before {
+    background-color: #ffffff;
+  }
+
+  .menu-item.open .submenu {
+    display: block;
+  }
+
+  /* Push main content so it doesn't overlap sidebar */
+  .main-content {
+    flex: 1;
+    margin-left: 250px; /* equal to sidebar width */
+    background: var(--cultured);
+  }
+</style>
+
 </head>
 <body>
 
