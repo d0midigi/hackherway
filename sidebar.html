@@ -1,5 +1,4 @@
 <!DOCTYPE html>
-<!-- Coding By CodingNepal - codingnepalweb.com -->
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
@@ -8,258 +7,184 @@
     <title>hackherway cyberepo</title>
     <link rel="stylesheet" href="assets/css/stylesheet.css" />
     <!-- Fontawesome CDN Link -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css" />
-  <style>/* Import Google font - Poppins */
-@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700&display=swap");
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-  font-family: "Poppins", sans-serif;
-}
-.sidebar {
-  position: fixed;
-  height: 100%;
-  width: 260px;
-  background: #11101d;
-  padding: 15px;
-  z-index: 99;
-}
-.logo {
-  font-size: 25px;
-  padding: 0 15px;
-}
-.sidebar a {
-  color: #fff;
-  text-decoration: none;
-}
-.menu-content {
-  position: relative;
-  height: 100%;
-  width: 100%;
-  margin-top: 40px;
-  overflow-y: scroll;
-}
-.menu-content::-webkit-scrollbar {
-  display: none;
-}
-.menu-items {
-  height: 100%;
-  width: 100%;
-  list-style: none;
-  transition: all 0.4s ease;
-}
-.submenu-active .menu-items {
-  transform: translateX(-56%);
-}
-.menu-title {
-  color: #fff;
-  font-size: 14px;
-  padding: 15px 20px;
-}
-.item a,
-.submenu-item {
-  padding: 16px;
-  display: inline-block;
-  width: 100%;
-  border-radius: 12px;
-}
-.item i {
-  font-size: 12px;
-}
-.item a:hover,
-.submenu-item:hover,
-.submenu .menu-title:hover {
-  background: rgba(255, 255, 255, 0.1);
-}
-.submenu-item {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  color: #fff;
-  cursor: pointer;
-}
-.submenu {
-  position: absolute;
-  height: 100%;
-  width: 100%;
-  top: 0;
-  right: calc(-100% - 26px);
-  height: calc(100% + 100vh);
-  background: #11101d;
-  display: none;
-}
-.show-submenu ~ .submenu {
-  display: block;
-}
-.submenu .menu-title {
-  border-radius: 12px;
-  cursor: pointer;
-}
-.submenu .menu-title i {
-  margin-right: 10px;
-}
-.navbar,
-.main {
-  left: 260px;
-  width: calc(100% - 260px);
-  transition: all 0.5s ease;
-  z-index: 1000;
-}
-.sidebar.close ~ .navbar,
-.sidebar.close ~ .main {
-  left: 0;
-  width: 100%;
-}
-.navbar {
-  position: fixed;
-  color: #fff;
-  padding: 15px 20px;
-  font-size: 25px;
-  background: #4070f4;
-  cursor: pointer;
-}
-.navbar #sidebar-close {
-  cursor: pointer;
-}
-.main {
-  position: relative;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  height: 100vh;
-  z-index: 100;
-  background: #e7f2fd;
-}
-.main h1 {
-  color: #11101d;
-  font-size: 40px;
-  text-align: center;
-}
-    /* From https://css.glass */
-background: #ff2c54;
-border-radius: 16px;
-box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
-backdrop-filter: blur(5px);
--webkit-backdrop-filter: blur(5px);
-border: 1px solid rgba(255, 255, 255, 0.3);
-    }
-  </style>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css"
+    />
+    <style>
+      /* Import Google font - Poppins */
+      @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700&display=swap");
+
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: "Poppins", sans-serif;
+      }
+
+      .sidebar {
+        position: fixed;
+        height: 100%;
+        width: 260px;
+        background: #11101d;
+        padding: 15px;
+        z-index: 99;
+        overflow-y: auto;
+      }
+
+      .logo {
+        font-size: 25px;
+        padding: 0 15px;
+        color: #fff;
+        display: block;
+        margin-bottom: 20px;
+      }
+
+      .sidebar a {
+        color: #fff;
+        text-decoration: none;
+      }
+
+      .menu-content {
+        position: relative;
+        height: 100%;
+        width: 100%;
+      }
+
+      .menu-items {
+        list-style: none;
+        width: 100%;
+      }
+
+      .menu-title {
+        color: #fff;
+        font-size: 14px;
+        padding: 15px 20px;
+      }
+
+      .item a,
+      .submenu-toggle {
+        padding: 12px 16px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        width: 100%;
+        border-radius: 6px;
+        color: #fff;
+        text-decoration: none;
+        cursor: pointer;
+      }
+
+      .item a:hover,
+      .submenu-toggle:hover {
+        background: rgba(255, 255, 255, 0.1);
+      }
+
+      .submenu {
+        display: none;
+        list-style: none;
+        padding-left: 20px;
+      }
+
+      .submenu .submenu {
+        padding-left: 20px;
+      }
+
+      .has-submenu.open > .submenu {
+        display: block;
+      }
+
+      /* Rotate caret when open */
+      .has-submenu.open > .submenu-toggle i {
+        transform: rotate(90deg);
+        transition: transform 0.3s ease;
+      }
+
+      .navbar,
+      .main {
+        left: 260px;
+        width: calc(100% - 260px);
+        transition: all 0.5s ease;
+        z-index: 1000;
+      }
+
+      .sidebar.close ~ .navbar,
+      .sidebar.close ~ .main {
+        left: 0;
+        width: 100%;
+      }
+
+      .navbar {
+        position: fixed;
+        color: #fff;
+        padding: 15px 20px;
+        font-size: 25px;
+        background: #4070f4;
+        cursor: pointer;
+      }
+
+      .navbar #sidebar-close {
+        cursor: pointer;
+      }
+
+      .main {
+        position: relative;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        height: 100vh;
+        z-index: 100;
+        background: #e7f2fd;
+      }
+
+      .main h1 {
+        color: #11101d;
+        font-size: 40px;
+        text-align: center;
+      }
+    </style>
   </head>
   <body>
     <nav class="sidebar">
       <a href="#" class="logo">CodingLab</a>
       <div class="menu-content">
         <ul class="menu-items">
-          <div class="menu-title">Your menu title</div>
+          <div class="menu-title">Main Menu</div>
+
+          <!-- Example single link -->
           <li class="item">
             <a href="#">Your first link</a>
           </li>
-          <li class="item">
-            <div class="submenu-item">
-              <span>First submenu</span>
-              <i class="fa-solid fa-chevron-right"></i>
-            </div>
-            <ul class="menu-items submenu">
-              <div class="menu-title">
-                <i class="fa-solid fa-chevron-left"></i>
-                Your submenu title
-              </div>
-              <li class="item">
-              <div class="submenu-item">
-               <span>Third submenu</span><a href="#">First sublink</a>
-            <i class="fa-solid fa-chevron-right"></i>
-            </div>
-            <ul class="menu-items submenu">
-              <div class="menu-title">
-                <i class="fa-solid fa-chevron-left"></i>
-                Your subthird menu title
-              </div>
 
-              </li>
-              <li class="item">
-                <a href="#">First sublink</a>
-              </li>
-              <li class="item">
-                <a href="#">First sublink</a>
-              </li>
-            </ul>
-          </li>
-          <li class="item">
-            <div class="submenu-item">
-              <span>Second submenu</span>
-              <i class="fa-solid fa-chevron-right"></i>
-            </div>
-            <ul class="menu-items submenu">
-              <div class="menu-title">
-                <i class="fa-solid fa-chevron-left"></i>
-                Your submenu title
-              </div>
-              <li class="item">
-                <a href="#">Second sublink</a>
-              </li>
-              <li class="item">
-                <a href="#">Second sublink</a>
-              </li>
-              <li class="item">
-                <a href="#">Second sublink</a>
-              </li>
-              <li class="item">
-                <a href="#">Second sublink</a>
-              </li>
-              <li class="item">
-                <a href="#">Second sublink</a>
-              </li>
-              <li class="item">
-                <a href="#">Second sublink</a>
-              </li>
-              <li class="item">
-                <a href="#">Second sublink</a>
-              </li>
-              <li class="item">
-                <a href="#">Second sublink</a>
-              </li>
-              <li class="item">
-                <a href="#">Second sublink</a>
-              </li>
-              <li class="item">
-                <a href="#">Second sublink</a>
-              </li>
-              <li class="item">
-                <a href="#">Second sublink</a>
-              </li>
-              <li class="item">
-                <a href="#">Second sublink</a>
-              </li>
-              <li class="item">
-                <a href="#">Second sublink</a>
-              </li>
-              <li class="item">
-                <a href="#">Second sublink</a>
-              </li>
-              <li class="item">
-                <a href="#">Second sublink</a>
-              </li>
-              <li class="item">
-                <a href="#">Second sublink</a>
-              </li>
-              <li class="item">
-                <a href="#">Second sublink</a>
-              </li>
-              <li class="item">
-                <a href="#">Second sublink</a>
-              </li>
-              <li class="item">
-                <a href="#">Second sublink</a>
-              </li>
-              <li class="item">
-                <a href="#">Second sublink</a>
-              </li>
-              <li class="item">
-                <a href="#">Second sublink</a>
+          <!-- First Submenu -->
+          <li class="item has-submenu">
+            <a href="javascript:void(0)" class="submenu-toggle">
+              First submenu <i class="fa-solid fa-chevron-right"></i>
+            </a>
+            <ul class="submenu">
+              <!-- Second Submenu -->
+              <li class="item has-submenu">
+                <a href="javascript:void(0)" class="submenu-toggle">
+                  Second submenu <i class="fa-solid fa-chevron-right"></i>
+                </a>
+                <ul class="submenu">
+                  <!-- Third Submenu -->
+                  <li class="item has-submenu">
+                    <a href="javascript:void(0)" class="submenu-toggle">
+                      Third submenu <i class="fa-solid fa-chevron-right"></i>
+                    </a>
+                    <ul class="submenu">
+                      <li><a href="#">Subsub link 1</a></li>
+                      <li><a href="#">Subsub link 2</a></li>
+                      <li><a href="#">Subsub link 3</a></li>
+                    </ul>
+                  </li>
+                </ul>
               </li>
             </ul>
           </li>
+
+          <!-- Another links -->
           <li class="item">
             <a href="#">Your second link</a>
           </li>
@@ -269,35 +194,38 @@ border: 1px solid rgba(255, 255, 255, 0.3);
         </ul>
       </div>
     </nav>
+
     <nav class="navbar">
       <i class="fa-solid fa-bars" id="sidebar-close"></i>
     </nav>
+
     <main class="main">
       <h1>Admin Dashboard Content</h1>
     </main>
-    <script src="script.js"></script>
-    <script>const sidebar = document.querySelector(".sidebar");
-const sidebarClose = document.querySelector("#sidebar-close");
-const menu = document.querySelector(".menu-content");
-const menuItems = document.querySelectorAll(".submenu-item");
-const subMenuTitles = document.querySelectorAll(".submenu .menu-title");
-sidebarClose.addEventListener("click", () => sidebar.classList.toggle("close"));
-menuItems.forEach((item, index) => {
-  item.addEventListener("click", () => {
-    menu.classList.add("submenu-active");
-    item.classList.add("show-submenu");
-    menuItems.forEach((item2, index2) => {
-      if (index !== index2) {
-        item2.classList.remove("show-submenu");
-      }
-    });
-  });
-});
-subMenuTitles.forEach((title) => {
-  title.addEventListener("click", () => {
-    menu.classList.remove("submenu-active");
-  });
-});
+
+    <script>
+      const sidebar = document.querySelector(".sidebar");
+      const sidebarClose = document.querySelector("#sidebar-close");
+
+      sidebarClose.addEventListener("click", () =>
+        sidebar.classList.toggle("close")
+      );
+
+      document.querySelectorAll(".submenu-toggle").forEach((toggle) => {
+        toggle.addEventListener("click", function () {
+          const parent = this.parentElement;
+
+          // Toggle current submenu
+          parent.classList.toggle("open");
+
+          // Close sibling submenus
+          parent.parentElement.querySelectorAll(".has-submenu").forEach((item) => {
+            if (item !== parent) {
+              item.classList.remove("open");
+            }
+          });
+        });
+      });
     </script>
   </body>
 </html>
