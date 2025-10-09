@@ -1,0 +1,420 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>HACKHERWAY | Ping Tool</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css" />
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      background: #0a0a0a;
+      color: #00ff00;
+      font-family: 'Courier New', monospace;
+      padding: 20px;
+      min-height: 100vh;
+      background-image: 
+        repeating-linear-gradient(0deg, rgba(255, 20, 147, 0.03) 0px, transparent 1px, transparent 2px, rgba(255, 20, 147, 0.03) 3px),
+        repeating-linear-gradient(90deg, rgba(255, 20, 147, 0.03) 0px, transparent 1px, transparent 2px, rgba(255, 20, 147, 0.03) 3px);
+    }
+
+    .container {
+      max-width: 900px;
+      margin: 0 auto;
+    }
+
+    .header {
+      text-align: center;
+      margin-bottom: 40px;
+      padding: 30px;
+      border: 2px solid #ff1493;
+      background: rgba(255, 20, 147, 0.05);
+      border-radius: 10px;
+      box-shadow: 0 0 20px rgba(255, 20, 147, 0.3);
+    }
+
+    .header h1 {
+      color: #ff1493;
+      font-size: 2.5em;
+      text-shadow: 0 0 10px #ff1493, 0 0 20px #ff1493;
+      margin-bottom: 10px;
+      letter-spacing: 3px;
+    }
+
+    .header .tagline {
+      color: #ff69b4;
+      font-size: 1.1em;
+      font-weight: normal;
+    }
+
+    .terminal {
+      background: #1a1a1a;
+      border: 2px solid #ff1493;
+      border-radius: 10px;
+      box-shadow: 0 0 30px rgba(255, 20, 147, 0.4);
+      overflow: hidden;
+    }
+
+    .terminal-header {
+      background: linear-gradient(180deg, #2a2a2a 0%, #1a1a1a 100%);
+      padding: 12px 15px;
+      border-bottom: 2px solid #ff1493;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .terminal-btn {
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      display: inline-block;
+    }
+
+    .btn-close { background: #ff1493; box-shadow: 0 0 5px #ff1493; }
+    .btn-minimize { background: #ff69b4; box-shadow: 0 0 5px #ff69b4; }
+    .btn-maximize { background: #ff1493; box-shadow: 0 0 5px #ff1493; }
+
+    .terminal-title {
+      margin-left: 15px;
+      color: #ff69b4;
+      font-size: 0.9em;
+    }
+
+    .terminal-body {
+      padding: 30px;
+    }
+
+    .tool-description {
+      color: #888;
+      margin-bottom: 25px;
+      padding: 15px;
+      background: rgba(255, 20, 147, 0.05);
+      border-left: 3px solid #ff1493;
+      line-height: 1.6;
+    }
+
+    .input-group {
+      margin-bottom: 25px;
+    }
+
+    .input-label {
+      color: #ff1493;
+      display: block;
+      margin-bottom: 10px;
+      font-size: 1.1em;
+    }
+
+    .input-label::before {
+      content: '> ';
+      color: #ff69b4;
+    }
+
+    .input-wrapper {
+      display: flex;
+      gap: 10px;
+    }
+
+    input[type="text"] {
+      flex: 1;
+      background: #0a0a0a;
+      border: 2px solid #ff1493;
+      color: #00ff00;
+      padding: 15px;
+      font-family: 'Courier New', monospace;
+      font-size: 1em;
+      border-radius: 5px;
+      transition: all 0.3s ease;
+    }
+
+    input[type="text"]:focus {
+      outline: none;
+      border-color: #ff69b4;
+      box-shadow: 0 0 15px rgba(255, 20, 147, 0.5);
+    }
+
+    input[type="text"]::placeholder {
+      color: #555;
+    }
+
+    .btn-scan {
+      background: linear-gradient(135deg, #ff1493 0%, #ff69b4 100%);
+      border: none;
+      color: #fff;
+      padding: 15px 40px;
+      font-family: 'Courier New', monospace;
+      font-size: 1.1em;
+      font-weight: bold;
+      cursor: pointer;
+      border-radius: 5px;
+      transition: all 0.3s ease;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      box-shadow: 0 0 20px rgba(255, 20, 147, 0.5);
+    }
+
+    .btn-scan:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 5px 25px rgba(255, 20, 147, 0.7);
+    }
+
+    .btn-scan:active {
+      transform: translateY(0);
+    }
+
+    .btn-scan:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+
+    .results {
+      margin-top: 30px;
+      padding: 20px;
+      background: #0a0a0a;
+      border: 2px solid #ff1493;
+      border-radius: 5px;
+      min-height: 200px;
+      display: none;
+    }
+
+    .results.active {
+      display: block;
+    }
+
+    .result-line {
+      margin: 8px 0;
+      line-height: 1.8;
+      animation: fadeIn 0.3s ease;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateX(-10px); }
+      to { opacity: 1; transform: translateX(0); }
+    }
+
+    .result-line.success {
+      color: #00ff00;
+    }
+
+    .result-line.error {
+      color: #ff1493;
+    }
+
+    .result-line.info {
+      color: #ff69b4;
+    }
+
+    .result-line.neutral {
+      color: #888;
+    }
+
+    .prompt {
+      color: #ff69b4;
+      margin-right: 10px;
+    }
+
+    .loading {
+      display: none;
+      color: #ff1493;
+      margin-top: 20px;
+      text-align: center;
+    }
+
+    .loading.active {
+      display: block;
+    }
+
+    .loading::after {
+      content: '...';
+      animation: dots 1.5s steps(4, end) infinite;
+    }
+
+    @keyframes dots {
+      0%, 20% { content: '.'; }
+      40% { content: '..'; }
+      60%, 100% { content: '...'; }
+    }
+
+    .footer {
+      text-align: center;
+      margin-top: 40px;
+      padding: 20px;
+      color: #555;
+      font-size: 0.9em;
+    }
+
+    .footer a {
+      color: #ff1493;
+      text-decoration: none;
+      transition: color 0.3s ease;
+    }
+
+    .footer a:hover {
+      color: #ff69b4;
+      text-shadow: 0 0 10px #ff1493;
+    }
+
+    .back-link {
+      display: inline-block;
+      margin-bottom: 20px;
+      color: #ff1493;
+      text-decoration: none;
+      padding: 10px 20px;
+      border: 2px solid #ff1493;
+      border-radius: 5px;
+      transition: all 0.3s ease;
+    }
+
+    .back-link:hover {
+      background: rgba(255, 20, 147, 0.1);
+      box-shadow: 0 0 15px rgba(255, 20, 147, 0.5);
+    }
+
+    @media (max-width: 768px) {
+      .input-wrapper {
+        flex-direction: column;
+      }
+
+      .btn-scan {
+        width: 100%;
+      }
+
+      .header h1 {
+        font-size: 1.8em;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <a href="index.html" class="back-link">
+      <i class="fas fa-arrow-left"></i> Back to Home
+    </a>
+
+    <div class="header">
+      <h1>HACKHERWAY</h1>
+      <div class="tagline">// PING TOOL - Because girly hackers need tools too 💖</div>
+    </div>
+
+    <div class="terminal">
+      <div class="terminal-header">
+        <span class="terminal-btn btn-close"></span>
+        <span class="terminal-btn btn-minimize"></span>
+        <span class="terminal-btn btn-maximize"></span>
+        <span class="terminal-title">hackherway@terminal:~/tools/ping</span>
+      </div>
+
+      <div class="terminal-body">
+        <div class="tool-description">
+          <span class="prompt">$</span>
+          Ping is used to test network connectivity and measure round-trip time to a host. 
+          Enter a domain or IP address to check if it's reachable and see response times.
+        </div>
+
+        <div class="input-group">
+          <label class="input-label">Enter Target Host or IP</label>
+          <div class="input-wrapper">
+            <input 
+              type="text" 
+              id="hostInput" 
+              placeholder="example.com or 8.8.8.8"
+              autocomplete="off"
+            />
+            <button class="btn-scan" id="scanBtn" onclick="performPing()">
+              <i class="fas fa-terminal"></i> PING
+            </button>
+          </div>
+        </div>
+
+        <div class="loading" id="loading">
+          <span class="prompt">$</span> Pinging host
+        </div>
+
+        <div class="results" id="results"></div>
+      </div>
+    </div>
+
+    <div class="footer">
+      <p>
+        <i class="fas fa-heart" style="color: #ff1493;"></i> 
+        Made with attitude by <a href="#">HACKHERWAY</a> 
+        <i class="fas fa-heart" style="color: #ff1493;"></i>
+      </p>
+      <p style="margin-top: 10px; font-size: 0.85em;">
+        This tool displays publicly available network information. No data is stored.
+      </p>
+    </div>
+  </div>
+
+  <script>
+    // Allow Enter key to trigger ping
+    document.getElementById('hostInput').addEventListener('keypress', function(e) {
+      if (e.key === 'Enter') {
+        performPing();
+      }
+    });
+
+    async function performPing() {
+      const host = document.getElementById('hostInput').value.trim();
+      const resultsDiv = document.getElementById('results');
+      const loadingDiv = document.getElementById('loading');
+      const scanBtn = document.getElementById('scanBtn');
+
+      if (!host) {
+        resultsDiv.innerHTML = '<div class="result-line error"><span class="prompt">$</span> Error: Please enter a host or IP address</div>';
+        resultsDiv.classList.add('active');
+        return;
+      }
+
+      // Clear previous results
+      resultsDiv.innerHTML = '';
+      resultsDiv.classList.remove('active');
+      loadingDiv.classList.add('active');
+      scanBtn.disabled = true;
+
+      try {
+        // Using a free ping API service
+        const response = await fetch(`https://api.hackertarget.com/nping/?q=${encodeURIComponent(host)}`);
+        const data = await response.text();
+
+        loadingDiv.classList.remove('active');
+        resultsDiv.classList.add('active');
+
+        if (data.includes('error') || data.includes('invalid')) {
+          resultsDiv.innerHTML = `
+            <div class="result-line error"><span class="prompt">$</span> Error: Unable to ping ${host}</div>
+            <div class="result-line neutral"><span class="prompt">$</span> Host may be unreachable or blocking ICMP requests</div>
+          `;
+        } else {
+          // Display results
+          const lines = data.split('\n');
+          let html = `<div class="result-line info"><span class="prompt">$</span> Ping results for: ${host}</div>`;
+          html += `<div class="result-line neutral">───────────────────────────────────────────────────────</div>`;
+          
+          lines.forEach(line => {
+            if (line.trim()) {
+              const className = line.includes('time=') ? 'success' : 'neutral';
+              html += `<div class="result-line ${className}"><span class="prompt">></span> ${line}</div>`;
+            }
+          });
+
+          html += `<div class="result-line neutral">───────────────────────────────────────────────────────</div>`;
+          html += `<div class="result-line info"><span class="prompt">$</span> Scan complete! 💖</div>`;
+          
+          resultsDiv.innerHTML = html;
+        }
+      } catch (error) {
+        loadingDiv.classList.remove('active');
+        resultsDiv.classList.add('active');
+        resultsDiv.innerHTML = `
+          <div class="result-line error"><span class="prompt">$</span> Error: Network request failed</div>
+          <div class="result-line neutral"><span class="prompt">$</span> ${error.message}</div>
+        `;
+      } finally {
+        scanBtn.disabled = false;
+      }
+    }
+  </script>
+</body>
+</html>

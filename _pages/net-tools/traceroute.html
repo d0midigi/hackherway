@@ -1,0 +1,665 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>HACKHERWAY | Traceroute</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css" />
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      background: #0d0208;
+      color: #fff;
+      font-family: 'Courier New', monospace;
+      padding: 20px;
+      min-height: 100vh;
+      position: relative;
+      overflow-x: hidden;
+    }
+
+    /* Animated background lines */
+    body::before {
+      content: '';
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background-image: 
+        linear-gradient(90deg, rgba(220, 38, 38, 0.05) 1px, transparent 1px),
+        linear-gradient(0deg, rgba(220, 38, 38, 0.05) 1px, transparent 1px);
+      background-size: 50px 50px;
+      animation: gridMove 20s linear infinite;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    @keyframes gridMove {
+      0% { transform: translate(0, 0); }
+      100% { transform: translate(50px, 50px); }
+    }
+
+    /* Connection lines animation */
+    body::after {
+      content: '';
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: 
+        radial-gradient(circle at 20% 30%, rgba(239, 68, 68, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 80% 70%, rgba(220, 38, 38, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 50% 50%, rgba(185, 28, 28, 0.05) 0%, transparent 70%);
+      animation: pulse 8s ease-in-out infinite;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 0.3; }
+      50% { opacity: 0.6; }
+    }
+
+    .container {
+      max-width: 1100px;
+      margin: 0 auto;
+      position: relative;
+      z-index: 1;
+    }
+
+    .back-link {
+      display: inline-block;
+      margin-bottom: 20px;
+      color: #ef4444;
+      text-decoration: none;
+      padding: 10px 20px;
+      border: 2px solid #ef4444;
+      border-radius: 8px;
+      transition: all 0.3s ease;
+      background: rgba(239, 68, 68, 0.1);
+      backdrop-filter: blur(5px);
+    }
+
+    .back-link:hover {
+      background: rgba(239, 68, 68, 0.2);
+      box-shadow: 0 0 20px rgba(239, 68, 68, 0.5);
+      transform: translateX(-5px);
+    }
+
+    .header {
+      text-align: center;
+      margin-bottom: 40px;
+      padding: 40px 30px;
+      background: rgba(13, 2, 8, 0.7);
+      backdrop-filter: blur(10px);
+      border: 2px solid #dc2626;
+      border-radius: 15px;
+      box-shadow: 0 0 40px rgba(220, 38, 38, 0.3);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .header::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      left: -50%;
+      width: 200%;
+      height: 200%;
+      background: linear-gradient(
+        45deg,
+        transparent,
+        rgba(239, 68, 68, 0.1),
+        transparent
+      );
+      animation: shine 3s infinite;
+    }
+
+    @keyframes shine {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+
+    .header h1 {
+      color: #ef4444;
+      font-size: 3em;
+      margin-bottom: 15px;
+      letter-spacing: 5px;
+      text-shadow: 
+        0 0 10px #ef4444,
+        0 0 20px #dc2626,
+        0 0 30px #dc2626;
+      animation: flicker 4s infinite alternate;
+      position: relative;
+      z-index: 1;
+    }
+
+    @keyframes flicker {
+      0%, 100% { 
+        text-shadow: 
+          0 0 10px #ef4444,
+          0 0 20px #dc2626,
+          0 0 30px #dc2626;
+      }
+      50% { 
+        text-shadow: 
+          0 0 5px #ef4444,
+          0 0 10px #dc2626,
+          0 0 15px #dc2626;
+      }
+    }
+
+    .header .tagline {
+      color: #fca5a5;
+      font-size: 1.1em;
+      letter-spacing: 2px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .tool-container {
+      background: rgba(13, 2, 8, 0.8);
+      backdrop-filter: blur(15px);
+      border: 2px solid #dc2626;
+      border-radius: 15px;
+      padding: 40px;
+      box-shadow: 0 8px 32px rgba(220, 38, 38, 0.4);
+    }
+
+    .tool-description {
+      color: #fca5a5;
+      margin-bottom: 30px;
+      padding: 20px;
+      background: rgba(220, 38, 38, 0.1);
+      border-left: 4px solid #ef4444;
+      border-radius: 8px;
+      line-height: 1.8;
+    }
+
+    .tool-description i {
+      color: #dc2626;
+      margin-right: 10px;
+    }
+
+    .input-section {
+      margin-bottom: 30px;
+    }
+
+    .input-label {
+      color: #ef4444;
+      display: block;
+      margin-bottom: 15px;
+      font-size: 1.2em;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+    }
+
+    .input-label::before {
+      content: '→ ';
+      color: #dc2626;
+      font-weight: bold;
+    }
+
+    .input-wrapper {
+      display: flex;
+      gap: 15px;
+      align-items: stretch;
+    }
+
+    input[type="text"] {
+      flex: 1;
+      background: rgba(0, 0, 0, 0.6);
+      border: 2px solid #dc2626;
+      color: #fff;
+      padding: 18px 20px;
+      font-family: 'Courier New', monospace;
+      font-size: 1.1em;
+      border-radius: 8px;
+      transition: all 0.3s ease;
+    }
+
+    input[type="text"]:focus {
+      outline: none;
+      border-color: #ef4444;
+      box-shadow: 0 0 20px rgba(239, 68, 68, 0.5);
+      background: rgba(0, 0, 0, 0.8);
+    }
+
+    input[type="text"]::placeholder {
+      color: #666;
+    }
+
+    .btn-trace {
+      background: linear-gradient(135deg, #dc2626 0%, #991b1b 100%);
+      border: 2px solid #ef4444;
+      color: #fff;
+      padding: 18px 45px;
+      font-family: 'Courier New', monospace;
+      font-size: 1.1em;
+      font-weight: bold;
+      cursor: pointer;
+      border-radius: 8px;
+      transition: all 0.3s ease;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      box-shadow: 0 4px 15px rgba(220, 38, 38, 0.4);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .btn-trace::before {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 0;
+      height: 0;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.3);
+      transform: translate(-50%, -50%);
+      transition: width 0.6s ease, height 0.6s ease;
+    }
+
+    .btn-trace:hover::before {
+      width: 300px;
+      height: 300px;
+    }
+
+    .btn-trace:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 25px rgba(239, 68, 68, 0.6);
+      border-color: #fca5a5;
+    }
+
+    .btn-trace:active {
+      transform: translateY(0);
+    }
+
+    .btn-trace:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+
+    .loading {
+      display: none;
+      text-align: center;
+      margin: 30px 0;
+      color: #ef4444;
+      font-size: 1.2em;
+    }
+
+    .loading.active {
+      display: block;
+      animation: fadeIn 0.5s ease;
+    }
+
+    .loading-spinner {
+      display: inline-block;
+      width: 40px;
+      height: 40px;
+      border: 4px solid rgba(239, 68, 68, 0.3);
+      border-top: 4px solid #ef4444;
+      border-radius: 50%;
+      animation: spin 1s linear infinite;
+      margin-bottom: 15px;
+    }
+
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
+    .results {
+      display: none;
+      margin-top: 40px;
+    }
+
+    .results.active {
+      display: block;
+      animation: slideUp 0.5s ease;
+    }
+
+    @keyframes slideUp {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .route-header {
+      background: rgba(220, 38, 38, 0.2);
+      padding: 20px;
+      border-radius: 10px;
+      margin-bottom: 25px;
+      border: 2px solid #dc2626;
+      text-align: center;
+    }
+
+    .route-header h3 {
+      color: #ef4444;
+      font-size: 1.5em;
+      margin-bottom: 10px;
+    }
+
+    .route-header p {
+      color: #fca5a5;
+      font-size: 0.95em;
+    }
+
+    .hop-container {
+      position: relative;
+      padding-left: 40px;
+    }
+
+    .hop-container::before {
+      content: '';
+      position: absolute;
+      left: 15px;
+      top: 0;
+      bottom: 0;
+      width: 2px;
+      background: linear-gradient(180deg, #dc2626 0%, transparent 100%);
+    }
+
+    .hop {
+      position: relative;
+      margin-bottom: 20px;
+      padding: 20px;
+      background: rgba(0, 0, 0, 0.6);
+      border: 2px solid rgba(220, 38, 38, 0.3);
+      border-radius: 10px;
+      transition: all 0.3s ease;
+      animation: hopAppear 0.5s ease backwards;
+    }
+
+    .hop:nth-child(1) { animation-delay: 0.1s; }
+    .hop:nth-child(2) { animation-delay: 0.2s; }
+    .hop:nth-child(3) { animation-delay: 0.3s; }
+    .hop:nth-child(4) { animation-delay: 0.4s; }
+    .hop:nth-child(5) { animation-delay: 0.5s; }
+
+    @keyframes hopAppear {
+      from {
+        opacity: 0;
+        transform: translateX(-20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateX(0);
+      }
+    }
+
+    .hop::before {
+      content: '';
+      position: absolute;
+      left: -28px;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 12px;
+      height: 12px;
+      background: #dc2626;
+      border: 2px solid #ef4444;
+      border-radius: 50%;
+      box-shadow: 0 0 10px #ef4444;
+      animation: pulse-dot 2s ease-in-out infinite;
+    }
+
+    @keyframes pulse-dot {
+      0%, 100% {
+        box-shadow: 0 0 10px #ef4444;
+        transform: translateY(-50%) scale(1);
+      }
+      50% {
+        box-shadow: 0 0 20px #ef4444, 0 0 30px #dc2626;
+        transform: translateY(-50%) scale(1.2);
+      }
+    }
+
+    .hop:hover {
+      border-color: #ef4444;
+      box-shadow: 0 4px 20px rgba(239, 68, 68, 0.3);
+      transform: translateX(5px);
+    }
+
+    .hop-number {
+      color: #dc2626;
+      font-weight: bold;
+      font-size: 1.3em;
+      margin-bottom: 10px;
+    }
+
+    .hop-info {
+      color: #fca5a5;
+      line-height: 1.8;
+    }
+
+    .hop-info .label {
+      color: #ef4444;
+      font-weight: bold;
+      display: inline-block;
+      min-width: 100px;
+    }
+
+    .error-message {
+      background: rgba(185, 28, 28, 0.2);
+      border: 2px solid rgba(185, 28, 28, 0.5);
+      color: #fca5a5;
+      padding: 20px;
+      border-radius: 12px;
+      text-align: center;
+      margin-top: 30px;
+    }
+
+    .error-message i {
+      font-size: 2em;
+      margin-bottom: 10px;
+      display: block;
+      color: #dc2626;
+    }
+
+    .footer {
+      text-align: center;
+      margin-top: 50px;
+      padding: 25px;
+      color: #fca5a5;
+      font-size: 0.9em;
+      background: rgba(13, 2, 8, 0.7);
+      backdrop-filter: blur(10px);
+      border-radius: 12px;
+      border: 1px solid rgba(220, 38, 38, 0.3);
+    }
+
+    .footer a {
+      color: #ef4444;
+      text-decoration: none;
+      transition: all 0.3s ease;
+    }
+
+    .footer a:hover {
+      color: #fca5a5;
+      text-shadow: 0 0 10px rgba(239, 68, 68, 0.8);
+    }
+
+    @media (max-width: 768px) {
+      .input-wrapper {
+        flex-direction: column;
+      }
+
+      .btn-trace {
+        width: 100%;
+      }
+
+      .header h1 {
+        font-size: 2em;
+      }
+
+      .tool-container {
+        padding: 25px;
+      }
+
+      .hop-container {
+        padding-left: 30px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <a href="index.html" class="back-link">
+      <i class="fas fa-arrow-left"></i> Back to Home
+    </a>
+
+    <div class="header">
+      <h1>HACKHERWAY</h1>
+      <div class="tagline">// TRACEROUTE - Follow the digital breadcrumbs 🔴</div>
+    </div>
+
+    <div class="tool-container">
+      <div class="tool-description">
+        <i class="fas fa-route"></i>
+        Traceroute maps the path data packets take from your location to a destination host. 
+        Each "hop" represents a router or gateway along the route, revealing the network infrastructure between you and your target.
+      </div>
+
+      <div class="input-section">
+        <label class="input-label">
+          Enter Target Host
+        </label>
+        <div class="input-wrapper">
+          <input 
+            type="text" 
+            id="targetInput" 
+            placeholder="example.com or IP address"
+            autocomplete="off"
+          />
+          <button class="btn-trace" id="traceBtn" onclick="performTrace()">
+            TRACE
+          </button>
+        </div>
+      </div>
+
+      <div class="loading" id="loading">
+        <div class="loading-spinner"></div>
+        <div>Tracing route to target...</div>
+      </div>
+
+      <div class="results" id="results"></div>
+    </div>
+
+    <div class="footer">
+      <p>
+        <i class="fas fa-fire" style="color: #dc2626;"></i> 
+        Built with fire by <a href="#">HACKHERWAY</a> 
+        <i class="fas fa-fire" style="color: #dc2626;"></i>
+      </p>
+      <p style="margin-top: 10px; font-size: 0.85em; color: #888;">
+        Traceroute data shows network paths. Results may vary based on network configuration.
+      </p>
+    </div>
+  </div>
+
+  <script>
+    document.getElementById('targetInput').addEventListener('keypress', function(e) {
+      if (e.key === 'Enter') {
+        performTrace();
+      }
+    });
+
+    async function performTrace() {
+      const target = document.getElementById('targetInput').value.trim();
+      const resultsDiv = document.getElementById('results');
+      const loadingDiv = document.getElementById('loading');
+      const traceBtn = document.getElementById('traceBtn');
+
+      if (!target) {
+        resultsDiv.innerHTML = '<div class="error-message"><i class="fas fa-exclamation-triangle"></i>Please enter a target host or IP address</div>';
+        resultsDiv.classList.add('active');
+        return;
+      }
+
+      // Clear previous results
+      resultsDiv.innerHTML = '';
+      resultsDiv.classList.remove('active');
+      loadingDiv.classList.add('active');
+      traceBtn.disabled = true;
+
+      try {
+        const response = await fetch(`https://api.hackertarget.com/mtr/?q=${encodeURIComponent(target)}`);
+        const data = await response.text();
+
+        loadingDiv.classList.remove('active');
+        resultsDiv.classList.add('active');
+
+        if (data.includes('error') || data.includes('invalid')) {
+          resultsDiv.innerHTML = `
+            <div class="error-message">
+              <i class="fas fa-exclamation-circle"></i>
+              <div>Unable to trace route to ${target}</div>
+              <div style="margin-top: 10px; font-size: 0.9em;">Host may be unreachable or blocking trace requests</div>
+            </div>
+          `;
+        } else {
+          // Parse traceroute data
+          const lines = data.split('\n').filter(line => line.trim() && !line.startsWith('HOST'));
+          
+          let html = `
+            <div class="route-header">
+              <h3><i class="fas fa-map-marker-alt"></i> Route to ${target}</h3>
+              <p>Showing ${lines.length} hops along the network path</p>
+            </div>
+            <div class="hop-container">
+          `;
+
+          lines.forEach((line, index) => {
+            const parts = line.trim().split(/\s+/);
+            if (parts.length >= 2) {
+              const hopNum = index + 1;
+              const router = parts[1] || 'Unknown';
+              const loss = parts[2] || 'N/A';
+              const avgTime = parts[5] || 'N/A';
+
+              html += `
+                <div class="hop">
+                  <div class="hop-number">Hop ${hopNum}</div>
+                  <div class="hop-info">
+                    <div><span class="label">Router:</span> ${router}</div>
+                    <div><span class="label">Loss:</span> ${loss}</div>
+                    <div><span class="label">Avg Time:</span> ${avgTime} ms</div>
+                  </div>
+                </div>
+              `;
+            }
+          });
+
+          html += '</div>';
+          
+          resultsDiv.innerHTML = html;
+        }
+      } catch (error) {
+        loadingDiv.classList.remove('active');
+        resultsDiv.classList.add('active');
+        resultsDiv.innerHTML = `
+          <div class="error-message">
+            <i class="fas fa-exclamation-triangle"></i>
+            <div>Network request failed</div>
+            <div style="margin-top: 10px; font-size: 0.9em;">${error.message}</div>
+          </div>
+        `;
+      } finally {
+        traceBtn.disabled = false;
+      }
+    }
+  </script>
+</body>
+</html>

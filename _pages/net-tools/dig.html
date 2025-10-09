@@ -1,0 +1,694 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>HACKHERWAY | DIG - DNS Lookup</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css" />
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      background: #000;
+      color: #0f0;
+      font-family: 'Courier New', monospace;
+      padding: 20px;
+      min-height: 100vh;
+      position: relative;
+      overflow-x: hidden;
+    }
+
+    /* Matrix rain effect */
+    .matrix-bg {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 0;
+      opacity: 0.15;
+    }
+
+    .container {
+      max-width: 1100px;
+      margin: 0 auto;
+      position: relative;
+      z-index: 1;
+    }
+
+    .back-link {
+      display: inline-block;
+      margin-bottom: 20px;
+      color: #00ff00;
+      text-decoration: none;
+      padding: 10px 20px;
+      border: 2px solid #00ff00;
+      border-radius: 8px;
+      transition: all 0.3s ease;
+      background: rgba(0, 255, 0, 0.05);
+      box-shadow: 0 0 10px rgba(0, 255, 0, 0.3);
+    }
+
+    .back-link:hover {
+      background: rgba(0, 255, 0, 0.1);
+      box-shadow: 0 0 20px rgba(0, 255, 0, 0.5);
+      transform: translateX(-5px);
+    }
+
+    .header {
+      text-align: center;
+      margin-bottom: 40px;
+      padding: 40px 30px;
+      background: rgba(0, 0, 0, 0.8);
+      border: 2px solid #00ff00;
+      border-radius: 15px;
+      box-shadow: 0 0 30px rgba(0, 255, 0, 0.3);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .header::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(0, 255, 0, 0.1), transparent);
+      animation: scan 3s infinite;
+    }
+
+    @keyframes scan {
+      0% { left: -100%; }
+      100% { left: 100%; }
+    }
+
+    .header h1 {
+      color: #00ff00;
+      font-size: 3em;
+      margin-bottom: 15px;
+      letter-spacing: 5px;
+      text-shadow: 
+        0 0 10px #00ff00,
+        0 0 20px #00ff00,
+        0 0 30px #00ff00,
+        0 0 40px #00ff00;
+      animation: glitch 5s infinite;
+      position: relative;
+      z-index: 1;
+    }
+
+    @keyframes glitch {
+      0%, 90%, 100% {
+        transform: translate(0);
+        text-shadow: 
+          0 0 10px #00ff00,
+          0 0 20px #00ff00,
+          0 0 30px #00ff00;
+      }
+      92% {
+        transform: translate(-2px, 2px);
+        text-shadow: 
+          0 0 10px #ff00ff,
+          0 0 20px #ff00ff;
+      }
+      94% {
+        transform: translate(2px, -2px);
+        text-shadow: 
+          0 0 10px #00ffff,
+          0 0 20px #00ffff;
+      }
+    }
+
+    .header .tagline {
+      color: #39ff14;
+      font-size: 1.1em;
+      letter-spacing: 2px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .tool-container {
+      background: rgba(0, 0, 0, 0.9);
+      border: 2px solid #00ff00;
+      border-radius: 15px;
+      padding: 40px;
+      box-shadow: 
+        0 0 20px rgba(0, 255, 0, 0.3),
+        inset 0 0 20px rgba(0, 255, 0, 0.05);
+      position: relative;
+    }
+
+    .tool-container::before {
+      content: '';
+      position: absolute;
+      top: -2px;
+      left: -2px;
+      right: -2px;
+      bottom: -2px;
+      background: linear-gradient(45deg, #00ff00, #39ff14, #00ff00);
+      border-radius: 15px;
+      z-index: -1;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+
+    .tool-container:hover::before {
+      opacity: 0.3;
+      animation: borderPulse 2s infinite;
+    }
+
+    @keyframes borderPulse {
+      0%, 100% { opacity: 0.3; }
+      50% { opacity: 0.6; }
+    }
+
+    .tool-description {
+      color: #39ff14;
+      margin-bottom: 30px;
+      padding: 20px;
+      background: rgba(0, 255, 0, 0.05);
+      border-left: 4px solid #00ff00;
+      border-radius: 8px;
+      line-height: 1.8;
+    }
+
+    .tool-description::before {
+      content: '> ';
+      color: #00ff00;
+      font-weight: bold;
+    }
+
+    .input-section {
+      margin-bottom: 30px;
+    }
+
+    .input-label {
+      color: #00ff00;
+      display: block;
+      margin-bottom: 15px;
+      font-size: 1.2em;
+      letter-spacing: 1px;
+    }
+
+    .input-label::before {
+      content: '$ ';
+      color: #39ff14;
+      font-weight: bold;
+    }
+
+    .input-wrapper {
+      display: flex;
+      gap: 15px;
+      align-items: stretch;
+    }
+
+    input[type="text"] {
+      flex: 1;
+      background: #000;
+      border: 2px solid #00ff00;
+      color: #00ff00;
+      padding: 18px 20px;
+      font-family: 'Courier New', monospace;
+      font-size: 1.1em;
+      border-radius: 8px;
+      transition: all 0.3s ease;
+      box-shadow: inset 0 0 10px rgba(0, 255, 0, 0.1);
+    }
+
+    input[type="text"]:focus {
+      outline: none;
+      box-shadow: 
+        0 0 20px rgba(0, 255, 0, 0.5),
+        inset 0 0 10px rgba(0, 255, 0, 0.2);
+      border-color: #39ff14;
+    }
+
+    input[type="text"]::placeholder {
+      color: #004400;
+    }
+
+    .btn-dig {
+      background: #000;
+      border: 2px solid #00ff00;
+      color: #00ff00;
+      padding: 18px 45px;
+      font-family: 'Courier New', monospace;
+      font-size: 1.1em;
+      font-weight: bold;
+      cursor: pointer;
+      border-radius: 8px;
+      transition: all 0.3s ease;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      box-shadow: 0 0 20px rgba(0, 255, 0, 0.3);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .btn-dig::before {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 0;
+      height: 0;
+      background: rgba(0, 255, 0, 0.3);
+      border-radius: 50%;
+      transform: translate(-50%, -50%);
+      transition: width 0.4s ease, height 0.4s ease;
+    }
+
+    .btn-dig:hover::before {
+      width: 300px;
+      height: 300px;
+    }
+
+    .btn-dig:hover {
+      background: rgba(0, 255, 0, 0.1);
+      box-shadow: 0 0 30px rgba(0, 255, 0, 0.6);
+      transform: translateY(-2px);
+    }
+
+    .btn-dig:active {
+      transform: translateY(0);
+    }
+
+    .btn-dig:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+
+    .loading {
+      display: none;
+      text-align: center;
+      margin: 30px 0;
+      color: #00ff00;
+      font-size: 1.2em;
+    }
+
+    .loading.active {
+      display: block;
+      animation: fadeIn 0.5s ease;
+    }
+
+    .terminal-cursor {
+      display: inline-block;
+      width: 10px;
+      height: 20px;
+      background: #00ff00;
+      margin-left: 5px;
+      animation: blink 1s infinite;
+    }
+
+    @keyframes blink {
+      0%, 50% { opacity: 1; }
+      51%, 100% { opacity: 0; }
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
+    .results {
+      display: none;
+      margin-top: 40px;
+    }
+
+    .results.active {
+      display: block;
+    }
+
+    .dns-section {
+      margin-bottom: 25px;
+      animation: slideIn 0.5s ease backwards;
+    }
+
+    .dns-section:nth-child(1) { animation-delay: 0.1s; }
+    .dns-section:nth-child(2) { animation-delay: 0.2s; }
+    .dns-section:nth-child(3) { animation-delay: 0.3s; }
+    .dns-section:nth-child(4) { animation-delay: 0.4s; }
+    .dns-section:nth-child(5) { animation-delay: 0.5s; }
+
+    @keyframes slideIn {
+      from {
+        opacity: 0;
+        transform: translateX(-30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateX(0);
+      }
+    }
+
+    .dns-section h3 {
+      color: #00ff00;
+      font-size: 1.4em;
+      margin-bottom: 15px;
+      padding: 15px;
+      background: rgba(0, 255, 0, 0.1);
+      border: 1px solid #00ff00;
+      border-radius: 8px;
+      text-shadow: 0 0 10px #00ff00;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .dns-section h3::before {
+      content: '//';
+      margin-right: 10px;
+      color: #39ff14;
+    }
+
+    .dns-section h3::after {
+      content: '';
+      position: absolute;
+      left: 0;
+      bottom: 0;
+      width: 100%;
+      height: 2px;
+      background: linear-gradient(90deg, transparent, #00ff00, transparent);
+      animation: underline 2s infinite;
+    }
+
+    @keyframes underline {
+      0%, 100% { transform: translateX(-100%); }
+      50% { transform: translateX(100%); }
+    }
+
+    .dns-records {
+      padding: 15px;
+      background: rgba(0, 0, 0, 0.5);
+      border: 1px solid rgba(0, 255, 0, 0.3);
+      border-radius: 8px;
+    }
+
+    .dns-record {
+      padding: 12px;
+      margin: 8px 0;
+      background: rgba(0, 255, 0, 0.03);
+      border-left: 3px solid #00ff00;
+      transition: all 0.3s ease;
+      border-radius: 4px;
+    }
+
+    .dns-record:hover {
+      background: rgba(0, 255, 0, 0.08);
+      border-left-width: 5px;
+      transform: translateX(5px);
+      box-shadow: 0 0 15px rgba(0, 255, 0, 0.2);
+    }
+
+    .dns-record::before {
+      content: '> ';
+      color: #39ff14;
+      font-weight: bold;
+    }
+
+    .error-message {
+      background: rgba(255, 0, 0, 0.1);
+      border: 2px solid #ff0000;
+      color: #ff4444;
+      padding: 20px;
+      border-radius: 12px;
+      text-align: center;
+      margin-top: 30px;
+      animation: shake 0.5s ease;
+    }
+
+    @keyframes shake {
+      0%, 100% { transform: translateX(0); }
+      25% { transform: translateX(-10px); }
+      75% { transform: translateX(10px); }
+    }
+
+    .error-message i {
+      font-size: 2em;
+      margin-bottom: 10px;
+      display: block;
+    }
+
+    .footer {
+      text-align: center;
+      margin-top: 50px;
+      padding: 25px;
+      color: #39ff14;
+      font-size: 0.9em;
+      background: rgba(0, 0, 0, 0.8);
+      border-radius: 12px;
+      border: 1px solid rgba(0, 255, 0, 0.3);
+      box-shadow: 0 0 20px rgba(0, 255, 0, 0.2);
+    }
+
+    .footer a {
+      color: #00ff00;
+      text-decoration: none;
+      transition: all 0.3s ease;
+    }
+
+    .footer a:hover {
+      text-shadow: 0 0 10px #00ff00;
+    }
+
+    @media (max-width: 768px) {
+      .input-wrapper {
+        flex-direction: column;
+      }
+
+      .btn-dig {
+        width: 100%;
+      }
+
+      .header h1 {
+        font-size: 2em;
+      }
+
+      .tool-container {
+        padding: 25px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <canvas class="matrix-bg" id="matrix"></canvas>
+
+  <div class="container">
+    <a href="index.html" class="back-link">
+      <i class="fas fa-arrow-left"></i> Back to Home
+    </a>
+
+    <div class="header">
+      <h1>HACKHERWAY</h1>
+      <div class="tagline">// DIG - DNS Intelligence Gathering 💚</div>
+    </div>
+
+    <div class="tool-container">
+      <div class="tool-description">
+        DIG (Domain Information Groper) queries DNS servers to retrieve detailed DNS records including 
+        A, AAAA, MX, NS, TXT, and more. Essential for DNS troubleshooting and reconnaissance.
+      </div>
+
+      <div class="input-section">
+        <label class="input-label">
+          Enter Domain Name
+        </label>
+        <div class="input-wrapper">
+          <input 
+            type="text" 
+            id="domainInput" 
+            placeholder="example.com"
+            autocomplete="off"
+          />
+          <button class="btn-dig" id="digBtn" onclick="performDig()">
+            DIG
+          </button>
+        </div>
+      </div>
+
+      <div class="loading" id="loading">
+        <div>Querying DNS servers<span class="terminal-cursor"></span></div>
+      </div>
+
+      <div class="results" id="results"></div>
+    </div>
+
+    <div class="footer">
+      <p>
+        <i class="fas fa-terminal" style="color: #00ff00;"></i> 
+        Coded in the matrix by <a href="#">HACKHERWAY</a> 
+        <i class="fas fa-terminal" style="color: #00ff00;"></i>
+      </p>
+      <p style="margin-top: 10px; font-size: 0.85em; color: #004400;">
+        DNS records are public information. Query responsibly.
+      </p>
+    </div>
+  </div>
+
+  <script>
+    // Matrix rain effect
+    const canvas = document.getElementById('matrix');
+    const ctx = canvas.getContext('2d');
+
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+
+    const letters = '01アイウエオカキクケコサシスセソタチツテトナニヌネノハヒフヘホマミムメモヤユヨラリルレロワヲン';
+    const fontSize = 14;
+    const columns = canvas.width / fontSize;
+    const drops = Array(Math.floor(columns)).fill(1);
+
+    function drawMatrix() {
+      ctx.fillStyle = 'rgba(0, 0, 0, 0.05)';
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+      ctx.fillStyle = '#00ff00';
+      ctx.font = `${fontSize}px monospace`;
+
+      for (let i = 0; i < drops.length; i++) {
+        const text = letters[Math.floor(Math.random() * letters.length)];
+        ctx.fillText(text, i * fontSize, drops[i] * fontSize);
+
+        if (drops[i] * fontSize > canvas.height && Math.random() > 0.975) {
+          drops[i] = 0;
+        }
+        drops[i]++;
+      }
+    }
+
+    setInterval(drawMatrix, 33);
+
+    window.addEventListener('resize', () => {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+    });
+
+    // DIG functionality
+    document.getElementById('domainInput').addEventListener('keypress', function(e) {
+      if (e.key === 'Enter') {
+        performDig();
+      }
+    });
+
+    async function performDig() {
+      const domain = document.getElementById('domainInput').value.trim();
+      const resultsDiv = document.getElementById('results');
+      const loadingDiv = document.getElementById('loading');
+      const digBtn = document.getElementById('digBtn');
+
+      if (!domain) {
+        resultsDiv.innerHTML = '<div class="error-message"><i class="fas fa-exclamation-triangle"></i>Please enter a domain name</div>';
+        resultsDiv.classList.add('active');
+        return;
+      }
+
+      resultsDiv.innerHTML = '';
+      resultsDiv.classList.remove('active');
+      loadingDiv.classList.add('active');
+      digBtn.disabled = true;
+
+      try {
+        // Query multiple record types
+        const recordTypes = ['A', 'AAAA', 'MX', 'NS', 'TXT', 'SOA'];
+        const results = {};
+
+        for (const type of recordTypes) {
+          try {
+            const response = await fetch(`https://dns.google/resolve?name=${encodeURIComponent(domain)}&type=${type}`);
+            const data = await response.json();
+            if (data.Answer) {
+              results[type] = data.Answer;
+            }
+          } catch (e) {
+            console.log(`Failed to fetch ${type} records`);
+          }
+        }
+
+        loadingDiv.classList.remove('active');
+        resultsDiv.classList.add('active');
+
+        if (Object.keys(results).length === 0) {
+          resultsDiv.innerHTML = `
+            <div class="error-message">
+              <i class="fas fa-exclamation-circle"></i>
+              <div>No DNS records found for ${domain}</div>
+              <div style="margin-top: 10px; font-size: 0.9em;">Domain may not exist or DNS servers are unreachable</div>
+            </div>
+          `;
+        } else {
+          let html = '';
+
+          // A Records
+          if (results['A']) {
+            html += '<div class="dns-section"><h3>A Records (IPv4)</h3><div class="dns-records">';
+            results['A'].forEach(record => {
+              html += `<div class="dns-record">${record.data}</div>`;
+            });
+            html += '</div></div>';
+          }
+
+          // AAAA Records
+          if (results['AAAA']) {
+            html += '<div class="dns-section"><h3>AAAA Records (IPv6)</h3><div class="dns-records">';
+            results['AAAA'].forEach(record => {
+              html += `<div class="dns-record">${record.data}</div>`;
+            });
+            html += '</div></div>';
+          }
+
+          // MX Records
+          if (results['MX']) {
+            html += '<div class="dns-section"><h3>MX Records (Mail Servers)</h3><div class="dns-records">';
+            results['MX'].forEach(record => {
+              html += `<div class="dns-record">${record.data}</div>`;
+            });
+            html += '</div></div>';
+          }
+
+          // NS Records
+          if (results['NS']) {
+            html += '<div class="dns-section"><h3>NS Records (Name Servers)</h3><div class="dns-records">';
+            results['NS'].forEach(record => {
+              html += `<div class="dns-record">${record.data}</div>`;
+            });
+            html += '</div></div>';
+          }
+
+          // TXT Records
+          if (results['TXT']) {
+            html += '<div class="dns-section"><h3>TXT Records</h3><div class="dns-records">';
+            results['TXT'].forEach(record => {
+              html += `<div class="dns-record">${record.data}</div>`;
+            });
+            html += '</div></div>';
+          }
+
+          // SOA Record
+          if (results['SOA']) {
+            html += '<div class="dns-section"><h3>SOA Record (Start of Authority)</h3><div class="dns-records">';
+            results['SOA'].forEach(record => {
+              html += `<div class="dns-record">${record.data}</div>`;
+            });
+            html += '</div></div>';
+          }
+
+          resultsDiv.innerHTML = html;
+        }
+      } catch (error) {
+        loadingDiv.classList.remove('active');
+        resultsDiv.classList.add('active');
+        resultsDiv.innerHTML = `
+          <div class="error-message">
+            <i class="fas fa-exclamation-triangle"></i>
+            <div>DNS query failed</div>
+            <div style="margin-top: 10px; font-size: 0.9em;">${error.message}</div>
+          </div>
+        `;
+      } finally {
+        digBtn.disabled = false;
+      }
+    }
+  </script>
+</body>
+</html>

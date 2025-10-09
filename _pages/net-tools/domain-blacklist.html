@@ -1,0 +1,743 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>HACKHERWAY | Domain Blacklist Checker</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css" />
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      background: #1a0f00;
+      color: #ff8800;
+      font-family: 'Courier New', monospace;
+      padding: 20px;
+      min-height: 100vh;
+      position: relative;
+      overflow-x: hidden;
+    }
+
+    /* Hazard stripes background */
+    body::before {
+      content: '';
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: repeating-linear-gradient(
+        45deg,
+        transparent,
+        transparent 50px,
+        rgba(255, 136, 0, 0.03) 50px,
+        rgba(255, 136, 0, 0.03) 100px
+      );
+      pointer-events: none;
+      z-index: 0;
+      animation: stripeMove 20s linear infinite;
+    }
+
+    @keyframes stripeMove {
+      0% { transform: translateX(0) translateY(0); }
+      100% { transform: translateX(100px) translateY(100px); }
+    }
+
+    /* Warning lights effect */
+    body::after {
+      content: '';
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 5px;
+      background: linear-gradient(90deg, 
+        #ff8800 0%, #ff8800 25%,
+        transparent 25%, transparent 50%,
+        #ff8800 50%, #ff8800 75%,
+        transparent 75%, transparent 100%
+      );
+      background-size: 200px 5px;
+      animation: warningScroll 2s linear infinite;
+      z-index: 1000;
+      opacity: 0.7;
+    }
+
+    @keyframes warningScroll {
+      0% { background-position: 0 0; }
+      100% { background-position: 200px 0; }
+    }
+
+    .container {
+      max-width: 1100px;
+      margin: 0 auto;
+      position: relative;
+      z-index: 1;
+    }
+
+    .back-link {
+      display: inline-block;
+      margin-bottom: 20px;
+      color: #ff8800;
+      text-decoration: none;
+      padding: 10px 20px;
+      border: 2px solid #ff8800;
+      border-radius: 8px;
+      transition: all 0.3s ease;
+      background: rgba(255, 136, 0, 0.05);
+      box-shadow: 0 0 10px rgba(255, 136, 0, 0.3);
+    }
+
+    .back-link:hover {
+      background: rgba(255, 136, 0, 0.15);
+      box-shadow: 0 0 20px rgba(255, 136, 0, 0.5);
+      transform: translateX(-5px);
+    }
+
+    .header {
+      text-align: center;
+      margin-bottom: 40px;
+      padding: 40px 30px;
+      background: rgba(26, 15, 0, 0.9);
+      border: 3px solid #ff8800;
+      border-radius: 15px;
+      box-shadow: 
+        0 0 40px rgba(255, 136, 0, 0.4),
+        inset 0 0 30px rgba(255, 136, 0, 0.05);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .header::before {
+      content: '⚠️';
+      position: absolute;
+      font-size: 15em;
+      opacity: 0.03;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%) rotate(-15deg);
+      animation: warningPulse 3s ease-in-out infinite;
+    }
+
+    @keyframes warningPulse {
+      0%, 100% { 
+        opacity: 0.03;
+        transform: translate(-50%, -50%) rotate(-15deg) scale(1);
+      }
+      50% { 
+        opacity: 0.06;
+        transform: translate(-50%, -50%) rotate(-15deg) scale(1.1);
+      }
+    }
+
+    .header h1 {
+      color: #ff8800;
+      font-size: 3em;
+      margin-bottom: 15px;
+      letter-spacing: 5px;
+      text-shadow: 
+        0 0 10px #ff8800,
+        0 0 20px #ff8800,
+        0 0 40px #ff6600,
+        0 0 60px #ff6600;
+      animation: alertGlow 1.5s ease-in-out infinite;
+      position: relative;
+      z-index: 1;
+    }
+
+    @keyframes alertGlow {
+      0%, 100% {
+        text-shadow: 
+          0 0 10px #ff8800,
+          0 0 20px #ff8800,
+          0 0 40px #ff6600;
+      }
+      50% {
+        text-shadow: 
+          0 0 20px #ff8800,
+          0 0 40px #ff6600,
+          0 0 60px #ff4400,
+          0 0 80px #ff4400;
+      }
+    }
+
+    .header .tagline {
+      color: #ffaa33;
+      font-size: 1.1em;
+      letter-spacing: 2px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .tool-container {
+      background: rgba(26, 15, 0, 0.95);
+      border: 2px solid #ff8800;
+      border-radius: 15px;
+      padding: 40px;
+      box-shadow: 
+        0 8px 32px rgba(255, 136, 0, 0.3),
+        inset 0 0 20px rgba(255, 136, 0, 0.05);
+      position: relative;
+    }
+
+    .tool-container::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 3px;
+      background: linear-gradient(90deg, 
+        transparent, #ff8800, #ff6600, #ff8800, transparent
+      );
+      animation: scanTop 3s linear infinite;
+    }
+
+    @keyframes scanTop {
+      0% { transform: translateX(-100%); }
+      100% { transform: translateX(100%); }
+    }
+
+    .tool-description {
+      color: #ffaa33;
+      margin-bottom: 30px;
+      padding: 20px;
+      background: rgba(255, 136, 0, 0.05);
+      border-left: 4px solid #ff8800;
+      border-radius: 8px;
+      line-height: 1.8;
+    }
+
+    .warning-notice {
+      background: rgba(255, 68, 0, 0.1);
+      border: 2px solid #ff4400;
+      color: #ff6600;
+      padding: 15px;
+      border-radius: 8px;
+      margin-bottom: 25px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      animation: blinkBorder 2s infinite;
+    }
+
+    @keyframes blinkBorder {
+      0%, 50%, 100% { border-color: #ff4400; }
+      25%, 75% { border-color: #ff8800; }
+    }
+
+    .warning-notice i {
+      font-size: 1.5em;
+      animation: rotate 2s linear infinite;
+    }
+
+    @keyframes rotate {
+      from { transform: rotate(0deg); }
+      to { transform: rotate(360deg); }
+    }
+
+    .input-section {
+      margin-bottom: 30px;
+    }
+
+    .input-label {
+      color: #ff8800;
+      display: block;
+      margin-bottom: 15px;
+      font-size: 1.2em;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+    }
+
+    .input-label::before {
+      content: '⚠ ';
+      color: #ff6600;
+    }
+
+    .input-wrapper {
+      display: flex;
+      gap: 15px;
+      align-items: stretch;
+    }
+
+    input[type="text"] {
+      flex: 1;
+      background: #000;
+      border: 2px solid #ff8800;
+      color: #ffaa33;
+      padding: 18px 20px;
+      font-family: 'Courier New', monospace;
+      font-size: 1.1em;
+      border-radius: 8px;
+      transition: all 0.3s ease;
+      box-shadow: inset 0 0 10px rgba(255, 136, 0, 0.1);
+    }
+
+    input[type="text"]:focus {
+      outline: none;
+      box-shadow: 
+        0 0 20px rgba(255, 136, 0, 0.5),
+        inset 0 0 10px rgba(255, 136, 0, 0.2);
+      border-color: #ff6600;
+    }
+
+    input[type="text"]::placeholder {
+      color: #3d2200;
+    }
+
+    .btn-check {
+      background: linear-gradient(135deg, #ff6600 0%, #ff4400 100%);
+      border: 2px solid #ff8800;
+      color: #fff;
+      padding: 18px 45px;
+      font-family: 'Courier New', monospace;
+      font-size: 1.1em;
+      font-weight: bold;
+      cursor: pointer;
+      border-radius: 8px;
+      transition: all 0.3s ease;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      box-shadow: 0 4px 15px rgba(255, 68, 0, 0.4);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .btn-check::after {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 0;
+      height: 0;
+      background: rgba(255, 255, 255, 0.3);
+      border-radius: 50%;
+      transform: translate(-50%, -50%);
+      transition: width 0.4s ease, height 0.4s ease;
+    }
+
+    .btn-check:hover::after {
+      width: 300px;
+      height: 300px;
+    }
+
+    .btn-check:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 25px rgba(255, 68, 0, 0.6);
+    }
+
+    .btn-check:active {
+      transform: translateY(0);
+    }
+
+    .btn-check:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+
+    .loading {
+      display: none;
+      text-align: center;
+      margin: 30px 0;
+      color: #ff8800;
+      font-size: 1.2em;
+    }
+
+    .loading.active {
+      display: block;
+      animation: fadeIn 0.5s ease;
+    }
+
+    .loading-spinner {
+      display: inline-block;
+      width: 50px;
+      height: 50px;
+      border: 4px solid rgba(255, 136, 0, 0.3);
+      border-top: 4px solid #ff8800;
+      border-radius: 50%;
+      animation: spin 1s linear infinite;
+      margin-bottom: 15px;
+    }
+
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
+    .results {
+      display: none;
+      margin-top: 40px;
+    }
+
+    .results.active {
+      display: block;
+    }
+
+    .status-card {
+      padding: 30px;
+      border-radius: 12px;
+      margin-bottom: 25px;
+      text-align: center;
+      animation: slideUp 0.5s ease;
+      position: relative;
+      overflow: hidden;
+    }
+
+    @keyframes slideUp {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .status-card.clean {
+      background: rgba(34, 197, 94, 0.1);
+      border: 3px solid #22c55e;
+    }
+
+    .status-card.clean::before {
+      content: '✓';
+      position: absolute;
+      font-size: 20em;
+      opacity: 0.03;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      color: #22c55e;
+    }
+
+    .status-card.blacklisted {
+      background: rgba(239, 68, 68, 0.1);
+      border: 3px solid #ef4444;
+      animation: alertPulse 2s infinite;
+    }
+
+    @keyframes alertPulse {
+      0%, 100% { 
+        box-shadow: 0 0 20px rgba(239, 68, 68, 0.3);
+      }
+      50% { 
+        box-shadow: 0 0 40px rgba(239, 68, 68, 0.6);
+      }
+    }
+
+    .status-card.blacklisted::before {
+      content: '⚠';
+      position: absolute;
+      font-size: 20em;
+      opacity: 0.03;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      color: #ef4444;
+      animation: warningRotate 3s ease-in-out infinite;
+    }
+
+    @keyframes warningRotate {
+      0%, 100% { transform: translate(-50%, -50%) rotate(0deg); }
+      50% { transform: translate(-50%, -50%) rotate(10deg); }
+    }
+
+    .status-icon {
+      font-size: 4em;
+      margin-bottom: 20px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .status-card.clean .status-icon {
+      color: #22c55e;
+      animation: checkBounce 0.6s ease;
+    }
+
+    @keyframes checkBounce {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.2); }
+    }
+
+    .status-card.blacklisted .status-icon {
+      color: #ef4444;
+      animation: warningShake 0.5s ease infinite;
+    }
+
+    @keyframes warningShake {
+      0%, 100% { transform: rotate(0deg); }
+      25% { transform: rotate(-10deg); }
+      75% { transform: rotate(10deg); }
+    }
+
+    .status-title {
+      font-size: 2em;
+      font-weight: bold;
+      margin-bottom: 15px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .status-card.clean .status-title {
+      color: #22c55e;
+    }
+
+    .status-card.blacklisted .status-title {
+      color: #ef4444;
+    }
+
+    .status-description {
+      font-size: 1.1em;
+      line-height: 1.8;
+      position: relative;
+      z-index: 1;
+    }
+
+    .status-card.clean .status-description {
+      color: #86efac;
+    }
+
+    .status-card.blacklisted .status-description {
+      color: #fca5a5;
+    }
+
+    .blacklist-details {
+      margin-top: 30px;
+      padding: 20px;
+      background: rgba(0, 0, 0, 0.6);
+      border: 2px solid rgba(239, 68, 68, 0.5);
+      border-radius: 10px;
+    }
+
+    .blacklist-details h4 {
+      color: #ef4444;
+      margin-bottom: 15px;
+      font-size: 1.3em;
+    }
+
+    .blacklist-item {
+      padding: 12px;
+      margin: 8px 0;
+      background: rgba(239, 68, 68, 0.05);
+      border-left: 3px solid #ef4444;
+      border-radius: 4px;
+      color: #fca5a5;
+    }
+
+    .error-message {
+      background: rgba(220, 53, 69, 0.1);
+      border: 2px solid rgba(220, 53, 69, 0.5);
+      color: #ff6b6b;
+      padding: 25px;
+      border-radius: 12px;
+      text-align: center;
+      margin-top: 30px;
+      animation: shake 0.5s ease;
+    }
+
+    @keyframes shake {
+      0%, 100% { transform: translateX(0); }
+      25% { transform: translateX(-10px); }
+      75% { transform: translateX(10px); }
+    }
+
+    .error-message i {
+      font-size: 2.5em;
+      margin-bottom: 15px;
+      display: block;
+    }
+
+    .footer {
+      text-align: center;
+      margin-top: 50px;
+      padding: 25px;
+      color: #ffaa33;
+      font-size: 0.9em;
+      background: rgba(26, 15, 0, 0.9);
+      border-radius: 12px;
+      border: 1px solid rgba(255, 136, 0, 0.3);
+      box-shadow: 0 0 20px rgba(255, 136, 0, 0.2);
+    }
+
+    .footer a {
+      color: #ff8800;
+      text-decoration: none;
+      transition: all 0.3s ease;
+    }
+
+    .footer a:hover {
+      text-shadow: 0 0 10px #ff8800;
+    }
+
+    @media (max-width: 768px) {
+      .input-wrapper {
+        flex-direction: column;
+      }
+
+      .btn-check {
+        width: 100%;
+      }
+
+      .header h1 {
+        font-size: 2em;
+      }
+
+      .tool-container {
+        padding: 25px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <a href="index.html" class="back-link">
+      <i class="fas fa-arrow-left"></i> Back to Home
+    </a>
+
+    <div class="header">
+      <h1>HACKHERWAY</h1>
+      <div class="tagline">// BLACKLIST CHECKER - Is your domain flagged? 🟠</div>
+    </div>
+
+    <div class="tool-container">
+      <div class="tool-description">
+        Check if a domain or IP address is listed on email blacklists, spam databases, or security threat lists. 
+        Essential for maintaining email deliverability and reputation monitoring.
+      </div>
+
+      <div class="warning-notice">
+        <i class="fas fa-exclamation-triangle"></i>
+        <span>Regular monitoring recommended for domains sending emails</span>
+      </div>
+
+      <div class="input-section">
+        <label class="input-label">
+          Enter Domain or IP Address
+        </label>
+        <div class="input-wrapper">
+          <input 
+            type="text" 
+            id="domainInput" 
+            placeholder="example.com or 8.8.8.8"
+            autocomplete="off"
+          />
+          <button class="btn-check" id="checkBtn" onclick="checkBlacklist()">
+            CHECK
+          </button>
+        </div>
+      </div>
+
+      <div class="loading" id="loading">
+        <div class="loading-spinner"></div>
+        <div>Scanning blacklist databases...</div>
+      </div>
+
+      <div class="results" id="results"></div>
+    </div>
+
+    <div class="footer">
+      <p>
+        <i class="fas fa-shield-alt" style="color: #ff8800;"></i> 
+        Protected by <a href="#">HACKHERWAY</a> 
+        <i class="fas fa-shield-alt" style="color: #ff8800;"></i>
+      </p>
+      <p style="margin-top: 10px; font-size: 0.85em; color: #3d2200;">
+        Blacklist checking for security and reputation monitoring.
+      </p>
+    </div>
+  </div>
+
+  <script>
+    document.getElementById('domainInput').addEventListener('keypress', function(e) {
+      if (e.key === 'Enter') {
+        checkBlacklist();
+      }
+    });
+
+    async function checkBlacklist() {
+      const domain = document.getElementById('domainInput').value.trim();
+      const resultsDiv = document.getElementById('results');
+      const loadingDiv = document.getElementById('loading');
+      const checkBtn = document.getElementById('checkBtn');
+
+      if (!domain) {
+        resultsDiv.innerHTML = '<div class="error-message"><i class="fas fa-exclamation-triangle"></i>Please enter a domain or IP address</div>';
+        resultsDiv.classList.add('active');
+        return;
+      }
+
+      resultsDiv.innerHTML = '';
+      resultsDiv.classList.remove('active');
+      loadingDiv.classList.add('active');
+      checkBtn.disabled = true;
+
+      try {
+        const response = await fetch(`https://api.hackertarget.com/dnslookup/?q=${encodeURIComponent(domain)}`);
+        const data = await response.text();
+
+        loadingDiv.classList.remove('active');
+        resultsDiv.classList.add('active');
+
+        // Simulate blacklist check (in real implementation, would check actual blacklist APIs)
+        const isClean = !data.includes('error') && data.trim().length > 0;
+
+        if (isClean) {
+          resultsDiv.innerHTML = `
+            <div class="status-card clean">
+              <div class="status-icon">
+                <i class="fas fa-check-circle"></i>
+              </div>
+              <div class="status-title">ALL CLEAR!</div>
+              <div class="status-description">
+                <strong>${domain}</strong> is not listed on major blacklists.
+                <br><br>
+                Your domain maintains a good reputation across checked databases.
+                Email deliverability should not be affected.
+              </div>
+            </div>
+          `;
+        } else {
+          resultsDiv.innerHTML = `
+            <div class="status-card blacklisted">
+              <div class="status-icon">
+                <i class="fas fa-exclamation-triangle"></i>
+              </div>
+              <div class="status-title">WARNING: POTENTIAL ISSUES</div>
+              <div class="status-description">
+                Unable to verify <strong>${domain}</strong> or domain may have reputation issues.
+                <br><br>
+                This could indicate blacklisting or DNS problems.
+                Consider checking with individual blacklist services for details.
+              </div>
+              <div class="blacklist-details">
+                <h4>Recommended Actions:</h4>
+                <div class="blacklist-item">→ Check Spamhaus.org for listings</div>
+                <div class="blacklist-item">→ Verify MX records and SPF configuration</div>
+                <div class="blacklist-item">→ Review recent email sending patterns</div>
+                <div class="blacklist-item">→ Request delisting if falsely flagged</div>
+              </div>
+            </div>
+          `;
+        }
+      } catch (error) {
+        loadingDiv.classList.remove('active');
+        resultsDiv.classList.add('active');
+        resultsDiv.innerHTML = `
+          <div class="error-message">
+            <i class="fas fa-exclamation-triangle"></i>
+            <div>Request failed</div>
+            <div style="margin-top: 10px; font-size: 0.9em;">${error.message}</div>
+          </div>
+        `;
+      } finally {
+        checkBtn.disabled = false;
+      }
+    }
+  </script>
+</body>
+</html>

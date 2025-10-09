@@ -1,0 +1,639 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>HACKHERWAY | WHOIS Lookup</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css" />
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      background: linear-gradient(135deg, #0f0c29 0%, #302b63 50%, #24243e 100%);
+      color: #fff;
+      font-family: 'Courier New', monospace;
+      padding: 20px;
+      min-height: 100vh;
+      position: relative;
+      overflow-x: hidden;
+    }
+
+    body::before {
+      content: '';
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: 
+        radial-gradient(circle at 20% 50%, rgba(120, 119, 198, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 80% 80%, rgba(138, 43, 226, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 40% 20%, rgba(75, 0, 130, 0.1) 0%, transparent 50%);
+      pointer-events: none;
+      animation: pulse 15s ease-in-out infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 0.5; }
+      50% { opacity: 0.8; }
+    }
+
+    .container {
+      max-width: 1000px;
+      margin: 0 auto;
+      position: relative;
+      z-index: 1;
+    }
+
+    .back-link {
+      display: inline-block;
+      margin-bottom: 20px;
+      color: #a78bfa;
+      text-decoration: none;
+      padding: 10px 20px;
+      border: 2px solid #a78bfa;
+      border-radius: 8px;
+      transition: all 0.3s ease;
+      background: rgba(167, 139, 250, 0.1);
+    }
+
+    .back-link:hover {
+      background: rgba(167, 139, 250, 0.2);
+      box-shadow: 0 0 20px rgba(167, 139, 250, 0.4);
+      transform: translateX(-5px);
+    }
+
+    .header {
+      text-align: center;
+      margin-bottom: 40px;
+      padding: 40px 30px;
+      background: rgba(0, 0, 0, 0.3);
+      backdrop-filter: blur(10px);
+      border: 2px solid transparent;
+      border-radius: 15px;
+      background-clip: padding-box;
+      position: relative;
+    }
+
+    .header::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      border-radius: 15px;
+      padding: 2px;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #a78bfa 100%);
+      -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+      -webkit-mask-composite: xor;
+      mask-composite: exclude;
+      pointer-events: none;
+    }
+
+    .header h1 {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #a78bfa 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      font-size: 3em;
+      margin-bottom: 15px;
+      letter-spacing: 4px;
+      text-shadow: 0 0 30px rgba(167, 139, 250, 0.5);
+      animation: glow 3s ease-in-out infinite;
+    }
+
+    @keyframes glow {
+      0%, 100% { filter: drop-shadow(0 0 10px rgba(167, 139, 250, 0.5)); }
+      50% { filter: drop-shadow(0 0 20px rgba(167, 139, 250, 0.8)); }
+    }
+
+    .header .tagline {
+      color: #a78bfa;
+      font-size: 1.1em;
+      font-weight: normal;
+      letter-spacing: 2px;
+    }
+
+    .tool-container {
+      background: rgba(0, 0, 0, 0.4);
+      backdrop-filter: blur(15px);
+      border: 2px solid rgba(167, 139, 250, 0.3);
+      border-radius: 15px;
+      padding: 40px;
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
+    }
+
+    .tool-description {
+      color: #c4b5fd;
+      margin-bottom: 30px;
+      padding: 20px;
+      background: rgba(167, 139, 250, 0.1);
+      border-left: 4px solid #a78bfa;
+      border-radius: 8px;
+      line-height: 1.8;
+    }
+
+    .tool-description i {
+      color: #667eea;
+      margin-right: 10px;
+    }
+
+    .input-section {
+      margin-bottom: 30px;
+    }
+
+    .input-label {
+      color: #a78bfa;
+      display: block;
+      margin-bottom: 15px;
+      font-size: 1.2em;
+      letter-spacing: 1px;
+    }
+
+    .input-label i {
+      margin-right: 8px;
+      color: #667eea;
+    }
+
+    .input-wrapper {
+      display: flex;
+      gap: 15px;
+      align-items: stretch;
+    }
+
+    input[type="text"] {
+      flex: 1;
+      background: rgba(0, 0, 0, 0.5);
+      border: 2px solid #a78bfa;
+      color: #fff;
+      padding: 18px 20px;
+      font-family: 'Courier New', monospace;
+      font-size: 1.1em;
+      border-radius: 8px;
+      transition: all 0.3s ease;
+    }
+
+    input[type="text"]:focus {
+      outline: none;
+      border-color: #667eea;
+      box-shadow: 0 0 20px rgba(102, 126, 234, 0.5);
+      background: rgba(0, 0, 0, 0.7);
+    }
+
+    input[type="text"]::placeholder {
+      color: #666;
+    }
+
+    .btn-lookup {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      border: none;
+      color: #fff;
+      padding: 18px 45px;
+      font-family: 'Courier New', monospace;
+      font-size: 1.1em;
+      font-weight: bold;
+      cursor: pointer;
+      border-radius: 8px;
+      transition: all 0.3s ease;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .btn-lookup::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+      transition: left 0.5s ease;
+    }
+
+    .btn-lookup:hover::before {
+      left: 100%;
+    }
+
+    .btn-lookup:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 25px rgba(102, 126, 234, 0.6);
+    }
+
+    .btn-lookup:active {
+      transform: translateY(0);
+    }
+
+    .btn-lookup:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+
+    .loading {
+      display: none;
+      text-align: center;
+      margin: 30px 0;
+      color: #a78bfa;
+      font-size: 1.2em;
+    }
+
+    .loading.active {
+      display: block;
+    }
+
+    .loading-spinner {
+      display: inline-block;
+      width: 40px;
+      height: 40px;
+      border: 4px solid rgba(167, 139, 250, 0.3);
+      border-top: 4px solid #a78bfa;
+      border-radius: 50%;
+      animation: spin 1s linear infinite;
+      margin-bottom: 15px;
+    }
+
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+
+    .results {
+      display: none;
+      margin-top: 40px;
+    }
+
+    .results.active {
+      display: block;
+      animation: slideUp 0.5s ease;
+    }
+
+    @keyframes slideUp {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .result-card {
+      background: rgba(0, 0, 0, 0.5);
+      border: 2px solid rgba(167, 139, 250, 0.3);
+      border-radius: 12px;
+      padding: 25px;
+      margin-bottom: 20px;
+      transition: all 0.3s ease;
+    }
+
+    .result-card:hover {
+      border-color: rgba(167, 139, 250, 0.6);
+      box-shadow: 0 4px 20px rgba(167, 139, 250, 0.2);
+      transform: translateX(5px);
+    }
+
+    .result-card h3 {
+      color: #667eea;
+      margin-bottom: 15px;
+      font-size: 1.3em;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .result-card h3 i {
+      font-size: 0.9em;
+    }
+
+    .result-row {
+      display: flex;
+      padding: 12px 0;
+      border-bottom: 1px solid rgba(167, 139, 250, 0.2);
+      transition: all 0.2s ease;
+    }
+
+    .result-row:last-child {
+      border-bottom: none;
+    }
+
+    .result-row:hover {
+      background: rgba(167, 139, 250, 0.1);
+      padding-left: 10px;
+    }
+
+    .result-label {
+      color: #a78bfa;
+      font-weight: bold;
+      min-width: 180px;
+      flex-shrink: 0;
+    }
+
+    .result-value {
+      color: #e0e7ff;
+      word-break: break-word;
+    }
+
+    .error-message {
+      background: rgba(220, 38, 38, 0.2);
+      border: 2px solid rgba(220, 38, 38, 0.5);
+      color: #fca5a5;
+      padding: 20px;
+      border-radius: 12px;
+      text-align: center;
+      margin-top: 30px;
+    }
+
+    .error-message i {
+      font-size: 2em;
+      margin-bottom: 10px;
+      display: block;
+    }
+
+    .footer {
+      text-align: center;
+      margin-top: 50px;
+      padding: 25px;
+      color: #a78bfa;
+      font-size: 0.9em;
+      background: rgba(0, 0, 0, 0.3);
+      backdrop-filter: blur(10px);
+      border-radius: 12px;
+      border: 1px solid rgba(167, 139, 250, 0.2);
+    }
+
+    .footer a {
+      color: #667eea;
+      text-decoration: none;
+      transition: all 0.3s ease;
+    }
+
+    .footer a:hover {
+      color: #a78bfa;
+      text-shadow: 0 0 10px rgba(167, 139, 250, 0.8);
+    }
+
+    @media (max-width: 768px) {
+      .input-wrapper {
+        flex-direction: column;
+      }
+
+      .btn-lookup {
+        width: 100%;
+      }
+
+      .header h1 {
+        font-size: 2em;
+      }
+
+      .result-row {
+        flex-direction: column;
+      }
+
+      .result-label {
+        min-width: auto;
+        margin-bottom: 5px;
+      }
+
+      .tool-container {
+        padding: 25px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <a href="index.html" class="back-link">
+      <i class="fas fa-arrow-left"></i> Back to Home
+    </a>
+
+    <div class="header">
+      <h1>HACKHERWAY</h1>
+      <div class="tagline">// WHOIS LOOKUP - Digital recon with style 💜</div>
+    </div>
+
+    <div class="tool-container">
+      <div class="tool-description">
+        <i class="fas fa-info-circle"></i>
+        WHOIS lookup reveals domain registration details including registrar information, creation date, 
+        expiration date, nameservers, and contact information. Essential for reconnaissance and investigation.
+      </div>
+
+      <div class="input-section">
+        <label class="input-label">
+          <i class="fas fa-globe"></i>
+          Enter Domain Name
+        </label>
+        <div class="input-wrapper">
+          <input 
+            type="text" 
+            id="domainInput" 
+            placeholder="example.com"
+            autocomplete="off"
+          />
+          <button class="btn-lookup" id="lookupBtn" onclick="performWhois()">
+            <i class="fas fa-search"></i> LOOKUP
+          </button>
+        </div>
+      </div>
+
+      <div class="loading" id="loading">
+        <div class="loading-spinner"></div>
+        <div>Querying WHOIS database...</div>
+      </div>
+
+      <div class="results" id="results"></div>
+    </div>
+
+    <div class="footer">
+      <p>
+        <i class="fas fa-code" style="color: #667eea;"></i> 
+        Crafted with passion by <a href="#">HACKHERWAY</a> 
+        <i class="fas fa-heart" style="color: #667eea;"></i>
+      </p>
+      <p style="margin-top: 10px; font-size: 0.85em; color: #888;">
+        WHOIS data is publicly available. This tool displays information for educational purposes only.
+      </p>
+    </div>
+  </div>
+
+  <script>
+    document.getElementById('domainInput').addEventListener('keypress', function(e) {
+      if (e.key === 'Enter') {
+        performWhois();
+      }
+    });
+
+    async function performWhois() {
+      const domain = document.getElementById('domainInput').value.trim();
+      const resultsDiv = document.getElementById('results');
+      const loadingDiv = document.getElementById('loading');
+      const lookupBtn = document.getElementById('lookupBtn');
+
+      if (!domain) {
+        resultsDiv.innerHTML = '<div class="error-message"><i class="fas fa-exclamation-triangle"></i>Please enter a domain name</div>';
+        resultsDiv.classList.add('active');
+        return;
+      }
+
+      // Clear previous results
+      resultsDiv.innerHTML = '';
+      resultsDiv.classList.remove('active');
+      loadingDiv.classList.add('active');
+      lookupBtn.disabled = true;
+
+      try {
+        const response = await fetch(`https://api.hackertarget.com/whois/?q=${encodeURIComponent(domain)}`);
+        const data = await response.text();
+
+        loadingDiv.classList.remove('active');
+        resultsDiv.classList.add('active');
+
+        if (data.includes('error') || data.includes('No match for')) {
+          resultsDiv.innerHTML = `
+            <div class="error-message">
+              <i class="fas fa-exclamation-circle"></i>
+              <div>Unable to retrieve WHOIS data for ${domain}</div>
+              <div style="margin-top: 10px; font-size: 0.9em;">Domain may not exist or WHOIS data is not publicly available</div>
+            </div>
+          `;
+        } else {
+          // Parse WHOIS data
+          const lines = data.split('\n');
+          const whoisData = {
+            'Domain Information': [],
+            'Registrar Details': [],
+            'Important Dates': [],
+            'Name Servers': [],
+            'Status': [],
+            'Other': []
+          };
+
+          lines.forEach(line => {
+            const trimmed = line.trim();
+            if (!trimmed || trimmed.startsWith('%') || trimmed.startsWith('#')) return;
+
+            if (trimmed.toLowerCase().includes('domain name:') || 
+                trimmed.toLowerCase().includes('domain:')) {
+              whoisData['Domain Information'].push(trimmed);
+            } else if (trimmed.toLowerCase().includes('registrar') || 
+                       trimmed.toLowerCase().includes('organization')) {
+              whoisData['Registrar Details'].push(trimmed);
+            } else if (trimmed.toLowerCase().includes('creation date') || 
+                       trimmed.toLowerCase().includes('expir') || 
+                       trimmed.toLowerCase().includes('updated date')) {
+              whoisData['Important Dates'].push(trimmed);
+            } else if (trimmed.toLowerCase().includes('name server') || 
+                       trimmed.toLowerCase().includes('nserver')) {
+              whoisData['Name Servers'].push(trimmed);
+            } else if (trimmed.toLowerCase().includes('status')) {
+              whoisData['Status'].push(trimmed);
+            } else if (trimmed.includes(':')) {
+              whoisData['Other'].push(trimmed);
+            }
+          });
+
+          let html = '';
+
+          // Domain Information Card
+          if (whoisData['Domain Information'].length > 0) {
+            html += '<div class="result-card">';
+            html += '<h3><i class="fas fa-globe"></i> Domain Information</h3>';
+            whoisData['Domain Information'].forEach(line => {
+              const parts = line.split(':');
+              if (parts.length >= 2) {
+                html += `<div class="result-row">
+                  <div class="result-label">${parts[0].trim()}</div>
+                  <div class="result-value">${parts.slice(1).join(':').trim()}</div>
+                </div>`;
+              }
+            });
+            html += '</div>';
+          }
+
+          // Registrar Card
+          if (whoisData['Registrar Details'].length > 0) {
+            html += '<div class="result-card">';
+            html += '<h3><i class="fas fa-building"></i> Registrar Details</h3>';
+            whoisData['Registrar Details'].forEach(line => {
+              const parts = line.split(':');
+              if (parts.length >= 2) {
+                html += `<div class="result-row">
+                  <div class="result-label">${parts[0].trim()}</div>
+                  <div class="result-value">${parts.slice(1).join(':').trim()}</div>
+                </div>`;
+              }
+            });
+            html += '</div>';
+          }
+
+          // Dates Card
+          if (whoisData['Important Dates'].length > 0) {
+            html += '<div class="result-card">';
+            html += '<h3><i class="fas fa-calendar-alt"></i> Important Dates</h3>';
+            whoisData['Important Dates'].forEach(line => {
+              const parts = line.split(':');
+              if (parts.length >= 2) {
+                html += `<div class="result-row">
+                  <div class="result-label">${parts[0].trim()}</div>
+                  <div class="result-value">${parts.slice(1).join(':').trim()}</div>
+                </div>`;
+              }
+            });
+            html += '</div>';
+          }
+
+          // Name Servers Card
+          if (whoisData['Name Servers'].length > 0) {
+            html += '<div class="result-card">';
+            html += '<h3><i class="fas fa-server"></i> Name Servers</h3>';
+            whoisData['Name Servers'].forEach(line => {
+              const parts = line.split(':');
+              if (parts.length >= 2) {
+                html += `<div class="result-row">
+                  <div class="result-label">${parts[0].trim()}</div>
+                  <div class="result-value">${parts.slice(1).join(':').trim()}</div>
+                </div>`;
+              }
+            });
+            html += '</div>';
+          }
+
+          // Status Card
+          if (whoisData['Status'].length > 0) {
+            html += '<div class="result-card">';
+            html += '<h3><i class="fas fa-shield-alt"></i> Domain Status</h3>';
+            whoisData['Status'].forEach(line => {
+              const parts = line.split(':');
+              if (parts.length >= 2) {
+                html += `<div class="result-row">
+                  <div class="result-label">${parts[0].trim()}</div>
+                  <div class="result-value">${parts.slice(1).join(':').trim()}</div>
+                </div>`;
+              }
+            });
+            html += '</div>';
+          }
+
+          resultsDiv.innerHTML = html || `<div class="error-message"><i class="fas fa-info-circle"></i>No WHOIS data available</div>`;
+        }
+      } catch (error) {
+        loadingDiv.classList.remove('active');
+        resultsDiv.classList.add('active');
+        resultsDiv.innerHTML = `
+          <div class="error-message">
+            <i class="fas fa-exclamation-triangle"></i>
+            <div>Network request failed</div>
+            <div style="margin-top: 10px; font-size: 0.9em;">${error.message}</div>
+          </div>
+        `;
+      } finally {
+        lookupBtn.disabled = false;
+      }
+    }
+  </script>
+</body>
+</html>

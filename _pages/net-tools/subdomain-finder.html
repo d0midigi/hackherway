@@ -1,0 +1,776 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>HACKHERWAY | Subdomain Finder</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css" />
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      background: #000000;
+      color: #ffd60a;
+      font-family: 'Courier New', monospace;
+      padding: 20px;
+      min-height: 100vh;
+      position: relative;
+      overflow-x: hidden;
+    }
+
+    /* Floating bubbles background */
+    .bubbles {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 0;
+      overflow: hidden;
+    }
+
+    .bubble {
+      position: absolute;
+      bottom: -100px;
+      background: transparent;
+      border: 2px solid rgba(255, 214, 10, 0.3);
+      border-radius: 50%;
+      animation: rise linear infinite;
+    }
+
+    .bubble:nth-child(1) {
+      width: 40px;
+      height: 40px;
+      left: 10%;
+      animation-duration: 8s;
+      animation-delay: 0s;
+    }
+
+    .bubble:nth-child(2) {
+      width: 20px;
+      height: 20px;
+      left: 20%;
+      animation-duration: 5s;
+      animation-delay: 1s;
+    }
+
+    .bubble:nth-child(3) {
+      width: 50px;
+      height: 50px;
+      left: 35%;
+      animation-duration: 7s;
+      animation-delay: 2s;
+    }
+
+    .bubble:nth-child(4) {
+      width: 80px;
+      height: 80px;
+      left: 50%;
+      animation-duration: 11s;
+      animation-delay: 0s;
+    }
+
+    .bubble:nth-child(5) {
+      width: 35px;
+      height: 35px;
+      left: 55%;
+      animation-duration: 6s;
+      animation-delay: 1s;
+    }
+
+    .bubble:nth-child(6) {
+      width: 45px;
+      height: 45px;
+      left: 65%;
+      animation-duration: 8s;
+      animation-delay: 3s;
+    }
+
+    .bubble:nth-child(7) {
+      width: 90px;
+      height: 90px;
+      left: 70%;
+      animation-duration: 12s;
+      animation-delay: 2s;
+    }
+
+    .bubble:nth-child(8) {
+      width: 25px;
+      height: 25px;
+      left: 80%;
+      animation-duration: 6s;
+      animation-delay: 2s;
+    }
+
+    .bubble:nth-child(9) {
+      width: 15px;
+      height: 15px;
+      left: 70%;
+      animation-duration: 5s;
+      animation-delay: 1s;
+    }
+
+    .bubble:nth-child(10) {
+      width: 60px;
+      height: 60px;
+      left: 25%;
+      animation-duration: 10s;
+      animation-delay: 4s;
+    }
+
+    @keyframes rise {
+      0% {
+        bottom: -100px;
+        transform: translateX(0) scale(1);
+        opacity: 0;
+      }
+      10% {
+        opacity: 0.5;
+      }
+      90% {
+        opacity: 0.5;
+      }
+      100% {
+        bottom: 110vh;
+        transform: translateX(calc(-50px + (100px * var(--random)))) scale(1.3);
+        opacity: 0;
+      }
+    }
+
+    .container {
+      max-width: 1100px;
+      margin: 0 auto;
+      position: relative;
+      z-index: 1;
+    }
+
+    .back-link {
+      display: inline-block;
+      margin-bottom: 20px;
+      color: #ffd60a;
+      text-decoration: none;
+      padding: 10px 20px;
+      border: 2px solid #ffd60a;
+      border-radius: 8px;
+      transition: all 0.3s ease;
+      background: rgba(255, 214, 10, 0.05);
+      box-shadow: 0 0 10px rgba(255, 214, 10, 0.3);
+    }
+
+    .back-link:hover {
+      background: rgba(255, 214, 10, 0.1);
+      box-shadow: 0 0 20px rgba(255, 214, 10, 0.5);
+      transform: translateX(-5px);
+    }
+
+    .header {
+      text-align: center;
+      margin-bottom: 40px;
+      padding: 40px 30px;
+      background: rgba(0, 0, 0, 0.8);
+      border: 3px solid #ffd60a;
+      border-radius: 15px;
+      box-shadow: 
+        0 0 30px rgba(255, 214, 10, 0.4),
+        inset 0 0 30px rgba(255, 214, 10, 0.05);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .header::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 50%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255, 214, 10, 0.2), transparent);
+      animation: shimmer 3s infinite;
+    }
+
+    @keyframes shimmer {
+      0% { left: -100%; }
+      100% { left: 200%; }
+    }
+
+    .header h1 {
+      color: #ffd60a;
+      font-size: 3em;
+      margin-bottom: 15px;
+      letter-spacing: 5px;
+      text-shadow: 
+        0 0 10px #ffd60a,
+        0 0 20px #ffd60a,
+        0 0 40px #ffb700,
+        0 0 80px #ffb700;
+      animation: glow 2s ease-in-out infinite alternate;
+      position: relative;
+      z-index: 1;
+    }
+
+    @keyframes glow {
+      from {
+        text-shadow: 
+          0 0 10px #ffd60a,
+          0 0 20px #ffd60a,
+          0 0 40px #ffb700;
+      }
+      to {
+        text-shadow: 
+          0 0 20px #ffd60a,
+          0 0 40px #ffb700,
+          0 0 60px #ffb700,
+          0 0 80px #ff9500;
+      }
+    }
+
+    .header .tagline {
+      color: #ffea00;
+      font-size: 1.1em;
+      letter-spacing: 2px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .tool-container {
+      background: rgba(0, 0, 0, 0.9);
+      border: 2px solid #ffd60a;
+      border-radius: 15px;
+      padding: 40px;
+      box-shadow: 
+        0 8px 32px rgba(255, 214, 10, 0.3),
+        inset 0 0 20px rgba(255, 214, 10, 0.05);
+      position: relative;
+    }
+
+    .tool-container::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 2px;
+      background: linear-gradient(90deg, transparent, #ffd60a, transparent);
+      animation: scanBottom 2s linear infinite;
+    }
+
+    @keyframes scanBottom {
+      0% { transform: translateX(-100%); }
+      100% { transform: translateX(100%); }
+    }
+
+    .tool-description {
+      color: #ffea00;
+      margin-bottom: 30px;
+      padding: 20px;
+      background: rgba(255, 214, 10, 0.05);
+      border-left: 4px solid #ffd60a;
+      border-radius: 8px;
+      line-height: 1.8;
+    }
+
+    .tool-description i {
+      color: #ffb700;
+      margin-right: 10px;
+    }
+
+    .input-section {
+      margin-bottom: 30px;
+    }
+
+    .input-label {
+      color: #ffd60a;
+      display: block;
+      margin-bottom: 15px;
+      font-size: 1.2em;
+      letter-spacing: 1px;
+    }
+
+    .input-label::before {
+      content: '🔍 ';
+    }
+
+    .input-wrapper {
+      display: flex;
+      gap: 15px;
+      align-items: stretch;
+    }
+
+    input[type="text"] {
+      flex: 1;
+      background: #000;
+      border: 2px solid #ffd60a;
+      color: #ffea00;
+      padding: 18px 20px;
+      font-family: 'Courier New', monospace;
+      font-size: 1.1em;
+      border-radius: 8px;
+      transition: all 0.3s ease;
+      box-shadow: inset 0 0 10px rgba(255, 214, 10, 0.1);
+    }
+
+    input[type="text"]:focus {
+      outline: none;
+      box-shadow: 
+        0 0 20px rgba(255, 214, 10, 0.5),
+        inset 0 0 10px rgba(255, 214, 10, 0.2);
+      border-color: #ffea00;
+    }
+
+    input[type="text"]::placeholder {
+      color: #3a3000;
+    }
+
+    .btn-find {
+      background: #000;
+      border: 2px solid #ffd60a;
+      color: #ffd60a;
+      padding: 18px 45px;
+      font-family: 'Courier New', monospace;
+      font-size: 1.1em;
+      font-weight: bold;
+      cursor: pointer;
+      border-radius: 8px;
+      transition: all 0.3s ease;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      box-shadow: 0 0 20px rgba(255, 214, 10, 0.3);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .btn-find::before {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 0;
+      height: 0;
+      background: rgba(255, 214, 10, 0.3);
+      border-radius: 50%;
+      transform: translate(-50%, -50%);
+      transition: width 0.4s ease, height 0.4s ease;
+    }
+
+    .btn-find:hover::before {
+      width: 300px;
+      height: 300px;
+    }
+
+    .btn-find:hover {
+      background: rgba(255, 214, 10, 0.1);
+      box-shadow: 0 0 30px rgba(255, 214, 10, 0.6);
+      transform: translateY(-2px);
+    }
+
+    .btn-find:active {
+      transform: translateY(0);
+    }
+
+    .btn-find:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+
+    .loading {
+      display: none;
+      text-align: center;
+      margin: 30px 0;
+      color: #ffd60a;
+      font-size: 1.2em;
+    }
+
+    .loading.active {
+      display: block;
+      animation: fadeIn 0.5s ease;
+    }
+
+    .loading-dots {
+      display: inline-flex;
+      gap: 8px;
+      margin-left: 10px;
+    }
+
+    .loading-dots span {
+      width: 8px;
+      height: 8px;
+      background: #ffd60a;
+      border-radius: 50%;
+      animation: bounce 1.4s infinite ease-in-out both;
+      box-shadow: 0 0 10px #ffd60a;
+    }
+
+    .loading-dots span:nth-child(1) { animation-delay: -0.32s; }
+    .loading-dots span:nth-child(2) { animation-delay: -0.16s; }
+
+    @keyframes bounce {
+      0%, 80%, 100% { transform: scale(0); }
+      40% { transform: scale(1); }
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
+    .results {
+      display: none;
+      margin-top: 40px;
+    }
+
+    .results.active {
+      display: block;
+    }
+
+    .results-header {
+      text-align: center;
+      margin-bottom: 30px;
+      padding: 20px;
+      background: rgba(255, 214, 10, 0.1);
+      border: 2px solid #ffd60a;
+      border-radius: 10px;
+      animation: slideDown 0.5s ease;
+    }
+
+    @keyframes slideDown {
+      from {
+        opacity: 0;
+        transform: translateY(-20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .results-header h3 {
+      color: #ffd60a;
+      font-size: 1.5em;
+      margin-bottom: 10px;
+    }
+
+    .results-header p {
+      color: #ffea00;
+      font-size: 0.95em;
+    }
+
+    .subdomain-list {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 15px;
+      margin-top: 20px;
+    }
+
+    .subdomain-item {
+      padding: 15px 20px;
+      background: rgba(0, 0, 0, 0.6);
+      border: 2px solid rgba(255, 214, 10, 0.3);
+      border-radius: 8px;
+      transition: all 0.3s ease;
+      position: relative;
+      overflow: hidden;
+      animation: popIn 0.4s ease backwards;
+    }
+
+    .subdomain-item:nth-child(1) { animation-delay: 0.05s; }
+    .subdomain-item:nth-child(2) { animation-delay: 0.1s; }
+    .subdomain-item:nth-child(3) { animation-delay: 0.15s; }
+    .subdomain-item:nth-child(4) { animation-delay: 0.2s; }
+    .subdomain-item:nth-child(5) { animation-delay: 0.25s; }
+    .subdomain-item:nth-child(6) { animation-delay: 0.3s; }
+
+    @keyframes popIn {
+      from {
+        opacity: 0;
+        transform: scale(0.8);
+      }
+      to {
+        opacity: 1;
+        transform: scale(1);
+      }
+    }
+
+    .subdomain-item::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(45deg, transparent, rgba(255, 214, 10, 0.1), transparent);
+      transform: translateX(-100%);
+      transition: transform 0.6s ease;
+    }
+
+    .subdomain-item:hover::before {
+      transform: translateX(100%);
+    }
+
+    .subdomain-item:hover {
+      border-color: #ffd60a;
+      box-shadow: 0 0 20px rgba(255, 214, 10, 0.3);
+      transform: translateY(-3px);
+    }
+
+    .subdomain-item::after {
+      content: '●';
+      position: absolute;
+      left: 8px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: #ffd60a;
+      font-size: 0.8em;
+      animation: pulse 2s infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.5; }
+    }
+
+    .subdomain-item a {
+      color: #ffea00;
+      text-decoration: none;
+      padding-left: 20px;
+      display: block;
+      transition: color 0.3s ease;
+    }
+
+    .subdomain-item:hover a {
+      color: #ffd60a;
+    }
+
+    .error-message {
+      background: rgba(220, 53, 69, 0.1);
+      border: 2px solid rgba(220, 53, 69, 0.5);
+      color: #ff6b6b;
+      padding: 25px;
+      border-radius: 12px;
+      text-align: center;
+      margin-top: 30px;
+      animation: shake 0.5s ease;
+    }
+
+    @keyframes shake {
+      0%, 100% { transform: translateX(0); }
+      25% { transform: translateX(-10px); }
+      75% { transform: translateX(10px); }
+    }
+
+    .error-message i {
+      font-size: 2.5em;
+      margin-bottom: 15px;
+      display: block;
+    }
+
+    .footer {
+      text-align: center;
+      margin-top: 50px;
+      padding: 25px;
+      color: #ffea00;
+      font-size: 0.9em;
+      background: rgba(0, 0, 0, 0.8);
+      border-radius: 12px;
+      border: 1px solid rgba(255, 214, 10, 0.3);
+      box-shadow: 0 0 20px rgba(255, 214, 10, 0.2);
+    }
+
+    .footer a {
+      color: #ffd60a;
+      text-decoration: none;
+      transition: all 0.3s ease;
+    }
+
+    .footer a:hover {
+      text-shadow: 0 0 10px #ffd60a;
+    }
+
+    @media (max-width: 768px) {
+      .input-wrapper {
+        flex-direction: column;
+      }
+
+      .btn-find {
+        width: 100%;
+      }
+
+      .header h1 {
+        font-size: 2em;
+      }
+
+      .tool-container {
+        padding: 25px;
+      }
+
+      .subdomain-list {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="bubbles">
+    <div class="bubble"></div>
+    <div class="bubble"></div>
+    <div class="bubble"></div>
+    <div class="bubble"></div>
+    <div class="bubble"></div>
+    <div class="bubble"></div>
+    <div class="bubble"></div>
+    <div class="bubble"></div>
+    <div class="bubble"></div>
+    <div class="bubble"></div>
+  </div>
+
+  <div class="container">
+    <a href="index.html" class="back-link">
+      <i class="fas fa-arrow-left"></i> Back to Home
+    </a>
+
+    <div class="header">
+      <h1>HACKHERWAY</h1>
+      <div class="tagline">// SUBDOMAIN FINDER - Discover hidden treasures 🍌</div>
+    </div>
+
+    <div class="tool-container">
+      <div class="tool-description">
+        Subdomain enumeration reveals hidden subdomains that may not be publicly listed. 
+        Discover development servers, staging environments, admin panels, and other interesting targets for reconnaissance.
+      </div>
+
+      <div class="input-section">
+        <label class="input-label">
+          Enter Domain Name
+        </label>
+        <div class="input-wrapper">
+          <input 
+            type="text" 
+            id="domainInput" 
+            placeholder="example.com"
+            autocomplete="off"
+          />
+          <button class="btn-find" id="findBtn" onclick="findSubdomains()">
+            FIND
+          </button>
+        </div>
+      </div>
+
+      <div class="loading" id="loading">
+        <div>
+          Hunting for subdomains
+          <span class="loading-dots">
+            <span></span>
+            <span></span>
+            <span></span>
+          </span>
+        </div>
+      </div>
+
+      <div class="results" id="results"></div>
+    </div>
+
+    <div class="footer">
+      <p>
+        <i class="fas fa-gem" style="color: #ffd60a;"></i> 
+        Finding gold by <a href="#">HACKHERWAY</a> 
+        <i class="fas fa-gem" style="color: #ffd60a;"></i>
+      </p>
+      <p style="margin-top: 10px; font-size: 0.85em; color: #3a3000;">
+        Subdomain enumeration for authorized testing and research only.
+      </p>
+    </div>
+  </div>
+
+  <script>
+    document.getElementById('domainInput').addEventListener('keypress', function(e) {
+      if (e.key === 'Enter') {
+        findSubdomains();
+      }
+    });
+
+    async function findSubdomains() {
+      const domain = document.getElementById('domainInput').value.trim();
+      const resultsDiv = document.getElementById('results');
+      const loadingDiv = document.getElementById('loading');
+      const findBtn = document.getElementById('findBtn');
+
+      if (!domain) {
+        resultsDiv.innerHTML = '<div class="error-message"><i class="fas fa-exclamation-triangle"></i>Please enter a domain name</div>';
+        resultsDiv.classList.add('active');
+        return;
+      }
+
+      resultsDiv.innerHTML = '';
+      resultsDiv.classList.remove('active');
+      loadingDiv.classList.add('active');
+      findBtn.disabled = true;
+
+      try {
+        const response = await fetch(`https://api.hackertarget.com/hostsearch/?q=${encodeURIComponent(domain)}`);
+        const data = await response.text();
+
+        loadingDiv.classList.remove('active');
+        resultsDiv.classList.add('active');
+
+        if (data.includes('error') || data.includes('API count exceeded')) {
+          resultsDiv.innerHTML = `
+            <div class="error-message">
+              <i class="fas fa-exclamation-circle"></i>
+              <div>Unable to enumerate subdomains for ${domain}</div>
+              <div style="margin-top: 10px; font-size: 0.9em;">API limit reached or domain not found. Try again later.</div>
+            </div>
+          `;
+        } else {
+          const lines = data.split('\n').filter(line => line.trim() && !line.includes('error'));
+          
+          if (lines.length === 0) {
+            resultsDiv.innerHTML = `
+              <div class="error-message">
+                <i class="fas fa-info-circle"></i>
+                <div>No subdomains found for ${domain}</div>
+                <div style="margin-top: 10px; font-size: 0.9em;">Domain may have no public subdomains or they are well-hidden.</div>
+              </div>
+            `;
+          } else {
+            let html = `
+              <div class="results-header">
+                <h3><i class="fas fa-trophy"></i> Found ${lines.length} Subdomains!</h3>
+                <p>Discovered subdomains for ${domain}</p>
+              </div>
+              <div class="subdomain-list">
+            `;
+
+            lines.forEach(line => {
+              const parts = line.split(',');
+              if (parts.length >= 1) {
+                const subdomain = parts[0].trim();
+                html += `
+                  <div class="subdomain-item">
+                    <a href="http://${subdomain}" target="_blank" rel="noopener noreferrer">${subdomain}</a>
+                  </div>
+                `;
+              }
+            });
+
+            html += '</div>';
+            resultsDiv.innerHTML = html;
+          }
+        }
+      } catch (error) {
+        loadingDiv.classList.remove('active');
+        resultsDiv.classList.add('active');
+        resultsDiv.innerHTML = `
+          <div class="error-message">
+            <i class="fas fa-exclamation-triangle"></i>
+            <div>Request failed</div>
+            <div style="margin-top: 10px; font-size: 0.9em;">${error.message}</div>
+          </div>
+        `;
+      } finally {
+        findBtn.disabled = false;
+      }
+    }
+  </script>
+</body>
+</html>
