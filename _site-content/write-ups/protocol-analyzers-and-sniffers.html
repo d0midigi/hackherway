@@ -1,0 +1,808 @@
+<h2 style="text-align: left;"><span style="font-family: Archivo Black; font-weight: normal;">SYN Flood Attacks: Understanding and Mitigation</span></h2>
+<div><span style="font-family: Archivo Black; font-weight: normal;">Objectives:</span></div>
+<div>
+	<ul style="text-align: left;">
+		<li><span style="font-family: Poppins;">Explain the TCP three-way handshake and why half-open sockets matter.</span></li>
+		<li><span style="font-family: Poppins;">Reproduce and observe a controlled SYN Flood in a lab.</span></li>
+		<li><span style="font-family: Poppins;">Configure basic and advanced mitigations (SYN cookies, rate limits, timeouts)</span></li>
+		<li><span style="font-family: Poppins;">Explain and apply kernel-level defenses (eBPF/XDP) and NIC offload basics.</span></li>
+		<li><span style="font-family: Poppins;">Describe how IP spoofing works and why spoofed SYNs can bypass security protection mechanisms.</span></li>
+	</ul>
+	<div><span>
+			<!--more--></span>
+		<h4 style="text-align: left;"><span style="font-family: Archivo Black;"><span style="font-weight: 400;">Understanding a SYN Flood (TCP Half-Open) Attack</span></span></h4>
+		<p style="text-align: left;"></p>
+		<p></p>
+		<h3 class=""></h3>
+		<p></p>
+		<p><span class="citation-61 citation-end-61">A SYN flood is a classic form of denial-of-service (DoS) attack in which an attacker sends a rapid succession of SYN (synchronize) requests to a target server's system.<source-footnote _nghost-ng-c3768101965="" ng-version="0.0.0-PLACEHOLDER"><sup _ngcontent-ng-c3768101965="" class="superscript" data-turn-source-index="1"></sup></source-footnote></span> <span class="citation-60 citation-end-60">The primary goal of this attack is to consume the target server's resources, making it unable to respond to legitimate connection requests and ultimately denying service to legitimate users.</span></p>
+		<h3 style="text-align: left;">The TCP Three-Way Handshake: The Foundation of the Attack</h3>
+		<div _ngcontent-ng-c2772562543="" class="markdown markdown-main-panel animate tutor-markdown-rendering stronger enable-updated-hr-color" dir="ltr" id="model-response-message-contentr_a75ace8196100b7c" inline-copy-host="" style="--animation-duration: 400ms; --fade-animation-function: linear;">
+			<p></p>
+			<p><span class="">To understand how a SYN flood works, it is first crucial to grasp the standard TCP three-way handshake, which is the mechanism primarily used to establish a connection between a client and a server.</span></p>
+			<p><span class="">The TCP three-way handshake is an atomic operation crucial for establishing a full-duplex connection between a client and a server.</span><span class=""> It ensures that both endpoints are synchronized and ready to exchange data.</span></p>
+			<ol start="1">
+				<li>
+					<p><b class="">SYN (Synchronize)</b><span class="">:</span><span class="">&nbsp;The client initiates the connection by sending a&nbsp;</span><span style="font-family: monospace;">SYN</span><span class="">&nbsp;packet to the server, indicating its desire to establish a connection. This packet typically includes an initial sequence number (ISN) and negotiating connection parameters.</span></p>
+				</li>
+				<li>
+					<p><b class="">SYN/ACK (Synchronize-Acknowledge)</b><span class="">:</span><span class="">&nbsp;Upon receiving the&nbsp;</span><span style="font-family: monospace;">SYN </span><span class="">packet, the server responds </span><span class="">with a </span><code class="">SYN/ACK</code><span class=""> packet.</span><span class=""> This packet acknowledges the client's </span><code class="">SYN</code><span class=""> (ACK field = client's ISN + 1) and provides its own ISN.</span><span class=""> At this stage,</span><span class=""> the connection is in a </span><code class="">SYN-RECV</code><span class=""> (half-open) state on the server.</span></p>
+				</li>
+				<li>
+					<p><b class="">ACK (Acknowledge)</b><span class="">:</span><span class=""> The client concludes the handshake by sending an </span><code class="">ACK</code><span class=""> packet,</span><span class=""> acknowledging the server's </span><code class="">SYN</code><span class=""> (ACK field = server's ISN + 1).</span><span class=""> Only after this final </span><code class="">ACK</code><span class=""> is received and processed by the server is the connection moved to the </span><code class="">ESTABLISHED</code><span class=""> state,</span><span class=""> and data transfer can commence.</span></p>
+				</li>
+			</ol>
+			<p><span class="">The critical vulnerability lies in the server's resource allocation at step 2.</span><span class=""> For each </span><code class="">SYN</code><span class=""> received,</span><span class=""> the server creates a Transmission Control Block (TCB) entry,</span><span class=""> consuming memory and CPU cycles,</span><span class=""> and adds it to its backlog queue.</span></p>
+			<p></p>
+			<h3 class="">
+				<div _ngcontent-ng-c2772562543="" class="markdown markdown-main-panel tutor-markdown-rendering stronger enable-updated-hr-color" dir="ltr" id="model-response-message-contentr_330a2ba1ac62dd3d" inline-copy-host="" style="--animation-duration: 400ms; --fade-animation-function: linear;">
+					<p><b>How a SYN Flood Works: Exploiting the Handshake</b></p>
+					<p>The SYN flood attack exploits the second step of this handshake. <span class="citation-52">The attacker's malicious client sends numerous SYN packets to the target server, but then intentionally </span><i>fails to send the final ACK packet</i><span class="citation-52 citation-end-52">.<source-footnote _nghost-ng-c3768101965="" ng-version="0.0.0-PLACEHOLDER"><sup _ngcontent-ng-c3768101965="" class="superscript" data-turn-source-index="10">
+									<!----></sup></source-footnote></span>
+						<sources-carousel-inline _nghost-ng-c3127354419="" ng-version="0.0.0-PLACEHOLDER">
+							<!---->
+							<source-inline-chips _ngcontent-ng-c3127354419="" _nghost-ng-c786323692="" class="ng-star-inserted">
+								<source-inline-chip _ngcontent-ng-c786323692="" _nghost-ng-c2920471647="" class="ng-star-inserted"></source-inline-chip>
+							</source-inline-chips>
+						</sources-carousel-inline>
+					</p>
+					<div _ngcontent-ng-c2920471647="" class="source-inline-chip-container ng-star-inserted"><button _ngcontent-ng-c2920471647="" cdkoverlayorigin="" class="button ng-star-inserted" data-hveid="0" data-ved="0CAAQvoAQahgKEwj05eO01a2QAxUAAAAAHQAAAAAQjQE" decode-data-ved="1" jslog="262206;track:generic_click,impression,attention">
+							<mat-icon _ngcontent-ng-c2920471647="" aria-hidden="true" class="mat-icon notranslate symbol gds-icon-s google-symbols mat-ligature-font mat-icon-no-color" data-mat-icon-name="link" data-mat-icon-type="font" fonticon="link" role="img"></mat-icon>
+						</button>
+						<!---->
+						<!---->
+						<!---->
+						<!---->
+					</div>
+					<!---->
+					<!---->
+					<!---->
+					<!---->
+					<!---->
+					<!---->
+					<!---->
+					<!---->
+					<p></p>
+					<p>Here's the step-by-step breakdown of the attack:</p>
+					<ol start="1">
+						<li>
+							<p><b>Massive SYN Wave:</b><span class="citation-51 citation-end-51"> The attacker sends a huge volume of SYN packets to the target server.<source-footnote _nghost-ng-c3768101965="" ng-version="0.0.0-PLACEHOLDER"><sup _ngcontent-ng-c3768101965="" class="superscript" data-turn-source-index="11">
+											<!----></sup></source-footnote></span> <span class="citation-50 citation-end-50">These SYN packets often use spoofed (fake) source IP addresses.<source-footnote _nghost-ng-c3768101965="" ng-version="0.0.0-PLACEHOLDER"><sup _ngcontent-ng-c3768101965="" class="superscript" data-turn-source-index="12">
+											<!----></sup></source-footnote></span> This spoofing is critical for two reasons:<sources-carousel-inline _nghost-ng-c3127354419="" ng-version="0.0.0-PLACEHOLDER">
+									<!---->
+									<source-inline-chips _ngcontent-ng-c3127354419="" _nghost-ng-c786323692="" class="ng-star-inserted">
+										<source-inline-chip _ngcontent-ng-c786323692="" _nghost-ng-c2920471647="" class="ng-star-inserted"></source-inline-chip>
+									</source-inline-chips>
+								</sources-carousel-inline>
+							</p>
+							<div _ngcontent-ng-c2920471647="" class="source-inline-chip-container ng-star-inserted"><button _ngcontent-ng-c2920471647="" cdkoverlayorigin="" class="button ng-star-inserted" data-hveid="0" data-ved="0CAAQvoAQahgKEwj05eO01a2QAxUAAAAAHQAAAAAQjgE" decode-data-ved="1" jslog="262206;track:generic_click,impression,attention">
+									<mat-icon _ngcontent-ng-c2920471647="" aria-hidden="true" class="mat-icon notranslate symbol gds-icon-s google-symbols mat-ligature-font mat-icon-no-color" data-mat-icon-name="link" data-mat-icon-type="font" fonticon="link" role="img"></mat-icon>
+								</button>
+								<!---->
+								<!---->
+								<!---->
+								<!---->
+							</div>
+							<!---->
+							<!---->
+							<!---->
+							<source-inline-chip _ngcontent-ng-c786323692="" _nghost-ng-c2920471647="" class="ng-star-inserted">
+								<div _ngcontent-ng-c2920471647="" class="source-inline-chip-container ng-star-inserted"><button _ngcontent-ng-c2920471647="" cdkoverlayorigin="" class="button ng-star-inserted" data-hveid="0" data-ved="0CAAQvoAQahgKEwj05eO01a2QAxUAAAAAHQAAAAAQjwE" decode-data-ved="1" jslog="262206;track:generic_click,impression,attention">
+										<mat-icon _ngcontent-ng-c2920471647="" aria-hidden="true" class="mat-icon notranslate symbol gds-icon-s google-symbols mat-ligature-font mat-icon-no-color" data-mat-icon-name="link" data-mat-icon-type="font" fonticon="link" role="img"></mat-icon>
+									</button>
+									<!---->
+									<!---->
+									<!---->
+									<!---->
+								</div>
+								<!---->
+								<!---->
+								<!---->
+							</source-inline-chip>
+							<!---->
+							<!---->
+							<!---->
+							<!---->
+							<!---->
+							<p></p>
+							<ul>
+								<li>
+									<p>It makes it difficult to trace the attacker.</p>
+								</li>
+								<li>
+									<p>It ensures that when the server sends a SYN-ACK back to the spoofed IP, no legitimate machine is there to respond with an RST (reset) packet, which would close the half-open connection.</p>
+								</li>
+							</ul>
+						</li>
+						<li>
+							<p><span class="citation-49"></span><b>Server Resource Allocation:</b><span class="citation-49 citation-end-49"> For each SYN packet received, the server performs its part of the handshake: it sends a SYN-ACK packet back to the (often spoofed) source IP address and allocates a small amount of memory in its "backlog queue" or "connection table" for this "half-open" connection, waiting for the final ACK.<source-footnote _nghost-ng-c3768101965="" ng-version="0.0.0-PLACEHOLDER"><sup _ngcontent-ng-c3768101965="" class="superscript" data-turn-source-index="13">
+											<!----></sup></source-footnote></span>
+								<sources-carousel-inline _nghost-ng-c3127354419="" ng-version="0.0.0-PLACEHOLDER">
+									<!---->
+									<source-inline-chips _ngcontent-ng-c3127354419="" _nghost-ng-c786323692="" class="ng-star-inserted">
+										<source-inline-chip _ngcontent-ng-c786323692="" _nghost-ng-c2920471647="" class="ng-star-inserted"></source-inline-chip>
+									</source-inline-chips>
+								</sources-carousel-inline>
+							</p>
+							<div _ngcontent-ng-c2920471647="" class="source-inline-chip-container ng-star-inserted"><button _ngcontent-ng-c2920471647="" cdkoverlayorigin="" class="button ng-star-inserted" data-hveid="0" data-ved="0CAAQvoAQahgKEwj05eO01a2QAxUAAAAAHQAAAAAQkAE" decode-data-ved="1" jslog="262206;track:generic_click,impression,attention">
+									<mat-icon _ngcontent-ng-c2920471647="" aria-hidden="true" class="mat-icon notranslate symbol gds-icon-s google-symbols mat-ligature-font mat-icon-no-color" data-mat-icon-name="link" data-mat-icon-type="font" fonticon="link" role="img"></mat-icon>
+								</button>
+								<!---->
+								<!---->
+								<!---->
+								<!---->
+							</div>
+							<!---->
+							<!---->
+							<!---->
+							<!---->
+							<!---->
+							<!---->
+							<!---->
+							<!---->
+							<p></p>
+						</li>
+						<li>
+							<p><b>Backlog Queue Overflow:</b><span class="citation-48 citation-end-48"> Because the attacker never sends the final ACK (and often uses spoofed IPs so the SYN-ACKs go nowhere), these half-open connections accumulate rapidly in the server's memory.<source-footnote _nghost-ng-c3768101965="" ng-version="0.0.0-PLACEHOLDER"><sup _ngcontent-ng-c3768101965="" class="superscript" data-turn-source-index="14">
+											<!----></sup></source-footnote></span> <span class="citation-47 citation-end-47">Each half-open connection continues to occupy server resources for a period, waiting for the final ACK or until a timeout occurs.<source-footnote _nghost-ng-c3768101965="" ng-version="0.0.0-PLACEHOLDER"><sup _ngcontent-ng-c3768101965="" class="superscript" data-turn-source-index="15">
+											<!----></sup></source-footnote></span>
+								<sources-carousel-inline _nghost-ng-c3127354419="" ng-version="0.0.0-PLACEHOLDER">
+									<!---->
+									<source-inline-chips _ngcontent-ng-c3127354419="" _nghost-ng-c786323692="" class="ng-star-inserted">
+										<source-inline-chip _ngcontent-ng-c786323692="" _nghost-ng-c2920471647="" class="ng-star-inserted"></source-inline-chip>
+									</source-inline-chips>
+								</sources-carousel-inline>
+							</p>
+							<div _ngcontent-ng-c2920471647="" class="source-inline-chip-container ng-star-inserted"><button _ngcontent-ng-c2920471647="" cdkoverlayorigin="" class="button ng-star-inserted" data-hveid="0" data-ved="0CAAQvoAQahgKEwj05eO01a2QAxUAAAAAHQAAAAAQkQE" decode-data-ved="1" jslog="262206;track:generic_click,impression,attention">
+									<mat-icon _ngcontent-ng-c2920471647="" aria-hidden="true" class="mat-icon notranslate symbol gds-icon-s google-symbols mat-ligature-font mat-icon-no-color" data-mat-icon-name="link" data-mat-icon-type="font" fonticon="link" role="img"></mat-icon>
+								</button>
+								<!---->
+								<!---->
+								<!---->
+								<!---->
+							</div>
+							<!---->
+							<!---->
+							<!---->
+							<!---->
+							<!---->
+							<!---->
+							<!---->
+							<!---->
+							<p></p>
+						</li>
+						<li>
+							<p><b>Resource Exhaustion and DoS:</b> The server's backlog queue has a finite size. <span class="citation-46 citation-end-46">When it becomes completely filled with these half-open connections, the server can no longer process new, legitimate SYN requests.<source-footnote _nghost-ng-c3768101965="" ng-version="0.0.0-PLACEHOLDER"><sup _ngcontent-ng-c3768101965="" class="superscript" data-turn-source-index="16">
+											<!----></sup></source-footnote></span> Any new SYN packets from legitimate users are dropped, as there are no resources left to allocate for them. <span class="citation-45 citation-end-45">The server effectively becomes unresponsive, resulting in a denial of service for legitimate users.<source-footnote _nghost-ng-c3768101965="" ng-version="0.0.0-PLACEHOLDER"><sup _ngcontent-ng-c3768101965="" class="superscript" data-turn-source-index="17">
+											<!----></sup></source-footnote></span>
+								<sources-carousel-inline _nghost-ng-c3127354419="" ng-version="0.0.0-PLACEHOLDER">
+									<!---->
+									<source-inline-chips _ngcontent-ng-c3127354419="" _nghost-ng-c786323692="" class="ng-star-inserted">
+										<source-inline-chip _ngcontent-ng-c786323692="" _nghost-ng-c2920471647="" class="ng-star-inserted"></source-inline-chip>
+									</source-inline-chips>
+								</sources-carousel-inline>
+							</p>
+							<div _ngcontent-ng-c2920471647="" class="source-inline-chip-container ng-star-inserted"><button _ngcontent-ng-c2920471647="" cdkoverlayorigin="" class="button ng-star-inserted" data-hveid="0" data-ved="0CAAQvoAQahgKEwj05eO01a2QAxUAAAAAHQAAAAAQkgE" decode-data-ved="1" jslog="262206;track:generic_click,impression,attention">
+									<mat-icon _ngcontent-ng-c2920471647="" aria-hidden="true" class="mat-icon notranslate symbol gds-icon-s google-symbols mat-ligature-font mat-icon-no-color" data-mat-icon-name="link" data-mat-icon-type="font" fonticon="link" role="img"></mat-icon>
+								</button>
+								<!---->
+								<!---->
+								<!---->
+								<!---->
+							</div>
+							<!---->
+							<!---->
+							<!---->
+							<source-inline-chip _ngcontent-ng-c786323692="" _nghost-ng-c2920471647="" class="ng-star-inserted">
+								<div _ngcontent-ng-c2920471647="" class="source-inline-chip-container ng-star-inserted"><button _ngcontent-ng-c2920471647="" cdkoverlayorigin="" class="button ng-star-inserted" data-hveid="0" data-ved="0CAAQvoAQahgKEwj05eO01a2QAxUAAAAAHQAAAAAQkwE" decode-data-ved="1" jslog="262206;track:generic_click,impression,attention">
+										<mat-icon _ngcontent-ng-c2920471647="" aria-hidden="true" class="mat-icon notranslate symbol gds-icon-s google-symbols mat-ligature-font mat-icon-no-color" data-mat-icon-name="link" data-mat-icon-type="font" fonticon="link" role="img"></mat-icon>
+									</button>
+									<!---->
+									<!---->
+									<!---->
+									<!---->
+								</div>
+								<!---->
+								<!---->
+								<!---->
+							</source-inline-chip>
+							<!---->
+							<!---->
+							<!---->
+							<!---->
+							<!---->
+							<p></p>
+						</li>
+					</ol>
+					<p><b>Impact of a SYN Flood:</b></p>
+					<ul>
+						<li>
+							<p><b>Service Unavailability:</b><span class="citation-44 citation-end-44"> The most immediate impact is that legitimate users cannot connect to the server, leading to downtime for websites, applications, or services hosted on the compromised server.<source-footnote _nghost-ng-c3768101965="" ng-version="0.0.0-PLACEHOLDER"><sup _ngcontent-ng-c3768101965="" class="superscript" data-turn-source-index="18">
+											<!----></sup></source-footnote></span>
+								<sources-carousel-inline _nghost-ng-c3127354419="" ng-version="0.0.0-PLACEHOLDER">
+									<!---->
+									<source-inline-chips _ngcontent-ng-c3127354419="" _nghost-ng-c786323692="" class="ng-star-inserted">
+										<source-inline-chip _ngcontent-ng-c786323692="" _nghost-ng-c2920471647="" class="ng-star-inserted"></source-inline-chip>
+									</source-inline-chips>
+								</sources-carousel-inline>
+							</p>
+							<div _ngcontent-ng-c2920471647="" class="source-inline-chip-container ng-star-inserted"><button _ngcontent-ng-c2920471647="" cdkoverlayorigin="" class="button ng-star-inserted" data-hveid="0" data-ved="0CAAQvoAQahgKEwj05eO01a2QAxUAAAAAHQAAAAAQlAE" decode-data-ved="1" jslog="262206;track:generic_click,impression,attention">
+									<mat-icon _ngcontent-ng-c2920471647="" aria-hidden="true" class="mat-icon notranslate symbol gds-icon-s google-symbols mat-ligature-font mat-icon-no-color" data-mat-icon-name="link" data-mat-icon-type="font" fonticon="link" role="img"></mat-icon>
+								</button>
+								<!---->
+								<!---->
+								<!---->
+								<!---->
+							</div>
+							<!---->
+							<!---->
+							<!---->
+							<!---->
+							<!---->
+							<!---->
+							<!---->
+							<!---->
+							<p></p>
+						</li>
+						<li>
+							<p><span class="citation-43"></span><b>Resource Depletion:</b><span class="citation-43 citation-end-43"> Beyond the connection table, the attack can also exhaust CPU cycles as the server attempts to manage an overwhelming number of half-open connections and retransmit SYN-ACKs.<source-footnote _nghost-ng-c3768101965="" ng-version="0.0.0-PLACEHOLDER"><sup _ngcontent-ng-c3768101965="" class="superscript" data-turn-source-index="19">
+											<!----></sup></source-footnote></span> <span class="citation-42 citation-end-42">Network bandwidth can also be consumed by the incoming SYN packets and outgoing SYN-ACKs.<source-footnote _nghost-ng-c3768101965="" ng-version="0.0.0-PLACEHOLDER"><sup _ngcontent-ng-c3768101965="" class="superscript" data-turn-source-index="20">
+											<!----></sup></source-footnote></span>
+								<sources-carousel-inline _nghost-ng-c3127354419="" ng-version="0.0.0-PLACEHOLDER">
+									<!---->
+									<source-inline-chips _ngcontent-ng-c3127354419="" _nghost-ng-c786323692="" class="ng-star-inserted">
+										<source-inline-chip _ngcontent-ng-c786323692="" _nghost-ng-c2920471647="" class="ng-star-inserted"></source-inline-chip>
+									</source-inline-chips>
+								</sources-carousel-inline>
+							</p>
+							<div _ngcontent-ng-c2920471647="" class="source-inline-chip-container ng-star-inserted"><button _ngcontent-ng-c2920471647="" cdkoverlayorigin="" class="button ng-star-inserted" data-hveid="0" data-ved="0CAAQvoAQahgKEwj05eO01a2QAxUAAAAAHQAAAAAQlQE" decode-data-ved="1" jslog="262206;track:generic_click,impression,attention">
+									<mat-icon _ngcontent-ng-c2920471647="" aria-hidden="true" class="mat-icon notranslate symbol gds-icon-s google-symbols mat-ligature-font mat-icon-no-color" data-mat-icon-name="link" data-mat-icon-type="font" fonticon="link" role="img"></mat-icon>
+								</button>
+								<!---->
+								<!---->
+								<!---->
+								<!---->
+							</div>
+							<!---->
+							<!---->
+							<!---->
+							<source-inline-chip _ngcontent-ng-c786323692="" _nghost-ng-c2920471647="" class="ng-star-inserted">
+								<div _ngcontent-ng-c2920471647="" class="source-inline-chip-container ng-star-inserted"><button _ngcontent-ng-c2920471647="" cdkoverlayorigin="" class="button ng-star-inserted" data-hveid="0" data-ved="0CAAQvoAQahgKEwj05eO01a2QAxUAAAAAHQAAAAAQlgE" decode-data-ved="1" jslog="262206;track:generic_click,impression,attention">
+										<mat-icon _ngcontent-ng-c2920471647="" aria-hidden="true" class="mat-icon notranslate symbol gds-icon-s google-symbols mat-ligature-font mat-icon-no-color" data-mat-icon-name="link" data-mat-icon-type="font" fonticon="link" role="img"></mat-icon>
+									</button>
+									<!---->
+									<!---->
+									<!---->
+									<!---->
+								</div>
+								<!---->
+								<!---->
+								<!---->
+							</source-inline-chip>
+							<!---->
+							<!---->
+							<!---->
+							<!---->
+							<!---->
+							<p></p>
+						</li>
+						<li>
+							<p><span class="citation-41"></span><b>Reputational Damage and Financial Loss:</b><span class="citation-41 citation-end-41"> For businesses, service unavailability can lead to lost revenue, damage to reputation, and customer dissatisfaction.<source-footnote _nghost-ng-c3768101965="" ng-version="0.0.0-PLACEHOLDER"><sup _ngcontent-ng-c3768101965="" class="superscript" data-turn-source-index="21">
+											<!----></sup></source-footnote></span>
+								<sources-carousel-inline _nghost-ng-c3127354419="" ng-version="0.0.0-PLACEHOLDER">
+									<!---->
+									<source-inline-chips _ngcontent-ng-c3127354419="" _nghost-ng-c786323692="" class="ng-star-inserted">
+										<source-inline-chip _ngcontent-ng-c786323692="" _nghost-ng-c2920471647="" class="ng-star-inserted"></source-inline-chip>
+									</source-inline-chips>
+								</sources-carousel-inline>
+							</p>
+							<div _ngcontent-ng-c2920471647="" class="source-inline-chip-container ng-star-inserted"><button _ngcontent-ng-c2920471647="" cdkoverlayorigin="" class="button ng-star-inserted" data-hveid="0" data-ved="0CAAQvoAQahgKEwj05eO01a2QAxUAAAAAHQAAAAAQlwE" decode-data-ved="1" jslog="262206;track:generic_click,impression,attention">
+									<mat-icon _ngcontent-ng-c2920471647="" aria-hidden="true" class="mat-icon notranslate symbol gds-icon-s google-symbols mat-ligature-font mat-icon-no-color" data-mat-icon-name="link" data-mat-icon-type="font" fonticon="link" role="img"></mat-icon>
+								</button>
+								<!---->
+								<!---->
+								<!---->
+								<!---->
+							</div>
+							<!---->
+							<!---->
+							<!---->
+							<!---->
+							<!---->
+							<!---->
+							<!---->
+							<!---->
+							<p></p>
+						</li>
+					</ul>
+					<p><b>Mitigation Strategies:</b></p>
+					<p>Several techniques are employed to defend against SYN flood attacks:</p>
+					<ol start="1">
+						<li>
+							<p><span class="citation-40"></span><b>SYN Cookies:</b><span class="citation-40 citation-end-40"> This is one of the most effective and widely used defenses.<source-footnote _nghost-ng-c3768101965="" ng-version="0.0.0-PLACEHOLDER"><sup _ngcontent-ng-c3768101965="" class="superscript" data-turn-source-index="22">
+											<!----></sup></source-footnote></span> <span class="citation-39 citation-end-39">Instead of allocating resources immediately, the server encodes the connection information (source IP, port, sequence numbers) into an "initial sequence number" that it sends back in the SYN-ACK.<source-footnote _nghost-ng-c3768101965="" ng-version="0.0.0-PLACEHOLDER"><sup _ngcontent-ng-c3768101965="" class="superscript" data-turn-source-index="23">
+											<!----></sup></source-footnote></span> Only when the client responds with a valid ACK (containing the correct, encoded sequence number) does the server actually allocate resources for the connection. This way, resources are only committed for legitimate connections, preventing the backlog queue from filling up with half-open connections.<sources-carousel-inline _nghost-ng-c3127354419="" ng-version="0.0.0-PLACEHOLDER">
+									<!---->
+									<source-inline-chips _ngcontent-ng-c3127354419="" _nghost-ng-c786323692="" class="ng-star-inserted">
+										<source-inline-chip _ngcontent-ng-c786323692="" _nghost-ng-c2920471647="" class="ng-star-inserted"></source-inline-chip>
+									</source-inline-chips>
+								</sources-carousel-inline>
+							</p>
+							<div _ngcontent-ng-c2920471647="" class="source-inline-chip-container ng-star-inserted"><button _ngcontent-ng-c2920471647="" cdkoverlayorigin="" class="button ng-star-inserted" data-hveid="0" data-ved="0CAAQvoAQahgKEwj05eO01a2QAxUAAAAAHQAAAAAQmAE" decode-data-ved="1" jslog="262206;track:generic_click,impression,attention">
+									<mat-icon _ngcontent-ng-c2920471647="" aria-hidden="true" class="mat-icon notranslate symbol gds-icon-s google-symbols mat-ligature-font mat-icon-no-color" data-mat-icon-name="link" data-mat-icon-type="font" fonticon="link" role="img"></mat-icon>
+								</button>
+								<!---->
+								<!---->
+								<!---->
+								<!---->
+							</div>
+							<!---->
+							<!---->
+							<!---->
+							<source-inline-chip _ngcontent-ng-c786323692="" _nghost-ng-c2920471647="" class="ng-star-inserted">
+								<div _ngcontent-ng-c2920471647="" class="source-inline-chip-container ng-star-inserted"><button _ngcontent-ng-c2920471647="" cdkoverlayorigin="" class="button ng-star-inserted" data-hveid="0" data-ved="0CAAQvoAQahgKEwj05eO01a2QAxUAAAAAHQAAAAAQmQE" decode-data-ved="1" jslog="262206;track:generic_click,impression,attention">
+										<mat-icon _ngcontent-ng-c2920471647="" aria-hidden="true" class="mat-icon notranslate symbol gds-icon-s google-symbols mat-ligature-font mat-icon-no-color" data-mat-icon-name="link" data-mat-icon-type="font" fonticon="link" role="img"></mat-icon>
+									</button>
+									<!---->
+									<!---->
+									<!---->
+									<!---->
+								</div>
+								<!---->
+								<!---->
+								<!---->
+							</source-inline-chip>
+							<!---->
+							<!---->
+							<!---->
+							<!---->
+							<!---->
+							<p></p>
+						</li>
+						<li>
+							<p><span class="citation-38"></span><b>Increased Backlog Queue Size:</b><span class="citation-38 citation-end-38"> While not a complete solution, increasing the maximum number of half-open connections the server can handle can provide some temporary relief or make the server more resilient to smaller-scale floods.<source-footnote _nghost-ng-c3768101965="" ng-version="0.0.0-PLACEHOLDER"><sup _ngcontent-ng-c3768101965="" class="superscript" data-turn-source-index="24">
+											<!----></sup></source-footnote></span>
+								<sources-carousel-inline _nghost-ng-c3127354419="" ng-version="0.0.0-PLACEHOLDER">
+									<!---->
+									<source-inline-chips _ngcontent-ng-c3127354419="" _nghost-ng-c786323692="" class="ng-star-inserted">
+										<source-inline-chip _ngcontent-ng-c786323692="" _nghost-ng-c2920471647="" class="ng-star-inserted"></source-inline-chip>
+									</source-inline-chips>
+								</sources-carousel-inline>
+							</p>
+							<div _ngcontent-ng-c2920471647="" class="source-inline-chip-container ng-star-inserted"><button _ngcontent-ng-c2920471647="" cdkoverlayorigin="" class="button ng-star-inserted" data-hveid="0" data-ved="0CAAQvoAQahgKEwj05eO01a2QAxUAAAAAHQAAAAAQmgE" decode-data-ved="1" jslog="262206;track:generic_click,impression,attention">
+									<mat-icon _ngcontent-ng-c2920471647="" aria-hidden="true" class="mat-icon notranslate symbol gds-icon-s google-symbols mat-ligature-font mat-icon-no-color" data-mat-icon-name="link" data-mat-icon-type="font" fonticon="link" role="img"></mat-icon>
+								</button>
+								<!---->
+								<!---->
+								<!---->
+								<!---->
+							</div>
+							<!---->
+							<!---->
+							<!---->
+							<!---->
+							<!---->
+							<!---->
+							<!---->
+							<!---->
+							<p></p>
+						</li>
+						<li>
+							<p><b>Reduced Timeout Values:</b><span class="citation-37 citation-end-37"> Decreasing the time a server waits for the final ACK before dropping a half-open connection can help free up resources more quickly, but it also carries the risk of prematurely closing legitimate, slow connections.<source-footnote _nghost-ng-c3768101965="" ng-version="0.0.0-PLACEHOLDER"><sup _ngcontent-ng-c3768101965="" class="superscript" data-turn-source-index="25">
+											<!----></sup></source-footnote></span>
+								<sources-carousel-inline _nghost-ng-c3127354419="" ng-version="0.0.0-PLACEHOLDER">
+									<!---->
+									<source-inline-chips _ngcontent-ng-c3127354419="" _nghost-ng-c786323692="" class="ng-star-inserted">
+										<source-inline-chip _ngcontent-ng-c786323692="" _nghost-ng-c2920471647="" class="ng-star-inserted"></source-inline-chip>
+									</source-inline-chips>
+								</sources-carousel-inline>
+							</p>
+							<div _ngcontent-ng-c2920471647="" class="source-inline-chip-container ng-star-inserted"><button _ngcontent-ng-c2920471647="" cdkoverlayorigin="" class="button ng-star-inserted" data-hveid="0" data-ved="0CAAQvoAQahgKEwj05eO01a2QAxUAAAAAHQAAAAAQmwE" decode-data-ved="1" jslog="262206;track:generic_click,impression,attention">
+									<mat-icon _ngcontent-ng-c2920471647="" aria-hidden="true" class="mat-icon notranslate symbol gds-icon-s google-symbols mat-ligature-font mat-icon-no-color" data-mat-icon-name="link" data-mat-icon-type="font" fonticon="link" role="img"></mat-icon>
+								</button>
+								<!---->
+								<!---->
+								<!---->
+								<!---->
+							</div>
+							<!---->
+							<!---->
+							<!---->
+							<!---->
+							<!---->
+							<!---->
+							<!---->
+							<!---->
+							<p></p>
+						</li>
+						<li>
+							<p><span class="citation-36"></span><b>Firewall and Router Rules:</b><span class="citation-36 citation-end-36"> Configuring firewalls and routers to detect and drop suspicious SYN packets (e.g., those from known bad IPs, those with unusual flags, or those exceeding a certain rate from a single source) can help.<source-footnote _nghost-ng-c3768101965="" ng-version="0.0.0-PLACEHOLDER"><sup _ngcontent-ng-c3768101965="" class="superscript" data-turn-source-index="26">
+											<!----></sup></source-footnote></span> Rate limiting on SYN packets can also be applied.<sources-carousel-inline _nghost-ng-c3127354419="" ng-version="0.0.0-PLACEHOLDER">
+									<!---->
+									<source-inline-chips _ngcontent-ng-c3127354419="" _nghost-ng-c786323692="" class="ng-star-inserted">
+										<source-inline-chip _ngcontent-ng-c786323692="" _nghost-ng-c2920471647="" class="ng-star-inserted"></source-inline-chip>
+									</source-inline-chips>
+								</sources-carousel-inline>
+							</p>
+							<div _ngcontent-ng-c2920471647="" class="source-inline-chip-container ng-star-inserted"><button _ngcontent-ng-c2920471647="" cdkoverlayorigin="" class="button ng-star-inserted" data-hveid="0" data-ved="0CAAQvoAQahgKEwj05eO01a2QAxUAAAAAHQAAAAAQnAE" decode-data-ved="1" jslog="262206;track:generic_click,impression,attention">
+									<mat-icon _ngcontent-ng-c2920471647="" aria-hidden="true" class="mat-icon notranslate symbol gds-icon-s google-symbols mat-ligature-font mat-icon-no-color" data-mat-icon-name="link" data-mat-icon-type="font" fonticon="link" role="img"></mat-icon>
+								</button>
+								<!---->
+								<!---->
+								<!---->
+								<!---->
+							</div>
+							<!---->
+							<!---->
+							<!---->
+							<!---->
+							<!---->
+							<!---->
+							<!---->
+							<!---->
+							<p></p>
+						</li>
+						<li>
+							<p><b>Reverse Proxies and Load Balancers:</b><span class="citation-35 citation-end-35"> Deploying these in front of the actual servers can help absorb and filter traffic.<source-footnote _nghost-ng-c3768101965="" ng-version="0.0.0-PLACEHOLDER"><sup _ngcontent-ng-c3768101965="" class="superscript" data-turn-source-index="27">
+											<!----></sup></source-footnote></span> They can often be configured with SYN flood protection mechanisms.<sources-carousel-inline _nghost-ng-c3127354419="" ng-version="0.0.0-PLACEHOLDER">
+									<!---->
+									<source-inline-chips _ngcontent-ng-c3127354419="" _nghost-ng-c786323692="" class="ng-star-inserted">
+										<source-inline-chip _ngcontent-ng-c786323692="" _nghost-ng-c2920471647="" class="ng-star-inserted"></source-inline-chip>
+									</source-inline-chips>
+								</sources-carousel-inline>
+							</p>
+							<div _ngcontent-ng-c2920471647="" class="source-inline-chip-container ng-star-inserted"><button _ngcontent-ng-c2920471647="" cdkoverlayorigin="" class="button ng-star-inserted" data-hveid="0" data-ved="0CAAQvoAQahgKEwj05eO01a2QAxUAAAAAHQAAAAAQnQE" decode-data-ved="1" jslog="262206;track:generic_click,impression,attention">
+									<mat-icon _ngcontent-ng-c2920471647="" aria-hidden="true" class="mat-icon notranslate symbol gds-icon-s google-symbols mat-ligature-font mat-icon-no-color" data-mat-icon-name="link" data-mat-icon-type="font" fonticon="link" role="img"></mat-icon>
+								</button>
+								<!---->
+								<!---->
+								<!---->
+								<!---->
+							</div>
+							<!---->
+							<!---->
+							<!---->
+							<!---->
+							<!---->
+							<!---->
+							<!---->
+							<!---->
+							<p></p>
+						</li>
+						<li>
+							<p><span class="citation-34"></span><b>Intrusion Detection/Prevention Systems (IDS/IPS):</b><span class="citation-34 citation-end-34"> These systems can monitor network traffic for patterns indicative of a SYN flood and automatically take action, such as blocking the source IP addresses of the attacker.<source-footnote _nghost-ng-c3768101965="" ng-version="0.0.0-PLACEHOLDER"><sup _ngcontent-ng-c3768101965="" class="superscript" data-turn-source-index="28">
+											<!----></sup></source-footnote></span>
+								<sources-carousel-inline _nghost-ng-c3127354419="" ng-version="0.0.0-PLACEHOLDER">
+									<!---->
+									<source-inline-chips _ngcontent-ng-c3127354419="" _nghost-ng-c786323692="" class="ng-star-inserted">
+										<source-inline-chip _ngcontent-ng-c786323692="" _nghost-ng-c2920471647="" class="ng-star-inserted"></source-inline-chip>
+									</source-inline-chips>
+								</sources-carousel-inline>
+							</p>
+							<div _ngcontent-ng-c2920471647="" class="source-inline-chip-container ng-star-inserted"><button _ngcontent-ng-c2920471647="" cdkoverlayorigin="" class="button ng-star-inserted" data-hveid="0" data-ved="0CAAQvoAQahgKEwj05eO01a2QAxUAAAAAHQAAAAAQngE" decode-data-ved="1" jslog="262206;track:generic_click,impression,attention">
+									<mat-icon _ngcontent-ng-c2920471647="" aria-hidden="true" class="mat-icon notranslate symbol gds-icon-s google-symbols mat-ligature-font mat-icon-no-color" data-mat-icon-name="link" data-mat-icon-type="font" fonticon="link" role="img"></mat-icon>
+								</button>
+								<!---->
+								<!---->
+								<!---->
+								<!---->
+							</div>
+							<!---->
+							<!---->
+							<!---->
+							<!---->
+							<!---->
+							<!---->
+							<!---->
+							<!---->
+							<p></p>
+						</li>
+						<li>
+							<p><b>Cloud-Based DDoS Protection Services:</b><span class="citation-33 citation-end-33"> Specialized services (like Cloudflare, Akamai, AWS Shield) are designed to absorb and filter large-scale DDoS attacks, including SYN floods, before they reach the target server.<source-footnote _nghost-ng-c3768101965="" ng-version="0.0.0-PLACEHOLDER"><sup _ngcontent-ng-c3768101965="" class="superscript" data-turn-source-index="29">
+											<!----></sup></source-footnote></span>
+								<sources-carousel-inline _nghost-ng-c3127354419="" ng-version="0.0.0-PLACEHOLDER">
+									<!---->
+									<source-inline-chips _ngcontent-ng-c3127354419="" _nghost-ng-c786323692="" class="ng-star-inserted">
+										<source-inline-chip _ngcontent-ng-c786323692="" _nghost-ng-c2920471647="" class="ng-star-inserted"></source-inline-chip>
+									</source-inline-chips>
+								</sources-carousel-inline>
+							</p>
+							<div _ngcontent-ng-c2920471647="" class="source-inline-chip-container ng-star-inserted"><button _ngcontent-ng-c2920471647="" cdkoverlayorigin="" class="button ng-star-inserted" data-hveid="0" data-ved="0CAAQvoAQahgKEwj05eO01a2QAxUAAAAAHQAAAAAQnwE" decode-data-ved="1" jslog="262206;track:generic_click,impression,attention">
+									<mat-icon _ngcontent-ng-c2920471647="" aria-hidden="true" class="mat-icon notranslate symbol gds-icon-s google-symbols mat-ligature-font mat-icon-no-color" data-mat-icon-name="link" data-mat-icon-type="font" fonticon="link" role="img"></mat-icon>
+								</button>
+								<!---->
+								<!---->
+								<!---->
+								<!---->
+							</div>
+							<!---->
+							<!---->
+							<!---->
+							<!---->
+							<!---->
+							<!---->
+							<!---->
+							<!---->
+							<p></p>
+						</li>
+					</ol>
+					<p><br /></p>
+					<div _ngcontent-ng-c2920471647="" class="source-inline-chip-container ng-star-inserted">
+						<!---->
+						<!---->
+						<!---->
+						<!---->
+					</div>
+					<!---->
+					<!---->
+					<!---->
+					<source-inline-chip _ngcontent-ng-c786323692="" _nghost-ng-c2920471647="" class="ng-star-inserted">
+						<div _ngcontent-ng-c2920471647="" class="source-inline-chip-container ng-star-inserted"><button _ngcontent-ng-c2920471647="" cdkoverlayorigin="" class="button ng-star-inserted" data-hveid="0" data-ved="0CAAQvoAQahgKEwj05eO01a2QAxUAAAAAHQAAAAAQoQE" decode-data-ved="1" jslog="262206;track:generic_click,impression,attention">
+								<mat-icon _ngcontent-ng-c2920471647="" aria-hidden="true" class="mat-icon notranslate symbol gds-icon-s google-symbols mat-ligature-font mat-icon-no-color" data-mat-icon-name="link" data-mat-icon-type="font" fonticon="link" role="img"></mat-icon>
+							</button>
+							<!---->
+							<!---->
+							<!---->
+							<!---->
+						</div>
+						<!---->
+						<!---->
+						<!---->
+					</source-inline-chip>
+					<!---->
+					<!---->
+					<!---->
+					<!---->
+					<!---->
+					<p></p>
+				</div>
+				<!---->
+			</h3>
+		</div>
+		<div><a href="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjfZY4DwKJEuI6eY9CPvhJfi81E4E_mQtOXlBd2BNrwYCfoepz4yo7gHpA-wD8PxXcIj9voRC6dXdfGVtBwpWAuWysKuw7Jh0DNsM-ueUhOyQqCrPYB6a2q0Oy4arX4sRjMKJj3oZxcC_Z5DDOL1Udyoh00ldCvyyyCODg1u4wxjznYdHhuvVascA1Cs-0I/s768/1-13-1-768x435.webp" style="font-family: Poppins; margin-left: 1em; margin-right: 1em; text-align: center; white-space: pre;"><b><img border="0" data-original-height="435" data-original-width="768" height="362" src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjfZY4DwKJEuI6eY9CPvhJfi81E4E_mQtOXlBd2BNrwYCfoepz4yo7gHpA-wD8PxXcIj9voRC6dXdfGVtBwpWAuWysKuw7Jh0DNsM-ueUhOyQqCrPYB6a2q0Oy4arX4sRjMKJj3oZxcC_Z5DDOL1Udyoh00ldCvyyyCODg1u4wxjznYdHhuvVascA1Cs-0I/w640-h362/1-13-1-768x435.webp" width="640" /></b></a></div>
+		<h4 style="text-align: left;"><span style="font-family: Archivo Black; font-weight: normal;"><br /></span></h4>
+		<h4 style="text-align: left;"><span style="font-family: Archivo Black; font-weight: normal;">1 - Short Recap: Why the Handshake Matter</span><span style="font-family: Poppins;">s</span></h4>
+	</div>
+</div>
+<div><span style="font-family: Poppins;">TCP refuses to move data until both ends perform the SYN &gt; SYN/ACK &gt; ACK choreography. Servers reserve resources for the prospective connection attempt after sending SYN/ACK. Attackers exploit that reservation step by sending many null and incomplete TCP connection strings and never complete the handshake by sending the final ACK. The server's backlog queues, in turn, fill, and legitimate sessions time-out, services degrade or die, leaving helpless clients...well, helpless.<span>
+			<!--more--></span></span>
+	<h4 style="text-align: left;"><span style="font-family: Archivo Black; font-weight: normal;">2 - What is RTT and Why It Matters in SYN Protection</span></h4>
+</div>
+<div><span style="font-family: Poppins;"><span>Round-Trip Time (RTT) is the time a packet takes to travel from sender (Host A) to receiver (Host B) and for the response to return. Exactly akin to a conversation between two humans, or cars and traffic at four-way stops. RTT matters because many defenses use what's known as "<i>timing heuristics</i>" to distinguish real clients from spoofed attacks.</span></span></div>
+<div>
+	<ul style="text-align: left;">
+		<li><span style="font-family: Poppins;">Real clients typically have reasonable RTTs consistent with their network path and hops encountered.</span></li>
+		<li><span style="font-family: Poppins;">Spoofed SYNs with forged source IP addresses often produce ACKs with impossible or unrealistic RTTs (too short, or too long) or never produce ACKs at all.</span></li>
+		<li><span style="font-family: Poppins;">Some advanced servers use RTT or timestamp-based checks before actually committing state. If the ACK returns faster than feasibly or physically plausible for that source-destination path, then it is likely spoofed or being replayed.</span></li>
+	</ul>
+	<div><span style="font-family: Poppins;">Practical Note: RTT-based checks are heuristics - convenient for filtering, but they can produce false positives on low-latency networks or fast CDNs (Content-Distributed Networks).</span></div>
+	<div><span style="font-family: Poppins;"><br /></span></div>
+	<div><span style="font-family: Poppins;">Did You Know?</span></div>
+	<div><span style="font-family: Poppins;">Many SYN mitigation systems use what's called a "time bucket" (e.g., 64-second granularity) when encoding timestamps into SYN cookies. That makes cookie validation resilient to small clock differences but still useful for RTT checks.</span></div>
+	<h3 style="text-align: left;"><span style="font-family: Archivo Black; font-weight: normal;"><span>
+				<!--more--></span>3 - Quick Lab: Observe Handshake + Controlled SYN Flood</span></h3>
+	<p style="text-align: left;"><span style="font-family: Poppins;"><b>Setup Notes:</b></span><span style="font-family: Poppins; font-weight: normal;"> Use an isolated VLAN, an internal test VM as your victim, and a separate attacker VM. Do not run on public IP ranges.</span><span style="font-family: Poppins; font-weight: normal;"><br /></span><span><b style="font-family: Poppins;">Simple Scapy Test</b></span></p>
+	<!--more--><span style="font-family: courier;"><i><span style="color: #666666;">#!/usr/bin/env python3<br /># lab-only: controlled SYN flood</span></i></span>
+	<p></p>
+	<p style="text-align: left;"><span style="font-family: courier;"><i><span style="color: #666666;"><br /></span></i><span style="color: #3d85c6;">from</span> scapy.<span style="color: #ffa400;">all</span> <span style="color: #3d85c6;">import</span> *<br />target = (<span style="color: #04ff00;">"10.0.0.10"</span>, <span style="color: #ff00fe;">80</span>)&nbsp; &nbsp; &nbsp; # lab victim<br /><span style="color: #3d85c6;">for</span> _ <span style="color: #3d85c6;">in</span> <span style="color: #ffa400;">range</span>(<span style="color: #ff00fe;">10000</span>):&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; # limited burst<br />&nbsp; &nbsp; ip = IP(src=RandIP(), dst=target[<span style="color: #ff00fe;">0</span>])<br />&nbsp; &nbsp; tcp = TCP(sport=RandShort(), dport=target[<span style="color: #ff00fe;">1</span>], flags=<span style="color: #04ff00;">'S'</span>, seq=RandInt())<br />&nbsp; &nbsp; send(ip/tcp, verbose=<span style="color: #ff00fe;">0</span>)</span><br /><span style="font-family: Poppins;"></span></p>
+	<!--more--><b style="font-family: Poppins;">Monitor on Victim:<span>
+			<!--more--></span></b><span style="font-family: courier;"><i><span style="color: #666666;"># show half-open sockets<br /></span></i>ss -ant state syn-recv</span>
+	<p></p>
+	<p style="text-align: left;"><span style="font-family: courier;"><br /><i><span style="color: #666666;"># watch kernel syncookie usage<br /></span></i><span style="color: #ffa400;">cat</span> /proc/net/netstat | grep TcpExt -A1</span><span style="font-family: Poppins;"></span></p>
+	<!--more--><span style="color: red; font-family: Poppins;"><i><br /></i></span><span style="color: red; font-family: Poppins;"><i>Image PLACEMENT: terminal screenshot showing `ss` output and syncookie counters).</i></span><span style="color: red; font-family: Poppins;"><i><br /></i></span><span style="font-family: Poppins;"><br /></span>
+	<p></p>
+	<p style="text-align: left;"><span style="font-family: Poppins;">Warning: Only in isolated lab. Real traffic / attack is illegal and can cause collateral damage.<span></span></span></p>
+	<!--more-->
+	<p></p>
+	<h4 style="text-align: left;"><span style="font-family: Archivo Black; font-weight: normal;">4 - Practical Mitigations</span></h4>
+	<p style="text-align: left;"><span style="font-family: Poppins; font-size: medium;"><b>SYN Cookies - Stateless First Step</b></span></p>
+	<p style="text-align: left;"><span style="font-family: Poppins;">SYN Cookies avoid allocating memory for pending connections. The server encodes a minimal connection state into the ISN of the SYN/ACK. Upon ACK, the server checks the cookie and reconstructs it, if valid.<span></span></span></p>
+	<!--more-->
+	<p></p>
+	<p><span style="font-family: courier;"><i><span style="color: #666666;"># enable on Linux (most distros already on)<br /></span></i><span style="color: #ffa400;">echo</span> 1 | sudo <span style="color: #ffa400;">tee</span> /proc/sys/net/ipv4/tcp_syncookies</span></p>
+	<p><span style="font-family: courier;"><br /><i><span style="color: #666666;"># persistent via /etc/sysctl.conf or /etc/sysctl.d/99-custom.conf:<br /># net.ipv4.tcp_syncookies = 1</span></i></span></p>
+	<div><span style="font-family: Poppins;"><span>
+				<!--more--></span><b>Why Use Them?</b> They turn an attacker's memory-exhaustion strategy into a cheap CPU check instead.</span></div>
+	<p style="text-align: left;"><span style="font-family: Poppins;"><span>Did You Know?<br />A per-source sliding-window limit reduces flood impact without blocking legitimate transient bursts.<span></span></span></span></p>
+	<!--more-->
+	<p></p>
+	<p><span style="font-family: courier;"><i><span style="color: #666666;"># iptables example (works but consider nftables for production)<br /></span></i>iptables -A INPUT -p tcp --syn -m hashlimit \<br />&nbsp; --hashlimit-name SYN --hashlimit 50/s --hashlimit-burst 20 -j ACCEPT<br />iptables -A INPUT -p tcp --syn -j DROP</span></p>
+	<!--more-->
+	<p></p>
+	<div><span style="font-family: Poppins;">Drop obviously invalid TCP packets early in the raw table so the TCP stack never sees them:</span><span>
+			<!--more--></span></div>
+	<p style="text-align: left;"><span style="font-family: courier;"><i><span></span></i></span></p>
+	<p><span style="font-family: courier;">iptables -t raw -A PREROUTING -p tcp --tcp-flags FIN,SYN,RST,PSH,ACK,URG NONE -j DROP</span><span style="font-family: Poppins;"></span></p>
+	<!--more-->
+	<p></p>
+	<div>
+		<h4 style="text-align: left;"><span style="font-weight: normal;"><span style="font-family: Archivo Black;">Tune Timeouts to Clear Half-Open Sockets Faster</span></span></h4><span>
+			<!--more-->
+			<div><span style="color: #666666; font-family: courier;"><i># fewer retries -&gt; fewer lingering half-open entries</i></span></div>
+			<div><span style="font-family: courier;">sysctl -w net.ipv4.tcp_synack_retries=2</span></div>
+			<div><span style="color: #666666; font-family: courier;"><i># optionally shorten the backlog timeout via other kernel params if needed</i></span><span>
+					<!--more--></span></div>
+			<div><span style="font-family: Poppins;">Short timeouts reduce the holding period for resource reservations, shrinking the effective window of attack.</span><span>
+					<!--more--></span></div>
+		</span>
+	</div>
+	<div>
+		<h4 style="text-align: left;"><span style="font-weight: normal;"><span style="font-family: Archivo Black;">Tiny Example (High-Level Pseudo-C XDP):</span></span></h4><span><span>
+				<!--more--></span></span>
+	</div>
+	<div>
+		<div><span style="color: #666666; font-family: courier;"><i>// pseudo XDP program logic (simplified)</i></span></div>
+		<div><span style="font-family: courier;"><span style="color: #3d85c6;">if</span> (eth_type == ETH_P_IP &amp;&amp; ip_proto == IPPROTO_TCP &amp;&amp; tcp_flags == SYN) {</span></div>
+		<div><span style="font-family: courier;">&nbsp; &nbsp; <span style="color: #3d85c6;">if</span> (is_suspicious(src_ip, src_port)) {</span></div>
+		<div><span style="color: #666666; font-family: courier;"><i>&nbsp; &nbsp; &nbsp; &nbsp; // drop early</i></span></div>
+		<div><span style="font-family: courier;">&nbsp; &nbsp; &nbsp; &nbsp; <span style="color: #3d85c6;">return</span> XDP_DROP;</span></div>
+		<div><span style="font-family: courier;">&nbsp; &nbsp; }</span></div>
+		<div><span style="font-family: courier;">}</span></div>
+		<div><span style="font-family: courier;"><span style="color: #3d85c6;">return</span> XDP_PASS;</span><span>
+				<!--more--></span></div>
+		<div><span style="font-family: Poppins;">Real eBPF/XDP programs use maps for state and careful parsing; compile with clang to a BPF object and load with </span><span style="color: #ff00fe; font-family: courier;">ip link set dev eth0 XDP obj prog.o</span><span style="font-family: Poppins;">.</span></div>
+	</div>
+	<div><span style="font-family: Poppins;"><b><br /></b></span></div>
+	<div><span style="font-family: Poppins;"><i><b><span>
+						<!--more--></span>Caveat:</b> eBPF/XDP code must be tested thoroughly; a buggy XDP program can drop good traffic or crash the NIC driver if misused.<span>
+					<!--more--></span></i></span></div>
+	<div><span><i><span style="color: red; font-family: Poppins;">Image placement: Diagram showing packet path with XDP dropping at NIC/driver &gt; kernel &gt; TCP stack</span></i></span></div>
+	<div><span><span style="font-family: Poppins;"><br /></span></span></div>
+	<h4 style="text-align: left;"><span style="font-weight: normal;"><span style="font-family: Archivo Black;">Hardware Offload (NIC Features)</span></span></h4>
+	<div><span><span style="font-family: Poppins;">Modern NICs (Network Interface Cards) (Intel, Broadcom) implement TCP offloads and filtering capabilities. Offload means the NIC can apply rules - drop or filter SYN floods - in hardware, reducing overall CPU load and improving throughput in the meantime.</span></span></div>
+	<div>
+		<ul style="text-align: left;">
+			<li><span style="font-family: Poppins;"><b>RX Flow Steering / HW Filters:</b> NIC can discard certain traffic patterns or forward suspicious flows to alternate queues for deeper inspection.</span></li>
+			<li><span style="font-family: Poppins;"><b>Limitations:</b> Not all cheap NICs have robust filtering capabilities. Offload behaviors vary by driver, maker, and firmware; test your NICs features and consult with its manufacturer for further details.</span></li>
+		</ul>
+		<div><b style="font-family: Poppins;">Practical Step:</b><span style="font-family: Poppins;"> Check </span><span style="color: #ff00fe; font-family: courier;">ethtool --k</span><span style="font-family: Poppins;"> and NIC vendor documentation. For some NICs you may enable features like </span><span style="color: #ff00fe; font-family: courier;">rxhash</span><span style="font-family: Poppins;">, flow director, or hardware-based rate limiting.</span><span style="font-family: Poppins;">
+				<!--more--></span></div>
+	</div>
+	<h4 style="text-align: left;"><span style="font-family: Archivo Black; font-weight: normal;">5 - Why Spoofed Packets Can Still Get Through (And How to Reduce That)</span></h4>
+	<div><span style="font-family: Poppins; font-weight: normal;">Spoofing means forging a source IP in its IP header. If the network path from the attacker to the victim does not require the attacker to receive return traffic (e.g., the attacker doesn't need the server's SYN/ACK), the attacker can saturate the victim entity with spoofed SYNs and never complete the handshake.</span></div>
+	<div><span style="font-family: Poppins; font-weight: normal;"><br /></span></div>
+	<h4 style="text-align: left;"><span style="font-family: Archivo Black; font-weight: normal;">Why Spoofing Remains Feasible</span></h4>
+	<div>
+		<ul style="text-align: left;">
+			<li><span style="font-family: Poppins;"><b>Lack of Universal Ingress Filtering (BCP38):</b> ISPs are supposed to block packets with source IPs not from their address space, but many do not enforce it consistently.</span></li>
+			<li><span style="font-family: Poppins;"><b>Asymmetric Routing:</b> Packets travel different pathways for request versus response; even if an ISP filters some spoofing, upstream / backbone pathways can still inject forged packets.</span></li>
+			<li><span style="font-family: Poppins;"><b>Amplifiers and Botnets:</b> Compromised hosts distributed worldwide can originate traffic with forged or real source IPs.</span></li>
+			<li><span style="font-family: Poppins;"><b>Short-Lived Forged Bursts:</b> An attacker may briefly push traffic through intermediate networks before filters have a chance to react.</span></li>
+		</ul>
+		<h4 style="text-align: left;"><span style="font-family: Archivo Black; font-weight: normal;">How Spoofed SYNs Still Reach The Victim</span></h4>
+	</div>
+	<div><span style="font-family: Poppins;">If ingress filtering is absent at some point along the path (common in misconfigured or transit networks), there is nothing to stop forged source IPs from traversing the Internet directly to your host.</span></div>
+	<h4 style="text-align: left;"><span style="font-family: Archivo Black;">How to Reduce The Risk</span></h4>
+	<div>
+		<ul style="text-align: left;">
+			<li><span style="font-family: Poppins;"><b>Encourage / Require BCP38 At Your ISP Edge:</b> Ask upstream to implement ingress filtering.</span></li>
+			<li><span style="font-family: Poppins;"><b>Use Scrubbing Services / DDoS Protection at the ISP-Level (Cloud- or Carrier-Level Mitigation):</b> Which absorb / spread traffic across large network pods.</span></li>
+			<li><span style="font-family: Poppins;"><b>Deploy eBPF/XDP At Your Edge:</b> To catch spoofed patterns before the TCP stack sees them. XDP can check anomalies like TTL (Time-to-Live), IP ID patterns, impossible flags, or rate patterns and drop early.</span></li>
+			<li><span style="font-family: Poppins;"><b>Filter by Expected TTL Distribution:</b> Many providers use TTL heuristics because forged SYNs often carry inconsistent TTL values versus real traffic from that IP block.</span></li>
+		</ul>
+		<div><span style="font-family: Poppins;">Did You Know?</span></div>
+	</div>
+	<div><span style="font-family: Poppins;">ISPs implementing BCP38 would block most of the classic spoof-based amplification attacks. The Internet would be considerably less annoying if this were universal.</span><span style="font-family: &quot;Archivo Black&quot;;">
+			<!--more--></span></div>
+	<h4 style="text-align: left;"><span style="font-family: Archivo Black; font-weight: normal;">6 - Monitoring and Detection</span></h4>
+	<div><span style="font-family: Poppins; font-weight: normal;">Quick Checks:<span>
+				<!--more--></span></span></div>
+	<p><span style="font-family: courier;"><i><span style="color: #666666;"># count SYN-RECV sockets per second (live)<br /></span></i>watch -n1 <span style="color: #04ff00;">"ss -ant | grep SYN-RECV | wc -l"</span></span></p>
+	<p><span style="font-family: courier;"><span style="color: #04ff00;"><br /></span><i><span style="color: #666666;"># detect high syncookie usage (Prometheus-friendly)<br /></span></i><span style="color: #ffa400;">cat</span> /proc/net/snmp | grep Syncookies</span></p>
+	<!--more-->
+	<p></p>
+	<div><span style="font-family: Poppins;"><b>Prometheus:</b> Expose and graph</span> <span style="color: #ff00fe; font-family: courier;">node_netstat_TcpExt_SyncookiesSent </span><span style="font-family: Poppins;">and</span> <span style="color: #ff00fe; font-family: courier;">node_netstat_TcpExt_SyncookiesRecv</span> <span style="font-family: Poppins;">to see when servers flip into cookie-mode.</span></div>
+	<div><span style="color: red; font-family: Poppins;"><i>Image Placement: Example Prometheus graph showing syncookie spikes and traffic rate</i></span></div>
+	<h3 style="text-align: left;"><span>
+			<!--more--></span></h3>
+	<h4 style="text-align: left;"><span style="font-family: Archivo Black; font-weight: normal;">7 - Exercises and Lab Tasks (with expected outcomes</span><span style="font-family: Poppins; font-weight: normal;">)</span></h4>
+	<h4 style="text-align: left;"><span style="font-family: Archivo Black; font-size: medium; font-weight: normal;">Exercise A - Handshake Observation (Beginner)</span></h4>
+	<div>
+		<ul style="text-align: left;">
+			<li><span style="font-family: Poppins;"><b>Task:</b> Capture a normal handshake with </span><span style="color: #ff00fe; font-family: courier;">tcpdump</span><span style="font-family: Poppins;"> and annotate the three packets.</span></li>
+			<li><b style="font-family: Poppins;">Expected:</b><span style="font-family: Poppins;"> You see SYN (client </span><span style="color: #04ff00; font-family: Poppins;"><b>&gt;</b></span><span style="font-family: Poppins;"> server), SYN/ACK (server </span><span style="color: #ff00fe; font-family: Poppins;"><b>&gt;</b></span><span style="font-family: Poppins;"> client), ACK (client </span><span style="color: #04ff00; font-family: Poppins;"><b>&gt;</b></span><span style="font-family: Poppins;"> server). Use </span><span style="color: #ff00fe; font-family: courier;">tcpdump -n -s0 -c3 TCP and host 10.0.0.10.</span></li>
+		</ul>
+	</div>
+	<h4 style="text-align: left;"><span style="font-family: Archivo Black; font-weight: normal;">Exercise B - Controlled Flood &amp; Mitigation (Intermediate)</span></h4>
+	<div>
+		<ul style="text-align: left;">
+			<li><span style="font-family: Poppins;"><b>Task:</b> In lab, run the Scapy script for 30s and observe </span><span style="color: #ff00fe; font-family: courier;">ss -ant</span><span style="font-family: Poppins;">. Enable </span><span style="color: #ff00fe; font-family: courier;">tcp_syncookies</span><span style="font-family: Poppins;"> mid-test and observe change.</span></li>
+			<li><span style="font-family: Poppins;"><b>Expected: Pre-cookie:</b> Backlog fills and legitimate test client fails. <b>Post-cookie:</b>&nbsp; Server reports </span><span style="color: #ff00fe; font-family: courier;">syncookie</span><span style="font-family: Poppins;"> usage and can accept new connections if ACKs remain valid.</span></li>
+		</ul>
+	</div>
+	<h4 style="text-align: left;"><span style="font-family: Archivo Black; font-weight: normal;">Exercise C - XDP Filter (Advanced)</span></h4>
+	<div>
+		<ul style="text-align: left;">
+			<li><span style="font-family: Poppins;"><b>Task:</b> Load a safe XDP program that drops packets with obviously invalid TTL or with no TCP flags set. Run a small synthetic test.</span></li>
+			<li><span style="font-family: Poppins;"><b>Expected:</b> Malformed / spoofed burst is dropped before reaching the TCP stack; CPU usage on victim remains lower.</span></li>
+		</ul>
+	</div>
+	<h4 style="text-align: left;"><span style="font-family: Archivo Black; font-weight: normal;">Exercise D - Spoofing Path Analysis</span></h4>
+	<div>
+		<ul style="text-align: left;">
+			<li><b style="font-family: Poppins;">Task:</b><span style="font-family: Poppins;"> Using BGP/ASN lookup and </span><span style="color: #ff00fe; font-family: courier;">traceroute</span><span style="font-family: Poppins;">, identify where spoofing could enter your path. Contact upstream and summarize mitigation requests (ingress filtering).</span></li>
+			<li><span style="font-family: Poppins;"><b>Expected:</b> A short report naming transit ASNs that lack filtering and recommended ACLs for ingress drop.</span></li>
+		</ul>
+		<div><span style="font-family: Poppins;"><span></span></span></div>
+	</div>
+	<h3 style="text-align: left;"><span style="font-family: &quot;Archivo Black&quot;; font-weight: normal;">Timing Heuristics &amp; Their Role in SYN Flood</span></h3>
+</div>
+<div><span style="font-family: Poppins;">Timing heuristics are basically rules of thumb based on how long network events should basically take. They are calculated guesses or assumptions that rely on how long network events <i>should</i> take (within reasonable amounts of time).They aren't strict protocol requirements, but more like estimates of what's considered "normal" versus "suspicious." A baseline of "normal" operating patterns and network activities deemed "normal" throughout the course of a day. Anything deviant of that patterned baseline the trained eye would catch and would stick out like a sore thumb (red flag). In the context of SYN floods and spoofed network traffic, timing heuristics are used by defenders to spot traffic that doesn't behave like the rest of from a real client.</span></div>
+<div><span style="font-family: Poppins;"><br /></span></div>
+<div><span style="font-family: Poppins;">Systems use timing heuristics to spot suspicious traffic that looks mathematically impossible:</span></div>
+<div>
+	<ul style="text-align: left;">
+		<li><span style="font-family: Poppins;"><b>Round-Trip Time (RTT) Sanity Check:</b> If a server gets an ACK response faster than physics allow (say, 0.5 ms from a client supposedly across the ocean), that packet is likely spoofed, or if an ACK returns faster than physics allow for a given source IP, it is almost certainly spoofed. Example: a SYN claims to be from Sydney, but the ACK comes back in 2 ms - impossible.</span></li>
+		<li><span style="font-family: Poppins;"><b>Handshake Completion Window:</b> Servers inherently have the intelligence to know that real clients usually complete the three-way handshake within a small, predictable time window (known as time sequencing). If a SYN/ACK never gets an ACK back within a reasonable amount of time, the system will flag it as probable digital bullshit.</span></li>
+		<li><span style="font-family: Poppins;"><b>Adaptive Thresholds:</b> Systems can track historical RTT ranges for known networks. Deviations (like sudden "instant" ACKs from a subnet that normally sits at 100 ms RTT) raise eyebrows. For instance, if connections from a given network subnet usually take anywhere from 80-120 ms to complete, but suddenly show ACKs at 1 ms - red flag.</span></li>
+	</ul>
+	<div><span style="font-family: Poppins;">Did You Know?</span></div>
+	<div><span style="font-family: Poppins;">Some implementations combine SYN cookies with timestamp fields in the ISN to double as a RTT estimator, dropping packets that claim physics-defying round-trips.</span></div>
+	<h4 style="text-align: left;"><span style="font-family: Archivo Black; font-weight: normal;">Why They Matter</span></h4>
+</div>
+<div><span style="font-family: Poppins;">Timing heuristics allow systems to weed out spoofed or replayed packets without maintaining heavy state or memory lag or overhead. They're imperfect (because networks can be unpredictable at any given time), but combined with SYN cookies, rate limiting, and filtering, they give defenders an extra layer of suspicion detection.</span></div>
+<div><span style="font-family: Poppins;"><br /></span></div>
+<div><span style="font-family: Poppins;">Analogy: Imagine someone claims to have mailed you a letter from Tokyo, but it arrives in your mailbox one hour later. Sure, maybe they own a teleporting post office - but more likely, they're lying. Timing heuristics are a server's way of spotting those lies in transit and in packet behaviors.<span>
+			<!--more--></span></span></div>
+<h3 style="text-align: left;"><span style="font-family: Archivo Black; font-weight: normal;">eBPF / XDP</span></h3>
+<p style="text-align: left;"><span style="font-family: Poppins;">eBPF (Extended Berkeley Packet Filter) is a programmable sandbox inside the Linux kernel. You can inject tiny programs that run at hooks in its networking stack.</span></p>
+<p style="text-align: left;"><span style="font-family: Poppins;">XDP (eXpress Data Path) is the earliest hook - it runs at the NIC driver level, before packets even become kernel sockets. That means packets can be dropped or redirected at millions per second, with almost no CPU cost.</span></p>
+<p style="text-align: left;"></p>
+<ul style="text-align: left;">
+	<li><span style="font-family: Poppins;">Use Case: Write an XDP program that says, "If packet is TCP with SYN flag and TTL doesn't match expected values, drop it."</span></li>
+	<li><span style="font-family: Poppins;">Benefit: You kill bogus traffic <i>before</i> the kernel spends any time on it.</span></li>
+	<li><span style="font-family: Poppins;">Caution: A buggy XDP program can drop legitimate traffic or crash your NIC, so they must be tested carefully.</span></li>
+</ul>
+<div><span style="color: red; font-family: Poppins;"><i>Imagine a diagram: NIC &gt; XDP filter &gt; kernel stack &gt; TCP. Attack traffic dies at the door</i></span></div>
+<p></p>
+<h3 style="text-align: left;"><span style="font-family: Archivo Black; font-weight: normal;">Introduction</span></h3>
+<div><span style="font-family: Poppins;">SYN Flood attacks exploit a weakness in the TCP three-way handshake, a fundamental process of the Internet and the way two or more devices connect and communicate with each other. Without the three-way handshake means less communication and more errors upon trying to do so. By sending countless incomplete, or null connection requests, attackers can force servers to waste and exhaust their resources on phantom, or rogue clients. The result? Legitimate users are locked out, services grind to a halt, and availability - the lifeblood of any system expected to run 24x7x365 - vanishes.</span></div>
+<div><span style="font-family: Poppins;"><br /></span></div>
+<div><span style="font-family: Poppins;">To defend against this type of attack, engineers must first understand the handshake process itself, then explore both the offensive mechanics and defensive strategies such as the use of SYN cookies.<span>
+			<!--more--></span></span></div>
+<h3 style="text-align: left;"><span style="font-family: Archivo Black; font-weight: normal;">The TCP Three-Way Handshake</span></h3>
+<div><span style="font-family: Poppins;">Before two hosts can exchange data, they must "shake hands" three times.</span></div>
+<div><span style="font-family: Poppins;"><br /></span></div>
+<div><span style="font-family: Poppins;">1. <b>SYN (Synchronize)</b></span></div>
+<div><span style="font-family: Poppins;">Host A (Client) sends a </span><span style="color: #ff00fe; font-family: courier;">SYN</span><span style="font-family: Poppins;"> packet to initiate a connection to Host B (Server).</span></div>
+<div><span style="font-family: Poppins;">2. <b>SYN/ACK (Synchronize + Acknowledge)</b></span></div>
+<div><span style="font-family: Poppins;">Host B (Server) responds to Host A (Client) with a </span><span style="color: #ff00fe; font-family: courier;">SYN/ACK</span><span style="font-family: Poppins;">, confirming (or denying) it is ready to connect.</span></div>
+<div><span style="font-family: Poppins;">3. <b>ACK (Acknowledge)</b></span></div>
+<div><span style="font-family: Poppins;">Host A (Client) replies to Host B (Server) with an </span><span style="color: #ff00fe; font-family: courier;">ACK</span><span style="font-family: Poppins;">. Only now is the two-way connection considered established.<span>
+			<!--more--></span></span></div>
+<div>
+	<div style="text-align: center;"><span style="background-color: white; font-family: Poppins; font-size: 16px; white-space-collapse: preserve;"><br /></span></div>
+	<div style="text-align: center;"><span style="background-color: white; font-family: Poppins; font-size: 16px; white-space-collapse: preserve;">Client ──SYN,seq=c─────▶ Server</span></div><span style="font-family: Poppins;"><span style="background-color: white;">
+			<div style="text-align: center;"><span style="font-size: 16px; white-space-collapse: preserve;">Client ◀──SYN,seq=s,ACK=c+1── Server</span></div>
+		</span><span color="rgba(255, 255, 255, 0.84)" face="-apple-system, BlinkMacSystemFont, &quot;Segoe UI&quot;, system-ui, -apple-system, &quot;Segoe UI&quot;, Roboto, Ubuntu, Cantarell, &quot;Noto Sans&quot;, sans-serif, Arial, &quot;PingFang SC&quot;, &quot;Source Han Sans SC&quot;, &quot;Microsoft YaHei UI&quot;, &quot;Microsoft YaHei&quot;, &quot;Noto Sans CJK SC&quot;, sans-serif" style="background-color: white; font-size: 16px; white-space-collapse: preserve;">
+			<div style="text-align: center;">Client ──ACK,s+1──────▶ Server</div>
+		</span></span>
+</div>
+<div style="text-align: center;"><span style="font-family: Poppins;"><br /></span></div>
+<div style="text-align: left;"><span style="font-family: Poppins;"><span>
+			<!--more--></span>This is where normal traffic flows. But it is also where attackers strike first. It is at this point that both nodes allocate memory and prepare to exchange data.<span>
+			<!--more--></span></span></div>
+<h3 style="text-align: left;"><span style="font-family: Archivo Black; font-weight: normal;">Breaking the Handshake: How SYN Flood Attacks Works</span></h3>
+<p style="text-align: left;"><span style="font-family: Poppins;">A SYN flood weaponizes this handshake by never finishing it. This attack also occurs at the second step of the three-way process (SYN+ACK). Each time, the server responds with a SYN/ACK and allocates memory for what it thinks might become a live connection. But the attacker, purposefully never completes the handshake by sending back its ACK. Instead, the attacker leaves the connection "half-open" in a state of confusion as at this point all services and processes cease function.</span></p>
+<p style="text-align: left;"><span style="font-family: Poppins;">The result for defenders is a massive backlog full of half-open TCP connections - sockets that are essentially stuck in the SYN-RECV (Synchronize + Receive) state. Eventually the server runs out of room to track new requests, and legitimate users are denied access due to "services being down." Because this process is left bent-out-of-shape and it's only half-functional is why it is called a half-open attack and more times than not you will see this flood referenced as a half-open vice SYN flood.</span></p>
+<p style="text-align: left;"><span style="font-family: Poppins;">Warning: Even a few hundred PPS (Packets-Per-Second) can be enough to overwhelm a server with old bones, one located in an unprotected cloud instance. Testing should always be confined strictly to isolated labs homed on segmented or air-gapped / out-of-band networks.</span></p>
+<div>
+	<div><span style="font-family: Poppins;">IMAGE PLACEMENT</span></div>
+</div>
+<div><span style="font-family: Poppins;"><span>
+			<!--more--></span></span></div>
+<pre><code><h3 style="text-align: left;"><span style="font-family: Archivo Black; font-weight: normal;">Demonstrating a SYN Flood </span></h3><div style="font-family: Poppins;">To really understand the impact, you can reproduce a small-scale SYN flood in a safe environment. The Python script below uses <a href="https://github.com/secdev/scapy" rel="nofollow" target="_blank">Scapy</a> to send randomized SYN packets to a target entity.<span><!--more--></span></div><div><span style="font-family: courier;"><i><span style="color: #666666;">#!/usr/bin/env python3
+</span></i><span style="color: #0b5394;">from</span> scapy.<span style="color: #ffa400;">all</span> <span style="color: #0b5394;">import</span> *
+
+target = (<span style="color: #04ff00;">"192.0.2.10"</span>, <span style="color: #ff00fe;">80</span>)  # replace with lab target
+
+<span style="color: #0b5394;">while True</span>:
+    ip = IP(src=RandIP(), dst=target[<span style="color: #ff00fe;">0</span>])
+    tcp = TCP(sport=RandShort(), dport=target[<span style="color: #ff00fe;">1</span>], flags=<span style="color: #04ff00;">'S'</span>, seq=RandInt())
+    send(ip/tcp, verbose=<span style="color: #ff00fe;">0</span>)
+</span></div><div><!--more--><span style="font-family: Poppins;">Run this against a test VM and on the target, monitor and watch with:</span></div><div><span style="font-family: courier;"><span style="color: #ff00fe;">ss</span> -ant <span style="color: #04ff00;">state</span> syn-recv</span><!--more--><span style="font-family: Poppins;">You will see the backlog fill with </span><span style="font-family: courier;">SYN-RECV</span><span style="font-family: Poppins;"> sockets. On a live server, this would quickly lead to a denial of service (DoS).</span><span style="font-family: Poppins;"><!--more--></span></div><h3 style="text-align: left;"><span style="font-weight: normal;"><span style="font-family: Archivo Black;">Mitigation Techniques</span></span></h3><div><span style="font-family: Archivo Black; font-size: medium;">SYN Cookies</span></div><div style="font-family: Poppins;">The most effective defense against this type of flood is the SYN cookie. Instead of allocating memory immediately, the server encodes the connection state into the sequence number of its SYN/ACK response. Only when the client replies with the correct ACK does the server commit resources.</div><div style="font-family: Poppins;"><br /></div><div style="font-family: Poppins;">Enable on Linux:</div><div><span style="font-family: courier;"><span style="color: #ffa400;">echo</span> 1 &gt; <span style="color: #04ff00;">/</span>proc<span style="color: #04ff00;">/</span>sys<span style="color: #04ff00;">/</span>net<span style="color: #04ff00;">/</span>ipv4<span style="color: #04ff00;">/</span>tcp<span style="color: #04ff00;">_</span>syncookies
+</span></div><div><!--more--></div><div style="font-family: Poppins;"><br /></div><div style="font-family: Poppins;">Did You Know?</div><div style="font-family: Poppins;">SYN Cookies reduce memory usage per pending connection from ~280 bytes to effectively zero until the handshake is complete.</div><h3 style="text-align: left;"><span style="font-family: Archivo Black; font-weight: normal;">Rate Limiting</span></h3><div style="font-family: Poppins;">Servers can also Limit how many SYNs they accept per source and filter out suspicious patterns. For example:<span><!--more--></span></div><div><span style="font-family: courier;"><span style="color: #0b5394;">iptables</span> <span style="color: #ffa400;">-A</span> INPUT -p tcp --syn -m hashlimit \
+  --<span style="color: #ffa400;">hashlimit-name</span> SYN --<span style="color: #ffa400;">hashlimit</span> 50/s --<span style="color: #ffa400;">hashlimit-burst</span> 20 -j <span style="color: #ff00fe;">ACCEPT</span>
+<span style="color: #0b5394;">iptables</span> <span style="color: #ffa400;">-A</span> INPUT -p tcp --syn -j <span style="color: #04ff00;">DROP</span></span><!--more--><span style="font-family: Poppins;">This stops bursts from overwhelming your server while still allowing normal traffic to pass through.</span></div><h3 style="text-align: left;"><span style="font-family: Archivo Black; font-weight: normal;">Firewall Rules</span></h3><div style="font-family: Poppins;">Malformed packets can be dropped at the firewall early before they reach the TCP stack:<span><!--more--></span></div><div><span style="font-family: courier;"><span style="color: #0b5394;">iptables</span> -t raw <span style="color: #ffa400;">-A</span> PREROUTING -p <span style="color: #ff00fe;">tcp</span> <span style="color: #04ff00;">\</span>
+  --<span style="color: #ff00fe;">tcp-flags</span> FIN,SYN,RST,PSH,ACK,URG NONE <span style="color: #0b5394;">-j</span> <span style="color: #04ff00;">DROP</span>
+</span></div><div><!--more--></div><h3 style="text-align: left;"><span style="font-family: Archivo Black; font-weight: normal;">Connection Timeouts and Adjustments</span></h3><div style="font-family: Poppins;"><span style="font-size: medium;"><b>Reduce how long the system waits for the final ACK:</b></span></div><div style="font-family: Poppins;"><p style="text-align: left;">Shortening how long a server waits for the final ACK reduces the number of sockets stuck in a half-opened state.</p><span style="font-size: medium;"><span><!--more--></span></span></div><div><span style="font-family: courier;"><span style="color: #0b5394;">sysctl</span> -w net.ipv4.<span style="color: #ff00fe;">tcp_synack_retries</span>=2</span><!--more--></div><h3 style="text-align: left;"><span style="font-family: Archivo Black; font-weight: normal;">Advanced Defenses</span></h3><div style="font-family: Poppins;">At larger scales, operators deploy eBPF/XDP filters that can reject spoofed packets at tens of millions per second, RTT-based validation to detect impossible ACKs, and even NIC-level offloading to discard garbage in silicon before it shits the kernel.</div><div><ul style="text-align: left;"><li><b style="font-family: Poppins;">BPF/XDP Filters:</b><span style="font-family: Poppins;"> High-performance packet filtering in the kernel.</span></li><li><b style="font-family: Poppins;">RTT Validation:</b><span style="font-family: Poppins;"> Reject ACKs that arrive unrealistically fast, signaling possible spoofing attempt.</span></li><li><b style="font-family: Poppins;">Hardware Offload:</b><span style="font-family: Poppins;"> Many NICs can drop malformed SYN packets directly.</span></li></ul></div><h3 style="text-align: left;"><span style="font-family: Archivo Black; font-weight: normal;">Monitoring and Detection</span></h3><div style="font-family: Poppins;"><span style="font-size: medium;"><b><i>Spotting a SYN Flood early is critical.</i></b></span></div><div style="font-family: Poppins;">Check for spikes in half-open TCP connections:<span><!--more--></span></div><div><span style="font-family: courier;">ss -ant | awk <span style="color: #04ff00;">'{print $1}'</span> | <span style="color: #ffa400;">sort</span> | <span style="color: #ffa400;">uniq</span> -c | <span style="color: #ffa400;">sort</span> -nr</span><!--more--><span style="font-family: Poppins;">For long-term visibility, metrics such as </span><span style="color: #ff00fe; font-family: courier;">node_netstat_TcpExt_SyncookiesSent</span><span style="font-family: Poppins;"> and </span><span style="color: #ff00fe; font-family: courier;">SyncookiesFailed</span><span style="font-family: Poppins;"> (available in the Prometheus tool) can be graphed to watch when your servers are fighting off floods.</span></div><div style="font-family: Poppins;"><br /></div><h3 style="text-align: left;"><span style="font-family: Archivo Black; font-weight: normal;">Closing Perspective</span></h3><div style="font-family: Poppins;">A SYN flood is the digital equivalent of ordering thousands of taxi cabs to someone's house and never showing up. The street clogs, real passengers can't get a ride, and the system collapses under fake demand.</div><div style="font-family: Poppins;"><br /></div><div style="font-family: Poppins;">SYN cookies and defense-in-depth layered defenses change the rules drastically: the taxi cab won't even leave the depot until the passenger proves they're real. It is a reminder that the simplest forms of cryptographic validation can keep services online even under massive attack. </div><div><span style="font-family: &quot;Archivo Black&quot;;"><br /></span></div><div><span style="font-family: &quot;Archivo Black&quot;;">Summary Checklist</span></div><div style="font-family: Poppins;">1. Turn on SYN cookies (enabled by default on most modern *nix).</div><div style="font-family: Poppins;">2. Rate limit SYN packets per source IP.</div><div style="font-family: Poppins;">3. Drop invalid TCP packets early.</div><div style="font-family: Poppins;">4. Reduce SYN/ACK retries.</div><div style="font-family: Poppins;">5. Enable NIC-level filtering, if available.</div><div style="font-family: Poppins;"><br /></div><div style="font-family: Poppins;">server responds with a SYN/ACK packet, acknowledging the request and signaling its willingness to establish a connection.</div><div style="font-family: Poppins;"><span><br /></span></div><div style="font-family: Poppins;"><span><b>3. ACK (Acknowledge): </b>The client completes the process by sending an ACK packet, solidifying the connection.</span></div><div style="font-family: Poppins;"><span><br /></span></div><div style="font-family: Poppins;"><span>Once this sequence is complete, data transfer can occur between the client and the server.</span></div><div style="font-family: Poppins;"><span><br /></span></div><div style="font-family: Poppins;"><div class="separator" style="clear: both; text-align: center;"><a href="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhUPwhXtYhEa4u5KPItItwLVueijV8HtORCzGdq1VP3b-FFRcsJ8PcGXd2OoK64hiQ0OPVetuaXujNkRipxbQsYXffgvQvXWowTisf8dK0Lbn9TBnc5ft_cFxSNTzI6tzDWQOp-IuNSZPOGS5f-j-ETFAok-5vDRJ9uZEAgJnoWNG6k7ZmMDC0Bs_B4Jng3/s836/1-12-1.webp" style="margin-left: 1em; margin-right: 1em;"><img border="0" data-original-height="413" data-original-width="836" height="316" src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhUPwhXtYhEa4u5KPItItwLVueijV8HtORCzGdq1VP3b-FFRcsJ8PcGXd2OoK64hiQ0OPVetuaXujNkRipxbQsYXffgvQvXWowTisf8dK0Lbn9TBnc5ft_cFxSNTzI6tzDWQOp-IuNSZPOGS5f-j-ETFAok-5vDRJ9uZEAgJnoWNG6k7ZmMDC0Bs_B4Jng3/w640-h316/1-12-1.webp" width="640" /></a></div><h2 style="text-align: left;"><span style="font-weight: normal;"><span style="color: #674ea7;">║</span><span>How SYN Flood Attacks Work</span></span></h2></div><div style="font-family: Poppins;"><span>A SYN flood attack disrupts the handshake process by inundating a server with a massive number of SYN packets. The server responds to each with a SYN/ACK packet, reserving system resources for the expected final ACK packet; however, the attacker deliberately withholds the ACK packets, leaving the connection incomplete. The server becomes overwhelmed as it maintains numerous half-open TCP connections, consuming resources and making it unable to respond to legitimate user requests. Because a SYN attack floods a server with numerous half-open TCP connections, a SYN flood attacks is also known as a <i>half-open attack. </i>This tactic is a form of <b>Denial of Service (DoS) </b>attack.</span></div><div style="font-family: Poppins;"><span><br /></span></div><div style="font-family: Poppins;"><br /></div><div style="font-family: Poppins;"><h2 style="text-align: left;"><span style="font-weight: normal;">Mitigating SYN Floods with Flood Guards</span></h2><p><br /></p></div></code></pre>
