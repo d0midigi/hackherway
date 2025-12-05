@@ -5,7 +5,140 @@
     <meta charset="UTF-8">
     <title>Wikipedia table of contents</title>
     <link rel="stylesheet" href="css/style.css">
+<style>*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+}
 
+:root {
+  font-size: 62.5%;
+  --light-gray: rgb(162, 169, 177);
+  --blue: rgb(6, 69, 173);
+  --white-bone: rgb(248, 249, 250);
+  --light-black: rgb(32, 33, 34);
+}
+
+body {
+  padding: 2em;
+  
+  font-family: sans-serif;
+}
+
+.main-title {
+  padding: .5em 0;
+  border-bottom: 1px solid var(--light-gray);
+  margin-bottom: 30px;
+
+  font-family: 'Georgia', serif;
+  font-size: clamp(2.3rem, 3vw, 2.88rem);
+  font-weight: 500;
+}
+
+.table-of-contents {
+  max-width: 365px;
+  padding: .75ch;
+  border: 1px solid var(--light-gray);
+  
+  font-size: 1.5rem;
+  
+  background: var(--white-bone);
+}
+
+.table-narrow {
+  width: 160px;
+}
+
+.list-invisible {
+  display: none;
+}
+
+.wrap {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  
+  margin: 4px 0;
+}
+
+.table__title {
+  margin-right: .5ch;
+  
+  font-size: 1.5rem;
+}
+
+.toggle-wrapper::before {
+  content: '[';
+  
+  color: var(--light-black);
+}
+
+.toggle-wrapper::after {
+  content: ']';
+  
+  color: var(--light-black);
+}
+
+.toggle {
+  padding: 0;
+  border: none;
+  
+  font-size: 1.5rem;
+  
+  color: var(--blue);
+  background-color: inherit;
+}
+
+.toggle:hover {
+  text-decoration: underline var(--blue);
+  cursor: pointer;
+}
+
+.toggle:focus {
+  border: 1px dotted var(--blue);
+  
+  text-decoration: underline var(--blue);
+}
+
+.toggle:active {
+  border: none;
+  text-decoration: none;
+}
+
+.table__list,
+.table__nested-list {
+  list-style: none;
+}
+
+.content__number {
+  margin-right: .5ch;
+  
+  color: var(--light-black);
+}
+
+.table__list {
+  padding: 0;
+}
+
+.table__nested-list {
+  padding-left: 3ch;
+}
+
+.table__link {
+  color: var(--blue);
+  
+  font-weight: 500;
+  line-height: 1.6;
+  
+  text-decoration: none;
+}
+
+.table__link:active {
+  color: rgb(245, 194, 66);
+}
+
+.table__link:hover {
+  text-decoration: underline var(--blue);
+}</style>
   </head>
     
   <body>
@@ -236,7 +369,21 @@
   </ul>
 </nav>
 <script src="js/script.js"></script>
+<script>const toggle = document.querySelector(".toggle");
+const nav_bar = document.querySelector(".table-of-contents");
+const list = document.querySelector(".table__list");
 
+toggle.addEventListener("click", ()=>{
+  if (toggle.textContent === "hide") {
+    toggle.textContent = "show";
+  }
+  else {
+    toggle.textContent = "hide";
+  }
+  
+  list.classList.toggle("list-invisible");
+  nav_bar.classList.toggle("table-narrow");
+});</script>
   </body>
   
 </html>
