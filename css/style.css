@@ -1,0 +1,298 @@
+/* --------------------------------------------------
+   THEME VARIABLES
+-------------------------------------------------- */
+:root {
+  --bg: #ffffff;
+  --text: #000000;
+  --link: #ff00ff;
+  --card-bg: #ffffff;
+  --card-shadow: rgba(0, 0, 0, 0.05);
+  --nav-bg: #e7e7e7;
+}
+
+[data-theme="dark"] {
+  --bg: #121212;
+  --text: #ffffff;
+  --link: #ff00ff;
+  --card-bg: #1e1e1e;
+  --card-shadow: rgba(255, 255, 255, 0.1);
+  --nav-bg: #222;
+}
+
+/* --------------------------------------------------
+   GLOBAL RESET
+-------------------------------------------------- */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.6;
+  scroll-behavior: smooth;
+}
+
+a {
+  color: var(--link);
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+/* --------------------------------------------------
+   HEADER IMAGE
+-------------------------------------------------- */
+.header-image {
+  width: 100%;
+  height: 180px;
+  background: url('https://cdn.dribbble.com/users/1100256/screenshots/7124464/media/94a5e074f80ae9466705cf4c833c3432.gif')
+    center/cover no-repeat;
+  position: relative;
+  overflow: hidden;
+  transition: filter 0.3s ease;
+}
+
+/* Invert animation for dark mode */
+[data-theme="dark"] .header-image {
+  filter: invert(1) brightness(0.95) contrast(1.1);
+}
+
+/* --------------------------------------------------
+   GLITCH TITLE (Overlay on Header)
+-------------------------------------------------- */
+.glitch-title {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 64px;
+  font-family: 'Special Elite', monospace;
+  color: var(--text); /* Auto adjusts for light/dark mode */
+  letter-spacing: -5px;
+  animation: glitchTitle 1s linear infinite;
+  white-space: nowrap;
+  pointer-events: none;
+  z-index: 10;
+}
+
+/* Main glitch motion */
+@keyframes glitchTitle {
+  0% { transform: translate(-50%, -50%); }
+  2%, 64% { transform: translate(calc(-50% + 2px), -50%) skew(0deg); }
+  4%, 60% { transform: translate(calc(-50% - 2px), -50%) skew(0deg); }
+  62% { transform: translate(-50%, -50%) skew(5deg); }
+}
+
+/* Duplicate slices */
+.glitch-title::before,
+.glitch-title::after {
+  content: attr(title);
+  position: absolute;
+  left: 0;
+  top: 0;
+}
+
+/* Top slice */
+.glitch-title::before {
+  clip-path: polygon(0 0, 100% 0, 100% 33%, 0 33%);
+  animation: glitchTitleTop 1s linear infinite;
+}
+
+@keyframes glitchTitleTop {
+  2%, 64% { transform: translate(2px, -2px); }
+  4%, 60% { transform: translate(-2px, 2px); }
+  62% { transform: translate(13px, -1px) skew(-13deg); }
+}
+
+/* Bottom slice */
+.glitch-title::after {
+  clip-path: polygon(0 67%, 100% 67%, 100% 100%, 0 100%);
+  animation: glitchTitleBottom 1.5s linear infinite;
+}
+
+@keyframes glitchTitleBottom {
+  2%, 64% { transform: translate(-2px, 0); }
+  4%, 60% { transform: translate(-2px, 0); }
+  62% { transform: translate(-22px, 5px) skew(21deg); }
+}
+
+/* --------------------------------------------------
+   TOP NAVIGATION
+-------------------------------------------------- */
+.top-nav {
+  background: var(--nav-bg);
+  border-bottom: 1px solid var(--link);
+  padding: 10px 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.top-nav-left {
+  display: flex;
+  gap: 20px;
+}
+
+.top-nav-right {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.top-nav input[type=text] {
+  padding: 5px;
+  border: 1px solid #aaa;
+  border-radius: 4px;
+}
+
+.dark-toggle {
+  background: none;
+  border: none;
+  font-size: 1.2rem;
+  cursor: pointer;
+  color: var(--link);
+}
+
+/* --------------------------------------------------
+   SIDEBAR
+-------------------------------------------------- */
+.container {
+  display: flex;
+}
+
+.sidebar {
+  width: 250px;
+  background: var(--nav-bg);
+  border-right: 1px solid #ccc;
+  padding: 20px;
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  overflow-y: auto;
+}
+
+.sidebar ul {
+  list-style: none;
+}
+
+.sidebar li {
+  margin-bottom: 10px;
+}
+
+.sidebar input[type=checkbox] {
+  display: none;
+}
+
+.sidebar label {
+  padding-left: 18px;
+  display: inline-block;
+  cursor: pointer;
+  position: relative;
+}
+
+/* Arrow icons */
+.sidebar label::before {
+  content: "\25B6"; /* triangle */
+  color: var(--link);
+  font-size: 0.7em;
+  position: absolute;
+  left: 0;
+  top: 2px;
+  transition: 0.2s;
+}
+
+.sidebar input:checked + label::before {
+  transform: rotate(90deg);
+}
+
+.sidebar ul ul {
+  display: none;
+  margin-left: 15px;
+}
+
+.sidebar input:checked ~ ul {
+  display: block;
+}
+
+/* --------------------------------------------------
+   MAIN CONTENT
+-------------------------------------------------- */
+.main {
+  flex: 1;
+  padding: 40px;
+}
+
+.main h1 {
+  font-size: 2em;
+  margin-bottom: 20px;
+}
+
+/* --------------------------------------------------
+   CARDS
+-------------------------------------------------- */
+.card-grid {
+  margin-top: 40px;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 20px;
+}
+
+.card {
+  background: var(--card-bg);
+  border: 1px solid #ddd;
+  box-shadow: 0 2px 5px var(--card-shadow);
+  padding: 20px;
+  transition: 0.2s;
+}
+
+.card:hover {
+  box-shadow: 0 4px 10px var(--card-shadow);
+}
+
+.card img {
+  width: 100%;
+  height: 150px;
+  object-fit: cover;
+  margin-bottom: 15px;
+}
+
+.card h3 {
+  color: var(--link);
+  margin-bottom: 10px;
+}
+
+/* --------------------------------------------------
+   CATEGORIES
+-------------------------------------------------- */
+.categories {
+  margin-top: 60px;
+  padding-top: 20px;
+  border-top: 1px solid #ccc;
+}
+
+.categories ul {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  list-style: none;
+}
+
+.categories li {
+  background: var(--nav-bg);
+  padding: 6px 12px;
+  border-radius: 4px;
+}
+
+/* --------------------------------------------------
+   MOBILE
+-------------------------------------------------- */
+@media (max-width: 768px) {
+  .container { flex-direction: column; }
+  .sidebar { width: 100%; height: auto; border-right: none; }
+}
