@@ -2347,6 +2347,7 @@ hr {
 /* Sidebar “opener” dropdown indicator */
 .opener:before {
     color: #ff1493 !important;
+  background: #000 !important;
 }
 
 /* Image border aesthetic (optional) */
@@ -2354,6 +2355,7 @@ hr {
     border: 2px solid #ff1493;
     border-radius: 6px;
 }
+
 
 
 
