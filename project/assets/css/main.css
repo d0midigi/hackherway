@@ -2271,6 +2271,90 @@ button,
     padding-top: 0; }
 
 
+/* --------------------------------------------------
+   HackHerWay White / Black / Hot Pink Theme Override
+   (Paste at bottom of main.css)
+-------------------------------------------------- */
+
+/* Base page */
+body {
+    background: #ffffff !important;
+    color: #000000 !important;
+}
+
+/* Header bar */
+#header .logo strong {
+    color: #ff1493 !important;
+}
+
+/* Global headings */
+h1, h2, h3, h4, h5, h6 {
+    color: #000000 !important;
+    border-bottom: 2px solid #ff1493;
+    padding-bottom: 4px;
+}
+
+/* Paragraph text */
+p {
+    color: #000000 !important;
+}
+
+/* Links */
+a {
+    color: #ff1493 !important;
+}
+
+a:hover {
+    color: #ff4fb7 !important;
+}
+
+/* Sidebar section titles */
+#sidebar .major h2 {
+    color: #000000 !important;
+    border-bottom: 2px solid #ff1493;
+}
+
+/* Icons */
+.icon:before {
+    color: #ff1493 !important;
+}
+
+/* Buttons */
+.button,
+input[type="button"],
+input[type="submit"],
+input[type="reset"] {
+    background: #ff1493 !important;
+    color: #ffffff !important;
+    border: none !important;
+}
+
+.button:hover {
+    background: #ff4fb7 !important;
+}
+
+/* Divider lines */
+hr {
+    border-color: #ff1493 !important;
+}
+
+/* Feature icons in the 4-column section */
+.features article .icon:before {
+    background: #ff1493 !important;
+    color: #ffffff !important;
+}
+
+/* Sidebar “opener” dropdown indicator */
+.opener:before {
+    color: #ff1493 !important;
+}
+
+/* Image border aesthetic (optional) */
+.image img {
+    border: 2px solid #ff1493;
+    border-radius: 6px;
+}
+
 
 
 
