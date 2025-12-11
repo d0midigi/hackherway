@@ -128,7 +128,7 @@ p {
 
 h1, h2, h3, h4, h5, h6 {
   color: #3d4449;
-  font-family: "Oswald", serif;
+  font-family: "Oswald", sans-serif;
   font-weight: 700;
   line-height: 1.5;
   margin: 0 0 1em 0; }
@@ -986,7 +986,7 @@ section.special, article.special {
   text-align: center; }
 
 header p {
-  font-family: "Oswald", serif;
+  font-family: "Oswald", sans-serif;
   font-size: 1em;
   font-weight: 400;
   letter-spacing: 0.075em;
@@ -1495,7 +1495,7 @@ button,
   color: #f56a6a !important;
   cursor: pointer;
   display: inline-block;
-  font-family: "Oswald", serif;
+  font-family: "Oswald", sans-serif;
   font-size: 0.8em;
   font-weight: 700;
   height: 3.5em;
@@ -2084,7 +2084,7 @@ button,
   #header .logo {
     border-bottom: 0;
     color: inherit;
-    font-family: "Oswald", serif;
+    font-family: "Oswald", sans-serif;
     font-size: 1.125em; }
   #header .icons {
     color:#fe0942;
@@ -2197,7 +2197,7 @@ button,
   -ms-user-select: none;
   user-select: none;
   color: #3d4449;
-  font-family: "Oswald", serif;
+  font-family: "Oswald", sans-serif;
   font-weight: 400;
   letter-spacing: 0.075em;
   list-style: none;
@@ -2269,6 +2269,7 @@ button,
     border-top: 0;
     margin-top: 0;
     padding-top: 0; }
+
 
 
 
