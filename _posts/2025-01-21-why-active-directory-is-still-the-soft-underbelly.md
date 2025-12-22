@@ -1,4 +1,5 @@
 ---
+layout: post
 title: "Why Active Directory Is Still the Soft Underbelly"
 tags: [active-directory, kerberos, red-team]
 ---
