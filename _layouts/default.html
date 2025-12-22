@@ -19,10 +19,11 @@
       {% include sidebar.html %}
     </aside>
 
-    <main class="content">
-      {{ content }}
-    </main>
+   <main class="content">
+  <div class="content-inner">
+    {{ content }}
   </div>
+</main>
 
   <footer class="site-footer">
     © {{ site.time | date: "%Y" }}
