@@ -1,6 +1,7 @@
 ---
 layout: post
 title: "Why Active Directory Is Still the Soft Underbelly"
+date: 2025-01-21
 tags: [active-directory, kerberos, red-team]
 ---
 
