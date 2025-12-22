@@ -8,6 +8,5 @@ highlighter: rouge
 
 permalink: /blog/:title/
 
-theme: minima
 plugins:
   - jekyll-feed
