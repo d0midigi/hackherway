@@ -51,3 +51,24 @@ a:hover {
   font-size: 0.85rem;
   opacity: 0.6;
 }
+
+.site-header {
+  padding: 2.5rem 1.5rem 1rem;
+}
+
+.site-title {
+  margin: 0;
+  font-size: 2.75rem;
+  font-weight: 700;
+}
+
+.site-title a {
+  color: #e6e6e6;
+  text-decoration: none;
+}
+
+.site-footer {
+  padding: 3rem 1.5rem 2rem;
+  font-size: 0.85rem;
+  opacity: 0.6;
+}
