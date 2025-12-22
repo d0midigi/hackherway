@@ -1,0 +1,13 @@
+title: hackherway
+description: Cybersecurity, Active Directory, and offensive research
+url: https://d0midigi.github.io
+baseurl: ""
+
+markdown: kramdown
+highlighter: rouge
+
+permalink: /blog/:title/
+
+theme: minima
+plugins:
+  - jekyll-feed
