@@ -1,23 +1,15 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <title>{{ page.title }} | {{ site.title }}</title>
-  <link rel="stylesheet" href="/assets/css/main.css">
-</head>
 <body>
+  <header class="site-header">
+    <!-- your glitch/video header later -->
+  </header>
 
-<header>
-  <h1><a href="/">{{ site.title }}</a></h1>
-</header>
+  <div class="site-wrapper">
+    <main class="content">
+      {{ content }}
+    </main>
+  </div>
 
-<main>
-  {{ content }}
-</main>
-
-<footer>
-  <p>© {{ site.time | date: "%Y" }}</p>
-</footer>
-
+  <footer class="site-footer">
+    © {{ site.time | date: "%Y" }}
+  </footer>
 </body>
-</html>
