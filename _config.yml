@@ -6,7 +6,7 @@ baseurl: "/hackherway"
 markdown: kramdown
 highlighter: rouge
 
-permalink: /blog/:title/
+permalink: /hackherway/blog/:title/
 
 plugins:
   - jekyll-feed
