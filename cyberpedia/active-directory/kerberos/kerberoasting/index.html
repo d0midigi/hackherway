@@ -1,0 +1,62 @@
+---
+layout: editorial
+title: Kerberoasting
+---
+
+<section class="attack-entry">
+
+  <header class="major">
+    <h1>Kerberoasting</h1>
+    <p class="subtitle">
+      Offline password extraction attack abusing Kerberos service tickets
+    </p>
+  </header>
+
+  <section>
+    <h2>Overview</h2>
+    <p>
+      Kerberoasting is an attack technique that abuses Kerberos service principal
+      names (SPNs) to request service tickets that can be cracked offline.
+    </p>
+  </section>
+
+  <section>
+    <h2>Attack Preconditions</h2>
+    <ul>
+      <li>Valid domain user account</li>
+      <li>Service accounts with weak passwords</li>
+      <li>SPNs registered in Active Directory</li>
+    </ul>
+  </section>
+
+  <section>
+    <h2>Attack Flow</h2>
+    <ol>
+      <li>Enumerate service accounts with SPNs</li>
+      <li>Request TGS tickets from the KDC</li>
+      <li>Extract ticket hashes</li>
+      <li>Perform offline cracking</li>
+    </ol>
+  </section>
+
+  <section>
+    <h2>Detection Opportunities</h2>
+    <div class="box">
+      <ul>
+        <li>High volume of TGS requests</li>
+        <li>Service ticket requests from atypical hosts</li>
+        <li>Event ID 4769 anomalies</li>
+      </ul>
+    </div>
+  </section>
+
+  <section>
+    <h2>Mitigations</h2>
+    <ul>
+      <li>Use Managed Service Accounts</li>
+      <li>Enforce long, random passwords</li>
+      <li>Monitor Kerberos service ticket activity</li>
+    </ul>
+  </section>
+
+</section>
