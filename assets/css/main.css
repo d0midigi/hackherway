@@ -132,3 +132,21 @@ a:hover {
 }
 
 }
+/* CONTENT COLUMN (Quarto-style) */
+.content {
+  display: flex;
+  justify-content: center;
+}
+
+.content-inner {
+  width: 100%;
+  max-width: 760px;   /* this is the magic number */
+}
+
+/* Optional: slightly larger on wide screens */
+@media (min-width: 1400px) {
+  .content-inner {
+    max-width: 820px;
+  }
+}
+
