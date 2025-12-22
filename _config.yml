@@ -1,7 +1,7 @@
 title: hackherway
 description: Cybersecurity, Active Directory, and offensive research
 url: https://d0midigi.github.io
-baseurl: ""
+baseurl: "/hackherway"
 
 markdown: kramdown
 highlighter: rouge
