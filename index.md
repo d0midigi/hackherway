@@ -1,6 +1,6 @@
 ---
-layout: default
-title: Blog
+layout: editorial
+title: Home
 ---
 
 ## Latest Posts
