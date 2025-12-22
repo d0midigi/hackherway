@@ -1,52 +1,28 @@
-<nav class="sidebar-nav">
+<nav id="menu">
+  <header class="major">
+    <h2>Navigation</h2>
+  </header>
 
-  <ul class="nav-level-1">
-
+  <ul>
     <li>
-      <details open>
-        <summary>Active Directory</summary>
-        <ul class="nav-level-2">
-<li>
-                    <a href="{{ '/encyclopedia/active-directory/kerberos/kerberoasting/' | relative_url }}">
-            Kerberoasting</a></li>
-
-
-          <li><a href="#">Foundations</a></li>
-
-          <li>
-            <details>
-              <summary>Attacks</summary>
-              <ul class="nav-level-3">
-                <li><a href="#">Kerberos</a></li>
-                <li><a href="#">ACL Abuse</a></li>
-                <li><a href="#">DCSync</a></li>
-              </ul>
-            </details>
-          </li>
-
-          <li>
-            <details>
-              <summary>Defense</summary>
-              <ul class="nav-level-3">
-                <li><a href="#">Detection</a></li>
-                <li><a href="#">Hardening</a></li>
-              </ul>
-            </details>
-          </li>
-        </ul>
-      </details>
+      <span class="opener">Active Directory</span>
+      <ul>
+        <li>
+          <a href="{{ '/encyclopedia/active-directory/kerberos/kerberoasting/' | relative_url }}">
+            Kerberoasting
+          </a>
+        </li>
+        <li><a href="#">Foundations</a></li>
+        <li><a href="#">Defense</a></li>
+      </ul>
     </li>
 
     <li>
-      <details>
-        <summary>Windows Internals</summary>
-        <ul class="nav-level-2">
-          <li><a href="#">LSASS</a></li>
-          <li><a href="#">Tokens</a></li>
-        </ul>
-      </details>
+      <span class="opener">Windows Internals</span>
+      <ul>
+        <li><a href="#">LSASS</a></li>
+        <li><a href="#">Tokens</a></li>
+      </ul>
     </li>
-
   </ul>
-
 </nav>
