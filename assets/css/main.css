@@ -149,4 +149,14 @@ a:hover {
     max-width: 820px;
   }
 }
+.layout {
+  align-items: flex-start;
+}
 
+.sidebar {
+  padding-top: 1rem;
+}
+
+.post-title {
+  margin-top: 1rem;
+}
