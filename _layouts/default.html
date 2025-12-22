@@ -14,7 +14,11 @@
     </h1>
   </header>
 
-  <div class="site-wrapper">
+  <div class="layout">
+    <aside class="sidebar">
+      {% include sidebar.html %}
+    </aside>
+
     <main class="content">
       {{ content }}
     </main>
@@ -23,6 +27,6 @@
   <footer class="site-footer">
     © {{ site.time | date: "%Y" }}
   </footer>
-
 </body>
-</html>
+</body>
+<
