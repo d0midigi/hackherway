@@ -1,0 +1,53 @@
+/* RESET */
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+  background: #0b0b0b;
+  color: #e6e6e6;
+}
+
+/* LAYOUT */
+.site-wrapper {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 2rem 1.5rem;
+}
+
+.content {
+  line-height: 1.7;
+}
+
+/* TYPOGRAPHY */
+h1, h2, h3 {
+  line-height: 1.2;
+  margin-top: 2.5rem;
+}
+
+a {
+  color: #7aa2ff;
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+/* BLOG LIST */
+.post-list {
+  list-style: none;
+  padding: 0;
+}
+
+.post-list li {
+  margin-bottom: 1rem;
+}
+
+.post-list time {
+  display: block;
+  font-size: 0.85rem;
+  opacity: 0.6;
+}
