@@ -6,7 +6,7 @@
 # feature for the data you need to update frequently.
 #
 # For technical reasons, this file is *NOT* reloaded automatically when you use
-# 'jekyll serve'. If you change this file, please restart the server process.
+# 'jekyll serve'. If you change this file, please restart the server process.<<<<<<< HEAD
 
 # Site settings
 # These are used to personalize your new site. If you look in the HTML files,
@@ -37,6 +37,14 @@ github_branch: "master"
 # Optional
 twitter: mindhackdiva
 linkedin: yvonne_angelica
+=======
+
+# Site settings
+# These are used to personalize your new site. If you look in the HTML files,
+# you will see them accessed via {{ site.title }}, {{ site.email }}, and so on.
+# You can create any custom variable you would like, and they will be accessible
+# in the templates via {{ site.myvariable }}.
+
 
 # These options are used to configure the locations of your version history when you want to serve versioned documents
 version_params:
