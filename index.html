@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Helix Kitten Security — Offensive Security Research</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <!-- Mobile Overlay -->
+  <div class="mobile-overlay"></div>
+
+  <!-- Sidebar -->
+  <aside class="sidebar">
+    <div class="sidebar__header">
+      <div class="sidebar__logo">HK</div>
+      <div>
+        <div class="sidebar__title">Helix Kitten</div>
+        <div class="sidebar__subtitle">Security Docs</div>
+      </div>
+    </div>
+    <nav class="sidebar__nav">
+      <!-- Section 1 -->
+      <div class="sidebar__section">
+        <button class="sidebar__toggle active">
+          <span class="section-icon">&#x1f3f0;</span>
+          Active Directory
+          <span class="chevron">&#9654;</span>
+        </button>
+        <div class="sidebar__submenu open">
+          <a href="blog-kerberoasting.html" class="current">Kerberoasting</a>
+          <a href="blog-kerberoasting.html">Pass-the-Hash</a>
+          <a href="blog-kerberoasting.html">Golden Ticket Attacks</a>
+          <a href="blog-kerberoasting.html">AD Enumeration</a>
+          <a href="blog-kerberoasting.html">BloodHound Usage</a>
+        </div>
+      </div>
+      <!-- Section 2 -->
+      <div class="sidebar__section">
+        <button class="sidebar__toggle">
+          <span class="section-icon">&#x1f527;</span>
+          Hacking Tools
+          <span class="chevron">&#9654;</span>
+        </button>
+        <div class="sidebar__submenu">
+          <a href="blog-nmap.html">Nmap</a>
+          <a href="blog-nmap.html">Metasploit</a>
+          <a href="blog-nmap.html">Burp Suite</a>
+          <a href="blog-nmap.html">Wireshark</a>
+          <a href="blog-nmap.html">John the Ripper</a>
+        </div>
+      </div>
+      <!-- Section 3 -->
+      <div class="sidebar__section">
+        <button class="sidebar__toggle">
+          <span class="section-icon">&#x1f6e1;</span>
+          MITRE ATT&amp;CK
+          <span class="chevron">&#9654;</span>
+        </button>
+        <div class="sidebar__submenu">
+          <a href="blog-kerberoasting.html">Initial Access</a>
+          <a href="blog-kerberoasting.html">Execution</a>
+          <a href="blog-kerberoasting.html">Persistence</a>
+          <a href="blog-kerberoasting.html">Privilege Escalation</a>
+          <a href="blog-kerberoasting.html">Defense Evasion</a>
+        </div>
+      </div>
+      <!-- Section 4 -->
+      <div class="sidebar__section">
+        <button class="sidebar__toggle">
+          <span class="section-icon">&#x1f4cb;</span>
+          Pentest Methodologies
+          <span class="chevron">&#9654;</span>
+        </button>
+        <div class="sidebar__submenu">
+          <a href="blog-kerberoasting.html">OWASP Testing Guide</a>
+          <a href="blog-kerberoasting.html">PTES</a>
+          <a href="blog-kerberoasting.html">OSSTMM</a>
+          <a href="blog-kerberoasting.html">Bug Bounty Workflow</a>
+          <a href="blog-kerberoasting.html">Reporting</a>
+        </div>
+      </div>
+      <!-- Section 5 -->
+      <div class="sidebar__section">
+        <button class="sidebar__toggle">
+          <span class="section-icon">&#x1f310;</span>
+          Cybersecurity Domains
+          <span class="chevron">&#9654;</span>
+        </button>
+        <div class="sidebar__submenu">
+          <a href="blog-kerberoasting.html">Network Security</a>
+          <a href="blog-kerberoasting.html">Application Security</a>
+          <a href="blog-kerberoasting.html">Cloud Security</a>
+          <a href="blog-kerberoasting.html">Incident Response</a>
+          <a href="blog-kerberoasting.html">Threat Intelligence</a>
+        </div>
+      </div>
+    </nav>
+    <div class="sidebar__footer">
+      <span>v2.4.1 &middot; OPSEC</span>
+    </div>
+  </aside>
+
+  <!-- Navbar -->
+  <header class="navbar">
+    <button class="hamburger" aria-label="Toggle menu">
+      <span></span><span></span><span></span>
+    </button>
+    <div class="navbar__brand">
+      <div class="helix-icon">HK</div>
+      Helix Kitten Security
+    </div>
+    <div class="navbar__search">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="color:var(--text-muted)"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg>
+      <input type="text" placeholder="Search documentation...">
+      <kbd>/</kbd>
+    </div>
+    <nav class="navbar__links">
+      <a href="index.html" class="active">Home</a>
+      <a href="blog-kerberoasting.html">Blog</a>
+      <a href="#">About</a>
+      <a href="#">Contact</a>
+    </nav>
+  </header>
+
+  <!-- Main Content -->
+  <main class="main">
+    <div class="main__content">
+
+      <!-- Hero -->
+      <section class="hero fade-up">
+        <div class="hero__bg"></div>
+        <div class="hero__grid-overlay"></div>
+        <div class="hero__content">
+          <div class="hero__tag">
+            <span class="pulse"></span>
+            ACTIVE RESEARCH LAB
+          </div>
+          <h1 class="hero__title">
+            <span class="glitch" data-text="Helix">Helix</span> <span class="pink">Kitten</span><br>Security
+          </h1>
+          <p class="hero__desc">
+            Offensive security research, adversary emulation, and defensive engineering. A living reference for red teamers, penetration testers, and security engineers.
+          </p>
+          <div class="hero__actions">
+            <a href="blog-kerberoasting.html" class="btn btn--primary">Start Reading &#8594;</a>
+            <a href="#topics" class="btn btn--ghost">Browse Topics</a>
+          </div>
+        </div>
+      </section>
+
+      <!-- Card Grid -->
+      <section id="topics" class="fade-up">
+        <h2 class="section-heading">Research Domains</h2>
+        <p class="section-sub">Core knowledge areas covering offensive and defensive security disciplines.</p>
+        <div class="card-grid">
+          <div class="card">
+            <span class="card__icon">&#x1f3f0;</span>
+            <h3 class="card__title">Active Directory Attacks &amp; Defense</h3>
+            <p class="card__desc">Kerberoasting, Pass-the-Hash, Golden Tickets, AD enumeration techniques, and defensive hardening strategies for enterprise environments.</p>
+            <a href="blog-kerberoasting.html" class="card__link">Explore &#8594;</a>
+          </div>
+          <div class="card">
+            <span class="card__icon">&#x1f527;</span>
+            <h3 class="card__title">Hacking Tools</h3>
+            <p class="card__desc">Deep dives into Nmap, Metasploit, Burp Suite, Wireshark, John the Ripper, and the broader offensive toolkit landscape.</p>
+            <a href="blog-nmap.html" class="card__link">Explore &#8594;</a>
+          </div>
+          <div class="card">
+            <span class="card__icon">&#x1f6e1;</span>
+            <h3 class="card__title">MITRE ATT&amp;CK Framework</h3>
+            <p class="card__desc">Mapping adversary behavior across tactics from Initial Access through Exfiltration, with real-world technique references.</p>
+            <a href="blog-kerberoasting.html" class="card__link">Explore &#8594;</a>
+          </div>
+          <div class="card">
+            <span class="card__icon">&#x1f4cb;</span>
+            <h3 class="card__title">Pentest Methodologies</h3>
+            <p class="card__desc">OWASP Testing Guide, PTES, OSSTMM, bug bounty workflows, and professional reporting standards for engagements.</p>
+            <a href="blog-kerberoasting.html" class="card__link">Explore &#8594;</a>
+          </div>
+          <div class="card">
+            <span class="card__icon">&#x1f310;</span>
+            <h3 class="card__title">Cybersecurity Domains</h3>
+            <p class="card__desc">Network security, application security, cloud security, incident response, and threat intelligence fundamentals.</p>
+            <a href="blog-kerberoasting.html" class="card__link">Explore &#8594;</a>
+          </div>
+        </div>
+      </section>
+
+      <!-- Accordion -->
+      <section class="accordion fade-up">
+        <h2 class="section-heading">Quick Reference</h2>
+        <p class="section-sub">Essential security concepts for practitioners at every level.</p>
+        <div class="accordion__item">
+          <button class="accordion__header">
+            <span>What is a Zero-Day Vulnerability?</span>
+            <span class="accordion__icon">+</span>
+          </button>
+          <div class="accordion__body">
+            <div class="accordion__body-inner">A zero-day vulnerability is a software security flaw unknown to the vendor or developer. The term "zero-day" refers to the fact that the developer has had zero days to fix the issue since it was not previously known. These vulnerabilities are highly valued by attackers and on exploit markets because no patch exists. Defense involves layered security, behavioral detection, and rapid incident response capabilities. Notable examples include EternalBlue (CVE-2017-0144) and Log4Shell (CVE-2021-44228).</div>
+          </div>
+        </div>
+        <div class="accordion__item">
+          <button class="accordion__header">
+            <span>Understanding CVEs and CVSS Scoring</span>
+            <span class="accordion__icon">+</span>
+          </button>
+          <div class="accordion__body">
+            <div class="accordion__body-inner">Common Vulnerabilities and Exposures (CVE) is a standardized identifier system for publicly known security flaws. Each CVE entry includes an ID (e.g., CVE-2024-1234), a description, and references. The Common Vulnerability Scoring System (CVSS) rates severity from 0.0 to 10.0 across metrics like Attack Vector, Attack Complexity, Privileges Required, and Impact. Scores of 9.0+ are considered Critical. Security teams use CVE databases (NVD, MITRE) for vulnerability management and patch prioritization.</div>
+          </div>
+        </div>
+        <div class="accordion__item">
+          <button class="accordion__header">
+            <span>Red Team vs Blue Team vs Purple Team</span>
+            <span class="accordion__icon">+</span>
+          </button>
+          <div class="accordion__body">
+            <div class="accordion__body-inner"><strong>Red Team</strong> simulates real-world adversaries to test an organization's defenses through offensive operations including social engineering, exploitation, and lateral movement. <strong>Blue Team</strong> focuses on defensive operations: monitoring, detection, incident response, and hardening. <strong>Purple Team</strong> bridges both by facilitating collaboration between red and blue, ensuring attack simulations directly improve detection capabilities. Modern security programs leverage all three for a comprehensive security posture through continuous adversary emulation exercises.</div>
+          </div>
+        </div>
+        <div class="accordion__item">
+          <button class="accordion__header">
+            <span>Common Attack Vectors and Entry Points</span>
+            <span class="accordion__icon">+</span>
+          </button>
+          <div class="accordion__body">
+            <div class="accordion__body-inner">The most prevalent attack vectors include: <strong>Phishing</strong> (spear phishing emails with malicious attachments or credential harvesting links), <strong>Exposed Services</strong> (unpatched web applications, RDP, SSH, VPN endpoints), <strong>Supply Chain</strong> (compromised third-party software or dependencies), <strong>Credential Abuse</strong> (password spraying, credential stuffing from data breaches), and <strong>Insider Threats</strong> (malicious or negligent insiders with legitimate access). Understanding these vectors is foundational for both penetration testing scoping and defensive architecture.</div>
+          </div>
+        </div>
+        <div class="accordion__item">
+          <button class="accordion__header">
+            <span>Security Frameworks Overview (NIST, ISO, CIS)</span>
+            <span class="accordion__icon">+</span>
+          </button>
+          <div class="accordion__body">
+            <div class="accordion__body-inner"><strong>NIST Cybersecurity Framework</strong> organizes security into five functions: Identify, Protect, Detect, Respond, Recover. <strong>ISO 27001</strong> provides requirements for an Information Security Management System (ISMS) with Annex A controls. <strong>CIS Controls</strong> offer a prioritized set of 18 security actions mapped to common attack patterns. <strong>MITRE ATT&CK</strong> catalogs adversary tactics and techniques based on real-world observations. These frameworks are complementary — organizations often map between them for comprehensive coverage across governance, operations, and technical controls.</div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Code Block -->
+      <section class="code-section fade-up">
+        <h2 class="section-heading">Example: Nmap Reconnaissance</h2>
+        <p class="section-sub">A typical network discovery and service enumeration scan.</p>
+        <div class="code-block">
+          <div class="code-block__header">
+            <div class="code-block__dots"><span></span><span></span><span></span></div>
+            <span class="code-block__lang">bash</span>
+            <button class="code-block__copy">Copy</button>
+          </div>
+<pre><span class="c-comment"># Network discovery and aggressive service scan</span>
+<span class="c-prompt">$</span> <span class="c-cmd">nmap</span> <span class="c-flag">-sC -sV -A -T4</span> <span class="c-ip">192.168.1.0/24</span>
+
+<span class="c-output">Starting Nmap 7.94 ( https://nmap.org )</span>
+<span class="c-output">Nmap scan report for</span> <span class="c-ip">192.168.1.10</span>
+<span class="c-output">Host is up (0.0032s latency).</span>
+
+<span class="c-output">PORT     STATE SERVICE       VERSION</span>
+<span class="c-success">22/tcp   open  ssh           OpenSSH 8.9p1</span>
+<span class="c-success">80/tcp   open  http          Apache httpd 2.4.54</span>
+<span class="c-success">443/tcp  open  ssl/https     nginx 1.24.0</span>
+<span class="c-success">3389/tcp open  ms-wbt-server Microsoft Terminal Services</span>
+<span class="c-success">8080/tcp open  http-proxy    Squid 5.7</span>
+
+<span class="c-comment"># NSE script results</span>
+<span class="c-output">| http-title: Corporate Intranet Portal</span>
+<span class="c-output">| ssl-cert: Subject: CN=corp.example.com</span>
+<span class="c-output">| smb-os-discovery: Windows Server 2019 Build 17763</span>
+
+<span class="c-output">Nmap done:</span> <span class="c-string">256 IP addresses (12 hosts up)</span> <span class="c-output">scanned in 48.32 seconds</span></pre>
+        </div>
+      </section>
+
+      <!-- Terminal -->
+      <section class="terminal-section fade-up">
+        <h2 class="section-heading">Live Terminal</h2>
+        <p class="section-sub">Interactive framework initialization sequence.</p>
+        <div class="terminal">
+          <div class="terminal__header">
+            <div class="code-block__dots"><span></span><span></span><span></span></div>
+            <div class="terminal__title">helix@kitten:~</div>
+            <div></div>
+          </div>
+          <div class="terminal__body"></div>
+        </div>
+      </section>
+
+      <!-- Stats -->
+      <section class="stats-section fade-up">
+        <div class="stat-card">
+          <div class="stat__number" data-target="527" data-suffix="+">0</div>
+          <div class="stat__label">Techniques Documented</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat__number" data-target="156" data-suffix="+">0</div>
+          <div class="stat__label">Tools Cataloged</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat__number" data-target="63" data-suffix="+">0</div>
+          <div class="stat__label">Attack Paths Mapped</div>
+        </div>
+      </section>
+
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="footer__inner">
+      <div class="footer__left">&copy; 2026 <strong>Helix Kitten Security</strong>. All rights reserved.</div>
+      <div class="footer__links">
+        <a href="#">Privacy</a>
+        <a href="#">Terms</a>
+        <a href="#">GitHub</a>
+        <a href="#">Contact</a>
+      </div>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
