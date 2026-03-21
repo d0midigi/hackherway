@@ -1,0 +1,965 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>hackherway - Professional Portfolio</title>
+    <link rel="icon" type="image/png" sizes="32x32" href="https://i.imgur.com/OShZKcx.png?v=1">
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+    <!-- highlight.js for syntax highlighting in modals -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github-dark.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+<style>:root {
+  --background: #0d1117;
+  --primary: #c9d1d9;
+  --secondary: #8b949e;
+  --accent: #58a6ff;
+  --green: #39d353;
+  --border: #30363d;
+}
+
+body {
+  font-family: 'Fira Code', monospace;
+  background-color: var(--background);
+  color: var(--primary);
+  cursor: none;
+  /* Hide default cursor */
+}
+
+.bg-accent {
+  background-color: var(--accent);
+}
+
+.bg-green {
+  background-color: var(--green);
+}
+
+/* Custom Cursor */
+#cursor-dot {
+  width: 8px;
+  height: 8px;
+  background-color: var(--accent);
+  border-radius: 50%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+  z-index: 9999;
+  transition: width 0.2s, height 0.2s, background-color 0.2s;
+}
+
+#cursor-dot.hovered {
+  width: 32px;
+  height: 32px;
+  background-color: rgba(88, 166, 255, 0.2);
+}
+
+.glow {
+  box-shadow: 0 0 5px var(--accent), 0 0 10px var(--accent),
+    0 0 15px var(--accent);
+}
+
+#hero-canvas {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+}
+
+.hero-content {
+  z-index: 1;
+  position: relative;
+  background-color: rgba(13, 17, 23, 0.7);
+  backdrop-filter: blur(5px);
+  -webkit-backdrop-filter: blur(5px);
+  padding: 2rem 3rem;
+  border-radius: 0.5rem;
+  border: 1px solid var(--border);
+}
+
+.glitch {
+  position: relative;
+}
+
+.typewriter-cursor {
+  display: inline-block;
+  width: 10px;
+  height: 1.5em;
+  background-color: var(--accent);
+  animation: blink 0.7s infinite;
+  margin-left: 5px;
+}
+
+@keyframes blink {
+  0%,
+  100% {
+    opacity: 1;
+  }
+
+  50% {
+    opacity: 0;
+  }
+}
+
+.skill-bar-inner {
+  transition: width 1.5s cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+.project-card {
+  background-color: #161b22;
+  border: 1px solid var(--border);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  cursor: none;
+}
+
+.project-card:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 0 15px var(--accent);
+}
+
+.filter-btn {
+  background-color: transparent;
+  border: 1px solid var(--border);
+  color: var(--secondary);
+  padding: 8px 16px;
+  border-radius: 6px;
+  transition: background-color 0.3s, color 0.3s, border-color 0.3s;
+}
+
+.filter-btn:hover {
+  background-color: var(--border);
+  color: var(--primary);
+}
+
+.filter-btn.active {
+  background-color: var(--accent);
+  color: var(--background);
+  border-color: var(--accent);
+}
+
+#project-modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.8);
+  z-index: 1000;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s, visibility 0.3s;
+}
+
+#project-modal-overlay.active {
+  opacity: 1;
+  visibility: visible;
+}
+
+#project-modal {
+  background-color: #161b22;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  width: 90%;
+  max-width: 800px;
+  max-height: 90vh;
+  display: flex;
+  flex-direction: column;
+  transform: scale(0.9);
+  transition: transform 0.3s;
+}
+
+#project-modal-overlay.active #project-modal {
+  transform: scale(1);
+}
+
+.modal-header {
+  padding: 0.75rem 1rem;
+  border-bottom: 1px solid var(--border);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.modal-body {
+  padding: 1.5rem;
+  overflow-y: auto;
+}
+
+.modal-tab {
+  padding: 0.5rem 1rem;
+  cursor: none;
+  border-bottom: 2px solid transparent;
+  transition: border-color 0.2s, color 0.2s;
+}
+
+.modal-tab.active {
+  color: var(--accent);
+  border-bottom-color: var(--accent);
+}
+
+.timeline-item {
+  position: relative;
+  padding-bottom: 2rem;
+  padding-left: 2rem;
+}
+
+.timeline-item:before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 5px;
+  width: 1px;
+  height: 100%;
+  background-color: var(--border);
+}
+
+.timeline-dot {
+  position: absolute;
+  left: -7px;
+  top: 5px;
+  width: 15px;
+  height: 15px;
+  border-radius: 50%;
+  background-color: var(--background);
+  border: 2px solid var(--accent);
+  transition: box-shadow 0.3s ease;
+}
+
+.timeline-item:hover .timeline-dot {
+  box-shadow: 0 0 10px var(--accent);
+}
+
+.form-input {
+  background-color: #010409;
+  border: 1px solid var(--border);
+  caret-color: var(--accent);
+}
+
+.form-input:focus {
+  outline: none;
+  border-color: var(--accent);
+  box-shadow: 0 0 5px var(--accent);
+}
+
+.submit-btn {
+  background-color: var(--accent);
+  transition: background-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.submit-btn:hover {
+  background-color: #79c0ff;
+  box-shadow: 0 0 10px #79c0ff;
+}
+
+.blinking-cursor {
+  animation: blink 1s step-end infinite;
+}
+
+.reveal {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 0.8s, transform 0.8s;
+}
+
+.reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+</style>
+</head>
+
+<body class="overflow-x-hidden">
+
+    <!-- Custom Cursor -->
+    <div id="cursor-dot"></div>
+
+    <!-- Header -->
+    <header class="fixed top-0 left-0 right-0 z-50 bg-opacity-50 backdrop-blur-md border-b border-gray-800">
+        <nav class="container mx-auto px-6 py-4 flex justify-between items-center">
+            <a href="#" class="text-2xl font-bold text-white"><< HHW /></a>
+            <div class="hidden md:flex space-x-8">
+                <a href="#about" class="hover:text-accent transition-colors">/about</a>
+                <a href="#portfolio" class="hover:text-accent transition-colors">/portfolio</a>
+                <a href="#experience" class="hover:text-accent transition-colors">/experience</a>
+                <a href="#contact" class="hover:text-accent transition-colors">/contact</a>
+            </div>
+            <button id="mobile-menu-btn" class="md:hidden text-2xl">
+                ☰
+            </button>
+        </nav>
+        <div id="mobile-menu" class="hidden md:hidden bg-gray-900 bg-opacity-90">
+            <a href="#about" class="block py-2 px-4 text-sm hover:bg-gray-700">/about</a>
+            <a href="#portfolio" class="block py-2 px-4 text-sm hover:bg-gray-700">/portfolio</a>
+            <a href="#experience" class="block py-2 px-4 text-sm hover:bg-gray-700">/experience</a>
+            <a href="#contact" class="block py-2 px-4 text-sm hover:bg-gray-700">/contact</a>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section id="hero" class="h-screen relative overflow-hidden">
+        <!-- Canvas Background -->
+        <canvas id="hero-canvas" class="absolute top-0 left-0 w-full h-full z-0"></canvas>
+
+        <!-- Fake Terminal Card -->
+        <div class="absolute bottom-8 left-8 w-[420px] bg-[#0d1117] border border-gray-700 rounded-xl shadow-2xl z-10">
+            <!-- Fake Window Bar -->
+            <div class="flex items-center gap-2 px-3 py-2 border-b border-gray-700 bg-[#161b22] rounded-t-xl">
+                <span class="w-3 h-3 rounded-full bg-red-500"></span>
+                <span class="w-3 h-3 rounded-full bg-yellow-500"></span>
+                <span class="w-3 h-3 rounded-full bg-green-500"></span>
+                <span class="ml-4 text-gray-400 text-sm font-mono">terminal</span>
+            </div>
+
+            <!-- Terminal Content -->
+            <div class="p-4 font-mono text-green-400 text-sm leading-relaxed">
+                <p>$ Hello, I am <span class="text-accent">mindhackdiva from hackherway</span></p>
+                <p>$ I am a <span id="typewriter"></span><span class="typewriter-cursor">|</span></p>
+                <p>$ View my work 👇</p>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- About Section -->
+    <section id="about" class="py-20 reveal">
+        <div class="container mx-auto px-6">
+            <h2 class="text-3xl font-bold text-center mb-12"><span class="text-accent">01.</span> About Me</h2>
+            <div class="flex flex-col md:flex-row items-center gap-12">
+                <div class="md:w-1/3 flex justify-center">
+                    <div class="relative w-64 h-64">
+                        <img src="https://i.imgur.com/FsLmjku.jpeg" alt="mindhackdiva"
+                            class="rounded-full w-full h-full object-cover border-4 border-accent" id="about-img"
+                            crossorigin="anonymous">
+                        <div class="absolute inset-0 rounded-full glow opacity-75"></div>
+                    </div>
+                </div>
+                <div class="md:w-2/3">
+                    <div class="bg-[#010409] border border-gray-800 rounded-lg p-6">
+                        <div class="flex items-center mb-4">
+                            <span class="h-3 w-3 bg-red-500 rounded-full mr-2"></span>
+                            <span class="h-3 w-3 bg-yellow-500 rounded-full mr-2"></span>
+                            <span class="h-3 w-3 bg-green-500 rounded-full"></span>
+                        </div>
+                        <p class="text-secondary mb-4">> mindhack_diva@portfolio:~$ cat ./bio.txt</p>
+                        <p class="text-primary leading-relaxed">
+                            Hello! I'm mindhackdiva of hackherway, a passionate cybersecurity ethical hacker/security network engineer with a knack for creating elegant and
+                            efficient solutions. With over 20 years of experience in the tech industry, I've had the
+                            privilege of working on a diverse range of public and private industry sectors, from U.S. Department of Defense (DoD) to brick and mortar companies serving local communities to
+                            complex U.S. Navy C3 Ballistics and Defense networks. My journey in cybersecurity started with a simple instant message from American Online (AOL) Instant Messenger, or AIM, as it was called and has
+                            since evolved into a deep love for hacking, defending, and securing infrastructure for the people and organizations out there that want make a difference.
+                        </p>
+                        <p class="text-secondary mt-4">> <span class="blinking-cursor">_</span></p>
+                    </div>
+                    <div class="mt-8">
+                        <h3 class="text-2xl font-semibold mb-4">Professional Skills</h3>
+                        <div class="space-y-4">
+                            <div class="skill">
+                                <p class="flex justify-between mb-1"><span>JavaScript</span><span>90%</span></p>
+                                <div class="w-full bg-gray-700 rounded-full h-2.5">
+                                    <div class="bg-accent h-2.5 rounded-full skill-bar-inner" style="width: 0%"
+                                        data-width="90%"></div>
+                                </div>
+                            </div>
+                            <div class="skill">
+                                <p class="flex justify-between mb-1"><span>React</span><span>85%</span></p>
+                                <div class="w-full bg-gray-700 rounded-full h-2.5">
+                                    <div class="bg-accent h-2.5 rounded-full skill-bar-inner" style="width: 0%"
+                                        data-width="85%"></div>
+                                </div>
+                            </div>
+                            <div class="skill">
+                                <p class="flex justify-between mb-1"><span>Node.js</span><span>80%</span></p>
+                                <div class="w-full bg-gray-700 rounded-full h-2.5">
+                                    <div class="bg-accent h-2.5 rounded-full skill-bar-inner" style="width: 0%"
+                                        data-width="80%"></div>
+                                </div>
+                            </div>
+                            <div class="skill">
+                                <p class="flex justify-between mb-1"><span>Python</span><span>75%</span></p>
+                                <div class="w-full bg-gray-700 rounded-full h-2.5">
+                                    <div class="bg-green h-2.5 rounded-full skill-bar-inner" style="width: 0%"
+                                        data-width="75%"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Portfolio Section -->
+    <section id="portfolio" class="py-20 bg-[#010409] reveal">
+        <div class="container mx-auto px-6">
+            <h2 class="text-3xl font-bold -center mb-12"><span class="text-accent">02.</span> Professional Portfolio</h2>
+            <div class="flex justify-center mb-8 space-x-2 md:space-x-4">
+                <button class="filter-btn" data-filter="all">All</button>
+                <button class="filter-btn" data-filter="frontend">Frontend</button>
+                <button class="filter-btn" data-filter="backend">Backend</button>
+                <button class="filter-btn" data-filter="fullstack">Full Stack</button>
+            </div>
+            <div id="portfolio-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Project cards will be injected here by JS -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Experience Section -->
+    <section id="experience" class="py-20 reveal">
+        <div class="container mx-auto px-6">
+            <h2 class="text-3xl font-bold text-center mb-12"><span class="text-accent">03.</span> Professional Experience</h2>
+            <div class="relative max-w-3xl mx-auto">
+                <!-- Experience items will be injected here by JS -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="py-20 bg-[#010409] reveal">
+        <div class="container mx-auto px-6 max-w-2xl">
+            <h2 class="text-3xl font-bold text-center mb-12"><span class="text-accent">04.</span> Get In Touch</h2>
+            <div class="bg-[#161b22] border border-gray-800 rounded-lg p-8">
+                <div class="flex items-center mb-4">
+                    <span class="h-3 w-3 bg-red-500 rounded-full mr-2"></span>
+                    <span class="h-3 w-3 bg-yellow-500 rounded-full mr-2"></span>
+                    <span class="h-3 w-3 bg-green-500 rounded-full"></span>
+                </div>
+                <form>
+                    <div class="mb-4">
+                        <label for="name" class="block mb-2 text-secondary">> Name:</label>
+                        <input type="text" id="name" name="name" class="w-full p-2 rounded-md form-input">
+                    </div>
+                    <div class="mb-4">
+                        <label for="email" class="block mb-2 text-secondary">> Email:</label>
+                        <input type="email" id="email" name="email" class="w-full p-2 rounded-md form-input">
+                    </div>
+                    <div class="mb-4">
+                        <label for="message" class="block mb-2 text-secondary">> Message:</label>
+                        <textarea id="message" name="message" rows="4"
+                            class="w-full p-2 rounded-md form-input"></textarea>
+                    </div>
+                    <button type="submit" class="w-full py-2 px-4 rounded-md text-white font-bold submit-btn">
+                        SEND MESSAGE
+                    </button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Project Modal -->
+    <div id="project-modal-overlay">
+        <div id="project-modal">
+            <div class="modal-header">
+                <div class="flex items-center">
+                    <span class="h-3 w-3 bg-red-500 rounded-full mr-2"></span>
+                    <span class="h-3 w-3 bg-yellow-500 rounded-full mr-2"></span>
+                    <span class="h-3 w-3 bg-green-500 rounded-full"></span>
+                </div>
+                <button id="modal-close-btn" class="text-2xl">×</button>
+            </div>
+            <div class="border-b border-gray-800 flex px-4">
+                <button class="modal-tab active" data-tab="description">Description.md</button>
+                <button class="modal-tab" data-tab="features">Features.js</button>
+                <button class="modal-tab" data-tab="snippet">Snippet.html</button>
+            </div>
+            <div class="modal-body">
+                <!-- Content will be injected here -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="py-6 text-center text-secondary border-t border-gray-800">
+        <p>© 2025 mindhackdiva. Designed & Built with <3 by <a
+                href="https://www.codepen.io/yvonne-angelica">hackherway</a></p>
+    </footer>
+    <script src="script.js"></script>
+  <script>document.addEventListener('DOMContentLoaded', function () {
+  // --- Custom Cursor ---
+  const cursorDot = document.getElementById('cursor-dot');
+  window.addEventListener('mousemove', (e) => {
+    cursorDot.style.left = e.clientX + 'px';
+    cursorDot.style.top = e.clientY + 'px';
+  });
+
+  function updateInteractiveElements() {
+    const interactiveElements = document.querySelectorAll(
+      'a, button, .project-card, input, textarea'
+    );
+    interactiveElements.forEach((el) => {
+      el.addEventListener('mouseenter', () =>
+        cursorDot.classList.add('hovered')
+      );
+      el.addEventListener('mouseleave', () =>
+        cursorDot.classList.remove('hovered')
+      );
+    });
+  }
+  updateInteractiveElements();
+
+  // --- Typewriter Effect ---
+  const typewriterElement = document.getElementById('typewriter');
+  const roles = [
+    'Noob Frontend Developer',
+    'Self-Taught Coder',
+    'Information Systems Security Engineer',
+    'Purple Teamer/Vulnerability Threat + Exploit Hunter & Hacker', 'Professional Cybersecurity Professional of 20 years', 'Started Cybersecurity in the Novell NDS Days Long Before Active Directory Was Born'
+  ];
+  let roleIndex = 0;
+  let charIndex = 0;
+  let isDeleting = false;
+
+  function type() {
+    const currentRole = roles[roleIndex];
+    if (isDeleting) {
+      typewriterElement.textContent = currentRole.substring(0, charIndex - 1);
+      charIndex--;
+    } else {
+      typewriterElement.textContent = currentRole.substring(0, charIndex + 1);
+      charIndex++;
+    }
+
+    if (!isDeleting && charIndex === currentRole.length) {
+      setTimeout(() => (isDeleting = true), 2000);
+    } else if (isDeleting && charIndex === 0) {
+      isDeleting = false;
+      roleIndex = (roleIndex + 1) % roles.length;
+    }
+
+    const typeSpeed = isDeleting ? 100 : 200;
+    setTimeout(type, typeSpeed);
+  }
+  type();
+
+  // --- Pixel Assembler Hero Effect ---
+  const canvas = document.getElementById('hero-canvas');
+  const heroSection = document.getElementById('hero');
+  const ctx = canvas.getContext('2d', { willReadFrequently: true });
+  canvas.width = window.innerWidth;
+  canvas.height = window.innerHeight;
+
+  let particleArray = [];
+  const characters = [
+    '{',
+    '}',
+    ';',
+    ':',
+    '=',
+    '+',
+    '-',
+    '*',
+    '/',
+    '>',
+    '<',
+    '(',
+    ')',
+    '[',
+    ']',
+  ];
+
+  const mouse = {
+    x: null,
+    y: null,
+    radius: 100,
+  };
+
+  heroSection.addEventListener('mousemove', function (event) {
+    const rect = heroSection.getBoundingClientRect();
+    mouse.x = event.clientX - rect.left;
+    mouse.y = event.clientY - rect.top;
+  });
+
+  heroSection.addEventListener('mouseleave', function () {
+    mouse.x = null;
+    mouse.y = null;
+  });
+
+  class Particle {
+    constructor(x, y, character, color) {
+      this.x = x;
+      this.y = y;
+      this.character = character;
+      this.color = color;
+      this.baseX = this.x;
+      this.baseY = this.y;
+      this.density = Math.random() * 40 + 5;
+      this.size = 3;
+    }
+    draw() {
+      ctx.fillStyle = this.color;
+      ctx.font = '10px Fira Code';
+      ctx.fillText(this.character, this.x, this.y);
+    }
+    update() {
+      let dx = mouse.x - this.x;
+      let dy = mouse.y - this.y;
+      let distance = Math.sqrt(dx * dx + dy * dy);
+      let forceDirectionX = dx / distance;
+      let forceDirectionY = dy / distance;
+      let maxDistance = mouse.radius;
+      let force = (maxDistance - distance) / maxDistance;
+      let directionX = forceDirectionX * force * this.density;
+      let directionY = forceDirectionY * force * this.density;
+
+      if (distance < mouse.radius) {
+        this.x -= directionX;
+        this.y -= directionY;
+      } else {
+        if (this.x !== this.baseX) {
+          let dx = this.x - this.baseX;
+          this.x -= dx / 10;
+        }
+        if (this.y !== this.baseY) {
+          let dy = this.y - this.baseY;
+          this.y -= dy / 10;
+        }
+      }
+    }
+  }
+
+  function initParticles(image) {
+    particleArray = [];
+
+    const heroWidth = canvas.width;
+    const heroHeight = canvas.height;
+
+    const imgAspect = image.width / image.height;
+    const canvasAspect = heroWidth / heroHeight;
+
+    let imgWidth, imgHeight;
+
+    if (imgAspect > canvasAspect) {
+      imgHeight = heroHeight;
+      imgWidth = imgHeight * imgAspect;
+    } else {
+      imgWidth = heroWidth;
+      imgHeight = imgWidth / imgAspect;
+    }
+
+    const startX = heroWidth - imgWidth;
+    let startY;
+
+    if (window.innerWidth > 1024) {
+      startY = (heroHeight - imgHeight) / 2 + 100;
+    } else {
+      startY = (heroHeight - imgHeight) / 2;
+    }
+
+    // Draw image to a temporary canvas to grab pixel data
+    const tempCanvas = document.createElement('canvas');
+    const tempCtx = tempCanvas.getContext('2d');
+    tempCanvas.width = imgWidth;
+    tempCanvas.height = imgHeight;
+    tempCtx.drawImage(image, 0, 0, imgWidth, imgHeight);
+
+    const imageData = tempCtx.getImageData(0, 0, imgWidth, imgHeight);
+
+    // step controls particle density → higher = smoother
+    const step = 9;
+
+    for (let y = 0; y < imageData.height; y += step) {
+      for (let x = 0; x < imageData.width; x += step) {
+        const i = (y * imageData.width + x) * 4;
+        const alpha = imageData.data[i + 3];
+
+        if (alpha > 128) {
+          const r = imageData.data[i];
+          const g = imageData.data[i + 1];
+          const b = imageData.data[i + 2];
+          const color = `rgb(${r},${g},${b})`;
+
+          const randomChar =
+            characters[Math.floor(Math.random() * characters.length)];
+          particleArray.push(
+            new Particle(startX + x, startY + y, randomChar, color)
+          );
+        }
+      }
+    }
+  }
+
+  function animate() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    for (let i = 0; i < particleArray.length; i++) {
+      particleArray[i].draw();
+      particleArray[i].update();
+    }
+    requestAnimationFrame(animate);
+  }
+
+  const profileImage = new Image();
+  profileImage.crossOrigin = 'Anonymous';
+  profileImage.src = document.getElementById('about-img').src;
+  profileImage.onload = () => {
+    initParticles(profileImage);
+    animate();
+  };
+
+  window.addEventListener('resize', () => {
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+    initParticles(profileImage);
+  });
+
+  // --- Scroll Reveal Animation ---
+  const revealElements = document.querySelectorAll('.reveal');
+  const revealObserver = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          revealObserver.unobserve(entry.target);
+        }
+      });
+    },
+    { threshold: 0.1 }
+  );
+  revealElements.forEach((el) => revealObserver.observe(el));
+
+  // --- Staggered Skill Bar Animation ---
+  const skillsSection = document.querySelector('#about');
+  const skillBars = document.querySelectorAll('.skill-bar-inner');
+  const skillObserver = new IntersectionObserver(
+    (entries) => {
+      if (entries[0].isIntersecting) {
+        skillBars.forEach((bar, index) => {
+          setTimeout(() => {
+            bar.style.width = bar.getAttribute('data-width');
+          }, index * 150);
+        });
+        skillObserver.unobserve(skillsSection);
+      }
+    },
+    { threshold: 0.5 }
+  );
+  skillObserver.observe(skillsSection);
+
+  // --- Portfolio Filtering & Modals ---
+  const projects = [
+    {
+      id: 0,
+      title: 'E-commerce Platform',
+      category: 'fullstack',
+      description:
+        'A full-featured e-commerce site with React and Node.js, featuring product catalogs, user authentication, and a Stripe-integrated checkout process.',
+      tech: ['React', 'Node.js', 'MongoDB', 'Stripe'],
+      features: [
+        'User authentication with JWT',
+        'Product search and filtering',
+        'Shopping cart functionality',
+        'Secure payment processing',
+      ],
+      snippet: `<div class="product-card">\n  <img src={product.image} alt={product.name} />\n  <h3>{product.name}</h3>\n  <p>{product.price}</p>\n  <button>Add to Cart</button>\n</div>`,
+      link: '#',
+    },
+    {
+      id: 1,
+      title: 'Data Visualization Dashboard',
+      category: 'frontend',
+      description:
+        'Interactive dashboard using D3.js for visualizing complex datasets with dynamic charts and graphs.',
+      tech: ['D3.js', 'React', 'Tailwind'],
+      features: [
+        'Multiple chart types (bar, line, pie)',
+        'Real-time data updates',
+        'Export charts as SVG or PNG',
+        'Responsive design for all devices',
+      ],
+      snippet: `const svg = d3.select(ref.current)\n  .attr("width", width)\n  .attr("height", height);\n\nsvg.selectAll("rect")\n  .data(data)\n  .enter()\n  .append("rect");`,
+      link: '#',
+    },
+    {
+      id: 2,
+      title: 'RESTful API for Social App',
+      category: 'backend',
+      description:
+        'A scalable backend API for a social media application, handling user profiles, posts, comments, and likes.',
+      tech: ['Node.js', 'Express', 'PostgreSQL'],
+      features: [
+        'CRUD operations for users, posts, comments',
+        'Secure authentication endpoints',
+        'Pagination for handling large datasets',
+        'Comprehensive API documentation',
+      ],
+      snippet: `app.get('/api/posts', async (req, res) => {\n  try {\n    const posts = await Post.findAll();\n    res.json(posts);\n  } catch (err) {\n    res.status(500).send('Server Error');\n  }\n});`,
+      link: '#',
+    },
+    {
+      id: 3,
+      title: 'Real-time Chat Application',
+      category: 'fullstack',
+      description:
+        'A chat app built with WebSockets for instant communication.',
+      tech: ['Socket.IO', 'React', 'Node.js'],
+      features: [
+        'Instant messaging between users',
+        'User online status indicators',
+        'Room-based chat functionality',
+        'Message history',
+      ],
+      snippet: `io.on('connection', (socket) => {\n  console.log('a user connected');\n  socket.on('chat message', (msg) => {\n    io.emit('chat message', msg);\n  });\n});`,
+      link: '#',
+    },
+  ];
+
+  const portfolioGrid = document.getElementById('portfolio-grid');
+  const filterBtns = document.querySelectorAll('.filter-btn');
+  const modalOverlay = document.getElementById('project-modal-overlay');
+  const modalBody = document.querySelector('.modal-body');
+  const modalTabs = document.querySelectorAll('.modal-tab');
+
+  function displayProjects(filter) {
+    portfolioGrid.innerHTML = '';
+    const filteredProjects =
+      filter === 'all'
+        ? projects
+        : projects.filter((p) => p.category === filter);
+
+    filteredProjects.forEach((project) => {
+      const projectCard = `
+                      <div class="project-card rounded-lg overflow-hidden" data-id="${
+                        project.id
+                      }">
+                          <div class="p-6">
+                              <h3 class="text-xl font-bold mb-2 text-accent">${
+                                project.title
+                              }</h3>
+                              <p class="text-secondary mb-4">${project.description.substring(
+                                0,
+                                80
+                              )}...</p>
+                              <div class="flex flex-wrap gap-2 mb-4">
+                                  ${project.tech
+                                    .map(
+                                      (t) =>
+                                        `<span class="bg-gray-700 text-xs font-semibold mr-2 px-2.5 py-0.5 rounded">${t}</span>`
+                                    )
+                                    .join('')}
+                              </div>
+                              <span class="text-green hover:underline">View Details →</span>
+                          </div>
+                      </div>
+                  `;
+      portfolioGrid.innerHTML += projectCard;
+    });
+
+    document.querySelectorAll('.project-card').forEach((card) => {
+      card.addEventListener('click', (e) =>
+        openModal(e.currentTarget.dataset.id)
+      );
+    });
+    updateInteractiveElements();
+  }
+
+  function openModal(projectId) {
+    const project = projects.find((p) => p.id == projectId);
+    if (!project) return;
+    updateModalContent(project, 'description');
+    modalOverlay.classList.add('active');
+  }
+
+  function updateModalContent(project, activeTab) {
+    let content = '';
+    modalTabs.forEach((tab) => {
+      tab.classList.toggle('active', tab.dataset.tab === activeTab);
+      tab.onclick = () => updateModalContent(project, tab.dataset.tab);
+    });
+
+    switch (activeTab) {
+      case 'features':
+        content = `<h3 class="text-xl font-bold mb-4 text-accent">Key Features</h3><ul class="list-disc list-inside space-y-2">${project.features
+          .map((f) => `<li>${f}</li>`)
+          .join('')}</ul>`;
+        break;
+      case 'snippet':
+        content = `<h3 class="text-xl font-bold mb-4 text-accent">Code Snippet</h3><pre><code class="language-javascript rounded-lg">${project.snippet}</code></pre>`;
+        break;
+      default:
+        content = `<h3 class="text-xl font-bold mb-4 text-accent">${project.title}</h3><p class="text-primary mb-4">${project.description}</p><a href="${project.link}" target="_blank" class="text-green hover:underline font-bold">Visit Website →</a>`;
+    }
+    modalBody.innerHTML = content;
+    if (activeTab === 'snippet') {
+      hljs.highlightAll();
+    }
+  }
+
+  filterBtns.forEach((btn) => {
+    btn.addEventListener('click', () => {
+      filterBtns.forEach((b) => b.classList.remove('active'));
+      btn.classList.add('active');
+      displayProjects(btn.dataset.filter);
+    });
+  });
+
+  document
+    .getElementById('modal-close-btn')
+    .addEventListener('click', () => modalOverlay.classList.remove('active'));
+  modalOverlay.addEventListener('click', (e) => {
+    if (e.target === modalOverlay) modalOverlay.classList.remove('active');
+  });
+
+  displayProjects('all');
+  document
+    .querySelector('.filter-btn[data-filter="all"]')
+    .classList.add('active');
+
+  const experiences = [
+    {
+      date: '2021 - Present',
+      role: 'Senior Software Engineer',
+      company: 'Tech Solutions Inc.',
+      description:
+        'Led the development of a new microservices architecture, improving system scalability by 40%. Mentored junior developers and conducted code reviews.',
+    },
+    {
+      date: '2019 - 2021',
+      role: 'Software Engineer',
+      company: 'Innovate Co.',
+      description:
+        'Developed and maintained features for a high-traffic web application using React and Node.js. Collaborated with cross-functional teams to deliver high-quality software.',
+    },
+    {
+      date: '2017 - 2019',
+      role: 'Junior Developer',
+      company: 'CodeCrafters LLC',
+      description:
+        'Assisted in the development of client websites using HTML, CSS, and JavaScript. Gained experience with version control systems like Git.',
+    },
+  ];
+  const experienceContainer = document.querySelector('#experience .relative');
+  experiences.forEach((exp) => {
+    const item = `<div class="timeline-item"><div class="timeline-dot"></div><p class="text-sm text-secondary mb-1">${exp.date}</p><h3 class="text-xl font-bold text-accent">${exp.role}</h3><p class="font-semibold mb-2">${exp.company}</p><p class="text-primary">${exp.description}</p></div>`;
+    experienceContainer.innerHTML += item;
+  });
+
+  const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+  const mobileMenu = document.getElementById('mobile-menu');
+  mobileMenuBtn.addEventListener('click', () =>
+    mobileMenu.classList.toggle('hidden')
+  );
+
+  document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
+    anchor.addEventListener('click', function (e) {
+      e.preventDefault();
+      document
+        .querySelector(this.getAttribute('href'))
+        .scrollIntoView({ behavior: 'smooth' });
+      if (!mobileMenu.classList.contains('hidden'))
+        mobileMenu.classList.add('hidden');
+    });
+  });
+});
+  </script>
+</body>
+</html>
+</html></
