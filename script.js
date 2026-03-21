@@ -17,14 +17,18 @@ function initSidebar() {
     btn.addEventListener('click', () => {
       const submenu = btn.nextElementSibling;
       const isOpen = submenu.classList.contains('open');
+
       // Close all
       document.querySelectorAll('.sidebar__submenu.open').forEach(s => {
         s.classList.remove('open');
+        s.style.maxHeight = null; // IMPORTANT
         s.previousElementSibling.classList.remove('active');
       });
+
       if (!isOpen) {
         submenu.classList.add('open');
         btn.classList.add('active');
+        submenu.style.maxHeight = submenu.scrollHeight + 'px';
       }
     });
   });
@@ -77,8 +81,8 @@ function initTerminal() {
 
   const lines = [
     { text: '╔══════════════════════════════════════════════╗', cls: 't-pink' },
-    { text: '║     HELIX KITTEN SECURITY FRAMEWORK          ║', cls: 't-pink' },
-    { text: '║     Offensive Security Research Lab           ║', cls: 't-grey' },
+    { text: '║     HACKHERWAY SECURITY FRAMEWORK            ║', cls: 't-pink' },
+    { text: '║     Offensive Security Research Lab          ║', cls: 't-grey' },
     { text: '╚══════════════════════════════════════════════╝', cls: 't-pink' },
     { text: '', cls: '' },
     { text: '[*] Initializing threat intelligence modules...', cls: 't-green' },
