@@ -203,7 +203,7 @@ img { max-width: 100%; }
   max-height: 0; overflow: hidden;
   transition: max-height 0.35s cubic-bezier(0.4, 0, 0.2, 1);
 }
-.sidebar__submenu.open { max-height: 400px; }
+.sidebar__submenu.open { max-height: 2000px; }
 .sidebar__submenu a {
   display: block;
   padding: 6px 20px 6px 52px;
