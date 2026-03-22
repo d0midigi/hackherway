@@ -877,3 +877,36 @@ img { max-width: 100%; }
   opacity: 1;
   transform: translateY(0);
 }
+.footer {
+  padding: 20px;
+  font-size: 14px;
+}
+
+.footer__row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.footer__left {
+  text-align: left;
+}
+
+.footer__right {
+  text-align: right;
+}
+
+.footer__center {
+  text-align: center;
+  margin: 6px 0;
+}
+
+.footer__links a {
+  text-decoration: none;
+  margin: 0 5px;
+}
+
+.footer__divider {
+  text-align: center;
+  margin: 10px 0;
+}
