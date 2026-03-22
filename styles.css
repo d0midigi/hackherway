@@ -75,9 +75,11 @@ img { max-width: 100%; }
 }
 .navbar__links { display: flex; align-items: center; gap: 8px; }
 .navbar__links a {
-  color: var(--text-secondary);
-  font-size: 10px; font-weight: 500;
-  padding: 6px 14px;
+  color: var(--text-muted);
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  padding: 6px 6px;
   border-radius: 6px;
   transition: all var(--transition);
 }
