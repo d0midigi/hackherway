@@ -913,3 +913,14 @@ img { max-width: 100%; }
   text-align: center;
   margin: 10px 0;
 }
+.sidebar__toggle .section-icon {
+  width: 20px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 16px;
+  line-height: 1;
+}
+.section-icon {
+  font-family: "Segoe UI Emoji", "Apple Color Emoji", "Noto Color Emoji", sans-serif;
+}
