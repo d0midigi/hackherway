@@ -80,11 +80,11 @@ function initTerminal() {
   termBody.dataset.animated = 'true';
 
   const lines = [
-    { text: '╔══════════════════════════════════════════════╗', cls: 't-pink' },
-    { text: '║     HACKHERWAY SECURITY FRAMEWORK            ║', cls: 't-pink' },
-    { text: '║         Cybersecurity Cyberepo               ║', cls: 't-grey' },
+      { text: '╔══════════════════════════════════════════════╗', cls: 't-pink' },
+    { text: '║     HELIX KITTEN SECURITY FRAMEWORK          ║', cls: 't-pink' },
+    { text: '║     Offensive Security Research Lab           ║', cls: 't-grey' },
     { text: '╚══════════════════════════════════════════════╝', cls: 't-pink' },
-    { text: '', cls: '' },
+  { text: '', cls: '' },
     { text: '[*] Initializing threat intelligence modules...', cls: 't-green' },
     { text: '[*] Loading MITRE ATT&CK knowledge base...', cls: 't-green' },
     { text: '[*] Connecting to vulnerability database...', cls: 't-green' },
