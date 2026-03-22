@@ -82,7 +82,7 @@ function initTerminal() {
   const lines = [
     { text: '╔══════════════════════════════════════════════╗', cls: 't-pink' },
     { text: '║     HACKHERWAY SECURITY FRAMEWORK            ║', cls: 't-pink' },
-    { text: '║   &nbsp;Cybersecurity Cyberepo               ║', cls: 't-grey' },
+    { text: '║         Cybersecurity Cyberepo               ║', cls: 't-grey' },
     { text: '╚══════════════════════════════════════════════╝', cls: 't-pink' },
     { text: '', cls: '' },
     { text: '[*] Initializing threat intelligence modules...', cls: 't-green' },
