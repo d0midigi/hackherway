@@ -890,14 +890,17 @@ img { max-width: 100%; }
 
 .footer__left {
   text-align: left;
+  flex: 1;
 }
 
 .footer__right {
   text-align: right;
+  flex: 1;
 }
 
 .footer__center {
   text-align: center;
+  width: 100%;
   margin: 6px 0;
 }
 
