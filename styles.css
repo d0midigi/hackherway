@@ -964,3 +964,8 @@ img { max-width: 100%; }
   align-items: center;
   gap: 8px;
 }
+.navbar {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
