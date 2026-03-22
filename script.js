@@ -1,4 +1,4 @@
-/* === HELIX KITTEN SECURITY — script.js === */
+/* === HACKHERWAY SECURITY — script.js === */
 
 document.addEventListener('DOMContentLoaded', () => {
   initSidebar();
@@ -82,7 +82,7 @@ function initTerminal() {
   const lines = [
     { text: '╔══════════════════════════════════════════════╗', cls: 't-pink' },
     { text: '║     HACKHERWAY SECURITY FRAMEWORK            ║', cls: 't-pink' },
-    { text: '║     Offensive Security Research Lab          ║', cls: 't-grey' },
+    { text: '║   &nbsp;Cybersecurity Cyberepo               ║', cls: 't-grey' },
     { text: '╚══════════════════════════════════════════════╝', cls: 't-pink' },
     { text: '', cls: '' },
     { text: '[*] Initializing threat intelligence modules...', cls: 't-green' },
@@ -92,7 +92,7 @@ function initTerminal() {
     { text: '[+] 156 tool profiles loaded', cls: 't-white' },
     { text: '[+] System ready.', cls: 't-green' },
     { text: '', cls: '' },
-    { text: 'helix@kitten:~$ ', cls: 't-pink', cursor: true },
+    { text: 'mindhackdiva@hackherway:~$ ', cls: 't-pink', cursor: true },
   ];
 
   termBody.innerHTML = '';
