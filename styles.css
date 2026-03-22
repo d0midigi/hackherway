@@ -946,3 +946,21 @@ img { max-width: 100%; }
   background: var(--border-medium);
   transform: translateY(-50%);
 }
+/* CSS (add to the end of your stylesheet) */
+
+/* Match sidebar subtitle styling */
+.navbar__tagline {
+  font-family: 'Outfit', sans-serif;
+  font-size: 10px;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  font-weight: 500;
+}
+
+/* Optional: keep icon aligned nicely */
+.navbar__brand {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
