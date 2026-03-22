@@ -270,7 +270,7 @@ img { max-width: 100%; }
     linear-gradient(90deg, rgba(255,0,102,0.03) 1px, transparent 1px);
   background-size: 40px 40px;
 }
-.hero__content { position: relative; z-index: 1; }
+.hero__content { position: relative; z-index: 1; padding: 50px; }
 .hero__tag {
   display: inline-flex; align-items: center; gap: 6px;
   font-family: 'Fira Code', monospace;
