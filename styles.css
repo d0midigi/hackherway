@@ -879,7 +879,7 @@ img { max-width: 100%; }
 }
 .footer {
   padding: 20px;
-  font-size: 14px;
+  font-size: 12px;
 }
 
 .footer__row {
@@ -895,7 +895,8 @@ img { max-width: 100%; }
 
 .footer__right {
   text-align: right;
-  flex: 1;
+  width: 100%;
+  margin: 6px 0;
 }
 
 .footer__center {
@@ -906,7 +907,9 @@ img { max-width: 100%; }
 
 .footer__links a {
   text-decoration: none;
-  margin: 0 5px;
+   text-align: center;
+  width: 100%;
+  margin: 6px 0;
 }
 
 .footer__divider {
