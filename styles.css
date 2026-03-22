@@ -77,7 +77,7 @@ img { max-width: 100%; }
 .navbar__links a {
   color: var(--text-muted);
   font-size: 10px;
-  text-transform: uppercase;
+  text-transform: uppercase !important;
   letter-spacing: 1.5px;
   padding: 6px 6px;
   border-radius: 6px;
