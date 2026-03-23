@@ -1013,3 +1013,12 @@ img { max-width: 100%; }
       z-index: 10;
  
     }
+.sidebar,
+.navbar,
+.main,
+.footer,
+.hero,
+.page {
+  position: relative;
+  z-index: 2;
+}
