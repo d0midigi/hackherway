@@ -986,3 +986,23 @@ img { max-width: 100%; }
 .instruction {
   display: none;
 }
+.hero__bg,
+.hero__grid-overlay {
+  z-index: 0;
+}
+
+.hero__content {
+  position: relative;
+  z-index: 2;
+  padding: 50px;
+  isolation: isolate;
+}
+
+.hero__content::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: rgba(8, 8, 14, 0.82);
+  border-radius: 18px;
+}
