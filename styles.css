@@ -1038,3 +1038,38 @@ img { max-width: 100%; }
   background: rgba(8, 8, 14, 0.82);
   border-radius: 18px;
 }
+.subnav {
+  position: fixed;
+  top: var(--navbar-h);
+  left: var(--sidebar-w);
+  right: 0;
+  height: 24px;
+  display: flex;
+  align-items: center;
+  background: #09090d;
+  border-top: 1px solid var(--border-light);
+  border-bottom: 1px solid var(--border-light);
+  z-index: 99;
+  overflow: hidden;
+}
+
+.subnav__inner {
+  display: flex;
+  align-items: center;
+  gap: 22px;
+  white-space: nowrap;
+  padding: 0 18px;
+  min-width: max-content;
+}
+
+.subnav__inner a {
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  color: var(--text-muted);
+  text-decoration: none;
+}
+
+.subnav__inner a:hover {
+  color: var(--pink);
+}
