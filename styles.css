@@ -1,4 +1,4 @@
-/* === HELIX KITTEN SECURITY — styles.css === */
+/* === HACKHERWAY SECURITY — styles.css === */
 @import url('https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;600;700&family=Outfit:wght@300;400;500;600;700;800;900&family=Space+Mono:ital,wght@0,400;0,700;1,400&display=swap');
 
 /* --- Custom Properties --- */
@@ -633,18 +633,62 @@ img { max-width: 100%; }
   background: var(--bg-dark);
   padding: 40px 48px;
 }
-.footer__inner {
-  display: flex; justify-content: space-between; align-items: center;
-  flex-wrap: wrap; gap: 16px;
-  max-width: 1100px;
+.footer {
+  margin-left: var(--sidebar-w);
+  border-top: 2px solid var(--pink);
+  background: var(--bg-dark);
+  padding: 32px 24px 40px;
+  text-align: center;
 }
-.footer__left { font-size: 12px; color: var(--text-muted); }
-.footer__left strong { color: var(--text-secondary); font-weight: 600; }
-.footer__links { display: flex; gap: 20px; }
-.footer__links a { font-size: 12px; color: var(--text-muted); }
-.footer__links a:hover { color: var(--pink); }
 
-/* ============================== */
+.footer > img {
+  display: inline-block;
+  margin: 0 4px 12px;
+  vertical-align: middle;
+}
+
+.footer__inner {
+  max-width: 900px;
+  margin: 0 auto;
+  display: block;
+  text-align: center;
+}
+
+.footer__inner > div {
+  margin-bottom: 8px;
+  font-size: 12px;
+  color: var(--text-muted);
+  line-height: 1.7;
+}
+
+.footer__inner strong {
+  color: var(--text-secondary);
+  font-weight: 600;
+}
+
+.footer__links {
+  margin: 12px 0 16px;
+  font-size: 12px;
+  color: var(--text-muted);
+}
+
+.footer__links a {
+  color: var(--text-muted);
+  margin: 0 6px;
+}
+
+.footer__links a:hover {
+  color: var(--pink);
+}
+
+.footer__inner > a {
+  display: inline-block;
+  margin-top: 10px;
+}
+
+#center {
+  margin: 14px auto 0 !important;
+}/* ============================== */
 /* BLOG POST LAYOUT               */
 /* ============================== */
 .blog-layout {
