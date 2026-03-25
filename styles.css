@@ -142,17 +142,9 @@ img { max-width: 100%; }
   display: flex; align-items: center; gap: 10px;
   flex-shrink: 0;
 }
-.sidebar__logo {
-  width: 32px; height: 32px;
-  background: linear-gradient(135deg, var(--pink), #cc0052);
-  border-radius: 8px;
-  display: flex; align-items: center; justify-content: center;
-  font-family: 'Space Mono', monospace;
-  font-weight: 700; font-size: 16px; color: #fff;
-}
 .sidebar__title {
-  font-family: 'Space Mono', monospace;
-  font-size: 13px; font-weight: 700;
+  font-family: 'Outfit', sans serif;
+  font-size: 13px; font-weight: 300;
   color: var(--text-primary);
   line-height: 1.2;
 }
