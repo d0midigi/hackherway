@@ -13,10 +13,32 @@
     <meta itemprop="name" content="hackherway">
   <link rel="stylesheet" href="styles.css">
     <link rel="shortcut icon" href="https://i.imgur.com/pheSvKs.png">  
-  </head>
+
+    <style>
+        * {
+            cursor: none !important; /* Hides the real mouse */
+        }
+
+        body {
+            height: 100vh;
+            background: #111; /* Dark background */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 0;
+            overflow: hidden;
+        }
+
+        h1 {
+            text-align: center;
+            color: #ff00ff;
+            font-family: sans-serif;
+            user-select: none;
+        }
+    </style>
+</head>
 <body>
-  <canvas id="grid" aria-hidden="true"></canvas>
-<div class="instruction" aria-hidden="true"></div>
+      <script src="https://cdn.jsdelivr.net/gh/iamashruu/cursorly.js@latest/dist/cursorly.min.js"></script>
   <!-- Mobile Overlay -->
   <div class="mobile-overlay"></div>
 
@@ -568,5 +590,22 @@
   </div>
 </footer>
   <script src="script.js"></script>
+  <script>
+        // Wait for the window to load to ensure the library is ready
+        window.onload = () => {
+            const cursor = Cursorly.init({
+                cursor: 4,
+                effect: { 
+                    name: "trail", 
+                    color: "rainbow",
+                    density: 6,
+                    size: [2, 8],
+                    decay: .98,
+                    hueStep: 3,
+                    type: "default"
+                } 
+            });
+        };
+    </script>
 </body>
 </html>
