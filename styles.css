@@ -1,8 +1,7 @@
 /* === HACKHERWAY SECURITY — styles.css === */
 @import url('https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;600;700&family=Outfit:wght@300;400;500;600;700;800;900&family=Space+Mono:ital,wght@0,400;0,700;1,400&display=swap');
 
-/* --- Custom Properties --- */
-:root {
+m:root {
   --bg-black: #08080a;
   --bg-dark: #0e0e12;
   --bg-card: #131318;
@@ -63,8 +62,8 @@ img { max-width: 100%; }
   display: flex; align-items: center; gap: 10px;
   font-family: 'Outfit', sans serif;
   text-transform: uppercase !important;
-  font-size: 13px;
-  color: var(--text-primary);
+  font-size: 10px;
+  color: var(--text-muted);
   letter-spacing: -0.3px;
 }
 .navbar__brand .helix-icon {
@@ -286,9 +285,9 @@ img { max-width: 100%; }
   50% { opacity: 0.7; box-shadow: 0 0 0 6px transparent; }
 }
 .hero__title {
-  font-family: 'Space Mono', monospace;
+  font-family: 'Outfit', sans serif;
   font-size: clamp(32px, 4.5vw, 52px);
-  font-weight: 700;
+  font-weight: 200;
   line-height: 1.1;
   margin-bottom: 16px;
   letter-spacing: -1px;
