@@ -68,10 +68,9 @@ img { max-width: 100%; }
 }
 .navbar__brand .helix-icon {
   width: 28px; height: 28px;
-  background: var(--pink);
+  background: var(--black);
   border-radius: 6px;
-  display: flex; align-items: center; justify-content: center;
-  font-size: 14px; color: #fff;
+  display: flex; align-itemsf;
 }
 .navbar__links { display: flex; align-items: center; gap: 8px; }
 .navbar__links a {
