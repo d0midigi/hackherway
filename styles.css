@@ -2,7 +2,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;600;700&family=Outfit:wght@300;400;500;600;700;800;900&family=Space+Mono:ital,wght@0,400;0,700;1,400&display=swap');
 
 :root {
-  --bg-black: #08080a
+  --bg-black: #08080a;
   --bg-dark: #0e0e12;
   --bg-card: #131318;
   --bg-sidebar: #0b0b0f;
