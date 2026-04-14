@@ -67,10 +67,13 @@ img { max-width: 100%; }
   letter-spacing: -0.3px;
 }
 .navbar__brand .helix-icon {
-  width: 28px; height: 28px;
-  background: var(--black);
+  width: 28px;
+  height: 28px;
+  background: #000;
   border-radius: 6px;
-  display: flex; align-itemsf;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 .navbar__links { display: flex; align-items: center; gap: 8px; }
 .navbar__links a {
@@ -919,4 +922,105 @@ img { max-width: 100%; }
 .fade-up.visible {
   opacity: 1;
   transform: translateY(0);
+}
+.bibliotech-page .navbar {
+  left: 0;
+  right: 0;
+}
+
+.bibliotech-page .footer {
+  margin-left: 0;
+}
+
+.bibliotech-page .hero {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 56px 32px 32px;
+}
+
+.bibliotech-page .hero__content {
+  padding: 40px;
+  background: linear-gradient(180deg, rgba(255, 0, 102, 0.04), rgba(255, 0, 102, 0.01));
+  border: 1px solid var(--border-dark);
+  border-radius: 16px;
+}
+
+.bibliotech-page .blog-container {
+  display: flex;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 40px 32px 80px;
+  gap: 32px;
+}
+
+.bibliotech-page .blog-main {
+  flex: 1;
+  min-width: 0;
+  padding-right: 0;
+}
+
+.bibliotech-page .toc-sidebar {
+  width: 240px;
+  flex-shrink: 0;
+  position: sticky;
+  top: calc(var(--navbar-h) + 40px);
+  max-height: calc(100vh - var(--navbar-h) - 80px);
+  overflow-y: auto;
+  align-self: flex-start;
+}
+
+.bibliotech-page .tree {
+  list-style: none;
+  padding-left: 20px;
+  position: relative;
+  margin: 20px 0 32px;
+}
+
+.bibliotech-page .tree::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  border-left: 1px solid var(--border-light);
+  height: 100%;
+}
+
+.bibliotech-page .tree li {
+  position: relative;
+  padding-left: 20px;
+  margin: 8px 0;
+  color: var(--text-secondary);
+}
+
+.bibliotech-page .tree li::before {
+  content: '';
+  position: absolute;
+  top: 12px;
+  left: 0;
+  width: 14px;
+  border-top: 1px solid var(--border-light);
+}
+
+.bibliotech-page .folder i {
+  color: var(--yellow-code);
+  margin-right: 8px;
+}
+
+.bibliotech-page .file i {
+  color: var(--blue-code);
+  margin-right: 8px;
+}
+
+.bibliotech-page details {
+  cursor: pointer;
+}
+
+.bibliotech-page summary {
+  list-style: none;
+  color: var(--text-primary);
+  font-weight: 600;
+}
+
+.bibliotech-page summary::-webkit-details-marker {
+  display: none;
 }
