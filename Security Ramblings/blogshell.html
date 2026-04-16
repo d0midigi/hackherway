@@ -1,0 +1,557 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>· hackherway cyberepo — an offensive & defensive cybersecurity repository ·</title>
+ <meta name="description" content="computer and network security enthusiasts">
+  <meta name="keywords"
+    content="hacker tools, hacker crew, computer security, network security, penetration test, exploit, web application security, cross-site scripting, sql injection, file inclusion, security scanner, 0day, zeroday, buffer overflow, stack overflow, heap overflow, formatstring, rop, stackshield, aslr, dep, auth bypass">
+    <meta name="author" content="mindhackdiva">
+    <meta name="robots" content="index,follow,noodp,noydir">
+    <meta name="page-topic" content="hacker tools, computer and network security, exploits">
+    <meta itemprop="name" content="hackherway">
+  <link rel="stylesheet" href="styles.css">
+    <link rel="shortcut icon" href="https://i.imgur.com/pheSvKs.png">  
+
+    <style>
+        * {
+            cursor: none !important; /* Hides the real mouse */
+        }
+
+</style>
+</head>
+<body>
+ <!-- Mobile Overlay -->
+  <div class="mobile-overlay"></div>
+
+  <!-- Sidebar -->
+   <aside class="sidebar">
+    <div class="sidebar__header">
+      <div class="sidebar__logo">
+      <img src="https://i.imgur.com/pheSvKs.png" alt="hhw logo"></div
+  <div>
+        <div class="sidebar__title">hackherway</div>
+        <div class="sidebar__subtitle">A Cybersecurity Repo</div>
+      </div>
+</div>
+    <nav class="sidebar__nav">
+      <!-- Section 1 -->
+      <div class="sidebar__section">
+        <button class="sidebar__toggle active">
+          <span class="section-icon">🛠️</span>
+          · Active Directory Tools ·
+          <span class="chevron">&#9654;</span>
+        </button>
+        <div class="sidebar__submenu">
+          <a href="blog-impacket-tool-suite.html" class="current">Impacket Tool Suite</a>
+          <a href="blog-responder.html">Responder</a>
+          <a href="blog-mimikatz.html">Mimikatz</a>
+          <a href="blog-ranger.html">Ranger</a>
+          <a href="blog-bloodhound.html">BloodHound</a>
+          <a href="blog-powershell-ad-module-and-cmdlets.html">PowerShell AD Module & cmdlets</a>
+          <a href="blog-powerview.html">PowerView</a>
+          <a href="blog-ntlmrelayx.html">ntlmrelayx</a>
+          <a href="blog-mitm6.html">mitm6</a>
+          <a href="blog-pingcastle.html">Ping Castle</a>
+          <a href="blog-crackmapexec.html">CrackMapExec</a>
+          <a href="blog-rubeus.html">Rubeus</a>
+        </div>
+      </div>
+      <!-- Section 2 -->
+       <div class="sidebar__section">
+        <button class="sidebar__toggle active">
+          <span class="section-icon">🛠️</span>
+          · Pentesting Active Directory ·
+          <span class="chevron">&#9654;</span>
+        </button>
+        <div class="sidebar__submenu">
+          <a href="blog-intro-to-active-directory.html" class="current">Introduction to Active Directory</a>
+          <a href="blog-attack-technique-1-pth.html">Attack Technique 1: Pass-the-Hash - Use of Alternate Authentication Material (T1550)</a>
+          <a href="blog-attack-technique-2-ptt.html">Attack Technique 2: Pass-the-Ticket - Use of Alterate Authentication Material (T1550)</a>
+          <a href="blog-attack-technique-3-kerberoasting.html">Attack Technique 3: Kerberoasting</a>
+          <a href="blog-attack-technique-4-golden-ticket.html">Attack Technique 4: Golden Ticket</a>
+          <a href="blog-attack-technique-5-dcshadow.html">Attack Technique 5: DCShadow</a>
+          <a href="blog-attack-technique-6-as-rep-roasting.html">Attack Technique 6: AS-REP Roasting</a>
+          <a href="blog-attack-technique-7-ldap-injection.html">Attack Technique 7: LDAP Injection</a>
+          <a href="blog-attack-technique-8-petitpotam.html">Attack Technique 8: PetitPotam NTLM Relay Attack on AD CS</a>
+          <a href="blog-pingcastle.html">Ping Castle</a>
+          <a href="blog-crackmapexec.html">CrackMapExec</a>
+          <a href="blog-rubeus.html">Rubeus</a>
+        </div>
+      </div>
+     
+      <!-- Section 3 -->
+      <div class="sidebar__section">
+        <button class="sidebar__toggle">
+          <span class="section-icon">⚔️</span>
+          · Active Directory Attacks ·
+          <span class="chevron">&#9654;</span>
+        </button>
+        <div class="sidebar__submenu">
+          · Most Common Attack Vectors for AD Compromise ·
+          <a href="blog-ms14-068.html" class="current">Microsoft Kerberos Checksum Validation Vulnerability</a>
+          <a href="blog-open-shares-and-vulnerable-smb.html">Open Shares & Vulnerable SMB</a>
+          <a href="blog-gpo-pivoting.html">GPO - Pivoting with Local Admin & Passwords in SYSVOL</a>
+          <a href="blog-credential-dumping.html">Credential Dumping</a>
+          <a href="blog-golden-ticket-attacks.html">Golden Ticket Attacks</a>
+          <a href="blog-silver-ticket-attacks.html">Silver Ticket Attacks</a>
+          <a href="blog-sapphire-ticket-attacks.html">Sapphire Ticket Attacks</a>
+          <a href="blog-diamond-ticket-attacks.html">Diamond Ticket Attacks</a>
+          <a href="blog-trust-ticket-attacks.html">Trust Ticket Attacks</a>
+          <a href="blog-kerberoasting.html">Kerberoasting</a>
+          <a href="blog-asrep-roasting.html">ASREP-Roasting</a>
+          <a href="blog-pass-the-hash-pth.html">Pass-the-Hash (PtH)</a>
+          <a href="blog-pass-the-ticket-ptt.html">Pass-the-Ticket (PtT)</a>
+          <a href="blog-overpass-the-hash-pass-the-key.html">Overpass-the-Hash (Pass-the-Key)</a>
+          <a href="blog-pass-the-certificate-ptc.html">Pass-the-Certificate (PtC)</a>
+          <a href="blog-golden-samlv2-abuse.html">Golden SAMLv2 Abuse</a>
+          <a href="blog-group-policy-object-gpo-misconfigurations.html">Group Policy Object (GPO) Misconfigurations</a>
+          <a href="blog-offline-cracking-of-ntlmv2-hashes.html">Offline Cracking of NTLMv2 Hashes</a>
+          <a href="blog-ntlmv2-hash-relay-attacks.html">NTLMv2 Hash Relay Attacks</a>
+          <a href="blog-living-off-the-land-lotl-attacks.html">Living Off The Land (LOTL) Attacks</a>
+          <a href="blog-windows-privilege-escalation.html">Windows Privilege Escalation</a>
+          <a href="blog-token-impersonation-rottenpotato.html">&nbsp;&nbsp;PrivEsc Local Admin - Token Impersonation (RottenPotato)</a>
+          <a href="blog-ms16-032.html">&nbsp;&nbsp;PrivEsc Local Admin - MS16-032</a>
+          <a href="blog-ms17-010-eternal-blue.html">&nbsp;&nbsp;PrivEsc Local Admin - MS17-010 (EternalBlue)Golden Ticket Attacks</a>
+          <a href="blog-from-local-admin-to-domain-admin.html">From Local Admin to Domain Admin</a>
+          <a href="blog-skeleton-key-attacks.html">Skeleton Key Attacks</a>
+          <a href="blog-petitpotam-and-s4u2-and-s4u2proxy-attacks.html">PetitPotam, S4U2Self & S4U2Proxy Attacks</a>
+        </div>
+      </div>
+      <!-- Section 3 -->
+      <div class="sidebar__section">
+        <button class="sidebar__toggle">
+          <span class="section-icon">🔧</span>
+          · Hacking Tools ·
+          <span class="chevron">&#9654;</span>
+        </button>
+        <div class="sidebar__submenu">
+          <a href="blog-nmap.html">Nmap</a>
+          <a href="blog-nmap.html">Metasploit</a>
+          <a href="blog-nmap.html">Burp Suite</a>
+          <a href="blog-nmap.html">Wireshark</a>
+          <a href="blog-nmap.html">John the Ripper</a>
+        </div>
+      </div>
+      <!-- Section 4 -->
+      <div class="sidebar__section">
+        <button class="sidebar__toggle">
+          <span class="section-icon">🎯</span>
+          · MITRE ATT&amp;CK ·
+          <span class="chevron">&#9654;</span>
+        </button>
+        <div class="sidebar__submenu">
+          <a href="blog-mitre-attck-tactics.html">MITRE ATT&amp;CK Tactics</a>
+          <a href="blog-reconnaissance.html">Reconnaissance</a>
+          <a href="blog-resource-development.html">Resource Development</a>
+          <a href="blog-initial-access.html">Initial Access</a>
+          <a href="blog-execution.html">Execution</a>
+          <a href="blog-persistence.html">Persistence</a>
+          <a href="blog-kerberoasting.html">Privilege Escalation</a>
+          <a href="blog-kerberoasting.html">Defense Evasion</a>
+        </div>
+      </div>
+      <!-- Section 5 -->
+      <div class="sidebar__section">
+        <button class="sidebar__toggle">
+          <span class="section-icon">📋</span>
+          · Pentesting Methodologies ·
+          <span class="chevron">&#9654;</span>
+        </button>
+        <div class="sidebar__submenu">
+          <a href="blog-kerberoasting.html">OWASP Testing Guide</a>
+          <a href="blog-kerberoasting.html">PTES</a>
+          <a href="blog-kerberoasting.html">OSSTMM</a>
+          <a href="blog-kerberoasting.html">Bug Bounty Workflow</a>
+          <a href="blog-kerberoasting.html">Reporting</a>
+        </div>
+      </div>
+      <!-- Section 6 -->
+      <div class="sidebar__section">
+        <button class="sidebar__toggle">
+          <span class="section-icon">🌐</span>
+          · Cyber Domains ·
+          <span class="chevron">&#9654;</span>
+        </button>
+        <div class="sidebar__submenu">
+          <a href="blog-core-concepts.html">· Core Concepts ·</a>
+          <a href="blog-blue-team.html">Blue Team</a>
+          <a href="blog-career-pathways.html">Career Pathways</a>
+          <a href="blog-cloud-security.html">Cloud Security</a>
+          <a href="blog-cyber-defense.html">Cyber Defense</a>
+          <a href="blog-cybersecurity-regulations.html">Cybersecurity Regulations, Standards & Frameworks</a>
+          <a href="blog-defensive-security-operations.html">Defensive Security Operations (DefSecOps)</a>
+          <a href="blog-devsecops.html">DevSecOps</a>
+          <a href="blog-digital-forensics.html">Digital Forensics</a>
+          <a href="blog-esdr.html">Endpoint Security, Detection & Response</a>
+          <a href="blog-grc.html">Governance, Risk & Compliance</a>
+          <a href="blog-incident-response.html">Incident Response</a>
+          <a href="blog-information-security.html">Information Security</a>
+          <a href="blog-network-security.html">Network Security</a>
+          <a href="blog-offensive-security-operations.html">Offensive Security Operations (OffSecOps)</a>
+          <a href="blog-osint.html">Open-Source Intelligence (OSINT)</a>
+          <a href="blog-penetration-testing.html">Penetration Testing</a>
+          <a href="blog-privacy-and-anonymity.html">Privacy and Anonymity</a>
+          <a href="blog-purple-team.html">Purple Team</a>
+          <a href="blog-red-team.html">Red Team</a>
+          <a href="blog-reverse-engineering.html">Reverse Engineering</a>
+          <a href="blog-secure-software-development.html">Secure Software Development</a>
+          <a href="blog-threat-hunting.html">Threat Hunting</a>
+          <a href="blog-threat-intelligence.html">Threat Intelligence</a>
+          <a href="blog-federal-government-cybersecurity.html">U.S. Federal Government Cybersecurity</a>
+          <a href="blog-vulnerability-research.html">Vulnerability Research</a>
+          <a href="blog-webappsec.html">Web Application Security</a>
+          <a href="blog-zero-trust.html">Zero Trust</a>
+        </div>
+      </div>
+       <!-- Section 7 -->
+      <div class="sidebar__section">
+        <button class="sidebar__toggle">
+        <span class="section-icon">💉</span>
+          · WebApp Attacks ·
+          <span class="chevron">&#9654;</span>
+        </button>
+        <div class="sidebar__submenu">
+          <a href="blog-abuse-of-functionality.html">Abuse of Functionality</a>
+          <a href="blog-binary-planting.html">Binary Planting</a>
+          <a href="blog-blind-sql-injection.html">Blind SQL Injection (SQLi)</a>
+          <a href="blog-blind-xpath-injection.html">Blind XPath Injection</a>
+          <a href="blog-brute-force-attack.html">Brute-Force Attack</a>
+          <a href="blog-buffer-overflow-via-environment-variables.html">Buffer Overflow via Environment Variables</a>
+          <a href="blog-buffer-overflow-attack.html">Buffer Overflow Attack</a>
+          <a href="blog-cors-originheaderscrutiny.html">CORS <code>OriginHeaderScrutiny</code></a>
+          <a href="blog-cors-requestpreflightscrutiny.html">CORS <code>RequestPreflightScrutiny</code></a>
+          <a href="blog-cache-overflow.html">Cache Overflow</a>
+          <a href="blog-cache-poisoning.html">Cache Poisoning Attack</a>
+          <a href="blog-clickjacking.html">Clickjacking</a>
+          <a href="blog-code-injection.html">Code Injection</a>
+          <a href="blog-csv-injection.html">Comma Separated Value (CSV) Injection</a>
+          <a href="blog-command-injection.html">Command Injection</a>
+          <a href="blog-comment-injection-attack.html">Comment Injection Attack</a>
+          <a href="blog-content-spoofing.html">Content Spoofing</a>
+          <a href="blog-credential-stuffing.html">Credential Stuffing</a>
+          <a href="blog-cross-site-scripting-xss.html">Cross-Site Scripting (XSS)</a>
+          <a href="blog-cross-site-history-manipulation-xshm.html">Cross-Site History Manipulation (XSHM)</a>
+          <a href="blog-cross-site-request-forgery-xsrf.html">Cross-Site Request Forgery (XSRF)</a>
+          <a href="blog-cross-site-tracing.html">Cross-Site Tracing</a>
+          <a href="blog-cross-user-defacement.html">Cross-User Defacement</a>
+          <a href="blog-cryptanalysis.html">Cryptanalysis</a>
+          <a href="blog-custom-special-character-injection.html">Custom Special Character Injection</a>
+          <a href="blog-denial-of-service-dos.html">Denial of Service (DoS)</a>
+          <a href="blog-direct-dynamic-code-evaluation-eval-injection.html">Direct Dynamic Code Evaluation - Eval Injection</a>
+          <a href="blog-embedding-null-code.html">Embedding Null Code</a>
+          <a href="blog-execution-after-redirect-ear.html">Execution After Redirect (EAR)</a>
+          <a href="blog-forced-browsing.html">Forced Browsing</a>
+          <a href="blog-form-action-hijacking.html">Form Action Hijacking</a>
+          <a href="blog-format-string-attack.html">Format String Attack</a>
+          <a href="blog-full-path-disclosure.html">Full Path Disclosure</a>
+          <a href="blog-function-injection.html">Function Injection</a>
+          <a href="blog-hitl-dialog-forgig-lies-in-the-loop.html">HITL Dialog Forging (Lies-in-the-Loop)</a>
+          <a href="blog-http2-reset-attack.html">HTTP/2 Reset Attack</a>
+          <a href="blog-http-response-splitting.html">HTTP Response Splitting</a>
+          <a href="blog-insecure-direct-object-reference-idor.html">Insecure Direct Object Reference (IDOR)</a>
+          <a href="blog-ip-spoofing-via-http-headers.html">IP Spoofing via HTTP Headers</a>
+          <a href="blog-ldap-injection.html">LDAP Injection</a>
+          <a href="blog-log-injection.html">Log Injection</a>
+          <a href="blog-man-in-the-browser-attack.html">Man-in-the-Browser Attack</a>
+          <a href="blog-manipulator-in-the-middle-attack.html">Manipulator-in-the-Middle Attack</a>
+          <a href="blog-open-redirect.html">Open Redirect</a>
+          <a href="blog-parameter-delimiter.html">Parameter Delimiter</a>
+          <a href="blog-password-spraying.html">Password Spraying</a>
+          <a href="blog-path-traversal.html">Path Traversal</a>
+          <a href="blog-qrljacking.html">Qrljacking</a>
+          <a href="blog-rsql-injection.html">RSQL Injection</a>
+          <a href="blog-reflected-dom-injection.html">Reflected DOM Injection</a>
+          <a href="blog-regular-expression-denial-of-service-redos.html">Regular Expression Denial of Service (ReDoS)</a>
+          <a href="blog-resource-injection.html">Resource Injection</a>
+          <a href="blog-reverse-tabnabbing.html">Reverse Tabnabbing</a>
+          <a href="blog-sql-injection-sqli.html">SQL Injection (SQLi)</a>
+          <a href="blog-server-side-includes-ssi-injection.html">Server-Side Includes (SSI) Injecion</a>
+          <a href="blog-server-side-request-forgery-ssrf.html">Server-Side Request Forgery (SSRF)</a>
+          <a href="blog-session-prediction.html">Session Prediction</a>
+          <a href="blog-session-fixation.html">Session Fixation</a>
+          <a href="blog-session-hijacking.html">Session Hijacking</a>
+          <a href="blog-settings-manipulation.html">Settings Manipulation</a>
+          <a href="blog-special-element-injection.html">Special Element Injection</a>
+          <a href="blog-spyware.html">Spyware</a>
+          <a href="blog-traffic-flood.html">Traffic Flood</a>
+          <a href="blog-trojan-horse.html">Trojan Horse</a>
+          <a href="blog-unicode-encoding.html">Unicode Encoding</a>
+          <a href="blog-web-parameter-tampering.html">Web Parameter Tampering</a>
+          <a href="blog-web-service-amplification-attack.html">Web Service Amplification Attack</a>
+          <a href="blog-windows-data-alternate-data-stream.html">Windows ::DATA Alternate Data Stream</a>
+          <a href="blog-xpath-injection.html">XPath Injection</a>
+          <a href="blog-xss-in-converting-file-content-to-text.html">XSS in Converting File Content to Text</a>
+          <a href="blog-xss-in-subtitle.html">XSS in Subtitle</a>
+        </div>
+      </div>
+      <!-- Section 8 -->
+      <div class="sidebar__section">
+        <button class="sidebar__toggle">
+        <span class="section-icon">🏛️</span>
+          · Security Framework Policies ·
+          <span class="chevron">&#9654;</span>
+        </button>
+        <div class="sidebar__submenu">
+          · Critical Infrastructure: ·
+          <a href="blog-nist-csf-2.0.html">NIST Cybersecurity Framework (NIST CSF) 2.0</a>
+          · Global / Enterprise: ·
+          <a href="blog-iso-iec-27001-27002.html">ISO/IEC 27001 & 27002</a>
+          <a href="blog-cis-csc.html">Center for Internet Security (CIS) - Critical Security Controls (CSC)</a>
+          · Healthcare: ·
+          <a href="blog-hipaa.html">Health Insurance Portability Accountability Act (HIPAA)</a>
+          <a href="blog-gdpr.html">General Data Protection Regulation (GDPR)</a>
+          <a href="blog-fisma.html">FISMA</a>
+          <a href="blog-ditscap.html">DITSCAP</a>
+          <a href="blog-nispom.html">NISPOM</a>
+          <a href="blog-ccpa.html">CCPA</a>
+          · U.S. Defense Contractors: ·
+          <a href="blog-dod-cmmc-2.0.html">DoD Cybersecurity Maturity Model Certification (CMMC) 2.0</a>
+          <a href="blog-nist-sp-800-171">NIST SP 800-171</a>
+          <a href="blog-rmf.html">Risk Management Framework (RMF)</a>
+          <a href="blog-fedramp.html">FedRAMP</a>
+          <a href="blog-csa.html">Cloud Security Alliance (CSA)</a>
+          <a href="blog-sox.html">Sarbanes-Oxley (SOX)</a>
+          <a href="blog-soc2.html">System and Organization Controls (SOC) 2</a>
+          · Financial / Payment Processing: ·
+          <a href="blog-pci-dss.html">Payment Card Industry Data Security Standard (PCI DSS)</a>
+          <a href="blog-ffiec.html">FFIEC</a>
+          <a href="blog-hitrust.html">HITRUST</a>
+          <a href="blog-cobit.html">Control Objectives for Information and Related Technology (COBIT)</a>
+          <a href="blog-nist-sp-800-53.html">NIST SP 800-53</a>
+          <a href="blog-essential-eight.html">Essential Eight</a>
+          <a href="blog-gdpr.html">GDPR</a>
+          <a href="blog-gdpr.html">GDPR</a>
+          <a href="blog-gdpr.html">GDPR</a>
+
+        </div>
+      </div>
+
+    </nav>
+    <div class="sidebar__footer">
+   <center><span>v13.3.7 &middot; loPSEC</span></center>
+    </div>
+  </aside>
+
+  <!-- Navbar -->
+  <header class="navbar">
+    <button class="hamburger" aria-label="Toggle menu">
+      <span></span><span></span><span></span>
+    </button>
+   <!-- HTML (replace your navbar brand block with this) -->
+<div class="navbar__brand">
+  <div class="helix-icon">🖤</div>
+  <span class="navbar__tagline">to learn is to live</span>
+</div>
+    <div class="navbar__search">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="color:var(--text-muted)"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg>
+      <input type="text" placeholder=" 🔍 Query...">
+      <kbd>/</kbd>
+    </div>
+    <nav class="navbar__links">
+      <a href="index.html" class="active">127.0.0.1</a>
+      <a href="blog-kerberoasting.html">Security Ramblings</a>
+      <a href="blog-gitbook.html">GitBook</a>
+      <a href="whoami.html">Whoami</a>
+      <a href="#">411</a> 
+    </nav>
+  </header>   
+
+  <!-- Main Content -->
+  <main class="main">
+    <div class="main__content">
+<h1>hi</h1>
+      <!-- Card Grid -->
+      <section id="topics" class="fade-up">
+        <h2 class="section-heading">Research Domains</h2>
+        <p class="section-sub">Core knowledge areas covering offensive and defensive security disciplines.</p>
+        <div class="card-grid">
+          <div class="card">
+            <span class="card__icon">&#x1f3f0;</span>
+            <h3 class="card__title">Active Directory Attacks &amp; Defense</h3>
+            <p class="card__desc">Kerberoasting, Pass-the-Hash, Golden Tickets, AD enumeration techniques, and defensive hardening strategies for enterprise environments.</p>
+            <a href="blog-kerberoasting.html" class="card__link">Explore &#8594;</a>
+          </div>
+          <div class="card">
+            <span class="card__icon">&#x1f527;</span>
+            <h3 class="card__title">Hacking Tools</h3>
+            <p class="card__desc">Deep dives into Nmap, Metasploit, Burp Suite, Wireshark, John the Ripper, and the broader offensive toolkit landscape.</p>
+            <a href="blog-nmap.html" class="card__link">Explore &#8594;</a>
+          </div>
+          <div class="card">
+            <span class="card__icon">&#x1f6e1;</span>
+            <h3 class="card__title">MITRE ATT&amp;CK Framework</h3>
+            <p class="card__desc">Mapping adversary behavior across tactics from Initial Access through Exfiltration, with real-world technique references.</p>
+            <a href="blog-kerberoasting.html" class="card__link">Explore &#8594;</a>
+          </div>
+          <div class="card">
+            <span class="card__icon">&#x1f4cb;</span>
+            <h3 class="card__title">Pentest Methodologies</h3>
+            <p class="card__desc">OWASP Testing Guide, PTES, OSSTMM, bug bounty workflows, and professional reporting standards for engagements.</p>
+            <a href="blog-kerberoasting.html" class="card__link">Explore &#8594;</a>
+          </div>
+          <div class="card">
+            <span class="card__icon">&#x1f310;</span>
+            <h3 class="card__title">Cybersecurity Domains</h3>
+            <p class="card__desc">Network security, application security, cloud security, incident response, and threat intelligence fundamentals.</p>
+            <a href="blog-kerberoasting.html" class="card__link">Explore &#8594;</a>
+          </div>
+        </div>
+      </section>
+
+      <!-- Accordion -->
+      <section class="accordion fade-up">
+        <h2 class="section-heading">Quick Reference</h2>
+        <p class="section-sub">Essential security concepts for practitioners at every level.</p>
+        <div class="accordion__item">
+          <button class="accordion__header">
+            <span>What is a Zero-Day Vulnerability?</span>
+            <span class="accordion__icon">+</span>
+          </button>
+          <div class="accordion__body">
+            <div class="accordion__body-inner">A zero-day vulnerability is a software security flaw unknown to the vendor or developer. The term "zero-day" refers to the fact that the developer has had zero days to fix the issue since it was not previously known. These vulnerabilities are highly valued by attackers and on exploit markets because no patch exists. Defense involves layered security, behavioral detection, and rapid incident response capabilities. Notable examples include EternalBlue (CVE-2017-0144) and Log4Shell (CVE-2021-44228).</div>
+          </div>
+        </div>
+        <div class="accordion__item">
+          <button class="accordion__header">
+            <span>Understanding CVEs and CVSS Scoring</span>
+            <span class="accordion__icon">+</span>
+          </button>
+          <div class="accordion__body">
+            <div class="accordion__body-inner">Common Vulnerabilities and Exposures (CVE) is a standardized identifier system for publicly known security flaws. Each CVE entry includes an ID (e.g., CVE-2024-1234), a description, and references. The Common Vulnerability Scoring System (CVSS) rates severity from 0.0 to 10.0 across metrics like Attack Vector, Attack Complexity, Privileges Required, and Impact. Scores of 9.0+ are considered Critical. Security teams use CVE databases (NVD, MITRE) for vulnerability management and patch prioritization.</div>
+          </div>
+        </div>
+        <div class="accordion__item">
+          <button class="accordion__header">
+            <span>Red Team vs Blue Team vs Purple Team</span>
+            <span class="accordion__icon">+</span>
+          </button>
+          <div class="accordion__body">
+            <div class="accordion__body-inner"><strong>Red Team</strong> simulates real-world adversaries to test an organization's defenses through offensive operations including social engineering, exploitation, and lateral movement. <strong>Blue Team</strong> focuses on defensive operations: monitoring, detection, incident response, and hardening. <strong>Purple Team</strong> bridges both by facilitating collaboration between red and blue, ensuring attack simulations directly improve detection capabilities. Modern security programs leverage all three for a comprehensive security posture through continuous adversary emulation exercises.</div>
+          </div>
+        </div>
+        <div class="accordion__item">
+          <button class="accordion__header">
+            <span>Common Attack Vectors and Entry Points</span>
+            <span class="accordion__icon">+</span>
+          </button>
+          <div class="accordion__body">
+            <div class="accordion__body-inner">The most prevalent attack vectors include: <strong>Phishing</strong> (spear phishing emails with malicious attachments or credential harvesting links), <strong>Exposed Services</strong> (unpatched web applications, RDP, SSH, VPN endpoints), <strong>Supply Chain</strong> (compromised third-party software or dependencies), <strong>Credential Abuse</strong> (password spraying, credential stuffing from data breaches), and <strong>Insider Threats</strong> (malicious or negligent insiders with legitimate access). Understanding these vectors is foundational for both penetration testing scoping and defensive architecture.</div>
+          </div>
+        </div>
+        <div class="accordion__item">
+          <button class="accordion__header">
+            <span>Security Frameworks Overview (NIST, ISO, CIS)</span>
+            <span class="accordion__icon">+</span>
+          </button>
+          <div class="accordion__body">
+            <div class="accordion__body-inner"><strong>NIST Cybersecurity Framework</strong> organizes security into five functions: Identify, Protect, Detect, Respond, Recover. <strong>ISO 27001</strong> provides requirements for an Information Security Management System (ISMS) with Annex A controls. <strong>CIS Controls</strong> offer a prioritized set of 18 security actions mapped to common attack patterns. <strong>MITRE ATT&CK</strong> catalogs adversary tactics and techniques based on real-world observations. These frameworks are complementary — organizations often map between them for comprehensive coverage across governance, operations, and technical controls.</div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Code Block -->
+      <section class="code-section fade-up">
+        <h2 class="section-heading">Example: Nmap Reconnaissance</h2>
+        <p class="section-sub">A typical network discovery and service enumeration scan.</p>
+        <div class="code-block">
+          <div class="code-block__header">
+            <div class="code-block__dots"><span></span><span></span><span></span></div>
+            <span class="code-block__lang">bash</span>
+            <button class="code-block__copy">Copy</button>
+          </div>
+<pre><span class="c-comment"># Network discovery and aggressive service scan</span>
+<span class="c-prompt">$</span> <span class="c-cmd">nmap</span> <span class="c-flag">-sC -sV -A -T4</span> <span class="c-ip">192.168.1.0/24</span>
+
+<span class="c-output">Starting Nmap 7.94 ( https://nmap.org )</span>
+<span class="c-output">Nmap scan report for</span> <span class="c-ip">192.168.1.10</span>
+<span class="c-output">Host is up (0.0032s latency).</span>
+
+<span class="c-output">PORT     STATE SERVICE       VERSION</span>
+<span class="c-success">22/tcp   open  ssh           OpenSSH 8.9p1</span>
+<span class="c-success">80/tcp   open  http          Apache httpd 2.4.54</span>
+<span class="c-success">443/tcp  open  ssl/https     nginx 1.24.0</span>
+<span class="c-success">3389/tcp open  ms-wbt-server Microsoft Terminal Services</span>
+<span class="c-success">8080/tcp open  http-proxy    Squid 5.7</span>
+
+<span class="c-comment"># NSE script results</span>
+<span class="c-output">| http-title: Corporate Intranet Portal</span>
+<span class="c-output">| ssl-cert: Subject: CN=corp.example.com</span>
+<span class="c-output">| smb-os-discovery: Windows Server 2019 Build 17763</span>
+
+<span class="c-output">Nmap done:</span> <span class="c-string">256 IP addresses (12 hosts up)</span> <span class="c-output">scanned in 48.32 seconds</span></pre>
+        </div>
+      </section>
+
+      <!-- Terminal -->
+      <section class="terminal-section fade-up">
+        <h2 class="section-heading">Live Terminal</h2>
+        <p class="section-sub">Interactive framework initialization sequence.</p>
+        <div class="terminal">
+          <div class="terminal__header">
+            <div class="code-block__dots"><span></span><span></span><span></span></div>
+            <div class="terminal__title">mindhackdiva@hackherway:~</div>
+            <div></div>
+          </div>
+          <div class="terminal__body"></div>
+        </div>
+      </section>
+
+      <!-- Stats -->
+      <section class="stats-section fade-up">
+        <div class="stat-card">
+          <div class="stat__number" data-target="527" data-suffix="+">0</div>
+          <div class="stat__label">Techniques Documented</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat__number" data-target="156" data-suffix="+">0</div>
+          <div class="stat__label">Tools Cataloged</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat__number" data-target="63" data-suffix="+">0</div>
+          <div class="stat__label">Attack Paths Mapped</div>
+        </div>
+      </section>
+    </div>
+  </main>
+
+<!-- Footer -->
+<footer class="footer">
+    <img src="https://pixelsafari.neocities.org/dividers/rainbowstars4.gif" alt="">
+  <div class="footer__inner">
+    <div>&copy; 1996-2026 <strong>hackherway cybersecurity</strong> | Educational content only · No warranties implied</div>
+    <div>· Built with curiosity, caffeine, and controlled paranoia ·</div>
+   </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- <div class="footer__inner">
+  </div> -->
+    <div id="center" style="margin:14px auto 0; width:130px;">
+      <div style="border:1px solid white; width:130px; height:35px; margin:10px auto;">
+        <div style="font-size:11px">
+          Visitor since November 2011
+          <a target="_blank" href="https://www.hitwebcounter.com/counterresources.php">
+            <img border="0" alt="" src="https://hitwebcounter.com/counter/counter.php?page=320569&amp;style=0038&amp;nbdigits=8&amp;type=ip&amp;initCount=0">
+          </a>
+        </div>
+        <div class="footer__inner">  
+    <div>· Made with ❤️ by nullbrat · mindhackdiva · | · s08 🩷 a02 · b10 💙 j25 · k08 💚 d14 · d05 💗 td14 ·</div>
+    <div class="footer__links">
+      <a href="#privacy">Privacy</a> |
+      <a href="#terms-of-use">Terms</a> |
+      <a href="#">GitHub</a> |
+      <a href="#">Contact</a> |
+      <a href="#">Glossary</a> |
+      <a href="index.html">Back to Docs</a>
+    </div>
+      <div>· Stay Safe · Stay Vigilant · Stay Informed ·</div>
+        <img src="https://pixelsafari.neocities.org/dividers/rainbowstars4.gif" alt="">
+  </footer>
+  <script src="script.js"></script>
+  
+</body>
+</html>
+          
