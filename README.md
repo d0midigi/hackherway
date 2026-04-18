@@ -1,7 +1,7 @@
 # 💫 About Me:
 [![Typing SVG](https://readme-typing-svg.demolab.com/?lines=I+am+a+NetSecOps/+IA+ISSE|pentesting+princess|ethical+hacker+in+heels;I+am+a+Purple+Team+folyfe;I+am+a+self-taught+frontend+coder;I+am+a+bass+junkie+and+love+Drum+n+Bass)](https://git.io/typing-svg)
 
-[![Typing SVG](https://readme-typing-svg.demolab.com?font=Fira+Code&pause=1000&color=FE0942&random=true&width=435&height=150&lines=I+am+a+NetSecOps+ISSE+for+the+US+Navy;Active+Directory+Pentesting+Princess;AD+Offensive%2BDefensive+Security+Specialist;Ethical+Hacker+in+Heels)](https://git.io/typing-svg)
+[![Typing SVG](https://readme-typing-svg.demoab.com/?lines=I+am+a+NetSecOps+ISSE+for+the+US+Navy;Active+Directory+Pentesting+Princess;AD+Offensive%2BDefensive+Security+Specialist;Ethical+Hacker+in+Heels)](https://git.io/typing-svg)
 
 ## 🌐 Socials:
 [![YouTube](https://img.shields.io/badge/YouTube-%23FF0000.svg?logo=YouTube&logoColor=white)](https://youtube.com/@techchick69) [![Codepen](https://img.shields.io/badge/Codepen-000000?logo=codepen&logoColor=white)](https://codepen.io/yvonne-angelica) [![Mastodon](https://img.shields.io/badge/-MASTODON-%232B90D9?logo=mastodon&logoColor=white)](https://mastodon.social/@mindhackdiva) 
