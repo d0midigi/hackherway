@@ -3,6 +3,7 @@
 
 [![Typing SVG](https://readme-typing-svg.demoab.com/?lines=I+am+a+NetSecOps+ISSE+for+the+US+Navy;Active+Directory+Pentesting+Princess;AD+Offensive%2BDefensive+Security+Specialist;Ethical+Hacker+in+Heels)](https://git.io/typing-svg)
 
+
 ## 🌐 Socials:
 [![YouTube](https://img.shields.io/badge/YouTube-%23FF0000.svg?logo=YouTube&logoColor=white)](https://youtube.com/@techchick69) [![Codepen](https://img.shields.io/badge/Codepen-000000?logo=codepen&logoColor=white)](https://codepen.io/yvonne-angelica) [![Mastodon](https://img.shields.io/badge/-MASTODON-%232B90D9?logo=mastodon&logoColor=white)](https://mastodon.social/@mindhackdiva) 
 
