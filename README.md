@@ -1,5 +1,5 @@
 # 💫 About Me:
-[![Typing SVG](https://readme-typing-svg.demolab.com/?lines=First+line+of+text;I+am+a+self-taught+frontend+developer)](https://git.io/typing-svg)
+[![Typing SVG](https://readme-typing-svg.demolab.com/?lines=First+line+of+text;I+am+a+self-taught+frontend+developer;)](https://git.io/typing-svg)
 
 ## 🌐 Socials:
 [![YouTube](https://img.shields.io/badge/YouTube-%23FF0000.svg?logo=YouTube&logoColor=white)](https://youtube.com/@techchick69) [![Codepen](https://img.shields.io/badge/Codepen-000000?logo=codepen&logoColor=white)](https://codepen.io/mindhackdiva) [![Mastodon](https://img.shields.io/badge/-MASTODON-%232B90D9?logo=mastodon&logoColor=white)](https://mastodon.social/@mindhackdiva) 
