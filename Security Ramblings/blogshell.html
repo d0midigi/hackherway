@@ -15,9 +15,7 @@
     <link rel="shortcut icon" href="https://i.imgur.com/pheSvKs.png">  
 
     <style>
-        * {
-            cursor: none !important; /* Hides the real mouse */
-        }
+        
 /* === HACKHERWAY SECURITY — styles.css === */
 @import url('https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;600;700&family=Outfit:wght@300;400;500;600;700;800;900&family=Space+Mono:ital,wght@0,400;0,700;1,400&display=swap');
 
@@ -271,128 +269,6 @@ img { max-width: 100%; }
   min-height: 100vh;
 }
 .main__content { padding: 40px 48px 80px; max-width: 1100px; }
-
-/* --- Hero Section --- */
-.hero {
-  position: relative;
-  padding: 64px 0 56px;
-  overflow: hidden;
-}
-.hero__bg {
-  position: absolute; inset: 0;
-  background-image:
-    radial-gradient(circle at 20% 50%, var(--pink-glow) 0%, transparent 50%),
-    radial-gradient(circle at 80% 20%, rgba(255,0,102,0.08) 0%, transparent 40%);
-  opacity: 0.7;
-}
-.hero__grid-overlay {
-  position: absolute; inset: 0;
-  background-image:
-    linear-gradient(rgba(255,0,102,0.03) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(255,0,102,0.03) 1px, transparent 1px);
-  background-size: 40px 40px;
-}
-.hero__content { position: relative; z-index: 1; padding: 50px; }
-.hero__tag {
-  display: inline-flex; align-items: center; gap: 6px;
-  font-family: 'Fira Code', monospace;
-  font-size: 11px;
-  color: var(--pink);
-  background: var(--pink-subtle);
-  border: 1px solid rgba(255,0,102,0.15);
-  padding: 5px 14px;
-  border-radius: 20px;
-  margin-bottom: 20px;
-  letter-spacing: 0.5px;
-}
-.hero__tag .pulse {
-  width: 6px; height: 6px;
-  background: var(--pink);
-  border-radius: 50%;
-  animation: pulse 2s ease infinite;
-}
-@keyframes pulse {
-  0%, 100% { opacity: 1; box-shadow: 0 0 0 0 var(--pink-glow); }
-  50% { opacity: 0.7; box-shadow: 0 0 0 6px transparent; }
-}
-.hero__title {
-  font-family: 'Outfit', sans-serif;
-  font-size: clamp(32px, 4.5vw, 52px);
-  font-weight: 200;
-  line-height: 1.1;
-  margin-bottom: 16px;
-  letter-spacing: -1px;
-}
-.hero__title .pink { color: var(--pink); }
-.hero__title .glitch {
-  position: relative;
-  display: inline-block;
-}
-.hero__title .glitch::before,
-.hero__title .glitch::after {
-  content: attr(data-text);
-  position: absolute; top: 0; left: 0;
-  width: 100%; height: 100%;
-  opacity: 0;
-}
-.hero__title .glitch:hover::before {
-  animation: glitch1 0.3s ease;
-  color: #0ff;
-  opacity: 0.7;
-}
-.hero__title .glitch:hover::after {
-  animation: glitch2 0.3s ease 0.05s;
-  color: var(--pink);
-  opacity: 0.7;
-}
-@keyframes glitch1 {
-  0% { clip-path: inset(20% 0 40% 0); transform: translateX(-3px); opacity: 0.7; }
-  50% { clip-path: inset(60% 0 10% 0); transform: translateX(3px); opacity: 0.7; }
-  100% { clip-path: inset(0); transform: translateX(0); opacity: 0; }
-}
-@keyframes glitch2 {
-  0% { clip-path: inset(50% 0 20% 0); transform: translateX(3px); opacity: 0.7; }
-  50% { clip-path: inset(10% 0 60% 0); transform: translateX(-3px); opacity: 0.7; }
-  100% { clip-path: inset(0); transform: translateX(0); opacity: 0; }
-}
-.hero__desc {
-  font-size: 16px;
-  color: var(--text-secondary);
-  max-width: 560px;
-  line-height: 1.7;
-  margin-bottom: 28px;
-}
-.hero__actions { display: flex; gap: 12px; flex-wrap: wrap; }
-.btn {
-  display: inline-flex; align-items: center; gap: 8px;
-  padding: 10px 24px;
-  border-radius: 8px;
-  font-family: 'Outfit', sans-serif;
-  font-size: 13px; font-weight: 600;
-  cursor: pointer;
-  transition: all var(--transition);
-  border: none;
-}
-.btn--primary {
-  background: var(--pink);
-  color: #fff;
-  box-shadow: 0 4px 20px var(--pink-glow);
-}
-.btn--primary:hover {
-  background: var(--pink-light);
-  box-shadow: 0 6px 28px rgba(255,0,102,0.35);
-  transform: translateY(-1px);
-}
-.btn--ghost {
-  background: transparent;
-  color: var(--text-secondary);
-  border: 1px solid var(--border-medium);
-}
-.btn--ghost:hover {
-  border-color: var(--pink);
-  color: var(--text-primary);
-  background: var(--pink-subtle);
-}
 
 /* --- Card Grid --- */
 .section-heading {
@@ -922,7 +798,6 @@ img { max-width: 100%; }
   .main__content { padding: 24px 20px 60px; }
   .card-grid { grid-template-columns: 1fr; }
   .stats-section { grid-template-columns: 1fr; }
-  .hero__title { font-size: 28px; }
   .blog-container { padding: 24px 16px 60px; }
 }
 .mobile-overlay {
@@ -1103,33 +978,7 @@ img { max-width: 100%; }
   </div>
 
   <!-- Footer -->
-  <footer class="footer">
-    <div class="footer__inner">
-    <center>
-    <img src="https://pixelsafari.neocities.org/dividers/rainbowstars4.gif" alt="">
-    <img src="https://pixelsafari.neocities.org/dividers/rainbowstars4.gif" alt="">
-    </center>
-    <div class="footer__left">&copy;© 1996–2026 <strong>hackherway cybersecurity</strong>. Educational content only · No warranties implied</div>
-    <p class="footer-text">Built with curiosity, caffeine, and controlled paranoia</p>
-    <div class="footer__links">
-    <a href="#">Privacy</a>
-    <a href="#">Terms</a>
-    <a href="#">GitHub</a>
-    <a href="#">Contact</a>
-    <center>   · · ·
-    <div class="footer__center">&copy;· Stay Safe · Stay Vigilant · Stay Informed · Educational content only · No warranties implied ·</div>
-    <p>made with ❤️ by nullbrat • mindhackdiva</p>
-    <p> · s08 🩷 a02 · b10 💙 j25 · k08 💚 d14 · </p>
-    <center><img src="https://pixelsafari.neocities.org/dividers/rainbowstars4.gif" alt="">
-    <img src="https://pixelsafari.neocities.org/dividers/rainbowstars4.gif" alt="">
-    </center>
-    </div>
-    </div>
-    </footer>
-
-
-  <script src="script.js"></script>
-<script>
+ <script>
 
 /* === HACKHERWAY SECURITY — script.js === */
 
@@ -1524,137 +1373,6 @@ function initSidebar() {
   });
 }
 
-/* --- Accordion --- */
-function initAccordion() {
-  document.querySelectorAll('.accordion__header').forEach(header => {
-    header.addEventListener('click', () => {
-      const item = header.parentElement;
-      const body = item.querySelector('.accordion__body');
-      const inner = body.querySelector('.accordion__body-inner');
-      const isOpen = item.classList.contains('open');
-      // Close all
-      document.querySelectorAll('.accordion__item.open').forEach(openItem => {
-        openItem.classList.remove('open');
-        openItem.querySelector('.accordion__body').style.maxHeight = '0';
-      });
-      if (!isOpen) {
-        item.classList.add('open');
-        body.style.maxHeight = inner.scrollHeight + 'px';
-      }
-    });
-  });
-}
-
-/* --- Copy to Clipboard --- */
-function initCopyButtons() {
-  document.querySelectorAll('.code-block__copy').forEach(btn => {
-    btn.addEventListener('click', () => {
-      const codeBlock = btn.closest('.code-block');
-      const code = codeBlock.querySelector('pre').textContent;
-      navigator.clipboard.writeText(code).then(() => {
-        btn.textContent = 'Copied!';
-        btn.classList.add('copied');
-        setTimeout(() => {
-          btn.textContent = 'Copy';
-          btn.classList.remove('copied');
-        }, 2000);
-      });
-    });
-  });
-}
-
-/* --- Terminal Typing Effect --- */
-function initTerminal() {
-  const termBody = document.querySelector('.terminal__body');
-  if (!termBody || termBody.dataset.animated === 'true') return;
-  termBody.dataset.animated = 'true';
-
-  const lines = [
-      { text: '╔══════════════════════════════════════════════╗', cls: 't-pink' },
-    { text: '║     HELIX KITTEN SECURITY FRAMEWORK          ║', cls: 't-pink' },
-    { text: '║     Offensive Security Research Lab           ║', cls: 't-grey' },
-    { text: '╚══════════════════════════════════════════════╝', cls: 't-pink' },
-  { text: '', cls: '' },
-    { text: '[*] Initializing threat intelligence modules...', cls: 't-green' },
-    { text: '[*] Loading MITRE ATT&CK knowledge base...', cls: 't-green' },
-    { text: '[*] Connecting to vulnerability database...', cls: 't-green' },
-    { text: '[+] 2,847 techniques cataloged', cls: 't-white' },
-    { text: '[+] 156 tool profiles loaded', cls: 't-white' },
-    { text: '[+] System ready.', cls: 't-green' },
-    { text: '', cls: '' },
-    { text: 'mindhackdiva@hackherway:~$ ', cls: 't-pink', cursor: true },
-  ];
-
-  termBody.innerHTML = '';
-  let i = 0;
-
-  function typeLine() {
-    if (i >= lines.length) return;
-    const line = lines[i];
-    const div = document.createElement('div');
-    if (line.text === '') {
-      div.innerHTML = '&nbsp;';
-    } else {
-      div.innerHTML = `<span class="${line.cls}">${escapeHTML(line.text)}</span>`;
-      if (line.cursor) {
-        div.innerHTML += '<span class="terminal__cursor"></span>';
-      }
-    }
-    div.style.opacity = '0';
-    termBody.appendChild(div);
-    requestAnimationFrame(() => {
-      div.style.transition = 'opacity 0.15s ease';
-      div.style.opacity = '1';
-    });
-    i++;
-    setTimeout(typeLine, line.text === '' ? 50 : 80 + Math.random() * 60);
-  }
-
-  // Start when visible
-  const observer = new IntersectionObserver((entries) => {
-    if (entries[0].isIntersecting) {
-      observer.disconnect();
-      setTimeout(typeLine, 300);
-    }
-  }, { threshold: 0.3 });
-  observer.observe(termBody);
-}
-
-function escapeHTML(str) {
-  return str.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
-}
-
-/* --- Animated Counters --- */
-function initCounters() {
-  const counters = document.querySelectorAll('.stat__number');
-  if (!counters.length) return;
-
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        const el = entry.target;
-        const target = parseInt(el.dataset.target);
-        const suffix = el.dataset.suffix || '';
-        animateCounter(el, 0, target, 1500, suffix);
-        observer.unobserve(el);
-      }
-    });
-  }, { threshold: 0.5 });
-
-  counters.forEach(c => observer.observe(c));
-}
-
-function animateCounter(el, start, end, duration, suffix) {
-  const startTime = performance.now();
-  function update(now) {
-    const elapsed = now - startTime;
-    const progress = Math.min(elapsed / duration, 1);
-    const eased = 1 - Math.pow(1 - progress, 3);
-    el.textContent = Math.floor(start + (end - start) * eased) + suffix;
-    if (progress < 1) requestAnimationFrame(update);
-  }
-  requestAnimationFrame(update);
-}
 
 /* --- Scroll Animations --- */
 function initScrollAnimations() {
@@ -1803,6 +1521,3 @@ gradient.addColorStop(1, `rgba(255, 20, 147, 0)`);          ctx.strokeStyle = gr
     drawGrid();
   
 </script>  
-</body>
-</html>
-          
