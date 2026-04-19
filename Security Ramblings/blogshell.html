@@ -943,106 +943,6 @@ img { max-width: 100%; }
   opacity: 1;
   transform: translateY(0);
 }
-.bibliotech-page .navbar {
-  left: 0;
-  right: 0;
-}
-
-.bibliotech-page .footer {
-  margin-left: 0;
-}
-
-.bibliotech-page .hero {
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 56px 32px 32px;
-}
-
-.bibliotech-page .hero__content {
-  padding: 40px;
-  background: linear-gradient(180deg, rgba(255, 0, 102, 0.04), rgba(255, 0, 102, 0.01));
-  border: 1px solid var(--border-dark);
-  border-radius: 16px;
-}
-
-.bibliotech-page .blog-container {
-  display: flex;
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 40px 32px 80px;
-  gap: 32px;
-}
-
-.bibliotech-page .blog-main {
-  flex: 1;
-  min-width: 0;
-  padding-right: 0;
-}
-
-.bibliotech-page .toc-sidebar {
-  width: 240px;
-  flex-shrink: 0;
-  position: sticky;
-  top: calc(var(--navbar-h) + 40px);
-  max-height: calc(100vh - var(--navbar-h) - 80px);
-  overflow-y: auto;
-  align-self: flex-start;
-}
-
-.bibliotech-page .tree {
-  list-style: none;
-  padding-left: 20px;
-  position: relative;
-  margin: 20px 0 32px;
-}
-
-.bibliotech-page .tree::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  border-left: 1px solid var(--border-light);
-  height: 100%;
-}
-
-.bibliotech-page .tree li {
-  position: relative;
-  padding-left: 20px;
-  margin: 8px 0;
-  color: var(--text-secondary);
-}
-
-.bibliotech-page .tree li::before {
-  content: '';
-  position: absolute;
-  top: 12px;
-  left: 0;
-  width: 14px;
-  border-top: 1px solid var(--border-light);
-}
-
-.bibliotech-page .folder i {
-  color: var(--yellow-code);
-  margin-right: 8px;
-}
-
-.bibliotech-page .file i {
-  color: var(--blue-code);
-  margin-right: 8px;
-}
-
-.bibliotech-page details {
-  cursor: pointer;
-}
-
-.bibliotech-page summary {
-  list-style: none;
-  color: var(--text-primary);
-  font-weight: 600;
-}
-
-.bibliotech-page summary::-webkit-details-marker {
-  display: none;
 }
 </style>
   </head>
@@ -1056,57 +956,34 @@ img { max-width: 100%; }
     </div>
     <div class="navbar__search">
       <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="color:var(--text-muted)"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg>
-      <input type="text" placeholder="Search documentation...">
+      <input type="text" placeholder="Query...">
       <kbd>/</kbd>
     </div>
     <nav class="navbar__links">
-      <a href="index.html">Home</a>
-      <a href="#" class="active">Blog</a>
+      <a href="index.html">127.0.0.1</a>
+      <a href="#" class="active">Security Ramblings</a>
       <a href="#">Whoami</a>
       <a href="#">Contact</a>
     </nav>
   </header>
 
- <!-- Hero -->
-      <section class="hero fade-up">
-        <div class="hero__bg"></div>
-        <div class="hero__grid-overlay"></div>
-        <div class="hero__content">
-          <div class="hero__tag">
-            <span class="pulse"></span>
-            TA0002
-          </div>
-          <h1 class="hero__title">
-            <span class="glitch" data-text="Helix">MITRE ATT&CK TACTIC</span> <span class="pink">Execution</span><br>
-          </h1>
-          <p class="hero__desc">
-            Learn about Execution (TA0002), a MITRE ATT&CK tactic with 46 associated techniques. Beginner-friendly guide for security teams.
-          </p>
-          <div class="hero__actions">
-            <a href="blog-execution.html" class="btn btn--primary">Start Reading &#8594;</a>
-            <a href="#topics" class="btn btn--ghost">Browse Topics</a>
-          </div>
-        </div>
-      </section>
-
-
   <div class="blog-container">
     <!-- Main Article -->
     <article class="blog-main">
       <div class="blog-header">
-        <a href="index.html" class="blog-header__back">&#8592; Back to Documentation</a>
-        <h1 class="blog-header__title">TA0002 - Execution Tactics Dissected</h1>
+        <a href="index.html" class="blog-header__back">&#8592; Back to 127.0.0.1</a>
+        <h1 class="blog-header__title">TITLE</h1>
         <div class="blog-header__meta">
           <span>&#128100; mindhackdiva</span>
           <span>&#128197; March 21, 2026</span>
           <span>&#9201; 12 min read</span>
         </div>
         <div class="blog-header__tags">
-          <span class="blog-tag">MITRE ATT&CK Tactics</span>
-          <span class="blog-tag">Cyber Defense</span>
-          <span class="blog-tag">Tactics, Techniques, Procedures (TTPs)</span>
-          <span class="blog-tag">Blue Team</span>
-          <span class="blog-tag">Defensive Operations</span>
+          <span class="blog-tag">TAG</span>
+          <span class="blog-tag">TAG</span>
+          <span class="blog-tag">TAG</span>
+          <span class="blog-tag">TAG</span>
+          <span class="blog-tag">TAG</span>
         </div>
       </div>
 
@@ -1159,7 +1036,7 @@ img { max-width: 100%; }
 <span class="c-cmd">Rubeus.exe</span> <span class="c-flag">kerberoast</span> <span class="c-flag">/tgtdeleg</span></pre>
         </div>
 
-        <h3>Crack with Hashcat</h3>
+        <h3>TITLE</h3>
         <div class="code-block">
           <div class="code-block__header">
             <div class="code-block__dots"><span></span><span></span><span></span></div>
