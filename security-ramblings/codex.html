@@ -1,0 +1,3271 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Hackherway Security — Offensive & Defensive Security Portal</title>
+<style>
+        :root {
+            --bg-void: #000000;
+            --bg-dark: #0a0a0f;
+            --bg-panel: #12121a;
+            --bg-elevated: #1a1a28;
+
+            --order-primary: #ff6b35;
+            --order-glow: rgba(255, 107, 53, 0.3);
+
+            --act-primary: #f7b801;
+            --act-glow: rgba(247, 184, 1, 0.3);
+
+            --folder-primary: #6a4c93;
+            --folder-glow: rgba(106, 76, 147, 0.3);
+
+            --file-primary: #1982c4;
+            --file-glow: rgba(25, 130, 196, 0.3);
+
+            --push-primary: #8ac926;
+            --push-glow: rgba(138, 201, 38, 0.3);
+
+            --pull-primary: #00d9ff;
+            --pull-glow: rgba(0, 217, 255, 0.3);
+
+            --peripheral-primary: #ff006e;
+            --peripheral-glow: rgba(255, 0, 110, 0.3);
+
+            --text-primary: #ffffff;
+            --text-secondary: #b0b0c8;
+            --text-muted: #6e6e8a;
+            --border: #2a2a3e;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Rajdhani', -apple-system, sans-serif;
+            background: var(--bg-void);
+            color: var(--text-primary);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background:
+                repeating-linear-gradient(0deg, rgba(255, 255, 255, 0.02) 0px, transparent 1px, transparent 2px, rgba(255, 255, 255, 0.02) 3px),
+                repeating-linear-gradient(90deg, rgba(255, 255, 255, 0.02) 0px, transparent 1px, transparent 2px, rgba(255, 255, 255, 0.02) 3px);
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .container {
+            position: relative;
+            z-index: 1;
+            display: grid;
+            grid-template-columns: 280px 1fr;
+            min-height: 100vh;
+        }
+
+        /* Header */
+        header {
+            grid-column: 1 / -1;
+            background: linear-gradient(135deg, var(--bg-dark) 0%, var(--bg-panel) 100%);
+            border-bottom: 2px solid var(--border);
+            padding: 1.5rem 2rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        header::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: linear-gradient(90deg,
+                var(--order-primary) 0%,
+                var(--act-primary) 14.28%,
+                var(--folder-primary) 28.56%,
+                var(--file-primary) 42.84%,
+                var(--push-primary) 57.12%,
+                var(--pull-primary) 71.4%,
+                var(--peripheral-primary) 85.68%,
+                var(--order-primary) 100%
+            );
+            animation: rainbowSlide 10s linear infinite;
+        }
+
+        @keyframes rainbowSlide {
+            0% { transform: translateX(-100%); }
+            100% { transform: translateX(100%); }
+        }
+
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        h1 {
+            font-family: 'Orbitron', monospace;
+            font-size: 1.75rem;
+            font-weight: 900;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            background: linear-gradient(135deg, var(--text-primary), var(--text-secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .mode-toggle {
+            display: flex;
+            gap: 0.5rem;
+            background: var(--bg-elevated);
+            padding: 0.25rem;
+            border-radius: 6px;
+            border: 1px solid var(--border);
+        }
+
+        .mode-btn {
+            padding: 0.5rem 1rem;
+            background: transparent;
+            color: var(--text-secondary);
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-family: 'Share Tech Mono', monospace;
+            font-size: 0.75rem;
+            font-weight: 700;
+            letter-spacing: 0.05em;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+        }
+
+        .mode-btn.active {
+            background: var(--text-primary);
+            color: var(--bg-void);
+        }
+
+        .mode-btn:hover:not(.active) {
+            background: var(--bg-panel);
+            color: var(--text-primary);
+        }
+
+        /* Sidebar */
+        .sidebar {
+            background: var(--bg-dark);
+            border-right: 1px solid var(--border);
+            overflow-y: auto;
+            padding: 0;
+            height: calc(100vh - 85px);
+            position: sticky;
+            top: 85px;
+        }
+
+        .sidebar::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        .sidebar::-webkit-scrollbar-track {
+            background: var(--bg-void);
+        }
+
+        .sidebar::-webkit-scrollbar-thumb {
+            background: var(--border);
+            border-radius: 3px;
+        }
+
+        .element-section {
+            border-bottom: 1px solid var(--border);
+        }
+
+        .element-header {
+            padding: 1.25rem 1.5rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            font-weight: 700;
+            font-size: 0.875rem;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            transition: all 0.3s ease;
+            position: relative;
+            font-family: 'Orbitron', monospace;
+        }
+
+        .element-header::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            width: 3px;
+            background: transparent;
+            transition: all 0.3s ease;
+        }
+
+        .element-header:hover {
+            background: var(--bg-panel);
+        }
+
+        .element-icon {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            flex-shrink: 0;
+        }
+
+        .element-header.order .element-icon { background: var(--order-primary); box-shadow: 0 0 8px var(--order-glow); }
+        .element-header.act .element-icon { background: var(--act-primary); box-shadow: 0 0 8px var(--act-glow); }
+        .element-header.folder .element-icon { background: var(--folder-primary); box-shadow: 0 0 8px var(--folder-glow); }
+        .element-header.file .element-icon { background: var(--file-primary); box-shadow: 0 0 8px var(--file-glow); }
+        .element-header.push .element-icon { background: var(--push-primary); box-shadow: 0 0 8px var(--push-glow); }
+        .element-header.pull .element-icon { background: var(--pull-primary); box-shadow: 0 0 8px var(--pull-glow); }
+        .element-header.peripheral .element-icon { background: var(--peripheral-primary); box-shadow: 0 0 8px var(--peripheral-glow); }
+
+        .element-header.order:hover::before { background: var(--order-primary); }
+        .element-header.act:hover::before { background: var(--act-primary); }
+        .element-header.folder:hover::before { background: var(--folder-primary); }
+        .element-header.file:hover::before { background: var(--file-primary); }
+        .element-header.push:hover::before { background: var--push-primary); }
+        .element-header.pull:hover::before { background: var(--pull-primary); }
+        .element-header.peripheral:hover::before { background: var(--peripheral-primary); }
+
+        .expand-icon {
+            margin-left: auto;
+            font-size: 0.625rem;
+            transition: transform 0.3s ease;
+        }
+
+        .element-header.expanded .expand-icon {
+            transform: rotate(90deg);
+        }
+
+        .element-topics {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.4s ease;
+            background: var(--bg-panel);
+        }
+
+        .element-topics.expanded {
+            max-height: 1500px;
+        }
+
+        .topic-item {
+            padding: 0.75rem 1.5rem 0.75rem 3rem;
+            cursor: pointer;
+            font-size: 0.875rem;
+            color: var(--text-secondary);
+            transition: all 0.2s ease;
+            border-left: 2px solid transparent;
+        }
+
+        .topic-item:hover {
+            background: var(--bg-elevated);
+            color: var(--text-primary);
+        }
+
+        .topic-item.active {
+            background: var(--bg-elevated);
+            color: var(--text-primary);
+            font-weight: 600;
+        }
+
+        .topic-item.order:hover,
+        .topic-item.order.active { border-left-color: var(--order-primary); }
+        .topic-item.act:hover,
+        .topic-item.act.active { border-left-color: var(--act-primary); }
+        .topic-item.folder:hover,
+        .topic-item.folder.active { border-left-color: var(--folder-primary); }
+        .topic-item.file:hover,
+        .topic-item.file.active { border-left-color: var(--file-primary); }
+        .topic-item.push:hover,
+        .topic-item.push.active { border-left-color: var(--push-primary); }
+        .topic-item.pull:hover,
+        .topic-item.pull.active { border-left-color: var(--pull-primary); }
+        .topic-item.peripheral:hover,
+        .topic-item.peripheral.active { border-left-color: var(--peripheral-primary); }
+
+        /* Main Content */
+        .main-content {
+            padding: 2rem;
+            overflow-y: auto;
+            height: calc(100vh - 85px);
+            background: var(--bg-dark);
+        }
+
+        .main-content::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        .main-content::-webkit-scrollbar-track {
+            background: var(--bg-void);
+        }
+
+        .main-content::-webkit-scrollbar-thumb {
+            background: var(--border);
+            border-radius: 4px;
+        }
+
+        .content-section {
+            display: none;
+            animation: fadeIn 0.5s ease;
+        }
+
+        .content-section.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Welcome Screen */
+        .welcome-section {
+            max-width: 1000px;
+            margin: 0 auto;
+            text-align: center;
+            padding: 3rem 2rem;
+        }
+
+        .welcome-title {
+            font-family: 'Orbitron', monospace;
+            font-size: 3rem;
+            font-weight: 900;
+            margin-bottom: 1.5rem;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            line-height: 1.2;
+        }
+
+        .welcome-subtitle {
+            font-size: 1.25rem;
+            color: var(--text-secondary);
+            margin-bottom: 3rem;
+            line-height: 1.8;
+        }
+
+        .elements-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+            margin-top: 3rem;
+        }
+
+        .element-card {
+            background: var(--bg-panel);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 2rem 1.5rem;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .element-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .element-card.order::before { background: var(--order-primary); }
+        .element-card.act::before { background: var(--act-primary); }
+        .element-card.folder::before { background: var(--folder-primary); }
+        .element-card.file::before { background: var(--file-primary); }
+        .element-card.push::before { background: var(--push-primary); }
+        .element-card.pull::before { background: var(--pull-primary); }
+        .element-card.peripheral::before { background: var(--peripheral-primary); }
+
+        .element-card:hover::before {
+            opacity: 1;
+        }
+
+        .element-card:hover {
+            transform: translateY(-4px);
+            border-color: var(--text-muted);
+        }
+
+        .element-card.order:hover { box-shadow: 0 8px 24px var(--order-glow); }
+        .element-card.act:hover { box-shadow: 0 8px 24px var(--act-glow); }
+        .element-card.folder:hover { box-shadow: 0 8px 24px var(--folder-glow); }
+        .element-card.file:hover { box-shadow: 0 8px 24px var(--file-glow); }
+        .element-card.push:hover { box-shadow: 0 8px 24px var(--push-glow); }
+        .element-card.pull:hover { box-shadow: 0 8px 24px var(--pull-glow); }
+        .element-card.peripheral:hover { box-shadow: 0 8px 24px var(--peripheral-glow); }
+
+        .element-card-number {
+            font-family: 'Orbitron', monospace;
+            font-size: 2.5rem;
+            font-weight: 900;
+            margin-bottom: 0.5rem;
+        }
+
+        .element-card.order .element-card-number { color: var(--order-primary); }
+        .element-card.act .element-card-number { color: var(--act-primary); }
+        .element-card.folder .element-card-number { color: var(--folder-primary); }
+        .element-card.file .element-card-number { color: var(--file-primary); }
+        .element-card.push .element-card-number { color: var(--push-primary); }
+        .element-card.pull .element-card-number { color: var(--pull-primary); }
+        .element-card.peripheral .element-card-number { color: var(--peripheral-primary); }
+
+        .element-card-name {
+            font-family: 'Orbitron', monospace;
+            font-size: 1.25rem;
+            font-weight: 700;
+            letter-spacing: 0.05em;
+            margin-bottom: 0.75rem;
+            text-transform: uppercase;
+        }
+
+        .element-card-desc {
+            font-size: 0.875rem;
+            color: var(--text-secondary);
+            line-height: 1.6;
+        }
+
+        /* Topic Section */
+        .topic-header {
+            margin-bottom: 2rem;
+            padding-bottom: 1.5rem;
+            border-bottom: 2px solid var(--border);
+            position: relative;
+        }
+
+        .topic-header::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            width: 100px;
+            height: 2px;
+        }
+
+        .topic-header.order::after { background: var(--order-primary); }
+        .topic-header.act::after { background: var(--act-primary); }
+        .topic-header.folder::after { background: var(--folder-primary); }
+        .topic-header.file::after { background: var(--file-primary); }
+        .topic-header.push::after { background: var(--push-primary); }
+        .topic-header.pull::after { background: var(--pull-primary); }
+        .topic-header.peripheral::after { background: var(--peripheral-primary); }
+
+        .element-badge {
+            display: inline-block;
+            font-family: 'Orbitron', monospace;
+            font-size: 0.75rem;
+            font-weight: 700;
+            letter-spacing: 0.1em;
+            padding: 0.375rem 0.75rem;
+            border-radius: 4px;
+            margin-bottom: 0.75rem;
+            text-transform: uppercase;
+        }
+
+        .element-badge.order { background: var(--order-glow); color: var(--order-primary); }
+        .element-badge.act { background: var(--act-glow); color: var(--act-primary); }
+        .element-badge.folder { background: var(--folder-glow); color: var(--folder-primary); }
+        .element-badge.file { background: var(--file-glow); color: var(--file-primary); }
+        .element-badge.push { background: var(--push-glow); color: var(--push-primary); }
+        .element-badge.pull { background: var(--pull-glow); color: var(--pull-primary); }
+        .element-badge.peripheral { background: var(--peripheral-glow); color: var(--peripheral-primary); }
+
+        .topic-title {
+            font-family: 'Orbitron', monospace;
+            font-size: 2rem;
+            font-weight: 900;
+            margin-bottom: 0.75rem;
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+        }
+
+        .topic-description {
+            color: var(--text-secondary);
+            font-size: 1.125rem;
+            line-height: 1.7;
+        }
+
+        .example-block {
+            margin-bottom: 2.5rem;
+        }
+
+        .example-title {
+            font-size: 1.125rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            color: var(--text-primary);
+            letter-spacing: 0.02em;
+        }
+
+        .code-comparison {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.5rem;
+        }
+
+        .code-block {
+            position: relative;
+            border-radius: 8px;
+            overflow: hidden;
+            background: var(--bg-void);
+            border: 1px solid var(--border);
+            transition: all 0.3s ease;
+        }
+
+        .code-block:hover {
+            border-color: var(--text-muted);
+        }
+
+        .code-header {
+            background: var(--bg-panel);
+            padding: 0.75rem 1rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .code-label {
+            font-family: 'Share Tech Mono', monospace;
+            font-size: 0.75rem;
+            font-weight: 700;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+        }
+
+        .js-label {
+            color: #f7df1e;
+        }
+
+        .ts-label {
+            color: #3178c6;
+        }
+
+        .tsx-label {
+            color: #61dafb;
+        }
+
+        .copy-btn {
+            background: transparent;
+            border: 1px solid var(--border);
+            color: var(--text-secondary);
+            padding: 0.25rem 0.625rem;
+            border-radius: 4px;
+            cursor: pointer;
+            font-family: 'Share Tech Mono', monospace;
+            font-size: 0.625rem;
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+            transition: all 0.2s ease;
+        }
+
+        .copy-btn:hover {
+            background: var(--text-primary);
+            color: var(--bg-void);
+            border-color: var(--text-primary);
+        }
+
+        .copy-btn.copied {
+            background: var(--push-primary);
+            color: var(--bg-void);
+            border-color: var(--push-primary);
+        }
+
+        pre {
+            margin: 0;
+            padding: 1.5rem;
+            overflow-x: auto;
+            font-size: 0.875rem;
+            line-height: 1.8;
+        }
+
+        pre::-webkit-scrollbar {
+            height: 6px;
+        }
+
+        pre::-webkit-scrollbar-track {
+            background: var(--bg-dark);
+        }
+
+        pre::-webkit-scrollbar-thumb {
+            background: var(--border);
+            border-radius: 3px;
+        }
+
+        code {
+            font-family: 'Share Tech Mono', monospace;
+        }
+
+        .note {
+            background: var(--bg-panel);
+            border-left: 3px solid;
+            padding: 1rem 1.5rem;
+            margin: 1.5rem 0;
+            border-radius: 4px;
+            font-size: 0.95rem;
+        }
+
+        .note.order { border-left-color: var(--order-primary); }
+        .note.act { border-left-color: var(--act-primary); }
+        .note.folder { border-left-color: var(--folder-primary); }
+        .note.file { border-left-color: var(--file-primary); }
+        .note.push { border-left-color: var(--push-primary); }
+        .note.pull { border-left-color: var(--pull-primary); }
+        .note.peripheral { border-left-color: var(--peripheral-primary); }
+
+        .note strong {
+            font-weight: 700;
+        }
+
+        /* Responsive */
+        @media (max-width: 1024px) {
+            .container {
+                grid-template-columns: 1fr;
+            }
+
+            .sidebar {
+                position: relative;
+                height: auto;
+                border-right: none;
+                border-bottom: 1px solid var(--border);
+            }
+
+            .main-content {
+                height: auto;
+            }
+
+            .code-comparison {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 640px) {
+            header {
+                padding: 1rem;
+            }
+
+            h1 {
+                font-size: 1.25rem;
+            }
+
+            .welcome-title {
+                font-size: 2rem;
+            }
+
+            .main-content {
+                padding: 1rem;
+            }
+
+            .elements-grid {
+                grid-template-columns: 1fr;
+            }
+        }  
+</style>
+</head>
+<body>
+
+<div class="container">
+  <header>
+    <div class="header-content">
+      <h1>7 Fundamental Elements of Code Javascript to Typescript Codex</h1>
+      <div class="mode-toggle">
+        <button class="mode-btn active" data-mode="both">Both</button>
+        <button class="mode-btn" data-mode="js">JS</button>
+        <button class="mode-btn" data-mode="ts">TS</button>
+      </div>
+    </div>
+  </header>
+
+  <nav class="sidebar">
+    <!-- Populated by JavaScript -->
+  </nav>
+
+  <main class="main-content">
+    <div class="welcome-section active" id="welcome">
+      <h2 class="welcome-title">7 Fundamental Elements of Code</h2>
+      <p class="welcome-subtitle">
+        Every application, server, and project is built from seven core elements.<br>
+        Master these, and you master the architecture of software development.
+      </p>
+
+      <div class="elements-grid">
+        <div class="element-card order">
+          <div class="element-card-number">1</div>
+          <div class="element-card-name">Order</div>
+          <div class="element-card-desc">Structure & Organization - How we arrange and declare code</div>
+        </div>
+        <div class="element-card act">
+          <div class="element-card-number">2</div>
+          <div class="element-card-name">Act</div>
+          <div class="element-card-desc">Actions & Operations - What code does and executes</div>
+        </div>
+        <div class="element-card folder">
+          <div class="element-card-number">3</div>
+          <div class="element-card-name">Folder</div>
+          <div class="element-card-desc">Collections & Groups - How we organize data and logic</div>
+        </div>
+        <div class="element-card file">
+          <div class="element-card-number">4</div>
+          <div class="element-card-name">File</div>
+          <div class="element-card-desc">Modules & Resources - Discrete units of functionality</div>
+        </div>
+        <div class="element-card push">
+          <div class="element-card-number">5</div>
+          <div class="element-card-name">Push</div>
+          <div class="element-card-desc">Writing & Sending - How data flows out</div>
+        </div>
+        <div class="element-card pull">
+          <div class="element-card-number">6</div>
+          <div class="element-card-name">Pull</div>
+          <div class="element-card-desc">Reading & Fetching - How data flows in</div>
+        </div>
+        <div class="element-card peripheral">
+          <div class="element-card-number">7</div>
+          <div class="element-card-name">Peripheral</div>
+          <div class="element-card-desc">Utilities & Helpers - Supporting infrastructure</div>
+        </div>
+      </div>
+    </div>
+    <!-- Content populated by JavaScript -->
+  </main>
+</div>
+
+<script>
+// 7 Elements Knowledge Structure
+const codeElements = {
+  Order: {
+    icon: "▣",
+    color: "order",
+    description: "Structure & Organization - How we declare and arrange code",
+    topics: {
+      "Variable Declaration": {
+        description: "Declaring and structuring variables and constants",
+        examples: [
+          {
+            title: "Variable Declaration Patterns",
+            js: `// ES6 variable declarations
+let mutableValue = 42;
+const immutableBinding = "constant";
+var legacyScoped = true;
+
+// Destructuring declarations
+const [first, second, ...rest] = [1, 2, 3, 4];
+const { name, age, ...props } = user;
+
+// Pattern matching
+let { x = 0, y = 0 } = coordinates;
+
+// Multiple declarations
+let a = 1, b = 2, c = 3;
+
+// Conditional declaration
+const value = condition ? "yes" : "no";`,
+            ts: `// Typed variable declarations
+let mutableValue: number = 42;
+const immutableBinding: string = "constant";
+var legacyScoped: boolean = true;
+
+// Destructuring with types
+const [first, second, ...rest]: number[] = [1, 2, 3, 4];
+const { name, age, ...props }: User = user;
+
+// Type inference
+let inferred = 42; // number
+const literal = "hello" as const; // "hello"
+
+// Union types
+let flexible: string | number = 42;
+
+// Const assertions
+const config = {
+  readonly: true,
+  value: 100
+} as const;`
+          }
+        ]
+      },
+      "Type Definitions": {
+        description: "Defining types, interfaces, and type structures",
+        examples: [
+          {
+            title: "Type System Architecture",
+            js: `// JSDoc type hints (comment-based)
+/**
+ * @typedef {Object} User
+ * @property {number} id
+ * @property {string} name
+ * @property {string} [email]
+ */
+
+/**
+ * @type {User}
+ */
+const user = { id: 1, name: "John" };
+
+// Structural patterns
+const schema = {
+  type: "object",
+  properties: {
+    name: { type: "string" },
+    age: { type: "number" }
+  }
+};`,
+            ts: `// Interface definitions
+interface User {
+  id: number;
+  name: string;
+  email?: string;
+  readonly createdAt: Date;
+}
+
+// Type aliases
+type ID = string | number;
+type Status = "active" | "inactive" | "pending";
+
+// Complex types
+type ApiResponse<T> = {
+  data: T;
+  error: null;
+} | {
+  data: null;
+  error: Error;
+};
+
+// Extending types
+interface Employee extends User {
+  department: string;
+  salary: number;
+}
+
+// Intersection types
+type Admin = User & {
+  permissions: string[];
+  level: number;
+};`
+          }
+        ]
+      },
+      "Class Structure": {
+        description: "Organizing code with classes and constructors",
+        examples: [
+          {
+            title: "Class Architecture",
+            js: `// Class declaration
+class Database {
+  constructor(config) {
+    this.connection = null;
+    this.config = config;
+  }
+
+  // Private fields (ES2022)
+  #credentials;
+  #isConnected = false;
+
+  // Methods
+  async connect() {
+    this.connection = await createConnection(this.config);
+    this.#isConnected = true;
+  }
+
+  // Getters/setters
+  get status() {
+    return this.#isConnected ? "connected" : "disconnected";
+  }
+
+  // Static methods
+  static create(config) {
+    return new Database(config);
+  }
+}`,
+            ts: `// Typed class structure
+class Database {
+  private connection: Connection | null = null;
+  private readonly config: DatabaseConfig;
+  #credentials: Credentials; // ES private
+  #isConnected: boolean = false;
+
+  constructor(config: DatabaseConfig) {
+    this.config = config;
+  }
+
+  async connect(): Promise<void> {
+    this.connection = await createConnection(this.config);
+    this.#isConnected = true;
+  }
+
+  get status(): "connected" | "disconnected" {
+    return this.#isConnected ? "connected" : "disconnected";
+  }
+
+  static create(config: DatabaseConfig): Database {
+    return new Database(config);
+  }
+}
+
+// Abstract classes
+abstract class BaseRepository<T> {
+  abstract find(id: string): Promise<T>;
+  abstract save(item: T): Promise<void>;
+}`
+          }
+        ]
+      },
+      "Module Structure": {
+        description: "Organizing code across files and modules",
+        examples: [
+          {
+            title: "Module Organization",
+            js: `// ES6 Module Structure
+// exports.js
+export const API_URL = "https://api.example.com";
+
+export function authenticate(credentials) {
+  return fetch(\`\${API_URL}/auth\`, {
+    method: "POST",
+    body: JSON.stringify(credentials)
+  });
+}
+
+export class ApiClient {
+  constructor(token) {
+    this.token = token;
+  }
+}
+
+export default class App {
+  // Default export
+}
+
+// Re-exports
+export { User, Admin } from './models';
+export * from './utils';`,
+            ts: `// TypeScript Module Structure
+// types.ts
+export interface Config {
+  apiUrl: string;
+  timeout: number;
+}
+
+export type ApiMethod = "GET" | "POST" | "PUT" | "DELETE";
+
+// api.ts
+import type { Config, ApiMethod } from './types';
+
+export const API_URL: string = "https://api.example.com";
+
+export function authenticate(
+  credentials: Credentials
+): Promise<AuthResponse> {
+  return fetch(\`\${API_URL}/auth\`, {
+    method: "POST",
+    body: JSON.stringify(credentials)
+  });
+}
+
+// Type-only exports
+export type { Config, ApiMethod };
+
+// Namespace exports
+export namespace Utils {
+  export function log(msg: string): void {}
+}`
+          }
+        ]
+      }
+    }
+  },
+  Act: {
+    icon: "⚡",
+    color: "act",
+    description: "Actions & Operations - What code executes",
+    topics: {
+      "Function Execution": {
+        description: "Defining and executing functions",
+        examples: [
+          {
+            title: "Function Patterns",
+            js: `// Function declaration
+function calculateTotal(items) {
+  return items.reduce((sum, item) => sum + item.price, 0);
+}
+
+// Arrow functions
+const multiply = (a, b) => a * b;
+const square = x => x * x;
+
+// Higher-order functions
+const withLogging = (fn) => {
+  return (...args) => {
+    console.log("Calling:", fn.name, args);
+    const result = fn(...args);
+    console.log("Result:", result);
+    return result;
+  };
+};
+
+// Immediately invoked
+(function() {
+  console.log("IIFE executed");
+})();
+
+// Method calls
+user.save();
+array.map(x => x * 2);`,
+            ts: `// Typed functions
+function calculateTotal(items: CartItem[]): number {
+  return items.reduce((sum, item) => sum + item.price, 0);
+}
+
+// Typed arrow functions
+const multiply = (a: number, b: number): number => a * b;
+const square = (x: number): number => x * x;
+
+// Generic HOF
+function withLogging<T extends (...args: any[]) => any>(
+  fn: T
+): T {
+  return ((...args: Parameters<T>): ReturnType<T> => {
+    console.log("Calling:", fn.name, args);
+    const result = fn(...args);
+    console.log("Result:", result);
+    return result;
+  }) as T;
+}
+
+// Overloaded functions
+function process(x: string): string;
+function process(x: number): number;
+function process(x: string | number): string | number {
+  return x;
+}`
+          }
+        ]
+      },
+      "Control Flow": {
+        description: "Conditionals, loops, and flow control",
+        examples: [
+          {
+            title: "Flow Control Operations",
+            js: `// Conditionals
+if (user.isAdmin) {
+  grantAccess();
+} else if (user.isModerator) {
+  grantLimitedAccess();
+} else {
+  denyAccess();
+}
+
+// Ternary
+const message = isValid ? "Success" : "Error";
+
+// Switch
+switch (action.type) {
+  case "CREATE":
+    create();
+    break;
+  case "UPDATE":
+    update();
+    break;
+  default:
+    console.log("Unknown action");
+}
+
+// Loops
+for (let i = 0; i < items.length; i++) {
+  process(items[i]);
+}
+
+for (const item of items) {
+  process(item);
+}
+
+while (hasMore) {
+  fetchNext();
+}
+
+items.forEach(item => process(item));`,
+            ts: `// Type-safe conditionals
+if (user.role === "admin") {
+  grantAccess();
+} else if (user.role === "moderator") {
+  grantLimitedAccess();
+} else {
+  denyAccess();
+}
+
+// Type narrowing
+function process(value: string | number) {
+  if (typeof value === "string") {
+    return value.toUpperCase(); // TS knows it's string
+  } else {
+    return value.toFixed(2); // TS knows it's number
+  }
+}
+
+// Discriminated unions
+type Action =
+  | { type: "CREATE"; payload: CreateData }
+  | { type: "UPDATE"; payload: UpdateData };
+
+function reducer(action: Action) {
+  switch (action.type) {
+    case "CREATE":
+      return create(action.payload); // typed!
+    case "UPDATE":
+      return update(action.payload); // typed!
+  }
+}
+
+// Type-safe iteration
+for (const item of items as Item[]) {
+  process(item);
+}`
+          }
+        ]
+      },
+      Operators: {
+        description: "Operations and transformations",
+        examples: [
+          {
+            title: "Operator Usage",
+            js: `// Arithmetic
+const sum = a + b;
+const product = a * b;
+const remainder = a % b;
+const power = a ** b;
+
+// Comparison
+const isEqual = a === b;
+const isGreater = a > b;
+const isStrictEqual = a === b; // type + value
+
+// Logical
+const both = conditionA && conditionB;
+const either = conditionA || conditionB;
+const opposite = !condition;
+
+// Nullish coalescing
+const value = userInput ?? defaultValue;
+
+// Optional chaining
+const city = user?.address?.city;
+
+// Spread/Rest
+const combined = [...arr1, ...arr2];
+const copy = { ...original };
+
+// Assignment
+let x = 10;
+x += 5;  // x = x + 5
+x *= 2;  // x = x * 2`,
+            ts: `// Type-safe operators
+const sum: number = a + b;
+const product: number = a * b;
+
+// Type assertions
+const value = input as string;
+const length = (value as string).length;
+
+// Non-null assertion
+const element = document.getElementById("app")!;
+
+// Type guards
+function isString(value: unknown): value is string {
+  return typeof value === "string";
+}
+
+if (isString(value)) {
+  value.toUpperCase(); // TS knows it's string
+}
+
+// Nullish with types
+const value: string = userInput ?? defaultValue;
+
+// Optional chaining with types
+const city: string | undefined = user?.address?.city;
+
+// Spread with types
+const combined: number[] = [...arr1, ...arr2];
+const merged: User = { ...defaults, ...overrides };`
+          }
+        ]
+      },
+      "Async Execution": {
+        description: "Asynchronous operations and promises",
+        examples: [
+          {
+            title: "Async Operations",
+            js: `// Promises
+fetch("/api/data")
+  .then(res => res.json())
+  .then(data => console.log(data))
+  .catch(err => console.error(err));
+
+// Async/await
+async function loadUser(id) {
+  try {
+    const response = await fetch(\`/api/users/\${id}\`);
+    const user = await response.json();
+    return user;
+  } catch (error) {
+    console.error("Failed to load user:", error);
+    throw error;
+  }
+}
+
+// Parallel execution
+const [users, posts] = await Promise.all([
+  fetchUsers(),
+  fetchPosts()
+]);
+
+// Sequential execution
+const user = await fetchUser();
+const posts = await fetchUserPosts(user.id);`,
+            ts: `// Typed promises
+function fetchData(url: string): Promise<ApiResponse> {
+  return fetch(url).then(res => res.json());
+}
+
+// Typed async/await
+async function loadUser(id: number): Promise<User> {
+  try {
+    const response = await fetch(\`/api/users/\${id}\`);
+    const user: User = await response.json();
+    return user;
+  } catch (error) {
+    console.error("Failed to load user:", error);
+    throw error;
+  }
+}
+
+// Generic async function
+async function fetchResource<T>(
+  url: string
+): Promise<T> {
+  const res = await fetch(url);
+  return await res.json();
+}
+
+// Typed parallel execution
+const [users, posts]: [User[], Post[]] =
+  await Promise.all([
+    fetchUsers(),
+    fetchPosts()
+  ]);`
+          }
+        ]
+      }
+    }
+  },
+  Folder: {
+    icon: "📁",
+    color: "folder",
+    description: "Collections & Groups - How we organize data",
+    topics: {
+      Arrays: {
+        description: "Ordered collections of data",
+        examples: [
+          {
+            title: "Array Collections",
+            js: `// Creating arrays
+const numbers = [1, 2, 3, 4, 5];
+const mixed = [1, "two", true, null];
+const nested = [[1, 2], [3, 4]];
+
+// Array methods
+const doubled = numbers.map(n => n * 2);
+const evens = numbers.filter(n => n % 2 === 0);
+const sum = numbers.reduce((acc, n) => acc + n, 0);
+
+// Finding elements
+const first = numbers.find(n => n > 3);
+const index = numbers.findIndex(n => n > 3);
+const has = numbers.includes(3);
+
+// Modifying arrays
+numbers.push(6);        // add to end
+numbers.pop();          // remove from end
+numbers.unshift(0);     // add to start
+numbers.shift();        // remove from start
+numbers.splice(1, 2);   // remove 2 items at index 1
+
+// Combining arrays
+const combined = [...arr1, ...arr2];
+const flat = nested.flat();`,
+            ts: `// Typed arrays
+const numbers: number[] = [1, 2, 3, 4, 5];
+const strings: Array<string> = ["a", "b", "c"];
+const mixed: (string | number)[] = [1, "two", 3];
+
+// Generic array operations
+function last<T>(arr: T[]): T | undefined {
+  return arr[arr.length - 1];
+}
+
+// Readonly arrays
+const immutable: readonly number[] = [1, 2, 3];
+// immutable.push(4); // Error!
+
+// Tuple types
+const tuple: [string, number, boolean] = ["id", 42, true];
+const [id, value, flag] = tuple;
+
+// Typed array methods
+interface User { id: number; name: string; }
+const users: User[] = [];
+
+const names: string[] = users.map(u => u.name);
+const admins: User[] = users.filter(u => u.id < 10);
+const count: number = users.reduce((n, u) => n + 1, 0);`
+          }
+        ]
+      },
+      Objects: {
+        description: "Key-value data structures",
+        examples: [
+          {
+            title: "Object Collections",
+            js: `// Object literals
+const user = {
+  id: 1,
+  name: "John",
+  email: "john@example.com",
+  settings: {
+    theme: "dark",
+    notifications: true
+  }
+};
+
+// Accessing properties
+const name = user.name;
+const theme = user.settings.theme;
+const email = user["email"];
+
+// Dynamic keys
+const key = "name";
+const value = user[key];
+
+// Object methods
+const keys = Object.keys(user);
+const values = Object.values(user);
+const entries = Object.entries(user);
+
+// Merging objects
+const updated = { ...user, age: 30 };
+const merged = Object.assign({}, defaults, user);
+
+// Computed properties
+const field = "status";
+const obj = {
+  [field]: "active",
+  [getKey()]: getValue()
+};`,
+            ts: `// Typed objects
+interface User {
+  id: number;
+  name: string;
+  email: string;
+  settings: {
+    theme: "light" | "dark";
+    notifications: boolean;
+  };
+}
+
+const user: User = {
+  id: 1,
+  name: "John",
+  email: "john@example.com",
+  settings: {
+    theme: "dark",
+    notifications: true
+  }
+};
+
+// Index signatures
+interface StringMap {
+  [key: string]: string;
+}
+
+const map: StringMap = {
+  hello: "world",
+  foo: "bar"
+};
+
+// Record type
+type UserMap = Record<number, User>;
+const users: UserMap = {
+  1: user,
+  2: anotherUser
+};
+
+// Partial and Pick
+type PartialUser = Partial<User>;
+type UserPreview = Pick<User, "id" | "name">;`
+          }
+        ]
+      },
+      "Maps & Sets": {
+        description: "Specialized collection types",
+        examples: [
+          {
+            title: "Map and Set Collections",
+            js: `// Map - key-value pairs
+const cache = new Map();
+cache.set("key1", "value1");
+cache.set(objectKey, data);
+
+const value = cache.get("key1");
+const has = cache.has("key1");
+cache.delete("key1");
+cache.clear();
+
+// Iteration
+for (const [key, value] of cache) {
+  console.log(key, value);
+}
+
+// Set - unique values
+const uniqueIds = new Set();
+uniqueIds.add(1);
+uniqueIds.add(2);
+uniqueIds.add(1); // ignored, already exists
+
+const hasId = uniqueIds.has(1);
+uniqueIds.delete(1);
+
+// Converting
+const array = [...uniqueIds];
+const set = new Set([1, 2, 2, 3]); // [1, 2, 3]`,
+            ts: `// Typed Map
+const cache = new Map<string, User>();
+cache.set("user1", userData);
+
+const user: User | undefined = cache.get("user1");
+const has: boolean = cache.has("user1");
+
+// Generic Map
+function createCache<K, V>(): Map<K, V> {
+  return new Map<K, V>();
+}
+
+const userCache = createCache<number, User>();
+
+// Typed Set
+const ids = new Set<number>();
+ids.add(1);
+ids.add(2);
+
+const uniqueNames = new Set<string>(["John", "Jane", "John"]);
+// Set<string> { "John", "Jane" }
+
+// WeakMap/WeakSet
+const weakCache = new WeakMap<object, any>();
+const weakSet = new WeakSet<object>();
+
+// Iteration with types
+for (const [key, value] of cache.entries()) {
+  // key: string, value: User
+  console.log(key, value);
+}`
+          }
+        ]
+      },
+      "Nested Structures": {
+        description: "Complex hierarchical data organization",
+        examples: [
+          {
+            title: "Hierarchical Data",
+            js: `// Nested objects
+const company = {
+  name: "TechCorp",
+  departments: {
+    engineering: {
+      manager: "Alice",
+      teams: [
+        {
+          name: "Frontend",
+          members: ["Bob", "Carol"]
+        },
+        {
+          name: "Backend",
+          members: ["Dave", "Eve"]
+        }
+      ]
+    },
+    sales: {
+      manager: "Frank",
+      regions: ["North", "South"]
+    }
+  }
+};
+
+// Deep access
+const frontendTeam = company.departments.engineering.teams[0];
+const manager = company.departments.engineering.manager;
+
+// Tree structures
+const fileSystem = {
+  name: "root",
+  type: "folder",
+  children: [
+    { name: "file1.txt", type: "file", size: 100 },
+    {
+      name: "subfolder",
+      type: "folder",
+      children: [
+        { name: "file2.txt", type: "file", size: 200 }
+      ]
+    }
+  ]
+};`,
+            ts: `// Typed nested structures
+interface Company {
+  name: string;
+  departments: {
+    engineering: Department;
+    sales: Department;
+  };
+}
+
+interface Department {
+  manager: string;
+  teams?: Team[];
+  regions?: string[];
+}
+
+interface Team {
+  name: string;
+  members: string[];
+}
+
+const company: Company = {
+  name: "TechCorp",
+  departments: {
+    engineering: {
+      manager: "Alice",
+      teams: [
+        { name: "Frontend", members: ["Bob", "Carol"] },
+        { name: "Backend", members: ["Dave", "Eve"] }
+      ]
+    },
+    sales: {
+      manager: "Frank",
+      regions: ["North", "South"]
+    }
+  }
+};
+
+// Recursive types
+type FileNode = {
+  name: string;
+  type: "file";
+  size: number;
+} | {
+  name: string;
+  type: "folder";
+  children: FileNode[];
+};
+
+const fs: FileNode = {
+  name: "root",
+  type: "folder",
+  children: [
+    { name: "file1.txt", type: "file", size: 100 }
+  ]
+};`
+          }
+        ]
+      }
+    }
+  },
+  File: {
+    icon: "📄",
+    color: "file",
+    description: "Modules & Resources - Discrete units",
+    topics: {
+      "ES Modules": {
+        description: "Modern module system (import/export)",
+        examples: [
+          {
+            title: "ES6 Module System",
+            js: `// math.js - Exporting
+export const PI = 3.14159;
+
+export function add(a, b) {
+  return a + b;
+}
+
+export class Calculator {
+  multiply(a, b) {
+    return a * b;
+  }
+}
+
+// Default export
+export default function subtract(a, b) {
+  return a - b;
+}
+
+// app.js - Importing
+import subtract from './math.js';
+import { PI, add, Calculator } from './math.js';
+import * as math from './math.js';
+
+// Usage
+const result = add(5, 3);
+const pi = math.PI;
+
+// Dynamic imports
+const module = await import('./math.js');
+const { add } = await import('./math.js');`,
+            ts: `// math.ts - Typed exports
+export const PI: number = 3.14159;
+
+export function add(a: number, b: number): number {
+  return a + b;
+}
+
+export class Calculator {
+  multiply(a: number, b: number): number {
+    return a * b;
+  }
+}
+
+export default function subtract(a: number, b: number): number {
+  return a - b;
+}
+
+// Type-only exports
+export type MathOperation = (a: number, b: number) => number;
+export interface CalculatorOptions {
+  precision: number;
+}
+
+// app.ts - Typed imports
+import subtract from './math';
+import { PI, add, Calculator } from './math';
+import type { MathOperation } from './math';
+import * as math from './math';
+
+// Dynamic imports with types
+const module = await import('./math');
+type MathModule = typeof module;`
+          }
+        ]
+      },
+      CommonJS: {
+        description: "Node.js module system (require/exports)",
+        examples: [
+          {
+            title: "CommonJS Modules",
+            js: `// math.js - Exporting
+const PI = 3.14159;
+
+function add(a, b) {
+  return a + b;
+}
+
+class Calculator {
+  multiply(a, b) {
+    return a * b;
+  }
+}
+
+// Export individual items
+exports.PI = PI;
+exports.add = add;
+
+// Or export object
+module.exports = {
+  PI,
+  add,
+  Calculator
+};
+
+// app.js - Importing
+const math = require('./math');
+const { PI, add } = require('./math');
+
+// Usage
+const result = add(5, 3);
+console.log(math.PI);
+
+// Dynamic require
+const moduleName = './math';
+const dynamicMath = require(moduleName);`,
+            ts: `// math.ts - CommonJS in TypeScript
+export const PI: number = 3.14159;
+
+export function add(a: number, b: number): number {
+  return a + b;
+}
+
+export class Calculator {
+  multiply(a: number, b: number): number {
+    return a * b;
+  }
+}
+
+// Compiles to CommonJS:
+// exports.PI = 3.14159;
+// exports.add = function(a, b) { return a + b; }
+
+// app.ts - Importing
+import { PI, add } from './math';
+// Or require syntax
+import math = require('./math');
+
+// Type definitions for modules
+declare module 'legacy-module' {
+  export function doSomething(): void;
+  export const VERSION: string;
+}
+
+// Ambient module
+declare module '*.json' {
+  const value: any;
+  export default value;
+}`
+          }
+        ]
+      },
+      "Module Patterns": {
+        description: "Organizing and structuring modules",
+        examples: [
+          {
+            title: "Module Organization Patterns",
+            js: `// Barrel exports - index.js
+export { User } from './User';
+export { Admin } from './Admin';
+export { Guest } from './Guest';
+export * from './utils';
+
+// Namespace pattern
+export const API = {
+  auth: {
+    login: () => {},
+    logout: () => {}
+  },
+  users: {
+    get: () => {},
+    create: () => {}
+  }
+};
+
+// Singleton pattern
+class Database {
+  constructor() {
+    if (Database.instance) {
+      return Database.instance;
+    }
+    this.connection = null;
+    Database.instance = this;
+  }
+}
+export default new Database();
+
+// Factory pattern
+export function createLogger(options) {
+  return {
+    log: (msg) => console.log(\`[\${options.name}] \${msg}\`)
+  };
+}`,
+            ts: `// Barrel exports with types - index.ts
+export { User, type UserType } from './User';
+export { Admin } from './Admin';
+export type { AdminConfig } from './Admin';
+export * from './utils';
+
+// Namespace with types
+export namespace API {
+  export namespace Auth {
+    export function login(creds: Credentials): Promise<Token>;
+    export function logout(): Promise<void>;
+  }
+
+  export namespace Users {
+    export function get(id: number): Promise<User>;
+    export function create(data: UserData): Promise<User>;
+  }
+}
+
+// Typed singleton
+class Database {
+  private static instance: Database;
+  private connection: Connection | null = null;
+
+  private constructor() {}
+
+  static getInstance(): Database {
+    if (!Database.instance) {
+      Database.instance = new Database();
+    }
+    return Database.instance;
+  }
+}
+
+export default Database.getInstance();
+
+// Generic factory
+export function createLogger<T extends LoggerOptions>(
+  options: T
+): Logger {
+  return {
+    log: (msg: string) => console.log(\`[\${options.name}] \${msg}\`)
+  };
+}`
+          }
+        ]
+      },
+      "Code Splitting": {
+        description: "Lazy loading and dynamic imports",
+        examples: [
+          {
+            title: "Dynamic Module Loading",
+            js: `// Lazy loading modules
+async function loadFeature() {
+  const module = await import('./feature.js');
+  module.initialize();
+}
+
+// Conditional imports
+async function loadPlatformCode() {
+  if (platform === 'web') {
+    const { WebAPI } = await import('./web-api.js');
+    return new WebAPI();
+  } else {
+    const { NativeAPI } = await import('./native-api.js');
+    return new NativeAPI();
+  }
+}
+
+// React lazy loading
+const LazyComponent = React.lazy(() =>
+  import('./HeavyComponent')
+);
+
+function App() {
+  return (
+    <Suspense fallback={<div>Loading...</div>}>
+      <LazyComponent />
+    </Suspense>
+  );
+}
+
+// Webpack magic comments
+const analytics = await import(
+  /* webpackChunkName: "analytics" */
+  './analytics.js'
+);`,
+            ts: `// Typed lazy loading
+async function loadFeature(): Promise<Feature> {
+  const module = await import('./feature');
+  return module.default;
+}
+
+// Conditional imports with types
+type API = WebAPI | NativeAPI;
+
+async function loadPlatformCode(): Promise<API> {
+  if (platform === 'web') {
+    const { WebAPI } = await import('./web-api');
+    return new WebAPI();
+  } else {
+    const { NativeAPI } = await import('./native-api');
+    return new NativeAPI();
+  }
+}
+
+// React lazy with types
+interface ComponentProps {
+  data: string;
+}
+
+const LazyComponent = React.lazy<React.FC<ComponentProps>>(
+  () => import('./HeavyComponent')
+);
+
+// Import type
+type AnalyticsModule = typeof import('./analytics');
+
+async function loadAnalytics(): Promise<AnalyticsModule> {
+  return await import('./analytics');
+}`
+          }
+        ]
+      }
+    }
+  },
+  Push: {
+    icon: "⬆",
+    color: "push",
+    description: "Writing & Sending - Data flowing out",
+    topics: {
+      "State Updates": {
+        description: "Mutating and updating application state",
+        examples: [
+          {
+            title: "State Mutation Patterns",
+            js: `// Direct mutation
+let count = 0;
+count = count + 1;
+count += 1;
+
+// Object mutation
+const user = { name: "John", age: 30 };
+user.age = 31;
+user.email = "john@example.com";
+
+// Array mutation
+const items = [1, 2, 3];
+items.push(4);
+items[0] = 10;
+items.splice(1, 1);
+
+// Immutable updates
+const newUser = { ...user, age: 31 };
+const newItems = [...items, 4];
+const updated = items.map(x => x * 2);
+
+// React state
+const [count, setCount] = useState(0);
+setCount(count + 1);
+setCount(prev => prev + 1);
+
+// Redux/state management
+dispatch({ type: 'INCREMENT' });
+dispatch(incrementAction());
+store.setState({ count: count + 1 });`,
+            ts: `// Typed mutations
+let count: number = 0;
+count = count + 1;
+
+// Typed object updates
+interface User {
+  name: string;
+  age: number;
+  email?: string;
+}
+
+const user: User = { name: "John", age: 30 };
+const updated: User = { ...user, age: 31 };
+
+// Readonly prevents mutation
+const immutable: Readonly<User> = user;
+// immutable.age = 31; // Error!
+
+// React with types
+const [count, setCount] = useState<number>(0);
+setCount(count + 1);
+
+// Typed actions
+interface IncrementAction {
+  type: 'INCREMENT';
+  payload: number;
+}
+
+function dispatch(action: IncrementAction): void {
+  // ...
+}
+
+dispatch({ type: 'INCREMENT', payload: 1 });
+
+// Immutable helper types
+type Mutable<T> = {
+  -readonly [P in keyof T]: T[P];
+};`
+          }
+        ]
+      },
+      "API Requests (POST/PUT)": {
+        description: "Sending data to servers",
+        examples: [
+          {
+            title: "Sending Data to APIs",
+            js: `// POST request
+async function createUser(userData) {
+  const response = await fetch('/api/users', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(userData)
+  });
+  return await response.json();
+}
+
+// PUT request
+async function updateUser(id, updates) {
+  const response = await fetch(\`/api/users/\${id}\`, {
+    method: 'PUT',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(updates)
+  });
+  return await response.json();
+}
+
+// With error handling
+async function saveData(data) {
+  try {
+    const res = await fetch('/api/save', {
+      method: 'POST',
+      body: JSON.stringify(data),
+      headers: { 'Content-Type': 'application/json' }
+    });
+
+    if (!res.ok) {
+      throw new Error(\`HTTP \${res.status}\`);
+    }
+
+    return await res.json();
+  } catch (error) {
+    console.error('Save failed:', error);
+    throw error;
+  }
+}`,
+            ts: `// Typed API requests
+interface User {
+  id: number;
+  name: string;
+  email: string;
+}
+
+interface CreateUserData {
+  name: string;
+  email: string;
+}
+
+async function createUser(
+  userData: CreateUserData
+): Promise<User> {
+  const response = await fetch('/api/users', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(userData)
+  });
+  return await response.json();
+}
+
+async function updateUser(
+  id: number,
+  updates: Partial<User>
+): Promise<User> {
+  const response = await fetch(\`/api/users/\${id}\`, {
+    method: 'PUT',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(updates)
+  });
+  return await response.json();
+}
+
+// Generic API helper
+async function apiRequest<T, D = any>(
+  url: string,
+  method: 'POST' | 'PUT',
+  data: D
+): Promise<T> {
+  const res = await fetch(url, {
+    method,
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(data)
+  });
+  return await res.json();
+}`
+          }
+        ]
+      },
+      "Event Emission": {
+        description: "Dispatching events and messages",
+        examples: [
+          {
+            title: "Event Dispatching",
+            js: `// Custom events
+const event = new CustomEvent('userLoggedIn', {
+  detail: { userId: 123, timestamp: Date.now() }
+});
+document.dispatchEvent(event);
+
+// Event emitter pattern
+class EventEmitter {
+  constructor() {
+    this.events = {};
+  }
+
+  on(event, listener) {
+    if (!this.events[event]) {
+      this.events[event] = [];
+    }
+    this.events[event].push(listener);
+  }
+
+  emit(event, data) {
+    if (this.events[event]) {
+      this.events[event].forEach(listener => {
+        listener(data);
+      });
+    }
+  }
+}
+
+const emitter = new EventEmitter();
+emitter.on('data', (data) => console.log(data));
+emitter.emit('data', { message: 'Hello' });
+
+// DOM events
+button.click();
+form.submit();
+input.focus();`,
+            ts: `// Typed custom events
+interface UserLoginDetail {
+  userId: number;
+  timestamp: number;
+}
+
+const event = new CustomEvent<UserLoginDetail>(
+  'userLoggedIn',
+  {
+    detail: { userId: 123, timestamp: Date.now() }
+  }
+);
+
+// Typed event emitter
+class EventEmitter<T = any> {
+  private events: Map<string, Array<(data: T) => void>> = new Map();
+
+  on(event: string, listener: (data: T) => void): void {
+    if (!this.events.has(event)) {
+      this.events.set(event, []);
+    }
+    this.events.get(event)!.push(listener);
+  }
+
+  emit(event: string, data: T): void {
+    const listeners = this.events.get(event);
+    if (listeners) {
+      listeners.forEach(listener => listener(data));
+    }
+  }
+}
+
+interface DataEvent {
+  message: string;
+  timestamp: number;
+}
+
+const emitter = new EventEmitter<DataEvent>();
+emitter.on('data', (data) => {
+  console.log(data.message); // type-safe!
+});`
+          }
+        ]
+      },
+      "Storage Operations": {
+        description: "Writing to storage (localStorage, DB)",
+        examples: [
+          {
+            title: "Data Persistence",
+            js: `// localStorage
+localStorage.setItem('token', authToken);
+localStorage.setItem('user', JSON.stringify(user));
+
+// sessionStorage
+sessionStorage.setItem('tempData', data);
+
+// IndexedDB (simplified)
+const request = indexedDB.open('myDB', 1);
+request.onsuccess = (event) => {
+  const db = event.target.result;
+  const transaction = db.transaction(['users'], 'readwrite');
+  const store = transaction.objectStore('users');
+  store.add({ id: 1, name: 'John' });
+};
+
+// File writing (Node.js)
+const fs = require('fs');
+fs.writeFileSync('data.json', JSON.stringify(data));
+
+// Database operations
+async function saveUser(user) {
+  await db.collection('users').insertOne(user);
+}
+
+async function updateUser(id, updates) {
+  await db.collection('users').updateOne(
+    { _id: id },
+    { $set: updates }
+  );
+}`,
+            ts: `// Typed localStorage
+interface UserData {
+  id: number;
+  name: string;
+  token: string;
+}
+
+function saveUser(user: UserData): void {
+  localStorage.setItem('user', JSON.stringify(user));
+}
+
+function getUser(): UserData | null {
+  const data = localStorage.getItem('user');
+  return data ? JSON.parse(data) : null;
+}
+
+// Typed IndexedDB
+interface DBSchema {
+  users: {
+    key: number;
+    value: User;
+    indexes: { 'by-email': string };
+  };
+}
+
+async function saveToIndexedDB(
+  user: User
+): Promise<void> {
+  const db = await openDB<DBSchema>('myDB', 1);
+  await db.add('users', user);
+}
+
+// Typed MongoDB operations
+interface MongoUser extends User {
+  _id: ObjectId;
+}
+
+async function saveUser(
+  user: Omit<MongoUser, '_id'>
+): Promise<void> {
+  await db.collection<MongoUser>('users').insertOne(user);
+}`
+          }
+        ]
+      }
+    }
+  },
+  Pull: {
+    icon: "⬇",
+    color: "pull",
+    description: "Reading & Fetching - Data flowing in",
+    topics: {
+      "API Requests (GET)": {
+        description: "Fetching data from servers",
+        examples: [
+          {
+            title: "Fetching Data from APIs",
+            js: `// Basic GET request
+async function getUser(id) {
+  const response = await fetch(\`/api/users/\${id}\`);
+  const user = await response.json();
+  return user;
+}
+
+// With error handling
+async function fetchData(url) {
+  try {
+    const res = await fetch(url);
+    if (!res.ok) {
+      throw new Error(\`HTTP \${res.status}\`);
+    }
+    return await res.json();
+  } catch (error) {
+    console.error('Fetch failed:', error);
+    throw error;
+  }
+}
+
+// With query parameters
+async function searchUsers(query) {
+  const params = new URLSearchParams({ q: query });
+  const res = await fetch(\`/api/search?\${params}\`);
+  return await res.json();
+}
+
+// Multiple requests
+async function loadDashboard() {
+  const [user, posts, comments] = await Promise.all([
+    fetch('/api/user').then(r => r.json()),
+    fetch('/api/posts').then(r => r.json()),
+    fetch('/api/comments').then(r => r.json())
+  ]);
+  return { user, posts, comments };
+}`,
+            ts: `// Typed GET requests
+interface User {
+  id: number;
+  name: string;
+  email: string;
+}
+
+async function getUser(id: number): Promise<User> {
+  const response = await fetch(\`/api/users/\${id}\`);
+  const user: User = await response.json();
+  return user;
+}
+
+// Generic fetch helper
+async function fetchJSON<T>(url: string): Promise<T> {
+  const res = await fetch(url);
+  if (!res.ok) {
+    throw new Error(\`HTTP \${res.status}\`);
+  }
+  return await res.json();
+}
+
+// Usage
+const user = await fetchJSON<User>('/api/user/1');
+const posts = await fetchJSON<Post[]>('/api/posts');
+
+// Typed search with params
+interface SearchParams {
+  q: string;
+  limit?: number;
+}
+
+async function searchUsers(
+  params: SearchParams
+): Promise<User[]> {
+  const query = new URLSearchParams(
+    params as Record<string, string>
+  );
+  const res = await fetch(\`/api/search?\${query}\`);
+  return await res.json();
+}`
+          }
+        ]
+      },
+      "State Reading": {
+        description: "Accessing application state",
+        examples: [
+          {
+            title: "Reading State",
+            js: `// React hooks
+const [count, setCount] = useState(0);
+const currentCount = count; // reading state
+
+// Context
+const theme = useContext(ThemeContext);
+const user = useContext(UserContext);
+
+// Redux/global state
+const user = useSelector(state => state.user);
+const isLoading = useSelector(state => state.loading);
+
+// Refs
+const inputRef = useRef(null);
+const currentValue = inputRef.current?.value;
+
+// Computed values
+const total = useMemo(() => {
+  return items.reduce((sum, item) => sum + item.price, 0);
+}, [items]);
+
+// Derived state
+const filteredItems = items.filter(item => item.active);
+const sortedItems = [...items].sort((a, b) => a.name.localeCompare(b.name));
+
+// Store getters
+const getUser = () => store.getState().user;
+const getSettings = () => store.getState().settings;`,
+            ts: `// Typed state reading
+const [count, setCount] = useState<number>(0);
+const currentCount: number = count;
+
+// Typed context
+interface ThemeContextType {
+  theme: 'light' | 'dark';
+  toggle: () => void;
+}
+
+const theme = useContext<ThemeContextType>(ThemeContext);
+
+// Typed Redux selectors
+interface RootState {
+  user: User;
+  loading: boolean;
+  items: Item[];
+}
+
+const user = useSelector((state: RootState) => state.user);
+const isLoading = useSelector((state: RootState) => state.loading);
+
+// Typed refs
+const inputRef = useRef<HTMLInputElement>(null);
+const value: string | undefined = inputRef.current?.value;
+
+// Typed computed values
+const total: number = useMemo(() => {
+  return items.reduce((sum, item) => sum + item.price, 0);
+}, [items]);
+
+// Generic selector
+function createSelector<T, R>(
+  selector: (state: T) => R
+): (state: T) => R {
+  return selector;
+}
+
+const selectUser = createSelector(
+  (state: RootState) => state.user
+);`
+          }
+        ]
+      },
+      "Data Queries": {
+        description: "Querying databases and data sources",
+        examples: [
+          {
+            title: "Database Queries",
+            js: `// MongoDB queries
+const users = await db.collection('users').find({
+  age: { $gte: 18 }
+}).toArray();
+
+const user = await db.collection('users').findOne({
+  email: 'john@example.com'
+});
+
+// SQL queries (with library)
+const users = await sql\`
+  SELECT * FROM users
+  WHERE age >= 18
+  ORDER BY name
+\`;
+
+const user = await sql\`
+  SELECT * FROM users
+  WHERE email = \${email}
+  LIMIT 1
+\`;
+
+// GraphQL queries
+const { data } = await graphql(\`
+  query GetUser($id: ID!) {
+    user(id: $id) {
+      id
+      name
+      email
+      posts {
+        title
+        content
+      }
+    }
+  }
+\`, { id: userId });
+
+// Array queries
+const adults = users.filter(u => u.age >= 18);
+const john = users.find(u => u.name === 'John');
+const hasAdmin = users.some(u => u.role === 'admin');`,
+            ts: `// Typed MongoDB queries
+interface User {
+  _id: ObjectId;
+  name: string;
+  email: string;
+  age: number;
+}
+
+const users = await db
+  .collection<User>('users')
+  .find({ age: { $gte: 18 } })
+  .toArray();
+
+// Typed SQL queries
+interface UserRow {
+  id: number;
+  name: string;
+  email: string;
+  age: number;
+}
+
+const users: UserRow[] = await sql<UserRow[]>\`
+  SELECT * FROM users WHERE age >= 18
+\`;
+
+// Typed GraphQL
+interface GetUserQuery {
+  user: {
+    id: string;
+    name: string;
+    email: string;
+    posts: Array<{
+      title: string;
+      content: string;
+    }>;
+  };
+}
+
+const { data } = await graphql<GetUserQuery>(\`
+  query GetUser($id: ID!) {
+    user(id: $id) {
+      id name email
+      posts { title content }
+    }
+  }
+\`, { id: userId });
+
+// Type-safe queries
+const adults: User[] = users.filter(u => u.age >= 18);
+const john: User | undefined = users.find(u => u.name === 'John');`
+          }
+        ]
+      },
+      "Storage Reading": {
+        description: "Reading from storage (localStorage, files)",
+        examples: [
+          {
+            title: "Reading Stored Data",
+            js: `// localStorage
+const token = localStorage.getItem('token');
+const userData = JSON.parse(
+  localStorage.getItem('user') || '{}'
+);
+
+// sessionStorage
+const tempData = sessionStorage.getItem('temp');
+
+// Cookies
+const cookieValue = document.cookie
+  .split('; ')
+  .find(row => row.startsWith('name='))
+  ?.split('=')[1];
+
+// IndexedDB
+const request = indexedDB.open('myDB', 1);
+request.onsuccess = (event) => {
+  const db = event.target.result;
+  const transaction = db.transaction(['users'], 'readonly');
+  const store = transaction.objectStore('users');
+  const getRequest = store.get(1);
+
+  getRequest.onsuccess = () => {
+    const user = getRequest.result;
+    console.log(user);
+  };
+};
+
+// File reading (Node.js)
+const fs = require('fs');
+const data = fs.readFileSync('data.json', 'utf8');
+const parsed = JSON.parse(data);
+
+// URL parameters
+const params = new URLSearchParams(window.location.search);
+const id = params.get('id');`,
+            ts: `// Typed localStorage
+interface UserData {
+  id: number;
+  name: string;
+  email: string;
+}
+
+function getUser(): UserData | null {
+  const data = localStorage.getItem('user');
+  if (!data) return null;
+  try {
+    return JSON.parse(data) as UserData;
+  } catch {
+    return null;
+  }
+}
+
+function getToken(): string | null {
+  return localStorage.getItem('token');
+}
+
+// Typed storage helper
+class TypedStorage<T> {
+  constructor(private key: string) {}
+
+  get(): T | null {
+    const data = localStorage.getItem(this.key);
+    return data ? JSON.parse(data) : null;
+  }
+
+  set(value: T): void {
+    localStorage.setItem(this.key, JSON.stringify(value));
+  }
+}
+
+const userStorage = new TypedStorage<UserData>('user');
+const user = userStorage.get();
+
+// Typed file reading
+import { readFileSync } from 'fs';
+
+interface Config {
+  apiUrl: string;
+  timeout: number;
+}
+
+const config: Config = JSON.parse(
+  readFileSync('config.json', 'utf8')
+);`
+          }
+        ]
+      }
+    }
+  },
+  Peripheral: {
+    icon: "⚙",
+    color: "peripheral",
+    description: "Utilities & Helpers - Supporting infrastructure",
+    topics: {
+      "Error Handling": {
+        description: "Managing errors and exceptions",
+        examples: [
+          {
+            title: "Error Management",
+            js: `// Try-catch
+try {
+  const result = riskyOperation();
+  console.log(result);
+} catch (error) {
+  console.error('Error:', error.message);
+} finally {
+  cleanup();
+}
+
+// Custom errors
+class ValidationError extends Error {
+  constructor(message, field) {
+    super(message);
+    this.name = 'ValidationError';
+    this.field = field;
+  }
+}
+
+throw new ValidationError('Invalid email', 'email');
+
+// Error boundaries (React)
+class ErrorBoundary extends React.Component {
+  state = { hasError: false };
+
+  static getDerivedStateFromError(error) {
+    return { hasError: true };
+  }
+
+  componentDidCatch(error, errorInfo) {
+    logError(error, errorInfo);
+  }
+
+  render() {
+    if (this.state.hasError) {
+      return <h1>Something went wrong.</h1>;
+    }
+    return this.props.children;
+  }
+}
+
+// Promise error handling
+promise
+  .then(result => process(result))
+  .catch(error => handleError(error));`,
+            ts: `// Typed error handling
+class ValidationError extends Error {
+  constructor(
+    message: string,
+    public field: string,
+    public code: string
+  ) {
+    super(message);
+    this.name = 'ValidationError';
+  }
+}
+
+class ApiError extends Error {
+  constructor(
+    message: string,
+    public statusCode: number
+  ) {
+    super(message);
+    this.name = 'ApiError';
+  }
+}
+
+// Error type guards
+function isValidationError(
+  error: unknown
+): error is ValidationError {
+  return error instanceof ValidationError;
+}
+
+// Error handling with types
+try {
+  validateData(input);
+} catch (error) {
+  if (isValidationError(error)) {
+    console.error(\`Field \${error.field}: \${error.message}\`);
+  } else if (error instanceof Error) {
+    console.error(error.message);
+  }
+}
+
+// Result type pattern
+type Result<T, E = Error> =
+  | { success: true; value: T }
+  | { success: false; error: E };
+
+function divide(a: number, b: number): Result<number> {
+  if (b === 0) {
+    return { success: false, error: new Error('Division by zero') };
+  }
+  return { success: true, value: a / b };
+}`
+          }
+        ]
+      },
+      "Utility Functions": {
+        description: "Helper functions and utilities",
+        examples: [
+          {
+            title: "Common Utilities",
+            js: `// Debounce
+function debounce(func, wait) {
+  let timeout;
+  return function(...args) {
+    clearTimeout(timeout);
+    timeout = setTimeout(() => func(...args), wait);
+  };
+}
+
+// Throttle
+function throttle(func, limit) {
+  let inThrottle;
+  return function(...args) {
+    if (!inThrottle) {
+      func(...args);
+      inThrottle = true;
+      setTimeout(() => inThrottle = false, limit);
+    }
+  };
+}
+
+// Deep clone
+function deepClone(obj) {
+  return JSON.parse(JSON.stringify(obj));
+}
+
+// Memoization
+function memoize(fn) {
+  const cache = new Map();
+  return function(...args) {
+    const key = JSON.stringify(args);
+    if (cache.has(key)) {
+      return cache.get(key);
+    }
+    const result = fn(...args);
+    cache.set(key, result);
+    return result;
+  };
+}
+
+// Sleep
+const sleep = (ms) => new Promise(r => setTimeout(r, ms));`,
+            ts: `// Typed debounce
+function debounce<T extends (...args: any[]) => any>(
+  func: T,
+  wait: number
+): (...args: Parameters<T>) => void {
+  let timeout: NodeJS.Timeout;
+  return function(...args: Parameters<T>) {
+    clearTimeout(timeout);
+    timeout = setTimeout(() => func(...args), wait);
+  };
+}
+
+// Typed throttle
+function throttle<T extends (...args: any[]) => any>(
+  func: T,
+  limit: number
+): (...args: Parameters<T>) => void {
+  let inThrottle: boolean;
+  return function(...args: Parameters<T>) {
+    if (!inThrottle) {
+      func(...args);
+      inThrottle = true;
+      setTimeout(() => inThrottle = false, limit);
+    }
+  };
+}
+
+// Type-safe deep clone
+function deepClone<T>(obj: T): T {
+  return JSON.parse(JSON.stringify(obj));
+}
+
+// Generic memoization
+function memoize<T extends (...args: any[]) => any>(
+  fn: T
+): T {
+  const cache = new Map<string, ReturnType<T>>();
+  return ((...args: Parameters<T>): ReturnType<T> => {
+    const key = JSON.stringify(args);
+    if (cache.has(key)) {
+      return cache.get(key)!;
+    }
+    const result = fn(...args);
+    cache.set(key, result);
+    return result;
+  }) as T;
+}
+
+const sleep = (ms: number): Promise<void> =>
+  new Promise(r => setTimeout(r, ms));`
+          }
+        ]
+      },
+      "Type Guards & Validators": {
+        description: "Runtime type checking and validation",
+        examples: [
+          {
+            title: "Type Checking Utilities",
+            js: `// Type checking
+function isString(value) {
+  return typeof value === 'string';
+}
+
+function isArray(value) {
+  return Array.isArray(value);
+}
+
+function isObject(value) {
+  return value !== null &&
+    typeof value === 'object' &&
+    !Array.isArray(value);
+}
+
+// Validation
+function validateEmail(email) {
+  const re = /^[^\\s@]+@[^\\s@]+\\.[^\\s@]+$/;
+  return re.test(email);
+}
+
+function validateUser(data) {
+  const errors = [];
+
+  if (!data.name || data.name.length < 2) {
+    errors.push('Name must be at least 2 characters');
+  }
+
+  if (!validateEmail(data.email)) {
+    errors.push('Invalid email');
+  }
+
+  return {
+    valid: errors.length === 0,
+    errors
+  };
+}`,
+            ts: `// Type guards
+function isString(value: unknown): value is string {
+  return typeof value === 'string';
+}
+
+function isNumber(value: unknown): value is number {
+  return typeof value === 'number';
+}
+
+function isArray<T>(value: unknown): value is T[] {
+  return Array.isArray(value);
+}
+
+// Complex type guards
+interface User {
+  id: number;
+  name: string;
+  email: string;
+}
+
+function isUser(value: unknown): value is User {
+  return (
+    isObject(value) &&
+    'id' in value && typeof value.id === 'number' &&
+    'name' in value && typeof value.name === 'string' &&
+    'email' in value && typeof value.email === 'string'
+  );
+}
+
+// Assertion functions
+function assertUser(value: unknown): asserts value is User {
+  if (!isUser(value)) {
+    throw new Error('Not a valid user');
+  }
+}
+
+// Zod-style validation
+interface ValidationResult<T> {
+  success: boolean;
+  data?: T;
+  errors?: string[];
+}
+
+function validateUser(data: unknown): ValidationResult<User> {
+  const errors: string[] = [];
+
+  if (!isObject(data)) {
+    return { success: false, errors: ['Not an object'] };
+  }
+
+  if (!isUser(data)) {
+    errors.push('Invalid user structure');
+  }
+
+  return errors.length === 0
+    ? { success: true, data: data as User }
+    : { success: false, errors };
+}`
+          }
+        ]
+      },
+      Configuration: {
+        description: "App configuration and constants",
+        examples: [
+          {
+            title: "Configuration Management",
+            js: `// Constants
+const API_URL = 'https://api.example.com';
+const API_TIMEOUT = 5000;
+const MAX_RETRIES = 3;
+
+// Config object
+const config = {
+  api: {
+    url: process.env.API_URL || 'http://localhost:3000',
+    timeout: 5000,
+    retries: 3
+  },
+  features: {
+    analytics: true,
+    darkMode: true
+  },
+  defaults: {
+    pageSize: 20,
+    theme: 'light'
+  }
+};
+
+// Environment-based config
+const isDev = process.env.NODE_ENV === 'development';
+const apiUrl = isDev
+  ? 'http://localhost:3000'
+  : 'https://api.production.com';
+
+// Feature flags
+const FEATURES = {
+  NEW_DASHBOARD: true,
+  BETA_FEATURES: false,
+  EXPERIMENTAL_UI: process.env.ENABLE_EXPERIMENTAL === 'true'
+};
+
+// Export config
+export default config;`,
+            ts: `// Typed constants
+const API_URL: string = 'https://api.example.com';
+const API_TIMEOUT: number = 5000;
+const MAX_RETRIES: number = 3;
+
+// Typed config
+interface AppConfig {
+  api: {
+    url: string;
+    timeout: number;
+    retries: number;
+  };
+  features: {
+    analytics: boolean;
+    darkMode: boolean;
+  };
+  defaults: {
+    pageSize: number;
+    theme: 'light' | 'dark';
+  };
+}
+
+const config: Readonly<AppConfig> = {
+  api: {
+    url: process.env.API_URL || 'http://localhost:3000',
+    timeout: 5000,
+    retries: 3
+  },
+  features: {
+    analytics: true,
+    darkMode: true
+  },
+  defaults: {
+    pageSize: 20,
+    theme: 'light'
+  }
+} as const;
+
+// Typed environment
+type Environment = 'development' | 'production' | 'test';
+
+const env: Environment =
+  (process.env.NODE_ENV as Environment) || 'development';
+
+// Typed feature flags
+interface FeatureFlags {
+  readonly NEW_DASHBOARD: boolean;
+  readonly BETA_FEATURES: boolean;
+  readonly EXPERIMENTAL_UI: boolean;
+}
+
+const FEATURES: FeatureFlags = {
+  NEW_DASHBOARD: true,
+  BETA_FEATURES: false,
+  EXPERIMENTAL_UI: process.env.ENABLE_EXPERIMENTAL === 'true'
+} as const;
+
+export default config;`
+          }
+        ]
+      }
+    }
+  }
+};
+
+// Generate navigation
+function generateNavigation() {
+  const sidebar = document.querySelector(".sidebar");
+
+  Object.entries(codeElements).forEach(([elementName, elementData]) => {
+    const section = document.createElement("div");
+    section.className = "element-section";
+
+    const header = document.createElement("div");
+    header.className = `element-header ${elementData.color}`;
+    header.innerHTML = `
+                    <div class="element-icon"></div>
+                    <span>${elementName}</span>
+                    <span class="expand-icon">►</span>
+                `;
+
+    const topics = document.createElement("div");
+    topics.className = "element-topics";
+
+    Object.keys(elementData.topics).forEach((topicName) => {
+      const item = document.createElement("div");
+      item.className = `topic-item ${elementData.color}`;
+      item.textContent = topicName;
+      item.dataset.element = elementName;
+      item.dataset.topic = topicName;
+      topics.appendChild(item);
+    });
+
+    header.addEventListener("click", () => {
+      header.classList.toggle("expanded");
+      topics.classList.toggle("expanded");
+    });
+
+    section.appendChild(header);
+    section.appendChild(topics);
+    sidebar.appendChild(section);
+  });
+
+  // Topic click handlers
+  document.querySelectorAll(".topic-item").forEach((item) => {
+    item.addEventListener("click", (e) => {
+      const element = e.target.dataset.element;
+      const topic = e.target.dataset.topic;
+      showTopic(element, topic);
+
+      document
+        .querySelectorAll(".topic-item")
+        .forEach((i) => i.classList.remove("active"));
+      e.target.classList.add("active");
+    });
+  });
+
+  // Element card clicks
+  document.querySelectorAll(".element-card").forEach((card) => {
+    card.addEventListener("click", () => {
+      const elementName = card.classList[1]; // order, act, etc.
+      const elementKey =
+        elementName.charAt(0).toUpperCase() + elementName.slice(1);
+      const firstTopic = Object.keys(codeElements[elementKey].topics)[0];
+      showTopic(elementKey, firstTopic);
+
+      // Expand section and activate first topic
+      const header = document.querySelector(`.element-header.${elementName}`);
+      const topics = header.nextElementSibling;
+      header.classList.add("expanded");
+      topics.classList.add("expanded");
+
+      const firstItem = topics.querySelector(".topic-item");
+      document
+        .querySelectorAll(".topic-item")
+        .forEach((i) => i.classList.remove("active"));
+      firstItem.classList.add("active");
+    });
+  });
+}
+
+function showTopic(elementName, topicName) {
+  // Hide welcome
+  const welcome = document.getElementById("welcome");
+  if (welcome) welcome.classList.remove("active");
+
+  // Hide all topics
+  document
+    .querySelectorAll(".content-section")
+    .forEach((s) => s.classList.remove("active"));
+
+  // Show or create topic
+  const topicId = `${elementName}-${topicName}`.replace(/\s+/g, "-");
+  let section = document.getElementById(topicId);
+
+  if (!section) {
+    section = createTopicSection(elementName, topicName, topicId);
+    document.querySelector(".main-content").appendChild(section);
+  }
+
+  section.classList.add("active");
+}
+
+function createTopicSection(elementName, topicName, topicId) {
+  const elementData = codeElements[elementName];
+  const topicData = elementData.topics[topicName];
+
+  const section = document.createElement("div");
+  section.className = "content-section";
+  section.id = topicId;
+
+  let html = `
+                <div class="topic-header ${elementData.color}">
+                    <div class="element-badge ${elementData.color}">${elementName}</div>
+                    <h2 class="topic-title">${topicName}</h2>
+                    <p class="topic-description">${topicData.description}</p>
+                </div>
+            `;
+
+  topicData.examples.forEach((example) => {
+    html += `
+                    <div class="example-block">
+                        <h3 class="example-title">${example.title}</h3>
+                        <div class="code-comparison">
+                            <div class="code-block js-block">
+                                <div class="code-header">
+                                    <span class="code-label js-label">JAVASCRIPT</span>
+                                    <button class="copy-btn" data-code="${escapeHtml(
+                                      example.js
+                                    )}">COPY</button>
+                                </div>
+                                <pre><code class="language-javascript">${escapeHtml(
+                                  example.js
+                                )}</code></pre>
+                            </div>
+                            <div class="code-block ts-block">
+                                <div class="code-header">
+                                    <span class="code-label ${
+                                      example.tsx ? "tsx-label" : "ts-label"
+                                    }">${
+      example.tsx ? "TYPESCRIPT (TSX)" : "TYPESCRIPT"
+    }</span>
+                                    <button class="copy-btn" data-code="${escapeHtml(
+                                      example.ts || example.tsx
+                                    )}">COPY</button>
+                                </div>
+                                <pre><code class="language-typescript">${escapeHtml(
+                                  example.ts || example.tsx
+                                )}</code></pre>
+                            </div>
+                        </div>
+                    </div>
+                `;
+  });
+
+  section.innerHTML = html;
+
+  // Highlight code
+  section.querySelectorAll("pre code").forEach((block) => {
+    hljs.highlightElement(block);
+  });
+
+  // Copy handlers
+  section.querySelectorAll(".copy-btn").forEach((btn) => {
+    btn.addEventListener("click", async (e) => {
+      const code = e.target.dataset.code;
+      await navigator.clipboard.writeText(unescapeHtml(code));
+      e.target.textContent = "COPIED!";
+      e.target.classList.add("copied");
+      setTimeout(() => {
+        e.target.textContent = "COPY";
+        e.target.classList.remove("copied");
+      }, 2000);
+    });
+  });
+
+  return section;
+}
+
+function escapeHtml(text) {
+  const div = document.createElement("div");
+  div.textContent = text;
+  return div.innerHTML;
+}
+
+function unescapeHtml(text) {
+  const div = document.createElement("div");
+  div.innerHTML = text;
+  return div.textContent;
+}
+
+// Mode toggle
+document.querySelectorAll(".mode-btn").forEach((btn) => {
+  btn.addEventListener("click", (e) => {
+    const mode = e.target.dataset.mode;
+
+    document
+      .querySelectorAll(".mode-btn")
+      .forEach((b) => b.classList.remove("active"));
+    e.target.classList.add("active");
+
+    const jsBlocks = document.querySelectorAll(".js-block");
+    const tsBlocks = document.querySelectorAll(".ts-block");
+    const comparisons = document.querySelectorAll(".code-comparison");
+
+    if (mode === "both") {
+      comparisons.forEach((c) => (c.style.gridTemplateColumns = "1fr 1fr"));
+      jsBlocks.forEach((b) => (b.style.display = "block"));
+      tsBlocks.forEach((b) => (b.style.display = "block"));
+    } else if (mode === "js") {
+      comparisons.forEach((c) => (c.style.gridTemplateColumns = "1fr"));
+      jsBlocks.forEach((b) => (b.style.display = "block"));
+      tsBlocks.forEach((b) => (b.style.display = "none"));
+    } else if (mode === "ts") {
+      comparisons.forEach((c) => (c.style.gridTemplateColumns = "1fr"));
+      jsBlocks.forEach((b) => (b.style.display = "none"));
+      tsBlocks.forEach((b) => (b.style.display = "block"));
+    }
+  });
+});
+
+// Initialize
+generateNavigation();  
+</script>
+</body>
+</html>
