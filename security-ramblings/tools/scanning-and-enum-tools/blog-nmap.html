@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Nmap — Helix Kitten Security</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body class="blog-layout">
+
+  <!-- Navbar -->
+  <header class="navbar">
+    <div class="navbar__brand">
+      <div class="helix-icon">HK</div>
+      Helix Kitten Security
+    </div>
+    <div class="navbar__search">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="color:var(--text-muted)"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg>
+      <input type="text" placeholder="Search documentation...">
+      <kbd>/</kbd>
+    </div>
+    <nav class="navbar__links">
+      <a href="index.html">Home</a>
+      <a href="#" class="active">Blog</a>
+      <a href="#">About</a>
+      <a href="#">Contact</a>
+    </nav>
+  </header>
+
+  <div class="blog-container">
+    <!-- Main Article -->
+    <article class="blog-main">
+      <div class="blog-header">
+        <a href="index.html" class="blog-header__back">&#8592; Back to Documentation</a>
+        <h1 class="blog-header__title">Nmap: Network Scanning Essentials</h1>
+        <div class="blog-header__meta">
+          <span>&#128100; Helix Kitten Research</span>
+          <span>&#128197; March 10, 2026</span>
+          <span>&#9201; 15 min read</span>
+        </div>
+        <div class="blog-header__tags">
+          <span class="blog-tag">Reconnaissance</span>
+          <span class="blog-tag">Network Scanning</span>
+          <span class="blog-tag">Tools</span>
+          <span class="blog-tag">T1046</span>
+        </div>
+      </div>
+
+      <div class="blog-content">
+        <h2 id="overview">Overview</h2>
+        <p>Nmap (Network Mapper) is the industry-standard open-source tool for network discovery and security auditing. Originally created by Gordon "Fyodor" Lyon and first released in 1997, it has evolved into the most widely used network scanning tool in the world, employed by penetration testers, system administrators, and security researchers.</p>
+        <p>Nmap uses raw IP packets to determine available hosts on a network, services running on those hosts, operating systems and versions, types of packet filters/firewalls in use, and dozens of other characteristics. It maps to <strong>MITRE ATT&CK T1046</strong> (Network Service Discovery).</p>
+
+        <div class="callout callout--info">
+          <span class="callout__icon">&#x2139;&#xFE0F;</span>
+          <div>Nmap is pre-installed on most penetration testing distributions including Kali Linux, Parrot OS, and BlackArch. It is available for Linux, Windows, and macOS.</div>
+        </div>
+
+        <h2 id="installation">Installation</h2>
+        <p>While Nmap comes pre-installed on most security-focused distributions, here are installation commands for major platforms:</p>
+        <div class="code-block">
+          <div class="code-block__header">
+            <div class="code-block__dots"><span></span><span></span><span></span></div>
+            <span class="code-block__lang">bash</span>
+            <button class="code-block__copy">Copy</button>
+          </div>
+<pre><span class="c-comment"># Debian / Ubuntu / Kali</span>
+<span class="c-prompt">$</span> <span class="c-cmd">sudo apt install</span> <span class="c-string">nmap</span>
+
+<span class="c-comment"># RHEL / CentOS / Fedora</span>
+<span class="c-prompt">$</span> <span class="c-cmd">sudo dnf install</span> <span class="c-string">nmap</span>
+
+<span class="c-comment"># macOS (via Homebrew)</span>
+<span class="c-prompt">$</span> <span class="c-cmd">brew install</span> <span class="c-string">nmap</span>
+
+<span class="c-comment"># Verify installation</span>
+<span class="c-prompt">$</span> <span class="c-cmd">nmap</span> <span class="c-flag">--version</span>
+<span class="c-output">Nmap version 7.94SVN ( https://nmap.org )</span></pre>
+        </div>
+
+        <h2 id="basic-scanning">Basic Scanning Techniques</h2>
+        <p>Nmap supports numerous scan types. Understanding when to use each is fundamental to effective reconnaissance.</p>
+
+        <h3>Host Discovery</h3>
+        <p>Before port scanning, Nmap performs host discovery to identify live hosts on the network:</p>
+        <div class="code-block">
+          <div class="code-block__header">
+            <div class="code-block__dots"><span></span><span></span><span></span></div>
+            <span class="code-block__lang">bash</span>
+            <button class="code-block__copy">Copy</button>
+          </div>
+<pre><span class="c-comment"># Ping sweep — discover live hosts</span>
+<span class="c-prompt">$</span> <span class="c-cmd">nmap</span> <span class="c-flag">-sn</span> <span class="c-ip">192.168.1.0/24</span>
+
+<span class="c-comment"># ARP discovery (local network, requires root)</span>
+<span class="c-prompt">$</span> <span class="c-cmd">sudo nmap</span> <span class="c-flag">-sn -PR</span> <span class="c-ip">10.0.0.0/24</span>
+
+<span class="c-comment"># TCP SYN ping on specific ports</span>
+<span class="c-prompt">$</span> <span class="c-cmd">nmap</span> <span class="c-flag">-sn -PS22,80,443</span> <span class="c-ip">172.16.0.0/16</span></pre>
+        </div>
+
+        <h3>Port Scanning Fundamentals</h3>
+        <div class="code-block">
+          <div class="code-block__header">
+            <div class="code-block__dots"><span></span><span></span><span></span></div>
+            <span class="code-block__lang">bash</span>
+            <button class="code-block__copy">Copy</button>
+          </div>
+<pre><span class="c-comment"># TCP SYN scan (default, fast, stealthy — requires root)</span>
+<span class="c-prompt">$</span> <span class="c-cmd">sudo nmap</span> <span class="c-flag">-sS</span> <span class="c-ip">target.com</span>
+
+<span class="c-comment"># TCP Connect scan (no root required, completes 3-way handshake)</span>
+<span class="c-prompt">$</span> <span class="c-cmd">nmap</span> <span class="c-flag">-sT</span> <span class="c-ip">target.com</span>
+
+<span class="c-comment"># UDP scan (slow but essential for DNS, SNMP, DHCP)</span>
+<span class="c-prompt">$</span> <span class="c-cmd">sudo nmap</span> <span class="c-flag">-sU</span> <span class="c-flag">--top-ports 100</span> <span class="c-ip">target.com</span>
+
+<span class="c-comment"># Scan all 65535 ports</span>
+<span class="c-prompt">$</span> <span class="c-cmd">sudo nmap</span> <span class="c-flag">-p-</span> <span class="c-ip">target.com</span>
+
+<span class="c-comment"># Scan specific ports</span>
+<span class="c-prompt">$</span> <span class="c-cmd">nmap</span> <span class="c-flag">-p 22,80,443,8080,3306</span> <span class="c-ip">target.com</span></pre>
+        </div>
+
+        <h2 id="advanced-techniques">Advanced Techniques</h2>
+        <h3>Service and Version Detection</h3>
+        <p>Version detection probes open ports to determine the application and version running on each service:</p>
+        <div class="code-block">
+          <div class="code-block__header">
+            <div class="code-block__dots"><span></span><span></span><span></span></div>
+            <span class="code-block__lang">bash</span>
+            <button class="code-block__copy">Copy</button>
+          </div>
+<pre><span class="c-comment"># Service/version detection with OS fingerprinting</span>
+<span class="c-prompt">$</span> <span class="c-cmd">sudo nmap</span> <span class="c-flag">-sV -O</span> <span class="c-ip">target.com</span>
+
+<span class="c-comment"># Aggressive scan (OS detection, version, scripts, traceroute)</span>
+<span class="c-prompt">$</span> <span class="c-cmd">sudo nmap</span> <span class="c-flag">-A</span> <span class="c-ip">target.com</span>
+
+<span class="c-output">PORT    STATE SERVICE  VERSION</span>
+<span class="c-success">22/tcp  open  ssh      OpenSSH 8.9p1 Ubuntu 3ubuntu0.4</span>
+<span class="c-success">80/tcp  open  http     Apache httpd 2.4.52</span>
+<span class="c-output">| http-server-header: Apache/2.4.52 (Ubuntu)</span>
+<span class="c-success">443/tcp open  ssl/http nginx 1.24.0</span>
+<span class="c-output">|_ssl-date: TLS randomness does not represent time</span>
+<span class="c-output">OS: Linux 5.x (96%), Ubuntu (94%)</span></pre>
+        </div>
+
+        <h3>Firewall Evasion Techniques</h3>
+        <ul>
+          <li><strong>Fragmented packets:</strong> <code>nmap -f target.com</code> — splits probes into tiny fragments</li>
+          <li><strong>Decoy scan:</strong> <code>nmap -D RND:10 target.com</code> — generates decoy source addresses</li>
+          <li><strong>Idle scan:</strong> <code>nmap -sI zombie_host target.com</code> — uses a zombie host for completely blind scanning</li>
+          <li><strong>Source port manipulation:</strong> <code>nmap --source-port 53 target.com</code> — masquerade as DNS traffic</li>
+          <li><strong>Timing control:</strong> <code>nmap -T0 target.com</code> — paranoid timing to evade IDS</li>
+        </ul>
+
+        <h2 id="nse-scripts">NSE Scripts</h2>
+        <p>The Nmap Scripting Engine (NSE) extends Nmap with scripts written in Lua for vulnerability detection, service enumeration, and exploitation:</p>
+        <div class="code-block">
+          <div class="code-block__header">
+            <div class="code-block__dots"><span></span><span></span><span></span></div>
+            <span class="code-block__lang">bash</span>
+            <button class="code-block__copy">Copy</button>
+          </div>
+<pre><span class="c-comment"># Run default scripts (safe category)</span>
+<span class="c-prompt">$</span> <span class="c-cmd">nmap</span> <span class="c-flag">-sC</span> <span class="c-ip">target.com</span>
+
+<span class="c-comment"># Vulnerability scan</span>
+<span class="c-prompt">$</span> <span class="c-cmd">nmap</span> <span class="c-flag">--script vuln</span> <span class="c-ip">target.com</span>
+
+<span class="c-comment"># SMB enumeration</span>
+<span class="c-prompt">$</span> <span class="c-cmd">nmap</span> <span class="c-flag">--script smb-enum-shares,smb-enum-users</span> <span class="c-flag">-p 445</span> <span class="c-ip">target.com</span>
+
+<span class="c-comment"># HTTP enumeration</span>
+<span class="c-prompt">$</span> <span class="c-cmd">nmap</span> <span class="c-flag">--script http-enum,http-title,http-headers</span> <span class="c-flag">-p 80,443</span> <span class="c-ip">target.com</span>
+
+<span class="c-comment"># Check for EternalBlue (MS17-010)</span>
+<span class="c-prompt">$</span> <span class="c-cmd">nmap</span> <span class="c-flag">--script smb-vuln-ms17-010</span> <span class="c-flag">-p 445</span> <span class="c-ip">target.com</span>
+<span class="c-output">| smb-vuln-ms17-010:</span>
+<span class="c-output">|   VULNERABLE:</span>
+<span class="c-success">|   Remote Code Execution vulnerability in Microsoft SMBv1</span></pre>
+        </div>
+
+        <div class="callout callout--warning">
+          <span class="callout__icon">&#x26A0;&#xFE0F;</span>
+          <div>Scripts in the <code>exploit</code> and <code>intrusive</code> categories may crash services or trigger alerts. Only use these against systems you are authorized to test. Prefer <code>safe</code> and <code>default</code> categories during initial reconnaissance.</div>
+        </div>
+
+        <h2 id="output-formats">Output Formats</h2>
+        <p>Nmap supports multiple output formats for different use cases:</p>
+        <div class="code-block">
+          <div class="code-block__header">
+            <div class="code-block__dots"><span></span><span></span><span></span></div>
+            <span class="code-block__lang">bash</span>
+            <button class="code-block__copy">Copy</button>
+          </div>
+<pre><span class="c-comment"># Normal output to file</span>
+<span class="c-prompt">$</span> <span class="c-cmd">nmap</span> <span class="c-flag">-oN</span> <span class="c-string">scan.txt</span> <span class="c-ip">target.com</span>
+
+<span class="c-comment"># XML output (for parsing with tools)</span>
+<span class="c-prompt">$</span> <span class="c-cmd">nmap</span> <span class="c-flag">-oX</span> <span class="c-string">scan.xml</span> <span class="c-ip">target.com</span>
+
+<span class="c-comment"># Grepable output</span>
+<span class="c-prompt">$</span> <span class="c-cmd">nmap</span> <span class="c-flag">-oG</span> <span class="c-string">scan.gnmap</span> <span class="c-ip">target.com</span>
+
+<span class="c-comment"># All formats simultaneously</span>
+<span class="c-prompt">$</span> <span class="c-cmd">nmap</span> <span class="c-flag">-oA</span> <span class="c-string">full_scan</span> <span class="c-ip">target.com</span></pre>
+        </div>
+
+        <h2 id="practical-examples">Practical Examples</h2>
+        <h3>Full Pentest Recon Workflow</h3>
+        <div class="code-block">
+          <div class="code-block__header">
+            <div class="code-block__dots"><span></span><span></span><span></span></div>
+            <span class="code-block__lang">bash</span>
+            <button class="code-block__copy">Copy</button>
+          </div>
+<pre><span class="c-comment"># Phase 1: Fast host discovery</span>
+<span class="c-prompt">$</span> <span class="c-cmd">nmap</span> <span class="c-flag">-sn -T4</span> <span class="c-ip">10.10.10.0/24</span> <span class="c-flag">-oG</span> <span class="c-string">hosts.gnmap</span>
+
+<span class="c-comment"># Phase 2: Quick top-port scan on live hosts</span>
+<span class="c-prompt">$</span> <span class="c-cmd">nmap</span> <span class="c-flag">-sS -T4 --top-ports 1000</span> <span class="c-flag">-iL</span> <span class="c-string">live_hosts.txt</span> <span class="c-flag">-oA</span> <span class="c-string">quick_scan</span>
+
+<span class="c-comment"># Phase 3: Deep scan on discovered services</span>
+<span class="c-prompt">$</span> <span class="c-cmd">nmap</span> <span class="c-flag">-sV -sC -O -A</span> <span class="c-flag">-p 22,80,443,445,3389</span> <span class="c-flag">-iL</span> <span class="c-string">live_hosts.txt</span> <span class="c-flag">-oA</span> <span class="c-string">deep_scan</span>
+
+<span class="c-comment"># Phase 4: Full port scan (background)</span>
+<span class="c-prompt">$</span> <span class="c-cmd">nmap</span> <span class="c-flag">-sS -p- -T4 --min-rate 1000</span> <span class="c-flag">-iL</span> <span class="c-string">live_hosts.txt</span> <span class="c-flag">-oA</span> <span class="c-string">full_ports</span></pre>
+        </div>
+
+        <h2 id="defense">Defense Considerations</h2>
+        <p>Understanding Nmap from a defensive perspective helps security teams detect and respond to reconnaissance activity:</p>
+        <ul>
+          <li><strong>IDS/IPS signatures:</strong> Tools like Snort and Suricata have built-in rules to detect Nmap scan patterns (SYN scans, version probes, OS fingerprinting)</li>
+          <li><strong>Firewall logging:</strong> Monitor for connection attempts to many ports from a single source in a short time window</li>
+          <li><strong>Network segmentation:</strong> Limit the blast radius of internal network scanning by segmenting VLANs and enforcing ACLs</li>
+          <li><strong>Port knocking:</strong> Hide sensitive services behind port knocking sequences to reduce attack surface</li>
+          <li><strong>Rate limiting:</strong> Configure firewalls to rate-limit connection attempts from individual source IPs</li>
+          <li><strong>Honeypots:</strong> Deploy tools like HoneyD or OpenCanary to detect scanning activity with fake services</li>
+        </ul>
+
+        <blockquote>
+          "If you know the enemy and know yourself, you need not fear the result of a hundred battles." — Understanding how attackers use Nmap is essential for building effective defenses.
+        </blockquote>
+      </div>
+    </article>
+
+    <!-- Right TOC -->
+    <aside class="toc-sidebar">
+      <nav class="toc">
+        <div class="toc__title">On this page</div>
+        <a href="#overview" class="active">Overview</a>
+        <a href="#installation">Installation</a>
+        <a href="#basic-scanning">Basic Scanning</a>
+        <a href="#advanced-techniques">Advanced Techniques</a>
+        <a href="#nse-scripts">NSE Scripts</a>
+        <a href="#output-formats">Output Formats</a>
+        <a href="#practical-examples">Practical Examples</a>
+        <a href="#defense">Defense Considerations</a>
+      </nav>
+    </aside>
+  </div>
+
+  <footer class="blog-footer">
+    <div class="blog-footer__inner">&copy; 2026 Helix Kitten Security. All rights reserved. | <a href="index.html">Back to Docs</a></div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
