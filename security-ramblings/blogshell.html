@@ -1,0 +1,1489 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>· hackherway cyberepo — an offensive & defensive cybersecurity repository ·</title>
+ <meta name="description" content="computer and network security enthusiasts">
+  <meta name="keywords"
+    content="hacker tools, hacker crew, computer security, network security, penetration test, exploit, web application security, cross-site scripting, sql injection, file inclusion, security scanner, 0day, zeroday, buffer overflow, stack overflow, heap overflow, formatstring, rop, stackshield, aslr, dep, auth bypass">
+    <meta name="author" content="mindhackdiva">
+    <meta name="robots" content="index,follow,noodp,noydir">
+    <meta name="page-topic" content="hacker tools, computer and network security, exploits">
+    <meta itemprop="name" content="hackherway">
+  <link rel="stylesheet" href="styles.css">
+    <link rel="shortcut icon" href="https://i.imgur.com/pheSvKs.png">  
+
+    <style>
+        
+/* === HACKHERWAY SECURITY — styles.css === */
+@import url('https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;600;700&family=Outfit:wght@300;400;500;600;700;800;900&family=Space+Mono:ital,wght@0,400;0,700;1,400&display=swap');
+
+:root {
+  --bg-black: #08080a;
+  --bg-dark: #0e0e12;
+  --bg-card: #131318;
+  --bg-sidebar: #0b0b0f;
+  --bg-elevated: #1a1a22;
+  --bg-input: #16161e;
+  --border-dark: #1e1e28;
+  --border-medium: #2a2a36;
+  --border-light: #3a3a48;
+  --text-primary: #eaeaf0;
+  --text-secondary: #9898a8;
+  --text-muted: #5c5c6e;
+  --pink: #ff0066;
+  --pink-light: #ff3388;
+  --pink-glow: rgba(255, 0, 102, 0.25);
+  --pink-subtle: rgba(255, 0, 102, 0.08);
+  --green-terminal: #00ff88;
+  --blue-code: #66bbff;
+  --yellow-code: #ffd866;
+  --purple-code: #c792ea;
+  --orange-code: #ff9e64;
+  --sidebar-w: 280px;
+  --navbar-h: 56px;
+  --toc-w: 240px;
+  --transition: 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* --- Reset & Base --- */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; scrollbar-width: thin; scrollbar-color: var(--pink) var(--bg-dark); }
+body {
+  font-family: 'Outfit', sans-serif;
+  background: var(--bg-black);
+  color: var(--text-primary);
+  line-height: 1.65;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: var(--bg-dark); }
+::-webkit-scrollbar-thumb { background: var(--pink); border-radius: 3px; }
+a { color: var(--pink); text-decoration: none; transition: color var(--transition); }
+a:hover { color: var(--pink-light); }
+img { max-width: 100%; }
+
+/* --- Navbar --- */
+.navbar {
+  position: fixed; top: 0; left: var(--sidebar-w); right: 0;
+  height: var(--navbar-h);
+  background: rgba(8, 8, 10, 0.85);
+  backdrop-filter: blur(16px);
+  border-bottom: 1px solid var(--border-dark);
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 0 32px;
+  z-index: 100;
+}
+.navbar__brand {
+  display: flex; align-items: center; gap: 10px;
+  font-family: 'Outfit', sans-serif;
+  text-transform: uppercase !important;
+  font-size: 10px;
+  color: var(--text-muted);
+  letter-spacing: -0.3px;
+}
+.navbar__brand .helix-icon {
+  width: 28px;
+  height: 28px;
+  background: #000;
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.navbar__links { display: flex; align-items: center; gap: 8px; }
+.navbar__links a {
+  color: var(--text-muted);
+  font-size: 10px;
+  text-transform: uppercase !important;
+  letter-spacing: 1.5px;
+  padding: 6px 6px;
+  border-radius: 6px;
+  transition: all var(--transition);
+}
+.navbar__links a:hover, .navbar__links a.active {
+  color: var(--text-primary);
+  background: var(--pink-subtle);
+}
+.navbar__search {
+  display: flex; align-items: center; gap: 8px;
+  background: var(--bg-input);
+  border: 1px solid var(--border-dark);
+  border-radius: 8px;
+  padding: 7px 14px;
+  transition: all var(--transition);
+  cursor: text;
+}
+.navbar__search:focus-within {
+  border-color: var(--pink);
+  box-shadow: 0 0 0 3px var(--pink-glow);
+}
+.navbar__search input {
+  background: none; border: none; outline: none;
+  color: var(--text-primary);
+  font-family: 'Outfit', sans-serif;
+  font-size: 13px; width: 180px;
+}
+.navbar__search input::placeholder { color: var(--text-muted); }
+.navbar__search kbd {
+  font-family: 'Fira Code', monospace;
+  font-size: 10px;
+  background: var(--bg-elevated);
+  border: 1px solid var(--border-medium);
+  border-radius: 4px;
+  padding: 1px 5px;
+  color: var(--text-muted);
+}
+.hamburger {
+  display: none;
+  background: none; border: none; cursor: pointer;
+  flex-direction: column; gap: 5px; padding: 4px;
+}
+.hamburger span {
+  display: block; width: 22px; height: 2px;
+  background: var(--text-primary);
+  transition: all var(--transition);
+  border-radius: 1px;
+}
+
+/* --- Sidebar --- */
+.sidebar {
+  position: fixed; top: 0; left: 0; bottom: 0;
+  width: var(--sidebar-w);
+  background: var(--bg-sidebar);
+  border-right: 1px solid var(--border-dark);
+  overflow-y: auto; overflow-x: hidden;
+  z-index: 110;
+  display: flex; flex-direction: column;
+}
+.sidebar__header {
+  padding: 16px 20px;
+  border-bottom: 1px solid var(--border-dark);
+  display: flex; align-items: center; gap: 10px;
+  flex-shrink: 0;
+}
+
+.sidebar__logo {
+  width: 32px; height: 32px;
+  background: linear-gradient(135deg, var(--black), #000000);
+  border-radius: 8px;
+  display: flex; align-items: center; justify-content: center;
+  
+}
+
+.sidebar__title {
+  font-family: 'Outfit', sans-serif;
+  font-size: 13px; font-weight: 300;
+  color: var(--text-primary);
+  line-height: 1.2;
+}
+.sidebar__subtitle {
+  font-size: 10px;
+  color: var(--text-muted);
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+}
+.sidebar__nav { padding: 12px 0; flex: 1; }
+.sidebar__section { margin-bottom: 4px; }
+.sidebar__toggle {
+  display: flex; align-items: center; gap: 8px;
+  width: 100%;
+  padding: 9px 20px;
+  background: none; border: none;
+  color: var(--text-secondary);
+  font-family: 'Outfit', sans-serif;
+  font-size: 13px; font-weight: 600;
+  cursor: pointer;
+  transition: all var(--transition);
+  text-align: left;
+  position: relative;
+}
+.sidebar__toggle::before {
+  content: '';
+  position: absolute; left: 0; top: 50%;
+  transform: translateY(-50%);
+  width: 3px; height: 0;
+  background: var(--pink);
+  border-radius: 0 2px 2px 0;
+  transition: height var(--transition);
+}
+.sidebar__toggle:hover { color: var(--text-primary); background: var(--pink-subtle); }
+.sidebar__toggle.active { color: var(--pink); }
+.sidebar__toggle.active::before { height: 20px; }
+.sidebar__toggle .chevron {
+  margin-left: auto;
+  font-size: 10px;
+  transition: transform var(--transition);
+  color: var(--text-muted);
+}
+.sidebar__toggle.active .chevron { transform: rotate(90deg); color: var(--pink); }
+.sidebar__toggle .section-icon {
+  font-size: 15px; width: 20px; text-align: center;
+}
+.sidebar__submenu {
+  max-height: 0; overflow: hidden;
+  transition: max-height 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.sidebar__submenu.open { max-height: 400px; }
+.sidebar__submenu a {
+  display: block;
+  padding: 6px 20px 6px 52px;
+  font-size: 12.5px;
+  color: var(--text-muted);
+  transition: all var(--transition);
+  position: relative;
+}
+.sidebar__submenu a::before {
+  content: '';
+  position: absolute; left: 38px; top: 50%;
+  width: 4px; height: 4px;
+  border-radius: 50%;
+  background: var(--border-medium);
+  transform: translateY(-50%);
+  transition: background var(--transition);
+}
+.sidebar__submenu a:hover { color: var(--text-primary); background: var(--pink-subtle); }
+.sidebar__submenu a:hover::before { background: var(--pink); }
+.sidebar__submenu a.current {
+  color: var(--pink);
+  background: var(--pink-subtle);
+}
+.sidebar__submenu a.current::before { background: var(--pink); }
+.sidebar__footer {
+  padding: 16px 20px;
+  border-top: 1px solid var(--border-dark);
+  flex-shrink: 0;
+}
+.sidebar__footer span {
+  font-size: 11px;
+  color: var(--text-muted);
+  font-family: 'Fira Code', monospace;
+}
+
+/* --- Main Content (Homepage) --- */
+.main {
+  margin-left: var(--sidebar-w);
+  padding-top: var(--navbar-h);
+  min-height: 100vh;
+}
+.main__content { padding: 40px 48px 80px; max-width: 1100px; }
+
+/* --- Card Grid --- */
+.section-heading {
+  font-family: 'Space Mono', monospace;
+  font-size: 22px; font-weight: 700;
+  margin-bottom: 8px;
+  letter-spacing: -0.5px;
+}
+.section-sub {
+  font-size: 14px;
+  color: var(--text-muted);
+  margin-bottom: 32px;
+}
+.card-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 16px;
+  margin-bottom: 64px;
+}
+.card {
+  background: var(--bg-card);
+  border: 1px solid var(--border-dark);
+  border-radius: 12px;
+  padding: 28px 24px;
+  transition: all var(--transition);
+  position: relative;
+  overflow: hidden;
+}
+.card::before {
+  content: '';
+  position: absolute; top: 0; left: 0; right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, var(--pink), transparent);
+  opacity: 0;
+  transition: opacity var(--transition);
+}
+.card:hover {
+  border-color: rgba(255,0,102,0.3);
+  transform: translateY(-3px);
+  box-shadow: 0 8px 32px rgba(0,0,0,0.4), 0 0 20px var(--pink-glow);
+}
+.card:hover::before { opacity: 1; }
+.card__icon {
+  font-size: 28px;
+  margin-bottom: 16px;
+  display: block;
+}
+.card__title {
+  font-family: 'Space Mono', monospace;
+  font-size: 15px; font-weight: 700;
+  margin-bottom: 8px;
+  color: var(--text-primary);
+}
+.card__desc {
+  font-size: 13px;
+  color: var(--text-secondary);
+  line-height: 1.6;
+  margin-bottom: 20px;
+}
+.card__link {
+  font-size: 12px; font-weight: 600;
+  color: var(--pink);
+  display: inline-flex; align-items: center; gap: 6px;
+  transition: gap var(--transition);
+}
+.card:hover .card__link { gap: 10px; }
+
+/* --- Accordion --- */
+.accordion { margin-bottom: 64px; }
+.accordion__item {
+  border: 1px solid var(--border-dark);
+  border-radius: 10px;
+  margin-bottom: 8px;
+  overflow: hidden;
+  transition: border-color var(--transition);
+}
+.accordion__item.open {
+  border-color: rgba(255,0,102,0.25);
+}
+.accordion__header {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 16px 20px;
+  background: var(--bg-card);
+  border: none; width: 100%;
+  color: var(--text-primary);
+  font-family: 'Outfit', sans-serif;
+  font-size: 14px; font-weight: 600;
+  cursor: pointer;
+  transition: all var(--transition);
+  text-align: left;
+}
+.accordion__header:hover { background: var(--bg-elevated); }
+.accordion__item.open .accordion__header {
+  background: var(--pink-subtle);
+  color: var(--pink);
+}
+.accordion__icon {
+  font-size: 18px;
+  transition: transform var(--transition);
+  color: var(--text-muted);
+}
+.accordion__item.open .accordion__icon {
+  transform: rotate(45deg);
+  color: var(--pink);
+}
+.accordion__body {
+  max-height: 0; overflow: hidden;
+  transition: max-height 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.accordion__body-inner {
+  padding: 16px 20px 20px;
+  font-size: 13.5px;
+  color: var(--text-secondary);
+  line-height: 1.7;
+  background: var(--bg-dark);
+  border-top: 1px solid var(--border-dark);
+}
+
+/* --- Code Block --- */
+.code-section { margin-bottom: 64px; }
+.code-block {
+  background: var(--bg-card);
+  border: 1px solid var(--border-dark);
+  border-radius: 12px;
+  overflow: hidden;
+}
+.code-block__header {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 10px 16px;
+  background: var(--bg-elevated);
+  border-bottom: 1px solid var(--border-dark);
+}
+.code-block__dots {
+  display: flex; gap: 6px;
+}
+.code-block__dots span {
+  width: 10px; height: 10px;
+  border-radius: 50%;
+}
+.code-block__dots span:nth-child(1) { background: #ff5f57; }
+.code-block__dots span:nth-child(2) { background: #ffbd2e; }
+.code-block__dots span:nth-child(3) { background: #28ca41; }
+.code-block__lang {
+  font-family: 'Fira Code', monospace;
+  font-size: 11px;
+  color: var(--text-muted);
+}
+.code-block__copy {
+  background: var(--bg-input);
+  border: 1px solid var(--border-medium);
+  color: var(--text-secondary);
+  font-family: 'Fira Code', monospace;
+  font-size: 11px;
+  padding: 4px 12px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: all var(--transition);
+}
+.code-block__copy:hover {
+  border-color: var(--pink);
+  color: var(--pink);
+  background: var(--pink-subtle);
+}
+.code-block__copy.copied {
+  background: var(--pink);
+  border-color: var(--pink);
+  color: #fff;
+}
+.code-block pre {
+  padding: 20px;
+  overflow-x: auto;
+  font-family: 'Fira Code', monospace;
+  font-size: 13px;
+  line-height: 1.7;
+  color: var(--text-secondary);
+}
+.code-block .c-comment { color: var(--text-muted); font-style: italic; }
+.code-block .c-keyword { color: var(--purple-code); }
+.code-block .c-string { color: var(--yellow-code); }
+.code-block .c-flag { color: var(--orange-code); }
+.code-block .c-cmd { color: var(--pink); }
+.code-block .c-output { color: var(--text-muted); }
+.code-block .c-ip { color: var(--blue-code); }
+.code-block .c-success { color: var(--green-terminal); }
+.code-block .c-prompt { color: var(--pink); }
+
+/* --- Terminal --- */
+.terminal-section { margin-bottom: 64px; }
+.terminal {
+  background: #0c0c0c;
+  border: 1px solid var(--border-dark);
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 8px 40px rgba(0,0,0,0.5);
+}
+.terminal__header {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 10px 16px;
+  background: #161616;
+  border-bottom: 1px solid #222;
+}
+.terminal__title {
+  font-family: 'Fira Code', monospace;
+  font-size: 11px;
+  color: var(--text-muted);
+}
+.terminal__body {
+  padding: 20px;
+  font-family: 'Fira Code', monospace;
+  font-size: 12.5px;
+  line-height: 1.8;
+  min-height: 200px;
+}
+.terminal__body .t-green { color: var(--green-terminal); }
+.terminal__body .t-pink { color: var(--pink); }
+.terminal__body .t-grey { color: var(--text-muted); }
+.terminal__body .t-white { color: var(--text-primary); }
+.terminal__cursor {
+  display: inline-block;
+  width: 8px; height: 16px;
+  background: var(--green-terminal);
+  animation: blink 1s step-end infinite;
+  vertical-align: text-bottom;
+  margin-left: 2px;
+}
+@keyframes blink { 0%,100%{opacity:1} 50%{opacity:0} }
+
+/* --- Stats --- */
+.stats-section {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+  margin-bottom: 64px;
+}
+.stat-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border-dark);
+  border-radius: 12px;
+  padding: 28px 24px;
+  text-align: center;
+  transition: all var(--transition);
+}
+.stat-card:hover {
+  border-color: rgba(255,0,102,0.2);
+  box-shadow: 0 4px 16px rgba(0,0,0,0.3);
+}
+.stat__number {
+  font-family: 'Space Mono', monospace;
+  font-size: 36px; font-weight: 700;
+  color: var(--pink);
+  margin-bottom: 4px;
+}
+.stat__label {
+  font-size: 13px;
+  color: var(--text-muted);
+  font-weight: 500;
+}
+
+/* --- Footer --- */
+.footer {
+  margin-left: var(--sidebar-w);
+  border-top: 2px solid var(--pink);
+  background: var(--bg-dark);
+  padding: 40px 48px;
+}
+.footer {
+  margin-left: var(--sidebar-w);
+  border-top: 2px solid var(--pink);
+  background: var(--bg-dark);
+  padding: 32px 24px 40px;
+  text-align: center;
+}
+
+.footer > img {
+  display: inline-block;
+  margin: 0 4px 12px;
+  vertical-align: middle;
+}
+
+.footer__inner {
+  max-width: 900px;
+  margin: 0 auto;
+  display: block;
+  text-align: center;
+}
+
+.footer__inner > div {
+  margin-bottom: 8px;
+  font-size: 12px;
+  color: var(--text-muted);
+  line-height: 1.7;
+}
+
+.footer__inner strong {
+  color: var(--text-secondary);
+  font-weight: 600;
+}
+
+.footer__links {
+  margin: 12px 0 16px;
+  font-size: 12px;
+  color: var(--text-muted);
+}
+
+.footer__links a {
+  color: var(--text-muted);
+  margin: 0 6px;
+}
+
+.footer__links a:hover {
+  color: var(--pink);
+}
+
+.footer__inner > a {
+  display: inline-block;
+  margin-top: 10px;
+}
+
+#center {
+  margin: 14px auto 0 !important;
+}/* ============================== */
+/* BLOG POST LAYOUT               */
+/* ============================== */
+.blog-layout {
+  padding-top: var(--navbar-h);
+  min-height: 100vh;
+}
+.blog-layout .navbar { left: 0; }
+.blog-container {
+  display: flex;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 40px 32px 80px;
+}
+.blog-main {
+  flex: 1;
+  min-width: 0;
+  padding-right: 48px;
+}
+
+/* Blog Article */
+.blog-header { margin-bottom: 40px; padding-bottom: 28px; border-bottom: 1px solid var(--border-dark); }
+.blog-header__back {
+  display: inline-flex; align-items: center; gap: 6px;
+  font-size: 12px; color: var(--text-muted);
+  margin-bottom: 20px;
+  transition: color var(--transition);
+}
+.blog-header__back:hover { color: var(--pink); }
+.blog-header__title {
+  font-family: 'Space Mono', monospace;
+  font-size: clamp(24px, 3.5vw, 36px);
+  font-weight: 700;
+  line-height: 1.2;
+  margin-bottom: 16px;
+  letter-spacing: -0.5px;
+}
+.blog-header__meta {
+  display: flex; align-items: center; gap: 16px; flex-wrap: wrap;
+  font-size: 12px; color: var(--text-muted);
+}
+.blog-header__meta span { display: flex; align-items: center; gap: 5px; }
+.blog-header__tags { display: flex; gap: 6px; margin-top: 14px; flex-wrap: wrap; }
+.blog-tag {
+  font-family: 'Fira Code', monospace;
+  font-size: 10.5px;
+  padding: 3px 10px;
+  background: var(--pink-subtle);
+  border: 1px solid rgba(255,0,102,0.15);
+  border-radius: 4px;
+  color: var(--pink);
+}
+
+/* Blog Content */
+.blog-content h2 {
+  font-family: 'Space Mono', monospace;
+  font-size: 20px; font-weight: 700;
+  margin: 48px 0 16px;
+  padding-top: 24px;
+  border-top: 1px solid var(--border-dark);
+  letter-spacing: -0.3px;
+}
+.blog-content h2:first-child { margin-top: 0; border-top: none; padding-top: 0; }
+.blog-content h3 {
+  font-size: 16px; font-weight: 700;
+  margin: 28px 0 12px;
+  color: var(--text-primary);
+}
+.blog-content p {
+  font-size: 14.5px;
+  color: var(--text-secondary);
+  margin-bottom: 16px;
+  line-height: 1.75;
+}
+.blog-content ul, .blog-content ol {
+  padding-left: 24px;
+  margin-bottom: 16px;
+}
+.blog-content li {
+  font-size: 14px;
+  color: var(--text-secondary);
+  margin-bottom: 6px;
+  line-height: 1.65;
+}
+.blog-content li::marker { color: var(--pink); }
+.blog-content strong { color: var(--text-primary); font-weight: 600; }
+.blog-content blockquote {
+  border-left: 3px solid var(--pink);
+  padding: 12px 20px;
+  margin: 20px 0;
+  background: var(--pink-subtle);
+  border-radius: 0 8px 8px 0;
+  font-size: 14px;
+  color: var(--text-secondary);
+  font-style: italic;
+}
+.callout {
+  padding: 16px 20px;
+  border-radius: 10px;
+  margin: 24px 0;
+  font-size: 13.5px;
+  line-height: 1.65;
+  display: flex; gap: 12px;
+}
+.callout__icon { font-size: 18px; flex-shrink: 0; margin-top: 1px; }
+.callout--info {
+  background: rgba(102,187,255,0.06);
+  border: 1px solid rgba(102,187,255,0.15);
+  color: var(--blue-code);
+}
+.callout--warning {
+  background: rgba(255,216,102,0.06);
+  border: 1px solid rgba(255,216,102,0.15);
+  color: var(--yellow-code);
+}
+.callout--danger {
+  background: rgba(255,0,102,0.06);
+  border: 1px solid rgba(255,0,102,0.15);
+  color: var(--pink);
+}
+.blog-content .code-block { margin: 20px 0; }
+
+/* --- Right TOC --- */
+.toc-sidebar {
+  width: var(--toc-w);
+  flex-shrink: 0;
+  position: sticky;
+  top: calc(var(--navbar-h) + 40px);
+  max-height: calc(100vh - var(--navbar-h) - 80px);
+  overflow-y: auto;
+  align-self: flex-start;
+}
+.toc {
+  border-left: 1px solid var(--border-dark);
+  padding-left: 16px;
+}
+.toc__title {
+  font-family: 'Fira Code', monospace;
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  color: var(--text-muted);
+  margin-bottom: 12px;
+}
+.toc a {
+  display: block;
+  padding: 5px 0;
+  font-size: 12.5px;
+  color: var(--text-muted);
+  transition: all var(--transition);
+  position: relative;
+}
+.toc a::before {
+  content: '';
+  position: absolute;
+  left: -17px;
+  top: 0; bottom: 0;
+  width: 2px;
+  background: var(--pink);
+  opacity: 0;
+  transition: opacity var(--transition);
+}
+.toc a:hover { color: var(--text-secondary); }
+.toc a.active {
+  color: var(--pink);
+}
+.toc a.active::before { opacity: 1; }
+.toc a.toc--sub {
+  padding-left: 14px;
+  font-size: 11.5px;
+}
+
+/* --- Blog Footer --- */
+.blog-footer {
+  border-top: 2px solid var(--pink);
+  background: var(--bg-dark);
+  padding: 40px 32px;
+  text-align: center;
+}
+.blog-footer__inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  font-size: 12px;
+  color: var(--text-muted);
+}
+
+/* ============================== */
+/* RESPONSIVE                      */
+/* ============================== */
+@media (max-width: 1024px) {
+  .toc-sidebar { display: none; }
+  .blog-main { padding-right: 0; }
+  .stats-section { grid-template-columns: repeat(2, 1fr); }
+}
+@media (max-width: 768px) {
+  :root { --sidebar-w: 0px; }
+  .sidebar {
+    transform: translateX(-100%);
+    width: 280px;
+    transition: transform var(--transition);
+  }
+  .sidebar.mobile-open { transform: translateX(0); }
+  .navbar { left: 0; }
+  .footer { margin-left: 0; }
+  .hamburger { display: flex; }
+  .navbar__search { display: none; }
+  .main__content { padding: 24px 20px 60px; }
+  .card-grid { grid-template-columns: 1fr; }
+  .stats-section { grid-template-columns: 1fr; }
+  .blog-container { padding: 24px 16px 60px; }
+}
+.mobile-overlay {
+  display: none;
+  position: fixed; inset: 0;
+  background: rgba(0,0,0,0.6);
+  z-index: 105;
+}
+.mobile-overlay.active { display: block; }
+
+/* --- Animations on scroll --- */
+.fade-up {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.5s ease, transform 0.5s ease;
+}
+.fade-up.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+}
+</style>
+  </head>
+<body class="blog-layout">
+
+  <!-- Navbar -->
+  <header class="navbar">
+    <div class="navbar__brand">
+      <div class="helix-icon">HHW</div>
+      hackherway cybersecurity
+    </div>
+    <div class="navbar__search">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="color:var(--text-muted)"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg>
+      <input type="text" placeholder="Query...">
+      <kbd>/</kbd>
+    </div>
+    <nav class="navbar__links">
+      <a href="index.html">127.0.0.1</a>
+      <a href="#" class="active">Security Ramblings</a>
+      <a href="#">Whoami</a>
+      <a href="#">Contact</a>
+    </nav>
+  </header>
+
+  <div class="blog-container">
+    <!-- Main Article -->
+    <article class="blog-main">
+      <div class="blog-header">
+        <a href="index.html" class="blog-header__back">&#8592; Back to 127.0.0.1</a>
+        <h1 class="blog-header__title">TITLE</h1>
+        <div class="blog-header__meta">
+          <span>&#128100; mindhackdiva</span>
+          <span>&#128197; March 21, 2026</span>
+          <span>&#9201; 12 min read</span>
+        </div>
+        <div class="blog-header__tags">
+          <span class="blog-tag">TAG</span>
+          <span class="blog-tag">TAG</span>
+          <span class="blog-tag">TAG</span>
+          <span class="blog-tag">TAG</span>
+          <span class="blog-tag">TAG</span>
+        </div>
+      </div>
+
+      <div class="blog-content">
+        <h2 id="introduction">Introduction to MITRE ATT&CK -  Execution (TA0002) - Command and Script Execution</h2>
+<p>Execution begins when an adversary runs code on a target system to carry out their objectives. This often takes the form of native command-line interpreters such as Windows <code>cmd.exe</code>, PowerShell, or Unix-like shells like <code>bash</code>. Attackers prefer built-in tools because they blend into normal administrative activity and reduce the need to introduce foreign binaries that might trigger detection. In many cases, execution is tied directly to earlier stages, such as phishing attachments or exploitation, where the payload ultimately invokes a script or command that establishes control. The execution itself may be simple—such as launching a reverse shell—or complex, involving multi-stage scripts that dynamically retrieve and run additional components.</p>
+        <h2 id="user-execution">User Execution</h2>
+<p>Many execution events rely on some level of user interaction. Adversaries frequently design lures that convince a victim to open a malicious document, click a link, or run a file. These actions trigger embedded macros, scripts, or exploits that execute code in the user’s context. The reliance on user execution introduces variability, so attackers invest heavily in social engineering to increase success rates. Once triggered, the execution chain may silently download additional payloads, modify system settings, or establish persistence mechanisms without further user awareness.</p>
+        <h2 id="exploitation-for-client-execution">Exploitation for Client Execution</h2>
+<p>Execution can also occur through direct exploitation of vulnerabilities in client-side applications such as web browsers, document viewers, or email clients. In this scenario, the user does not need to explicitly run code; simply viewing malicious content is sufficient. Attackers leverage memory corruption flaws, logic bugs, or sandbox escapes to execute arbitrary code within the context of the vulnerable application. This method is particularly effective because it bypasses user suspicion and often evades traditional security controls that rely on detecting explicit execution events.</p>
+        <h2 id="inter-process-communications-abuse">Inter-Process-Communications Abuse</h2>
+<p>Adversaries frequently exploit legitimate inter-process communication (IPC) mechanisms to execute code indirectly. Instead of launching a new process in a suspicious way, they inject commands or payloads into existing processes. Techniques such as Dynamic Data Exchange (DDE), named pipes, or COM objects allow attackers to leverage trusted processes as execution proxies. This approach reduces visibility because the activity appears to originate from legitimate system components rather than a clearly malicious binary.</p>
+        <h2 id="job-execution">Scheduled Task and Job Execution</h2>
+<p>Execution may be deferred or automated through scheduled tasks, cron jobs, or other job scheduling mechanisms. While often associated with persistence, these techniques also serve as initial execution vectors. For example, an attacker may create a scheduled task that runs a payload at system startup or at a specific time. This allows execution to occur outside the initial compromise window, complicating forensic timelines and making detection more difficult.</p>
+        <h2 id="servic-execution">Service Execution</h2>
+<p>Services provide another reliable method for executing code, particularly in environments where administrative privileges have been obtained. Attackers can create or modify system services to run malicious binaries under the guise of legitimate system operations. Because services often run with elevated privileges and are expected to execute continuously, they offer a stable and stealthy execution mechanism. This technique is especially common in post-exploitation phases where maintaining control and stability is critical.</p>
+        <h2 id="api-and-system-call-invocation">API and System Call Invocation</h2>
+<p>Rather than relying solely on high-level scripting or command interpreters, sophisticated adversaries may execute code by directly invoking system APIs or low-level system calls. This allows them to bypass traditional monitoring mechanisms that focus on command-line activity. By embedding execution logic within compiled binaries or shellcode, attackers can interact directly with the operating system, making their actions harder to trace and attribute.</p>
+        <h2 id="fileless-and-in-memory-execution">Fileless and In-Memory Execution</h2>
+<p>Modern adversaries increasingly favor fileless execution techniques, where code runs entirely in memory without touching disk. This is often achieved through PowerShell, reflective DLL injection, or shellcode loaders. By avoiding disk artifacts, attackers reduce their forensic footprint and evade signature-based detection systems. In-memory execution is frequently combined with other techniques, such as process injection, to further obscure the origin and intent of the activity.</p>
+        <h2 id="living-off-the-land-techniques">Living-Off-The-Land (LOTL) Techniques</h2>
+<p>Execution often leverages legitimate system utilities, commonly referred to as “living-off-the-land binaries” (LOLBins). Tools such as PowerShell, <code>wmic</code>, <code>mshta</code>, or <code>rundll32</code> can be repurposed to execute malicious code while appearing benign. This approach minimizes the need for custom malware and exploits the trust placed in native system tools. As a result, distinguishing malicious execution from legitimate administrative activity becomes significantly more challenging.</p>
+        <h2 id="execution-chain-orchestration">Execution Chain Orchestration</h2>
+<p>Execution rarely occurs as a single isolated event. Instead, it is part of a broader chain that may involve multiple stages, each responsible for a specific function. An initial script may download a second-stage payload, which then injects into a process, which in turn establishes persistence and communication with command-and-control infrastructure. This layered approach allows adversaries to adapt dynamically, replace components as needed, and maintain resilience against partial detection or disruption.</p>
+        <h2 id="defensive-considerations">Defensive Considerations and Detection Challenges</h2>
+<p>From a defensive perspective, the execution phase is one of the most critical points for detection and response; however, it is also one of the most challenging to monitor effectively. The widespread use of legitimate tools, in-memory techniques, and indirect execution paths creates significant noise and ambiguity. Effective detection requires a combination of behavioral analysis, command-line auditing, process monitoring, and anomaly detection. Defenders must focus not only on what is executed, but how, when, and in what context, correlating execution events with preceding and subsequent activity to build a complete picture of adversary behavior.</p>
+        <div class="callout callout--info">
+          <span class="callout__icon">&#x2139;&#xFE0F;</span>
+          <div>Kerberoasting requires only a valid domain user account — no elevated privileges are needed to request service tickets, making it a low-barrier, high-impact attack.</div>
+        </div>
+
+
+
+
+        <h3>Extract Tickets with Rubeus</h3>
+        <p>Rubeus is a C# toolset for Kerberos interaction and abuse. It can request and extract service tickets in a crackable format:</p>
+        <div class="code-block">
+          <div class="code-block__header">
+            <div class="code-block__dots"><span></span><span></span><span></span></div>
+            <span class="code-block__lang">cmd</span>
+            <button class="code-block__copy">Copy</button>
+          </div>
+<pre><span class="c-comment"># Request tickets for all kerberoastable accounts</span>
+<span class="c-cmd">Rubeus.exe</span> <span class="c-flag">kerberoast</span> <span class="c-flag">/outfile:</span><span class="c-string">hashes.txt</span>
+
+<span class="c-comment"># Target a specific SPN</span>
+<span class="c-cmd">Rubeus.exe</span> <span class="c-flag">kerberoast</span> <span class="c-flag">/spn:</span><span class="c-string">MSSQLSvc/db01.corp.local:1433</span>
+
+<span class="c-comment"># Use RC4 downgrade for easier cracking (noisier)</span>
+<span class="c-cmd">Rubeus.exe</span> <span class="c-flag">kerberoast</span> <span class="c-flag">/tgtdeleg</span></pre>
+        </div>
+
+        <h3>TITLE</h3>
+        <div class="code-block">
+          <div class="code-block__header">
+            <div class="code-block__dots"><span></span><span></span><span></span></div>
+            <span class="code-block__lang">bash</span>
+            <button class="code-block__copy">Copy</button>
+          </div>
+<pre><span class="c-comment"># Crack Kerberos 5 TGS-REP (RC4 - type 23)</span>
+<span class="c-cmd">hashcat</span> <span class="c-flag">-m 13100</span> hashes.txt <span class="c-string">wordlist.txt</span> <span class="c-flag">-r rules/best64.rule</span>
+
+<span class="c-comment"># Crack AES256 tickets (type 17/18 — slower)</span>
+<span class="c-cmd">hashcat</span> <span class="c-flag">-m 19700</span> hashes.txt <span class="c-string">wordlist.txt</span> <span class="c-flag">--force</span>
+
+<span class="c-comment"># Check results</span>
+<span class="c-cmd">hashcat</span> <span class="c-flag">-m 13100</span> hashes.txt <span class="c-flag">--show</span>
+<span class="c-output">$krb5tgs$23$*svc_sql$CORP.LOCAL*$...:Summer2024!</span></pre>
+        </div>
+
+        <div class="callout callout--danger">
+          <span class="callout__icon">&#x26A0;&#xFE0F;</span>
+          <div><strong>Legal Notice:</strong> Only perform Kerberoasting attacks against systems you are authorized to test. Unauthorized access to computer systems is a criminal offense under laws such as the CFAA (US) and Computer Misuse Act (UK).</div>
+        </div>
+
+        <h2 id="detection">Detection &amp; Defense</h2>
+        <p>Defending against Kerberoasting requires a multi-layered approach combining preventive controls and detection mechanisms:</p>
+
+        <h3>Preventive Controls</h3>
+        <ul>
+          <li><strong>Strong service account passwords:</strong> Use 25+ character randomly generated passwords for all service accounts with SPNs</li>
+          <li><strong>Group Managed Service Accounts (gMSA):</strong> Automatically rotate 240-character complex passwords every 30 days</li>
+          <li><strong>AES encryption only:</strong> Disable RC4_HMAC_MD5 via GPO to force AES256, making cracking computationally expensive</li>
+          <li><strong>Minimize SPNs:</strong> Audit and remove unnecessary SPNs from user accounts; use computer accounts where possible</li>
+          <li><strong>Privileged Access Management:</strong> Avoid assigning Domain Admin or high-privilege group memberships to service accounts</li>
+        </ul>
+        <div class="code-block">
+          <div class="code-block__header">
+            <div class="code-block__dots"><span></span><span></span><span></span></div>
+            <span class="code-block__lang">KQL (Microsoft Sentinel)</span>
+            <button class="code-block__copy">Copy</button>
+          </div>
+<pre><span class="c-comment">// Detect potential Kerberoasting via RC4 TGS requests</span>
+<span class="c-cmd">SecurityEvent</span>
+| <span class="c-keyword">where</span> EventID == <span class="c-string">4769</span>
+| <span class="c-keyword">where</span> TicketEncryptionType == <span class="c-string">"0x17"</span>   <span class="c-comment">// RC4</span>
+| <span class="c-keyword">where</span> ServiceName !endswith <span class="c-string">"$"</span>         <span class="c-comment">// Exclude machine accounts</span>
+| <span class="c-keyword">summarize</span> Count=<span class="c-cmd">count</span>() <span class="c-keyword">by</span> TargetUserName, IpAddress, <span class="c-cmd">bin</span>(TimeGenerated, <span class="c-string">5m</span>)
+| <span class="c-keyword">where</span> Count > <span class="c-string">5</span></pre>
+        </div>
+
+    </article>
+
+    <!-- Right TOC -->
+    <aside class="toc-sidebar">
+      <nav class="toc">
+        <div class="toc__title">On this page</div>
+        <a href="#overview" class="active">Overview</a>
+        <a href="#how-it-works">How Kerberoasting Works</a>
+        <a href="#prerequisites">Prerequisites</a>
+        <a href="#attack-steps">Step-by-Step Attack</a>
+        <a href="#detection">Detection &amp; Defense</a>
+        <a href="#tools">Tools Used</a>
+        <a href="#references">References</a>
+      </nav>
+    </aside>
+  </div>
+
+  <!-- Footer -->
+ <script>
+
+/* === HACKHERWAY SECURITY — script.js === */
+
+document.addEventListener('DOMContentLoaded', () => {
+  initSidebar();
+  initAccordion();
+  initCopyButtons();
+  initTerminal();
+  initCounters();
+  initScrollAnimations();
+  initMobileMenu();
+  initScrollSpy();
+});
+
+/* --- Sidebar Toggle --- */
+function initSidebar() {
+  document.querySelectorAll('.sidebar__toggle').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const submenu = btn.nextElementSibling;
+      const isOpen = submenu.classList.contains('open');
+
+      // Close all
+      document.querySelectorAll('.sidebar__submenu.open').forEach(s => {
+        s.classList.remove('open');
+        s.style.maxHeight = null; // IMPORTANT
+        s.previousElementSibling.classList.remove('active');
+      });
+
+      if (!isOpen) {
+        submenu.classList.add('open');
+        btn.classList.add('active');
+        submenu.style.maxHeight = submenu.scrollHeight + 'px';
+      }
+    });
+  });
+}
+
+/* --- Accordion --- */
+function initAccordion() {
+  document.querySelectorAll('.accordion__header').forEach(header => {
+    header.addEventListener('click', () => {
+      const item = header.parentElement;
+      const body = item.querySelector('.accordion__body');
+      const inner = body.querySelector('.accordion__body-inner');
+      const isOpen = item.classList.contains('open');
+      // Close all
+      document.querySelectorAll('.accordion__item.open').forEach(openItem => {
+        openItem.classList.remove('open');
+        openItem.querySelector('.accordion__body').style.maxHeight = '0';
+      });
+      if (!isOpen) {
+        item.classList.add('open');
+        body.style.maxHeight = inner.scrollHeight + 'px';
+      }
+    });
+  });
+}
+
+/* --- Copy to Clipboard --- */
+function initCopyButtons() {
+  document.querySelectorAll('.code-block__copy').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const codeBlock = btn.closest('.code-block');
+      const code = codeBlock.querySelector('pre').textContent;
+      navigator.clipboard.writeText(code).then(() => {
+        btn.textContent = 'Copied!';
+        btn.classList.add('copied');
+        setTimeout(() => {
+          btn.textContent = 'Copy';
+          btn.classList.remove('copied');
+        }, 2000);
+      });
+    });
+  });
+}
+
+/* --- Terminal Typing Effect --- */
+function initTerminal() {
+  const termBody = document.querySelector('.terminal__body');
+  if (!termBody || termBody.dataset.animated === 'true') return;
+  termBody.dataset.animated = 'true';
+
+  const lines = [
+      { text: '╔══════════════════════════════════════════════╗', cls: 't-pink' },
+    { text: '║     HELIX KITTEN SECURITY FRAMEWORK          ║', cls: 't-pink' },
+    { text: '║     Offensive Security Research Lab           ║', cls: 't-grey' },
+    { text: '╚══════════════════════════════════════════════╝', cls: 't-pink' },
+  { text: '', cls: '' },
+    { text: '[*] Initializing threat intelligence modules...', cls: 't-green' },
+    { text: '[*] Loading MITRE ATT&CK knowledge base...', cls: 't-green' },
+    { text: '[*] Connecting to vulnerability database...', cls: 't-green' },
+    { text: '[+] 2,847 techniques cataloged', cls: 't-white' },
+    { text: '[+] 156 tool profiles loaded', cls: 't-white' },
+    { text: '[+] System ready.', cls: 't-green' },
+    { text: '', cls: '' },
+    { text: 'mindhackdiva@hackherway:~$ ', cls: 't-pink', cursor: true },
+  ];
+
+  termBody.innerHTML = '';
+  let i = 0;
+
+  function typeLine() {
+    if (i >= lines.length) return;
+    const line = lines[i];
+    const div = document.createElement('div');
+    if (line.text === '') {
+      div.innerHTML = '&nbsp;';
+    } else {
+      div.innerHTML = `<span class="${line.cls}">${escapeHTML(line.text)}</span>`;
+      if (line.cursor) {
+        div.innerHTML += '<span class="terminal__cursor"></span>';
+      }
+    }
+    div.style.opacity = '0';
+    termBody.appendChild(div);
+    requestAnimationFrame(() => {
+      div.style.transition = 'opacity 0.15s ease';
+      div.style.opacity = '1';
+    });
+    i++;
+    setTimeout(typeLine, line.text === '' ? 50 : 80 + Math.random() * 60);
+  }
+
+  // Start when visible
+  const observer = new IntersectionObserver((entries) => {
+    if (entries[0].isIntersecting) {
+      observer.disconnect();
+      setTimeout(typeLine, 300);
+    }
+  }, { threshold: 0.3 });
+  observer.observe(termBody);
+}
+
+function escapeHTML(str) {
+  return str.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+}
+
+/* --- Animated Counters --- */
+function initCounters() {
+  const counters = document.querySelectorAll('.stat__number');
+  if (!counters.length) return;
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        const el = entry.target;
+        const target = parseInt(el.dataset.target);
+        const suffix = el.dataset.suffix || '';
+        animateCounter(el, 0, target, 1500, suffix);
+        observer.unobserve(el);
+      }
+    });
+  }, { threshold: 0.5 });
+
+  counters.forEach(c => observer.observe(c));
+}
+
+function animateCounter(el, start, end, duration, suffix) {
+  const startTime = performance.now();
+  function update(now) {
+    const elapsed = now - startTime;
+    const progress = Math.min(elapsed / duration, 1);
+    const eased = 1 - Math.pow(1 - progress, 3);
+    el.textContent = Math.floor(start + (end - start) * eased) + suffix;
+    if (progress < 1) requestAnimationFrame(update);
+  }
+  requestAnimationFrame(update);
+}
+
+/* --- Scroll Animations --- */
+function initScrollAnimations() {
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+      }
+    });
+  }, { threshold: 0.1 });
+
+  document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
+}
+
+/* --- Mobile Menu --- */
+function initMobileMenu() {
+  const hamburger = document.querySelector('.hamburger');
+  const sidebar = document.querySelector('.sidebar');
+  const overlay = document.querySelector('.mobile-overlay');
+  if (!hamburger || !sidebar) return;
+
+  function toggleMenu() {
+    sidebar.classList.toggle('mobile-open');
+    if (overlay) overlay.classList.toggle('active');
+  }
+  hamburger.addEventListener('click', toggleMenu);
+  if (overlay) overlay.addEventListener('click', toggleMenu);
+}
+
+/* --- Blog Scroll Spy --- */
+function initScrollSpy() {
+  const tocLinks = document.querySelectorAll('.toc a');
+  if (!tocLinks.length) return;
+
+  const sections = [];
+  tocLinks.forEach(link => {
+    const id = link.getAttribute('href');
+    if (id && id.startsWith('#')) {
+      const section = document.querySelector(id);
+      if (section) sections.push({ el: section, link: link });
+    }
+  });
+
+  function onScroll() {
+    const scrollY = window.scrollY + 100;
+    let current = sections[0];
+    for (const s of sections) {
+      if (s.el.offsetTop <= scrollY) current = s;
+    }
+    tocLinks.forEach(l => l.classList.remove('active'));
+    if (current) current.link.classList.add('active');
+  }
+
+  window.addEventListener('scroll', onScroll, { passive: true });
+  onScroll();
+}
+ const canvas = document.getElementById("grid");
+    const ctx = canvas.getContext("2d");
+
+    let width = canvas.width = window.innerWidth;
+    let height = canvas.height = window.innerHeight;
+
+    let mouse = { x: -9999, y: -9999 };
+    const squareSize = 80;
+    const grid = [];
+
+    function initGrid() {
+      grid.length = 0;
+      for (let x = 0; x < width; x += squareSize) {
+        for (let y = 0; y < height; y += squareSize) {
+          grid.push({
+            x,
+            y,
+            alpha: 0,
+            fading: false,
+            lastTouched: 0,
+          });
+        }
+      }
+    }
+
+    function getCellAt(x, y) {
+      return grid.find(cell =>
+        x >= cell.x && x < cell.x + squareSize &&
+        y >= cell.y && y < cell.y + squareSize
+      );
+    }
+
+    window.addEventListener("resize", () => {
+      width = canvas.width = window.innerWidth;
+      height = canvas.height = window.innerHeight;
+      initGrid();
+    });
+
+    window.addEventListener("mousemove", (e) => {
+      mouse.x = e.clientX;
+      mouse.y = e.clientY;
+
+      const cell = getCellAt(mouse.x, mouse.y);
+      if (cell && cell.alpha === 0) {
+        cell.alpha = 1;
+        cell.lastTouched = Date.now();
+        cell.fading = false;
+      }
+    });
+
+    function drawGrid() {
+      ctx.clearRect(0, 0, width, height);
+      const now = Date.now();
+
+      for (let i = 0; i < grid.length; i++) {
+        const cell = grid[i];
+
+        // Start fading after 500ms
+        if (cell.alpha > 0 && !cell.fading && now - cell.lastTouched > 500) {
+          cell.fading = true;
+        }
+
+        if (cell.fading) {
+          cell.alpha -= 0.02;
+          if (cell.alpha <= 0) {
+            cell.alpha = 0;
+            cell.fading = false;
+          }
+        }
+
+        if (cell.alpha > 0) {
+          const centerX = cell.x + squareSize / 2;
+          const centerY = cell.y + squareSize / 2;
+
+          const gradient = ctx.createRadialGradient(
+            centerX, centerY, 5,
+            centerX, centerY, squareSize
+          );
+gradient.addColorStop(0, `rgba(255, 20, 147, ${cell.alpha})`); // hot pink
+gradient.addColorStop(1, `rgba(255, 20, 147, 0)`);          ctx.strokeStyle = gradient;
+          ctx.lineWidth = 1.3;
+          ctx.strokeRect(cell.x + 0.5, cell.y + 0.5, squareSize - 1, squareSize - 1);
+        }
+      }
+
+      requestAnimationFrame(drawGrid);
+    }
+
+    initGrid();
+    drawGrid();
+  
+</script>
+
+</body>
+</html>
+===========================================
+
+
+  <script src="script.js"></script>
+<script>
+/* === HACKHERWAY SECURITY — script.js === */
+
+document.addEventListener('DOMContentLoaded', () => {
+  initSidebar();
+  initAccordion();
+  initCopyButtons();
+  initTerminal();
+  initCounters();
+  initScrollAnimations();
+  initMobileMenu();
+  initScrollSpy();
+});
+
+/* --- Sidebar Toggle --- */
+function initSidebar() {
+  document.querySelectorAll('.sidebar__toggle').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const submenu = btn.nextElementSibling;
+      const isOpen = submenu.classList.contains('open');
+
+      // Close all
+      document.querySelectorAll('.sidebar__submenu.open').forEach(s => {
+        s.classList.remove('open');
+        s.style.maxHeight = null; // IMPORTANT
+        s.previousElementSibling.classList.remove('active');
+      });
+
+      if (!isOpen) {
+        submenu.classList.add('open');
+        btn.classList.add('active');
+        submenu.style.maxHeight = submenu.scrollHeight + 'px';
+      }
+    });
+  });
+}
+
+
+/* --- Scroll Animations --- */
+function initScrollAnimations() {
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+      }
+    });
+  }, { threshold: 0.1 });
+
+  document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
+}
+
+/* --- Mobile Menu --- */
+function initMobileMenu() {
+  const hamburger = document.querySelector('.hamburger');
+  const sidebar = document.querySelector('.sidebar');
+  const overlay = document.querySelector('.mobile-overlay');
+  if (!hamburger || !sidebar) return;
+
+  function toggleMenu() {
+    sidebar.classList.toggle('mobile-open');
+    if (overlay) overlay.classList.toggle('active');
+  }
+  hamburger.addEventListener('click', toggleMenu);
+  if (overlay) overlay.addEventListener('click', toggleMenu);
+}
+
+/* --- Blog Scroll Spy --- */
+function initScrollSpy() {
+  const tocLinks = document.querySelectorAll('.toc a');
+  if (!tocLinks.length) return;
+
+  const sections = [];
+  tocLinks.forEach(link => {
+    const id = link.getAttribute('href');
+    if (id && id.startsWith('#')) {
+      const section = document.querySelector(id);
+      if (section) sections.push({ el: section, link: link });
+    }
+  });
+
+  function onScroll() {
+    const scrollY = window.scrollY + 100;
+    let current = sections[0];
+    for (const s of sections) {
+      if (s.el.offsetTop <= scrollY) current = s;
+    }
+    tocLinks.forEach(l => l.classList.remove('active'));
+    if (current) current.link.classList.add('active');
+  }
+
+  window.addEventListener('scroll', onScroll, { passive: true });
+  onScroll();
+}
+ const canvas = document.getElementById("grid");
+    const ctx = canvas.getContext("2d");
+
+    let width = canvas.width = window.innerWidth;
+    let height = canvas.height = window.innerHeight;
+
+    let mouse = { x: -9999, y: -9999 };
+    const squareSize = 80;
+    const grid = [];
+
+    function initGrid() {
+      grid.length = 0;
+      for (let x = 0; x < width; x += squareSize) {
+        for (let y = 0; y < height; y += squareSize) {
+          grid.push({
+            x,
+            y,
+            alpha: 0,
+            fading: false,
+            lastTouched: 0,
+          });
+        }
+      }
+    }
+
+    function getCellAt(x, y) {
+      return grid.find(cell =>
+        x >= cell.x && x < cell.x + squareSize &&
+        y >= cell.y && y < cell.y + squareSize
+      );
+    }
+
+    window.addEventListener("resize", () => {
+      width = canvas.width = window.innerWidth;
+      height = canvas.height = window.innerHeight;
+      initGrid();
+    });
+
+    window.addEventListener("mousemove", (e) => {
+      mouse.x = e.clientX;
+      mouse.y = e.clientY;
+
+      const cell = getCellAt(mouse.x, mouse.y);
+      if (cell && cell.alpha === 0) {
+        cell.alpha = 1;
+        cell.lastTouched = Date.now();
+        cell.fading = false;
+      }
+    });
+
+    function drawGrid() {
+      ctx.clearRect(0, 0, width, height);
+      const now = Date.now();
+
+      for (let i = 0; i < grid.length; i++) {
+        const cell = grid[i];
+
+        // Start fading after 500ms
+        if (cell.alpha > 0 && !cell.fading && now - cell.lastTouched > 500) {
+          cell.fading = true;
+        }
+
+        if (cell.fading) {
+          cell.alpha -= 0.02;
+          if (cell.alpha <= 0) {
+            cell.alpha = 0;
+            cell.fading = false;
+          }
+        }
+
+        if (cell.alpha > 0) {
+          const centerX = cell.x + squareSize / 2;
+          const centerY = cell.y + squareSize / 2;
+
+          const gradient = ctx.createRadialGradient(
+            centerX, centerY, 5,
+            centerX, centerY, squareSize
+          );
+gradient.addColorStop(0, `rgba(255, 20, 147, ${cell.alpha})`); // hot pink
+gradient.addColorStop(1, `rgba(255, 20, 147, 0)`);          ctx.strokeStyle = gradient;
+          ctx.lineWidth = 1.3;
+          ctx.strokeRect(cell.x + 0.5, cell.y + 0.5, squareSize - 1, squareSize - 1);
+        }
+      }
+
+      requestAnimationFrame(drawGrid);
+    }
+
+    initGrid();
+    drawGrid();
+  
+</script>  
