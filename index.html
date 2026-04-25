@@ -16,7 +16,7 @@
 
     <style>
         * {
-            cursor: none !important; /* Hides the real mouse */
+          /*  cursor: none !important; /* Hides the real mouse */
         }
 
 </style>
@@ -45,6 +45,15 @@
           <span class="chevron">&#9654;</span>
         </button>
                 <div class="sidebar__submenu">
+        <button class="sidebar__toggle active">
+          <span class="section-icon">📚</span>
+          · TEST ·
+          <span class="chevron">&#9654;</span>
+        </button>
+      
+                            <a href="blog-test.html" class="current">TEST</a></div>
+                <div class="sidebar__submenu">
+
           <a href="blog-aaa.html" class="current">AAA</a>
           <a href="blog-active-directory.html">Active Directory (AD)</a>
           <a href="blog-algorithms.html">Algorithms</a>
@@ -106,7 +115,49 @@
 
       </div>      
     </div>
+
+      <!-- Section -->
       <div class="sidebar__section">
+        <button class="sidebar__toggle">
+          <span class="section-icon">⚔️</span>
+          · Active Directory Attacks ·
+          <span class="chevron">&#9654;</span>
+        </button>
+        <div class="sidebar__submenu">
+          · Most Common Attack Vectors for AD Compromise ·
+          <a href="blog-ms14-068.html" class="current">Microsoft Kerberos Checksum Validation Vulnerability</a>
+          <a href="blog-open-shares-and-vulnerable-smb.html">Open Shares & Vulnerable SMB</a>
+          <a href="blog-gpo-pivoting.html">GPO - Pivoting with Local Admin & Passwords in SYSVOL</a>
+          <a href="blog-credential-dumping.html">Credential Dumping</a>
+          <a href="blog-golden-ticket-attacks.html">Golden Ticket Attacks</a>
+          <a href="blog-silver-ticket-attacks.html">Silver Ticket Attacks</a>
+          <a href="blog-sapphire-ticket-attacks.html">Sapphire Ticket Attacks</a>
+          <a href="blog-diamond-ticket-attacks.html">Diamond Ticket Attacks</a>
+          <a href="blog-trust-ticket-attacks.html">Trust Ticket Attacks</a>
+          <a href="blog-kerberoasting.html">Kerberoasting</a>
+          <a href="blog-asrep-roasting.html">ASREP-Roasting</a>
+          <a href="blog-pass-the-hash-pth.html">Pass-the-Hash (PtH)</a>
+          <a href="blog-pass-the-ticket-ptt.html">Pass-the-Ticket (PtT)</a>
+          <a href="blog-overpass-the-hash-pass-the-key.html">Overpass-the-Hash (Pass-the-Key)</a>
+          <a href="blog-pass-the-certificate-ptc.html">Pass-the-Certificate (PtC)</a>
+          <a href="blog-golden-samlv2-abuse.html">Golden SAMLv2 Abuse</a>
+          <a href="blog-group-policy-object-gpo-misconfigurations.html">Group Policy Object (GPO) Misconfigurations</a>
+          <a href="blog-offline-cracking-of-ntlmv2-hashes.html">Offline Cracking of NTLMv2 Hashes</a>
+          <a href="blog-ntlmv2-hash-relay-attacks.html">NTLMv2 Hash Relay Attacks</a>
+          <a href="blog-living-off-the-land-lotl-attacks.html">Living Off The Land (LOTL) Attacks</a>
+          <a href="blog-windows-privilege-escalation.html">Windows Privilege Escalation</a>
+          <a href="blog-token-impersonation-rottenpotato.html">&nbsp;&nbsp;PrivEsc Local Admin - Token Impersonation (RottenPotato)</a>
+          <a href="blog-ms16-032.html">&nbsp;&nbsp;PrivEsc Local Admin - MS16-032</a>
+          <a href="blog-ms17-010-eternal-blue.html">&nbsp;&nbsp;PrivEsc Local Admin - MS17-010 (EternalBlue)Golden Ticket Attacks</a>
+          <a href="blog-from-local-admin-to-domain-admin.html">From Local Admin to Domain Admin</a>
+          <a href="blog-skeleton-key-attacks.html">Skeleton Key Attacks</a>
+          <a href="blog-petitpotam-and-s4u2-and-s4u2proxy-attacks.html">PetitPotam, S4U2Self & S4U2Proxy Attacks</a>
+        </div>
+      </div>
+
+      <!-- Section -->
+      <div class="sidebar__section">
+      <button class="sidebar__toggle">
           <span class="section-icon">🛠️</span>
           · Active Directory Tools ·
           <span class="chevron">&#9654;</span>
@@ -126,9 +177,50 @@
           <a href="blog-rubeus.html">Rubeus</a>
         </div>
       </div>
+
+      <!-- Section -->
+      <div class="sidebar__section">
+        <button class="sidebar__toggle">
+          <span class="section-icon">⚔️</span>
+          · Active Directory Attacks ·
+          <span class="chevron">&#9654;</span>
+        </button>
+        <div class="sidebar__submenu">
+          · Most Common Attack Vectors for AD Compromise ·
+          <a href="blog-ms14-068.html" class="current">Microsoft Kerberos Checksum Validation Vulnerability</a>
+          <a href="blog-open-shares-and-vulnerable-smb.html">Open Shares & Vulnerable SMB</a>
+          <a href="blog-gpo-pivoting.html">GPO - Pivoting with Local Admin & Passwords in SYSVOL</a>
+          <a href="blog-credential-dumping.html">Credential Dumping</a>
+          <a href="blog-golden-ticket-attacks.html">Golden Ticket Attacks</a>
+          <a href="blog-silver-ticket-attacks.html">Silver Ticket Attacks</a>
+          <a href="blog-sapphire-ticket-attacks.html">Sapphire Ticket Attacks</a>
+          <a href="blog-diamond-ticket-attacks.html">Diamond Ticket Attacks</a>
+          <a href="blog-trust-ticket-attacks.html">Trust Ticket Attacks</a>
+          <a href="blog-kerberoasting.html">Kerberoasting</a>
+          <a href="blog-asrep-roasting.html">ASREP-Roasting</a>
+          <a href="blog-pass-the-hash-pth.html">Pass-the-Hash (PtH)</a>
+          <a href="blog-pass-the-ticket-ptt.html">Pass-the-Ticket (PtT)</a>
+          <a href="blog-overpass-the-hash-pass-the-key.html">Overpass-the-Hash (Pass-the-Key)</a>
+          <a href="blog-pass-the-certificate-ptc.html">Pass-the-Certificate (PtC)</a>
+          <a href="blog-golden-samlv2-abuse.html">Golden SAMLv2 Abuse</a>
+          <a href="blog-group-policy-object-gpo-misconfigurations.html">Group Policy Object (GPO) Misconfigurations</a>
+          <a href="blog-offline-cracking-of-ntlmv2-hashes.html">Offline Cracking of NTLMv2 Hashes</a>
+          <a href="blog-ntlmv2-hash-relay-attacks.html">NTLMv2 Hash Relay Attacks</a>
+          <a href="blog-living-off-the-land-lotl-attacks.html">Living Off The Land (LOTL) Attacks</a>
+          <a href="blog-windows-privilege-escalation.html">Windows Privilege Escalation</a>
+          <a href="blog-token-impersonation-rottenpotato.html">&nbsp;&nbsp;PrivEsc Local Admin - Token Impersonation (RottenPotato)</a>
+          <a href="blog-ms16-032.html">&nbsp;&nbsp;PrivEsc Local Admin - MS16-032</a>
+          <a href="blog-ms17-010-eternal-blue.html">&nbsp;&nbsp;PrivEsc Local Admin - MS17-010 (EternalBlue)Golden Ticket Attacks</a>
+          <a href="blog-from-local-admin-to-domain-admin.html">From Local Admin to Domain Admin</a>
+          <a href="blog-skeleton-key-attacks.html">Skeleton Key Attacks</a>
+          <a href="blog-petitpotam-and-s4u2-and-s4u2proxy-attacks.html">PetitPotam, S4U2Self & S4U2Proxy Attacks</a>
+        </div>
+      </div>
+      
       <!-- Section 2 -->
        <div class="sidebar__section">
-          <span class="section-icon">🛠️</span>
+       <button class="sidebar__toggle">
+       <span class="section-icon">🛠️</span>
           · Pentesting Active Directory ·
           <span class="chevron">&#9654;</span>
         </button>
