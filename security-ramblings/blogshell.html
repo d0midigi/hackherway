@@ -884,6 +884,56 @@ img { max-width: 100%; }
     </div>
   </main>
 
+ <!-- Accordion -->
+      <section class="accordion fade-up">
+        <h2 class="section-heading">Quick Reference</h2>
+        <p class="section-sub">Essential security concepts for practitioners at every level.</p>
+        <div class="accordion__item">
+          <button class="accordion__header">
+            <span>What is a Zero-Day Vulnerability?</span>
+            <span class="accordion__icon">+</span>
+          </button>
+          <div class="accordion__body">
+            <div class="accordion__body-inner">A zero-day vulnerability is a software security flaw unknown to the vendor or developer. The term "zero-day" refers to the fact that the developer has had zero days to fix the issue since it was not previously known. These vulnerabilities are highly valued by attackers and on exploit markets because no patch exists. Defense involves layered security, behavioral detection, and rapid incident response capabilities. Notable examples include EternalBlue (CVE-2017-0144) and Log4Shell (CVE-2021-44228).</div>
+          </div>
+        </div>
+        <div class="accordion__item">
+          <button class="accordion__header">
+            <span>Understanding CVEs and CVSS Scoring</span>
+            <span class="accordion__icon">+</span>
+          </button>
+          <div class="accordion__body">
+            <div class="accordion__body-inner">Common Vulnerabilities and Exposures (CVE) is a standardized identifier system for publicly known security flaws. Each CVE entry includes an ID (e.g., CVE-2024-1234), a description, and references. The Common Vulnerability Scoring System (CVSS) rates severity from 0.0 to 10.0 across metrics like Attack Vector, Attack Complexity, Privileges Required, and Impact. Scores of 9.0+ are considered Critical. Security teams use CVE databases (NVD, MITRE) for vulnerability management and patch prioritization.</div>
+          </div>
+        </div>
+        <div class="accordion__item">
+          <button class="accordion__header">
+            <span>Red Team vs Blue Team vs Purple Team</span>
+            <span class="accordion__icon">+</span>
+          </button>
+          <div class="accordion__body">
+            <div class="accordion__body-inner"><strong>Red Team</strong> simulates real-world adversaries to test an organization's defenses through offensive operations including social engineering, exploitation, and lateral movement. <strong>Blue Team</strong> focuses on defensive operations: monitoring, detection, incident response, and hardening. <strong>Purple Team</strong> bridges both by facilitating collaboration between red and blue, ensuring attack simulations directly improve detection capabilities. Modern security programs leverage all three for a comprehensive security posture through continuous adversary emulation exercises.</div>
+          </div>
+        </div>
+        <div class="accordion__item">
+          <button class="accordion__header">
+            <span>Common Attack Vectors and Entry Points</span>
+            <span class="accordion__icon">+</span>
+          </button>
+          <div class="accordion__body">
+            <div class="accordion__body-inner">The most prevalent attack vectors include: <strong>Phishing</strong> (spear phishing emails with malicious attachments or credential harvesting links), <strong>Exposed Services</strong> (unpatched web applications, RDP, SSH, VPN endpoints), <strong>Supply Chain</strong> (compromised third-party software or dependencies), <strong>Credential Abuse</strong> (password spraying, credential stuffing from data breaches), and <strong>Insider Threats</strong> (malicious or negligent insiders with legitimate access). Understanding these vectors is foundational for both penetration testing scoping and defensive architecture.</div>
+          </div>
+        </div>
+        <div class="accordion__item">
+          <button class="accordion__header">
+            <span>Security Frameworks Overview (NIST, ISO, CIS)</span>
+            <span class="accordion__icon">+</span>
+          </button>
+          <div class="accordion__body">
+            <div class="accordion__body-inner"><strong>NIST Cybersecurity Framework</strong> organizes security into five functions: Identify, Protect, Detect, Respond, Recover. <strong>ISO 27001</strong> provides requirements for an Information Security Management System (ISMS) with Annex A controls. <strong>CIS Controls</strong> offer a prioritized set of 18 security actions mapped to common attack patterns. <strong>MITRE ATT&CK</strong> catalogs adversary tactics and techniques based on real-world observations. These frameworks are complementary — organizations often map between them for comprehensive coverage across governance, operations, and technical controls.</div>
+          </div>
+        </div>
+      </section>
 
         <h3>TITLE</h3>
         <div class="code-block">
