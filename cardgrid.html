@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Security Tools Grid</title>
+<style>
+  *{margin:0;padding:0;box-sizing:border-box;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif}
+  body{background:#000;color:#fff;padding:2rem}
+  .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:1rem;max-width:1200px;margin:auto}
+  .card{background:#0a0a0a;border:1px solid #1a1a1a;border-radius:12px;padding:1.25rem;transition:all .25s ease;text-decoration:none;color:inherit;display:flex;flex-direction:column;position:relative;top:0;min-height:180px}
+  .card:hover{border-color:#fe0942;box-shadow:0 8px 24px rgba(254,9,66,.15);top:-4px}
+  .head{display:flex;align-items:center;gap:.75rem;margin-bottom:.75rem}
+  .icon{width:40px;height:40px;border-radius:8px;object-fit:cover}
+  .title-wrap{display:flex;align-items:center;gap:.4rem}
+  .title{font-weight:600;color:#fff;font-size:.95rem}
+  .heart{width:14px;height:14px;color:#fe0942;display:inline-flex;align-items:center;justify-content:center}
+  .heart svg{width:100%;height:100%;fill:currentColor}
+  .desc{color:#888;font-size:.85rem;line-height:1.5;margin-bottom:auto}
+  .tag{color:#fe0942;font-size:.75rem;display:flex;align-items:center;gap:.4rem;font-weight:500;margin-top:1rem}
+  .badge{width:14px;height:14px;display:inline-flex;align-items:center;justify-content:center;flex-shrink:0;color:#fe0942}
+  .badge svg{width:100%;height:100%;fill:currentColor}
+</style>
+<base target="_blank">
+</head>
+<body>
+<div class="grid">
+  <a href="#" class="card">
+    <div class="head">
+      <img src="https://cdn.brandfetch.io/idchmboHEZ/theme/dark/logo.svg?c=1id64Mup7ac02d5P6" class="icon" alt="RoboShadow" onerror="this.style.display='none'">
+      <div class="title-wrap">
+        <span class="title">RoboShadow OWASP ZAP</span>
+        <span class="heart"><svg viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg></span>
+      </div>
+    </div>
+    <div class="desc">Web app & network vulnerability scanner integrating OWASP ZAP, Shodan & Nmap</div>
+    <div class="tag">
+      <span class="badge"><svg viewBox="0 0 24 24"><path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4zm-2 16l-4-4 1.41-1.41L10 14.17l6.59-6.59L18 9l-8 8z"/></svg></span>
+      Security Scanning
+    </div>
+  </a>
+  <a href="#" class="card">
+    <div class="head">
+      <img src="https://cdn.brandfetch.io/idL0iThUdH/theme/dark/logo.svg?c=1id64Mup7ac02d5P6" class="icon" alt="Orca" onerror="this.style.display='none'">
+      <div class="title-wrap">
+        <span class="title">Orca Cloud Vulnerability</span>
+        <span class="heart"><svg viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg></span>
+      </div>
+    </div>
+    <div class="desc">Agentless cloud vulnerability management with unified context and...</div>
+    <div class="tag">
+      <span class="badge"><svg viewBox="0 0 24 24"><path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4zm-2 16l-4-4 1.41-1.41L10 14.17l6.59-6.59L18 9l-8 8z"/></svg></span>
+      Vulnerability Assessment
+    </div>
+  </a>
+  <a href="#" class="card">
+    <div class="head">
+      <img src="https://www.defectdojo.org/images/logo.png" class="icon" alt="DefectDojo" onerror="this.style.display='none'">
+      <div class="title-wrap">
+        <span class="title">DefectDojo</span>
+      </div>
+    </div>
+    <div class="desc">Open-source vuln management platform with automated triage and ASPM.</div>
+    <div class="tag">
+      <span class="badge"><svg viewBox="0 0 24 24"><path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4zm-2 16l-4-4 1.41-1.41L10 14.17l6.59-6.59L18 9l-8 8z"/></svg></span>
+      Vulnerability Assessment
+    </div>
+  </a>
+  <a href="#" class="card">
+    <div class="head">
+      <img src="https://www.atera.com/wp-content/uploads/2023/03/cropped-favicon-512x512-1.png" class="icon" alt="Atera" onerror="this.style.display='none'">
+      <div class="title-wrap">
+        <span class="title">Atera Network Discovery</span>
+      </div>
+    </div>
+    <div class="desc">RMM-integrated network scanner for device discovery, inventory, and CVE...</div>
+    <div class="tag">
+      <span class="badge"><svg viewBox="0 0 24 24"><path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4zm-2 16l-4-4 1.41-1.41L10 14.17l6.59-6.59L18 9l-8 8z"/></svg></span>
+      Vulnerability Assessment
+    </div>
+  </a>
+  <a href="#" class="card">
+    <div class="head">
+      <img src="https://www.tenable.com/sites/default/files/images/pages/nessus/nessus-icon.png" class="icon" alt="Nessus" onerror="this.style.display='none'">
+      <div class="title-wrap">
+        <span class="title">Nessus Professional</span>
+      </div>
+    </div>
+    <div class="desc">Vulnerability scanner for assessing networks, systems, and apps for...</div>
+    <div class="tag">
+      <span class="badge"><svg viewBox="0 0 24 24"><path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4zm-2 16l-4-4 1.41-1.41L10 14.17l6.59-6.59L18 9l-8 8z"/></svg></span>
+      Vulnerability Assessment
+    </div>
+  </a>
+  <a href="#" class="card">
+    <div class="head">
+      <img src="https://www.cisa.gov/sites/default/files/styles/324x324/public/images/2023-06/cyberscope-logo.png" class="icon" alt="CyberScope" onerror="this.style.display='none'">
+      <div class="title-wrap">
+        <span class="title">CyberScope Edge</span>
+      </div>
+    </div>
+    <div class="desc">Handheld hardware device for on-site network vulnerability scanning.</div>
+    <div class="tag">
+      <span class="badge"><svg viewBox="0 0 24 24"><path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4zm-2 16l-4-4 1.41-1.41L10 14.17l6.59-6.59L18 9l-8 8z"/></svg></span>
+      Vulnerability Assessment
+    </div>
+  </a>
+</div>
+</body>
+</html>
