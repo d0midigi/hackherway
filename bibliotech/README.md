@@ -1,20 +1,20 @@
-# Awesome Cyber BiblioTech
+# Awesome Ancient Cybersec BiblioTech
 
 [![Awesome](https://cdn.rawgit.com/sindresorhus/awesome/d7305f38d29fed78fa85652e3a63e154dd8e8829/media/badge.svg)](https://github.com/sindresorhus/awesome)
 
-> Forget "new and improved." This isn't just another curated list of 2025 AI wrapper tools. It is a carefully collected set of classic cybersecurity papers: the foundational ones, the overlooked ones, and the ones that remain genuinely useful in the modern-day field of cybersecurity. While the industry chases the newest shiny object, this repository focuses on the papers, the write-ups, the walk-throughs, the practical "how-to" notes, the RTFMs - everything from the mid-1990s up through 2026.
+> Forget "new and improved." This isn't just another curated list of 2025 AI wrapper tools. It is a carefully collected set of classic cybersecurity papers that span nearly the majority of all the domains that fall under the cybersecurity umbrella: the foundational papers, the overlooked papers, and the papers that remain genuinely useful in the 2026 modern-day field of cybersecurity. While the industry chases the newest shiny object, this repository focuses on the papers, the write-ups, the walk-throughs, the practical "how-to" notes, the RTFMs - everything from the mid-1990s up through 2026.
 
-In cybersecurity, anything older than 10 years gets called "dead" pretty quickly. That's wrong. This repo is dedicated to the old, the outdated-looking, and the still-totally-functional - and relevant.
+In cybersecurity, anything older than 10 years gets called "dead" pretty quickly. That's wrong. This repo is dedicated to the old, the outdated-looking, and the still-totally-functional - and relevant papers people smirk at when they see the year of publication. These papers contain goldmines of really useful and supplementary information contained with them. 
 
 My reasoning is simple: modern documentation often skips the "why" and assumes the "how." Old-school documentation goes deeper into the nitty-gritty of how things actually work, written from human experience - not from AI prompts - and they're still worth reading.
 
-I've found that when I go back to those "dead" manuals, I end up learning something I didn't get from newer documentation that just rehashes the same repetitive AI-flavored explanations in pretty much everything you read online nowadays.
+I don't know how many times I've consulted "old" documentation to find the answer there and nothing in the new stuff. I've found that when I go back to those "dead" manuals, I end up learning something I didn't get from newer documentation that just rehashes the same repetitive AI-flavored explanations in pretty much everything you read online nowadays.
 
-This is a collection of documents from past eras that contain details modern documentation seems to leave out. Because  sometimes, understanding what comes next means paying attention to what came before.
+This is a collection of documents from past years - come and gone - that contain details modern documentation seems to leave out. Because, sometimes, to understand or foresee what comes next means paying attention to what came before.
 
 ## Contents
 
-- [Resources](#resources)
+- [Authentication, Authorization, Accountability (AAA)](#authentication-authorization-accountability-aaa)
   - [OSCP Reviews and Guides](#oscp-reviews-and-guides)
   - [Cheatsheets and Scripts](#cheatsheets-and-scripts)
   - [Topics](#topics)
