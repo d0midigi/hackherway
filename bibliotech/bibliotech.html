@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Awesome Cybersecurity</title>
+<style>
+  *{margin:0;padding:0;box-sizing:border-box}
+  body{background:#000;color:#fff;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;line-height:1.6;padding:2rem 1rem}
+  .wrap{max-width:900px;margin:auto}
+  header{text-align:center;margin-bottom:3rem}
+  h1{font-size:2.5rem;font-weight:800;letter-spacing:-1px;margin-bottom:.5rem}
+  h1 span{color:#fe0942}
+  .sub{color:#888;font-size:1.1rem}
+  .toc{display:flex;flex-wrap:wrap;gap:.5rem;justify-content:center;margin-bottom:3rem}
+  .toc a{color:#888;text-decoration:none;font-size:.85rem;padding:.4rem .8rem;border:1px solid #1a1a1a;border-radius:20px;transition:.2s}
+  .toc a:hover{color:#fe0942;border-color:#fe0942}
+  .sec{margin-bottom:3rem}
+  .sec h2{font-size:1.3rem;font-weight:700;margin-bottom:1rem;display:flex;align-items:center;gap:.5rem}
+  .sec h2::before{content:"";width:4px;height:20px;background:#fe0942;border-radius:2px}
+  .item{background:#0a0a0a;border:1px solid #1a1a1a;border-radius:12px;padding:1.25rem;margin-bottom:.75rem;transition:.2s;display:flex;gap:1rem;align-items:flex-start}
+  .item:hover{border-color:#fe0942}
+  .num{color:#fe0942;font-weight:800;font-size:1.1rem;min-width:28px;text-align:center;flex-shrink:0}
+  .item-body{flex:1}
+  .item-title{font-weight:600;color:#fff;font-size:1rem;margin-bottom:.25rem}
+  .item-title a{color:#fff;text-decoration:none}
+  .item-title a:hover{color:#fe0942}
+  .item-desc{color:#888;font-size:.9rem}
+  .tag{display:inline-block;color:#fe0942;font-size:.75rem;border:1px solid #fe094233;padding:.15rem .5rem;border-radius:4px;margin-top:.5rem}
+  .badge{display:inline-flex;align-items:center;gap:.3rem;color:#fe0942;font-size:.75rem;margin-left:.5rem}
+  .badge svg{width:12px;height:12px;fill:currentColor}
+  footer{text-align:center;color:#444;font-size:.85rem;margin-top:4rem;padding-top:2rem;border-top:1px solid #1a1a1a}
+</style>
+<base target="_blank">
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <h1>Awesome <span>Cybersecurity</span></h1>
+    <p class="sub">Curated tools, resources, and frameworks for the modern hacker.</p>
+  </header>
+
+  <nav class="toc">
+    <a href="#recon">Recon</a>
+    <a href="#scanning">Scanning</a>
+    <a href="#exploitation">Exploitation</a>
+    <a href="#post-exploit">Post-Exploit</a>
+    <a href="#osint">OSINT</a>
+    <a href="#training">Training</a>
+    <a href="#blogs">Blogs</a>
+  </nav>
+
+  <section class="sec" id="recon">
+    <h2>Reconnaissance</h2>
+    <div class="item">
+      <span class="num">01</span>
+      <div class="item-body">
+        <div class="item-title"><a href="https://github.com/projectdiscovery/subfinder">Subfinder</a> <span class="badge"><svg viewBox="0 0 24 24"><path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4zm-2 16l-4-4 1.41-1.41L10 14.17l6.59-6.59L18 9l-8 8z"/></svg> Verified</span></div>
+        <div class="item-desc">Fast passive subdomain discovery tool that uses curated sources.</div>
+        <span class="tag">Go</span>
+      </div>
+    </div>
+    <div class="item">
+      <span class="num">02</span>
+      <div class="item-body">
+        <div class="item-title"><a href="https://github.com/aboul3la/Sublist3r">Sublist3r</a></div>
+        <div class="item-desc">Python tool designed to enumerate subdomains using search engines.</div>
+        <span class="tag">Python</span>
+      </div>
+    </div>
+    <div class="item">
+      <span class="num">03</span>
+      <div class="item-body">
+        <div class="item-title"><a href="https://github.com/laramies/theHarvester">theHarvester</a></div>
+        <div class="item-desc">E-mail, subdomain, and virtual host harvesting tool for pentesters.</div>
+        <span class="tag">Python</span>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec" id="scanning">
+    <h2>Scanning & Enumeration</h2>
+    <div class="item">
+      <span class="num">01</span>
+      <div class="item-body">
+        <div class="item-title"><a href="https://nmap.org">Nmap</a> <span class="badge"><svg viewBox="0 0 24 24"><path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4zm-2 16l-4-4 1.41-1.41L10 14.17l6.59-6.59L18 9l-8 8z"/></svg> Verified</span></div>
+        <div class="item-desc">The OG network scanner. Port scanning, OS detection, scriptable with NSE.</div>
+        <span class="tag">C</span>
+      </div>
+    </div>
+    <div class="item">
+      <span class="num">02</span>
+      <div class="item-body">
+        <div class="item-title"><a href="https://github.com/projectdiscovery/naabu">Naabu</a></div>
+        <div class="item-desc">Fast port scanner written in Go with reliable SYN/CONNECT scanning.</div>
+        <span class="tag">Go</span>
+      </div>
+    </div>
+    <div class="item">
+      <span class="num">03</span>
+      <div class="item-body">
+        <div class="item-title"><a href="https://github.com/RustScan/RustScan">RustScan</a></div>
+        <div class="item-desc">Modern port scanner that finds open ports in seconds, then pipes to Nmap.</div>
+        <span class="tag">Rust</span>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec" id="exploitation">
+    <h2>Exploitation</h2>
+    <div class="item">
+      <span class="num">01</span>
+      <div class="item-body">
+        <div class="item-title"><a href="https://www.metasploit.com">Metasploit Framework</a> <span class="badge"><svg viewBox="0 0 24 24"><path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4zm-2 16l-4-4 1.41-1.41L10 14.17l6.59-6.59L18 9l-8 8z"/></svg> Verified</span></div>
+        <div class="item-desc">Penetration testing framework with thousands of exploits and payloads.</div>
+        <span class="tag">Ruby</span>
+      </div>
+    </div>
+    <div class="item">
+      <span class="num">02</span>
+      <div class="item-body">
+        <div class="item-title"><a href="https://github.com/cobbr/Covenant">Covenant</a></div>
+        <div class="item-desc">.NET command and control framework for red team operations.</div>
+        <span class="tag">C#</span>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec" id="osint">
+    <h2>OSINT</h2>
+    <div class="item">
+      <span class="num">01</span>
+      <div class="item-body">
+        <div class="item-title"><a href="https://github.com/lanmaster53/recon-ng">Recon-ng</a></div>
+        <div class="item-desc">Full-featured web reconnaissance framework written in Python.</div>
+        <span class="tag">Python</span>
+      </div>
+    </div>
+    <div class="item">
+      <span class="num">02</span>
+      <div class="item-body">
+        <div class="item-title"><a href="https://github.com/sherlock-project/sherlock">Sherlock</a></div>
+        <div class="item-desc">Hunt down social media accounts by username across 400+ sites.</div>
+        <span class="tag">Python</span>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec" id="training">
+    <h2>Training & Labs</h2>
+    <div class="item">
+      <span class="num">01</span>
+      <div class="item-body">
+        <div class="item-title"><a href="https://www.hackthebox.com">Hack The Box</a> <span class="badge"><svg viewBox="0 0 24 24"><path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4zm-2 16l-4-4 1.41-1.41L10 14.17l6.59-6.59L18 9l-8 8z"/></svg> Verified</span></div>
+        <div class="item-desc">Online platform to test and advance your skills in penetration testing.</div>
+        <span class="tag">Platform</span>
+      </div>
+    </div>
+    <div class="item">
+      <span class="num">02</span>
+      <div class="item-body">
+        <div class="item-title"><a href="https://tryhackme.com">TryHackMe</a></div>
+        <div class="item-desc">Hands-on cybersecurity training through virtual rooms and challenges.</div>
+        <span class="tag">Platform</span>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <p>Built with 💀 for the community. Contribute on <a href="#" style="color:#fe0942;text-decoration:none">GitHub</a>.</p>
+  </footer>
+</div>
+</body>
+</html>
