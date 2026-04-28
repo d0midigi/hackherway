@@ -1,9 +1,16 @@
-# Awesome OSCP
+# Awesome Cyber BiblioTech
 
 [![Awesome](https://cdn.rawgit.com/sindresorhus/awesome/d7305f38d29fed78fa85652e3a63e154dd8e8829/media/badge.svg)](https://github.com/sindresorhus/awesome)
 
-> A curated list of awesome OSCP resources
+> Forget "new and improved." This isn't just another curated list of 2025 AI wrapper tools. It is a carefully collected set of classic cybersecurity papers: the foundational ones, the overlooked ones, and the ones that remain genuinely useful in the modern-day field of cybersecurity. While the industry chases the newest shiny object, this repository focuses on the papers, the write-ups, the walk-throughs, the practical "how-to" notes, the RTFMs - everything from the mid-1990s up through 2026.
 
+In cybersecurity, anything older than 10 years gets called "dead" pretty quickly. That's wrong. This repo is dedicated to the old, the outdated-looking, and the still-totally-functional - and relevant.
+
+My reasoning is simple: modern documentation often skips the "why" and assumes the "how." Old-school documentation goes deeper into the nitty-gritty of how things actually work, written from human experience - not from AI prompts - and they're still worth reading.
+
+I've found that when I go back to those "dead" manuals, I end up learning something I didn't get from newer documentation that just rehashes the same repetitive AI-flavored explanations in pretty much everything you read online nowadays.
+
+This is a collection of documents from past eras that contain details modern documentation seems to leave out. Because  sometimes, understanding what comes next means paying attention to what came before.
 
 ## Contents
 
@@ -18,9 +25,7 @@
   	- [Books](#books)
 - [License](#license)
 
-## Resources
-
-### OSCP Reviews and Guides
+## Authentication, Authorization, Accountability (AAA)
 
 - [Official OSCP Certification Exam Guide](https://help.offensive-security.com/hc/en-us/articles/360040165632-OSCP-Exam-Guide)
 - Luke’s Ultimate OSCP Guide ([Part 1](https://medium.com/@hakluke/haklukes-ultimate-oscp-guide-part-1-is-oscp-for-you-b57cbcce7440), [Part 2](https://medium.com/@hakluke/haklukes-ultimate-oscp-guide-part-2-workflow-and-documentation-tips-9dd335204a48), [Part 3](https://medium.com/@hakluke/haklukes-ultimate-oscp-guide-part-3-practical-hacking-tips-and-tricks-c38486f5fc97))
