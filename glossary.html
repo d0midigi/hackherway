@@ -1,0 +1,706 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Glossary — HackHerWay</title>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        :root {
+            /* Swapped: pink is now the bg accent, dark is the card color */
+            --bg: #0d0d0d;
+            --bg-elevated: #141414;
+            --bg-card: #0a0a0a;
+            --bg-card-hover: #111111;
+            --pink: #fe0942;
+            --pink-soft: #ff1a5c;
+            --pink-glow: rgba(254, 9, 66, 0.2);
+            --pink-dim: rgba(254, 9, 66, 0.1);
+            --text-primary: #f0f0f0;
+            --text-secondary: #a0a0a0;
+            --text-muted: #555555;
+            --border: #1a1a1a;
+            --border-hover: #252525;
+            --white: #ffffff;
+            --gray: #888888;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            background: var(--bg);
+            color: var(--text-primary);
+            font-family: 'Inter', -apple-system, sans-serif;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        /* ===== NEW BACKGROUND: Deep charcoal with pink grid ===== */
+        .bg-grid {
+            position: fixed; inset: 0;
+            background-image:
+                linear-gradient(rgba(254, 9, 66, 0.06) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(254, 9, 66, 0.06) 1px, transparent 1px);
+            background-size: 50px 50px;
+            pointer-events: none; z-index: 0;
+        }
+        .bg-grid::after {
+            content: '';
+            position: absolute; inset: 0;
+            background: radial-gradient(ellipse at 30% 20%, rgba(254, 9, 66, 0.12) 0%, transparent 50%),
+                        radial-gradient(ellipse at 70% 80%, rgba(254, 9, 66, 0.08) 0%, transparent 50%);
+        }
+
+        /* ===== NEW PARTICLE EFFECT: Floating pink geometric shapes ===== */
+        .particles {
+            position: fixed; inset: 0;
+            pointer-events: none; z-index: 1; overflow: hidden;
+        }
+        .particle {
+            position: absolute;
+            opacity: 0.15;
+            animation: drift 30s infinite linear;
+        }
+        /* Diamond shapes */
+        .particle.diamond {
+            width: 12px; height: 12px;
+            background: var(--pink);
+            transform: rotate(45deg);
+            border-radius: 2px;
+        }
+        /* Plus/cross shapes */
+        .particle.plus {
+            width: 16px; height: 4px;
+            background: var(--pink);
+            border-radius: 2px;
+        }
+        .particle.plus::after {
+            content: '';
+            position: absolute;
+            width: 4px; height: 16px;
+            background: var(--pink);
+            border-radius: 2px;
+            top: 50%; left: 50%;
+            transform: translate(-50%, -50%);
+        }
+        /* Ring shapes */
+        .particle.ring {
+            width: 14px; height: 14px;
+            border: 2px solid var(--pink);
+            border-radius: 50%;
+            background: transparent;
+        }
+        /* Small squares */
+        .particle.square {
+            width: 8px; height: 8px;
+            background: var(--pink);
+            border-radius: 1px;
+        }
+        /* Tiny dots (the classic, but fewer) */
+        .particle.dot {
+            width: 3px; height: 3px;
+            background: var(--pink);
+            border-radius: 50%;
+        }
+
+        @keyframes drift {
+            0% { transform: translateY(100vh) translateX(0) rotate(0deg); opacity: 0; }
+            5% { opacity: 0.2; }
+            95% { opacity: 0.2; }
+            100% { transform: translateY(-10vh) translateX(120px) rotate(360deg); opacity: 0; }
+        }
+
+        /* ===== HEADER: Now uses white/pink on dark, no big pink text ===== */
+        header {
+            position: relative; z-index: 10;
+            padding: 60px 20px 30px;
+            text-align: center; max-width: 800px; margin: 0 auto;
+        }
+        .header-badge {
+            display: inline-flex; align-items: center; gap: 8px;
+            padding: 8px 20px;
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 100px;
+            font-size: 0.85rem; color: var(--white);
+            font-weight: 500; margin-bottom: 24px;
+            transition: all 0.3s ease;
+        }
+        .header-badge:hover {
+            border-color: var(--pink);
+            box-shadow: 0 0 20px rgba(254, 9, 66, 0.15);
+        }
+        .header-badge i { color: var(--pink); }
+
+        h1 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: clamp(2.5rem, 6vw, 4rem);
+            font-weight: 700;
+            letter-spacing: -0.03em;
+            line-height: 1.1;
+            margin-bottom: 14px;
+            color: var(--white);
+        }
+        h1 .pink {
+            color: var(--pink);
+            text-shadow: 0 0 30px rgba(254, 9, 66, 0.5);
+        }
+        .subtitle {
+            color: var(--text-secondary);
+            font-size: 1.05rem;
+            max-width: 500px; margin: 0 auto 32px;
+            line-height: 1.6;
+        }
+
+        /* ===== ALPHA NAV: Dark pills with pink active ===== */
+        .alpha-nav {
+            position: relative; z-index: 10;
+            max-width: 900px; margin: 0 auto 30px;
+            padding: 0 20px;
+            display: flex; flex-wrap: wrap; gap: 6px;
+            justify-content: center;
+        }
+        .alpha-btn {
+            width: 36px; height: 36px;
+            display: flex; align-items: center; justify-content: center;
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            color: var(--text-secondary);
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 0.85rem; font-weight: 600;
+            cursor: pointer; transition: all 0.25s ease;
+            text-decoration: none;
+        }
+        .alpha-btn:hover {
+            border-color: var(--pink);
+            color: var(--white);
+            background: var(--bg-card-hover);
+            box-shadow: 0 0 15px rgba(254, 9, 66, 0.1);
+        }
+        .alpha-btn.active {
+            background: var(--pink);
+            border-color: var(--pink);
+            color: #fff;
+            box-shadow: 0 4px 20px rgba(254, 9, 66, 0.35);
+        }
+        .alpha-btn.disabled {
+            opacity: 0.15; cursor: not-allowed; pointer-events: none;
+        }
+
+        /* ===== SEARCH: Dark input with pink focus ===== */
+        .controls {
+            position: relative; z-index: 10;
+            max-width: 700px; margin: 0 auto 40px;
+            padding: 0 20px;
+        }
+        .search-box { position: relative; }
+        .search-box input {
+            width: 100%;
+            padding: 16px 24px 16px 52px;
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            color: var(--white);
+            font-size: 1rem; font-family: inherit;
+            outline: none; transition: all 0.3s ease;
+        }
+        .search-box input:focus {
+            border-color: var(--pink);
+            box-shadow: 0 0 0 3px var(--pink-glow);
+        }
+        .search-box input::placeholder { color: var(--text-muted); }
+        .search-box i {
+            position: absolute;
+            left: 20px; top: 50%;
+            transform: translateY(-50%);
+            color: var(--text-muted); font-size: 1.1rem;
+        }
+
+        /* ===== CONTAINER ===== */
+        .container {
+            position: relative; z-index: 10;
+            max-width: 900px; margin: 0 auto;
+            padding: 0 20px 80px;
+        }
+
+        /* ===== LETTER SECTIONS ===== */
+        .letter-section {
+            margin-bottom: 48px;
+            animation: fadeInUp 0.5s ease forwards;
+            opacity: 0;
+        }
+        .letter-section:nth-child(1) { animation-delay: 0.05s; }
+        .letter-section:nth-child(2) { animation-delay: 0.1s; }
+        .letter-section:nth-child(3) { animation-delay: 0.15s; }
+        .letter-section:nth-child(4) { animation-delay: 0.2s; }
+        .letter-section:nth-child(5) { animation-delay: 0.25s; }
+        .letter-section:nth-child(6) { animation-delay: 0.3s; }
+        .letter-section:nth-child(7) { animation-delay: 0.35s; }
+        .letter-section:nth-child(8) { animation-delay: 0.4s; }
+        .letter-section:nth-child(9) { animation-delay: 0.45s; }
+        .letter-section:nth-child(10) { animation-delay: 0.5s; }
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .letter-header {
+            display: flex; align-items: center; gap: 12px;
+            margin-bottom: 20px; padding-left: 8px;
+        }
+        .letter-badge {
+            width: 44px; height: 44px;
+            background: var(--bg-card);
+            border: 2px solid var(--pink);
+            border-radius: 12px;
+            display: flex; align-items: center; justify-content: center;
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1.3rem; font-weight: 700;
+            color: var(--pink);
+            box-shadow: 0 0 20px rgba(254, 9, 66, 0.15);
+        }
+        .letter-title {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1.4rem; font-weight: 600;
+            color: var(--white);
+        }
+        .letter-count {
+            font-size: 0.8rem; color: var(--text-muted);
+            background: var(--bg-card);
+            padding: 4px 12px; border-radius: 100px;
+            margin-left: auto;
+            border: 1px solid var(--border);
+        }
+
+        /* ===== GLOSSARY LIST: Darker cards, pink accents on hover ===== */
+        .glossary-list {
+            display: flex; flex-direction: column; gap: 1px;
+            background: var(--border);
+            border-radius: 16px; overflow: hidden;
+            border: 1px solid var(--border);
+        }
+        .glossary-item {
+            display: flex; align-items: flex-start; gap: 16px;
+            padding: 22px 24px;
+            background: var(--bg-card);
+            transition: all 0.3s ease;
+            cursor: pointer;
+            border-left: 3px solid transparent;
+        }
+        .glossary-item:hover {
+            background: var(--bg-card-hover);
+            padding-left: 28px;
+            border-left-color: var(--pink);
+        }
+        .glossary-item:hover .glossary-arrow {
+            opacity: 1; transform: translateX(0);
+            color: var(--pink);
+        }
+
+        .glossary-term {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1.05rem; font-weight: 600;
+            color: var(--white);
+            margin-bottom: 6px;
+            display: flex; align-items: center; gap: 10px; flex-wrap: wrap;
+        }
+        .glossary-term .term-icon {
+            color: var(--pink); font-size: 0.85em;
+        }
+        .term-tag {
+            font-size: 0.65rem; padding: 2px 8px;
+            border-radius: 100px; font-weight: 500;
+            text-transform: uppercase; letter-spacing: 0.06em;
+        }
+        .tag-network { background: rgba(254, 9, 66, 0.1); color: var(--pink-soft); border: 1px solid rgba(254, 9, 66, 0.15); }
+        .tag-security { background: rgba(239, 68, 68, 0.08); color: #ef4444; border: 1px solid rgba(239, 68, 68, 0.12); }
+        .tag-protocol { background: rgba(59, 130, 246, 0.08); color: #3b82f6; border: 1px solid rgba(59, 130, 246, 0.12); }
+        .tag-tool { background: rgba(34, 197, 94, 0.08); color: #22c55e; border: 1px solid rgba(34, 197, 94, 0.12); }
+        .tag-concept { background: rgba(168, 85, 247, 0.08); color: #a855f7; border: 1px solid rgba(168, 85, 247, 0.12); }
+        .tag-attack { background: rgba(245, 158, 11, 0.08); color: #f59e0b; border: 1px solid rgba(245, 158, 11, 0.12); }
+        .tag-windows { background: rgba(6, 182, 212, 0.08); color: #06b6d4; border: 1px solid rgba(6, 182, 212, 0.12); }
+
+        .glossary-def {
+            color: var(--text-secondary);
+            font-size: 0.92rem; line-height: 1.6;
+            margin-bottom: 10px;
+        }
+        .glossary-meta {
+            display: flex; align-items: center; gap: 14px;
+            flex-wrap: wrap;
+        }
+        .meta-link {
+            display: flex; align-items: center; gap: 5px;
+            font-size: 0.8rem; color: var(--text-muted);
+            text-decoration: none; transition: color 0.2s;
+        }
+        .meta-link:hover { color: var(--pink-soft); }
+        .meta-link i { font-size: 0.8em; }
+        .glossary-arrow {
+            color: var(--text-muted);
+            opacity: 0; transform: translateX(-10px);
+            transition: all 0.3s ease;
+            font-size: 0.9rem; padding-top: 2px;
+            margin-left: auto; flex-shrink: 0;
+        }
+
+        /* Empty state */
+        .empty-state {
+            text-align: center; padding: 80px 20px;
+            color: var(--text-muted);
+        }
+        .empty-state i {
+            font-size: 3rem; margin-bottom: 20px;
+            display: block; color: var(--pink); opacity: 0.4;
+        }
+        .empty-state p { font-size: 1.1rem; }
+        .empty-state p + p { margin-top: 8px; font-size: 0.9rem; }
+
+        /* Back to top */
+        .back-to-top {
+            position: fixed; bottom: 30px; right: 30px;
+            width: 48px; height: 48px;
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 14px;
+            color: var(--white); font-size: 1.1rem;
+            cursor: pointer; z-index: 100;
+            opacity: 0; transform: translateY(20px);
+            transition: all 0.3s ease;
+            display: flex; align-items: center; justify-content: center;
+        }
+        .back-to-top.visible {
+            opacity: 1; transform: translateY(0);
+        }
+        .back-to-top:hover {
+            border-color: var(--pink);
+            color: var(--pink);
+            box-shadow: 0 0 20px rgba(254, 9, 66, 0.2);
+            transform: translateY(-2px);
+        }
+
+        /* Footer */
+        footer {
+            position: relative; z-index: 10;
+            text-align: center; padding: 40px 20px;
+            color: var(--text-muted); font-size: 0.85rem;
+            border-top: 1px solid var(--border);
+            max-width: 900px; margin: 0 auto;
+        }
+
+        /* Scrollbar */
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: var(--bg); }
+        ::-webkit-scrollbar-thumb { background: var(--border); border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: var(--pink); }
+
+        /* Responsive */
+        @media (max-width: 640px) {
+            .alpha-btn { width: 32px; height: 32px; font-size: 0.8rem; }
+            .glossary-item { padding: 18px 18px; }
+            .letter-badge { width: 38px; height: 38px; font-size: 1.1rem; }
+        }
+    </style>
+</head>
+<body>
+    <div class="bg-grid"></div>
+    <div class="particles" id="particles"></div>
+
+    <header>
+        <div class="header-badge">
+            <i class="fas fa-book-open"></i>
+            Reference & Definitions
+        </div>
+        <h1>hackherway <span class="pink">Glossary</span></h1>
+        <p class="subtitle">The terms, protocols, tools, and concepts you need to know. No fluff, no filler — just the shit that matters.</p>
+    </header>
+
+    <nav class="alpha-nav" id="alphaNav"></nav>
+
+    <div class="controls">
+        <div class="search-box">
+            <i class="fas fa-search"></i>
+            <input type="text" id="searchInput" placeholder="Search terms, definitions, tags...">
+        </div>
+    </div>
+
+    <main class="container" id="content"></main>
+
+    <button class="back-to-top" id="backToTop" onclick="window.scrollTo({top:0,behavior:'smooth'})">
+        <i class="fas fa-arrow-up"></i>
+    </button>
+
+    <footer>
+        <p>Built with <i class="fas fa-heart" style="color: var(--pink);"></i> for the hacker community.</p>
+        <p style="margin-top: 8px;">Definitions are curated for accuracy — not for your comfort.</p>
+    </footer>
+
+    <script>
+        const glossaryData = [
+            {
+                letter: "A",
+                items: [
+                    { term: "Active Directory (AD)", icon: "fa-sitemap", tag: "windows", tagLabel: "Windows", def: "Microsoft's directory service for Windows domain networks. Stores user accounts, computers, groups, and policies. The crown jewel of every Windows enterprise — and the primary target of every red teamer worth their salt." },
+                    { term: "ARP Spoofing", icon: "fa-network-wired", tag: "attack", tagLabel: "Attack", def: "An attack where a malicious actor sends falsified ARP messages over a local network to link their MAC address with the IP address of another host. Lets you intercept traffic, perform MITM attacks, and generally ruin someone's day on the same subnet." },
+                    { term: "Authentication", icon: "fa-key", tag: "security", tagLabel: "Security", def: "The process of verifying who someone claims to be. In AD, this usually means Kerberos (tickets) or NTLM (challenge-response). If you can forge or steal credentials, authentication becomes your best friend." },
+                    { term: "ACL (Access Control List)", icon: "fa-lock", tag: "security", tagLabel: "Security", def: "A list of permissions attached to an object in AD or a file system. Defines who can access what and at what level. Misconfigured ACLs are a goldmine for privilege escalation paths." }
+                ]
+            },
+            {
+                letter: "B",
+                items: [
+                    { term: "BloodHound", icon: "fa-diagram-project", tag: "tool", tagLabel: "Tool", def: "An Active Directory attack path visualization tool. Ingests data from SharpHound and maps out the shortest paths to Domain Admin. If you're doing AD pentesting and not using BloodHound, you're doing it wrong." },
+                    { term: "Brute Force", icon: "fa-hammer", tag: "attack", tagLabel: "Attack", def: "A trial-and-error method used to crack passwords, login credentials, or encryption keys by systematically checking all possible combinations. Noisy, slow, and usually a last resort — but sometimes it's all you've got." },
+                    { term: "BSSID", icon: "fa-wifi", tag: "network", tagLabel: "Network", def: "Basic Service Set Identifier — the MAC address of a wireless access point. Used to uniquely identify a Wi-Fi network. Essential for targeting specific APs during wireless pentests." }
+                ]
+            },
+            {
+                letter: "C",
+                items: [
+                    { term: "CrackMapExec (CME)", icon: "fa-terminal", tag: "tool", tagLabel: "Tool", def: "A swiss army knife for pentesting Windows/Active Directory environments. Enumerates SMB shares, executes commands, dumps hashes, and tests credentials across entire domains at scale." },
+                    { term: "Credential Stuffing", icon: "fa-id-card", tag: "attack", tagLabel: "Attack", def: "An automated attack where stolen username/password pairs from one breach are tested against other services. Relies on the fact that people reuse passwords like absolute idiots." },
+                    { term: "CVE (Common Vulnerabilities and Exposures)", icon: "fa-bug", tag: "security", tagLabel: "Security", def: "A standardized identifier for publicly known cybersecurity vulnerabilities. Format: CVE-YEAR-NUMBER. If you're not tracking CVEs relevant to your environment, you're flying blind." }
+                ]
+            },
+            {
+                letter: "D",
+                items: [
+                    { term: "DHCP", icon: "fa-server", tag: "protocol", tagLabel: "Protocol", def: "Dynamic Host Configuration Protocol. Automatically assigns IP addresses and network configuration to devices on a network. DHCP starvation attacks can exhaust the address pool, enabling rogue DHCP server attacks." },
+                    { term: "DNS (Domain Name System)", icon: "fa-globe", tag: "protocol", tagLabel: "Protocol", def: "The phonebook of the internet. Translates human-readable domain names into IP addresses. Also a fantastic covert channel for data exfiltration (DNS tunneling) and a critical target for cache poisoning." },
+                    { term: "Domain Admin", icon: "fa-crown", tag: "windows", tagLabel: "Windows", def: "The highest privilege level in an Active Directory domain. A Domain Admin can do literally anything — create users, modify GPOs, access any resource. The ultimate goal of every AD pentest." },
+                    { term: "DCSync", icon: "fa-sync", tag: "attack", tagLabel: "Attack", def: "A technique where an attacker with sufficient privileges (usually Domain Admin or DCSync rights) impersonates a Domain Controller to request password hashes from another DC via the MS-DRSR protocol. Lets you dump the entire NTDS.dit without touching disk." }
+                ]
+            },
+            {
+                letter: "E",
+                items: [
+                    { term: "Enumeration", icon: "fa-list-check", tag: "concept", tagLabel: "Concept", def: "The systematic process of gathering information about a target system, network, or application. In AD, this means discovering users, groups, shares, ACLs, and trust relationships. You can't attack what you don't know." },
+                    { term: "ESSID", icon: "fa-wifi", tag: "network", tagLabel: "Network", def: "Extended Service Set Identifier — the human-readable name of a Wi-Fi network (what you see in your Wi-Fi list). Can be hidden (null ESSID), but that doesn't stop a determined attacker." }
+                ]
+            },
+            {
+                letter: "G",
+                items: [
+                    { term: "Golden Ticket", icon: "fa-ticket", tag: "attack", tagLabel: "Attack", def: "A forged Kerberos TGT (Ticket Granting Ticket) signed with the KRBTGT account's hash. Grants persistent, undetectable access to any service in the domain. The nuclear option of AD attacks — once you have this, you own the domain forever." },
+                    { term: "Group Policy (GPO)", icon: "fa-file-shield", tag: "windows", tagLabel: "Windows", def: "A feature of Windows that provides centralized management of user and computer settings. GPOs can enforce security policies, deploy software, and map drives. Compromising GPOs lets you push malware or backdoors to entire OUs." }
+                ]
+            },
+            {
+                letter: "H",
+                items: [
+                    { term: "Hash", icon: "fa-fingerprint", tag: "security", tagLabel: "Security", def: "A fixed-length string of characters generated by a hash function from input data. In Windows, NTLM hashes are used for authentication. Pass-the-hash attacks let you authenticate using the hash directly — no plaintext password needed." },
+                    { term: "Hashcat", icon: "fa-bolt", tag: "tool", tagLabel: "Tool", def: "The world's fastest password recovery tool. Supports GPU acceleration and can crack NTLM, Kerberos, WPA, and dozens of other hash types. If you have hashes, Hashcat will crack them — given enough time and compute." }
+                ]
+            },
+            {
+                letter: "I",
+                items: [
+                    { term: "Impacket", icon: "fa-cubes", tag: "tool", tagLabel: "Tool", def: "A collection of Python classes for working with network protocols. Includes scripts for SMB, WMI, Kerberos, and more. The backbone of most Windows/AD pentesting workflows. If you don't know Impacket, you don't know AD hacking." },
+                    { term: "ICMP", icon: "fa-circle-nodes", tag: "protocol", tagLabel: "Protocol", def: "Internet Control Message Protocol. Used for error reporting and diagnostics (ping, traceroute). Often filtered by firewalls, but can be used for covert channels and host discovery when other protocols are blocked." }
+                ]
+            },
+            {
+                letter: "K",
+                items: [
+                    { term: "Kerberos", icon: "fa-ticket", tag: "protocol", tagLabel: "Protocol", def: "The default authentication protocol in Active Directory. Uses tickets (TGT, TGS) instead of sending passwords over the network. Vulnerable to Kerberoasting, AS-REP Roasting, Golden Ticket, and Silver Ticket attacks. Learn it or die trying." },
+                    { term: "Kerberoasting", icon: "fa-fire", tag: "attack", tagLabel: "Attack", def: "An attack that requests service tickets for SPN accounts and cracks them offline. Service accounts often have weak passwords and rarely change them. One cracked ticket can mean domain-wide compromise." },
+                    { term: "KRBTGT", icon: "fa-user-secret", tag: "windows", tagLabel: "Windows", def: "A special service account in AD used by the KDC to encrypt and sign Kerberos tickets. Its password hash never changes unless manually rotated. If an attacker gets this hash, they can forge Golden Tickets. Rotate it twice after a breach or you're still owned." }
+                ]
+            },
+            {
+                letter: "L",
+                items: [
+                    { term: "LDAP (Lightweight Directory Access Protocol)", icon: "fa-database", tag: "protocol", tagLabel: "Protocol", def: "The protocol used to query and modify directory services like Active Directory. ldapsearch, BloodHound, and most AD enumeration tools rely on LDAP. If you can bind to LDAP anonymously or with weak creds, the entire directory is yours to browse." },
+                    { term: "LLMNR / NBT-NS", icon: "fa-broadcast-tower", tag: "protocol", tagLabel: "Protocol", def: "Link-Local Multicast Name Resolution and NetBIOS Name Service. Fallback protocols for name resolution when DNS fails. Attackers use Responder to poison these and capture NTLM hashes from unsuspecting victims. Disable them if you value your hashes." },
+                    { term: "Lateral Movement", icon: "fa-arrows-left-right", tag: "concept", tagLabel: "Concept", def: "Techniques used to move from one compromised host to another within a network. Common methods: Pass-the-Hash, Pass-the-Ticket, WMI, PSExec, RDP hijacking. The art of not staying where you landed." }
+                ]
+            },
+            {
+                letter: "M",
+                items: [
+                    { term: "Mimikatz", icon: "fa-cat", tag: "tool", tagLabel: "Tool", def: "The legendary post-exploitation tool for extracting plaintext passwords, hashes, PINs, and Kerberos tickets from memory. Can perform Pass-the-Hash, Pass-the-Ticket, and Golden Ticket attacks. If it's not in your toolkit, you're not a real red teamer." },
+                    { term: "MITM (Man-in-the-Middle)", icon: "fa-user-secret", tag: "attack", tagLabel: "Attack", def: "An attack where the attacker secretly intercepts and potentially alters communication between two parties. ARP spoofing, DNS spoofing, and rogue access points are common vectors. The attacker becomes the invisible middleman." }
+                ]
+            },
+            {
+                letter: "N",
+                items: [
+                    { term: "NTLM (NT LAN Manager)", icon: "fa-key", tag: "protocol", tagLabel: "Protocol", def: "Microsoft's older authentication protocol. Uses challenge-response with NTLM hashes instead of sending plaintext passwords. Still widely used for backward compatibility. Vulnerable to relay attacks, pass-the-hash, and brute force." },
+                    { term: "NTDS.dit", icon: "fa-database", tag: "windows", tagLabel: "Windows", def: "The Active Directory database file stored on every Domain Controller. Contains all user accounts, password hashes, group memberships, and domain data. Extracting this file (via DCSync, VSS, or direct access) gives you the keys to the kingdom." },
+                    { term: "Nmap", icon: "fa-satellite-dish", tag: "tool", tagLabel: "Tool", def: "The network mapper. The most popular port scanner and network discovery tool ever created. Can detect OS, services, versions, and vulnerabilities. If you don't start every engagement with nmap, you're doing it wrong." }
+                ]
+            },
+            {
+                letter: "O",
+                items: [
+                    { term: "OSI Model", icon: "fa-layer-group", tag: "concept", tagLabel: "Concept", def: "The Open Systems Interconnection model — a 7-layer conceptual framework for understanding network communication: Physical, Data Link, Network, Transport, Session, Presentation, Application. Every network engineer and pentester should know this by heart." },
+                    { term: "OU (Organizational Unit)", icon: "fa-folder-tree", tag: "windows", tagLabel: "Windows", def: "A container within Active Directory used to organize users, groups, computers, and other objects. OUs can have Group Policies applied to them. Understanding OU structure is critical for lateral movement and privilege escalation planning." }
+                ]
+            },
+            {
+                letter: "P",
+                items: [
+                    { term: "Pass-the-Hash (PtH)", icon: "fa-right-left", tag: "attack", tagLabel: "Attack", def: "An attack where an attacker uses a captured NTLM hash to authenticate to remote systems without needing the plaintext password. Works because NTLM doesn't require the actual password — just the hash. Disable NTLM if you want to stop this." },
+                    { term: "Pass-the-Ticket (PtT)", icon: "fa-ticket", tag: "attack", tagLabel: "Attack", def: "Similar to PtH but using Kerberos tickets instead of NTLM hashes. An attacker exports a valid Kerberos ticket and injects it into their session to impersonate the ticket's owner. Silver Tickets, Golden Tickets, and TGTs are all fair game." },
+                    { term: "Privilege Escalation", icon: "fa-arrow-up", tag: "concept", tagLabel: "Concept", def: "The act of exploiting a bug, design flaw, or configuration oversight to gain elevated access to resources. Can be vertical (normal user → admin) or horizontal (user A → user B). The bread and butter of post-exploitation." },
+                    { term: "Pivoting", icon: "fa-route", tag: "concept", tagLabel: "Concept", def: "Using a compromised host as a relay point to access other parts of a network that aren't directly reachable. Essential when you're stuck on a segmented network. Tools like Chisel, ProxyChains, and SSH tunnels make this trivial." }
+                ]
+            },
+            {
+                letter: "R",
+                items: [
+                    { term: "Responder", icon: "fa-reply", tag: "tool", tagLabel: "Tool", def: "A LLMNR, NBT-NS, and MDNS poisoner. Listens for name resolution requests and responds with your attacker's IP, tricking victims into authenticating to you. Captures NTLM hashes in seconds. Run this on any internal network and watch the hashes roll in." },
+                    { term: "RDP (Remote Desktop Protocol)", icon: "fa-desktop", tag: "protocol", tagLabel: "Protocol", def: "Microsoft's proprietary protocol for remote desktop connections. Commonly exposed to the internet (bad idea) and a prime target for brute force and credential stuffing. RDP hijacking lets you take over existing sessions without credentials." },
+                    { term: "Rogue DHCP", icon: "fa-network-wired", tag: "attack", tagLabel: "Attack", def: "An attack where a malicious DHCP server is introduced to a network to hand out malicious configuration (rogue gateway, DNS server). Combined with DHCP starvation, this can redirect all traffic through the attacker's machine." }
+                ]
+            },
+            {
+                letter: "S",
+                items: [
+                    { term: "SMB (Server Message Block)", icon: "fa-folder-open", tag: "protocol", tagLabel: "Protocol", def: "A network file sharing protocol used by Windows. Version 1 (SMBv1) is notoriously insecure and enabled EternalBlue. SMB is used for file shares, named pipes, and remote command execution (via PSExec). Always enumerate SMB shares first." },
+                    { term: "SPN (Service Principal Name)", icon: "fa-fingerprint", tag: "windows", tagLabel: "Windows", def: "A unique identifier for a service instance in Active Directory. Used by Kerberos to associate a service with a login account. Every SPN is a Kerberoasting target — if it has a weak password, you own it." },
+                    { term: "Silver Ticket", icon: "fa-ticket", tag: "attack", tagLabel: "Attack", def: "A forged Kerberos service ticket signed with the target service account's hash. More limited than a Golden Ticket (only works for one service) but harder to detect because it doesn't touch the DC. Forge one and access any service as anyone." },
+                    { term: "SQL Injection", icon: "fa-database", tag: "attack", tagLabel: "Attack", def: "A code injection technique where malicious SQL statements are inserted into application queries. Can read sensitive data, modify databases, and in some cases execute OS commands. Still one of the most common web vulnerabilities despite being well-understood." }
+                ]
+            },
+            {
+                letter: "T",
+                items: [
+                    { term: "TGT (Ticket Granting Ticket)", icon: "fa-ticket", tag: "protocol", tagLabel: "Protocol", def: "A Kerberos ticket issued by the KDC after successful authentication. Used to request service tickets (TGS) without re-authenticating. Valid for 10 hours by default. Steal someone's TGT and you become them for the lifetime of the ticket." },
+                    { term: "TGS (Ticket Granting Service)", icon: "fa-ticket", tag: "protocol", tagLabel: "Protocol", def: "A Kerberos ticket used to authenticate to a specific service (file server, database, etc.). Requested using a TGT. The ticket that Kerberoasting targets — crack it offline and you've got the service account password." },
+                    { term: "TCP/IP", icon: "fa-globe", tag: "protocol", tagLabel: "Protocol", def: "The foundational suite of protocols for internet communication. TCP provides reliable, ordered delivery; IP handles addressing and routing. Every packet you sniff, every connection you intercept — it all runs on TCP/IP." }
+                ]
+            },
+            {
+                letter: "W",
+                items: [
+                    { term: "WMI (Windows Management Instrumentation)", icon: "fa-gears", tag: "windows", tagLabel: "Windows", def: "Microsoft's implementation of WBEM for managing Windows systems. Can query system info, execute commands, and manage processes remotely. A powerful tool for both administrators and attackers. WMIexec uses this for stealthy remote command execution." },
+                    { term: "WPA2 / WPA3", icon: "fa-wifi", tag: "security", tagLabel: "Security", def: "Wi-Fi Protected Access — security protocols for wireless networks. WPA2 uses AES-CCMP; WPA3 adds Simultaneous Authentication of Equals (SAE) to prevent offline dictionary attacks. WPA2 is still crackable with a strong wordlist and a handshake capture." }
+                ]
+            }
+        ];
+
+        // Generate mixed geometric particles
+        function generateParticles() {
+            const container = document.getElementById('particles');
+            const shapes = ['diamond', 'plus', 'ring', 'square', 'dot'];
+            for (let i = 0; i < 25; i++) {
+                const p = document.createElement('div');
+                p.className = 'particle ' + shapes[Math.floor(Math.random() * shapes.length)];
+                p.style.left = Math.random() * 100 + '%';
+                p.style.animationDuration = (20 + Math.random() * 25) + 's';
+                p.style.animationDelay = Math.random() * 30 + 's';
+                p.style.opacity = 0.1 + Math.random() * 0.15;
+                container.appendChild(p);
+            }
+        }
+
+        // Build alphabet nav
+        function buildAlphaNav() {
+            const nav = document.getElementById('alphaNav');
+            const letters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split('');
+            const usedLetters = new Set(glossaryData.map(d => d.letter));
+
+            letters.forEach(letter => {
+                const btn = document.createElement('a');
+                btn.className = 'alpha-btn' + (usedLetters.has(letter) ? '' : ' disabled');
+                btn.textContent = letter;
+                btn.href = usedLetters.has(letter) ? '#letter-' + letter : '#';
+                if (usedLetters.has(letter)) {
+                    btn.onclick = (e) => {
+                        e.preventDefault();
+                        document.querySelectorAll('.alpha-btn').forEach(b => b.classList.remove('active'));
+                        btn.classList.add('active');
+                        const el = document.getElementById('letter-' + letter);
+                        if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                    };
+                }
+                nav.appendChild(btn);
+            });
+        }
+
+        // Render glossary
+        function render(search = '') {
+            const container = document.getElementById('content');
+            container.innerHTML = '';
+
+            glossaryData.forEach((section, idx) => {
+                let items = section.items;
+                if (search) {
+                    const s = search.toLowerCase();
+                    items = items.filter(item =>
+                        item.term.toLowerCase().includes(s) ||
+                        item.def.toLowerCase().includes(s) ||
+                        item.tagLabel.toLowerCase().includes(s)
+                    );
+                }
+
+                if (items.length === 0) return;
+
+                const div = document.createElement('div');
+                div.className = 'letter-section';
+                div.id = 'letter-' + section.letter;
+                div.style.animationDelay = (idx * 0.05) + 's';
+
+                div.innerHTML = `
+                    <div class="letter-header">
+                        <div class="letter-badge">${section.letter}</div>
+                        <div class="letter-title">${section.letter}</div>
+                        <div class="letter-count">${items.length} terms</div>
+                    </div>
+                    <div class="glossary-list">
+                        ${items.map(item => `
+                            <div class="glossary-item">
+                                <div style="flex:1;min-width:0;">
+                                    <div class="glossary-term">
+                                        <i class="fas ${item.icon} term-icon"></i>
+                                        ${item.term}
+                                        <span class="term-tag tag-${item.tag}">${item.tagLabel}</span>
+                                    </div>
+                                    <div class="glossary-def">${item.def}</div>
+                                    <div class="glossary-meta">
+                                        <span class="meta-link"><i class="fas fa-tag"></i>${item.tagLabel}</span>
+                                        <span class="meta-link"><i class="fas fa-bookmark"></i>Bookmark</span>
+                                        <span class="meta-link"><i class="fas fa-share-nodes"></i>Share</span>
+                                    </div>
+                                </div>
+                                <div class="glossary-arrow"><i class="fas fa-chevron-right"></i></div>
+                            </div>
+                        `).join('')}
+                    </div>
+                `;
+                container.appendChild(div);
+            });
+
+            if (container.innerHTML === '') {
+                container.innerHTML = `
+                    <div class="empty-state">
+                        <i class="fas fa-ghost"></i>
+                        <p>No terms found matching your search.</p>
+                        <p>Try a different keyword or browse by letter.</p>
+                    </div>
+                `;
+            }
+        }
+
+        // Search
+        document.getElementById('searchInput').addEventListener('input', (e) => {
+            render(e.target.value);
+        });
+
+        // Back to top
+        const backToTop = document.getElementById('backToTop');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 400) backToTop.classList.add('visible');
+            else backToTop.classList.remove('visible');
+        });
+
+        // Init
+        generateParticles();
+        buildAlphaNav();
+        render();
+    </script>
+</body>
+</html>
