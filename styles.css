@@ -1024,3 +1024,14 @@ img { max-width: 100%; }
 .bibliotech-page summary::-webkit-details-marker {
   display: none;
 }
+
+.sidebar__nav a,
+.sidebar__submenu a {
+  font-size: 13px;          /* or whatever size you want */
+  line-height: 1.5;
+  display: block;             /* ensures proper spacing */
+  padding: 6px 16px;
+  white-space: nowrap;        /* optional: keeps single line */
+  overflow: hidden;
+  text-overflow: ellipsis;    /* optional: adds ... if too long */
+}
