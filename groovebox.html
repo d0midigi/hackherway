@@ -3,11 +3,11 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>HACKBEAT PRO — Browser Groovebox</title>
+<title>HACKHERWAY PRO — Browser Groovebox</title>
 <style>
   :root {
     --bg: #0a0a0f; --panel: #111118; --panel2: #16161f; --panel3: #1c1c26;
-    --accent: #fe0942; --accent2: #ff2a6d; --accent3: #ff5588;
+    --accent: #673AB7; --accent2: #00bcd4; --accent3: #ff5588;
     --cyan: #00f0ff; --yellow: #ffe600; --green: #39ff14; --orange: #ff8800;
     --purple: #b829dd; --text: #e0e0e8; --muted: #666; --border: #222; --border2: #333;
   }
@@ -20,7 +20,7 @@
     display: flex; align-items: center; justify-content: space-between;
     padding: 8px 16px; background: var(--panel); border-bottom: 1px solid var(--border); gap: 12px; flex-wrap: wrap;
   }
-  .logo { font-weight: 900; font-size: 1.1rem; letter-spacing: 2px; color: var(--accent); }
+  .logo { font-weight: 500; font-size: 1.1rem; letter-spacing: 3px; color: var(--accent); }
   .transport { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
   .btn {
     background: var(--panel2); border: 1px solid var(--border); color: var(--text);
@@ -170,11 +170,12 @@
   ::-webkit-scrollbar-thumb { background: #333; border-radius: 3px; }
   ::-webkit-scrollbar-thumb:hover { background: #444; }
 </style>
+<base target="_blank">
 </head>
 <body>
 
 <div class="topbar">
-  <div class="logo">⚡ HACKBEAT PRO</div>
+  <div class="logo">🩷 hackherway browser groovebox</div>
   <div class="transport">
     <button class="btn" id="btnPlay">▶ PLAY</button>
     <button class="btn danger" id="btnStop">■ STOP</button>
@@ -795,7 +796,7 @@ let patterns = [];
 for (let p = 0; p < NUM_PATTERNS; p++) {
   patterns.push({
     tracks: [
-      { name: 'Kick',    type: 'Drum',    color: '#fe0942', preset: 'kick',  steps: Array(16).fill(0), vol: 0.9, mute: false, paramLocks: Array(16).fill(null), isSample: false, sampleId: null },
+      { name: 'Kick',    type: 'Drum',    color: 'FF60B3', preset: 'kick',  steps: Array(16).fill(0), vol: 0.9, mute: false, paramLocks: Array(16).fill(null), isSample: false, sampleId: null },
       { name: 'Snare',   type: 'Drum',    color: '#ff2a6d', preset: 'snare', steps: Array(16).fill(0), vol: 0.8, mute: false, paramLocks: Array(16).fill(null), isSample: false, sampleId: null },
       { name: 'Hi-Hat',  type: 'Drum',    color: '#00f0ff', preset: 'hihat', steps: Array(16).fill(0), vol: 0.7, mute: false, paramLocks: Array(16).fill(null), isSample: false, sampleId: null },
       { name: 'Clap',    type: 'Drum',    color: '#ffe600', preset: 'clap',  steps: Array(16).fill(0), vol: 0.7, mute: false, paramLocks: Array(16).fill(null), isSample: false, sampleId: null },
