@@ -1,6 +1,6 @@
 &lt;div align="center"&gt;
 
-[![Typing SVG](https://readme-typing-svg.demolab.com?font=Fira+Code&weight=600&size=22&duration=3000&pause=800&color=FE0942&center=true&vCenter=true&width=600&lines=NetSecOps+ISSE+%7C+⚓︎+US+Navy+⚓︎;Purple+Team+for+Life;Active+Directory+Pentesting+Princess;Ethical+Hacker+in+Heels;Self-Taught+Frontend+Coder;Bass+Junkie+%7C+Drum+n+Bass+In+Ya+Face+‣•၊၊||၊|။|||||)](https://git.io/typing-svg)
+[![Typing SVG](https://readme-typing-svg.demolab.com?font=Fira+Code&weight=600&size=22&duration=3000&pause=800&color=FE0942&center=true&vCenter=true&width=600&lines=NetSecOps+ISSE+%7C+⚓︎+US+Navy+⚓︎;Purple+Team+for+Life;Active+Directory+Pentesting+Princess;Ethical+Hacker+in+Heels;Self-Taught+Frontend+Coder;++++++Bass+Junkie+%7C+Drum+n+Bass+In+Ya+Face+‣•၊၊||၊|။|||||)](https://git.io/typing-svg)
 
 [![Typing SVG](https://readme-typing-svg.demolab.com?font=Fira+Code&weight=600&size=22&duration=3000&pause=800&color=FE0942&center=true&vCenter=true&width=600&lines=NetSecOps+ISSE+%7C+US+Navy;Purple+Team+for+Life;Active+Directory+Pentesting+Princess;Ethical+Hacker+in+Heels;Self-Taught+Frontend+Coder;Bass+Junkie+%7C+Drum+n+Bass+Forever)](https://git.io/typing-svg)
 
