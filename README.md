@@ -102,7 +102,6 @@ I believe the best defense is a well-documented offense. If you're here looking 
 
 ## 📊 GitHub Stats
 
-&lt;div align="center"&gt;
 
 ![](https://github-readme-stats.vercel.app/api?username=d0midigi&theme=dark&hide_border=false&include_all_commits=true&count_private=false)
 
@@ -110,42 +109,42 @@ I believe the best defense is a well-documented offense. If you're here looking 
 
 ![](https://github-readme-stats.vercel.app/api/top-langs/?username=d0midigi&theme=dark&hide_border=false&include_all_commits=true&count_private=false&layout=compact)
 
-&lt;/div&gt;
+
 
 ---
 
 ## 🏆 GitHub Trophies
 
-&lt;div align="center"&gt;
+
 
 ![](https://github-profile-trophy.vercel.app/?username=d0midigi&theme=midnight-purple&no-frame=false&no-bg=true&margin-w=4)
 
-&lt;/div&gt;
+
 
 ---
 
 ### ✍️ Random Dev Quote
 
-&lt;div align="center"&gt;
+
 
 ![](https://quotes-github-readme.vercel.app/api?type=horizontal&theme=radical)
 
-&lt;/div&gt;
+
 
 ---
 
 ### 🔝 Top Contributed Repo
 
-&lt;div align="center"&gt;
+
 
 ![](https://github-contributor-stats.vercel.app/api?username=d0midigi&limit=5&theme=dark&combine_all_yearly_contributions=true)
 
-&lt;/div&gt;
+
 
 ---
 
-&lt;div align="center"&gt;
+
 
 [![](https://komarev.com/ghpvc/?username=d0midigi&label=Profile%20views&color=fe0942&style=flat)](https://visitcount.itsvg.in)
 
-&lt;/div&gt;
+
