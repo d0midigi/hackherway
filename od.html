@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Index of /repository</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: "Courier New", Courier, monospace;
+    background: #0a0a0a;
+    color: #c0c0c0;
+    min-height: 100vh;
+    padding: 24px 32px;
+  }
+  .header {
+    border-bottom: 2px solid #fe0942;
+    padding-bottom: 14px;
+    margin-bottom: 18px;
+  }
+  .header h1 {
+    color: #fe0942;
+    font-size: 20px;
+    letter-spacing: 1.5px;
+    font-weight: bold;
+  }
+  .header p {
+    color: #555;
+    font-size: 11px;
+    margin-top: 6px;
+  }
+  .breadcrumbs {
+    color: #fe0942;
+    font-size: 13px;
+    margin-bottom: 18px;
+    font-weight: bold;
+  }
+  .breadcrumbs span { cursor: pointer; }
+  .breadcrumbs span:hover { text-decoration: underline; color: #ff4d79; }
+  .breadcrumbs .sep { color: #444; margin: 0 6px; }
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 13px;
+  }
+  th {
+    text-align: left;
+    padding: 10px 14px;
+    color: #fe0942;
+    border-bottom: 1px solid #333;
+    cursor: pointer;
+    user-select: none;
+    font-weight: bold;
+    white-space: nowrap;
+  }
+  th:hover { background: #151515; }
+  td {
+    padding: 7px 14px;
+    border-bottom: 1px solid #1a1a1a;
+    white-space: nowrap;
+  }
+  tr:hover td { background: #121212; }
+  tr.parent td { color: #777; }
+  .icon {
+    display: inline-block;
+    width: 22px;
+    text-align: center;
+    margin-right: 8px;
+    font-size: 14px;
+  }
+  .name-col {
+    color: #e0e0e0;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+  }
+  .name-col:hover { color: #fe0942; }
+  .size-col { color: #777; text-align: right; }
+  .date-col { color: #777; }
+  .desc-col { color: #555; font-style: italic; }
+  .sort-indicator { margin-left: 5px; color: #fe0942; font-size: 10px; }
+  .footer {
+    margin-top: 40px;
+    padding-top: 14px;
+    border-top: 1px solid #222;
+    color: #444;
+    font-size: 11px;
+    text-align: center;
+  }
+  .pdf-viewer {
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    background: rgba(5,5,5,0.97);
+    z-index: 1000;
+    display: none;
+    flex-direction: column;
+  }
+  .pdf-viewer.active { display: flex; }
+  .pdf-toolbar {
+    background: #111;
+    padding: 12px 24px;
+    border-bottom: 1px solid #333;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .pdf-toolbar span { color: #e0e0e0; font-size: 14px; font-weight: bold; }
+  .pdf-toolbar button {
+    background: #fe0942;
+    color: #fff;
+    border: none;
+    padding: 7px 18px;
+    cursor: pointer;
+    font-family: inherit;
+    font-size: 12px;
+    font-weight: bold;
+    letter-spacing: 0.5px;
+  }
+  .pdf-toolbar button:hover { background: #ff2a5c; }
+  .pdf-toolbar button.secondary {
+    background: transparent;
+    border: 1px solid #444;
+    color: #888;
+    margin-left: 8px;
+  }
+  .pdf-toolbar button.secondary:hover { border-color: #fe0942; color: #fe0942; background: transparent; }
+  .pdf-frame { flex: 1; border: none; width: 100%; height: 100%; background: #0a0a0a; }
+  @media (max-width: 768px) {
+    body { padding: 12px; }
+    .desc-col { display: none; }
+    th, td { padding: 7px 8px; font-size: 12px; }
+  }
+</style>
+<base target="_blank">
+</head>
+<body>
+
+<div class="header">
+  <h1>Index of /repository</h1>
+  <p>Apache/2.4.62 Server at hackherway.neocities.org Port 443</p>
+</div>
+
+<div class="breadcrumbs" id="breadcrumbs"></div>
+
+<table id="fileTable">
+  <thead>
+    <tr>
+      <th onclick="sortBy('name')">Name <span class="sort-indicator" id="sort-name"></span></th>
+      <th onclick="sortBy('date')">Last modified <span class="sort-indicator" id="sort-date"></span></th>
+      <th onclick="sortBy('size')" style="text-align:right">Size <span class="sort-indicator" id="sort-size"></span></th>
+      <th class="desc-col">Description</th>
+    </tr>
+  </thead>
+  <tbody id="fileBody"></tbody>
+</table>
+
+<div class="footer">
+  M2DX Open Directory — <span style="color:#fe0942">hackherway</span> — static HTML/JS
+</div>
+
+<div class="pdf-viewer" id="pdfViewer">
+  <div class="pdf-toolbar">
+    <span id="pdfTitle"></span>
+    <div>
+      <button onclick="downloadPDF()">Download</button>
+      <button class="secondary" onclick="closePDF()">Close</button>
+    </div>
+  </div>
+  <iframe class="pdf-frame" id="pdfFrame"></iframe>
+</div>
+
+<script>
+// ============================================
+// CONFIGURE YOUR FILE TREE HERE
+// Just add folders and files. For PDFs, set
+// url to the relative path from this HTML file.
+// ============================================
+const fileSystem = {
+  name: "repository",
+  type: "folder",
+  modified: "30-Jul-2026 21:36",
+  children: [
+    {
+      name: "cheatsheets",
+      type: "folder",
+      modified: "28-Jul-2026 14:22",
+      children: [
+        { name: "Active_Directory_Privesc.pdf", type: "file", size: "2.4M", modified: "28-Jul-2026 14:22", desc: "AD privilege escalation reference", url: "pdfs/Active_Directory_Privesc.pdf" },
+        { name: "Windows_Privesc.pdf", type: "file", size: "1.8M", modified: "27-Jul-2026 09:15", desc: "Windows local privilege escalation", url: "pdfs/Windows_Privesc.pdf" },
+        { name: "Linux_Privesc.pdf", type: "file", size: "1.2M", modified: "25-Jul-2026 16:40", desc: "Linux privilege escalation checklist", url: "pdfs/Linux_Privesc.pdf" },
+        { name: "Network_Enumeration.pdf", type: "file", size: "3.1M", modified: "24-Jul-2026 11:00", desc: "Network reconnaissance guide", url: "pdfs/Network_Enumeration.pdf" }
+      ]
+    },
+    {
+      name: "playbooks",
+      type: "folder",
+      modified: "29-Jul-2026 08:45",
+      children: [
+        { name: "Threat_Hunting_Playbook.pdf", type: "file", size: "4.2M", modified: "29-Jul-2026 08:45", desc: "5-step threat hunting framework", url: "pdfs/Threat_Hunting_Playbook.pdf" },
+        { name: "Incident_Response_v2.pdf", type: "file", size: "5.6M", modified: "26-Jul-2026 13:20", desc: "IR procedures and workflows", url: "pdfs/Incident_Response_v2.pdf" }
+      ]
+    },
+    {
+      name: "research",
+      type: "folder",
+      modified: "20-Jul-2026 19:10",
+      children: [
+        { name: "Kerberos_Attack_Matrix.pdf", type: "file", size: "6.8M", modified: "20-Jul-2026 19:10", desc: "Kerberos attack techniques", url: "pdfs/Kerberos_Attack_Matrix.pdf" },
+        { name: "LDAP_Injection_Research.pdf", type: "file", size: "2.1M", modified: "18-Jul-2026 10:30", desc: "LDAP injection deep dive", url: "pdfs/LDAP_Injection_Research.pdf" }
+      ]
+    },
+    {
+      name: "tools",
+      type: "folder",
+      modified: "15-Jul-2026 22:00",
+      children: [
+        { name: "Custom_Toolkit_Manual.pdf", type: "file", size: "8.3M", modified: "15-Jul-2026 22:00", desc: "Internal toolkit documentation", url: "pdfs/Custom_Toolkit_Manual.pdf" }
+      ]
+    },
+    { name: "README.pdf", type: "file", size: "156K", modified: "30-Jul-2026 21:00", desc: "Repository index and guide", url: "pdfs/README.pdf" }
+  ]
+};
+
+let currentPath = [fileSystem];
+let currentSort = { key: null, dir: "asc" };
+let currentPDF = null;
+
+function render() {
+  const current = currentPath[currentPath.length - 1];
+  renderBreadcrumbs();
+  renderTable(current);
+}
+
+function renderBreadcrumbs() {
+  const el = document.getElementById("breadcrumbs");
+  let html = '<span onclick="navigateTo(0)">repository</span>';
+  for (let i = 1; i < currentPath.length; i++) {
+    html += '<span class="sep">/</span><span onclick="navigateTo(' + i + ')">' + escapeHtml(currentPath[i].name) + '</span>';
+  }
+  el.innerHTML = html;
+}
+
+function escapeHtml(text) {
+  const div = document.createElement('div');
+  div.textContent = text;
+  return div.innerHTML;
+}
+
+function renderTable(folder) {
+  const tbody = document.getElementById("fileBody");
+  let items = [];
+
+  if (currentPath.length > 1) {
+    items.push({ name: "Parent Directory", type: "parent", size: "-", modified: "-", desc: "" });
+  }
+
+  let children = [...(folder.children || [])];
+  if (currentSort.key) {
+    children.sort((a, b) => {
+      let av = a[currentSort.key];
+      let bv = b[currentSort.key];
+      if (currentSort.key === "size") {
+        av = parseSize(av);
+        bv = parseSize(bv);
+      }
+      if (av < bv) return currentSort.dir === "asc" ? -1 : 1;
+      if (av > bv) return currentSort.dir === "asc" ? 1 : -1;
+      return 0;
+    });
+  } else {
+    children.sort((a, b) => {
+      if (a.type === "folder" && b.type !== "folder") return -1;
+      if (a.type !== "folder" && b.type === "folder") return 1;
+      return a.name.localeCompare(b.name);
+    });
+  }
+
+  items = items.concat(children);
+
+  tbody.innerHTML = items.map(item => {
+    if (item.type === "parent") {
+      return \`<tr class="parent" onclick="goUp()">
+        <td><span class="icon">&#128193;</span><span class="name-col">${escapeHtml(item.name)}</span></td>
+        <td class="date-col">${item.modified}</td>
+        <td class="size-col">${item.size}</td>
+        <td class="desc-col">${escapeHtml(item.desc)}</td>
+      </tr>\`;
+    }
+    const icon = item.type === "folder" ? "&#128193;" : (item.name.endsWith(".pdf") ? "&#128196;" : "&#128206;");
+    const click = item.type === "folder"
+      ? \`onclick="openFolder('${escapeHtml(item.name)}')"\`
+      : \`onclick="openFile('${escapeHtml(item.name)}', '${item.url || ''}')"\`;
+    return \`<tr ${click}>
+      <td><span class="icon">${icon}</span><span class="name-col">${escapeHtml(item.name)}${item.type === "folder" ? "/" : ""}</span></td>
+      <td class="date-col">${item.modified}</td>
+      <td class="size-col">${item.size}</td>
+      <td class="desc-col">${escapeHtml(item.desc)}</td>
+    </tr>\`;
+  }).join("");
+
+  document.querySelectorAll(".sort-indicator").forEach(el => el.textContent = "");
+  if (currentSort.key) {
+    document.getElementById("sort-" + currentSort.key).textContent = currentSort.dir === "asc" ? "&#9650;" : "&#9660;";
+  }
+}
+
+function openFolder(name) {
+  const current = currentPath[currentPath.length - 1];
+  const found = current.children.find(c => c.name === name && c.type === "folder");
+  if (found) {
+    currentPath.push(found);
+    render();
+  }
+}
+
+function goUp() {
+  if (currentPath.length > 1) {
+    currentPath.pop();
+    render();
+  }
+}
+
+function navigateTo(index) {
+  currentPath = currentPath.slice(0, index + 1);
+  render();
+}
+
+function openFile(name, url) {
+  if (!url) return;
+  currentPDF = { name, url };
+  document.getElementById("pdfTitle").textContent = name;
+  document.getElementById("pdfFrame").src = url;
+  document.getElementById("pdfViewer").classList.add("active");
+}
+
+function closePDF() {
+  document.getElementById("pdfViewer").classList.remove("active");
+  document.getElementById("pdfFrame").src = "";
+  currentPDF = null;
+}
+
+function downloadPDF() {
+  if (currentPDF) {
+    const a = document.createElement("a");
+    a.href = currentPDF.url;
+    a.download = currentPDF.name;
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+  }
+}
+
+function sortBy(key) {
+  if (currentSort.key === key) {
+    currentSort.dir = currentSort.dir === "asc" ? "desc" : "asc";
+  } else {
+    currentSort.key = key;
+    currentSort.dir = "asc";
+  }
+  render();
+}
+
+function parseSize(sizeStr) {
+  if (sizeStr === "-") return 0;
+  const units = { "K": 1024, "M": 1024*1024, "G": 1024*1024*1024 };
+  const match = sizeStr.match(/^([0-9.]+)([KMG]?)$/);
+  if (!match) return 0;
+  const num = parseFloat(match[1]);
+  const unit = match[2] || "";
+  return num * (units[unit] || 1);
+}
+
+render();
+</script>
+
+</body>
+</html>
