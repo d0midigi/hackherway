@@ -1,0 +1,872 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ScrollSpy Tutorial with Accordion</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+
+  :root {
+    --bg: #0a0a0f;
+    --bg-elevated: #111118;
+    --bg-card: #16161f;
+    --border: #222233;
+    --border-hover: #2a2a40;
+    --text-primary: #e8e8f0;
+    --text-secondary: #8a8aa0;
+    --text-muted: #555566;
+    --accent: #fe0942;
+    --accent-dim: #fe094240;
+    --accent-glow: #fe094220;
+    --sidebar-width: 300px;
+    --radius: 8px;
+    --transition: 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'Inter', sans-serif;
+    background: var(--bg);
+    color: var(--text-primary);
+    line-height: 1.7;
+    display: flex;
+  }
+
+  /* SIDEBAR */
+  .sidebar {
+    width: var(--sidebar-width);
+    min-width: var(--sidebar-width);
+    height: 100vh;
+    position: fixed;
+    left: 0; top: 0;
+    background: var(--bg-elevated);
+    border-right: 1px solid var(--border);
+    overflow-y: auto;
+    padding: 24px 0;
+    z-index: 100;
+  }
+  .sidebar::-webkit-scrollbar { width: 4px; }
+  .sidebar::-webkit-scrollbar-track { background: transparent; }
+  .sidebar::-webkit-scrollbar-thumb { background: var(--border); border-radius: 4px; }
+
+  .sidebar-header {
+    padding: 0 20px 20px;
+    border-bottom: 1px solid var(--border);
+    margin-bottom: 16px;
+  }
+  .sidebar-title { font-size: 18px; font-weight: 700; letter-spacing: -0.5px; }
+  .sidebar-subtitle { font-size: 12px; color: var(--text-muted); margin-top: 4px; }
+
+  .nav-list { list-style: none; padding: 0 12px; }
+  .nav-item { margin: 2px 0; }
+
+  /* Level 1 - Grandparent */
+  .nav-grandparent {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 12px;
+    border-radius: var(--radius);
+    cursor: pointer;
+    transition: var(--transition);
+    user-select: none;
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--text-primary);
+    text-decoration: none;
+  }
+  .nav-grandparent:hover { background: var(--bg-card); }
+  .nav-grandparent.active {
+    background: var(--accent-dim);
+    color: var(--accent);
+    border-left: 2px solid var(--accent);
+    margin-left: -2px;
+  }
+  .nav-grandparent.active .nav-caret { color: var(--accent); }
+
+  /* Level 2 - Parent */
+  .nav-parent {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 12px 8px 28px;
+    border-radius: var(--radius);
+    cursor: pointer;
+    transition: var(--transition);
+    user-select: none;
+    font-size: 12px;
+    font-weight: 500;
+    color: var(--text-secondary);
+    text-decoration: none;
+  }
+  .nav-parent:hover { background: var(--bg-card); color: var(--text-primary); }
+  .nav-parent.active {
+    background: var(--accent-dim);
+    color: var(--accent);
+    border-left: 2px solid var(--accent);
+    margin-left: -2px;
+  }
+  .nav-parent.active .nav-caret { color: var(--accent); }
+
+  /* Level 3 - Child */
+  .nav-child {
+    display: block;
+    padding: 6px 12px 6px 48px;
+    border-radius: var(--radius);
+    font-size: 11px;
+    color: var(--text-muted);
+    text-decoration: none;
+    transition: var(--transition);
+    position: relative;
+    cursor: pointer;
+  }
+  .nav-child::before {
+    content: '';
+    position: absolute;
+    left: 36px; top: 50%;
+    width: 6px; height: 1px;
+    background: var(--border);
+  }
+  .nav-child:hover { color: var(--text-primary); background: var(--bg-card); }
+  .nav-child.active {
+    color: var(--accent);
+    background: var(--accent-dim);
+    border-left: 2px solid var(--accent);
+    margin-left: -2px;
+  }
+
+  /* Caret */
+  .nav-caret {
+    width: 16px; height: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 10px;
+    color: var(--text-muted);
+    transition: transform 0.2s ease;
+    flex-shrink: 0;
+  }
+  .nav-caret.expanded { transform: rotate(90deg); color: var(--accent); }
+
+  .nav-label { flex: 1; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+
+  /* Accordion containers */
+  .accordion-children {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.35s ease;
+    list-style: none;
+  }
+  .accordion-children.open { max-height: 800px; }
+
+  /* MAIN CONTENT */
+  .main {
+    margin-left: var(--sidebar-width);
+    flex: 1;
+    max-width: 800px;
+    padding: 60px 48px;
+  }
+
+  .section {
+    margin-bottom: 80px;
+    scroll-margin-top: 40px;
+  }
+  .section h2 {
+    font-size: 32px;
+    font-weight: 700;
+    letter-spacing: -0.5px;
+    margin-bottom: 24px;
+  }
+  .section h3 {
+    font-size: 22px;
+    font-weight: 600;
+    margin: 48px 0 20px;
+    color: var(--text-secondary);
+    padding-bottom: 8px;
+    border-bottom: 1px solid var(--border);
+  }
+  .section h4 {
+    font-size: 17px;
+    font-weight: 600;
+    margin: 32px 0 12px;
+    color: var(--text-muted);
+  }
+  .section p {
+    font-size: 15px;
+    color: var(--text-secondary);
+    margin-bottom: 16px;
+  }
+
+  .code-block {
+    background: var(--bg-elevated);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 20px 24px;
+    font-family: 'SF Mono', 'Fira Code', monospace;
+    font-size: 13px;
+    color: var(--text-primary);
+    overflow-x: auto;
+    margin: 20px 0;
+    line-height: 1.6;
+  }
+  .code-block .comment { color: var(--text-muted); }
+  .code-block .keyword { color: var(--accent); }
+  .code-block .string { color: #22c55e; }
+  .code-block .func { color: #3b82f6; }
+
+  .tip-box {
+    background: var(--accent-glow);
+    border: 1px solid var(--accent-dim);
+    border-radius: var(--radius);
+    padding: 16px 20px;
+    margin: 20px 0;
+  }
+  .tip-box strong {
+    color: var(--accent);
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+  }
+  .tip-box p { margin: 8px 0 0; font-size: 14px; }
+
+  .menu-toggle {
+    display: none;
+    position: fixed;
+    top: 16px; left: 16px;
+    z-index: 200;
+    width: 40px; height: 40px;
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    color: var(--text-primary);
+    font-size: 18px;
+    cursor: pointer;
+    align-items: center;
+    justify-content: center;
+  }
+
+  @media (max-width: 900px) {
+    .sidebar { transform: translateX(-100%); transition: transform 0.3s ease; }
+    .sidebar.open { transform: translateX(0); }
+    .main { margin-left: 0; padding: 60px 24px; max-width: 100%; }
+    .menu-toggle { display: flex; }
+  }
+</style>
+</head>
+<body>
+
+<button class="menu-toggle" onclick="document.querySelector('.sidebar').classList.toggle('open')">&#9776;</button>
+
+<nav class="sidebar" id="sidebar">
+  <div class="sidebar-header">
+    <div class="sidebar-title">Tutorial</div>
+    <div class="sidebar-subtitle">ScrollSpy + Accordion</div>
+  </div>
+  <ul class="nav-list" id="navList"></ul>
+</nav>
+
+<main class="main" id="main">
+
+  <!-- GETTING STARTED -->
+  <section class="section" id="getting-started">
+    <h2>Getting Started</h2>
+    <p>Welcome to the tutorial. This page demonstrates a scrollspy navigation system with a 3-level accordion. Grandparents expand to show parents, parents expand to show children. As you scroll, the sidebar highlights the active section and auto-expands its ancestors.</p>
+    <p>Click any caret to expand or collapse a level. Click a link to smoothly scroll to that section. The active section is tracked via IntersectionObserver.</p>
+    <div class="tip-box">
+      <strong>Tip</strong>
+      <p>Try scrolling and clicking carets. The accordion only allows one branch open at a time per level, keeping the sidebar clean.</p>
+    </div>
+  </section>
+
+  <!-- INSTALLATION -->
+  <section class="section" id="installation">
+    <h2>Installation</h2>
+    <p>Before we begin, make sure you have the prerequisites installed. This tutorial assumes basic familiarity with HTML, CSS, and JavaScript.</p>
+
+    <h3 id="installation-overview">Overview</h3>
+    <p>The package is distributed via npm and CDN. Choose the method that fits your workflow. Both methods expose the same API.</p>
+
+    <h4 id="installation-overview-npm">Using NPM</h4>
+    <p>The recommended way to install is via your package manager of choice.</p>
+    <div class="code-block">
+<span class="comment"># Install via npm</span>
+npm <span class="keyword">install</span> <span class="string">"tutorial-package"</span>
+
+<span class="comment"># Or with yarn</span>
+yarn <span class="keyword">add</span> <span class="string">"tutorial-package"</span>
+    </div>
+
+    <h4 id="installation-overview-cdn">Using CDN</h4>
+    <p>For quick prototyping, you can also load directly from a CDN.</p>
+    <div class="code-block">
+&lt;<span class="keyword">script</span> <span class="func">src</span>=<span class="string">"https://cdn.example.com/package.js"</span>&gt;&lt;/<span class="keyword">script</span>&gt;
+    </div>
+
+    <h3 id="installation-verification">Verification</h3>
+    <p>After installation, verify everything is working by running the built-in health check.</p>
+    <div class="code-block">
+<span class="keyword">import</span> { <span class="func">checkHealth</span> } <span class="keyword">from</span> <span class="string">'tutorial-package'</span>;
+<span class="func">checkHealth</span>().then(status => <span class="func">console</span>.log(status));
+    </div>
+
+    <h4 id="installation-verification-common">Common Issues</h4>
+    <p>If you see a module resolution error, ensure your bundler is configured to handle ES modules. For webpack, add the resolve.alias configuration.</p>
+
+    <h4 id="installation-verification-troubleshoot">Troubleshooting</h4>
+    <p>Clear your node_modules and lock file, then reinstall. If the issue persists, check the peer dependency versions match your environment.</p>
+  </section>
+
+  <!-- CORE CONCEPTS -->
+  <section class="section" id="core-concepts">
+    <h2>Core Concepts</h2>
+    <p>Understanding the fundamental concepts is essential before diving into implementation details. This section covers the architecture and design patterns.</p>
+
+    <h3 id="core-concepts-architecture">Architecture</h3>
+    <p>The system follows a modular architecture where each component is self-contained and can be used independently.</p>
+
+    <h4 id="core-concepts-architecture-modular">Modular Design</h4>
+    <p>Every module exports a single responsibility. Dependencies are injected rather than hard-coded, making testing and mocking straightforward.</p>
+
+    <h4 id="core-concepts-architecture-layers">Layered Architecture</h4>
+    <p>The codebase is organized into three layers: presentation, business logic, and data access. Each layer communicates through well-defined interfaces.</p>
+
+    <h3 id="core-concepts-lifecycle">Lifecycle</h3>
+    <p>Every component goes through a well-defined lifecycle: initialization, mounting, updating, and destruction.</p>
+
+    <h4 id="core-concepts-lifecycle-hooks">Lifecycle Hooks</h4>
+    <p>Hooks are provided at each stage for custom logic. Register them during component definition.</p>
+    <div class="code-block">
+<span class="keyword">const</span> component = <span class="keyword">new</span> <span class="func">Component</span>({
+  <span class="func">onMount</span>: () => <span class="func">console</span>.log(<span class="string">'Mounted!'</span>),
+  <span class="func">onUpdate</span>: (data) => <span class="func">console</span>.log(<span class="string">'Updated:'</span>, data),
+  <span class="func">onDestroy</span>: () => <span class="func">console</span>.log(<span class="string">'Clean up'</span>)
+});
+    </div>
+
+    <h4 id="core-concepts-lifecycle-cleanup">Cleanup Patterns</h4>
+    <p>Always unregister event listeners and cancel pending requests in the destroy hook to prevent memory leaks.</p>
+
+    <h3 id="core-concepts-reactivity">Reactivity</h3>
+    <p>The reactivity system uses Proxies to intercept property access and mutations.</p>
+
+    <h4 id="core-concepts-reactivity-proxies">Proxy-Based Tracking</h4>
+    <p>When a reactive property is read inside a computed function, that function is registered as a dependency. On mutation, all dependents are notified.</p>
+
+    <h4 id="core-concepts-reactivity-computed">Computed Values</h4>
+    <p>Computed properties are cached and only re-evaluate when their dependencies change. This avoids unnecessary recalculation.</p>
+  </section>
+
+  <!-- COMPONENTS -->
+  <section class="section" id="components">
+    <h2>Components</h2>
+    <p>Components are the building blocks of any application built with this system.</p>
+
+    <h3 id="components-defining">Defining Components</h3>
+    <p>A component is defined as a plain object with specific properties.</p>
+
+    <h4 id="components-defining-structure">Component Structure</h4>
+    <p>The render function returns the virtual DOM representation. Props define the external interface.</p>
+    <div class="code-block">
+<span class="keyword">export default</span> {
+  <span class="func">name</span>: <span class="string">'Button'</span>,
+  <span class="func">props</span>: [<span class="string">'variant'</span>, <span class="string">'size'</span>],
+  <span class="func">render</span>(props) {
+    <span class="keyword">return</span> <span class="string">`&lt;button class="btn btn--${props.variant}"&gt;${props.children}&lt;/button&gt;`</span>;
+  }
+};
+    </div>
+
+    <h4 id="components-defining-registration">Registration</h4>
+    <p>Register components globally or locally. Global registration makes them available everywhere without explicit imports.</p>
+
+    <h3 id="components-props">Props & Events</h3>
+    <p>Props are passed from parent to child and are read-only within the child component.</p>
+
+    <h4 id="components-props-validation">Validation</h4>
+    <p>Validation ensures props meet expected types and constraints. Failed validation throws a descriptive error in development mode.</p>
+
+    <h4 id="components-props-events">Event Emission</h4>
+    <p>For two-way communication, events are emitted upward through the component tree. Use the emit method with a payload.</p>
+
+    <h3 id="components-slots">Slots</h3>
+    <p>Slots allow content composition. A default slot receives any content placed between the component tags.</p>
+
+    <h4 id="components-slots-default">Default Slot</h4>
+    <p>Content not assigned to a named slot falls into the default slot automatically.</p>
+
+    <h4 id="components-slots-named">Named Slots</h4>
+    <p>Named slots enable multiple insertion points. Use the slot attribute to target a specific named slot.</p>
+  </section>
+
+  <!-- ROUTING -->
+  <section class="section" id="routing">
+    <h2>Routing</h2>
+    <p>The router maps URLs to components with support for dynamic segments and nested routes.</p>
+
+    <h3 id="routing-setup">Basic Setup</h3>
+    <p>Create a router instance and define your routes as an array of route objects.</p>
+
+    <h4 id="routing-setup-config">Configuration</h4>
+    <p>Each route specifies a path pattern and the component to render. The router uses path-to-regexp for pattern matching.</p>
+    <div class="code-block">
+<span class="keyword">const</span> router = <span class="func">createRouter</span>({
+  routes: [
+    { path: <span class="string">'/'</span>, component: Home },
+    { path: <span class="string">'/about'</span>, component: About },
+    { path: <span class="string">'/user/:id'</span>, component: User }
+  ]
+});
+    </div>
+
+    <h4 id="routing-setup-history">History Mode</h4>
+    <p>Choose between hash mode and history mode. History mode requires server configuration to handle deep links.</p>
+
+    <h3 id="routing-navigation">Programmatic Navigation</h3>
+    <p>Navigate imperatively using router instance methods. Useful for redirects after form submission.</p>
+
+    <h4 id="routing-navigation-push">Push & Replace</h4>
+    <p>Use push to add a new history entry, or replace to navigate without adding to the history stack.</p>
+
+    <h4 id="routing-navigation-go">Go & Back</h4>
+    <p>The go method accepts a delta integer. Positive values move forward, negative values move backward in history.</p>
+
+    <h3 id="routing-guards">Navigation Guards</h3>
+    <p>Guards intercept navigation and can prevent or redirect it.</p>
+
+    <h4 id="routing-guards-global">Global Guards</h4>
+    <p>Register beforeEach and afterEach hooks on the router instance to guard every navigation.</p>
+
+    <h4 id="routing-guards-route">Route-Level Guards</h4>
+    <p>Define beforeEnter directly on route definitions for guard logic scoped to a single route.</p>
+  </section>
+
+  <!-- STATE MANAGEMENT -->
+  <section class="section" id="state-management">
+    <h2>State Management</h2>
+    <p>For complex applications, a centralized store helps manage shared state with unidirectional data flow.</p>
+
+    <h3 id="state-store">Creating a Store</h3>
+    <p>Define an initial state object and a set of mutations that modify that state.</p>
+
+    <h4 id="state-store-definition">Store Definition</h4>
+    <p>Actions can contain asynchronous logic before committing mutations. Mutations must be synchronous.</p>
+    <div class="code-block">
+<span class="keyword">const</span> store = <span class="func">createStore</span>({
+  <span class="func">state</span>: () => ({ count: 0 }),
+  <span class="func">mutations</span>: {
+    <span class="func">increment</span>(state) { state.count++; }
+  }
+});
+    </div>
+
+    <h4 id="state-store-modules">Modules</h4>
+    <p>Split large stores into modules. Each module can have its own state, mutations, actions, and getters.</p>
+
+    <h3 id="state-getters">Getters</h3>
+    <p>Getters compute derived state. They are cached and only re-evaluate when dependencies change.</p>
+
+    <h4 id="state-getters-basic">Basic Getters</h4>
+    <p>A getter receives the state as its first argument. Access it like a computed property.</p>
+
+    <h4 id="state-getters-parameterized">Parameterized Getters</h4>
+    <p>Return a function from a getter to accept arguments. These are not cached per parameter value.</p>
+
+    <h3 id="state-actions">Actions</h3>
+    <p>Actions are similar to mutations but can contain asynchronous operations.</p>
+
+    <h4 id="state-actions-async">Async Actions</h4>
+    <p>Dispatch an action, perform async work, then commit a mutation with the result.</p>
+
+    <h4 id="state-actions-composition">Action Composition</h4>
+    <p>Actions can dispatch other actions. This enables complex workflows built from simple primitives.</p>
+  </section>
+
+  <!-- ADVANCED -->
+  <section class="section" id="advanced">
+    <h2>Advanced Topics</h2>
+    <p>Patterns and techniques for building production-grade applications.</p>
+
+    <h3 id="advanced-performance">Performance Optimization</h3>
+    <p>Virtual scrolling, lazy loading, and code splitting are built-in features.</p>
+
+    <h4 id="advanced-performance-bundle">Bundle Size</h4>
+    <p>The compiler performs static analysis to eliminate dead code. Tree-shake unused exports to minimize bundle size.</p>
+
+    <h4 id="advanced-performance-render">Render Optimization</h4>
+    <p>Use memo and shouldUpdate to prevent unnecessary re-renders. Profile with the built-in devtools.</p>
+
+    <h3 id="advanced-testing">Testing</h3>
+    <p>Testing utilities provide helper functions for mounting components and asserting on rendered output.</p>
+
+    <h4 id="advanced-testing-unit">Unit Tests</h4>
+    <p>Mount a component in isolation, trigger events, and assert on the resulting DOM.</p>
+    <div class="code-block">
+<span class="func">test</span>(<span class="string">'button click increments counter'</span>, <span class="keyword">async</span> () => {
+  <span class="keyword">const</span> wrapper = <span class="func">mount</span>(Counter);
+  <span class="keyword">await</span> wrapper.<span class="func">find</span>(<span class="string">'button'</span>).<span class="func">trigger</span>(<span class="string">'click'</span>);
+  <span class="func">expect</span>(wrapper.<span class="func">text</span>()).<span class="func">toContain</span>(<span class="string">'1'</span>);
+});
+    </div>
+
+    <h4 id="advanced-testing-e2e">E2E Tests</h4>
+    <p>Run end-to-end tests in a real browser environment. Use the test runner to automate user flows.</p>
+
+    <h3 id="advanced-deployment">Deployment</h3>
+    <p>Build for production with tree-shaking and minification.</p>
+
+    <h4 id="advanced-deployment-static">Static Hosting</h4>
+    <p>Static sites can be deployed to any CDN or static host. Pre-render routes for SEO benefits.</p>
+
+    <h4 id="advanced-deployment-ssr">Server-Side Rendering</h4>
+    <p>SSR requires a Node.js environment. Hydrate the client-side app on top of the server-rendered markup.</p>
+  </section>
+
+</main>
+
+<script>
+// 3-LEVEL NAV STRUCTURE
+const navStructure = [
+  { id: 'getting-started', label: 'Getting Started', children: [] },
+  {
+    id: 'installation',
+    label: 'Installation',
+    children: [
+      {
+        id: 'installation-overview',
+        label: 'Overview',
+        children: [
+          { id: 'installation-overview-npm', label: 'Using NPM' },
+          { id: 'installation-overview-cdn', label: 'Using CDN' }
+        ]
+      },
+      {
+        id: 'installation-verification',
+        label: 'Verification',
+        children: [
+          { id: 'installation-verification-common', label: 'Common Issues' },
+          { id: 'installation-verification-troubleshoot', label: 'Troubleshooting' }
+        ]
+      }
+    ]
+  },
+  {
+    id: 'core-concepts',
+    label: 'Core Concepts',
+    children: [
+      {
+        id: 'core-concepts-architecture',
+        label: 'Architecture',
+        children: [
+          { id: 'core-concepts-architecture-modular', label: 'Modular Design' },
+          { id: 'core-concepts-architecture-layers', label: 'Layered Architecture' }
+        ]
+      },
+      {
+        id: 'core-concepts-lifecycle',
+        label: 'Lifecycle',
+        children: [
+          { id: 'core-concepts-lifecycle-hooks', label: 'Lifecycle Hooks' },
+          { id: 'core-concepts-lifecycle-cleanup', label: 'Cleanup Patterns' }
+        ]
+      },
+      {
+        id: 'core-concepts-reactivity',
+        label: 'Reactivity',
+        children: [
+          { id: 'core-concepts-reactivity-proxies', label: 'Proxy-Based Tracking' },
+          { id: 'core-concepts-reactivity-computed', label: 'Computed Values' }
+        ]
+      }
+    ]
+  },
+  {
+    id: 'components',
+    label: 'Components',
+    children: [
+      {
+        id: 'components-defining',
+        label: 'Defining Components',
+        children: [
+          { id: 'components-defining-structure', label: 'Component Structure' },
+          { id: 'components-defining-registration', label: 'Registration' }
+        ]
+      },
+      {
+        id: 'components-props',
+        label: 'Props & Events',
+        children: [
+          { id: 'components-props-validation', label: 'Validation' },
+          { id: 'components-props-events', label: 'Event Emission' }
+        ]
+      },
+      {
+        id: 'components-slots',
+        label: 'Slots',
+        children: [
+          { id: 'components-slots-default', label: 'Default Slot' },
+          { id: 'components-slots-named', label: 'Named Slots' }
+        ]
+      }
+    ]
+  },
+  {
+    id: 'routing',
+    label: 'Routing',
+    children: [
+      {
+        id: 'routing-setup',
+        label: 'Basic Setup',
+        children: [
+          { id: 'routing-setup-config', label: 'Configuration' },
+          { id: 'routing-setup-history', label: 'History Mode' }
+        ]
+      },
+      {
+        id: 'routing-navigation',
+        label: 'Programmatic Navigation',
+        children: [
+          { id: 'routing-navigation-push', label: 'Push & Replace' },
+          { id: 'routing-navigation-go', label: 'Go & Back' }
+        ]
+      },
+      {
+        id: 'routing-guards',
+        label: 'Navigation Guards',
+        children: [
+          { id: 'routing-guards-global', label: 'Global Guards' },
+          { id: 'routing-guards-route', label: 'Route-Level Guards' }
+        ]
+      }
+    ]
+  },
+  {
+    id: 'state-management',
+    label: 'State Management',
+    children: [
+      {
+        id: 'state-store',
+        label: 'Creating a Store',
+        children: [
+          { id: 'state-store-definition', label: 'Store Definition' },
+          { id: 'state-store-modules', label: 'Modules' }
+        ]
+      },
+      {
+        id: 'state-getters',
+        label: 'Getters',
+        children: [
+          { id: 'state-getters-basic', label: 'Basic Getters' },
+          { id: 'state-getters-parameterized', label: 'Parameterized Getters' }
+        ]
+      },
+      {
+        id: 'state-actions',
+        label: 'Actions',
+        children: [
+          { id: 'state-actions-async', label: 'Async Actions' },
+          { id: 'state-actions-composition', label: 'Action Composition' }
+        ]
+      }
+    ]
+  },
+  {
+    id: 'advanced',
+    label: 'Advanced Topics',
+    children: [
+      {
+        id: 'advanced-performance',
+        label: 'Performance Optimization',
+        children: [
+          { id: 'advanced-performance-bundle', label: 'Bundle Size' },
+          { id: 'advanced-performance-render', label: 'Render Optimization' }
+        ]
+      },
+      {
+        id: 'advanced-testing',
+        label: 'Testing',
+        children: [
+          { id: 'advanced-testing-unit', label: 'Unit Tests' },
+          { id: 'advanced-testing-e2e', label: 'E2E Tests' }
+        ]
+      },
+      {
+        id: 'advanced-deployment',
+        label: 'Deployment',
+        children: [
+          { id: 'advanced-deployment-static', label: 'Static Hosting' },
+          { id: 'advanced-deployment-ssr', label: 'Server-Side Rendering' }
+        ]
+      }
+    ]
+  }
+];
+
+// RENDER NAV
+function renderNav() {
+  const list = document.getElementById('navList');
+  list.innerHTML = navStructure.map(item => renderGrandparent(item)).join('');
+}
+
+function renderGrandparent(item) {
+  const hasChildren = item.children && item.children.length > 0;
+  return `
+    <li class="nav-item">
+      <a class="nav-grandparent" href="#${item.id}" data-id="${item.id}" onclick="handleGrandparentClick(event, '${item.id}')">
+        ${hasChildren ? `<span class="nav-caret" id="caret-gp-${item.id}" onclick="toggleAccordion(event, 'gp-${item.id}')">&#9654;</span>` : '<span style="width:16px;"></span>'}
+        <span class="nav-label">${item.label}</span>
+      </a>
+      ${hasChildren ? `
+        <ul class="accordion-children" id="children-gp-${item.id}">
+          ${item.children.map(child => renderParent(child)).join('')}
+        </ul>
+      ` : ''}
+    </li>
+  `;
+}
+
+function renderParent(item) {
+  const hasChildren = item.children && item.children.length > 0;
+  return `
+    <li class="nav-item">
+      <a class="nav-parent" href="#${item.id}" data-id="${item.id}" onclick="handleParentClick(event, '${item.id}')">
+        ${hasChildren ? `<span class="nav-caret" id="caret-p-${item.id}" onclick="toggleAccordion(event, 'p-${item.id}')">&#9654;</span>` : '<span style="width:16px;"></span>'}
+        <span class="nav-label">${item.label}</span>
+      </a>
+      ${hasChildren ? `
+        <ul class="accordion-children" id="children-p-${item.id}">
+          ${item.children.map(child => renderChild(child)).join('')}
+        </ul>
+      ` : ''}
+    </li>
+  `;
+}
+
+function renderChild(item) {
+  return `
+    <li><a class="nav-child" href="#${item.id}" data-id="${item.id}">${item.label}</a></li>
+  `;
+}
+
+// ACCORDION TOGGLE
+function toggleAccordion(event, prefix) {
+  event.preventDefault();
+  event.stopPropagation();
+
+  const children = document.getElementById('children-' + prefix);
+  const caret = document.getElementById('caret-' + prefix);
+  if (!children) return;
+
+  const isOpen = children.classList.contains('open');
+
+  // Close siblings at same level
+  const level = prefix.startsWith('gp-') ? 'gp' : 'p';
+  const allAtLevel = document.querySelectorAll('.accordion-children[id^="children-' + level + '-"]');
+  allAtLevel.forEach(el => {
+    if (el !== children) {
+      el.classList.remove('open');
+      const otherCaret = document.getElementById('caret-' + el.id.replace('children-', ''));
+      if (otherCaret) otherCaret.classList.remove('expanded');
+    }
+  });
+
+  // Toggle current
+  children.classList.toggle('open');
+  caret.classList.toggle('expanded');
+}
+
+function handleGrandparentClick(event, id) {
+  const children = document.getElementById('children-gp-' + id);
+  const caret = document.getElementById('caret-gp-' + id);
+  if (children && !children.classList.contains('open')) {
+    children.classList.add('open');
+    caret.classList.add('expanded');
+  }
+}
+
+function handleParentClick(event, id) {
+  const children = document.getElementById('children-p-' + id);
+  const caret = document.getElementById('caret-p-' + id);
+  if (children && !children.classList.contains('open')) {
+    children.classList.add('open');
+    caret.classList.add('expanded');
+  }
+}
+
+// SCROLLSPY
+const observerOptions = {
+  root: null,
+  rootMargin: '-15% 0px -55% 0px',
+  threshold: 0
+};
+
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      setActive(entry.target.id);
+    }
+  });
+}, observerOptions);
+
+function setActive(id) {
+  // Clear all active
+  document.querySelectorAll('.nav-grandparent, .nav-parent, .nav-child').forEach(el => el.classList.remove('active'));
+
+  // Find and activate the element
+  const el = document.querySelector('[data-id="' + id + '"]');
+  if (!el) return;
+
+  el.classList.add('active');
+
+  // Expand ancestors
+  let parent = el.closest('.accordion-children');
+  while (parent) {
+    parent.classList.add('open');
+    const caretId = parent.id.replace('children-', '');
+    const caret = document.getElementById('caret-' + caretId);
+    if (caret) caret.classList.add('expanded');
+    parent = parent.parentElement.closest('.accordion-children');
+  }
+
+  // If child, also highlight its parent and grandparent
+  if (el.classList.contains('nav-child')) {
+    const parentLi = el.closest('.nav-item');
+    const parentLink = parentLi.querySelector('.nav-parent');
+    if (parentLink) parentLink.classList.add('active');
+
+    const grandparentLi = parentLi.parentElement.closest('.nav-item');
+    const grandparentLink = grandparentLi.querySelector('.nav-grandparent');
+    if (grandparentLink) grandparentLink.classList.add('active');
+  }
+
+  // If parent, also highlight grandparent
+  if (el.classList.contains('nav-parent')) {
+    const grandparentLi = el.closest('.nav-item').parentElement.closest('.nav-item');
+    const grandparentLink = grandparentLi.querySelector('.nav-grandparent');
+    if (grandparentLink) grandparentLink.classList.add('active');
+  }
+}
+
+// INIT
+document.addEventListener('DOMContentLoaded', () => {
+  renderNav();
+
+  // Observe all headings with IDs
+  document.querySelectorAll('.section[id], .section h3[id], .section h4[id]').forEach(el => {
+    observer.observe(el);
+  });
+});
+
+// Mobile: close sidebar on link click
+if (window.innerWidth <= 900) {
+  document.querySelectorAll('.nav-grandparent, .nav-parent, .nav-child').forEach(link => {
+    link.addEventListener('click', () => {
+      document.querySelector('.sidebar').classList.remove('open');
+    });
+  });
+}
+</script>
+</body>
+</html>
