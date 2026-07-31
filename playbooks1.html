@@ -1,0 +1,1172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>HackHerWay — AD Attack Playbooks</title>
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0a0a0f;
+    --bg-card: #12121a;
+    --bg-card-hover: #1a1a28;
+    --border: #2a2a3a;
+    --border-hover: #fe0942;
+    --text: #e8e8f0;
+    --text-dim: #8888a0;
+    --accent: #fe0942;
+    --accent-glow: rgba(254, 9, 66, 0.3);
+    --accent-secondary: #ff6b9d;
+    --success: #00f5a0;
+    --warning: #ffd700;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'Space Grotesk', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  body::before {
+    content: '';
+    position: fixed;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background-image:
+      linear-gradient(rgba(254, 9, 66, 0.03) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(254, 9, 66, 0.03) 1px, transparent 1px);
+    background-size: 60px 60px;
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  body::after {
+    content: '';
+    position: fixed;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: repeating-linear-gradient(
+      0deg,
+      transparent,
+      transparent 2px,
+      rgba(0,0,0,0.15) 2px,
+      rgba(0,0,0,0.15) 4px
+    );
+    pointer-events: none;
+    z-index: 9999;
+    opacity: 0.4;
+  }
+
+  .page {
+    position: relative;
+    z-index: 1;
+    min-height: 100vh;
+    display: none;
+    animation: fadeIn 0.5s ease;
+  }
+  .page.active { display: block; }
+
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .site-header {
+    border-bottom: 1px solid var(--border);
+    background: rgba(10,10,15,0.9);
+    backdrop-filter: blur(20px);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    padding: 0 2rem;
+  }
+
+  .header-inner {
+    max-width: 1400px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 64px;
+  }
+
+  .logo {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 1.3rem;
+    font-weight: 900;
+    color: var(--accent);
+    text-decoration: none;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    cursor: pointer;
+  }
+
+  .logo::before {
+    content: '◈';
+    font-size: 1.5rem;
+    animation: pulse 2s infinite;
+  }
+
+  @keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.4; }
+  }
+
+  .nav-links {
+    display: flex;
+    gap: 2rem;
+    list-style: none;
+  }
+
+  .nav-links a {
+    color: var(--text-dim);
+    text-decoration: none;
+    font-size: 0.85rem;
+    font-weight: 500;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    transition: color 0.3s;
+    position: relative;
+    cursor: pointer;
+  }
+
+  .nav-links a:hover, .nav-links a.active {
+    color: var(--accent);
+  }
+
+  .nav-links a::after {
+    content: '';
+    position: absolute;
+    bottom: -4px;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background: var(--accent);
+    transition: width 0.3s;
+  }
+
+  .nav-links a:hover::after, .nav-links a.active::after {
+    width: 100%;
+  }
+
+  .hero {
+    text-align: center;
+    padding: 5rem 2rem 3rem;
+    max-width: 900px;
+    margin: 0 auto;
+  }
+
+  .hero-badge {
+    display: inline-block;
+    border: 1px solid var(--accent);
+    color: var(--accent);
+    padding: 0.4rem 1.2rem;
+    border-radius: 100px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    margin-bottom: 1.5rem;
+    background: rgba(254,9,66,0.05);
+  }
+
+  .hero h1 {
+    font-family: 'Orbitron', sans-serif;
+    font-size: clamp(2rem, 5vw, 3.5rem);
+    font-weight: 900;
+    line-height: 1.1;
+    margin-bottom: 1rem;
+    background: linear-gradient(135deg, #fff 0%, var(--accent-secondary) 50%, var(--accent) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .hero p {
+    color: var(--text-dim);
+    font-size: 1.1rem;
+    line-height: 1.7;
+    max-width: 600px;
+    margin: 0 auto 2rem;
+  }
+
+  .hero-divider {
+    width: 80px;
+    height: 3px;
+    background: linear-gradient(90deg, var(--accent), var(--accent-secondary));
+    margin: 0 auto;
+    border-radius: 2px;
+  }
+
+  .playbooks-section {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 2rem 2rem 5rem;
+  }
+
+  .section-label {
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    color: var(--text-dim);
+    margin-bottom: 2rem;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+  }
+
+  .section-label::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: var(--border);
+  }
+
+  .playbook-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(360px, 1fr));
+    gap: 1.5rem;
+  }
+
+  .playbook-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    overflow: hidden;
+    cursor: pointer;
+    transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    position: relative;
+  }
+
+  .playbook-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, var(--accent), var(--accent-secondary));
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.4s;
+  }
+
+  .playbook-card:hover {
+    border-color: var(--border-hover);
+    background: var(--bg-card-hover);
+    transform: translateY(-4px);
+    box-shadow: 0 20px 40px rgba(0,0,0,0.4), 0 0 30px var(--accent-glow);
+  }
+
+  .playbook-card:hover::before {
+    transform: scaleX(1);
+  }
+
+  .card-image {
+    width: 100%;
+    height: 180px;
+    background: linear-gradient(135deg, #1a0a1a 0%, #0a0a1a 50%, #1a1a2a 100%);
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .card-image svg {
+    width: 80px;
+    height: 80px;
+    opacity: 0.7;
+    transition: all 0.4s;
+  }
+
+  .playbook-card:hover .card-image svg {
+    opacity: 1;
+    transform: scale(1.1);
+    filter: drop-shadow(0 0 20px var(--accent-glow));
+  }
+
+  .card-image .card-number {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    font-family: 'Orbitron', sans-serif;
+    font-size: 0.7rem;
+    color: var(--accent);
+    border: 1px solid var(--accent);
+    padding: 0.2rem 0.6rem;
+    border-radius: 100px;
+    background: rgba(254,9,66,0.1);
+  }
+
+  .card-content {
+    padding: 1.5rem;
+  }
+
+  .card-content h3 {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 1.1rem;
+    font-weight: 700;
+    margin-bottom: 0.75rem;
+    color: var(--text);
+    line-height: 1.3;
+  }
+
+  .card-content p {
+    color: var(--text-dim);
+    font-size: 0.9rem;
+    line-height: 1.6;
+    margin-bottom: 1rem;
+  }
+
+  .card-meta {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    font-size: 0.75rem;
+    color: var(--text-dim);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+  }
+
+  .card-meta span {
+    display: flex;
+    align-items: center;
+    gap: 0.3rem;
+  }
+
+  .card-arrow {
+    position: absolute;
+    bottom: 1.5rem;
+    right: 1.5rem;
+    width: 36px;
+    height: 36px;
+    border: 1px solid var(--border);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--text-dim);
+    transition: all 0.3s;
+  }
+
+  .playbook-card:hover .card-arrow {
+    border-color: var(--accent);
+    color: var(--accent);
+    background: rgba(254,9,66,0.1);
+    transform: translateX(4px);
+  }
+
+  .detail-hero {
+    background: linear-gradient(180deg, rgba(254,9,66,0.08) 0%, transparent 60%);
+    padding: 4rem 2rem 3rem;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .detail-hero-inner {
+    max-width: 1000px;
+    margin: 0 auto;
+  }
+
+  .breadcrumb {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.8rem;
+    color: var(--text-dim);
+    margin-bottom: 1.5rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+  }
+
+  .breadcrumb a {
+    color: var(--accent);
+    text-decoration: none;
+    cursor: pointer;
+  }
+
+  .breadcrumb a:hover {
+    text-decoration: underline;
+  }
+
+  .detail-hero h1 {
+    font-family: 'Orbitron', sans-serif;
+    font-size: clamp(1.8rem, 4vw, 2.8rem);
+    font-weight: 900;
+    margin-bottom: 1rem;
+    line-height: 1.2;
+  }
+
+  .detail-hero .subtitle {
+    color: var(--text-dim);
+    font-size: 1.1rem;
+    line-height: 1.6;
+    max-width: 700px;
+  }
+
+  .detail-meta-bar {
+    display: flex;
+    gap: 2rem;
+    margin-top: 2rem;
+    flex-wrap: wrap;
+  }
+
+  .meta-item {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+  }
+
+  .meta-label {
+    font-size: 0.7rem;
+    color: var(--text-dim);
+    text-transform: uppercase;
+    letter-spacing: 2px;
+  }
+
+  .meta-value {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 0.9rem;
+    color: var(--accent);
+    font-weight: 700;
+  }
+
+  .detail-content {
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 3rem 2rem 5rem;
+  }
+
+  .step {
+    display: grid;
+    grid-template-columns: 80px 1fr;
+    gap: 2rem;
+    margin-bottom: 3rem;
+    position: relative;
+  }
+
+  .step:not(:last-child)::after {
+    content: '';
+    position: absolute;
+    left: 39px;
+    top: 60px;
+    width: 2px;
+    height: calc(100% + 1rem);
+    background: linear-gradient(180deg, var(--accent), transparent);
+    opacity: 0.3;
+  }
+
+  .step-number {
+    width: 80px;
+    height: 80px;
+    border: 2px solid var(--accent);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Orbitron', sans-serif;
+    font-size: 1.5rem;
+    font-weight: 900;
+    color: var(--accent);
+    background: rgba(254,9,66,0.05);
+    position: relative;
+    z-index: 2;
+    flex-shrink: 0;
+  }
+
+  .step-body {
+    padding-top: 0.5rem;
+  }
+
+  .step-body h3 {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 1.2rem;
+    font-weight: 700;
+    margin-bottom: 0.75rem;
+    color: var(--text);
+  }
+
+  .step-body p {
+    color: var(--text-dim);
+    line-height: 1.7;
+    margin-bottom: 1rem;
+  }
+
+  .step-body ul {
+    list-style: none;
+    padding: 0;
+  }
+
+  .step-body ul li {
+    color: var(--text-dim);
+    line-height: 1.8;
+    padding-left: 1.5rem;
+    position: relative;
+  }
+
+  .step-body ul li::before {
+    content: '›';
+    position: absolute;
+    left: 0;
+    color: var(--accent);
+    font-weight: bold;
+    font-size: 1.2rem;
+  }
+
+  .code-block {
+    background: #0d0d14;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 1rem 1.5rem;
+    margin: 1rem 0;
+    font-family: 'SF Mono', 'Fira Code', monospace;
+    font-size: 0.85rem;
+    color: var(--text);
+    overflow-x: auto;
+    position: relative;
+  }
+
+  .code-block::before {
+    content: attr(data-lang);
+    position: absolute;
+    top: 0.5rem;
+    right: 0.75rem;
+    font-size: 0.65rem;
+    color: var(--text-dim);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+  }
+
+  .code-block .comment { color: #6a6a80; }
+  .code-block .cmd { color: var(--accent); }
+  .code-block .arg { color: var(--accent-secondary); }
+  .code-block .str { color: var(--success); }
+
+  .connecting-playbooks {
+    max-width: 1000px;
+    margin: 0 auto 4rem;
+    padding: 0 2rem;
+  }
+
+  .connecting-playbooks h3 {
+    font-family: 'Orbitron', sans-serif;
+    font-size: 1rem;
+    font-weight: 700;
+    margin-bottom: 1.5rem;
+    color: var(--text);
+    text-transform: uppercase;
+    letter-spacing: 2px;
+  }
+
+  .connect-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 1rem;
+  }
+
+  .connect-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 1.25rem;
+    cursor: pointer;
+    transition: all 0.3s;
+    display: flex;
+    align-items: flex-start;
+    gap: 1rem;
+  }
+
+  .connect-card:hover {
+    border-color: var(--accent);
+    background: var(--bg-card-hover);
+  }
+
+  .connect-icon {
+    width: 44px;
+    height: 44px;
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--accent);
+    font-size: 1.2rem;
+    flex-shrink: 0;
+    background: rgba(254,9,66,0.05);
+  }
+
+  .connect-info h4 {
+    font-size: 0.95rem;
+    font-weight: 600;
+    margin-bottom: 0.3rem;
+    color: var(--text);
+  }
+
+  .connect-info p {
+    font-size: 0.8rem;
+    color: var(--text-dim);
+    line-height: 1.5;
+  }
+
+  .site-footer {
+    border-top: 1px solid var(--border);
+    padding: 2rem;
+    text-align: center;
+    color: var(--text-dim);
+    font-size: 0.8rem;
+  }
+
+  .site-footer a {
+    color: var(--accent);
+    text-decoration: none;
+  }
+
+  @media (max-width: 768px) {
+    .playbook-grid { grid-template-columns: 1fr; }
+    .step { grid-template-columns: 1fr; gap: 1rem; }
+    .step:not(:last-child)::after { display: none; }
+    .step-number { width: 60px; height: 60px; font-size: 1.2rem; }
+    .nav-links { display: none; }
+    .detail-meta-bar { gap: 1rem; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ==================== PAGE 1: PLAYBOOKS LANDING ==================== -->
+<div id="page-landing" class="page active">
+  <header class="site-header">
+    <div class="header-inner">
+      <a class="logo" onclick="showPage('landing')">HackHerWay</a>
+      <nav>
+        <ul class="nav-links">
+          <li><a class="active" onclick="showPage('landing')">Playbooks</a></li>
+          <li><a href="#">Tutorials</a></li>
+          <li><a href="#">Cheatsheets</a></li>
+          <li><a href="#">About</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <section class="hero">
+    <div class="hero-badge">Offensive Security Operations</div>
+    <h1>Active Directory<br>Attack Playbooks</h1>
+    <p>Practical, step-by-step guides for red teamers, pentesters, and aspiring adversary emulators who are tired of reading documentation that assumes you already know what you're doing.</p>
+    <div class="hero-divider"></div>
+  </section>
+
+  <section class="playbooks-section">
+    <div class="section-label">Available Playbooks</div>
+
+    <div class="playbook-grid">
+      <!-- CARD 1 -->
+      <div class="playbook-card" onclick="showPage('playbook1')">
+        <div class="card-image">
+          <span class="card-number">01</span>
+          <svg viewBox="0 0 24 24" fill="none" stroke="#fe0942" stroke-width="1.5">
+            <path d="M12 2L2 7l10 5 10-5-10-5z"/>
+            <path d="M2 17l10 5 10-5"/>
+            <path d="M2 12l10 5 10-5"/>
+          </svg>
+        </div>
+        <div class="card-content">
+          <h3>AD Enumeration Playbook</h3>
+          <p>A five-phase methodology for mapping Active Directory attack surfaces—because you can't exploit what you can't see, and half of you are running blind.</p>
+          <div class="card-meta">
+            <span>⚡ 5 Phases</span>
+            <span>⏱ 45 min read</span>
+          </div>
+        </div>
+        <div class="card-arrow">→</div>
+      </div>
+
+      <!-- CARD 2 -->
+      <div class="playbook-card" onclick="showPage('playbook2')">
+        <div class="card-image">
+          <span class="card-number">02</span>
+          <svg viewBox="0 0 24 24" fill="none" stroke="#fe0942" stroke-width="1.5">
+            <rect x="3" y="11" width="18" height="11" rx="2"/>
+            <path d="M7 11V7a5 5 0 0110 0v4"/>
+            <circle cx="12" cy="16" r="1"/>
+          </svg>
+        </div>
+        <div class="card-content">
+          <h3>Identity Threat Hunting Playbook</h3>
+          <p>A defender's guide to catching the techniques described in Playbook 01. Turn the tables and ruin someone's day before they ruin yours.</p>
+          <div class="card-meta">
+            <span>🛡 4 Phases</span>
+            <span>⏱ 30 min read</span>
+          </div>
+        </div>
+        <div class="card-arrow">→</div>
+      </div>
+
+      <!-- CARD 3 -->
+      <div class="playbook-card">
+        <div class="card-image">
+          <span class="card-number">03</span>
+          <svg viewBox="0 0 24 24" fill="none" stroke="#fe0942" stroke-width="1.5">
+            <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/>
+          </svg>
+        </div>
+        <div class="card-content">
+          <h3>Kerberos Abuse Playbook</h3>
+          <p>Golden tickets, silver tickets, and all the other precious metals. A comprehensive guide to abusing the protocol that powers enterprise authentication.</p>
+          <div class="card-meta">
+            <span>⚡ 6 Phases</span>
+            <span>⏱ Coming Soon</span>
+          </div>
+        </div>
+        <div class="card-arrow">→</div>
+      </div>
+
+      <!-- CARD 4 -->
+      <div class="playbook-card">
+        <div class="card-image">
+          <span class="card-number">04</span>
+          <svg viewBox="0 0 24 24" fill="none" stroke="#fe0942" stroke-width="1.5">
+            <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+            <path d="M9 12l2 2 4-4"/>
+          </svg>
+        </div>
+        <div class="card-content">
+          <h3>Privilege Escalation Playbook</h3>
+          <p>From standard user to Domain Admin. The paths, the pitfalls, and the post-exploitation activities that separate script kiddies from operators.</p>
+          <div class="card-meta">
+            <span>⚡ 7 Phases</span>
+            <span>⏱ Coming Soon</span>
+          </div>
+        </div>
+        <div class="card-arrow">→</div>
+      </div>
+
+      <!-- CARD 5 -->
+      <div class="playbook-card">
+        <div class="card-image">
+          <span class="card-number">05</span>
+          <svg viewBox="0 0 24 24" fill="none" stroke="#fe0942" stroke-width="1.5">
+            <circle cx="12" cy="12" r="10"/>
+            <path d="M12 6v6l4 2"/>
+          </svg>
+        </div>
+        <div class="card-content">
+          <h3>Persistence & Evasion Playbook</h3>
+          <p>Staying in the network when they know you're there. GPOs, scheduled tasks, service accounts, and the art of not getting caught.</p>
+          <div class="card-meta">
+            <span>⚡ 5 Phases</span>
+            <span>⏱ Coming Soon</span>
+          </div>
+        </div>
+        <div class="card-arrow">→</div>
+      </div>
+
+      <!-- CARD 6 -->
+      <div class="playbook-card">
+        <div class="card-image">
+          <span class="card-number">06</span>
+          <svg viewBox="0 0 24 24" fill="none" stroke="#fe0942" stroke-width="1.5">
+            <path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/>
+            <circle cx="9" cy="7" r="4"/>
+            <path d="M23 21v-2a4 4 0 00-3-3.87"/>
+            <path d="M16 3.13a4 4 0 010 7.75"/>
+          </svg>
+        </div>
+        <div class="card-content">
+          <h3>AD CS Abuse Playbook</h3>
+          <p>Active Directory Certificate Services: the attack surface nobody audits until it's too late. ESC1 through ESC15 and beyond.</p>
+          <div class="card-meta">
+            <span>⚡ 8 Phases</span>
+            <span>⏱ Coming Soon</span>
+          </div>
+        </div>
+        <div class="card-arrow">→</div>
+      </div>
+    </div>
+  </section>
+
+  <footer class="site-footer">
+    <p>Brought to you by <a href="https://hackherway.neocities.org" target="_blank">hackherway.neocities.org</a> — where enterprise security goes to die.</p>
+  </footer>
+</div>
+
+<!-- ==================== PAGE 2: PLAYBOOK 1 DETAIL ==================== -->
+<div id="page-playbook1" class="page">
+  <header class="site-header">
+    <div class="header-inner">
+      <a class="logo" onclick="showPage('landing')">HackHerWay</a>
+      <nav>
+        <ul class="nav-links">
+          <li><a onclick="showPage('landing')">Playbooks</a></li>
+          <li><a href="#">Tutorials</a></li>
+          <li><a href="#">Cheatsheets</a></li>
+          <li><a href="#">About</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <div class="detail-hero">
+    <div class="detail-hero-inner">
+      <div class="breadcrumb">
+        <a onclick="showPage('landing')">Playbooks</a>
+        <span>/</span>
+        <span>AD Enumeration</span>
+      </div>
+      <h1>Active Directory Enumeration Playbook</h1>
+      <p class="subtitle">A five-phase methodology for comprehensively mapping Active Directory attack surfaces. Because "I couldn't find anything" is not an acceptable finding when you're holding the right tools.</p>
+      <div class="detail-meta-bar">
+        <div class="meta-item">
+          <span class="meta-label">Difficulty</span>
+          <span class="meta-value">Intermediate</span>
+        </div>
+        <div class="meta-item">
+          <span class="meta-label">Time Required</span>
+          <span class="meta-value">2-4 Hours</span>
+        </div>
+        <div class="meta-item">
+          <span class="meta-label">Prerequisites</span>
+          <span class="meta-value">Domain Credentials</span>
+        </div>
+        <div class="meta-item">
+          <span class="meta-label">Last Updated</span>
+          <span class="meta-value">Jul 2026</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="detail-content">
+    <div class="step">
+      <div class="step-number">1</div>
+      <div class="step-body">
+        <h3>Domain Context & Trust Mapping</h3>
+        <p>Before you touch a single tool, understand the terrain. Domain trusts are the highways between kingdoms—know where they lead before you start driving.</p>
+        <ul>
+          <li>Enumerate domain and forest functional levels</li>
+          <li>Map parent-child, external, and forest trusts</li>
+          <li>Identify trust directions and transitivity</li>
+          <li>Document SID filtering status on external trusts</li>
+        </ul>
+        <div class="code-block" data-lang="powershell">
+<span class="comment"># Get domain trust relationships</span>
+<span class="cmd">Get-ADTrust</span> <span class="arg">-Filter</span> <span class="str">'*'</span>
+<span class="cmd">nltest</span> <span class="arg">/domain_trusts</span> <span class="arg">/all_trusts</span>
+
+<span class="comment"># BloodHound: ingest and analyze trust paths</span>
+<span class="cmd">SharpHound.exe</span> <span class="arg">-c</span> <span class="str">All</span> <span class="arg">--zipfilename</span> <span class="str">trustmap.zip</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="step-number">2</div>
+      <div class="step-body">
+        <h3>User & Group Enumeration</h3>
+        <p>Every user is a potential entry point. Every group is a privilege escalation waiting to happen. Map them all—yes, even the service accounts named after the intern who left three years ago.</p>
+        <ul>
+          <li>Enumerate all domain users and their properties</li>
+          <li>Identify privileged groups and nested memberships</li>
+          <li>Hunt for accounts with SPNs (Kerberoast targets)</li>
+          <li>Find users with unconstrained delegation</li>
+        </ul>
+        <div class="code-block" data-lang="powershell">
+<span class="comment"># Enumerate privileged domain groups</span>
+<span class="cmd">Get-ADGroupMember</span> <span class="str">"Domain Admins"</span> <span class="arg">-Recursive</span>
+<span class="cmd">Get-ADGroupMember</span> <span class="str">"Enterprise Admins"</span> <span class="arg">-Recursive</span>
+
+<span class="comment"># Find Kerberoastable accounts</span>
+<span class="cmd">Get-ADUser</span> <span class="arg">-Filter</span> <span class="str">{ServicePrincipalName -ne "$null"}</span> <span class="arg">-Properties</span> <span class="str">ServicePrincipalName</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="step-number">3</div>
+      <div class="step-body">
+        <h3>Computer & Service Discovery</h3>
+        <p>Computers run services. Services have configurations. Configurations have vulnerabilities. This is not rocket science, but you'd be amazed how many people skip this phase.</p>
+        <ul>
+          <li>Enumerate all domain-joined systems and OS versions</li>
+          <li>Identify systems with LAPS deployed (and those without)</li>
+          <li>Map service accounts to their host systems</li>
+          <li>Find pre-Windows 2000 computers (yes, they still exist)</li>
+        </ul>
+        <div class="code-block" data-lang="bash">
+<span class="comment"># Enumerate computers via LDAP</span>
+<span class="cmd">ldapsearch</span> <span class="arg">-x</span> <span class="arg">-H</span> <span class="str">ldap://dc.corp.local</span> <span class="arg">-D</span> <span class="str">"user@corp.local"</span> <span class="arg">-W</span> <span class="arg">-b</span> <span class="str">"dc=corp,dc=local"</span> <span class="str">"(objectClass=computer)"</span> <span class="str">"name" "operatingSystem"</span>
+
+<span class="comment"># PowerView: find computers where current user has local admin</span>
+<span class="cmd">Find-LocalAdminAccess</span> <span class="arg">-Delay</span> <span class="str">10</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="step-number">4</div>
+      <div class="step-body">
+        <h3>ACL & Permission Analysis</h3>
+        <p>Access Control Lists are where the real magic happens. That low-priv user who can modify a Group Policy? That's your golden ticket. Stop ignoring DACLs.</p>
+        <ul>
+          <li>Enumerate object permissions with BloodHound</li>
+          <li>Find GenericAll, WriteDACL, and ForceChangePassword rights</li>
+          <li>Identify users who can read LAPS passwords</li>
+          <li>Map DCSync rights holders</li>
+        </ul>
+        <div class="code-block" data-lang="powershell">
+<span class="comment"># PowerView: find interesting ACLs</span>
+<span class="cmd">Get-ObjectAcl</span> <span class="arg">-SamAccountName</span> <span class="str">"Domain Admins"</span> <span class="arg">-ResolveGUIDs</span> <span class="arg">|</span> <span class="cmd">Where-Object</span> <span class="str">{$_.ActiveDirectoryRights -match "GenericAll|WriteDacl|GenericWrite"}</span>
+
+<span class="comment"># Check for DCSync rights</span>
+<span class="cmd">Get-ObjectAcl</span> <span class="arg">-DistinguishedName</span> <span class="str">"dc=corp,dc=local"</span> <span class="arg">-ResolveGUIDs</span> <span class="arg">|</span> <span class="cmd">Where-Object</span> <span class="str">{$_.ObjectAceType -match "Replication-Get"}</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="step-number">5</div>
+      <div class="step-body">
+        <h3>Data Synthesis & Attack Path Mapping</h3>
+        <p>Raw data is worthless without context. Feed everything into BloodHound, identify the shortest paths to Domain Admin, and build your attack narrative. If you can't explain it to yourself, you can't explain it in a report.</p>
+        <ul>
+          <li>Ingest all data into BloodHound for graph analysis</li>
+          <li>Run pre-built queries for high-value attack paths</li>
+          <li>Validate findings through targeted manual testing</li>
+          <li>Document attack chains with screenshots and evidence</li>
+        </ul>
+        <div class="code-block" data-lang="cypher">
+<span class="comment">// BloodHound: shortest path to Domain Admin</span>
+<span class="cmd">MATCH</span> (u:User {owned: true}), (g:Group {name: 'DOMAIN ADMINS@CORP.LOCAL'})
+<span class="cmd">MATCH</span> p = shortestPath((u)-[*1..]->(g))
+<span class="cmd">RETURN</span> p
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="connecting-playbooks">
+    <h3>Connected Playbooks</h3>
+    <div class="connect-grid">
+      <div class="connect-card" onclick="showPage('playbook2')">
+        <div class="connect-icon">🛡</div>
+        <div class="connect-info">
+          <h4>Identity Threat Hunting</h4>
+          <p>The blue team counterpart. Learn how defenders detect the exact techniques you just read about.</p>
+        </div>
+      </div>
+      <div class="connect-card">
+        <div class="connect-icon">⚡</div>
+        <div class="connect-info">
+          <h4>Kerberos Abuse</h4>
+          <p>Golden tickets, silver tickets, and the art of forging enterprise authentication.</p>
+        </div>
+      </div>
+      <div class="connect-card">
+        <div class="connect-icon">🔒</div>
+        <div class="connect-info">
+          <h4>Privilege Escalation</h4>
+          <p>From standard user to Domain Admin. The paths that get you there.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <footer class="site-footer">
+    <p>Brought to you by <a href="https://hackherway.neocities.org" target="_blank">hackherway.neocities.org</a> — where enterprise security goes to die.</p>
+  </footer>
+</div>
+
+<!-- ==================== PAGE 3: PLAYBOOK 2 DETAIL ==================== -->
+<div id="page-playbook2" class="page">
+  <header class="site-header">
+    <div class="header-inner">
+      <a class="logo" onclick="showPage('landing')">HackHerWay</a>
+      <nav>
+        <ul class="nav-links">
+          <li><a onclick="showPage('landing')">Playbooks</a></li>
+          <li><a href="#">Tutorials</a></li>
+          <li><a href="#">Cheatsheets</a></li>
+          <li><a href="#">About</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <div class="detail-hero">
+    <div class="detail-hero-inner">
+      <div class="breadcrumb">
+        <a onclick="showPage('landing')">Playbooks</a>
+        <span>/</span>
+        <span>Identity Threat Hunting</span>
+      </div>
+      <h1>Identity Threat Hunting Playbook</h1>
+      <p class="subtitle">A four-phase methodology for proactively hunting identity-based threats in Active Directory. Because waiting for alerts is how you end up reading about your own breach in the news.</p>
+      <div class="detail-meta-bar">
+        <div class="meta-item">
+          <span class="meta-label">Difficulty</span>
+          <span class="meta-value">Advanced</span>
+        </div>
+        <div class="meta-item">
+          <span class="meta-label">Time Required</span>
+          <span class="meta-value">Ongoing</span>
+        </div>
+        <div class="meta-item">
+          <span class="meta-label">Prerequisites</span>
+          <span class="meta-value">SIEM / EDR Access</span>
+        </div>
+        <div class="meta-item">
+          <span class="meta-label">Last Updated</span>
+          <span class="meta-value">Jul 2026</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="detail-content">
+    <div class="step">
+      <div class="step-number">1</div>
+      <div class="step-body">
+        <h3>Hypothesis Development</h3>
+        <p>Threat hunting without a hypothesis is just scrolling through logs hoping something jumps out. Spoiler: it won't. Start with intelligence, not desperation.</p>
+        <ul>
+          <li>Review MITRE ATT&CK techniques relevant to identity</li>
+          <li>Analyze recent threat actor TTPs from CTID / Mandiant</li>
+          <li>Develop testable hypotheses based on your environment</li>
+          <li>Prioritize by likelihood and business impact</li>
+        </ul>
+        <div class="code-block" data-lang="text">
+<span class="comment"># Example Hypotheses:</span>
+<span class="str">"An attacker with valid credentials is using RDP to laterally move
+between workstations during off-hours to avoid detection."</span>
+
+<span class="str">"A compromised service account is performing DCSync operations
+from a non-domain-controller host."</span>
+
+<span class="str">"Kerberoasting activity is occurring against high-value SPNs
+outside of normal business hours."</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="step-number">2</div>
+      <div class="step-body">
+        <h3>Data Collection & Query Construction</h3>
+        <p>Your SIEM is only as good as the queries you feed it. Build detection logic that catches adversaries, not just noisy alerts that make you want to quit your job.</p>
+        <ul>
+          <li>Identify relevant data sources: Windows Event Logs, AD replication logs, VPN logs</li>
+          <li>Construct Sigma rules for portable detection logic</li>
+          <li>Query for anomalous authentication patterns</li>
+          <li>Correlate identity events with endpoint telemetry</li>
+        </ul>
+        <div class="code-block" data-lang="yaml">
+<span class="comment"># Sigma: Detect DCSync from non-DC</span>
+<span class="cmd">title:</span> <span class="str">DCSync from Non-Domain Controller</span>
+<span class="cmd">logsource:</span>
+  <span class="cmd">product:</span> <span class="str">windows</span>
+  <span class="cmd">service:</span> <span class="str">security</span>
+<span class="cmd">detection:</span>
+  <span class="cmd">selection:</span>
+    <span class="cmd">EventID:</span> <span class="str">4662</span>
+    <span class="cmd">ObjectType:</span> <span class="str">'19195a5b-6da0-11d0-afd3-00c04fd930c9'</span>
+  <span class="cmd">filter:</span>
+    <span class="cmd">SubjectUserName|endswith:</span> <span class="str">'$'</span>
+  <span class="cmd">condition:</span> <span class="str">selection and not filter</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="step-number">3</div>
+      <div class="step-body">
+        <h3>Investigation & Triage</h3>
+        <p>Alerts are suggestions. Investigations are facts. Every anomaly deserves scrutiny—yes, even the one that turned out to be the backup admin doing maintenance at 2 AM. Verify everything.</p>
+        <ul>
+          <li>Correlate suspicious events across multiple data sources</li>
+          <li>Validate user context: Is this normal for this account?</li>
+          <li>Check for concurrent sessions from impossible geographies</li>
+          <li>Analyze command-line arguments and parent-child processes</li>
+        </ul>
+        <div class="code-block" data-lang="powershell">
+<span class="comment"># Check for anomalous logon events</span>
+<span class="cmd">Get-WinEvent</span> <span class="arg">-FilterHashtable</span> <span class="str">@{LogName='Security'; ID=4624,4648,4672}</span> <span class="arg">|</span>
+  <span class="cmd">Where-Object</span> <span class="str">{$_.TimeCreated -gt (Get-Date).AddDays(-7)}</span> <span class="arg">|</span>
+  <span class="cmd">Group-Object</span> <span class="str">{$_.Properties[5].Value}</span> <span class="arg">|</span>
+  <span class="cmd">Where-Object</span> <span class="str">{$_.Count -gt 100}</span>
+
+<span class="comment"># Hunt for Kerberoasting (Event ID 4769)</span>
+<span class="cmd">Get-WinEvent</span> <span class="arg">-FilterHashtable</span> <span class="str">@{LogName='Security'; ID=4769}</span> <span class="arg">|</span>
+  <span class="cmd">Where-Object</span> <span class="str">{$_.Properties[2].Value -match '0x17'}</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="step">
+      <div class="step-number">4</div>
+      <div class="step-body">
+        <h3>Response & Hardening</h3>
+        <p>Finding the threat is half the battle. The other half is making sure it doesn't happen again. Document, remediate, and automate—or prepare to hunt the same adversary next quarter.</p>
+        <ul>
+          <li>Contain compromised accounts and revoke active sessions</li>
+          <li>Reset passwords for affected service accounts</li>
+          <li>Implement detection-as-code for recurring hunt patterns</li>
+          <li>Update security controls based on findings</li>
+        </ul>
+        <div class="code-block" data-lang="powershell">
+<span class="comment"># Force password reset and revoke sessions</span>
+<span class="cmd">Set-ADAccountPassword</span> <span class="arg">-Identity</span> <span class="str">"svc_compromised"</span> <span class="arg">-Reset</span> <span class="arg">-NewPassword</span> (<span class="cmd">ConvertTo-SecureString</span> <span class="arg">-AsPlainText</span> <span class="str">"NewComplexP@ssw0rd!"</span> <span class="arg">-Force</span>)
+<span class="cmd">Revoke-AzureADUserAllRefreshToken</span> <span class="arg">-ObjectId</span> <span class="str">"user@corp.local"</span>
+
+<span class="comment"># Disable compromised account</span>
+<span class="cmd">Disable-ADAccount</span> <span class="arg">-Identity</span> <span class="str">"compromised.user"</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="connecting-playbooks">
+    <h3>Connected Playbooks</h3>
+    <div class="connect-grid">
+      <div class="connect-card" onclick="showPage('playbook1')">
+        <div class="connect-icon">⚡</div>
+        <div class="connect-info">
+          <h4>AD Enumeration</h4>
+          <p>The red team counterpart. Understand what the attackers see before they see it.</p>
+        </div>
+      </div>
+      <div class="connect-card">
+        <div class="connect-icon">🔒</div>
+        <div class="connect-info">
+          <h4>Privilege Escalation</h4>
+          <p>Know the paths attackers take so you can block them before they do.</p>
+        </div>
+      </div>
+      <div class="connect-card">
+        <div class="connect-icon">🕰</div>
+        <div class="connect-info">
+          <h4>Persistence & Evasion</h4>
+          <p>Learn how attackers stay hidden so you can shine a light on them.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <footer class="site-footer">
+    <p>Brought to you by <a href="https://hackherway.neocities.org" target="_blank">hackherway.neocities.org</a> — where enterprise security goes to die.</p>
+  </footer>
+</div>
+
+<script>
+  function showPage(pageId) {
+    document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+    document.getElementById('page-' + pageId).classList.add('active');
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+</script>
+
+</body>
+</html>
