@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HACKHERWAY // Decrypting Hero</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg: #0a0a0a;
+            --bg-elevated: #111111;
+            --bg-card: #161616;
+            --bg-hover: #1c1c1c;
+            --bg-code: #1a1a1a;
+            --border: #222222;
+            --border-hover: #2a2a2a;
+            --text-primary: #f0f0f0;
+            --text-secondary: #888888;
+            --text-muted: #555555;
+            --pink: #fe0942;
+            --pink-soft: #ff1a5c;
+            --pink-muted: #cc0033;
+            --pink-glow: rgba(254, 9, 66, 0.15);
+            --radius: 6px;
+            --transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: var(--bg); color: var(--text-primary); line-height: 1.6;
+            -webkit-font-smoothing: antialiased; min-height: 100vh;
+            display: flex; align-items: center; justify-content: center;
+        }
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: var(--bg); }
+        ::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
+        ::-webkit-scrollbar-thumb:hover { background: var(--pink); }
+
+        .nav {
+            position: fixed; top: 0; left: 0; right: 0; height: 56px;
+            background: rgba(10,10,10,0.85); backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--border); z-index: 1000;
+            display: flex; align-items: center; justify-content: space-between;
+            padding: 0 24px;
+        }
+        .nav-brand {
+            display: flex; align-items: center; gap: 10px;
+            font-weight: 800; font-size: 15px; letter-spacing: 0.5px;
+            color: var(--text-primary); text-decoration: none; cursor: pointer;
+        }
+        .nav-brand .brand-dot {
+            width: 8px; height: 8px; background: var(--pink); border-radius: 50%;
+            box-shadow: 0 0 12px var(--pink-glow);
+        }
+
+        .container {
+            max-width: 1400px; margin: 0 auto;
+            padding: 80px 24px 40px;
+            display: grid; grid-template-columns: 240px 1fr 240px; gap: 32px;
+            width: 100%;
+        }
+        .main { min-width: 0; }
+
+        /* ===== DECRYPTING HERO LABEL ===== */
+        .hero { padding: 48px 0 40px; border-bottom: 1px solid var(--border); margin-bottom: 40px; }
+
+        .hero-label {
+            display: inline-flex; align-items: center; gap: 6px;
+            font-size: 11px; font-weight: 700; text-transform: uppercase;
+            letter-spacing: 2px; color: var(--pink); margin-bottom: 16px;
+            font-family: 'JetBrains Mono', monospace;
+            min-height: 1.6em;
+        }
+        .hero-label::before {
+            content: ''; width: 6px; height: 6px; background: var(--pink);
+            border-radius: 50%; box-shadow: 0 0 8px var(--pink-glow);
+            flex-shrink: 0;
+        }
+
+        /* Each character wrapper */
+        .hero-label .char {
+            display: inline-block;
+            position: relative;
+            transition: color 0.1s ease;
+        }
+
+        /* Characters that are still scrambling */
+        .hero-label .char.scrambling {
+            color: var(--text-muted);
+            text-shadow: 0 0 4px rgba(254, 9, 66, 0.3);
+        }
+
+        /* Characters that have resolved */
+        .hero-label .char.resolved {
+            color: var(--pink);
+            text-shadow: 0 0 6px rgba(254, 9, 66, 0.5);
+        }
+
+        /* Cursor blink at the end */
+        .hero-label .cursor {
+            display: inline-block;
+            width: 2px;
+            height: 1em;
+            background: var(--pink);
+            margin-left: 2px;
+            animation: cursorBlink 0.8s step-end infinite;
+            vertical-align: text-bottom;
+        }
+        @keyframes cursorBlink {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0; }
+        }
+
+        /* Glitch flash effect when a character resolves */
+        @keyframes glitchFlash {
+            0% { text-shadow: 0 0 0 transparent; }
+            50% { text-shadow: 0 0 8px var(--pink), 0 0 16px var(--pink); }
+            100% { text-shadow: 0 0 0 transparent; }
+        }
+        .hero-label .char.just-resolved {
+            animation: glitchFlash 0.15s ease-out;
+        }
+
+        .hero h1 {
+            font-size: 42px; font-weight: 800; line-height: 1.15;
+            letter-spacing: -0.5px; margin-bottom: 16px;
+        }
+        .hero h1 .highlight { color: var(--pink); }
+        .hero p { font-size: 17px; color: var(--text-secondary); max-width: 600px; line-height: 1.6; }
+
+        /* Demo controls */
+        .demo-controls {
+            margin-top: 40px;
+            display: flex; gap: 12px;
+            flex-wrap: wrap;
+        }
+        .demo-btn {
+            padding: 8px 18px;
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            color: var(--text-secondary);
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 12px;
+            font-weight: 600;
+            border-radius: var(--radius);
+            cursor: pointer;
+            transition: var(--transition);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        .demo-btn:hover {
+            border-color: var(--pink);
+            color: var(--pink);
+            background: var(--pink-glow);
+        }
+
+        @media (max-width: 900px) {
+            .container { grid-template-columns: 1fr; padding-top: 72px; }
+            .hero h1 { font-size: 28px; }
+        }
+    </style>
+</head>
+<body>
+    <nav class="nav">
+        <a class="nav-brand">
+            <span class="brand-dot"></span>
+            HACKHERWAY
+        </a>
+    </nav>
+
+    <div class="container">
+        <aside class="sidebar"></aside>
+
+        <main class="main">
+            <div class="hero">
+                <!-- The decrypting label -->
+                <div class="hero-label" id="heroLabel"></div>
+
+                <h1>Offensive Security <span class="highlight">Knowledge Base</span></h1>
+                <p>Every exploit, every misconfiguration, every lazy admin decision — documented so you don't have to learn the hard way. Or do. I'm not your mom.</p>
+
+                <div class="demo-controls">
+                    <button class="demo-btn" onclick="restartDecrypt()">Restart Decrypt</button>
+                    <button class="demo-btn" onclick="changeText()">New Message</button>
+                    <button class="demo-btn" onclick="fasterDecrypt()">Turbo Mode</button>
+                </div>
+            </div>
+        </main>
+
+        <aside class="sidebar"></aside>
+    </div>
+
+    <script>
+        // ===== DECRYPTING TYPEWRITER EFFECT =====
+        class DecryptingTypewriter {
+            constructor(element, options = {}) {
+                this.element = element;
+                this.text = options.text || '';
+                this.scrambleChars = options.scrambleChars || 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*()_+-=[]{}|;:,.<>?/~`';
+                this.speed = options.speed || 30;        // ms between scramble updates
+                this.revealDelay = options.revealDelay || 80; // ms before next char resolves
+                this.onComplete = options.onComplete || null;
+
+                this.chars = [];
+                this.intervals = [];
+                this.isRunning = false;
+            }
+
+            // Generate a random scramble character
+            randomChar() {
+                return this.scrambleChars[Math.floor(Math.random() * this.scrambleChars.length)];
+            }
+
+            // Start the decrypting effect
+            start(newText) {
+                // Clean up any existing animation
+                this.stop();
+
+                this.text = newText || this.text;
+                this.isRunning = true;
+                this.element.innerHTML = '';
+                this.chars = [];
+                this.intervals = [];
+
+                // Create character spans
+                for (let i = 0; i < this.text.length; i++) {
+                    const span = document.createElement('span');
+                    span.className = 'char scrambling';
+                    span.textContent = this.randomChar();
+                    this.element.appendChild(span);
+                    this.chars.push({
+                        element: span,
+                        target: this.text[i],
+                        resolved: false,
+                        scrambleInterval: null
+                    });
+                }
+
+                // Add blinking cursor
+                const cursor = document.createElement('span');
+                cursor.className = 'cursor';
+                this.element.appendChild(cursor);
+
+                // Start scrambling all characters
+                this.chars.forEach((char, index) => {
+                    // Each character scrambles at its own interval
+                    char.scrambleInterval = setInterval(() => {
+                        if (!char.resolved) {
+                            char.element.textContent = this.randomChar();
+                        }
+                    }, this.speed + Math.random() * 20); // slight jitter
+                });
+
+                // Sequentially resolve characters (left to right, decrypt style)
+                let resolveIndex = 0;
+                const resolveNext = () => {
+                    if (!this.isRunning) return;
+
+                    if (resolveIndex < this.chars.length) {
+                        const char = this.chars[resolveIndex];
+                        char.resolved = true;
+                        clearInterval(char.scrambleInterval);
+
+                        // Flash effect
+                        char.element.classList.remove('scrambling');
+                        char.element.classList.add('resolved', 'just-resolved');
+                        char.element.textContent = char.target;
+
+                        // Remove flash class after animation
+                        setTimeout(() => {
+                            char.element.classList.remove('just-resolved');
+                        }, 150);
+
+                        resolveIndex++;
+
+                        // Variable delay: faster at start, slower at end for dramatic effect
+                        // Or consistent for typewriter feel
+                        const delay = this.revealDelay + (Math.random() * 40 - 20);
+                        setTimeout(resolveNext, Math.max(10, delay));
+                    } else {
+                        // All done
+                        this.isRunning = false;
+                        if (this.onComplete) this.onComplete();
+                    }
+                };
+
+                // Start resolving after a brief scramble period
+                setTimeout(resolveNext, this.speed * 3);
+            }
+
+            // Stop everything
+            stop() {
+                this.isRunning = false;
+                this.intervals.forEach(clearInterval);
+                this.chars.forEach(char => {
+                    if (char.scrambleInterval) clearInterval(char.scrambleInterval);
+                });
+            }
+
+            // Instant reveal (skip animation)
+            reveal() {
+                this.stop();
+                this.element.innerHTML = '';
+                const textSpan = document.createElement('span');
+                textSpan.textContent = this.text;
+                textSpan.style.color = 'var(--pink)';
+                this.element.appendChild(textSpan);
+            }
+        }
+
+        // ===== INIT =====
+        const heroLabel = document.getElementById('heroLabel');
+        const messages = [
+            "Helpful document curated for ethical hackers, security professionals, and the endlessly curious - all united in building a more secure digital society.",
+            "Decrypting offensive security knowledge base...",
+            "Loading attack vectors, exploits, and zero-days...",
+            "Initializing red team operations protocol...",
+            "Access granted. Welcome to the rabbit hole."
+        ];
+        let currentMessageIndex = 0;
+
+        const typewriter = new DecryptingTypewriter(heroLabel, {
+            text: messages[0],
+            speed: 25,
+            revealDelay: 60,
+            onComplete: () => {
+                // Optional: auto-cycle messages after delay
+                // setTimeout(() => changeText(), 4000);
+            }
+        });
+
+        // Start on page load
+        window.addEventListener('DOMContentLoaded', () => {
+            setTimeout(() => typewriter.start(), 300);
+        });
+
+        // Demo controls
+        function restartDecrypt() {
+            typewriter.start(messages[currentMessageIndex]);
+        }
+
+        function changeText() {
+            currentMessageIndex = (currentMessageIndex + 1) % messages.length;
+            typewriter.start(messages[currentMessageIndex]);
+        }
+
+        let turboMode = false;
+        function fasterDecrypt() {
+            turboMode = !turboMode;
+            typewriter.speed = turboMode ? 8 : 25;
+            typewriter.revealDelay = turboMode ? 20 : 60;
+            typewriter.start(messages[currentMessageIndex]);
+        }
+    </script>
+</body>
+</html>
