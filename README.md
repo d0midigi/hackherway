@@ -103,16 +103,16 @@ I believe the best defense is a well-documented offense. If you're here looking 
 
 ## 💻 ![tech+audio-stack-blinkie](./images/tech+audio-stack.gif)
 
-### 🎛️ DAWs & Production ![daws+production-blinkie](./images/daws+production.gif)
+### 🎛️ ![daws+production-blinkie](./images/daws+production.gif)
 ![Ableton Live](https://shields.io) ![FL Studio](https://shields.io) ![Logic Pro](https://shields.io) ![Pro Tools](https://shields.io)
 
-### 🥁 Grooveboxes & Hardware ![grooveboxes+hw-blinkie](./images/grooveboxes+hw.gif)
+### 🥁 ![grooveboxes+hw-blinkie](./images/grooveboxes+hw.gif)
 ![Elektron](https://shields.io) ![Roland TR](https://shields.io) ![Akai MPC](https://shields.io) ![Novation Circuit](https://shields.io)
 
-### 🎧 Music Creation ![music-creation-blinkie](./images/music-creation.gif)
+### 🎧 ![music-creation-blinkie](./images/music-creation.gif)
 ![Pioneer DJ](https://shields.io) ![Rekordbox](https://shields.io) ![Serato DJ](https://shields.io) ![Traktor](https://shields.io)
 
-### 💻 Languages & Scripting ![languages+scripting-blinkie](./images/languages+scripting.gif)
+### 💻 ![languages+scripting-blinkie](./images/languages+scripting.gif)
 ![Python](https://shields.io) ![PowerShell](https://shields.io) ![Bash Script](https://shields.io) ![JavaScript](https://shields.io) ![TypeScript](https://shields.io) ![HTML5](https://shields.io) ![CSS3](https://shields.io) ![LaTeX](https://shields.io) ![Markdown](https://shields.io)
 
 ---
@@ -139,7 +139,7 @@ I believe the best defense is a well-documented offense. If you're here looking 
 
 ---
 
-### 🔝![top-contributed-page-blinkie](./images/top-contributed-page.gif)
+### 🔝![top-contributed-repo-blinkie](./images/top-contributed-repo.gif)
 
 
 
