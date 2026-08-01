@@ -1,4 +1,4 @@
-# Critical event IDs cheatsheet
+# Critical Event IDs Cheatsheet
 
 #### Authentication Events:
 
