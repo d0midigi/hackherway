@@ -1,4 +1,5 @@
-![winnt-blinkie](./images/winnt.gif)
+![winnt-blinkie](./images/winnt.gif)   ![Static Badge](https://img.shields.io/badge/palo%20alto%20security?style=plastic&logo=paloaltosoftware&logoColor=%2383da77&logoSize=auto&label=paloalto&labelColor=%23000000&color=%2383da77&cacheSeconds=3600)
+
 
 [![Typing SVG](https://readme-typing-svg.demolab.com?font=Fira+Code&weight=600&size=22&duration=3000&pause=800&color=FE0942&center=true&vCenter=true&width=900&lines=NetSecOps+ISSE+%7C+⚓︎+US+Navy+⚓︎;×͜×+Purple+Team+for+Life+×͜×;♔+Active+Directory+Pentesting+Princess+♔;👠Ethical+Hacker+in+Heels👠;𖤐+Self-Taught+Frontend+Coder+Noob+𖤐;🎧+Bass+Junkie+%7C+Drum+n+Bass+In+Ya+Face+‣•၊၊||၊|။|||||)](https://git.io/typing-svg)
 
