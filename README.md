@@ -1,5 +1,7 @@
 ![winnt-blinkie](./images/winnt.gif)   ![Static Badge](https://img.shields.io/badge/palo%20alto%20security?style=plastic&logo=paloaltosoftware&logoColor=%2383da77&logoSize=auto&label=paloalto&labelColor=%23000000&color=%2383da77&cacheSeconds=3600)
 
+![Palo Alto Software](https://img.shields.io/badge/paloaltosoftware-3670A0?style=plastic&logo=paloaltosoftware&logoColor=ffdd54)
+
 
 [![Typing SVG](https://readme-typing-svg.demolab.com?font=Fira+Code&weight=600&size=22&duration=3000&pause=800&color=FE0942&center=true&vCenter=true&width=900&lines=NetSecOps+ISSE+%7C+⚓︎+US+Navy+⚓︎;×͜×+Purple+Team+for+Life+×͜×;♔+Active+Directory+Pentesting+Princess+♔;👠Ethical+Hacker+in+Heels👠;𖤐+Self-Taught+Frontend+Coder+Noob+𖤐;🎧+Bass+Junkie+%7C+Drum+n+Bass+In+Ya+Face+‣•၊၊||၊|။|||||)](https://git.io/typing-svg)
 
@@ -29,7 +31,7 @@ I believe the best defense is a well-documented offense. If you're here looking 
 
 ## 💻 ![tech-stack-blinkie](./images/tech-stack.gif)
 
-### Languages & Scripting ![languages+scripting-blinkie](./images/languages+scripting.gif)
+### ![languages+scripting-blinkie](./images/languages+scripting.gif)
 ![Python](https://img.shields.io/badge/python-3670A0?style=plastic&logo=python&logoColor=ffdd54)
 ![PowerShell](https://img.shields.io/badge/PowerShell-%235391FE.svg?style=plastic&logo=powershell&logoColor=white)
 ![Bash Script](https://img.shields.io/badge/bash_script-%23121011.svg?style=plastic&logo=gnu-bash&logoColor=white)
