@@ -29,9 +29,9 @@ I believe the best defense is a well-documented offense. If you're here looking 
 
 ---
 
-## 💻 ![tech-stack-blinkie](./images/tech-stack.gif)
+## 💻 ![tech-stack4-blinkie](./images/tech-stack4.gif)
 
-### ![languages+scripting-blinkie](./images/languages+scripting.gif)
+### ![languages+scripting4-blinkie](./images/languages+scripting4.gif)
 ![Python](https://img.shields.io/badge/python-3670A0?style=plastic&logo=python&logoColor=ffdd54)
 ![PowerShell](https://img.shields.io/badge/PowerShell-%235391FE.svg?style=plastic&logo=powershell&logoColor=white)
 ![Bash Script](https://img.shields.io/badge/bash_script-%23121011.svg?style=plastic&logo=gnu-bash&logoColor=white)
@@ -42,7 +42,7 @@ I believe the best defense is a well-documented offense. If you're here looking 
 ![LaTeX](https://img.shields.io/badge/latex-%23008080.svg?style=plastic&logo=latex&logoColor=white)
 ![Markdown](https://img.shields.io/badge/markdown-%23000000.svg?style=plastic&logo=markdown&logoColor=white)
 
-### ![frontend+ui-blinkie](./images/frontend+ui.gif)
+### ![frontend+ui4-blinkie](./images/frontend+ui4.gif)
 ![TailwindCSS](https://img.shields.io/badge/tailwindcss-%2338B2AC.svg?style=plastic&logo=tailwind-css&logoColor=white)
 ![Bootstrap](https://img.shields.io/badge/bootstrap-%238511FA.svg?style=plastic&logo=bootstrap&logoColor=white)
 ![Bulma](https://img.shields.io/badge/bulma-00D0B1?style=plastic&logo=bulma&logoColor=white)
@@ -51,14 +51,14 @@ I believe the best defense is a well-documented offense. If you're here looking 
 ![WordPress](https://img.shields.io/badge/WordPress-%23117AC9.svg?style=plastic&logo=WordPress&logoColor=white)
 ![Drupal](https://img.shields.io/badge/drupal-%230678BE.svg?style=plastic&logo=drupal&logoColor=white)
 
-### ![backend+runtime-blinkie](./images/backend+runtime.gif)
+### ![backend+runtime4-blinkie](./images/backend+runtime4.gif)
 ![NodeJS](https://img.shields.io/badge/node.js-6DA55F?style=plastic&logo=node.js&logoColor=white)
 ![Apache](https://img.shields.io/badge/apache-%23D42029.svg?style=plastic&logo=apache&logoColor=white)
 ![Nginx](https://img.shields.io/badge/nginx-%23009639.svg?style=plastic&logo=nginx&logoColor=white)
 ![Apache Tomcat](https://img.shields.io/badge/apache%20tomcat-%23F8DC75.svg?style=plastic&logo=apache-tomcat&logoColor=black)
 ![Yarn](https://img.shields.io/badge/yarn-%232C8EBB.svg?style=plastic&logo=yarn&logoColor=white)
 
-### ![cloud-infra-blinkie](./images/cloud-infra.gif)
+### ![cloud-infra4-blinkie](./images/cloud-infra4.gif)
 ![AWS](https://img.shields.io/badge/AWS-%23FF9900.svg?style=plastic&logo=amazon-aws&logoColor=white)
 ![Azure](https://img.shields.io/badge/azure-%230072C6.svg?style=plastic&logo=microsoftazure&logoColor=white)
 ![Google Cloud](https://img.shields.io/badge/GoogleCloud-%234285F4.svg?style=plastic&logo=google-cloud&logoColor=white)
@@ -69,7 +69,7 @@ I believe the best defense is a well-documented offense. If you're here looking 
 ![Terraform](https://img.shields.io/badge/terraform-%235835CC.svg?style=plastic&logo=terraform&logoColor=white)
 ![GitHub Actions](https://img.shields.io/badge/github%20actions-%232671E5.svg?style=plastic&logo=githubactions&logoColor=white)
 
-### ![dbs-blinkie](./images/dbs.gif)
+### ![dbs4-blinkie](./images/dbs4.gif)
 ![Microsoft SQL Server](https://img.shields.io/badge/Microsoft%20SQL%20Server-CC2927?style=plastic&logo=microsoft%20sql%20server&logoColor=white)
 ![MySQL](https://img.shields.io/badge/mysql-4479A1.svg?style=plastic&logo=mysql&logoColor=white)
 ![MariaDB](https://img.shields.io/badge/MariaDB-003545?style=plastic&logo=mariadb&logoColor=white)
@@ -78,17 +78,17 @@ I believe the best defense is a well-documented offense. If you're here looking 
 ![CockroachLabs](https://img.shields.io/badge/Cockroach%20Labs-6933FF?style=plastic&logo=Cockroach%20Labs&logoColor=white)
 ![Pandas](https://img.shields.io/badge/pandas-%23150458.svg?style=plastic&logo=pandas&logoColor=white)
 
-### ![network-security-blinkie](./images/network-security.gif)
+### ![network-security4-blinkie](./images/network-security4.gif)
 ![Cisco](https://img.shields.io/badge/cisco-%23049fd9.svg?style=plastic&logo=cisco&logoColor=black)
 ![Splunk](https://img.shields.io/badge/splunk-%23000000.svg?style=plastic&logo=splunk&logoColor=white)
 ![TOR](https://img.shields.io/badge/tor-%237E4798.svg?style=plastic&logo=tor-project&logoColor=white)
 
-### ![design+creative-blinkie](./images/design+creative.gif)
+### ![design+creative4-blinkie](./images/design+creative4.gif)
 ![Figma](https://img.shields.io/badge/figma-%23F24E1E.svg?style=plastic&logo=figma&logoColor=white)
 ![Gimp](https://img.shields.io/badge/Gimp-657D8B?style=plastic&logo=gimp&logoColor=FFFFFF)
 ![Canva](https://img.shields.io/badge/Canva-%2300C4CC.svg?style=plastic&logo=Canva&logoColor=white)
 
-### ![devtools+os-blinkie](./images/devtools+os.gif)
+### ![devtools+os4-blinkie](./images/devtools+os4.gif)
 ![Git](https://img.shields.io/badge/git-%23F05033.svg?style=plastic&logo=git&logoColor=white)
 ![GitHub](https://img.shields.io/badge/github-%23121011.svg?style=plastic&logo=github&logoColor=white)
 ![GitLab](https://img.shields.io/badge/gitlab-%23181717.svg?style=plastic&logo=gitlab&logoColor=white)
@@ -97,19 +97,19 @@ I believe the best defense is a well-documented offense. If you're here looking 
 ![Nix](https://img.shields.io/badge/NIX-5277C3.svg?style=plastic&logo=NixOS&logoColor=white)
 ![Octave](https://img.shields.io/badge/OCTAVE-darkblue?style=plastic&logo=octave&logoColor=fcd683)
 
-### ![gaming+hw-blinkie](./images/gaming+hw.gif)
+### ![gaming+hw4-blinkie](./images/gaming+hw4.gif)
 ![nVIDIA](https://img.shields.io/badge/nVIDIA-%2376B900.svg?style=plastic&logo=nVIDIA&logoColor=white)
 ![Steam](https://img.shields.io/badge/steam-%23000000.svg?style=plastic&logo=steam&logoColor=white)
 ![Battle.net](https://img.shields.io/badge/battle.net-%2300AEFF.svg?style=plastic&logo=battle.net&logoColor=white)
 
 ---
 
-## 💻 ![tech+audio-stack-blinkie](./images/tech+audio-stack.gif)
+## 💻 ![tech+audio-stack4-blinkie](./images/tech+audio-stack4.gif)
 
-### 🎛️ ![daws+production-blinkie](./images/daws+production.gif)
+### 🎛️ ![daws+production4-blinkie](./images/daws+production4.gif)
 ![Ableton Live](https://shields.io) ![FL Studio](https://shields.io) ![Logic Pro](https://shields.io) ![Pro Tools](https://shields.io)
 
-### 🥁 ![grooveboxes+hw-blinkie](./images/grooveboxes+hw.gif)
+### 🥁 ![grooveboxes+hw4-blinkie](./images/grooveboxes+hw4.gif)
 ![Elektron](https://shields.io) ![Roland TR](https://shields.io) ![Akai MPC](https://shields.io) ![Novation Circuit](https://shields.io)
 
 ### 🎧 ![music-creation-blinkie](./images/music-creation.gif)
