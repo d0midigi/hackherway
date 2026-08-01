@@ -5,7 +5,7 @@
 ![pc-connect-blinkie](./images/0092-computerconnect.gif)•![binary-blinkie](./images/binary.gif)•![irlhacker-blinkie](./images/irlhacker-blinkie.gif)•![thispage1-blinkie](./images/thispage1.gif)••![thispage3-blinkie](./images/thispage3-blinkie.gif)•![thispage4-blinkie](./images/thispage4.gif)•![virus-blinkie](./images/virus-blinkie.gif)••![www-blinkie](./images/www.gif)
 ---
 
-## 💀 About Me - d0midigi ![about-me-semilarge-blinkie](./images/about-me-semilarge.gif) ![about-me-medium-blinkie](./images/about-me-medium.gif)
+## 💀 About Me - d0midigi ![whoami-blinkie](./images/whoami.gif)
 
 I break Active Directory for a living, then write the documentation so you can too. Currently serving as a NetSecOps ISSE for the US Navy, which means I spend my days making sure federal networks don't fall apart and my nights building offensive tools that prove they could.
 
