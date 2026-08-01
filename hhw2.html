@@ -1,60 +1,31 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-
-    <!-- Change your site title: (It is shown in the tab) -->
     <title>TITLE</title>
-
-    <!-- Change your site description: (It is shown in Google results) -->
     <meta content="My personal website!" name="description" />
-
-    <!-- Setting character encoding and viewport size. Do not remove. -->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-
-    <!-- FavIcon (small image in tab), change to any image you want: -->
     <link href="favicon.ico" rel="icon" type="image/x-icon" />
-
-    <!-- CSS: -->
-    <!-- You will have to change this to "../style.css" if this HTML file is in a subfolder, to "../../style.css" if this HTML file is in 2 subfolders, etc. -->
     <link href="./style.css" rel="stylesheet" />
     
 <style>
-
-  
-/* -------------------------------------------------------- */
-/* VARIABLES */
-/* -------------------------------------------------------- */
-
-/* Variables are used like this: var(--text-color) */
 :root {
-  /* Background Colors: */
   --background-color: #000000;
   --content-background-color: #000000;
   --sidebar-background-color: #000000;
-
-  /* Text Colors: */
   --text-color: #e8e3fd;
   --sidebar-text-color: #9bafdd;
   --link-color: #fe0942;
   --link-color-hover: #99fff3;
-
-  /* Text: */
   --font: Lucida Console, monospace;
   --heading-font: Verdana, sans-serif;
   --font-size: 12px;
-
-  /* Other Settings: */
   --margin: 40px;
   --padding: 24px;
   --border: 6px solid #3322aa;
   --round-borders: 6px;
   --sidebar-width: 250px;
 }
-
-/* -------------------------------------------------------- */
-/* BASICS */
-/* -------------------------------------------------------- */
 
 * {
   box-sizing: border-box;
@@ -77,18 +48,15 @@ body {
 }
 
 ::selection {
-  /* (Text highlighted by the user) */
-  background: rgba(0, 0, 0, 0.2);
+    background: rgba(0, 0, 0, 0.2);
 }
 
 mark {
-  /* Text highlighted by using the <mark> element */
   text-shadow: 1px 1px 4px var(--link-color);
   background-color: inherit;
   color: var(--text-color);
 }
 
-/* Links: */
 a {
   text-decoration: underline;
 }
@@ -104,16 +72,11 @@ a:focus {
   text-decoration: none;
 }
 
-/* -------------------------------------------------------- */
-/* LAYOUT */
-/* -------------------------------------------------------- */
-
 .layout {
   width: 100%;
   display: grid;
   grid-gap: var(--margin);
   grid-template: "header header header" auto "leftSidebar main rightSidebar" auto "footer footer footer" auto / var(--sidebar-width) auto var(--sidebar-width);
-  /* Confused by the grid? Check out my tutorial: https://petrapixel.neocities.org/coding/positioning-tutorial#grid */
 }
 
 main {
@@ -124,10 +87,6 @@ main {
   border: var(--border);
   border-radius: var(--round-borders);
 }
-
-/* -------------------------------------------------------- */
-/* HEADER */
-/* -------------------------------------------------------- */
 
 header {
   grid-area: header;
@@ -151,10 +110,6 @@ header {
   width: 100%;
   height: auto;
 }
-
-/* -------------------------------------------------------- */
-/* SIDEBARS */
-/* -------------------------------------------------------- */
 
 aside {
   grid-area: aside;
@@ -193,8 +148,6 @@ aside {
   margin-top: 10px;
 }
 
-/* Sidebar Blockquote: */
-
 .sidebar-section blockquote {
   background: rgba(0, 0, 0, 0.1);
   padding: 15px;
@@ -211,8 +164,6 @@ aside {
   margin-bottom: 0;
 }
 
-/* Site Button: */
-
 .site-button {
   display: flex;
   flex-direction: column;
@@ -223,10 +174,6 @@ aside {
   font-family: monospace;
   font-size: 0.7em;
 }
-
-/* -------------------------------------------------------- */
-/* FOOTER */
-/* -------------------------------------------------------- */
 
 footer {
   grid-area: footer;
@@ -249,10 +196,6 @@ footer a:hover,
 footer a:focus {
   color: var(--link-color-hover);
 }
-
-/* -------------------------------------------------------- */
-/* NAVIGATION */
-/* -------------------------------------------------------- */
 
 nav {
   margin-bottom: 3em;
@@ -296,12 +239,6 @@ nav ul summary {
 nav ul ul li > a {
   padding-left: 30px;
 }
-
-
-
-/* -------------------------------------------------------- */
-/* CONTENT */
-/* -------------------------------------------------------- */
 
 main {
   line-height: 1.5;
@@ -367,8 +304,6 @@ main hr {
   margin: 1.5em 0;
 }
 
-/* HEADINGS: */
-
 main h1,
 main h2,
 main h3,
@@ -413,8 +348,6 @@ main h6 {
   font-size: 1em;
 }
 
-/* COLUMNS: */
-
 .two-columns {
   display: flex;
 }
@@ -431,10 +364,6 @@ main h6 {
 .two-columns > *:last-child {
   padding-left: 0.75em;
 }
-
-/* -------------------------------------------------------- */
-/* CONTENT IMAGES */
-/* -------------------------------------------------------- */
 
 .image {
   display: block;
@@ -464,12 +393,6 @@ main h6 {
   overflow: hidden;
 }
 
-/* -------------------------------------------------------- */
-/* ACCESSIBILITY */
-/* -------------------------------------------------------- */
-
-/* please do not remove this. */
-
 #skip-to-content-link {
   position: fixed;
   top: 0;
@@ -490,11 +413,6 @@ main h6 {
   transform: translateY(0);
 }
 
-/* -------------------------------------------------------- */
-/* MOBILE RESPONSIVE */
-/* -------------------------------------------------------- */
-
-/* CSS Code for devices < 800px */
 @media (max-width: 800px) {
   body {
     font-size: 14px;
@@ -503,11 +421,7 @@ main h6 {
   .layout {
     width: 100%;
     grid-template: "header" auto  "leftSidebar" auto "rightSidebar" auto "main" auto "footer" auto / 1fr;
-    /* Confused by the grid? Check out my tutorial: https://petrapixel.neocities.org/coding/positioning-tutorial#grid */
   }
-
-  
-  
 
   aside {
     border-bottom: 1px solid;
@@ -547,21 +461,14 @@ main h6 {
     font-size: 1rem;
   }
 }
-  
 </style>
-   
   </head>
   <body>
-    <!-- The next line is a skip-to-content link for keyboard users. Do not remove it! -->
     <a href="#content" id="skip-to-content-link">Skip to content</a>
 
     <div class="layout">
   
-      <!-- =============================================== -->
-      <!-- HEADER -->
-      <!-- =============================================== -->
-
-      <header>
+     <header>
 <div class="header-image">
           <img src="https://i.imgur.com/J4D9wwN.gif" alt="" />
         </div>
@@ -571,12 +478,6 @@ main h6 {
         	
         </div>
       </header>
-
-	  
-        
-      <!-- =============================================== -->
-      <!-- LEFT SIDEBAR -->
-      <!-- =============================================== -->
 
       <aside class="left-sidebar">
 	  
@@ -608,11 +509,10 @@ main h6 {
         <div class="sidebar-section">
           <div class="sidebar-title">Section Title</div>
           <marquee>
-          	<a href="https://petrapixel.neocities.org/" target="_blank"><img src="https://cdn.jsdelivr.net/gh/petracoding/petrapixel.neocities.org@latest/public/img/linkback.gif" alt="petrapixel"></a>
-          	<a href="https://petrapixel.neocities.org/" target="_blank"><img src="https://cdn.jsdelivr.net/gh/petracoding/petrapixel.neocities.org@latest/public/img/linkback.gif" alt="petrapixel"></a>
-          	<a href="https://petrapixel.neocities.org/" target="_blank"><img src="https://cdn.jsdelivr.net/gh/petracoding/petrapixel.neocities.org@latest/public/img/linkback.gif" alt="petrapixel"></a>
-          	<a href="https://petrapixel.neocities.org/" target="_blank"><img src="https://cdn.jsdelivr.net/gh/petracoding/petrapixel.neocities.org@latest/public/img/linkback.gif" alt="petrapixel"></a>
-          </marquee>
+          	<a href="#"></a>
+          	<a href="#"></a>
+          	<a href="#"></a>          	<a href="#"></a>
+          </marque>
         </div>
         
         <div class="sidebar-section">
@@ -623,21 +523,12 @@ main h6 {
         <div class="sidebar-section">
           <div class="sidebar-title">Section Title</div>
           <div class="site-button">
-          	<a href="https://petrapixel.neocities.org/" target="_blank"><img src="https://cdn.jsdelivr.net/gh/petracoding/petrapixel.neocities.org@latest/public/img/linkback.gif" alt="petrapixel"></a>
-        	<textarea><a href="https://petrapixel.neocities.org/" target="_blank"><img src="https://cdn.jsdelivr.net/gh/petracoding/petrapixel.neocities.org@latest/public/img/linkback.gif" alt="petrapixel"></a></textarea>
+          	<a href="#"></a>
+        	<textarea><a href="#"></a></textarea>
           </div>
         </div>
       </aside>
-	
-	  
-      <!-- =============================================== -->
-      <!-- RIGHT SIDEBAR -->
-      <!-- =============================================== -->
-
       <aside class="right-sidebar">
-	  
-        
-        <!-- NAVIGATION -->
         <nav>
           <div class="sidebar-title">Navigation</div>
           <ul>
@@ -688,10 +579,10 @@ main h6 {
         <div class="sidebar-section">
           <div class="sidebar-title">Section Title</div>
           <marquee>
-          	<a href="https://petrapixel.neocities.org/" target="_blank"><img src="https://cdn.jsdelivr.net/gh/petracoding/petrapixel.neocities.org@latest/public/img/linkback.gif" alt="petrapixel"></a>
-          	<a href="https://petrapixel.neocities.org/" target="_blank"><img src="https://cdn.jsdelivr.net/gh/petracoding/petrapixel.neocities.org@latest/public/img/linkback.gif" alt="petrapixel"></a>
-          	<a href="https://petrapixel.neocities.org/" target="_blank"><img src="https://cdn.jsdelivr.net/gh/petracoding/petrapixel.neocities.org@latest/public/img/linkback.gif" alt="petrapixel"></a>
-          	<a href="https://petrapixel.neocities.org/" target="_blank"><img src="https://cdn.jsdelivr.net/gh/petracoding/petrapixel.neocities.org@latest/public/img/linkback.gif" alt="petrapixel"></a>
+          	<a href="#"></a>
+          	<a href="#></a>
+          	<a href="#"></a>
+          	<a href="#"></a>
           </marquee>
         </div>
         
@@ -703,36 +594,26 @@ main h6 {
         <div class="sidebar-section">
           <div class="sidebar-title">Section Title</div>
           <div class="site-button">
-          	<a href="https://petrapixel.neocities.org/" target="_blank"><img src="https://cdn.jsdelivr.net/gh/petracoding/petrapixel.neocities.org@latest/public/img/linkback.gif" alt="petrapixel"></a>
-        	<textarea><a href="https://petrapixel.neocities.org/" target="_blank"><img src="https://cdn.jsdelivr.net/gh/petracoding/petrapixel.neocities.org@latest/public/img/linkback.gif" alt="petrapixel"></a></textarea>
+          	<a href="#"></a>
+        	<textarea><a href="#"></a></textarea>
           </div>
         </div>
       </aside>
-      
-  
-      <main id="content"> <!-- Do NOT remove the ID here -->
-
-        
-
-        <!-- =============================================== -->
-        <!-- MAIN CONTENT -->
-        <!-- =============================================== -->
-
-
+      <main id="content">
         <section>
 
           <h1>Page Title (Heading 1)</h1>
-          <p>This layout was generated with <a href="https://petrapixel.neocities.org/" target="_blank">petrapixel</a>'s layout generator. You may remove the credit in the footer, but please leave the credit in the code. Thank you!</p>
+          <p>hello world</p>
           <p>
-            I will now show you how to use the most common HTML text elements:
+lorem
             <b>This is bold text.</b> 
             <strong>This is also bold text.</strong> 
             <i>This is italic text.</i> 
             <em>This is also italic text.</em> 
             <strike>This is strikethrough text.</strike> 
             <u>This is underlined text.</u> 
-            <a href="https://petrapixel.neocities.org/">This is a link.</a> 
-            <a href="https://petrapixel.neocities.org/" target="_blank">This is a link that will open in a new tab.</a> 
+            <a href="#">This is a link.</a> 
+            <a href="#" target="_blank">This is a link that will open in a new tab.</a> 
             <code>This is code (displayed in a monospace font).</code>
             <abbr title="Example.">This is an abbreviation (Try hovering over it).</abbr>
             <mark>This is highlighted text.</mark>
@@ -771,7 +652,7 @@ main h6 {
 &lt;/html&gt;</code></pre>
 
           <p>This is a separator line / divider:</p>
-          <hr /> <!-- hr = horizontal rule -->
+          <hr />
 
           <p>
             Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At
@@ -815,19 +696,11 @@ main h6 {
         </section>
       </main>
 
-
-      <!-- =============================================== -->
-      <!-- FOOTER -->
-      <!-- =============================================== -->
-
       <footer>
-            <div>Footer Text. <a href="/">Link.</a> Template generated with <a href="https://petrapixel.neocities.org/coding/layout-generator.html">petrapixel's layout generator</a>.</div>
+            <div>Footer Text. <a href="/">Link.</a> Template generated with <a href="#">hackherway</a>.</div>
       </footer>
   
     <!-- Closing .layout: -->
     </div>
-
-
-    <!-- Add any additional Javascript code (<script></script>) here. -->
-  </body>
+ </body>
 </html>
