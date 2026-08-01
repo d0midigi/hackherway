@@ -116,7 +116,7 @@ I believe the best defense is a well-documented offense. If you're here looking 
 ![Python](https://shields.io) ![PowerShell](https://shields.io) ![Bash Script](https://shields.io) ![JavaScript](https://shields.io) ![TypeScript](https://shields.io) ![HTML5](https://shields.io) ![CSS3](https://shields.io) ![LaTeX](https://shields.io) ![Markdown](https://shields.io)
 
 ---
-## 📊 
+## 📊 ![github-stats-blinkie](./images/github-stats.gif)
 
 
 ![](https://github-readme-stats.vercel.app/api?username=d0midigi&theme=dark&hide_border=false&include_all_commits=true&count_private=false)
@@ -129,7 +129,7 @@ I believe the best defense is a well-documented offense. If you're here looking 
 
 ---
 
-### ✍️ Random Dev Quote
+### ✍️ ![randome-dev-quote-blinkie](./images/random-dev-quote.gif)
 
 
 
@@ -139,7 +139,7 @@ I believe the best defense is a well-documented offense. If you're here looking 
 
 ---
 
-### 🔝 Top Contributed Repo
+### 🔝![top-contributed-page-blinkie](./images/top-contributed-page.gif)
 
 
 
