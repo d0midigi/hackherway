@@ -1,4 +1,4 @@
-![winnt-blinkie](./images/winnt.gif)   ![Static Badge](https://img.shields.io/badge/palo%20alto%20security?style=plastic&logo=paloaltosoftware&logoColor=%2383da77&logoSize=auto&label=paloalto&labelColor=%23000000&color=%2383da77&cacheSeconds=3600)
+![winnt-blinkie](./images/winnt.gif)   ![Static Badge](https://img.shields.io/badge/palo%20alto%20security?style=plastic&logo=palo%20alto%20software&logoColor=%2383da77&logoSize=auto&label=paloalto&labelColor=%23000000&color=%2383da77&cacheSeconds=3600)
 
 ![Palo Alto Software](https://img.shields.io/badge/paloaltosoftware-3670A0?style=plastic&logo=paloaltosoftware&logoColor=ffdd54)
 
