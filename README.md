@@ -1,10 +1,11 @@
+![winnt-blinkie](./images/winnt.gif)
 
 [![Typing SVG](https://readme-typing-svg.demolab.com?font=Fira+Code&weight=600&size=22&duration=3000&pause=800&color=FE0942&center=true&vCenter=true&width=900&lines=NetSecOps+ISSE+%7C+⚓︎+US+Navy+⚓︎;×͜×+Purple+Team+for+Life+×͜×;♔+Active+Directory+Pentesting+Princess+♔;👠Ethical+Hacker+in+Heels👠;𖤐+Self-Taught+Frontend+Coder+Noob+𖤐;🎧+Bass+Junkie+%7C+Drum+n+Bass+In+Ya+Face+‣•၊၊||၊|။|||||)](https://git.io/typing-svg)
 
-![pc-connect-blinkie](./images/0092-computerconnect.gif)•![binary-blinkie](./images/binary.gif)•![irlhacker-blinkie](./images/irlhacker-blinkie.gif)•![machinegirl-blinkie](./images/machinegirl.gif)![thispage1-blinkie](./images/thispage1.gif)••![thispage3-blinkie](./images/thispage3-blinkie.gif)•![thispage4-blinkie](./images/thispage4.gif)•![virus-blinkie](./images/virus-blinkie.gif)•![winnt-blinkie](./images/winnt.gif)•![www-blinkie](./images/www.gif)
+![pc-connect-blinkie](./images/0092-computerconnect.gif)•![binary-blinkie](./images/binary.gif)•![irlhacker-blinkie](./images/irlhacker-blinkie.gif)•![thispage1-blinkie](./images/thispage1.gif)••![thispage3-blinkie](./images/thispage3-blinkie.gif)•![thispage4-blinkie](./images/thispage4.gif)•![virus-blinkie](./images/virus-blinkie.gif)••![www-blinkie](./images/www.gif)
 ---
 
-## 💀 About Me - d0midigi
+## 💀 About Me - d0midigi ![machinegirl-blinkie](./images/machinegirl.gif)
 
 I break Active Directory for a living, then write the documentation so you can too. Currently serving as a NetSecOps ISSE for the US Navy, which means I spend my days making sure federal networks don't fall apart and my nights building offensive tools that prove they could.
 
