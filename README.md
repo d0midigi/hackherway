@@ -100,6 +100,21 @@ I believe the best defense is a well-documented offense. If you're here looking 
 
 ---
 
+## 💻 Tech & Audio Stack ⁂
+
+### 🎛️ DAWs & Production
+![Ableton Live](https://shields.io) ![FL Studio](https://shields.io) ![Logic Pro](https://shields.io) ![Pro Tools](https://shields.io)
+
+### 🥁 Grooveboxes & Hardware
+![Elektron](https://shields.io) ![Roland TR](https://shields.io) ![Akai MPC](https://shields.io) ![Novation Circuit](https://shields.io)
+
+### 🎧 DJing & Performance
+![Pioneer DJ](https://shields.io) ![Rekordbox](https://shields.io) ![Serato DJ](https://shields.io) ![Traktor](https://shields.io)
+
+### 💻 Languages & Scripting
+![Python](https://shields.io) ![PowerShell](https://shields.io) ![Bash Script](https://shields.io) ![JavaScript](https://shields.io) ![TypeScript](https://shields.io) ![HTML5](https://shields.io) ![CSS3](https://shields.io) ![LaTeX](https://shields.io) ![Markdown](https://shields.io)
+
+---
 ## 📊 GitHub Stats
 
 
