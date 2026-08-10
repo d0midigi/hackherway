@@ -2,7 +2,6 @@
 
 <p align="center">
   <img src="https://dl.glitter-graphics.com/pub/619/619380a8c7yo5al4.gif"><img src="https://dl.glitter-graphics.com/pub/619/619380a8c7yo5al4.gif">
-
 </p>
 
 
@@ -10,8 +9,8 @@
 [![Typing SVG](https://readme-typing-svg.demolab.com?font=Fira+Code&weight=600&size=22&duration=3000&pause=800&color=FE0942&center=true&vCenter=true&width=900&lines=NetSecOps+ISSE+%7C+⚓︎+US+Navy+⚓︎;×͜×+Purple+Team+for+Life+×͜×;♔+Active+Directory+Pentesting+Princess+♔;Ethical+Hacker;𖤐+Self-Taught+Frontend+Coder+Noob+𖤐;🎧+Bass+Junkie+%7C+Drum+n+Bass+In+Ya+Face+‣•၊၊||၊|။|||||)](https://git.io/typing-svg)
 
 
-💀 <p align="center">
-  <img src="./images/whoami2026.gif">
+💀 <p align="left">
+  <img src="./images/who.gif">
 </p>
 
 
@@ -25,7 +24,6 @@ I believe the best defense is a well-documented offense. If you're here looking 
 - ⚡ **Fun fact:** I can ARP spoof your network and mix a DnB set in the same afternoon
 
 
-![gif](https://dl.glitter-graphics.com/pub/619/619380a8c7yo5al4.gif)![gif](https://dl.glitter-graphics.com/pub/619/619380a8c7yo5al4.gif)
 
 ## 🌐 ![socials-blinkie](./images/socials.gif)
 
@@ -35,7 +33,7 @@ I believe the best defense is a well-documented offense. If you're here looking 
 [![Neocities](https://img.shields.io/badge/Neocities-%23FE0942.svg?logo=neocities&logoColor=white)](https://hackherway.neocities.org)
 
 
-![gif](https://dl.glitter-graphics.com/pub/619/619380a8c7yo5al4.gif)![gif](https://dl.glitter-graphics.com/pub/619/619380a8c7yo5al4.gif)
+
 
 ## 💻 ![tech-stack4-blinkie](./images/tech-stack4.gif)
 
@@ -111,8 +109,6 @@ I believe the best defense is a well-documented offense. If you're here looking 
 ![Battle.net](https://img.shields.io/badge/battle.net-%2300AEFF.svg?style=plastic&logo=battle.net&logoColor=white)
 
 
-![gif](https://dl.glitter-graphics.com/pub/619/619380a8c7yo5al4.gif)![gif](https://dl.glitter-graphics.com/pub/619/619380a8c7yo5al4.gif)
-
 ## 💻 ![tech+audio-stack4-blinkie](./images/tech+audio-stack4.gif)
 
 ### 🎛️ ![daws+production4-blinkie](./images/daws+production4.gif)
@@ -128,7 +124,7 @@ I believe the best defense is a well-documented offense. If you're here looking 
 ![Python](https://shields.io) ![PowerShell](https://shields.io) ![Bash Script](https://shields.io) ![JavaScript](https://shields.io) ![TypeScript](https://shields.io) ![HTML5](https://shields.io) ![CSS3](https://shields.io) ![LaTeX](https://shields.io) ![Markdown](https://shields.io)
 
 
-![gif](https://dl.glitter-graphics.com/pub/619/619380a8c7yo5al4.gif)![gif](https://dl.glitter-graphics.com/pub/619/619380a8c7yo5al4.gif)
+
 ## 📊 ![github-stats-blinkie](./images/github-stats.gif)
 
 
@@ -138,21 +134,7 @@ I believe the best defense is a well-documented offense. If you're here looking 
 
 ![](https://github-readme-stats.vercel.app/api/top-langs/?username=d0midigi&theme=dark&hide_border=false&include_all_commits=true&count_private=false&layout=compact)
 
-
-
-
-![gif](https://dl.glitter-graphics.com/pub/619/619380a8c7yo5al4.gif)![gif](https://dl.glitter-graphics.com/pub/619/619380a8c7yo5al4.gif)
-
-
 ![](https://quotes-github-readme.vercel.app/api?type=horizontal&theme=radical)
-
-
-
-
-![gif](https://dl.glitter-graphics.com/pub/619/619380a8c7yo5al4.gif)![gif](https://dl.glitter-graphics.com/pub/619/619380a8c7yo5al4.gif)
-
-
-
 
 ![](https://github-contributor-stats.vercel.app/api?username=d0midigi&limit=5&theme=dark&combine_all_yearly_contributions=true)
 
@@ -169,6 +151,6 @@ I believe the best defense is a well-documented offense. If you're here looking 
 
 
 <p align="center">
-  <img src="https://dl.glitter-graphics.com/pub/831/831978ocz05vi2ys.jpg">
+  <img src="https://dl.glitter-graphics.com/pub/831/831978ocz05vi2ys.jpg"></p>
 </p>
 
