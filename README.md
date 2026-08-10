@@ -25,7 +25,9 @@ I believe the best defense is a well-documented offense. If you're here looking 
 
 
 
-## 🌐 ![socials-blinkie](./images/socials.gif)
+<p align="left">
+  <img src="./images/socia.gif">
+</p>
 
 [![YouTube](https://img.shields.io/badge/YouTube-%23FF0000.svg?logo=YouTube&logoColor=white)](https://youtube.com/@techchick69)
 [![Codepen](https://img.shields.io/badge/Codepen-000000?logo=codepen&logoColor=white)](https://codepen.io/yvonne-angelica)
