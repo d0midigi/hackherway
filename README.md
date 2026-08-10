@@ -1,5 +1,3 @@
-
-
 <p align="center">
   <img src="https://dl.glitter-graphics.com/pub/619/619380a8c7yo5al4.gif"><img src="https://dl.glitter-graphics.com/pub/619/619380a8c7yo5al4.gif">
 </p>
@@ -34,6 +32,10 @@ I believe the best defense is a well-documented offense. If you're here looking 
 [![Mastodon](https://img.shields.io/badge/-MASTODON-%232B90D9?logo=mastodon&logoColor=white)](https://mastodon.social/@mindhackdiva)
 [![Neocities](https://img.shields.io/badge/Neocities-%23FE0942.svg?logo=neocities&logoColor=white)](https://hackherway.neocities.org)
 
+<p align="center">
+  <img src="https://dl.glitter-graphics.com/pub/619/619380a8c7yo5al4.gif"><img src="https://dl.glitter-graphics.com/pub/619/619380a8c7yo5al4.gif">
+</p>
+
 
 <p align="left">
   <img src="./images/ts.gif">
@@ -49,6 +51,14 @@ I believe the best defense is a well-documented offense. If you're here looking 
 ![LaTeX](https://img.shields.io/badge/latex-%23008080.svg?style=plastic&logo=latex&logoColor=white)
 ![Markdown](https://img.shields.io/badge/markdown-%23000000.svg?style=plastic&logo=markdown&logoColor=white)
 
+<p align="center">
+  <img src="https://dl.glitter-graphics.com/pub/619/619380a8c7yo5al4.gif"><img src="https://dl.glitter-graphics.com/pub/619/619380a8c7yo5al4.gif">
+</p>
+
+
+<p align="left">
+  <img src="./images/frontend+ui.gif">
+</p>
 
 ![TailwindCSS](https://img.shields.io/badge/tailwindcss-%2338B2AC.svg?style=plastic&logo=tailwind-css&logoColor=white)
 ![Bootstrap](https://img.shields.io/badge/bootstrap-%238511FA.svg?style=plastic&logo=bootstrap&logoColor=white)
@@ -58,7 +68,11 @@ I believe the best defense is a well-documented offense. If you're here looking 
 ![WordPress](https://img.shields.io/badge/WordPress-%23117AC9.svg?style=plastic&logo=WordPress&logoColor=white)
 ![Drupal](https://img.shields.io/badge/drupal-%230678BE.svg?style=plastic&logo=drupal&logoColor=white)
 
-### ![backend+runtime4-blinkie](./images/backend+runtime4.gif)
+
+<p align="left">
+  <img src="./images/backendrun.gif">
+</p>
+
 ![NodeJS](https://img.shields.io/badge/node.js-6DA55F?style=plastic&logo=node.js&logoColor=white)
 ![Apache](https://img.shields.io/badge/apache-%23D42029.svg?style=plastic&logo=apache&logoColor=white)
 ![Nginx](https://img.shields.io/badge/nginx-%23009639.svg?style=plastic&logo=nginx&logoColor=white)
