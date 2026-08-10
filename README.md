@@ -35,11 +35,11 @@ I believe the best defense is a well-documented offense. If you're here looking 
 [![Neocities](https://img.shields.io/badge/Neocities-%23FE0942.svg?logo=neocities&logoColor=white)](https://hackherway.neocities.org)
 
 
+<p align="left">
+  <img src="./images/ts.gif">
+</p>
 
-
-## 💻 ![tech-stack4-blinkie](./images/tech-stack4.gif)
-
-### ![languages+scripting4-blinkie](./images/languages+scripting4.gif)
+## ![languages+scripting4-blinkie](./images/languages+scripting4.gif)
 ![Python](https://img.shields.io/badge/python-3670A0?style=plastic&logo=python&logoColor=ffdd54)
 ![PowerShell](https://img.shields.io/badge/PowerShell-%235391FE.svg?style=plastic&logo=powershell&logoColor=white)
 ![Bash Script](https://img.shields.io/badge/bash_script-%23121011.svg?style=plastic&logo=gnu-bash&logoColor=white)
