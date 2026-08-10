@@ -1,23 +1,27 @@
-[![page](https://dl.glitter-graphics.com/pub/66/66171vkv7o4rnkq.gif)
 
-![Palo Alto Software](https://img.shields.io/badge/paloaltosoftware-3670A0?style=plastic&logo=paloaltosoftware&logoColor=ffdd54)
+![gif](https://dl.glitter-graphics.com/pub/619/619380a8c7yo5al4.gif)![gif](https://dl.glitter-graphics.com/pub/619/619380a8c7yo5al4.gif)
 
 
-[![Typing SVG](https://readme-typing-svg.demolab.com?font=Fira+Code&weight=600&size=22&duration=3000&pause=800&color=FE0942&center=true&vCenter=true&width=900&lines=NetSecOps+ISSE+%7C+⚓︎+US+Navy+⚓︎;×͜×+Purple+Team+for+Life+×͜×;♔+Active+Directory+Pentesting+Princess+♔;👠Ethical+Hacker+in+Heels👠;𖤐+Self-Taught+Frontend+Coder+Noob+𖤐;🎧+Bass+Junkie+%7C+Drum+n+Bass+In+Ya+Face+‣•၊၊||၊|။|||||)](https://git.io/typing-svg)
 
----
+
+
+[![Typing SVG](https://readme-typing-svg.demolab.com?font=Fira+Code&weight=600&size=22&duration=3000&pause=800&color=FE0942&center=true&vCenter=true&width=900&lines=NetSecOps+ISSE+%7C+⚓︎+US+Navy+⚓︎;×͜×+Purple+Team+for+Life+×͜×;♔+Active+Directory+Pentesting+Princess+♔;Ethical+Hacker;𖤐+Self-Taught+Frontend+Coder+Noob+𖤐;🎧+Bass+Junkie+%7C+Drum+n+Bass+In+Ya+Face+‣•၊၊||၊|။|||||)](https://git.io/typing-svg)
+
 
 ## 💀 ![whoami-blinkie](./images/whoami.gif)
 
+
+![gif](https://dl.glitter-graphics.com/pub/619/619380a8c7yo5al4.gif)![gif](https://dl.glitter-graphics.com/pub/619/619380a8c7yo5al4.gif)
 I break Active Directory for a living, then write the documentation so you can too. Currently serving as a NetSecOps ISSE for the US Navy, which means I spend my days making sure federal networks don't fall apart and my nights building offensive tools that prove they could.
 
 I believe the best defense is a well-documented offense. If you're here looking for AD attack paths, privilege escalation cheatsheets, or mid-2000s web aesthetics coded in raw HTML — you're in the right place.
 
-- 🔭 **Currently building:** [hackherway.neocities.org](https://hackherway.neocities.org) — cybersecurity education with teeth
+- 🔭 **Currently building:** [hackherway.rocks](https://hackherway.rocks) & my Y2K / AOHell-era [tribute site](https://hackherway.neocities.org)— cybersecurity education with teeth
 - 🌱 **Learning:** Swift 6, FM synthesis, and how many blunts it takes to break a build
 - ⚡ **Fun fact:** I can ARP spoof your network and mix a DnB set in the same afternoon
 
----
+
+![gif](https://dl.glitter-graphics.com/pub/619/619380a8c7yo5al4.gif)![gif](https://dl.glitter-graphics.com/pub/619/619380a8c7yo5al4.gif)
 
 ## 🌐 ![socials-blinkie](./images/socials.gif)
 
@@ -26,7 +30,8 @@ I believe the best defense is a well-documented offense. If you're here looking 
 [![Mastodon](https://img.shields.io/badge/-MASTODON-%232B90D9?logo=mastodon&logoColor=white)](https://mastodon.social/@mindhackdiva)
 [![Neocities](https://img.shields.io/badge/Neocities-%23FE0942.svg?logo=neocities&logoColor=white)](https://hackherway.neocities.org)
 
----
+
+![gif](https://dl.glitter-graphics.com/pub/619/619380a8c7yo5al4.gif)![gif](https://dl.glitter-graphics.com/pub/619/619380a8c7yo5al4.gif)
 
 ## 💻 ![tech-stack4-blinkie](./images/tech-stack4.gif)
 
@@ -101,7 +106,8 @@ I believe the best defense is a well-documented offense. If you're here looking 
 ![Steam](https://img.shields.io/badge/steam-%23000000.svg?style=plastic&logo=steam&logoColor=white)
 ![Battle.net](https://img.shields.io/badge/battle.net-%2300AEFF.svg?style=plastic&logo=battle.net&logoColor=white)
 
----
+
+![gif](https://dl.glitter-graphics.com/pub/619/619380a8c7yo5al4.gif)![gif](https://dl.glitter-graphics.com/pub/619/619380a8c7yo5al4.gif)
 
 ## 💻 ![tech+audio-stack4-blinkie](./images/tech+audio-stack4.gif)
 
@@ -117,7 +123,8 @@ I believe the best defense is a well-documented offense. If you're here looking 
 ### 💻 ![languages+scripting-blinkie](./images/languages+scripting.gif)
 ![Python](https://shields.io) ![PowerShell](https://shields.io) ![Bash Script](https://shields.io) ![JavaScript](https://shields.io) ![TypeScript](https://shields.io) ![HTML5](https://shields.io) ![CSS3](https://shields.io) ![LaTeX](https://shields.io) ![Markdown](https://shields.io)
 
----
+
+![gif](https://dl.glitter-graphics.com/pub/619/619380a8c7yo5al4.gif)![gif](https://dl.glitter-graphics.com/pub/619/619380a8c7yo5al4.gif)
 ## 📊 ![github-stats-blinkie](./images/github-stats.gif)
 
 
@@ -129,19 +136,17 @@ I believe the best defense is a well-documented offense. If you're here looking 
 
 
 
----
 
-### ✍️ ![randome-dev-quote-blinkie](./images/random-dev-quote.gif)
-
+![gif](https://dl.glitter-graphics.com/pub/619/619380a8c7yo5al4.gif)![gif](https://dl.glitter-graphics.com/pub/619/619380a8c7yo5al4.gif)
 
 
 ![](https://quotes-github-readme.vercel.app/api?type=horizontal&theme=radical)
 
 
 
----
 
-### 🔝![top-contributed-repo-blinkie](./images/top-contributed-repo.gif)
+![gif](https://dl.glitter-graphics.com/pub/619/619380a8c7yo5al4.gif)![gif](https://dl.glitter-graphics.com/pub/619/619380a8c7yo5al4.gif)
+
 
 
 
@@ -151,12 +156,15 @@ I believe the best defense is a well-documented offense. If you're here looking 
 
 ---
 
+<img width="122" height="68" alt="image" src="https://github.com/user-attachments/assets/74384356-73d4-4309-a877-704cea3953f1" />
 
 
 [![](https://komarev.com/ghpvc/?username=d0midigi&label=Profile%20views&color=fe0942&style=flat)](https://visitcount.itsvg.in)
 
-<center>[![latina](https://dl.glitter-graphics.com/pub/831/831978ocz05vi2ys.jpg)</center>
 
-<center>![thispage2-blinkie](./images/thispage2.gif)</center>
 
-p
+
+<p align="center">
+  <img src="https://dl.glitter-graphics.com/pub/831/831978ocz05vi2ys.jpg">
+</p>
+
