@@ -1,17 +1,21 @@
 
-![gif](https://dl.glitter-graphics.com/pub/619/619380a8c7yo5al4.gif)![gif](https://dl.glitter-graphics.com/pub/619/619380a8c7yo5al4.gif)
 
+<p align="center">
+  <img src="https://dl.glitter-graphics.com/pub/619/619380a8c7yo5al4.gif"><img src="https://dl.glitter-graphics.com/pub/619/619380a8c7yo5al4.gif">
 
+</p>
 
 
 
 [![Typing SVG](https://readme-typing-svg.demolab.com?font=Fira+Code&weight=600&size=22&duration=3000&pause=800&color=FE0942&center=true&vCenter=true&width=900&lines=NetSecOps+ISSE+%7C+⚓︎+US+Navy+⚓︎;×͜×+Purple+Team+for+Life+×͜×;♔+Active+Directory+Pentesting+Princess+♔;Ethical+Hacker;𖤐+Self-Taught+Frontend+Coder+Noob+𖤐;🎧+Bass+Junkie+%7C+Drum+n+Bass+In+Ya+Face+‣•၊၊||၊|။|||||)](https://git.io/typing-svg)
 
 
-## 💀 ![whoami-blinkie](./images/whoami2026.gif)
+💀 <p align="center">
+  <img src="./images/whoami2026.gif">
+</p>
 
 
-![gif](https://dl.glitter-graphics.com/pub/619/619380a8c7yo5al4.gif)![gif](https://dl.glitter-graphics.com/pub/619/619380a8c7yo5al4.gif)
+
 I break Active Directory for a living, then write the documentation so you can too. Currently serving as a NetSecOps ISSE for the US Navy, which means I spend my days making sure federal networks don't fall apart and my nights building offensive tools that prove they could.
 
 I believe the best defense is a well-documented offense. If you're here looking for AD attack paths, privilege escalation cheatsheets, or mid-2000s web aesthetics coded in raw HTML — you're in the right place.
