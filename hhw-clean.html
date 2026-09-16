@@ -614,11 +614,31 @@ yarn <span class="keyword">add</span> <span class="string">"tutorial-package"</s
 <script>
 // NAV STRUCTURE
 const navStructure = [
-  { id: 'getting-started', label: 'Getting Started', children: [] },
-  { id: 'installation', label: 'Installation', children: [
-    { id: 'installation-npm', label: 'Using NPM' },
-    { id: 'installation-cdn', label: 'Using CDN' }
-  ]},
+  { 
+    id: 'getting-started', 
+    label: 'Getting Started', 
+    children: [] 
+  },
+  { 
+    id: 'installation', 
+    label: 'Installation', 
+    children: [
+      { 
+        id: 'installation-npm', 
+        label: 'Using NPM',
+        // Add the children array here:
+        children: [
+          { id: 'npm-configuration', label: 'Configuration' }
+        ]
+      },
+      { 
+        id: 'installation-cdn', 
+        label: 'Using CDN' 
+      }
+    ]
+  }
+];
+
   { id: 'core-concepts', label: 'Core Concepts', children: [
     { id: 'core-concepts-architecture', label: 'aArchitecture', children: [
       {id: 'core-concepts-architecture-test', label: 'Test' },
