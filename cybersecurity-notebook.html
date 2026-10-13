@@ -1,0 +1,1307 @@
+<style>
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Merriweather:wght@300;400;700&family=Fira+Code:wght@400;500&display=swap");
+
+:root {
+  --primary: #5d5cde;
+  --secondary: #8281e8;
+  --accent: #3a3a9e;
+}
+
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 5rem;
+}
+
+.dark {
+  --color-bg: #181818;
+  --color-text: #f3f4f6;
+  --color-border: #374151;
+}
+
+body {
+  transition: background-color 0.3s, color 0.3s;
+  display: auto;
+}
+
+.light {
+  --color-bg: #ffffff;
+  --color-text: #1f2937;
+  --color-border: #e5e7eb;
+}
+
+code {
+  font-family: "Fira Code", monospace;
+  background-color: rgba(93, 92, 222, 0.1);
+  border-radius: 4px;
+  padding: 0.1em 0.3em;
+}
+
+pre code {
+  background-color: transparent;
+  padding: 0;
+}
+
+pre {
+  background-color: #f8f8f8;
+  border-radius: 8px;
+  padding: 1em;
+  overflow-x: auto;
+}
+
+.dark pre {
+  background-color: #2d2d2d;
+}
+
+mark {
+  background-color: rgba(255, 213, 0, 0.4);
+  padding: 0 0.2em;
+  border-radius: 2px;
+}
+
+.search-result {
+  animation: highlight 2s ease-in-out;
+}
+
+@keyframes highlight {
+  0% {
+    background-color: rgba(93, 92, 222, 0.2);
+  }
+
+  100% {
+    background-color: transparent;
+  }
+}
+
+.table-of-contents li {
+  margin-bottom: 0.5rem;
+}
+
+.table-of-contents .subsection {
+  padding-left: 1.5rem;
+}
+
+.content h2 {
+  border-bottom: 1px solid var(--color-border);
+  padding-bottom: 0.5rem;
+  margin-top: 2rem;
+  margin-bottom: 1rem;
+}
+
+.content h3 {
+  margin-top: 1.5rem;
+  margin-bottom: 0.75rem;
+}
+
+
+  
+</style>
+
+<body class="font-serif bg-light-background text-light-text dark:bg-dark-background dark:text-dark-text transition-colors">
+  <header class="sticky top-0 z-50 bg-white dark:bg-gray-900 shadow-md">
+    <div class="container mx-auto px-4 py-3 flex flex-col lg:flex-row items-center">
+      <h1 class="text-2xl lg:text-3xl font-bold text-primary">
+        JavaScript DOM Cheatsheet
+      </h1>
+      <div class="mt-3 lg:mt-0 lg:ml-auto w-full lg:w-2/5 relative">
+        <div class="relative">
+          <input type="text" id="search-input" placeholder="Search the cheatsheet..." class="w-full px-4 py-2 pr-10 rounded-lg border border-gray-300 dark:border-gray-700 
+                           dark:bg-gray-800 focus:outline-none focus:ring-2 focus:ring-primary text-base" autocomplete="off">
+          <button id="search-button" class="absolute right-3 top-1/2 transform -translate-y-1/2 text-primary">
+            <i class="fas fa-search"></i>
+          </button>
+        </div>
+        <div id="search-results" class="absolute w-full mt-1 max-h-60 overflow-y-auto bg-white dark:bg-gray-800 
+                                             border border-gray-300 dark:border-gray-700 rounded-lg shadow-lg z-50 hidden">
+        </div>
+      </div>
+      <button id="theme-toggle" class="ml-4 text-gray-600 dark:text-gray-300 hover:text-primary dark:hover:text-primary">
+        <i class="fas fa-moon dark:hidden"></i>
+        <i class="fas fa-sun hidden dark:block"></i>
+      </button>
+    </div>
+  </header>
+
+  <div class="container mx-auto px-4 pt-6 pb-20">
+    <div class="flex flex-col lg:flex-row gap-8">
+      <!-- Sidebar with Table of Contents -->
+      <aside class="lg:w-1/4 lg:sticky lg:top-24 self-start">
+        <div class="bg-gray-50 dark:bg-gray-800 rounded-xl p-5 shadow-md">
+          <h2 class="text-xl font-bold mb-4 text-primary border-b border-gray-200 dark:border-gray-700 pb-2">
+            Table of Contents
+          </h2>
+          <nav class="table-of-contents">
+            <ul class="space-y-1 text-sm">
+              <li><a href="#introduction" class="hover:text-primary block py-1">Introduction</a></li>
+              <li>
+                <a href="#dom-selectors" class="hover:text-primary block py-1">DOM Selectors</a>
+                <ul class="subsection mt-1">
+                  <li><a href="#basic-selectors" class="hover:text-primary block py-1">Basic Selectors</a></li>
+                  <li><a href="#query-selectors" class="hover:text-primary block py-1">Query Selectors</a></li>
+                </ul>
+              </li>
+              <li>
+                <a href="#dom-traversal" class="hover:text-primary block py-1">DOM Traversal</a>
+                <ul class="subsection mt-1">
+                  <li><a href="#parent-navigation" class="hover:text-primary block py-1">Parent Navigation</a></li>
+                  <li><a href="#sibling-navigation" class="hover:text-primary block py-1">Sibling Navigation</a></li>
+                  <li><a href="#child-navigation" class="hover:text-primary block py-1">Child Navigation</a></li>
+                </ul>
+              </li>
+              <li>
+                <a href="#dom-manipulation" class="hover:text-primary block py-1">DOM Manipulation</a>
+                <ul class="subsection mt-1">
+                  <li><a href="#creating-elements" class="hover:text-primary block py-1">Creating Elements</a></li>
+                  <li><a href="#modifying-elements" class="hover:text-primary block py-1">Modifying Elements</a></li>
+                  <li><a href="#inserting-elements" class="hover:text-primary block py-1">Inserting Elements</a></li>
+                  <li><a href="#removing-elements" class="hover:text-primary block py-1">Removing Elements</a></li>
+                </ul>
+              </li>
+              <li>
+                <a href="#attributes-properties" class="hover:text-primary block py-1">Attributes & Properties</a>
+                <ul class="subsection mt-1">
+                  <li><a href="#working-with-attributes" class="hover:text-primary block py-1">Working with Attributes</a></li>
+                  <li><a href="#working-with-properties" class="hover:text-primary block py-1">Working with Properties</a></li>
+                </ul>
+              </li>
+              <li>
+                <a href="#styles-classes" class="hover:text-primary block py-1">Styles & Classes</a>
+                <ul class="subsection mt-1">
+                  <li><a href="#manipulating-classes" class="hover:text-primary block py-1">Manipulating Classes</a></li>
+                  <li><a href="#manipulating-styles" class="hover:text-primary block py-1">Manipulating Styles</a></li>
+                </ul>
+              </li>
+              <li>
+                <a href="#events" class="hover:text-primary block py-1">DOM Events</a>
+                <ul class="subsection mt-1">
+                  <li><a href="#event-listeners" class="hover:text-primary block py-1">Event Listeners</a></li>
+                  <li><a href="#event-object" class="hover:text-primary block py-1">Event Object</a></li>
+                  <li><a href="#event-delegation" class="hover:text-primary block py-1">Event Delegation</a></li>
+                </ul>
+              </li>
+            </ul>
+          </nav>
+        </div>
+      </aside>
+
+      <!-- Main Content -->
+      <main class="lg:w-3/4 content">
+        <section id="introduction" class="mb-12">
+          <h2 class="text-3xl font-bold mb-4 text-primary">Introduction to DOM</h2>
+          <p class="mb-4">
+            The Document Object Model (DOM) is a programming interface for web documents. It represents the page
+            so that programs can change the document structure, style, and content. The DOM represents the document
+            as nodes and objects; this way, programming languages can interact with the page.
+          </p>
+          <div class="bg-gray-50 dark:bg-gray-800 p-4 rounded-lg mb-4">
+            <pre><code>// The document object is the main entry point to the DOM
+console.log(document.title); // Outputs the document title
+console.log(document.URL);   // Outputs the document URL</code></pre>
+          </div>
+        </section>
+
+        <section id="dom-selectors" class="mb-12">
+          <h2 class="text-3xl font-bold mb-4 text-primary">DOM Selectors</h2>
+
+          <div id="basic-selectors" class="mb-8">
+            <h3 class="text-2xl font-bold mb-2">Basic Selectors</h3>
+            <p class="mb-3">Methods to select elements from the DOM:</p>
+
+            <table class="min-w-full border border-gray-300 dark:border-gray-700 mb-4">
+              <thead class="bg-gray-100 dark:bg-gray-800">
+                <tr>
+                  <th class="px-4 py-2 text-left">Method</th>
+                  <th class="px-4 py-2 text-left">Description</th>
+                </tr>
+              </thead>
+              <tbody class="divide-y divide-gray-200 dark:divide-gray-700">
+                <tr class="bg-white dark:bg-gray-900">
+                  <td class="px-4 py-3"><code>getElementById()</code></td>
+                  <td class="px-4 py-3">Selects an element by its ID attribute</td>
+                </tr>
+                <tr class="bg-gray-50 dark:bg-gray-800">
+                  <td class="px-4 py-3"><code>getElementsByClassName()</code></td>
+                  <td class="px-4 py-3">Returns a live HTMLCollection of elements with the given class name</td>
+                </tr>
+                <tr class="bg-white dark:bg-gray-900">
+                  <td class="px-4 py-3"><code>getElementsByTagName()</code></td>
+                  <td class="px-4 py-3">Returns a live HTMLCollection of elements with the given tag name</td>
+                </tr>
+                <tr class="bg-gray-50 dark:bg-gray-800">
+                  <td class="px-4 py-3"><code>getElementsByName()</code></td>
+                  <td class="px-4 py-3">Returns a live NodeList of elements with the given name attribute</td>
+                </tr>
+              </tbody>
+            </table>
+
+            <div class="bg-gray-50 dark:bg-gray-800 p-4 rounded-lg mb-4">
+              <pre><code>// Select element by ID
+const header = document.getElementById('header');
+
+// Select elements by class name
+const buttons = document.getElementsByClassName('btn');
+
+// Select elements by tag name
+const paragraphs = document.getElementsByTagName('p');
+
+// Select elements by name attribute
+const radioButtons = document.getElementsByName('gender');</code></pre>
+            </div>
+          </div>
+
+          <div id="query-selectors" class="mb-8">
+            <h3 class="text-2xl font-bold mb-2">Query Selectors</h3>
+            <p class="mb-3">Modern methods to select elements using CSS selectors:</p>
+
+            <table class="min-w-full border border-gray-300 dark:border-gray-700 mb-4">
+              <thead class="bg-gray-100 dark:bg-gray-800">
+                <tr>
+                  <th class="px-4 py-2 text-left">Method</th>
+                  <th class="px-4 py-2 text-left">Description</th>
+                </tr>
+              </thead>
+              <tbody class="divide-y divide-gray-200 dark:divide-gray-700">
+                <tr class="bg-white dark:bg-gray-900">
+                  <td class="px-4 py-3"><code>querySelector()</code></td>
+                  <td class="px-4 py-3">Returns the first element that matches the CSS selector</td>
+                </tr>
+                <tr class="bg-gray-50 dark:bg-gray-800">
+                  <td class="px-4 py-3"><code>querySelectorAll()</code></td>
+                  <td class="px-4 py-3">Returns a static NodeList of all elements that match the CSS selector</td>
+                </tr>
+              </tbody>
+            </table>
+
+            <div class="bg-gray-50 dark:bg-gray-800 p-4 rounded-lg mb-4">
+              <pre><code>// Select the first element that matches a CSS selector
+const firstButton = document.querySelector('button');
+
+// Select the first element with class 'primary'
+const primaryButton = document.querySelector('.primary');
+
+// Select element with id 'main'
+const main = document.querySelector('#main');
+
+// Select all paragraphs inside a div with class 'content'
+const contentParagraphs = document.querySelectorAll('div.content p');
+
+// Select all elements with a specific attribute
+const externalLinks = document.querySelectorAll('a[target="_blank"]');</code></pre>
+            </div>
+          </div>
+        </section>
+
+        <section id="dom-traversal" class="mb-12">
+          <h2 class="text-3xl font-bold mb-4 text-primary">DOM Traversal</h2>
+
+          <div id="parent-navigation" class="mb-8">
+            <h3 class="text-2xl font-bold mb-2">Parent Navigation</h3>
+            <p class="mb-3">Methods and properties to navigate to parent elements:</p>
+
+            <table class="min-w-full border border-gray-300 dark:border-gray-700 mb-4">
+              <thead class="bg-gray-100 dark:bg-gray-800">
+                <tr>
+                  <th class="px-4 py-2 text-left">Property</th>
+                  <th class="px-4 py-2 text-left">Description</th>
+                </tr>
+              </thead>
+              <tbody class="divide-y divide-gray-200 dark:divide-gray-700">
+                <tr class="bg-white dark:bg-gray-900">
+                  <td class="px-4 py-3"><code>parentNode</code></td>
+                  <td class="px-4 py-3">Returns the parent node of an element</td>
+                </tr>
+                <tr class="bg-gray-50 dark:bg-gray-800">
+                  <td class="px-4 py-3"><code>parentElement</code></td>
+                  <td class="px-4 py-3">Returns the parent element of an element</td>
+                </tr>
+                <tr class="bg-white dark:bg-gray-900">
+                  <td class="px-4 py-3"><code>closest()</code></td>
+                  <td class="px-4 py-3">Returns the closest ancestor that matches a selector</td>
+                </tr>
+              </tbody>
+            </table>
+
+            <div class="bg-gray-50 dark:bg-gray-800 p-4 rounded-lg mb-4">
+              <pre><code>// Get parent node
+const parent = element.parentNode;
+
+// Get parent element
+const parentEl = element.parentElement;
+
+// Find closest ancestor matching a selector
+const closestForm = element.closest('form');</code></pre>
+            </div>
+          </div>
+
+          <div id="sibling-navigation" class="mb-8">
+            <h3 class="text-2xl font-bold mb-2">Sibling Navigation</h3>
+            <p class="mb-3">Properties to navigate to sibling elements:</p>
+
+            <table class="min-w-full border border-gray-300 dark:border-gray-700 mb-4">
+              <thead class="bg-gray-100 dark:bg-gray-800">
+                <tr>
+                  <th class="px-4 py-2 text-left">Property</th>
+                  <th class="px-4 py-2 text-left">Description</th>
+                </tr>
+              </thead>
+              <tbody class="divide-y divide-gray-200 dark:divide-gray-700">
+                <tr class="bg-white dark:bg-gray-900">
+                  <td class="px-4 py-3"><code>nextSibling</code></td>
+                  <td class="px-4 py-3">Returns the next sibling node</td>
+                </tr>
+                <tr class="bg-gray-50 dark:bg-gray-800">
+                  <td class="px-4 py-3"><code>previousSibling</code></td>
+                  <td class="px-4 py-3">Returns the previous sibling node</td>
+                </tr>
+                <tr class="bg-white dark:bg-gray-900">
+                  <td class="px-4 py-3"><code>nextElementSibling</code></td>
+                  <td class="px-4 py-3">Returns the next sibling element</td>
+                </tr>
+                <tr class="bg-gray-50 dark:bg-gray-800">
+                  <td class="px-4 py-3"><code>previousElementSibling</code></td>
+                  <td class="px-4 py-3">Returns the previous sibling element</td>
+                </tr>
+              </tbody>
+            </table>
+
+            <div class="bg-gray-50 dark:bg-gray-800 p-4 rounded-lg mb-4">
+              <pre><code>// Get next sibling node (including text nodes)
+const nextNode = element.nextSibling;
+
+// Get previous sibling node (including text nodes)
+const prevNode = element.previousSibling;
+
+// Get next sibling element (excluding text nodes)
+const nextElement = element.nextElementSibling;
+
+// Get previous sibling element (excluding text nodes)
+const prevElement = element.previousElementSibling;</code></pre>
+            </div>
+          </div>
+
+          <div id="child-navigation" class="mb-8">
+            <h3 class="text-2xl font-bold mb-2">Child Navigation</h3>
+            <p class="mb-3">Properties and methods to navigate to child elements:</p>
+
+            <table class="min-w-full border border-gray-300 dark:border-gray-700 mb-4">
+              <thead class="bg-gray-100 dark:bg-gray-800">
+                <tr>
+                  <th class="px-4 py-2 text-left">Property/Method</th>
+                  <th class="px-4 py-2 text-left">Description</th>
+                </tr>
+              </thead>
+              <tbody class="divide-y divide-gray-200 dark:divide-gray-700">
+                <tr class="bg-white dark:bg-gray-900">
+                  <td class="px-4 py-3"><code>childNodes</code></td>
+                  <td class="px-4 py-3">Returns a live NodeList of all child nodes</td>
+                </tr>
+                <tr class="bg-gray-50 dark:bg-gray-800">
+                  <td class="px-4 py-3"><code>children</code></td>
+                  <td class="px-4 py-3">Returns a live HTMLCollection of all child elements</td>
+                </tr>
+                <tr class="bg-white dark:bg-gray-900">
+                  <td class="px-4 py-3"><code>firstChild</code></td>
+                  <td class="px-4 py-3">Returns the first child node</td>
+                </tr>
+                <tr class="bg-gray-50 dark:bg-gray-800">
+                  <td class="px-4 py-3"><code>lastChild</code></td>
+                  <td class="px-4 py-3">Returns the last child node</td>
+                </tr>
+                <tr class="bg-white dark:bg-gray-900">
+                  <td class="px-4 py-3"><code>firstElementChild</code></td>
+                  <td class="px-4 py-3">Returns the first child element</td>
+                </tr>
+                <tr class="bg-gray-50 dark:bg-gray-800">
+                  <td class="px-4 py-3"><code>lastElementChild</code></td>
+                  <td class="px-4 py-3">Returns the last child element</td>
+                </tr>
+              </tbody>
+            </table>
+
+            <div class="bg-gray-50 dark:bg-gray-800 p-4 rounded-lg mb-4">
+              <pre><code>// Get all child nodes (including text nodes)
+const allChildNodes = element.childNodes;
+
+// Get all child elements (excluding text nodes)
+const allChildren = element.children;
+
+// Get first child node (including text nodes)
+const firstNode = element.firstChild;
+
+// Get last child node (including text nodes)
+const lastNode = element.lastChild;
+
+// Get first child element (excluding text nodes)
+const firstChildEl = element.firstElementChild;
+
+// Get last child element (excluding text nodes)
+const lastChildEl = element.lastElementChild;</code></pre>
+            </div>
+          </div>
+        </section>
+
+        <section id="dom-manipulation" class="mb-12">
+          <h2 class="text-3xl font-bold mb-4 text-primary">DOM Manipulation</h2>
+
+          <div id="creating-elements" class="mb-8">
+            <h3 class="text-2xl font-bold mb-2">Creating Elements</h3>
+            <p class="mb-3">Methods to create DOM elements:</p>
+
+            <table class="min-w-full border border-gray-300 dark:border-gray-700 mb-4">
+              <thead class="bg-gray-100 dark:bg-gray-800">
+                <tr>
+                  <th class="px-4 py-2 text-left">Method</th>
+                  <th class="px-4 py-2 text-left">Description</th>
+                </tr>
+              </thead>
+              <tbody class="divide-y divide-gray-200 dark:divide-gray-700">
+                <tr class="bg-white dark:bg-gray-900">
+                  <td class="px-4 py-3"><code>createElement()</code></td>
+                  <td class="px-4 py-3">Creates a new element node</td>
+                </tr>
+                <tr class="bg-gray-50 dark:bg-gray-800">
+                  <td class="px-4 py-3"><code>createTextNode()</code></td>
+                  <td class="px-4 py-3">Creates a new text node</td>
+                </tr>
+                <tr class="bg-white dark:bg-gray-900">
+                  <td class="px-4 py-3"><code>createDocumentFragment()</code></td>
+                  <td class="px-4 py-3">Creates a document fragment node</td>
+                </tr>
+              </tbody>
+            </table>
+
+            <div class="bg-gray-50 dark:bg-gray-800 p-4 rounded-lg mb-4">
+              <pre><code>// Create a new element
+const newDiv = document.createElement('div');
+
+// Create a text node
+const newText = document.createTextNode('Hello World');
+
+// Create a document fragment (for efficient DOM insertions)
+const fragment = document.createDocumentFragment();</code></pre>
+            </div>
+          </div>
+
+          <div id="modifying-elements" class="mb-8">
+            <h3 class="text-2xl font-bold mb-2">Modifying Elements</h3>
+            <p class="mb-3">Properties and methods to modify DOM elements:</p>
+
+            <table class="min-w-full border border-gray-300 dark:border-gray-700 mb-4">
+              <thead class="bg-gray-100 dark:bg-gray-800">
+                <tr>
+                  <th class="px-4 py-2 text-left">Property/Method</th>
+                  <th class="px-4 py-2 text-left">Description</th>
+                </tr>
+              </thead>
+              <tbody class="divide-y divide-gray-200 dark:divide-gray-700">
+                <tr class="bg-white dark:bg-gray-900">
+                  <td class="px-4 py-3"><code>innerHTML</code></td>
+                  <td class="px-4 py-3">Gets or sets the HTML content of an element</td>
+                </tr>
+                <tr class="bg-gray-50 dark:bg-gray-800">
+                  <td class="px-4 py-3"><code>textContent</code></td>
+                  <td class="px-4 py-3">Gets or sets the text content of an element and all its descendants</td>
+                </tr>
+                <tr class="bg-white dark:bg-gray-900">
+                  <td class="px-4 py-3"><code>innerText</code></td>
+                  <td class="px-4 py-3">Gets or sets the visible text content of an element</td>
+                </tr>
+                <tr class="bg-gray-50 dark:bg-gray-800">
+                  <td class="px-4 py-3"><code>outerHTML</code></td>
+                  <td class="px-4 py-3">Gets or sets the HTML including the element itself</td>
+                </tr>
+              </tbody>
+            </table>
+
+            <div class="bg-gray-50 dark:bg-gray-800 p-4 rounded-lg mb-4">
+              <pre><code>// Set HTML content (parses HTML)
+element.innerHTML = '<span>New content</span>';
+
+// Set text content (no HTML parsing)
+element.textContent = 'New text content';
+
+// Set visible text content
+element.innerText = 'New visible text';
+
+// Replace the element and its content
+element.outerHTML = '<div class="new">Replacement</div>';</code></pre>
+            </div>
+          </div>
+
+          <div id="inserting-elements" class="mb-8">
+            <h3 class="text-2xl font-bold mb-2">Inserting Elements</h3>
+            <p class="mb-3">Methods to insert elements into the DOM:</p>
+
+            <table class="min-w-full border border-gray-300 dark:border-gray-700 mb-4">
+              <thead class="bg-gray-100 dark:bg-gray-800">
+                <tr>
+                  <th class="px-4 py-2 text-left">Method</th>
+                  <th class="px-4 py-2 text-left">Description</th>
+                </tr>
+              </thead>
+              <tbody class="divide-y divide-gray-200 dark:divide-gray-700">
+                <tr class="bg-white dark:bg-gray-900">
+                  <td class="px-4 py-3"><code>appendChild()</code></td>
+                  <td class="px-4 py-3">Adds a node as the last child of a node</td>
+                </tr>
+                <tr class="bg-gray-50 dark:bg-gray-800">
+                  <td class="px-4 py-3"><code>insertBefore()</code></td>
+                  <td class="px-4 py-3">Inserts a node before a reference node as a child of a specified parent node</td>
+                </tr>
+                <tr class="bg-white dark:bg-gray-900">
+                  <td class="px-4 py-3"><code>append()</code></td>
+                  <td class="px-4 py-3">Inserts nodes or text after the last child of the element</td>
+                </tr>
+                <tr class="bg-gray-50 dark:bg-gray-800">
+                  <td class="px-4 py-3"><code>prepend()</code></td>
+                  <td class="px-4 py-3">Inserts nodes or text before the first child of the element</td>
+                </tr>
+                <tr class="bg-white dark:bg-gray-900">
+                  <td class="px-4 py-3"><code>after()</code></td>
+                  <td class="px-4 py-3">Inserts nodes or text after the element</td>
+                </tr>
+                <tr class="bg-gray-50 dark:bg-gray-800">
+                  <td class="px-4 py-3"><code>before()</code></td>
+                  <td class="px-4 py-3">Inserts nodes or text before the element</td>
+                </tr>
+                <tr class="bg-white dark:bg-gray-900">
+                  <td class="px-4 py-3"><code>insertAdjacentElement()</code></td>
+                  <td class="px-4 py-3">Inserts an element at a specified position relative to the element</td>
+                </tr>
+                <tr class="bg-gray-50 dark:bg-gray-800">
+                  <td class="px-4 py-3"><code>insertAdjacentHTML()</code></td>
+                  <td class="px-4 py-3">Parses HTML and inserts it at a specified position relative to the element</td>
+                </tr>
+                <tr class="bg-white dark:bg-gray-900">
+                  <td class="px-4 py-3"><code>insertAdjacentText()</code></td>
+                  <td class="px-4 py-3">Inserts text at a specified position relative to the element</td>
+                </tr>
+              </tbody>
+            </table>
+
+            <div class="bg-gray-50 dark:bg-gray-800 p-4 rounded-lg mb-4">
+              <pre><code>// Append a child to an element
+parentElement.appendChild(newElement);
+
+// Insert before a specific child
+parentElement.insertBefore(newElement, referenceElement);
+
+// Append multiple nodes and strings (newer method)
+element.append(textNode, newElement, 'Text string');
+
+// Prepend multiple nodes and strings (newer method)
+element.prepend('First child', newElement);
+
+// Insert after element (newer method)
+element.after(newElement, 'Text after');
+
+// Insert before element (newer method)
+element.before('Text before', newElement);
+
+// Insert at specific positions
+element.insertAdjacentElement('beforebegin', newElement); // Before the element
+element.insertAdjacentElement('afterbegin', newElement);  // Inside, before first child
+element.insertAdjacentElement('beforeend', newElement);   // Inside, after last child
+element.insertAdjacentElement('afterend', newElement);    // After the element
+
+// Insert HTML at specific positions
+element.insertAdjacentHTML('beforeend', '<div>New HTML</div>');</code></pre>
+            </div>
+          </div>
+
+          <div id="removing-elements" class="mb-8">
+            <h3 class="text-2xl font-bold mb-2">Removing Elements</h3>
+            <p class="mb-3">Methods to remove elements from the DOM:</p>
+
+            <table class="min-w-full border border-gray-300 dark:border-gray-700 mb-4">
+              <thead class="bg-gray-100 dark:bg-gray-800">
+                <tr>
+                  <th class="px-4 py-2 text-left">Method</th>
+                  <th class="px-4 py-2 text-left">Description</th>
+                </tr>
+              </thead>
+              <tbody class="divide-y divide-gray-200 dark:divide-gray-700">
+                <tr class="bg-white dark:bg-gray-900">
+                  <td class="px-4 py-3"><code>removeChild()</code></td>
+                  <td class="px-4 py-3">Removes a child node from the DOM and returns the removed node</td>
+                </tr>
+                <tr class="bg-gray-50 dark:bg-gray-800">
+                  <td class="px-4 py-3"><code>remove()</code></td>
+                  <td class="px-4 py-3">Removes the element from the DOM</td>
+                </tr>
+                <tr class="bg-white dark:bg-gray-900">
+                  <td class="px-4 py-3"><code>replaceChild()</code></td>
+                  <td class="px-4 py-3">Replaces a child node with a new node</td>
+                </tr>
+                <tr class="bg-gray-50 dark:bg-gray-800">
+                  <td class="px-4 py-3"><code>replaceWith()</code></td>
+                  <td class="px-4 py-3">Replaces the element with new nodes or strings</td>
+                </tr>
+              </tbody>
+            </table>
+
+            <div class="bg-gray-50 dark:bg-gray-800 p-4 rounded-lg mb-4">
+              <pre><code>// Remove a child element (older method)
+const removedElement = parentElement.removeChild(childElement);
+
+// Remove element directly (newer method)
+element.remove();
+
+// Replace a child node (older method)
+parentElement.replaceChild(newElement, oldElement);
+
+// Replace element with new content (newer method)
+element.replaceWith(newElement, 'Text content');</code></pre>
+            </div>
+          </div>
+        </section>
+
+        <section id="attributes-properties" class="mb-12">
+          <h2 class="text-3xl font-bold mb-4 text-primary">Attributes & Properties</h2>
+
+          <div id="working-with-attributes" class="mb-8">
+            <h3 class="text-2xl font-bold mb-2">Working with Attributes</h3>
+            <p class="mb-3">Methods to manipulate HTML attributes:</p>
+
+            <table class="min-w-full border border-gray-300 dark:border-gray-700 mb-4">
+              <thead class="bg-gray-100 dark:bg-gray-800">
+                <tr>
+                  <th class="px-4 py-2 text-left">Method</th>
+                  <th class="px-4 py-2 text-left">Description</th>
+                </tr>
+              </thead>
+              <tbody class="divide-y divide-gray-200 dark:divide-gray-700">
+                <tr class="bg-white dark:bg-gray-900">
+                  <td class="px-4 py-3"><code>getAttribute()</code></td>
+                  <td class="px-4 py-3">Gets the value of an attribute</td>
+                </tr>
+                <tr class="bg-gray-50 dark:bg-gray-800">
+                  <td class="px-4 py-3"><code>setAttribute()</code></td>
+                  <td class="px-4 py-3">Sets the value of an attribute</td>
+                </tr>
+                <tr class="bg-white dark:bg-gray-900">
+                  <td class="px-4 py-3"><code>removeAttribute()</code></td>
+                  <td class="px-4 py-3">Removes an attribute</td>
+                </tr>
+                <tr class="bg-gray-50 dark:bg-gray-800">
+                  <td class="px-4 py-3"><code>hasAttribute()</code></td>
+                  <td class="px-4 py-3">Checks if an element has a specified attribute</td>
+                </tr>
+                <tr class="bg-white dark:bg-gray-900">
+                  <td class="px-4 py-3"><code>attributes</code></td>
+                  <td class="px-4 py-3">Returns a live collection of all attributes</td>
+                </tr>
+                <tr class="bg-gray-50 dark:bg-gray-800">
+                  <td class="px-4 py-3"><code>dataset</code></td>
+                  <td class="px-4 py-3">Access to all data-* attributes</td>
+                </tr>
+              </tbody>
+            </table>
+
+            <div class="bg-gray-50 dark:bg-gray-800 p-4 rounded-lg mb-4">
+              <pre><code>// Get attribute value
+const href = element.getAttribute('href');
+
+// Set attribute value
+element.setAttribute('title', 'New tooltip text');
+
+// Remove attribute
+element.removeAttribute('disabled');
+
+// Check if attribute exists
+if (element.hasAttribute('data-id')) {
+    // Do something
+}
+
+// Access all attributes
+for (const attr of element.attributes) {
+    console.log(`${attr.name}: ${attr.value}`);
+}
+
+// Working with data attributes
+// <div data-user-id="123" data-role="admin">...</div>
+const userId = element.dataset.userId; // Access data-user-id
+element.dataset.status = 'active';     // Sets data-status="active"</code></pre>
+            </div>
+          </div>
+
+          <div id="working-with-properties" class="mb-8">
+            <h3 class="text-2xl font-bold mb-2">Working with Properties</h3>
+            <p class="mb-3">Common DOM element properties:</p>
+
+            <table class="min-w-full border border-gray-300 dark:border-gray-700 mb-4">
+              <thead class="bg-gray-100 dark:bg-gray-800">
+                <tr>
+                  <th class="px-4 py-2 text-left">Property</th>
+                  <th class="px-4 py-2 text-left">Description</th>
+                </tr>
+              </thead>
+              <tbody class="divide-y divide-gray-200 dark:divide-gray-700">
+                <tr class="bg-white dark:bg-gray-900">
+                  <td class="px-4 py-3"><code>id</code></td>
+                  <td class="px-4 py-3">Gets or sets the element's id</td>
+                </tr>
+                <tr class="bg-gray-50 dark:bg-gray-800">
+                  <td class="px-4 py-3"><code>className</code></td>
+                  <td class="px-4 py-3">Gets or sets the class attribute</td>
+                </tr>
+                <tr class="bg-white dark:bg-gray-900">
+                  <td class="px-4 py-3"><code>classList</code></td>
+                  <td class="px-4 py-3">Returns a DOMTokenList with the classes</td>
+                </tr>
+                <tr class="bg-gray-50 dark:bg-gray-800">
+                  <td class="px-4 py-3"><code>value</code></td>
+                  <td class="px-4 py-3">Gets or sets the value of form elements</td>
+                </tr>
+                <tr class="bg-white dark:bg-gray-900">
+                  <td class="px-4 py-3"><code>checked</code></td>
+                  <td class="px-4 py-3">Gets or sets the checked state of checkbox/radio</td>
+                </tr>
+                <tr class="bg-gray-50 dark:bg-gray-800">
+                  <td class="px-4 py-3"><code>disabled</code></td>
+                  <td class="px-4 py-3">Gets or sets the disabled state</td>
+                </tr>
+              </tbody>
+            </table>
+
+            <div class="bg-gray-50 dark:bg-gray-800 p-4 rounded-lg mb-4">
+              <pre><code>// Manipulating element properties
+element.id = 'newId';
+element.className = 'btn primary';
+element.hidden = true;
+
+// Form element properties
+const input = document.querySelector('input[type="text"]');
+input.value = 'New value';
+input.placeholder = 'Enter text...';
+input.readOnly = true;
+
+// Checkbox/radio properties
+const checkbox = document.querySelector('input[type="checkbox"]');
+checkbox.checked = true;
+checkbox.disabled = false;
+
+// Select element
+const select = document.querySelector('select');
+select.selectedIndex = 2;
+const selectedValue = select.value;
+const selectedOption = select.options[select.selectedIndex];</code></pre>
+            </div>
+          </div>
+        </section>
+
+        <section id="styles-classes" class="mb-12">
+          <h2 class="text-3xl font-bold mb-4 text-primary">Styles & Classes</h2>
+
+          <div id="manipulating-classes" class="mb-8">
+            <h3 class="text-2xl font-bold mb-2">Manipulating Classes</h3>
+            <p class="mb-3">Methods to work with CSS classes:</p>
+
+            <table class="min-w-full border border-gray-300 dark:border-gray-700 mb-4">
+              <thead class="bg-gray-100 dark:bg-gray-800">
+                <tr>
+                  <th class="px-4 py-2 text-left">Method</th>
+                  <th class="px-4 py-2 text-left">Description</th>
+                </tr>
+              </thead>
+              <tbody class="divide-y divide-gray-200 dark:divide-gray-700">
+                <tr class="bg-white dark:bg-gray-900">
+                  <td class="px-4 py-3"><code>classList.add()</code></td>
+                  <td class="px-4 py-3">Adds one or more classes</td>
+                </tr>
+                <tr class="bg-gray-50 dark:bg-gray-800">
+                  <td class="px-4 py-3"><code>classList.remove()</code></td>
+                  <td class="px-4 py-3">Removes one or more classes</td>
+                </tr>
+                <tr class="bg-white dark:bg-gray-900">
+                  <td class="px-4 py-3"><code>classList.toggle()</code></td>
+                  <td class="px-4 py-3">Toggles a class (adds if absent, removes if present)</td>
+                </tr>
+                <tr class="bg-gray-50 dark:bg-gray-800">
+                  <td class="px-4 py-3"><code>classList.contains()</code></td>
+                  <td class="px-4 py-3">Checks if an element has a specific class</td>
+                </tr>
+                <tr class="bg-white dark:bg-gray-900">
+                  <td class="px-4 py-3"><code>classList.replace()</code></td>
+                  <td class="px-4 py-3">Replaces one class with another</td>
+                </tr>
+              </tbody>
+            </table>
+
+            <div class="bg-gray-50 dark:bg-gray-800 p-4 rounded-lg mb-4">
+              <pre><code>// Add classes
+element.classList.add('active', 'visible');
+
+// Remove classes
+element.classList.remove('hidden', 'disabled');
+
+// Toggle class (second parameter forces state if provided)
+element.classList.toggle('expanded'); // Toggle
+element.classList.toggle('selected', isSelected); // Add if isSelected is true
+
+// Check if element has a class
+if (element.classList.contains('active')) {
+    // Element has 'active' class
+}
+
+// Replace class
+element.classList.replace('btn-default', 'btn-primary');</code></pre>
+            </div>
+          </div>
+
+          <div id="manipulating-styles" class="mb-8">
+            <h3 class="text-2xl font-bold mb-2">Manipulating Styles</h3>
+            <p class="mb-3">Methods and properties to manipulate CSS styles:</p>
+
+            <table class="min-w-full border border-gray-300 dark:border-gray-700 mb-4">
+              <thead class="bg-gray-100 dark:bg-gray-800">
+                <tr>
+                  <th class="px-4 py-2 text-left">Property/Method</th>
+                  <th class="px-4 py-2 text-left">Description</th>
+                </tr>
+              </thead>
+              <tbody class="divide-y divide-gray-200 dark:divide-gray-700">
+                <tr class="bg-white dark:bg-gray-900">
+                  <td class="px-4 py-3"><code>style</code></td>
+                  <td class="px-4 py-3">Object to get or set inline CSS properties</td>
+                </tr>
+                <tr class="bg-gray-50 dark:bg-gray-800">
+                  <td class="px-4 py-3"><code>getComputedStyle()</code></td>
+                  <td class="px-4 py-3">Returns the computed style of an element</td>
+                </tr>
+                <tr class="bg-white dark:bg-gray-900">
+                  <td class="px-4 py-3"><code>style.setProperty()</code></td>
+                  <td class="px-4 py-3">Sets a CSS custom property on an element</td>
+                </tr>
+                <tr class="bg-gray-50 dark:bg-gray-800">
+                  <td class="px-4 py-3"><code>style.getPropertyValue()</code></td>
+                  <td class="px-4 py-3">Gets the value of a CSS property</td>
+                </tr>
+                <tr class="bg-white dark:bg-gray-900">
+                  <td class="px-4 py-3"><code>style.removeProperty()</code></td>
+                  <td class="px-4 py-3">Removes a CSS property</td>
+                </tr>
+              </tbody>
+            </table>
+
+            <div class="bg-gray-50 dark:bg-gray-800 p-4 rounded-lg mb-4">
+              <pre><code>// Set individual inline styles
+element.style.color = 'blue';
+element.style.backgroundColor = 'yellow'; // Note: camelCase for CSS properties
+element.style.fontSize = '16px';
+
+// Set multiple styles at once
+Object.assign(element.style, {
+    color: 'white',
+    backgroundColor: 'black',
+    padding: '10px'
+});
+
+// Get computed styles (actual rendered styles including CSS rules)
+const computedStyle = window.getComputedStyle(element);
+const fontSize = computedStyle.fontSize;
+const display = computedStyle.getPropertyValue('display');
+
+// CSS custom properties (variables)
+element.style.setProperty('--main-color', '#5D5CDE');
+const mainColor = element.style.getPropertyValue('--main-color');
+element.style.removeProperty('--main-color');</code></pre>
+            </div>
+          </div>
+        </section>
+
+        <section id="events" class="mb-12">
+          <h2 class="text-3xl font-bold mb-4 text-primary">DOM Events</h2>
+
+          <div id="event-listeners" class="mb-8">
+            <h3 class="text-2xl font-bold mb-2">Event Listeners</h3>
+            <p class="mb-3">Methods to handle DOM events:</p>
+
+            <table class="min-w-full border border-gray-300 dark:border-gray-700 mb-4">
+              <thead class="bg-gray-100 dark:bg-gray-800">
+                <tr>
+                  <th class="px-4 py-2 text-left">Method</th>
+                  <th class="px-4 py-2 text-left">Description</th>
+                </tr>
+              </thead>
+              <tbody class="divide-y divide-gray-200 dark:divide-gray-700">
+                <tr class="bg-white dark:bg-gray-900">
+                  <td class="px-4 py-3"><code>addEventListener()</code></td>
+                  <td class="px-4 py-3">Attaches an event handler to an element</td>
+                </tr>
+                <tr class="bg-gray-50 dark:bg-gray-800">
+                  <td class="px-4 py-3"><code>removeEventListener()</code></td>
+                  <td class="px-4 py-3">Removes an event handler</td>
+                </tr>
+                <tr class="bg-white dark:bg-gray-900">
+                  <td class="px-4 py-3"><code>dispatchEvent()</code></td>
+                  <td class="px-4 py-3">Dispatches an event manually</td>
+                </tr>
+              </tbody>
+            </table>
+
+            <div class="bg-gray-50 dark:bg-gray-800 p-4 rounded-lg mb-4">
+              <pre><code>// Add event listener
+element.addEventListener('click', function(event) {
+    console.log('Element clicked!');
+});
+
+// Using an arrow function
+element.addEventListener('mouseover', (event) => {
+    console.log('Mouse over!');
+});
+
+// With options object
+element.addEventListener('scroll', handleScroll, { 
+    passive: true,    // Improves scrolling performance
+    once: true,       // Auto-removes listener after first call
+    capture: false    // Event phase
+});
+
+// Named function for event handling (allows removal)
+function handleClick(event) {
+    console.log('Clicked!');
+}
+element.addEventListener('click', handleClick);
+
+// Remove event listener
+element.removeEventListener('click', handleClick);
+
+// Create and dispatch custom event
+const customEvent = new CustomEvent('myEvent', {
+    bubbles: true,
+    detail: { key: 'value' }
+});
+element.dispatchEvent(customEvent);</code></pre>
+            </div>
+          </div>
+
+          <div id="event-object" class="mb-8">
+            <h3 class="text-2xl font-bold mb-2">Event Object</h3>
+            <p class="mb-3">Properties and methods of the event object:</p>
+
+            <table class="min-w-full border border-gray-300 dark:border-gray-700 mb-4">
+              <thead class="bg-gray-100 dark:bg-gray-800">
+                <tr>
+                  <th class="px-4 py-2 text-left">Property/Method</th>
+                  <th class="px-4 py-2 text-left">Description</th>
+                </tr>
+              </thead>
+              <tbody class="divide-y divide-gray-200 dark:divide-gray-700">
+                <tr class="bg-white dark:bg-gray-900">
+                  <td class="px-4 py-3"><code>target</code></td>
+                  <td class="px-4 py-3">Element that triggered the event</td>
+                </tr>
+                <tr class="bg-gray-50 dark:bg-gray-800">
+                  <td class="px-4 py-3"><code>currentTarget</code></td>
+                  <td class="px-4 py-3">Element that the event listener is attached to</td>
+                </tr>
+                <tr class="bg-white dark:bg-gray-900">
+                  <td class="px-4 py-3"><code>preventDefault()</code></td>
+                  <td class="px-4 py-3">Prevents the default action</td>
+                </tr>
+                <tr class="bg-gray-50 dark:bg-gray-800">
+                  <td class="px-4 py-3"><code>stopPropagation()</code></td>
+                  <td class="px-4 py-3">Stops the event from bubbling/capturing</td>
+                </tr>
+                <tr class="bg-white dark:bg-gray-900">
+                  <td class="px-4 py-3"><code>type</code></td>
+                  <td class="px-4 py-3">Type of event (e.g., "click")</td>
+                </tr>
+                <tr class="bg-gray-50 dark:bg-gray-800">
+                  <td class="px-4 py-3"><code>eventPhase</code></td>
+                  <td class="px-4 py-3">Current phase of event flow (capturing=1, target=2, bubbling=3)</td>
+                </tr>
+                <tr class="bg-white dark:bg-gray-900">
+                  <td class="px-4 py-3"><code>timeStamp</code></td>
+                  <td class="px-4 py-3">Time when the event was created</td>
+                </tr>
+                <tr class="bg-gray-50 dark:bg-gray-800">
+                  <td class="px-4 py-3"><code>clientX/clientY</code></td>
+                  <td class="px-4 py-3">Mouse position relative to the viewport (mouse events)</td>
+                </tr>
+                <tr class="bg-white dark:bg-gray-900">
+                  <td class="px-4 py-3"><code>key/code</code></td>
+                  <td class="px-4 py-3">Key information (keyboard events)</td>
+                </tr>
+              </tbody>
+            </table>
+
+            <div class="bg-gray-50 dark:bg-gray-800 p-4 rounded-lg mb-4">
+              <pre><code>// Working with the event object
+element.addEventListener('click', (event) => {
+    // Prevent default behavior (e.g., for links)
+    event.preventDefault();
+    
+    // Stop event propagation
+    event.stopPropagation();
+    
+    // Get the element that was actually clicked
+    const clickedElement = event.target;
+    
+    // The element the listener is attached to
+    const listenerElement = event.currentTarget;
+    
+    // For mouse events, get coordinates
+    const x = event.clientX;
+    const y = event.clientY;
+    
+    // Get key information for keyboard events
+    document.addEventListener('keydown', (event) => {
+        console.log(`Key pressed: ${event.key}`);
+        console.log(`Key code: ${event.code}`);
+        
+        // Check for specific keys
+        if (event.key === 'Enter') {
+            // Do something
+        }
+        
+        // Check for modifier keys
+        if (event.ctrlKey && event.key === 's') {
+            event.preventDefault(); // Prevent browser save dialog
+            // Handle Ctrl+S
+        }
+    });
+});</code></pre>
+            </div>
+          </div>
+
+          <div id="event-delegation" class="mb-8">
+            <h3 class="text-2xl font-bold mb-2">Event Delegation</h3>
+            <p class="mb-3">Pattern to handle events for multiple elements with a single listener:</p>
+
+            <div class="bg-gray-50 dark:bg-gray-800 p-4 rounded-lg mb-4">
+              <pre><code>// Event delegation pattern
+// Instead of adding event listeners to multiple buttons:
+document.getElementById('container').addEventListener('click', (event) => {
+    // Check if the clicked element is a button
+    if (event.target.matches('button')) {
+        // Handle button click
+        console.log('Button clicked:', event.target.textContent);
+        
+        // Get data attributes
+        const id = event.target.dataset.id;
+        const action = event.target.dataset.action;
+        
+        // Perform actions based on button attributes
+        if (action === 'edit') {
+            editItem(id);
+        } else if (action === 'delete') {
+            deleteItem(id);
+        }
+    }
+});</code></pre>
+            </div>
+
+            <p class="mt-3">Advantages of event delegation:</p>
+            <ul class="list-disc pl-5 mt-2 mb-4 space-y-1">
+              <li>Memory-efficient for large number of elements</li>
+              <li>Works for dynamically added elements</li>
+              <li>Less code to manage</li>
+              <li>No need to add/remove listeners when elements are added/removed</li>
+            </ul>
+          </div>
+        </section>
+      </main>
+    </div>
+  </div>
+<script>
+
+// Set up dark mode
+if (
+  window.matchMedia &&
+  window.matchMedia("(prefers-color-scheme: dark)").matches
+) {
+  document.documentElement.classList.add("dark");
+}
+window
+  .matchMedia("(prefers-color-scheme: dark)")
+  .addEventListener("change", (event) => {
+    if (event.matches) {
+      document.documentElement.classList.add("dark");
+    } else {
+      document.documentElement.classList.remove("dark");
+    }
+  });
+// Dark mode toggle
+document.getElementById("theme-toggle").addEventListener("click", () => {
+  document.documentElement.classList.toggle("dark");
+});
+// Search functionality
+document.addEventListener("DOMContentLoaded", () => {
+  const searchInput = document.getElementById("search-input");
+  const searchResults = document.getElementById("search-results");
+  const searchButton = document.getElementById("search-button");
+  const contentElements = document.querySelectorAll(
+    "main section h2, main section h3, main section p, main section pre, main table tbody tr td:nth-child(1)"
+  );
+  // Create the search index for efficient searching
+  const searchIndex = new Map();
+  // Hash function for text normalization and indexing
+  function hashText(text) {
+    return text
+      .toLowerCase()
+      .replace(/[^\w\s]/g, "") // Remove punctuation
+      .replace(/\s+/g, " ") // Normalize whitespace
+      .trim();
+  }
+  // Build the search index
+  contentElements.forEach((element, index) => {
+    const text = element.textContent;
+    const hashedText = hashText(text);
+    // Skip very short text
+    if (hashedText.length < 3) return;
+    // Store the element with the text for retrieval
+    searchIndex.set(hashedText, {
+      element,
+      originalText: text,
+      index
+    });
+    // Also index words individually for better matching
+    const words = hashedText.split(" ");
+    words.forEach((word) => {
+      if (word.length > 3) {
+        if (!searchIndex.has(word)) {
+          searchIndex.set(word, []);
+        }
+        if (Array.isArray(searchIndex.get(word))) {
+          searchIndex.get(word).push({
+            element,
+            originalText: text,
+            index
+          });
+        }
+      }
+    });
+  });
+  // Search function
+  function performSearch(query) {
+    const results = [];
+    const seenElements = new Set();
+    const normalizedQuery = hashText(query);
+    if (normalizedQuery.length < 2) return results;
+    // Exact matches first
+    if (
+      searchIndex.has(normalizedQuery) &&
+      !Array.isArray(searchIndex.get(normalizedQuery))
+    ) {
+      const result = searchIndex.get(normalizedQuery);
+      results.push(result);
+      seenElements.add(result.element);
+    }
+    // Partial matches
+    searchIndex.forEach((value, key) => {
+      if (key.includes(normalizedQuery)) {
+        if (Array.isArray(value)) {
+          value.forEach((item) => {
+            if (!seenElements.has(item.element)) {
+              results.push(item);
+              seenElements.add(item.element);
+            }
+          });
+        } else if (!seenElements.has(value.element)) {
+          results.push(value);
+          seenElements.add(value.element);
+        }
+      }
+    });
+    // Sort by relevance (exact matches first, then by original order)
+    results.sort((a, b) => {
+      const aExact = hashText(a.originalText) === normalizedQuery;
+      const bExact = hashText(b.originalText) === normalizedQuery;
+      if (aExact && !bExact) return -1;
+      if (!aExact && bExact) return 1;
+      return a.index - b.index;
+    });
+    return results.slice(0, 10); // Limit to 10 results
+  }
+  // Display search results
+  function displayResults(results) {
+    searchResults.innerHTML = "";
+    if (results.length === 0) {
+      searchResults.innerHTML =
+        '<div class="p-3 text-gray-500 dark:text-gray-400">No results found</div>';
+      return;
+    }
+    results.forEach((result) => {
+      const div = document.createElement("div");
+      div.className =
+        "p-3 border-b border-gray-200 dark:border-gray-700 hover:bg-gray-100 dark:hover:bg-gray-700 cursor-pointer";
+      let displayText = result.originalText;
+      if (displayText.length > 100) {
+        displayText = displayText.substring(0, 100) + "...";
+      }
+      div.textContent = displayText;
+      div.addEventListener("click", () => {
+        // Scroll to the element
+        result.element.scrollIntoView({
+          behavior: "smooth"
+        });
+        // Highlight the element temporarily
+        result.element.classList.add("search-result");
+        setTimeout(() => {
+          result.element.classList.remove("search-result");
+        }, 2000);
+        // Hide search results
+        searchResults.style.display = "none";
+        searchInput.value = "";
+      });
+      searchResults.appendChild(div);
+    });
+  }
+  // Search input event handler
+  searchInput.addEventListener("input", () => {
+    const query = searchInput.value.trim();
+    if (query.length < 2) {
+      searchResults.style.display = "none";
+      return;
+    }
+    const results = performSearch(query);
+    displayResults(results);
+    searchResults.style.display = "block";
+  });
+  // Handle search button click
+  searchButton.addEventListener("click", () => {
+    const query = searchInput.value.trim();
+    if (query.length < 2) {
+      return;
+    }
+    const results = performSearch(query);
+    displayResults(results);
+    searchResults.style.display = "block";
+  });
+  // Hide search results when clicking outside
+  document.addEventListener("click", (event) => {
+    if (
+      !searchInput.contains(event.target) &&
+      !searchResults.contains(event.target) &&
+      !searchButton.contains(event.target)
+    ) {
+      searchResults.style.display = "none";
+    }
+  });
+  // Handle Enter key in search input
+  searchInput.addEventListener("keydown", (event) => {
+    if (event.key === "Enter") {
+      const query = searchInput.value.trim();
+      if (query.length < 2) {
+        return;
+      }
+      const results = performSearch(query);
+      if (results.length > 0) {
+        // Navigate to the first result
+        results[0].element.scrollIntoView({
+          behavior: "smooth"
+        });
+        results[0].element.classList.add("search-result");
+        setTimeout(() => {
+          results[0].element.classList.remove("search-result");
+        }, 2000);
+        searchResults.style.display = "none";
+      }
+    }
+  });
+});
+
+  
+</script>
+</body>
