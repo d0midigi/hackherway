@@ -1,0 +1,2604 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>hackherway cyberspace</title>
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<style>
+@import url("https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap");
+
+:root {
+  --primary: #5d5cde;
+  --secondary: #8281e8;
+  --accent: #3a3a9e;
+  --pink: #fe0942;
+  --pink-light: #ea3680;
+}
+
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 5rem;
+}
+
+.dark {
+  --color-bg: #181818;
+  --color-text: #f3f4f6;
+  --color-border: #374151;
+}
+
+body {
+  font-family: "Open Sans", sans-serif;
+  transition: background-color 0.3s, color 0.3s;
+  font-size: 1.1rem;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  min-height: 100vh;
+}
+
+.light {
+  --color-bg: #ffffff;
+  --color-text: #000;
+  --color-border: #e5e7eb;
+}
+
+/* Main container styling */
+/* Main content wrapper - EXCLUDES the bubble animation */
+body > div:not(.bg-animation) {
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(10px);
+  border-radius: 20px;
+  margin: 1rem;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+  position: relative;
+  z-index: 1;
+}
+
+.dark body > div:not(.bg-animation) {
+  background: rgba(24, 24, 24, 0.95);
+}
+.dark body > div {
+  background: rgba(24, 24, 24, 0.95);
+}
+
+code {
+  font-family: "Fira Code", monospace;
+  background-color: rgba(93, 92, 222, 0.1);
+  border-radius: 4px;
+  padding: 0.1em 0.3em;
+}
+
+pre code {
+  background-color: transparent;
+  padding: 0;
+}
+
+pre {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  border-radius: 12px;
+  padding: 1.5em;
+  overflow-x: auto;
+  box-shadow: 0 10px 30px rgba(102, 126, 234, 0.3);
+}
+
+mark {
+  background-color: rgba(255, 213, 0, 0.4);
+  padding: 0 0.2em;
+  border-radius: 2px;
+}
+
+.search-result {
+  animation: highlight 2s ease-in-out;
+}
+
+@keyframes highlight {
+  0% {
+    background-color: rgba(93, 92, 222, 0.2);
+  }
+  100% {
+    background-color: transparent;
+  }
+}
+
+/* ==========================================
+   SIDEBAR - FIXED
+   ========================================== */
+
+.table-of-contents {
+  width: 100%;
+}
+
+.table-of-contents > ul {
+  list-style: none !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  width: 100%;
+}
+
+.table-of-contents > ul > li {
+  list-style: none !important;
+  margin: 0 0 0.5rem 0 !important;
+  padding: 0 !important;
+  width: 100%;
+}
+
+.table-of-contents a {
+  font-family: "Open Sans", sans-serif;
+  font-size: 0.95rem;
+  font-weight: 600 !important;
+  text-decoration: none;
+  transition: all 0.2s ease;
+}
+
+.table-of-contents > ul > li > a {
+  display: block;
+  padding: 0.75rem 1rem;
+  color: var(--color-text, #1f2937);
+  border-radius: 8px;
+}
+
+.table-of-contents > ul > li > a:hover {
+  background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+  color: white !important;
+  transform: translateX(4px);
+}
+
+/* Sidebar Dropdown Container */
+.sidebar-dropdown {
+  width: 100% !important;
+  max-width: 100% !important;
+  margin-bottom: 0.5rem;
+}
+
+.sidebar-dropdown details {
+  background: linear-gradient(
+    135deg,
+    rgba(93, 92, 222, 0.05) 0%,
+    rgba(130, 129, 232, 0.05) 100%
+  );
+  border: 1px solid var(--color-border, #e5e7eb);
+  border-radius: 10px;
+  overflow: hidden;
+  transition: all 0.3s ease;
+}
+
+.sidebar-dropdown details[open] {
+  box-shadow: 0 8px 25px rgba(93, 92, 222, 0.15);
+  border-color: var(--primary);
+  background: linear-gradient(
+    135deg,
+    rgba(93, 92, 222, 0.08) 0%,
+    rgba(130, 129, 232, 0.08) 100%
+  );
+}
+
+.sidebar-dropdown summary {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.85rem 1rem;
+  font-weight: 600;
+  font-size: 0.9rem;
+  color: var(--color-text, #1f2937);
+  cursor: pointer;
+  list-style: none;
+  user-select: none;
+  transition: all 0.2s ease;
+}
+
+.sidebar-dropdown summary::-webkit-details-marker {
+  display: none;
+}
+
+.sidebar-dropdown summary:hover {
+  color: var(--primary);
+}
+
+.sidebar-dropdown summary .dropdown-arrow {
+  font-size: 0.7rem;
+  color: #9ca3af;
+  transition: transform 0.3s ease;
+}
+
+.sidebar-dropdown details[open] summary .dropdown-arrow {
+  transform: rotate(180deg);
+  color: var(--primary);
+}
+
+/* Inner menu link items - NO BULLETS */
+.sidebar-dropdown .dropdown-menu {
+  list-style: none !important;
+  margin: 0 !important;
+  padding: 0.5rem 0 !important;
+  background: rgba(255, 255, 255, 0.5);
+  border-top: 1px solid var(--color-border, #e5e7eb);
+}
+
+.dark .sidebar-dropdown .dropdown-menu {
+  background: rgba(0, 0, 0, 0.2);
+}
+
+.sidebar-dropdown .dropdown-menu li {
+  list-style: none !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  position: relative;
+}
+
+.sidebar-dropdown .dropdown-menu li::before,
+.sidebar-dropdown .dropdown-menu li::after {
+  display: none !important;
+  content: none !important;
+}
+
+.sidebar-dropdown .dropdown-menu a {
+  display: block;
+  padding: 0.6rem 1rem 0.6rem 1.5rem;
+  font-size: 0.85rem;
+  text-decoration: none;
+  font-weight: 500;
+  color: var(--color-text, #4b5563) !important;
+  transition: all 0.2s ease;
+  position: relative;
+}
+
+.sidebar-dropdown .dropdown-menu a::before {
+  content: "";
+  position: absolute;
+  left: 0.75rem;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: var(--secondary);
+  opacity: 0;
+  transition: opacity 0.2s ease;
+}
+
+.sidebar-dropdown .dropdown-menu a:hover {
+  background: linear-gradient(90deg, var(--primary) 0%, var(--secondary) 100%);
+  color: white !important;
+  padding-left: 1.75rem;
+}
+
+.sidebar-dropdown .dropdown-menu a:hover::before {
+  opacity: 1;
+  background: white;
+}
+
+/* ==========================================
+   CONTENT STYLING
+   ========================================== */
+
+.content h1 {
+  font-size: 3.2rem;
+  font-weight: 700;
+  line-height: 1.2;
+  letter-spacing: 0.05em;
+  background: linear-gradient(
+    135deg,
+    var(--primary) 0%,
+    var(--pink-light) 100%
+  );
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  border-bottom: 3px solid var(--pink) !important;
+  padding-bottom: 1rem;
+  margin-top: 2rem;
+  margin-bottom: 1.5rem;
+}
+
+.content h3 {
+  font-size: 1.6rem;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  color: var(--secondary) !important;
+  padding-bottom: 0.5rem;
+  margin-top: 2.5rem;
+  margin-bottom: 1rem;
+  position: relative;
+}
+
+.content h3::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 60px;
+  height: 3px;
+  background: linear-gradient(90deg, var(--pink) 0%, var(--pink-light) 100%);
+  border-radius: 2px;
+}
+
+/* DISCLAIMER BOX */
+.disclaimer {
+  background: linear-gradient(
+    135deg,
+    rgba(93, 92, 222, 0.08) 0%,
+    rgba(254, 9, 66, 0.05) 100%
+  );
+  border-left: 4px solid var(--primary);
+  border-radius: 12px;
+  padding: 1.5rem;
+  margin: 1.5rem 0 2rem;
+  font-size: 16px;
+  line-height: 1.7;
+  box-shadow: 0 4px 15px rgba(93, 92, 222, 0.1);
+}
+
+.disclaimer-title {
+  color: var(--pink) !important;
+  font-size: 1.3rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  margin-bottom: 0.75rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.dark .disclaimer {
+  background: linear-gradient(
+    135deg,
+    rgba(93, 92, 222, 0.15) 0%,
+    rgba(254, 9, 66, 0.1) 100%
+  );
+  border-left-color: var(--secondary);
+  color: #e5e7eb;
+}
+
+.dark .disclaimer-title {
+  color: #ff6b9d !important;
+}
+
+/* ==========================================
+   BLUR NOTECARD COMPONENT
+   ========================================== */
+
+.blur-card {
+  position: relative;
+  width: 100%;
+  min-height: 180px;
+  background: linear-gradient(
+    135deg,
+    rgba(255, 255, 255, 0.9) 0%,
+    rgba(248, 247, 255, 0.9) 100%
+  );
+  border: 2px solid var(--color-border, #e5e7eb);
+  border-radius: 16px;
+  padding: 2rem;
+  margin: 1.5rem 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  cursor: pointer;
+  overflow: hidden;
+  box-shadow: 0 8px 30px rgba(93, 92, 222, 0.12);
+  transition: all 0.3s ease;
+}
+
+.dark .blur-card {
+  background: linear-gradient(
+    135deg,
+    rgba(37, 37, 53, 0.9) 0%,
+    rgba(24, 24, 24, 0.9) 100%
+  );
+}
+
+.blur-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 15px 40px rgba(93, 92, 222, 0.25);
+  border-color: var(--primary);
+}
+
+.blur-card-content {
+  width: 100%;
+  text-align: left;
+  color: var(--color-text, #1f2937);
+  filter: blur(8px);
+  transition: filter 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  user-select: none;
+}
+
+.blur-card.revealed .blur-card-content {
+  filter: blur(0);
+  user-select: text;
+}
+
+.blur-card-content h3 {
+  font-size: 1.5rem;
+  font-weight: 700;
+  margin: 0 0 1rem 0;
+  color: var(--primary) !important;
+}
+
+.blur-card-content p {
+  font-size: 1rem;
+  line-height: 1.6;
+  margin: 0 0 0.75rem 0;
+}
+
+.blur-card-hint {
+  position: absolute;
+  z-index: 2;
+  font-size: 0.95rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  color: white;
+  background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+  padding: 0.6rem 1.5rem;
+  border-radius: 30px;
+  box-shadow: 0 8px 20px rgba(93, 92, 222, 0.35);
+  transition: all 0.3s ease;
+  pointer-events: none;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.blur-card:hover .blur-card-hint {
+  transform: translate(-50%, -50%) scale(1.05);
+  box-shadow: 0 12px 30px rgba(93, 92, 222, 0.45);
+}
+
+.blur-card.revealed .blur-card-hint {
+  opacity: 0;
+  transform: translate(-50%, -50%) scale(0.9);
+}
+
+/* ==========================================
+   TABLES
+   ========================================== */
+
+.table-container {
+  width: 100%;
+  margin: 1.5rem 0;
+  overflow-x: auto;
+  border-radius: 16px;
+  border: 1px solid var(--color-border, #e5e7eb);
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
+}
+
+.purple-table {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: left;
+  font-size: 0.95rem;
+  background: var(--color-bg, #ffffff);
+}
+
+.purple-table thead tr {
+  background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+  color: #ffffff;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+}
+
+.purple-table th,
+.purple-table td {
+  padding: 1rem 1.25rem;
+}
+
+.purple-table tbody tr {
+  border-bottom: 1px solid var(--color-border, #e5e7eb);
+  color: var(--color-text, #1f2937);
+  transition: all 0.2s ease;
+}
+
+.purple-table tbody tr:nth-of-type(even) {
+  background-color: rgba(93, 92, 222, 0.03);
+}
+
+.purple-table tbody tr:hover {
+  background: linear-gradient(
+    90deg,
+    rgba(93, 92, 222, 0.08) 0%,
+    rgba(254, 9, 66, 0.03) 100%
+  );
+  transform: scale(1.01);
+}
+
+.purple-table tbody tr:last-of-type {
+  border-bottom: none;
+}
+
+/* ==========================================
+   BODY CONTENT LINKS
+   ========================================== */
+
+.content a {
+  color: var(--primary);
+  text-decoration: none;
+  font-weight: 600;
+  position: relative;
+  transition: color 0.2s ease;
+}
+
+.content a::after {
+  content: "";
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background: linear-gradient(90deg, var(--pink) 0%, var(--pink-light) 100%);
+  transition: width 0.3s ease;
+}
+
+.content a:hover {
+  color: var(--pink);
+}
+
+.content a:hover::after {
+  width: 100%;
+}
+
+.dark .content a {
+  color: var(--secondary);
+}
+
+.dark .content a:hover {
+  color: #ff6b9d;
+}
+
+/* ==========================================
+   LISTS - CONTENT ONLY
+   ========================================== */
+
+.content ul:not(.dropdown-menu) {
+  list-style: none !important;
+  margin-left: 0 !important;
+  padding-left: 0 !important;
+}
+
+.content ul:not(.dropdown-menu) li {
+  position: relative;
+  padding-left: 1.5rem;
+  margin-bottom: 0.6rem;
+  list-style: none !important;
+}
+
+.content ul:not(.dropdown-menu) li::before {
+  content: "▸";
+  position: absolute;
+  left: 0;
+  color: var(--pink);
+  font-weight: bold;
+}
+
+/* ==========================================
+   TITLES WITH HEART EMOJIS
+   ========================================== */
+
+.heart-emoji {
+  font-size: 0.6em;
+  filter: drop-shadow(0 2px 4px rgba(254, 9, 66, 0.3));
+}
+
+/* ==========================================
+   HEADER STYLING
+   ========================================== */
+
+header {
+  background: linear-gradient(
+    135deg,
+    rgba(255, 255, 255, 0.95) 0%,
+    rgba(248, 247, 255, 0.95) 100%
+  ) !important;
+  backdrop-filter: blur(20px);
+  border-bottom: 2px solid rgba(93, 92, 222, 0.1);
+}
+
+.dark header {
+  background: linear-gradient(
+    135deg,
+    rgba(24, 24, 24, 0.95) 0%,
+    rgba(37, 37, 53, 0.95) 100%
+  ) !important;
+}
+
+header h1 {
+  background: linear-gradient(135deg, var(--primary) 0%, var(--pink) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* ==========================================
+   SEARCH BOX
+   ========================================== */
+
+#search-input {
+  border: 2px solid #fe0942 !important;
+  transition: all 0.3s ease;
+}
+
+#search-input:focus {
+  border-color: var(--primary) !important;
+  box-shadow: 0 0 0 3px rgba(93, 92, 222, 0.15) !important;
+}
+
+/* ==========================================
+   SECTION SPACING
+   ========================================== */
+
+section[id] {
+  scroll-margin-top: 6rem;
+}
+
+/* ==========================================
+   QUANTUM SUBSECTION DROPDOWNS (in content)
+   ========================================== */
+
+#quantum-tools .sidebar-dropdown {
+  width: 100% !important;
+  max-width: 100% !important;
+  margin: 1rem 0;
+}
+
+#quantum-tools .sidebar-dropdown details {
+  background: linear-gradient(
+    135deg,
+    rgba(93, 92, 222, 0.05) 0%,
+    rgba(130, 129, 232, 0.03) 100%
+  );
+  border: 1px solid var(--color-border);
+  border-radius: 12px;
+}
+
+#quantum-tools .sidebar-dropdown summary {
+  padding: 1rem 1.25rem;
+  font-size: 1rem;
+}
+
+#quantum-tools .sidebar-dropdown .dropdown-menu {
+  padding: 0.75rem 0 !important;
+}
+
+#quantum-tools .sidebar-dropdown .dropdown-menu a {
+  padding: 0.6rem 1.5rem;
+  font-size: 0.9rem;
+}
+
+/* Color coding for quantum sections */
+#quantum-beginner-friendly h3 {
+  color: #22c55e !important;
+}
+#quantum-guided-tutorials h3 {
+  color: #eab308 !important;
+}
+#quantum-sandbox h3 {
+  color: #3b82f6 !important;
+}
+#quantum-sdk h3 {
+  color: #f97316 !important;
+}
+#quantum-advanced h3 {
+  color: #ef4444 !important;
+}
+
+/* ==========================================
+   THEME TOGGLE
+   ========================================== */
+
+#theme-toggle {
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  transition: all 0.3s ease;
+}
+
+#theme-toggle:hover {
+  background: rgba(93, 92, 222, 0.1);
+  transform: rotate(20deg);
+}
+/* ==========================================
+   INTEGRATED BOOK GRID SYSTEM
+   ========================================== */
+
+.book-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 25px;
+  width: 100%;
+  max-width: 1200px;
+  margin: 2rem auto;
+  padding: 0 1rem;
+  box-sizing: border-box;
+}
+
+.book-card {
+  /* Dynamic themes: automatically pulls from your light/dark modes */
+  background: var(--color-bg, #ffffff);
+  border: 1px solid var(--color-border, #e5e7eb);
+  color: var(--color-text, #000000);
+
+  border-radius: 14px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+}
+
+/* Inherits smooth movement mechanics from your blur-card properties */
+.book-card:hover {
+  transform: translateY(-4px);
+  border-color: var(--primary);
+  box-shadow: 0 12px 30px rgba(93, 92, 222, 0.2);
+}
+
+.book-cover-wrap {
+  width: 100%;
+  aspect-ratio: 2 / 3;
+  background-color: rgba(93, 92, 222, 0.05);
+  overflow: hidden;
+  border-bottom: 1px solid var(--color-border, #e5e7eb);
+}
+
+.book-cover {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.book-details {
+  padding: 1.25rem;
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+}
+
+/* Uses <span> + class targeting to dodge your global h3 underline animations */
+.book-title {
+  font-family: "Open Sans", sans-serif;
+  font-size: 1.2rem;
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+  line-height: 1.4;
+  display: block;
+}
+
+.book-description {
+  font-size: 0.9rem;
+  line-height: 1.6;
+  opacity: 0.85;
+  margin: 0;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+/* Responsive adjustments */
+@media (max-width: 900px) {
+  .book-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+  }
+}
+
+@media (max-width: 550px) {
+  .book-grid {
+    grid-template-columns: 1fr;
+  }
+}
+.content h2 {
+  font-size: 2.2rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  padding-bottom: 1rem;
+  margin-top: 2rem;
+  margin-bottom: 1.5rem;
+  border-bottom: 3px solid var(--pink) !important;
+
+  /* 1. Use the exact background gradient matching your body */
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #ea3680 100%);
+
+  /* 2. Blow up the background footprint so it has room to slide */
+  background-size: 400% 400%;
+
+  /* 3. Mask the background so it only renders inside the text characters */
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+
+  /* 4. Bind the smooth, infinite animation loop */
+  animation: moveGradient 8s ease infinite;
+}
+
+/* 5. Keyframes shifting the gradient positions diagonally */
+@keyframes moveGradient {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+/* ==========================================
+   APP FOOTER COMPONENT
+   ========================================== */
+
+.app-footer {
+  /* Dynamic themes: natively transitions during theme switches */
+  background: var(--color-bg, #ffffff);
+  border-top: 1px solid var(--color-border, #e5e7eb);
+  color: var(--color-text, #1f2937);
+
+  width: 100%;
+  margin-top: 4rem; /* Adds generous spacing between your grid and the bottom edge */
+  padding: 2rem 1.5rem;
+  box-sizing: border-box;
+  opacity: 0.95;
+}
+
+/* Container wrapper to keep layout dimensions bounded */
+.footer-content {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between; /* Pushes text to the left, links to the right */
+  align-items: center;
+  flex-wrap: wrap; /* Wraps content cleanly onto new lines on small mobile screens */
+  gap: 1rem;
+}
+
+.footer-copyright {
+  font-size: 0.95rem;
+  opacity: 0.8;
+}
+
+.footer-links {
+  list-style: none !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  display: flex;
+  gap: 1.5rem;
+}
+
+.footer-links a {
+  font-family: "Open Sans", sans-serif;
+  font-size: 0.9rem;
+  font-weight: 500;
+  text-decoration: none;
+  color: var(--color-text, #1f2937);
+  opacity: 0.8;
+  transition: all 0.2s ease;
+}
+
+/* Hover accent pulled straight from your primary stylesheet variables */
+.footer-links a:hover {
+  color: var(--primary, #5d5cde);
+  opacity: 1;
+}
+
+/* Responsive adjustment for small screens */
+@media (max-width: 600px) {
+  .footer-content {
+    flex-direction: column; /* Stacks components on top of each other on mobile devices */
+    text-align: center;
+  }
+
+  .footer-links {
+    justify-content: center;
+  }
+}
+.all-caps-text {
+  font-variant-caps: all-small-caps;
+  font-size: 1.18rem;
+  letter-spacing: 0.09em;
+}
+
+/* Your existing h1, h2, h3 styles stay untouched above this */
+
+.small-caps-heading {
+  font-variant-caps: all-small-caps;
+  font-size: 1.7rem;
+  line-height: 1.6;
+  letter-spacing: 0.08em;
+}
+
+.blink-cursor {
+  animation: blink 1s steps(2, start) infinite;
+}
+
+@keyframes blink {
+  0%,
+  100% {
+    border-color: transparent;
+  }
+  50% {
+    border-color: currentColor;
+  }
+}
+
+/* Accordion Container */
+.accordion {
+  width: 100%;
+  margin: 1rem 0;
+}
+
+/* Individual Accordion Item */
+.accordion-item {
+  margin-bottom: 0.75rem;
+  border-radius: 12px;
+  overflow: hidden;
+  border: 1px solid var(--color-border, #e5e7eb);
+  background: var(--color-bg, #ffffff);
+  transition: all 0.3s ease;
+}
+
+.accordion-item:hover {
+  border-color: var(--primary);
+  box-shadow: 0 4px 15px rgba(93, 92, 222, 0.15);
+}
+
+/* Accordion Header Button */
+.accordion-header {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 1.25rem;
+  background: linear-gradient(
+    135deg,
+    rgba(93, 92, 222, 0.05) 0%,
+    rgba(130, 129, 232, 0.03) 100%
+  );
+  border: none;
+  cursor: pointer;
+  font-family: "Open Sans", sans-serif;
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--color-text, #1f2937);
+  text-align: left;
+  transition: all 0.2s ease;
+}
+
+.accordion-header:hover {
+  background: linear-gradient(
+    135deg,
+    rgba(93, 92, 222, 0.1) 0%,
+    rgba(130, 129, 232, 0.08) 100%
+  );
+  color: var(--primary);
+}
+
+/* Accordion Icon */
+.accordion-icon {
+  font-size: 0.8rem;
+  color: #9ca3af;
+  transition: transform 0.3s ease;
+}
+
+/* Active State */
+.accordion-item.active {
+  border-color: var(--primary);
+  box-shadow: 0 8px 25px rgba(93, 92, 222, 0.2);
+}
+
+.accordion-item.active .accordion-header {
+  background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+  color: white;
+}
+
+.accordion-item.active .accordion-icon {
+  transform: rotate(180deg);
+  color: white;
+}
+
+/* Accordion Content */
+.accordion-content {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.3s ease, padding 0.3s ease;
+  padding: 0 1.25rem;
+}
+
+.accordion-item.active .accordion-content {
+  max-height: 500px; /* Adjust as needed */
+  padding: 1rem 1.25rem 1.25rem;
+}
+
+/* Dark Mode */
+.dark .accordion-item {
+  background: rgba(24, 24, 24, 0.8);
+  border-color: #374151;
+}
+
+.dark .accordion-header {
+  background: rgba(37, 37, 53, 0.5);
+  color: #f3f4f6;
+}
+
+.dark .accordion-header:hover {
+  background: rgba(93, 92, 222, 0.15);
+}
+
+.dark .accordion-item.active .accordion-header {
+  background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+}
+
+/* Color Variants */
+.accordion-item.pink .accordion-header:hover,
+.accordion-item.pink.active .accordion-header {
+  background: linear-gradient(135deg, #fe0942 0%, #ea3680 100%);
+}
+
+.accordion-item.green .accordion-header:hover,
+.accordion-item.green.active .accordion-header {
+  background: linear-gradient(135deg, #22c55e 0%, #16a34a 100%);
+}
+
+.accordion-item.blue .accordion-header:hover,
+.accordion-item.blue.active .accordion-header {
+  background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
+}
+
+.accordion-item.orange .accordion-header:hover,
+.accordion-item.orange.active .accordion-header {
+  background: linear-gradient(135deg, #f97316 0%, #ea580c 100%);
+}
+
+/* ==========================================
+   ANIMATED BACKGROUND BUBBLES
+   ========================================== */
+
+.bg-animation {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.bubbles {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+.bubble {
+  position: absolute;
+  bottom: -100px;
+  left: var(--left);
+  width: var(--size);
+  height: var(--size);
+  background: radial-gradient(
+    circle at 30% 30%,
+    rgba(255, 255, 255, 0.15) 0%,
+    rgba(255, 255, 255, 0.05) 40%,
+    rgba(93, 92, 222, 0.1) 100%
+  );
+  border-radius: 50%;
+  animation: rise var(--duration) infinite ease-in;
+  animation-delay: var(--delay);
+  opacity: 0;
+}
+
+@keyframes rise {
+  0% {
+    bottom: -100px;
+    opacity: 0;
+    transform: translateX(0) scale(1);
+  }
+  10% {
+    opacity: 0.6;
+  }
+  90% {
+    opacity: 0.3;
+  }
+  100% {
+    bottom: 110vh;
+    opacity: 0;
+    transform: translateX(100px) scale(0.8);
+  }
+}
+
+/* Dark Mode Adjustments */
+.dark .bubble {
+  background: radial-gradient(
+    circle at 30% 30%,
+    rgba(93, 92, 222, 0.2) 0%,
+    rgba(130, 129, 232, 0.1) 40%,
+    rgba(254, 9, 66, 0.05) 100%
+  );
+}
+
+/* Ensure content stays above bubbles */
+body > div:not(.bg-animation) {
+  position: relative;
+  z-index: 1;
+}
+
+/* ==========================================
+   FOOTER - MULTI-LINE + ICONS
+   ========================================== */
+
+.app-footer {
+  background: var(--color-bg, #ffffff);
+  border-top: 1px solid var(--color-border, #e5e7eb);
+  color: var(--color-text, #1f2937);
+  width: 100%;
+  margin-top: 4rem;
+  padding: 2rem 1.5rem 1.5rem;
+  box-sizing: border-box;
+}
+
+/* Line 1: Main footer content */
+.footer-content {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 1rem;
+  padding: 0.5rem 0;
+}
+
+/* Line 2: Additional links */
+.footer-line-2 {
+  justify-content: center;
+  border-top: 1px dashed var(--color-border, #e5e7eb);
+  margin-top: 0.5rem;
+  padding-top: 1rem;
+}
+
+.footer-line-2 .footer-links {
+  justify-content: center;
+}
+
+/* Copyright text */
+.footer-copyright {
+  font-size: 0.95rem;
+  opacity: 0.8;
+  margin: 0;
+}
+
+/* Tagline in middle */
+.footer-tagline {
+  font-size: 0.9rem;
+  opacity: 0.7;
+  margin: 0;
+}
+
+/* Footer links */
+.footer-links {
+  list-style: none !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  display: flex;
+  gap: 1.5rem;
+  flex-wrap: wrap;
+}
+
+.footer-links a {
+  font-family: "Open Sans", sans-serif;
+  font-size: 0.9rem;
+  font-weight: 500;
+  text-decoration: none;
+  color: var(--color-text, #1f2937);
+  opacity: 0.8;
+  transition: all 0.2s ease;
+}
+
+.footer-links a:hover {
+  color: var(--primary, #5d5cde);
+  opacity: 1;
+}
+
+/* Y2K Icons Row */
+.footer-icons {
+  max-width: 1200px;
+  margin: 1.5rem auto 0;
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 1.5rem;
+  padding: 1rem 0;
+  border-top: 1px solid var(--color-border, #e5e7eb);
+}
+
+.footer-icons img {
+  height: 60px; /* Bigger size */
+  width: auto;
+  object-fit: contain;
+  opacity: 0.9;
+  transition: all 0.2s ease;
+}
+
+.footer-icons img:hover {
+  opacity: 1;
+  transform: scale(1.1);
+}
+
+/* Bottom tagline */
+.footer-tagline-bottom {
+  text-align: center;
+  padding-top: 1rem;
+  font-size: 0.85rem;
+}
+
+/* Dark mode adjustments */
+.dark .app-footer {
+  background: rgba(24, 24, 24, 0.95);
+}
+
+.dark .footer-line-2 {
+  border-top-color: #374151;
+}
+
+/* Mobile responsive */
+@media (max-width: 600px) {
+  .footer-content {
+    flex-direction: column;
+    text-align: center;
+    gap: 0.5rem;
+  }
+  
+  .footer-links {
+    justify-content: center;
+    gap: 1rem;
+  }
+  
+  .footer-icons {
+    gap: 1rem;
+  }
+  
+  .footer-icons img {
+    height: 50px;
+  }
+}
+
+  
+</style>
+
+</head>
+
+<body>
+
+  <body class="font-sans bg-light-background text-light-text dark:bg-dark-background dark:text-dark-text transition-colors">
+    <body class="font-sans bg-light-background text-light-text dark:bg-dark-background dark:text-dark-text transition-colors">
+  
+  <!-- ADD THIS RIGHT AFTER BODY TAG -->
+  <div class="bg-animation">
+    <div class="bubbles">
+      <div class="bubble" style="--size: 80px; --left: 10%; --delay: 0s; --duration: 20s;"></div>
+      <div class="bubble" style="--size: 60px; --left: 20%; --delay: 2s; --duration: 25s;"></div>
+      <div class="bubble" style="--size: 100px; --left: 35%; --delay: 4s; --duration: 22s;"></div>
+      <div class="bubble" style="--size: 50px; --left: 50%; --delay: 1s; --duration: 18s;"></div>
+      <div class="bubble" style="--size: 70px; --left: 65%; --delay: 3s; --duration: 24s;"></div>
+      <div class="bubble" style="--size: 90px; --left: 80%; --delay: 5s; --duration: 21s;"></div>
+      <div class="bubble" style="--size: 40px; --left: 90%; --delay: 2.5s; --duration: 19s;"></div>
+      <div class="bubble" style="--size: 65px; --left: 5%; --delay: 6s; --duration: 23s;"></div>
+      <div class="bubble" style="--size: 55px; --left: 45%; --delay: 7s; --duration: 26s;"></div>
+      <div class="bubble" style="--size: 75px; --left: 70%; --delay: 4.5s; --duration: 20s;"></div>
+    </div>
+  </div>
+  
+  <!-- Your existing header starts here -->
+  <header class="sticky top-0 z-50...
+    <header class="sticky top-0 z-50 bg-white dark:bg-gray-900 shadow-md">
+      <div class="w-full max-w-none mx-0 px-2 py-3 flex flex-col lg:flex-row items-center">
+        <h1 class="small-caps-heading whitespace-nowrap shrink-0 text-2xl lg:text-3xl font-bold text-primary text-left inline-block border-r-2 border-primary pr-1 blink-cursor">
+
+          🖤 hackherway cyberspace 🖤
+
+        </h1>
+        <div class="mt-3 lg:mt-0 lg:ml-auto w-full lg:w-2/5 relative">
+          <div class="relative">
+
+            <input type="text" id="search-input" placeholder=" 🔍  Search hackherway..." class="w-full px-4 py-2 pr-10 rounded-lg border border-gray-300 dark:border-gray-700 
+                           dark:bg-gray-800 focus:outline-none focus:ring-2 focus:ring-primary text-base" autocomplete="off">
+
+            <button id="search-button" class="absolute right-3 top-1/2 transform -translate-y-1/2 text-primary">
+              <i class="fas fa-search"></i>
+            </button>
+          </div>
+          <div id="search-results" class="absolute w-full mt-1 max-h-60 overflow-y-auto bg-white dark:bg-gray-800 
+                  border border-gray-300 dark:border-gray-700 rounded-lg shadow-lg z-50 hidden">
+
+          </div>
+
+        </div>
+        <button id="theme-toggle" class="ml-4 text-gray-600 dark:text-gray-300 hover:text-primary dark:hover:text-primary">
+          <i class="fas fa-moon dark:hidden"></i>
+          <i class="fas fa-sun hidden dark:block"></i>
+        </button>
+      </div>
+
+    </header>
+
+    <div class="w-full max-w-none mx-0 px-2 pt-6 pb-20">
+      <div class="flex flex-col lg:flex-row gap-8">
+        <!-- Sidebar with Security Categories -->
+        <aside class="lg:w-1/4 lg:sticky lg:top-24 self-start">
+          <div class="bg-gray-50 dark:bg-gray-800 rounded-xl p-5 shadow-md">
+            <h2 class="small-caps-heading border-b border-pink-200 dark:border-pink-700 pb-2">
+              <strong> Security Categories</strong>
+            </h2><br />
+            <nav class="table-of-contents">
+              <ul class="space-y-1 text-sm">
+                <li><a href="#introduction" class="hover:text-primary block py-1">👋🏼 Introduction & Welcome</a></li>
+                <li><a href="#keeping-it-real" class="hover:text-primary block py-1">⭐ Keeping It Real For Newcomers & Beginners</a></li>
+
+                <li><a href="#cybersecurity-domains" class="hover:text-primary block py-1">🌐 Cybersecurity Domains</a></li>
+
+                <!-- Each domain gets its OWN dropdown -->
+                <li class="sidebar-dropdown">
+                  <details>
+                    <summary><span>🔒 Advanced Threat Protection</span><span class="dropdown-arrow">▼</span></summary>
+                    <ul class="dropdown-menu">
+                      <li><a href="#advanced-threat-protection">Overview</a></li>
+                    </ul>
+                  </details>
+                </li>
+
+                <li class="sidebar-dropdown">
+                  <details>
+                    <summary><span>🔒 Application Security</span><span class="dropdown-arrow">▼</span></summary>
+                    <ul class="dropdown-menu">
+                      <li><a href="#appsec">Overview</a></li>
+                    </ul>
+                  </details>
+                </li>
+
+                <li class="sidebar-dropdown">
+                  <details>
+                    <summary><span>🔒 AI & Machine Learning Security</span><span class="dropdown-arrow">▼</span></summary>
+                    <ul class="dropdown-menu">
+                      <li><a href="#ai">Overview</a></li>
+                    </ul>
+                  </details>
+                </li>
+
+                <li class="sidebar-dropdown">
+                  <details>
+                    <summary><span>🔒 Blue Teaming & Defensive Security</span><span class="dropdown-arrow">▼</span></summary>
+                    <ul class="dropdown-menu">
+                      <li><a href="#blue-team">Overview</a></li>
+                    </ul>
+                  </details>
+                </li>
+
+                <li class="sidebar-dropdown">
+                  <details>
+                    <summary><span>🔒 Cloud Security</span><span class="dropdown-arrow">▼</span></summary>
+                    <ul class="dropdown-menu">
+                      <li><a href="#cloud-security">Overview</a></li>
+                    </ul>
+                  </details>
+                </li>
+
+                <li class="sidebar-dropdown">
+                  <details>
+                    <summary><span>🔒 Cyber Defense</span><span class="dropdown-arrow">▼</span></summary>
+                    <ul class="dropdown-menu">
+                      <li><a href="#cyber-defense">Overview</a></li>
+                    </ul>
+                  </details>
+                </li>
+
+                <li class="sidebar-dropdown">
+                  <details>
+                    <summary><span>🔒 Data Security</span><span class="dropdown-arrow">▼</span></summary>
+                    <ul class="dropdown-menu">
+                      <li><a href="#datasec">Overview</a></li>
+                    </ul>
+                  </details>
+                </li>
+
+                <li class="sidebar-dropdown">
+                  <details>
+                    <summary><span>🔒 DevSecOps</span><span class="dropdown-arrow">▼</span></summary>
+                    <ul class="dropdown-menu">
+                      <li><a href="#devsecops">Overview</a></li>
+                    </ul>
+                  </details>
+                </li>
+
+                <li class="sidebar-dropdown">
+                  <details>
+                    <summary><span>🔒 DFIR</span><span class="dropdown-arrow">▼</span></summary>
+                    <ul class="dropdown-menu">
+                      <li><a href="#dfir">Overview</a></li>
+                    </ul>
+                  </details>
+                </li>
+
+                <li class="sidebar-dropdown">
+                  <details>
+                    <summary><span>🔒 GRC</span><span class="dropdown-arrow">▼</span></summary>
+                    <ul class="dropdown-menu">
+                      <li><a href="#grc">Overview</a></li>
+                    </ul>
+                  </details>
+                </li>
+
+                <li class="sidebar-dropdown">
+                  <details>
+                    <summary><span>🔒 Host-Based Security (HBSS)</span><span class="dropdown-arrow">▼</span></summary>
+                    <ul class="dropdown-menu">
+                      <li><a href="#hbss">Overview</a></li>
+                    </ul>
+                  </details>
+                </li>
+
+                <li class="sidebar-dropdown">
+                  <details>
+                    <summary><span>🔒 Identity & Access Management</span><span class="dropdown-arrow">▼</span></summary>
+                    <ul class="dropdown-menu">
+                      <li><a href="#iam">Overview</a></li>
+                    </ul>
+                  </details>
+                </li>
+
+                <li class="sidebar-dropdown">
+                  <details>
+                    <summary><span>🔒 Infrastructure Security</span><span class="dropdown-arrow">▼</span></summary>
+                    <ul class="dropdown-menu">
+                      <li><a href="#infrasec">Overview</a></li>
+                    </ul>
+                  </details>
+                </li>
+
+                <li class="sidebar-dropdown">
+                  <details>
+                    <summary><span>🔒 Mobile Device Security</span><span class="dropdown-arrow">▼</span></summary>
+                    <ul class="dropdown-menu">
+                      <li><a href="#mobile-sec">Overview</a></li>
+                    </ul>
+                  </details>
+                </li>
+
+                <li class="sidebar-dropdown">
+                  <details>
+                    <summary><span>🔒 Network Security</span><span class="dropdown-arrow">▼</span></summary>
+                    <ul class="dropdown-menu">
+                      <li><a href="#netsec">Overview</a></li>
+                    </ul>
+                  </details>
+                </li>
+
+                <li class="sidebar-dropdown">
+                  <details>
+                    <summary><span>🔒 OSINT</span><span class="dropdown-arrow">▼</span></summary>
+                    <ul class="dropdown-menu">
+                      <li><a href="#osint">Overview</a></li>
+                    </ul>
+                  </details>
+                </li>
+
+                <li class="sidebar-dropdown">
+                  <details>
+                    <summary><span>🔒 Penetration Testing</span><span class="dropdown-arrow">▼</span></summary>
+                    <ul class="dropdown-menu">
+                      <li><a href="#pentesting">Overview</a></li>
+                    </ul>
+                  </details>
+                </li>
+
+                <!-- Quantum gets sub-links because it's huge -->
+                <li class="sidebar-dropdown">
+                  <details>
+                    <summary><span>🔒 Quantum Readiness</span><span class="dropdown-arrow">▼</span></summary>
+                    <ul class="dropdown-menu">
+                      <li><a href="#quantum-readiness">Overview</a></li>
+                      <li><a href="#quantum-documentation">Documentation</a></li>
+                      <li><a href="#quantum-tools">Tools</a></li>
+                      <li><a href="#quantum-beginner-friendly">Beginner</a></li>
+                      <li><a href="#quantum-guided-tutorials">Tutorials</a></li>
+                      <li><a href="#quantum-sandbox">Sandboxes</a></li>
+                      <li><a href="#quantum-sdk">SDKs</a></li>
+                      <li><a href="#quantum-advanced">Advanced</a></li>
+                    </ul>
+                  </details>
+                </li>
+
+                <li class="sidebar-dropdown">
+                  <details>
+                    <summary><span>🔒 Red Teaming & Offensive</span><span class="dropdown-arrow">▼</span></summary>
+                    <ul class="dropdown-menu">
+                      <li><a href="#red-team">Overview</a></li>
+                    </ul>
+                  </details>
+                </li>
+
+                <li class="sidebar-dropdown">
+                  <details>
+                    <summary><span>🔒 Reverse Engineering</span><span class="dropdown-arrow">▼</span></summary>
+                    <ul class="dropdown-menu">
+                      <li><a href="#rev-eng">Overview</a></li>
+                    </ul>
+                  </details>
+                </li>
+
+                <li class="sidebar-dropdown">
+                  <details>
+                    <summary><span>🔒 Secure Software Development</span><span class="dropdown-arrow">▼</span></summary>
+                    <ul class="dropdown-menu">
+                      <li><a href="#software-dev">Overview</a></li>
+                    </ul>
+                  </details>
+                </li>
+
+                <li class="sidebar-dropdown">
+                  <details>
+                    <summary><span>🔒 Threat Hunting</span><span class="dropdown-arrow">▼</span></summary>
+                    <ul class="dropdown-menu">
+                      <li><a href="#threat-hunting">Overview</a></li>
+                    </ul>
+                  </details>
+                </li>
+
+                <li class="sidebar-dropdown">
+                  <details>
+                    <summary><span>🔒 Threat Intelligence</span><span class="dropdown-arrow">▼</span></summary>
+                    <ul class="dropdown-menu">
+                      <li><a href="#threat-intel">Overview</a></li>
+                    </ul>
+                  </details>
+                </li>
+
+                <li class="sidebar-dropdown">
+                  <details>
+                    <summary><span>🔒 Vulnerability Management</span><span class="dropdown-arrow">▼</span></summary>
+                    <ul class="dropdown-menu">
+                      <li><a href="#vulnerability-research">Overview</a></li>
+                    </ul>
+                  </details>
+                </li>
+
+                <li><a href="#interesting-sites" class="hover:text-primary block py-1">(👩‍💻 Interesting Sites</a></li>
+                <ul class="space-y-1 text-sm">
+                  <li><a href="#introduction" class="hover:text-primary block py-1">👋🏼 Introduction & Welcome</a></li>
+                  <li><a href="#keeping-it-real" class="hover:text-primary block py-1">⭐ Keeping It Real For Newcomers & Beginners</a></li>
+
+                  <!-- Each domain gets its OWN dropdown -->
+                  <li class="sidebar-dropdown">
+                    <details>
+                      <summary><span>🛠️ Security Tools</span><span class="dropdown-arrow">▼</span></summary>
+                      <ul class="dropdown-menu">
+                        <li><a href="#security-tools">Overview</a></li>
+                        <li><a href="#recon-tools">Recon Tools</a></li>
+
+                      </ul>
+                    </details>
+                  </li>
+
+                  <!-- Each domain gets its OWN dropdown -->
+                  <li class="sidebar-dropdown">
+                    <details>
+                      <summary><span> 🏰 Active Directory</span><span class="dropdown-arrow">▼</span></summary>
+                      <ul class="dropdown-menu">
+                        <li><a href="#security-tools">Overview</a></li>
+                      </ul>
+                    </details>
+                  </li>
+
+                </ul>
+            </nav>
+          </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="lg:w-3/4 content">
+          <section id="introduction" class="mb-12">
+            <center>
+              <p class="all-caps-text">hackherway cyberspace</p>
+            </center>
+            <center>
+              <p class="all-caps-text">A Total Cybersecurity Reference for You, Me, and Everyone-In-Between</p>
+            </center>
+            <center><img src="https://github.com/d0midigi/hackherway/blob/master/images/to-learn-is-to-live-spaced.gif?raw=true"></center>
+
+            <h1 class="small-caps-heading">Introduction and Welcome!</h1>
+            <h2 class="small-caps-heading">What Is this Cyberspace About?</h2>
+            <p class="mb-4">
+              This cyberspace is essentially a dumping ground for offensive + defensive cybersecurity and Active Directory practical notes and resources I've developed throughout my 20 year history in the field of cybersecurity and in various roles I've achieved as a cybersecurity professional.</p>
+
+            <center>
+              <p><strong> 💗 Be sure to check out my other cybersecurity resources at <a href="d0midigi.github.io/hackherway">hackherway</strong></a>. 💗
+              </p>
+            </center>
+            <div class="disclaimer">
+              <div class="disclaimer-title">
+                ⚠ Disclaimer
+              </div>
+
+              <p>
+                <strong>The hackherway Cyberspace contains field notes compiled from practical cybersecurity training platforms - including HackTheBox (HTB) Academy, TryHackMe, and the OWASP Web Security Testing Guide - alongside proprietary, real-world projects.</strong>
+              </p>
+              <br />
+              <p>🚫 This content is provided strictly for <strong>educational and informational purposes</strong> on an "as-is" basis. The authors and publishers make no warranties regarding the accuracy, completeness, or reliability of this information. Any reliance the you place on these materials is strictly at your own risk. Under no circumstances will the authors or publishers be liable for any loss, damage, or data profit loss resulting from your use of them content contained within this space.</p>
+              <br />
+              <p>
+                🚫 Misuse of the techniques described herein must <strong>not be used for malicious or illegal activities and is strictly prohibited.</strong> The creators do not condone unethical behaviors or illegal actions; all actions taken based on this book and the information provided are the sole responsibility of the user. Readers should always seek professional guidance before implementing these techniques.</p>
+              <br />
+              <p>🚫 Users assume all risk and are solely responsible compliance with applicable laws. </p>
+            </div>
+            <div class="bg-gray-50 dark:bg-gray-800 p-4 rounded-lg mb-4">
+              <h2 class="small-caps-heading">Some Awesome GitHub Sites</h2>
+              <pre><code>// The document object is the main entry point to the DOM
+console.log(document.title); // Outputs the document title
+console.log(document.URL);   // Outputs the document URL</code></pre>
+            </div>
+          </section>
+
+          <section id="keeping-it-real" class="mb-12">
+            <h2 class="small-caps-heading text-2xl font-bold mb-2"><span class="heart-emoji">❤️</span> Keeping It Real for Newcomers & Beginners <span class="heart-emoji">❤️</span></h2>
+            <div id="basic-selectors" class="mb-8">
+
+              <center>
+                <p class="mb-3"><strong><span style="color: #fe0942;"> &bull;</span> Below are some of my key considerations and recommendations for being successful in the security space. <span style="color: #fe0942;">&bull;</span></strong></p>
+              </center>
+              <center>
+                <p><span style="color: #fe0942;">&bull; &bull; &bull;</span></p>
+              </center>
+              <p> First, understand that <strong>succeeding in cybersecurity requires a shift from passive learning to relentless execution, and filtering out industry noise.</strong> Navigating a career in cybersecurity requires a blueprint built on practical ability, consistency, and a healthy dose of skepticism.</p>
+              <br />
+              <p><strong> Run your own race</strong> and stop comparing yourself to others. Everyone's career trajectory is unique. Comparing yourself to hyper-visible industry figures or peers will only cause quick burnout - especially since many online personas are just simply inflated. The tech industry is full of curated highlight reels, and many highly publicized figures aren't as skilled as they may appear. Focus on building a path that is one you can call your own and identify your core skill sets you need and master them on your own timeline.</p><br />
+              <p><strong>
+                  Match your adversary's consistency</strong> because threat actors are some dedicated mofo's, they're persistent as all hell, and are constantly evolving. Defenders must be just as disciplined as the adversaries they fight. To defend against them, your commitment to training must match their consistencies. Consistency in your training and daily routine is what bridges the gap between a novice and a practitioner. Stay disciplined and ensure your efforts align with reputable, high-quality material.</p><br />
+              <p>
+                You will be surprised by how much insights you can gain simply by just <strong>asking.</strong> True experts who are passionate about security LOVE sharing knowledge with aspiring learners and are usually eager to mentor. Asking direct questions will also helps you to gauge and better evaluate a speaker's actual expertise, helping you to filter out those who "talk the talk, but can't walk the walk", so-to-speak. Never hesitate to reach out to veterans in the field.</p><br />
+              <p><strong> Question. Everything. 🤔 </strong></p>
+              <br />
+              <p>The industry is currently saturated with content creators who have never worked a day in a security operations center or engineering role. They trade practical insights for viral engagement, spreading surface-level bullshit and disinformation for financial payout. Look for knowledge shared by quiet practitioners, not loud influencers.</p>
+              <br />
+              <p>And finally, understand that (in "real-world" cybersecurity) it's best that you prioritize your skill sets over certificates. Multiple-choice exams like CompTIA do not prove you can adequately defend a network - they only prove that you are good at memorization. This is a huge reason why so many certified candidates fail technical interviews. <strong>Theory is only half the battle.</strong> In security, we don't just discuss problems - we build and implement solutions. Put your knowledge into practice through hands-on lab and real-world projects; build, configure, break things, question how they work, why they work, what their sole purpose or objective is, put back together and prove what you can actually do.</p>
+
+              <div class="blur-card" onclick="this.classList.toggle('revealed')">
+                <div class="blur-card-hint">&bull; click to read <span style="color: #ffffff;">about me</span> &bull;</div>
+                <div class="blur-card-content">
+                  <h3>About Me</h3>
+
+                  <p>I'm Evo, an information security engineer, ethical hacker, author, and life-long technologist with more than two decades of experience in cybersecurity offense/defense and information technology.</p>
+                  <br />
+                  <p>My background spans federal, Department of Defense (DoD), and commercial environments, with a strong focus on cybersecurity and network engineering, vulnerability, threat, and risk assessment, penetration testing, identity and access management, Active Directory, risk management, security compliance, and offensive / defensive operations. I've worked across highly regulated and mission-critical networks where security is not theoretical. It has (strikethrough) must work.</p>
+                  <br />
+                  <p>A major part of my work has centered on securing identity infrastructure and understanding how attackers abuse it. That experience eventually grew into a much larger personal project: writing a technical book focused on offensive and defensive Active Directory, federal Identity, Credential, and Access Management (FICAM), and the realities of securing enterprise identity systems in government environments.</p>
+                  <br />
+                  <p>I also created hackherway as a place to document what I learn, teach practical cybersecurity concepts, and share technical material without burying it under unnecessary jargon. I believe security professionals should understand both sides of the equation: how systems are attacked and how they are actually defended.</p>
+                  <br />
+                  <p>Outside of cybersecurity, I'm a life-long learner, a mother of three, and a I like to create electronic music, particularly drum and bass. I like to think that I approach music-making the same way I approach technology: experiment, break things, venture out, figure out why things work, question everything, learn how it works from all angles, what pisses it off, what makes it happy, and go build something better from the pieces in the end.</p>
+                  <br />
+                  <p>I've spent most of my career learning systems deeply enough to understand where they fail. Now I'm focused on turning that experience into something useful - a tool for the next generation of engineers, defenders, ethical hackers, and security professionals.</p>
+                  <br />
+                  <p>Be safe out there and always remember to stay safe, stay vigilant, and stay informed.</p>
+                  <p>🫶✌️</p>
+                  <blockquote>
+                    <p><em>"If you think you know everything about cybersecurity, it was probably ill-explained to you."</em></p>
+                    <cite>— Stéphane Nappo</cite>
+                  </blockquote>
+                  </p>
+                </div>
+              </div>
+              <div class="bg-gray-50 dark:bg-gray-800 p-4 rounded-lg mb-4">
+                <pre><code>// Select</code></pre>
+              </div>
+            </div>
+
+            <div id="cybersecurity-domains" class="mb-8">
+              <h1 class="small-caps-heading text-2xl font-bold mb-2">Cybersecurity Domains</h1>
+              <p>Cyber domains are the foundational structural categories used to organize and divide the vast cybersecurity landscape into distinct, logical areas of technical focus and expertise. Rather than treating information security as a single, overwhelming topic, this domain-based approach segments the field into specialized pillars—such as Network Security, Identity & Access Management, Incident Response, Cloud Security, and Governance, Risk, and Compliance (GRC). By categorizing cybersecurity concepts and documentation into these structured boundaries, researchers and security practitioners can instantly isolate their specific operational scope, bypass irrelevant data, and quickly locate the exact standards, blueprints, and threat frameworks needed for their technical environment.</p>
+
+              <div id="advanced-threat-protection" class="mb-12">
+                <h1 class="small-caps-heading text-2xl font-bold mb-2">Advanced Threat Protection</h1>
+                <p>Advanced Threat Protection (ATP) is a specialized cyber domain focused on defending organizations against highly sophisticated, stealthy, and targeted cyberattacks—such as Advanced Persistent Threats (APTs), zero-day exploits, and polymorphic malware. While traditional security rely on static signatures to block known threats, ATP implements a proactive, multi-layered defensive strategy that combines continuous network monitoring, real-time behavioral analysis, machine learning algorithms, and isolated sandbox environments to detect and detonate suspicious files before they can execute. By correlating telemetry across endpoints, email channels, and cloud networks, this domain equips security operations teams with the deep visibility, automated threat hunting, and rapid response capabilities necessary to contain complex, multi-stage attacks before data exfiltration occurs.</p>
+                <ul><br />
+                  <li>Botnet & Zombie Protection</li>
+                  <li>Malware Analysis & Anti-Malware</li>
+                  <li>Sandboxing & Threat Emulation</li>
+                  <li>Application Exceptions & Allowlisting / Denylisting</li>
+                  <li>Network Incident Forensics & Analysis</li>
+                  <li>Automated Security </li>
+                </ul>
+                <p class="mb-3">Methods and properties to navigate to parent elements:</p>
+                <figure class="centered-image-container">
+                  <img src="https://private-user-images.githubusercontent.com/114305417/674444283-c03498a6-2ab9-4732-979c-ca0d3fe16a1a.png?jwt=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJnaXRodWIuY29tIiwiYXVkIjoicmF3LmdpdGh1YnVzZXJjb250ZW50LmNvbSIsImtleSI6ImtleTUiLCJleHAiOjE3OTIwNTU3OTEsIm5iZiI6MTc5MjA1NTQ5MSwicGF0aCI6Ii8xMTQzMDU0MTcvNjc0NDQ0MjgzLWMwMzQ5OGE2LTJhYjktNDczMi05NzljLWNhMGQzZmUxNmExYS5wbmc_WC1BbXotQWxnb3JpdGhtPUFXUzQtSE1BQy1TSEEyNTYmWC1BbXotQ3JlZGVudGlhbD1BS0lBVkNPRFlMU0E1M1BRSzRaQSUyRjIwMjYxMDE1JTJGdXMtZWFzdC0xJTJGczMlMkZhd3M0X3JlcXVlc3QmWC1BbXotRGF0ZT0yMDI2MTAxNVQwOTExMzFaJlgtQW16LUV4cGlyZXM9MzAwJlgtQW16LVNpZ25hdHVyZT05YTU2Nzk4OGFiNmI4NzliNzE3ODkwOWNjMDdlMjlmOTM4NjI3MzJhYzc5NDFkNjcyN2FlMDU5NjEyZWJhNWRjJlgtQW16LVNpZ25lZEhlYWRlcnM9aG9zdCZyZXNwb25zZS1jb250ZW50LXR5cGU9aW1hZ2UlMkZwbmcifQ.DuyzCfaUYO6t78_UBMypJJQvxMFNvKgqo0Y4GF2Zo_Q" alt="Descriptive text for your image" class="centered-image">
+                </figure>
+
+                <div class="bg-gray-50 dark:bg-gray-800 p-4 rounded-lg mb-4">
+                  <pre><code>// Get </code></pre>
+                </div>
+              </div>
+
+              <div id="appsec" class="mb-12">
+                <h1 class="small-caps-heading text-2xl font-bold mb-2">Application Security (AppSec)</h1>
+                <p>Application Security (AppSec) is the critical cyber domain dedicated entirely to ensuring that software applications are designed, developed, and maintained to resist malicious attacks and unauthorized exploitation throughout their lifecycle. Unlike network or infrastructure security which protect the perimeter, AppSec builds security directly into the software fabric itself, addressing vulnerabilities where code is written and data is processed. This domain encompasses a mature ecosystem of automated testing methodologies—such as Static Application Security Testing (SAST), Dynamic Application Security Testing (DAST), and Software Composition Analysis (SCA)—alongside human-centric protocols like threat modeling, secure code reviews, and the establishment of "secure by design" development guardrails. By integrating these practices seamlessly into modern continuous deployment pipelines (DevSecOps), organizations can detect architectural flaws and code-level vulnerabilities early, effectively neutralizing risks before production software ever reaches an end-user.</p>
+                <ul>
+                  <li>Secure Code Review</li>
+                  <li>Application Pentesting</li>
+                  <li>Vulnerability Validation</li>
+                  <li>Web Application Firewall (WAF)</li>
+                  <li>Web Application Security (WebAppSec)</li>
+                  <li>OWASP Top 10 / SANS CWE Top 25</li>
+                  <li>Database Activity Monitoring</li>
+                  <li>Content SEcurity & Filtering</li>
+                  <li>Secure File Transfer</li>
+                </ul>
+                <p class="mb-3">Methods and properties to navigate to parent elements:</p>
+                <div class="bg-gray-50 dark:bg-gray-800 p-4 rounded-lg mb-4">
+                  <pre><code>// Get </code></pre>
+                </div>
+              </div>
+
+              <div id="ai" class="mb-12">
+                <h1 class="small-caps-heading text-2xl font-bold mb-2">
+                  AI & Machine Learning Security (AI-Sec)
+                </h1>
+                <p>AI and Machine Learning Security (AI-Sec) is the cutting-edge cyber domain focused on a critical, dual-pronged challenge: securing artificial intelligence systems from exploitation while safely leveraging machine learning to automate enterprise defense. The first facet, Security for AI, establishes technical guardrails to protect large language models (LLMs) and neural networks from sophisticated adversarial attacks—such as prompt injection, training data poisoning, model inversion, and algorithmic bias manipulation. The second facet, AI for Security, focuses on deploying advanced machine learning pipelines and agentic AI models to analyze massive telemetry logs, accelerate threat hunting, and predict complex adversarial behaviors at machine speed. This domain ensures organizations can confidently scale automated intelligence without introducing catastrophic vulnerabilities into their core software fabric.</p>
+                </ul>
+                <li>Secure Code Review</li>
+
+                <p class="mb-3">Methods and properties to navigate to parent elements:</p>
+                <div class="bg-gray-50 dark:bg-gray-800 p-4 rounded-lg mb-4">
+                  <pre><code>// Get </code></pre>
+                </div>
+              </div>
+
+              <div id="blue-team" class="mb-12">
+                <h1 class="small-caps-heading text-2xl font-bold mb-2">Blue Teaming & Defensive Security</h1>
+                <p>Blue Teaming and Defensive Security is the dedicated cyber domain focused on maintaining an organization's internal operational resilience by continuously monitoring, protecting, and hardening digital infrastructure against active adversarial threats. Unlike offensive practitioners who seek out systemic vulnerabilities, the Blue Team serves as the frontline defense, deploying a unified layer of tactical controls that includes Security Information and Event Management (SIEM) systems, endpoint detection architecture, and granular network traffic analysis. This domain bridges the gap between proactive system hardening—such as asset configuration management, threat intelligence ingestion, and identity verification—and active tactical response, ensuring that security operations centers (SOCs) can instantly detect anomalies, contain lateral network movement, and execute rapid incident response playbooks to neutralize attackers in real-time.</p>
+
+                <p class="mb-3">Methods and properties to navigate to parent elements:</p>
+                <div class="bg-gray-50 dark:bg-gray-800 p-4 rounded-lg mb-4">
+                  <pre><code>// Get </code></pre>
+                </div>
+              </div>
+
+              <div id="cloud-security" class="mb-12">
+                <h1 class="small-caps-heading text-2xl font-bold mb-2">Cloud Security</h1>
+                <p>Cloud Security (CloudSec) is the specialized cyber domain focused on safeguarding cloud computing environments, underlying infrastructure, applications, and data from unauthorized access, leakage, and targeted digital threats. Operating on a model of shared responsibility between cloud providers and customers, this domain addresses the unique risks introduced by rapid digital transformation, highly dynamic virtualized architectures, and multi-tenant systems. CloudSec encompasses a broad set of programmatic controls and visibility frameworks, including Cloud Security Posture Management (CSPM) to catch misconfigurations, Cloud Workload Protection Platforms (CWPP) to monitor running containers and servers, and strict Identity and Access Management (IAM) permissions based on least privilege. By enforcing continuous cryptographic encryption for data at rest and in transit, alongside micro-segmentation and automated compliance tracking, this discipline ensures organizations can safely scale global public, private, or hybrid cloud operations without risking data exposure.</p>
+
+                <p class="mb-3">Properties to navigate to sibling elements:</p>
+                <div class="bg-gray-50 dark:bg-gray-800 p-4 rounded-lg mb-4">
+                  <pre><code>// Get </code></pre>
+                </div>
+              </div>
+
+              <div id="cyber-defense" class="mb-12">
+                <h1 class="small-caps-heading text-2xl font-bold mb-2">Cyber Defense & Defensive Security</h1>
+                <p>Cyber Defense and Defensive Security is the tactical cyber domain dedicated to establishing, maintaining, and hardening an organization’s internal technical perimeters to continuously resist, detect, and neutralize active digital threats. Operating as a real-time shield for digital assets, this discipline focuses on minimizing an organization's overall attack surface through proactive system configurations, network micro-segmentation, and strict firewalls, alongside the deployment of continuous monitoring architectures like Security Information and Event Management (SIEM) platforms. By combining proactive defense-in-depth measures with automated incident response workflows, this domain ensures that security operations teams can immediately isolate anomalous network behavior, block lateral threat movement, and rapidly contain exploits before they compromise core enterprise infrastructure.</p>
+
+                <p class="mb-3">Properties and methods to navigate to child elements:</p>
+                <div class="bg-gray-50 dark:bg-gray-800 p-4 rounded-lg mb-4">
+                  <pre><code>// Get </code></pre>
+                </div>
+              </div>
+          </section>
+          <div id="datasec" class="mb-12">
+            <h1 class="small-caps-heading text-2xl font-bold mb-2">Data Security (DataSec)</h1>
+            <p>Data Security (DataSec) is the core cyber domain dedicated entirely to protecting digital assets from unauthorized access, corruption, modification, or exfiltration throughout their entire lifecycle. Recognizing that data is an organization's most critical currency, this discipline shifts focus away from infrastructure perimeters to secure the information itself, whether it is structured inside databases, moving across networks, or residing on physical endpoints. DataSec implements a rigorous layered defense combining robust cryptographic encryption protocols for data at rest and in transit, continuous automated data discovery and classification mapping, and strict data loss prevention (DLP) guardrails. By enforcing granular, identity-centric access control policies alongside tamper-proof audit logging, this domain ensures business continuity and regulatory compliance while maintaining absolute data confidentiality, availability, and structural integrity.</p>
+            <ul>
+              <li>Data Encryption</li>
+              <li>Data Leakage Prevention</li>
+              <li>Data Loss Prevention (DLP)</li>
+            </ul>
+            <p class="mb-3">Methods to create DOM elements:</p>
+            <div class="bg-gray-50 dark:bg-gray-800 p-4 rounded-lg mb-4">
+              <pre><code>// Create </code></pre>
+            </div>
+          </div>
+
+          <div id="devsecops" class="mb-12">
+            <h1 class="small-caps-heading text-2xl font-bold mb-2">DevSecOps</h1>
+            <p>DevSecOps (Development, Security, and Operations) is the pragmatic cyber domain focused on integrating automated security controls directly into every phase of the traditional software development lifecycle (SDLC). Rather than treating security as an isolated, manual review phase at the very end of production, DevSecOps shifts security "left" by embedding continuous testing mechanisms directly into developer code repositories and build pipelines. This domain implements a robust toolkit of automated guardrails—such as static and dynamic code scanning (SAST/DAST), dependency vulnerability tracking, and automated infrastructure provisioning policies—ensuring that vulnerabilities are caught and remediated in real time before deployment. By blending engineering agility with systemic defense, DevSecOps fosters a shared-responsibility model where development, operations, and security teams collaborate to release reliable, secure software at scale.</p>
+
+            <p class="mb-3">Methods to create DOM elements:</p>
+            <div class="bg-gray-50 dark:bg-gray-800 p-4 rounded-lg mb-4">
+              <pre><code>// Create </code></pre>
+            </div>
+          </div>
+
+          <div id="dfir" class="mb-12">
+            <h1 class="small-caps-heading text-2xl font-bold mb-2">Digital Forensics & Incident Response (DFIR)</h1>
+            <p>Digital Forensics and Incident Response (DFIR) is the specialized, highly tactical cyber domain focused on rapidly detecting, containing, and analyzing active cyberattacks, while meticulously investigating digital footprints to uncover the root cause of a breach. Operating as the emergency response team of cybersecurity, DFIR blends two critical operational disciplines: Incident Response (IR), which deploys real-time mitigation playbooks to isolate infected endpoints, evict threat actors, and restore business operations; and Digital Forensics (DF), which preserves, extracts, and analyzes volatile memory, system artifacts, and network logs in a forensically sound manner. By combining technical forensic science with rapid system triage, this domain enables organizations to thoroughly document an attacker's timeline and techniques, fulfill legal and regulatory notification requirements, and fortify systemic defenses to prevent future compromises.</p>
+
+            <p class="mb-3">Properties and methods to modify DOM elements:</p>
+            <div class="bg-gray-50 dark:bg-gray-800 p-4 rounded-lg mb-4">
+              <pre><code>// Set </code></pre>
+            </div>
+          </div>
+
+          <div id="grc" class="mb-12">
+            <h1 class="small-caps-heading text-2xl font-bold mb-2">Governance, Risk & Compliance (GRC)</h1>
+            <p>Governance, Risk, and Compliance (GRC) is the strategic cyber domain that aligns an organization's security initiatives with its overall business objectives, regulatory obligations, and risk management frameworks. Rather than focusing on hands-on technical configurations, this discipline acts as the steering and administrative backbone of cybersecurity. It is divided into three critical areas: Governance establishes the organizational policies, leadership structures, and strategic direction for data protection; Risk Management proactively identifies, analyzes, and mitigates operational and third-party vulnerabilities that could impact business continuity; and Compliance ensures the enterprise continuously satisfies strict legal, industry, and contractual mandates—such as HIPAA, GDPR, PCI-DSS, or federal NIST frameworks. By bridging the gap between executive leadership and technical teams, GRC ensures that security investments are legally sound, structurally organized, and tailored to the organization's risk tolerance.</p>
+            <ul>
+              <li>ISO 27001 / HIPAA / PCI SOC</li>
+              <li>Firewall Compliance</li>
+              <li>Physical & Logical Security Posture Assessment and Reviews</li>
+              <li>Configuration Compliance and Change Management Processes</li>
+              <li>Audit & Compliance Analysis</li>
+              <li>Risk & Security Gap Assessment</li>
+            </ul>
+
+            <p class="mb-3">Methods to insert elements into the DOM:</p>
+            <div class="bg-gray-50 dark:bg-gray-800 p-4 rounded-lg mb-4">
+              <pre><code>// Append </code></pre>
+            </div>
+          </div>
+
+          <div id="hbss" class="mb-12">
+            <h1 class="small-caps-heading text-2xl font-bold mb-2">Host-Based Systems Security (HBSS) & Administration</h1>
+            <p>Host-Based Security System (HBSS) and Administration is a specialized cyber domain focused on the deployment, management, and continuous orchestration of endpoint security suites across enterprise networks, most notably within United States Department of Defense (DoD) environments. Rather than managing perimeter firewalls, this domain centers on securing individual host devices—such as servers, workstations, and laptops—using a centrally managed commercial-off-the-shelf (COTS) application platform, typically powered by the McAfee ePolicy Orchestrator (ePO) engine. HBSS Administration involves configuring and maintaining a highly integrated matrix of core security modules, including Host Intrusion Prevention Systems (HIPS), rogue system detection, Data Loss Prevention (DLP) flash-media blocks, and automated policy auditors used to enforce rigid compliance baselines like STIGs. By actively overseeing system agent deployments, managing the ePO policy tree structure, and tuning custom behavioral signatures, administrators in this domain provide security operations teams with the real-time visibility, automated threat containment, and configuration control required to safeguard critical, large-scale enterprise assets.</p>
+            <ul>
+              <li>Windows Operating System (OS) Security</li>
+              <li>*nix Operating System (OS) Security</li>
+              <li>Continuous Monitoring (ConMon)</li>
+              <li>Threat Containment, Quarantine & Eradication</li>
+              <li>Automated Vulnerability Scanning</li>
+              <li>Vulnerability Compliance Metrics Reporting</li>
+              <li>Threat, Risk & Vulnerability POA&M Management & Compliance Tracking</li>
+            </ul>
+
+            <p class="mb-3">Methods to insert elements into the DOM:</p>
+            <div class="bg-gray-50 dark:bg-gray-800 p-4 rounded-lg mb-4">
+              <pre><code>// Append </code></pre>
+            </div>
+          </div>
+
+          <div id="iam" class="mb-12">
+            <h1 class="small-caps-heading text-2xl font-bold mb-2">Identity & Access Management (IAM)</h1>
+            <p>Identity and Access Management (IAM) is the foundational, identity-centric cyber domain dedicated to ensuring that only authenticated and authorized individuals, devices, and automated services can access specific enterprise resources at the exact right time for the right reasons. Frequently referred to as the "new perimeter" of modern decentralized architectures, this discipline governs the entire lifecycle of a digital identity, from initial provisioning to offboarding. IAM implements a robust framework of technical controls—including Multi-Factor Authentication (MFA), Single Sign-On (SSO), Role-Based Access Control (RBAC), and Privileged Access Management (PAM)—to enforce strict least-privilege guardrails. By continuously validating identities and mapping permissions across cloud and on-premise environments, this domain completely neutralizes credential-stuffing attacks and prevents unauthorized privilege escalation.</p>
+            <ul>
+              <li>Domain Name Service (DNS) Security (DNSSEC)</li>
+              <li>Email Server & Endpoint Agent Security</li>
+              <li>Unified Communications</li>
+              <li>Security Information & Events Management (SIEM)</li>
+              <li>Security Orchestration & Automated Response (SOAR)</li>
+              <li>Security Log Correlation & False Positive Analysis</li>
+              <li>Zero-Day (oday) Vulnerability Tracking</li>
+            </ul>
+
+            <p class="mb-3">Methods to insert elements into the DOM:</p>
+            <div class="bg-gray-50 dark:bg-gray-800 p-4 rounded-lg mb-4">
+              <pre><code>// Append </code></pre>
+            </div>
+          </div>
+
+          <div id="infrasec" class="mb-12">
+            <h1 class="small-caps-heading text-2xl font-bold mb-2">Infrastructure Security (InfraSec)</h1>
+            <p>Infrastructure Security (InfraSec) is the foundational cyber domain dedicated to protecting the critical hardware, software, physical networks, and core operational platforms that underpin an enterprise's entire digital ecosystem. This discipline focuses on securing the underlying structural assets of an organization—such as physical data centers, core networking components (routers, switches, and load balancers), server operating systems, storage networks, and utility facilities—against physical damage, insider threats, and external digital exploitation. InfraSec implements a rigorous, layered defense model combining physical access barriers, strict network segmentation, hardware-root-of-trust authentications, and continuous configuration baseline auditing. By proactively hardening the foundational architecture upon which applications and data repositories run, this domain ensures systemic resilience, high availability, and absolute operational continuity for the enterprise.</p>
+            <ul>
+              <li>Domain Name Service (DNS) Security (DNSSEC)</li>
+            </ul>
+
+            <p class="mb-3">Methods to insert elements into the DOM:</p>
+            <div class="bg-gray-50 dark:bg-gray-800 p-4 rounded-lg mb-4">
+              <pre><code>// Append </code></pre>
+            </div>
+          </div>
+
+          <div id="mobile-sec" class="mb-12">
+            <h1 class="small-caps-heading text-2xl font-bold mb-2">Mobile Devices Security</h1>
+            <p>Mobile Device and Handheld Security is the specialized cyber domain dedicated to protecting enterprise data, corporate networks, and individual user privacy across portable, wireless communication hardware—such as smartphones, tablets, and ruggedized handheld scanners. Because mobile devices frequently operate outside traditional enterprise perimeters on untrusted public networks, this discipline addresses unique threats like malicious mobile applications, network eavesdropping, device theft, and physical tampering. This domain relies heavily on Unified Endpoint Management (UEM) and Mobile Device Management (MDM) platforms to enforce centralized corporate security policies, mandate strong biometric authentication, isolate enterprise data via secure application containerization, and enable immediate remote data wiping for lost or stolen hardware. By combining these active device controls with data-at-rest encryption and Mobile Threat Defense (MTD) software, this discipline ensures organizations can safely enable modern telework models and Bring Your Own Device (BYOD) programs without compromising core network infrastructure.</p>
+            <ul>
+              <li>Authentication & Onboarding</li>
+              <li>Rogue Access Point Detection</li>
+              <li>Wireless Security Protocols</li>
+              <li>OWASP Mobile Top 10</li>
+              <li>Automated Mobile App Scanning</li>
+              <li>Dynamic Mobile App Analysis</li>
+              <li>Secure Coding Practices</li>
+              <li>Mobile Penetration Testing</li>
+              <li>Secure Code Reviews</li>
+            </ul>
+
+            <p class="mb-3">Methods to remove elements from the DOM:</p>
+
+            <div id="netsec" class="mb-12">
+              <h1 class="small-caps-heading text-2xl font-bold mb-2">Network Security (NetSec)</h1>
+              <p>Network Security (NetSec) is the foundational cyber domain dedicated to protecting the integrity, confidentiality, and availability of data as it moves across local, enterprise, and global communication channels. This discipline focuses on securing the underlying transmission infrastructure against unauthorized access, structural intercept, and malicious disruptions like Denial-of-Service (DoS) attacks. NetSec combines physical controls and software-driven architectural defenses, deploying tools such as Next-Generation Firewalls (NGFW), Intrusion Detection and Prevention Systems (IDPS), Secure Web Gateways (SWG), and micro-segmentation boundaries. By enforcing robust network access controls, continuous traffic monitoring, and mandatory cryptographic protocols (such as IPsec and TLS tunnels), this domain ensures that only authorized entities can connect to corporate environments while completely neutralizing malicious lateral threat movement.</p>
+              <ul>
+                <li>Firewall Management</li>
+                <li>Network Access Control (NAC)</li>
+                <li>Secure Network Design</li>
+                <li>Defense-In-Depth / Layered Security Strategies</li>
+                <li>Unified Threat Management (UTM) & Threat-Informed Response</li>
+                <li>WAN & LAN Remote Access Management Security</li>
+                <li>Intrusion Detection & Intrusion Prevention Systems (IDS/IPS)</li>
+                <li>Router Access Control Lists (RACLs)</li>
+                <li>Switches and Virtual Local Area Networks (VLAN) Security</li>
+                <li>Virtual Private Networks (VPNs) & Secure TLS Tunnels</li>
+              </ul>
+
+              <p class="mb-3">Methods to remove elements from the DOM:</p>
+
+              <div id="osint" class="mb-12">
+                <h1 class="small-caps-heading text-2xl font-bold mb-2">Open-Source Intelligence (OSINT)</h1>
+                <p>Open Source Intelligence (OSINT) is the specialized cyber domain focused on the lawful collection, analysis, and synthesis of publicly available information to uncover actionable security insights and intelligence. Operating primarily as a reconnaissance discipline, OSINT involves gathering data from diverse, unclassified sources—including public search engines, social media platforms, code repositories, domain registration records, and deep web directories. Within cybersecurity, this domain is used dualistically: offensive teams use it during footprinting phases to map an organization's exposed assets and employee details, while defensive teams utilize it to monitor the dark web for leaked corporate credentials, track emerging global threat actors, and assess an organization's external attack surface. By transforming raw, public data into structured intelligence, this domain enables security teams to identify vulnerabilities and mitigate threats before they can be exploited.</p>
+                <p class="mb-3">Methods to remove elements from the DOM:</p>
+
+                <div class="bg-gray-50 dark:bg-gray-800 p-4 rounded-lg mb-4">
+                  <pre><code>// Remove</code></pre>
+                </div>
+              </div>
+              </section>
+
+              <div id="pentesting" class="mb-12">
+                <h1 class="small-caps-heading text-2xl font-bold mb-2">Penetration Testing & Ethical Hacking</h1>
+                <p>Penetration Testing and Ethical Hacking is the proactive, offensive cyber domain dedicated to evaluating the security posture of an organization's digital ecosystem by safely simulating real-world cyberattacks. Rather than relying solely on automated vulnerability scans, this discipline utilizes authorized security professionals—known as ethical hackers—to manually identify, verify, and exploit architectural flaws, software vulnerabilities, and configuration weaknesses across networks, applications, and physical perimeters. Operating under strict, pre-defined rules of engagement, penetration testers mimic the exact <em>Tactics, Techniques, and Procedures</em> (TTPs) of malicious threat actors to determine the true exploitability of a system and assess the effectiveness of internal defensive teams. By translating these authorized intrusions into comprehensive technical reports and remediation roadmaps, this domain provides organizations with the critical visibility required to patch security gaps before they can be exploited by actual adversaries.</p>
+                <p class="mb-3">Methods to manipulate HTML attributes:</p>
+                <div class="bg-gray-50 dark:bg-gray-800 p-4 rounded-lg mb-4">
+                  <pre><code>// Get </code></pre>
+                </div>
+              </div>
+
+              <div id="quantum-readiness" class="mb-12">
+                <h1 class="small-caps-heading text-2xl font-bold mb-2">Quantum Readiness & Crypographic Agility</h1>
+                <p><strong>Quantum Readiness and Cryptographic Agility</strong> is the forward-looking cyber domain focused on preparing enterprise networks for the systemic cryptographic vulnerabilities introduced by the advent of quantum computing. Because future quantum processors will be capable of breaking the foundational asymmetric encryption algorithms (such as RSA and ECC) that currently safeguard global finance, communications, and data storage, this domain actively spearheads the migration to Post-Quantum Cryptography (PQC). This discipline involves executing comprehensive data inventory audits to locate vulnerable legacy algorithms, restructuring architectures to support seamless, hot-swappable cryptographic keys without breaking running applications, and deploying NIST-approved quantum-resistant mathematical frameworks. By embedding cryptographic agility into modern infrastructure today, this domain ensures long-term data confidentiality and structural resilience against the emerging computing threats of tomorrow.</p>
+
+                <div id="quantum-documentation" class="mb-12">
+                  <h3 class="small-caps-heading text-2xl font-bold mb-2">Quantum Computing and Cryptographic Agility Publications, Documentation, Best Practices and Whitepapers</h3>
+                  <div class="table-container">
+                    <table class="purple-table">
+                      <thead>
+                        <tr>
+                          <th>Resources</th>
+                          <th>Details & Description</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr>
+                          <td><strong><a href="https://www.cisa.gov/sites/default/files/2023-08/Quantum-Readiness_Migration%20to%20Post-Quantum%20Cryptography_508.pdf">Quantum-Readiness: Migration to Post-Quantum Cryptography</a></strong></td>
+                          <td>
+                            <p><strong>Publisher:</strong> Cyber Security and Infrastructure Security Agency (CISA)/NSA/NIST</p><br />
+                            <p>A critical joint factsheet specifically tailored for organizations managing critical national infrastructure. It details actionable blueprints for setting up an internal Quantum-Readiness Roadmap, carrying out a comprehensive cryptographic asset inventory, and mapping vendor supply-chain timelines.</p>
+                          </td>
+                        </tr>
+                        <tr>
+                          <td><strong><a href="https://nvlpubs.nist.gov/nistpubs/ir/2024/NIST.IR.8547.ipd.pdf">NIST IR 8547: Transition to Post-Quantum Cryptography Standards</a></strong></td>
+                          <td>
+                            <p><strong>Publisher:</strong> National Institute of Standards and Technology (NIST)</p><br />
+                            <p>This foundational internal report details the operational steps organizations must execute to move cleanly toward newly finalized Federal Information Processing Standards (FIPS) standards (FIPS 203, 204, and 205). It explicitly covers cryptographic algorithm lifecycles and deprecation intervals.</p>
+                          </td>
+                        </tr>
+
+                        <tr>
+                          <td><strong><a href="https://messervices.cyber.gouv.fr/documents-guides/ANSSI-views-on-crypto-agility.pdf">ANSSIs Views on Crypto-Agility</a></strong></td>
+                          <td>
+                            <p><strong>Publisher:</strong> Agence Nationale de la Sécurité des Systèmes d'Information (ANSSI, France)</p><br />
+                            <p>This official position paper categorizes crypto-agility into two strict engineering scopes: <strong>Parameterization</strong> and <strong> Algorithmic replacement.</strong> It provides technical controls to prevent replay and downgrade attacks during network migrations.</p>
+                          </td>
+                        </tr>
+                        <tr>
+                          <td><strong><a href="https://dodcio.defense.gov/Portals/0/Documents/Library/DoW-PQC-Strategy.pdf">Department of Defense (DoD) Post-Quantum Cryptography Strategy</a></strong></td>
+                          <td>
+                            <p><strong>Publisher:</strong>U.S. Department of Defense (DoD Chief Information Officer (CIO))</p><br />
+                            <p>A high-assurance defense document defining how military networks must prepare Command-and-Control (C2) systems for quantum warfare. It focuses on modernizing High Assurance End Cryptographic Units (HA-ECUs) and embedding dynamic agility.</p>
+                          </td>
+                        </tr>
+                        <tr>
+                          <td><strong><a href="https://www.digicert.com/content/dam/digicert/pdfs/ebook/post-quantum-cryptography-practical-guide-en.pdf">The Ultimate Practical Guide to Post-Quantum Cryptography</a></strong></td>
+                          <td>
+                            <p><strong>Publisher:</strong>DigiCert (Public Root Certificate Authority (CA))</p><br />
+                            <p>An architecture-level eBook breaking down how Shor's algorithm actively deconstructs the Public Key Infrastructure (PKI), asymmetric keys, and digital certificates used on the internet today. It also details hybrid deployment structures combining classical and PQC signatures.</p>
+                          </td>
+                        </tr>
+
+                        <tr>
+                          <td><strong><a href="https://www.cisa.gov/sites/default/files/publications/cisa_insight_post_quantum_cryptography_508.pdf">CISA Insights: Preparing Critical Infrastructure for PQC</a></strong></td>
+                          <td>
+                            <p><strong>Publisher:</strong>Cybersecurity and Infrastructure Security Agency (CISA)</p><br />
+                            <p>An advisory brief tracking the specific threat of "Harvest Now, Decrypt Later" (HNDL) data collection models targeting high-secrecy federal networks. It identifies the four essential communications capabilities that must prioritize immediate remediation.</p>
+                          </td>
+                        </tr>
+                        <tr>
+                          <td><strong><a href="https://www.nccoe.nist.gov/sites/default/files/legacy-files/pqc-migration-project-description-final.pdf">Migration to Post-Quantum Cryptography Project Framework</a></strong></td>
+                          <td>
+                            <p><strong>Publisher:</strong>National Cybersecurity Center of Excellence (NCCoE / NIST)</p><br />
+                            <p>This technical overview summarizes a multi-vendor project space mapping the exact real-world complexities encountered when replacing legacy public keys in commercial software, databases, and continuous delivery systems.</p>
+                          </td>
+                        </tr>
+                        <tr>
+                          <td><strong><a href="https://nvlpubs.nist.gov/nistpubs/ir/2016/NIST.IR.8105.pdf">NISTIR 8105: Report on Post-Quantum Cryptography</a></strong></td>
+                          <td>
+                            <p><strong>Publisher:</strong>National Institute of Standards and Technology (NIST)</p><br />
+                            <p>This historic foundational roadmap that initiated the global PQC standardization process. It provides deep mathematical context on why lattice-based cryptography resists quantum-level computer factoring.</p>
+                          </td>
+                        </tr>
+                        <tr>
+                          <td><strong><a href="https://qramm.org/toolkit/QRAMM_Executive_Brief.pdf">QRAMM: Quantum Readiness Assurance Maturity Model</a></strong></td>
+                          <td>
+                            <p><strong>Publisher:</strong>QRAMM Consortium</p><br />
+                            <p>A strategic self-assessment manual providing 120 targeted auditing questions across four distinct domains: Governance, Technical Readiness, Operational Monitoring, and Supply Chain Security. It outlines a rolling 18-month execution pathway for executive sponsors.</p>
+                          </td>
+                        </tr>
+
+                        <tr>
+                          <td><strong><a href="https://cpl.thalesgroup.com/sites/default/files/content/solution_briefs/post-quantum-readiness-begins-with-crypto-agility-sb.pdf">Post-Quantum Readiness Begins with Crypto Agility</a></strong></td>
+                          <td>
+                            <p><strong>Publisher:</strong>Thales Group (Defense and Aerospace Security Enterprise)</p><br />
+                            <p>An engineering brief explaining the practical implementation of high-speed network encryption hardware appliances. It breaks down how to construct hybrid cryptographic tunnels leveraging out-of-band key distributions and Quantum Random Number Generators (QRNGs).</p>
+                          </td>
+                        </tr>
+                        <tr>
+                          <td>
+                            <p><strong><a href="https://www.cyber.gc.ca/sites/default/files/ITSAP40018-guidance-on-becoming-cryptographically-agile.pdf">ITSAP.40.018: Guidance on Becoming Cryptographically Agile</a></strong></p>
+                          </td>
+                          <td>
+                            <p><strong>Publisher:</strong> Canadian Centre for Cyber Security (CCCS)</p><br />
+                            <p>A tactical engineering guide outlining how to design architectures where algorithms can be seamlessly interchanged through configuration files rather than hardcoded rewrites. It provides steps to build upgrade pipelines that maintain continuous compliance.</p>
+                          </td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+
+                  <div id="quantum-tools" class="mb-12">
+                    <h2 class="small-caps-heading text-2xl font-bold mb-2">Quantum Computing and Cryptographic Agility Tools</h2>
+                    <p class="mb-3">Quantum Computing utilizes quantum mechanical phenomenon such as entanglement and superposition to manipulate qubits to perform computation on a quantum computer. Currently available tools are available to create and run programs on publicly usable quantum computers as well as resources to learn about them in-depth.</p>
+                    <p class="mb-3">This is a curated list of up-to-date resources on learning about and developing quantum computers. The goal is to build a categorized community-driven collection of up-to-date, high-quality resources.</p>
+                    <p class="mb-3">Click on any of the links below to begin your quantum computing adventure!</p>
+                    <div class="sidebar-dropdown">
+                      <details>
+                        <summary>
+                          <span>
+                            <div id="quantum-tools" class="mb-12">
+                              <h2 class="small-caps-heading text-2xl font-bold mb-2">Quantum Computing and Cryptographic Agility Tools</h2>
+                              <p class="mb-3">Quantum Computing utilizes quantum mechanical phenomenon such as entanglement and superposition to manipulate qubits to perform computation on a quantum computer. Currently available tools are available to create and run programs on publicly usable quantum computers as well as resources to learn about them in-depth.</p>
+                              <p class="mb-3">This is a curated list of up-to-date resources on learning about and developing quantum computers. The goal is to build a categorized community-driven collection of up-to-date, high-quality resources.</p>
+
+                              <div id="quantum-beginner-friendly" class="mb-8">
+                                <h2 class="small-caps-heading text-2xl font-bold mb-2">🟢 1. Conceptual & Beginner-Friendly (No Physics Required)</h2>
+                                <ul>
+                                  <li><a href="https://davidbkemp.github.io/QuantumComputingArticle/">An Interactive Introduction to Quantum Computing</a> - A conceptual, math-light guide by David Kemp that uses visual animations to break down qubits, phases, and quantum interference.</li>
+                                  <li><a href="https://q-ctrl.com/black-opal">Black Opal</a> - An interactive, visually-driven learning platform built to master the fundamental building blocks of quantum mechanics.</li>
+                                  <li><a href="https://cnot.io/">CNOT</a> - A clear, step-by-step primer that deconstructs complex quantum computing concepts into easily digestible milestones.</li>
+                                  <li>Chris Ferrie - Engaging <a href="https://csferrie.medium.com/">Medium</a> articles and lectures by a Sydney university professor known for translating deep quantum mechanics into simple terms (and author of <em>"Quantum Computing for Babies"</em>).</li>
+                                  <li><a href="https://quantum.country/qcvc">Quantum Computing for the Very Curious</a> - A highly praised, mnemonic-driven interactive essay by Michael Nielsen and Andy Matuschak designed for long-term retention.</li>
+                                  <li><a href="https://www.quantum-inspire.com/kbase/introduction-to-quantum-computing">Quantum Inspire Knowledge Base</a> - A cleanly structured, accessible library breaking down core definitions and hardware concepts.</li>
+                                  <li><a href="https://www.quantum-quest.nl/">The Quantum Quest</a> - A web-based introductory course custom-tailored to teach high school students the core logic of quantum properties.</li>
+                                </ul>
+                              </div>
+
+                              <div id="quantum-guided-tutorials" class="mb-8">
+                                <h2 class="small-caps-heading text-2xl font-bold mb-2">🟡 2. Guided Tutorials & Platform Introductions</h2>
+                                <ul>
+                                  <li><a href="https://quantumexperience.ng.bluemix.net/qx/tutorial?sectionId=full-user-guide&page=introduction">IBM Q Full User Guide</a> - A gentle, beginner-friendly collection of introductory tutorials covering the essentials of the IBM Q ecosystem.</li>
+                                  <li><a href="https://home.cern/news/announcement/computing/online-introductory-lectures-quantum-computing-6-november">Introduction to Quantum Computing</a> - High-quality introductory lectures and online tutorials curated by the computing experts at CERN.</li>
+                                  <li><a href="https://docs.microsoft.com/en-us/learn/paths/quantum-computing-fundamentals/">Quantum Computing Foundations</a> - A structured Microsoft Learn path detailing the fundamentals of quantum hardware alongside Azure Quantum tools.</li>
+                                  <li><a href="https://www.dwavesys.com/take-leap">D-Wave Leap</a> - A cloud portal that offers interactive demos, learning materials, and live developer access to D-Wave's quantum annealing systems.</li>
+                                </ul>
+                              </div>
+
+                              <div id="quantum-sandbox" class="mb-8">
+                                <h2 class="small-caps-heading text-2xl font-bold mb-2">🔵 3. Interactive Sandboxes & Simulators</h2>
+                                <ul>
+                                  <li><a href="http://algassert.com/quirk">Quirk</a> - A real-time, drag-and-drop circuit simulator built directly for the browser, offering instant visual feedback on state changes.</li>
+                                  <li><a href="http://www.quantumplayground.net/#/home">Quantum Computing Playground</a> - A browser-based engine featuring 3D visualizations capable of simulating quantum states up to 22 qubits.</li>
+                                  <li><a href="http://cnotmz.appspot.com/#">Quantum in the Cloud</a> - An accessible hardware platform giving users remote access to a real 4-qubit photonic simulator and computer.</li>
+                                </ul>
+                              </div>
+
+                              <div id="quantum-sdk" class="mb-8">
+                                <h2 class="small-caps-heading text-2xl font-bold mb-2">🟠 4. Intermediate & Developer-Focused (Coding & SDKs)</h2>
+                                <ul>
+                                  <li><a href="https://github.com/Qiskit/qiskit-tutorial">Qiskit Tutorials</a> - A collection of Jupyter notebooks demonstrating how to build and execute circuits using IBM's open-source Python SDK.</li>
+                                  <li><a href="https://quantumcomputinguk.org/">Quantum Computing UK</a> - A community repository offering free Qiskit programming tutorials, code templates, and practical guides.</li>
+                                  <li><a href="https://gitlab.com/qworld/bronze-qiskit">QWorld's Bronze-Qiskit</a> - An ultra-accessible programming series with companion videos, tracking from basic linear algebra up to Grover's search algorithm.</li>
+                                  <li><a href="https://github.com/Microsoft/QuantumKatas/">Quantum Katas</a> - A collection of self-paced programming exercises designed to teach Microsoft Q# and quantum algorithms via test-driven learning.</li>
+                                  <li><a href="https://cs269q.stanford.edu/syllabus.html">Quantum Computer Programming</a> - A hands-on, practical Stanford syllabus tailored for developers entering the field without a background in physics.</li>
+                                  <li><a href="http://pyquil.readthedocs.io/en/latest/">Documentation for Forest and pyQuil</a> - Practical programming tutorials and references for Rigetti Computing's software development kit.</li>
+                                  <li><a href="https://strawberryfields.readthedocs.io/en/latest/">Documentation for Strawberry Fields</a> - Comprehensive tutorials for Xanadu's SDK alongside foundational theory on photonic continuous-variable quantum computing.</li>
+                                </ul>
+                              </div>
+
+                              <div id="quantum-advanced" class="mb-8">
+                                <h2 class="small-caps-heading text-2xl font-bold mb-2">🔴 5. Advanced Algorithms & Academic Resources</h2>
+                                <ul>
+                                  <li><a href="https://arxiv.org/pdf/1804.03719.pdf">Quantum Algorithm Implementations for Beginners</a> - A compact research survey mapping out and testing 20 fundamental quantum algorithms inside Qiskit.</li>
+                                  <li><a href="http://math.nist.gov/quantum/zoo/">Quantum Algorithm Zoo</a> - An exhaustive, highly cited comprehensive library cataloging all known quantum algorithms and their speedups.</li>
+                                  <li><a href="https://arxiv.org/pdf/1804.10068.pdf">Quantum Machine Learning for Data Scientists</a> - A clear math-to-code translation guide explaining quantum machine learning models for data professionals.</li>
+                                  <li><a href="https://workedproblems.wordpress.com/category/nielsenchuang/">Nielsen and Chuang</a> - Step-by-step solutions and worked-out examples for problems from the definitive "bible" of quantum computing.</li>
+                                  <li><a href="http://www.theory.caltech.edu/~preskill/ph219/index.html#lecture">John Preskill's Notes on Quantum Computation</a> - Celebrated, rigorous academic lecture notes from Caltech's premier Physics/Computer Science 219 course.</li>
+                                  <li><a href="https://quantumalgorithms.org/">Quantum Algorithms</a> - Open-source set of lectures and notes exploring quantum algorithms with a specialized focus on machine learning and data analysis.</li>
+                                  <li><a href="https://www.manning.com/liveprojectseries/quantum-computing-with-amazon-braket-sdk-ser">Quantum Computing with Amazon Braket SDK</a> - A project-based Manning training series that guides you through building real-world algorithms using Amazon's cloud SDK.</li>
+                                </ul>
+                              </div>
+
+                              <div id="interactive-academic" class="mb-8">
+                                <h2 class="small-caps-heading text-2xl font-bold mb-2">Interactive & Academic Programs</h2>
+                                <ul>
+                                  <li><a href="https://brilliant.org/courses/quantum-computing/">Brilliant.org Quantum Computing</a> - An interactive, problem-driven learning module built in collaboration with Microsoft and Alphabet X.</li>
+                                  <li><a href="https://www.arturekert.org/iqis">Introduction to Quantum Information Science</a> - A comprehensive Oxford University course taught by Professor Artur Ekert.</li>
+                                  <li><a href="https://ocw.mit.edu/courses/media-arts-and-sciences/mas-865j-quantum-information-science-spring-2006/lecture-notes/">MIT Quantum Information Sciences</a> - A robust repository of open-access lecture notes.</li>
+                                  <li><a href="https://www.edx.org/course/quantum-information-science-i">Quantum Information Science I, Part I</a> - A foundational academic course exploring the baseline mechanics of quantum info systems.</li>
+                                </ul>
+                              </div>
+
+                              <div id="hands-on" class="mb-8">
+                                <h2 class="small-caps-heading text-2xl font-bold mb-2">Practical Programming & Hands-On Coding</h2>
+                                <ul>
+                                  <li><a href="https://www.coursera.org/projects/programming-quantum-computer-qiskit">Programming a Quantum Computer with Qiskit</a> - An intensive 2-hour guided lab course focused on teaching engineers how to code for real quantum processors.</li>
+                                  <li><a href="https://www.udemy.com/course/quantum-computing/">Quantum Computing</a> - Theory to Simulation and Programming: An operational development guide for the D-Wave Quantum Annealer architecture.</li>
+                                </ul>
+                              </div>
+
+                              <div id="conceptual-introductions" class="mb-8">
+                                <h2 class="small-caps-heading text-2xl font-bold mb-2">Conceptual & Beginner-Friendly Introductions</h2>
+                                <ul>
+                                  <li><a href="https://www.udemy.com/qc101-introduction-to-quantum-computing-quantum-physics-for-beginners/">QC101 Quantum Computing & Quantum Physics for Beginners</a> - An accessible entry point detailing the fundamental principles of quantum cryptography.</li>
+                                  <li><a href="https://www.edx.org/course/quantum-mechanics-quantum-computation-uc-berkeleyx-cs-191x">Quantum Mechanics and Quantum Computation</a> - A conceptual primer explaining the fundamental physics principles that power modern quantum computing units.</li>
+                                  <li><a href="https://www.coursera.org/learn/quantum-computing-algorithms">The Introduction To Quantum Computing</a> - A structured technical overview tracing the evolution of classical computational math into its quantum counterparts.</li>
+                                  <li><a href="https://www.coursera.org/learn/quantum-computing-lfmu">Quantum Computing: Less Formulas - More Understanding</a> - A conceptually driven course designed to demystify quantum processing.</li>
+                                  <li><a href="https://www.futurelearn.com/courses/intro-to-quantum-computing">Understanding Quantum Computers</a> - A high-level, minimal-math guide built to introduce absolute beginners to the core mechanics of quantum systems.</li>
+                                </ul>
+                              </div>
+
+                              <div id="future-tech-domains" class="mb-8">
+                                <h2 class="small-caps-heading text-2xl font-bold mb-2">Specialized & Future Tech Domains</h2>
+                                <ul>
+                                  <li><a href="https://www.edx.org/course/quantum-machine-learning">Quantum Machine Learning</a> - A forward-looking look into how quantum information processing can accelerate, optimize, and transform classical machine learning algorithms.</li>
+                                  <li><a href="https://www.edx.org/course/quantum-internet-quantum-computers-how-delftx-qtm1x">The Quantum Internet and Quantum Computers</a> - A comprehensive roadmap detailing the mechanics, networking principles, and societal implications of quantum-encrypted communication channels.</li>
+                                </ul>
+                              </div>
+                            </div>
+                            <h3>Learning</h3>
+                            <ul>
+                              <li>An
+
+                                <p class="mb-3">Methods to insert elements into the DOM:</p>
+                                <div class="bg-gray-50 dark:bg-gray-800 p-4 rounded-lg mb-4">
+                                  <pre><code>// Append </code></pre>
+                                </div>
+                    </div>
+
+                    <div id="red-team" class="mb-12">
+                      <h2 class="small-caps-heading text-2xl font-bold mb-2">Red Teaming & Offensive Security</h2>
+                      <p><strong>Red Teaming and Offensive Security</strong> is the specialized cyber domain that actively challenges an organization's overall defensive posture by simulating highly realistic, multi-layered adversarial attacks. Unlike standard penetration testing, which focuses on identifying specific vulnerabilities within an isolated scope, Red Teaming adopts the exact mindsets, covert tactics, and timeline-free methodologies of real-world threat actors to test an organization's actual detection and response capabilities. This domain orchestrates complex, multi-vector operations that span digital networks, physical perimeters, and human elements through social engineering or phishing campaigns. By providing an authentic, adversarial stress-test against internal defensive teams (Blue Teams), Red Teaming exposes hidden security gaps, uncovers systemic blind spots, and equips organizations with the raw, evidence-based insights needed to build a resilient defense-in-depth perimeter.</p>
+                      <p class="mb-3">Common DOM element properties:</p>
+
+                      <div class="bg-gray-50 dark:bg-gray-800 p-4 rounded-lg mb-4">
+                        <pre><code>// Manip</code></pre>
+                      </div>
+                    </div>
+                    </section>
+                    <div id="rev-eng" class="mb-12">
+                      <h2 class="small-caps-heading text-2xl font-bold mb-2">Reverse Engineering</h2>
+                      <p><strong>Reverse Engineering</strong> is the deeply technical cyber domain dedicated to deconstructing compiled software, firmware, or hardware components to understand their internal mechanics, logic, and core functionality without access to the original source code. Operating primarily at the assembly and binary level, this discipline acts as the ultimate diagnostic and analytical toolkit within cybersecurity. Specialists in this domain utilize specialized tools—such as disassemblers (e.g., IDA Pro, Ghidra) and debuggers (e.g., x64dbg, WinDbg)—to trace CPU execution paths, reconstruct data structures, and map programmatic logic. Within the security ecosystem, reverse engineering serves dual purposes: defensive analysts rely on it to dissect sophisticated malware, identify zero-day vulnerabilities, and uncover hidden cryptographic keys, while hardware engineers apply it to analyze legacy components and verify that proprietary hardware roots-of-trust remain uncompromised by malicious firmware modifications.</p>
+                      <p class="mb-3">Methods to work with CSS classes:</p>
+
+                      <div class="bg-gray-50 dark:bg-gray-800 p-4 rounded-lg mb-4">
+                        <pre><code>// Add </code></pre>
+                      </div>
+                    </div>
+
+                    <div id="software-dev" class="mb-12">
+                      <h2 class="small-caps-heading text-2xl font-bold mb-2">Secure Software Development & Safe Coding Practices</h2>
+                      <p><strong>Secure Software Development and Safe Coding Practices</strong> is the proactive cyber domain focused on integrating defensive engineering principles directly into the source code from the very first line written. Rather than relying on post-development testing or network firewalls to catch flaws after a product is compiled, this discipline treats security as a fundamental engineering requirement throughout the development lifecycle. It mandates strict adherence to established coding standards—such as the OWASP Top 10 guidelines or SEI CERT secure coding standards—to prevent pervasive vulnerabilities like SQL injections, Cross-Site Scripting (XSS), and buffer overflows. By enforcing continuous automated line-by-line linting, input sanitization boundaries, memory-safe data operations, and peer-reviewed code verification, this domain empowers developers to eliminate architectural weaknesses early, producing resilient, stable software that is structurally "secure by design."</p>
+                      <p class="mb-3">Methods and properties to manipulate CSS styles:</p>
+
+                      <div class="bg-gray-50 dark:bg-gray-800 p-4 rounded-lg mb-4">
+                        <pre><code>// Set </code></pre>
+                      </div>
+                    </div>
+                    </section>
+                    <div id="threat-hunting" class="mb-12">
+                      <h2 class="small-caps-heading text-2xl font-bold mb-2">Threat Hunting</h2>
+                      <p>Threat Hunting is the proactive, analyst-led cyber domain dedicated to searching across an organization's network endpoints, cloud environments, and internal data stores to isolate and neutralize covert malicious activity that has bypassed automated security controls. Rather than waiting for a Security Information and Event Management (SIEM) system or antivirus software to trigger an alert, threat hunters operate under the assumption that a breach has already occurred. This discipline blends deep technical expertise with advanced analytics, threat intelligence, and behavioral monitoring to discover hidden adversaries, such as advanced persistent threats (APTs) executing fileless malware or living-off-the-land attacks. By continuously formulating hypotheses based on the latest adversarial tactics, Techniques, and procedures (TTPs), threat hunting teams actively shrink an attacker's dwell time, evict intruders before they can cause damage, and provide defensive engineers with the exact insights needed to harden internal detection rules.</p>
+                      <p class="mb-3">Methods to handle DOM events:</p>
+
+                      <div class="bg-gray-50 dark:bg-gray-800 p-4 rounded-lg mb-4">
+                        <pre><code>// Add </code></pre>
+                      </div>
+                    </div>
+
+                    <div id="threat-intel" class="mb-12">
+                      <h2 class="small-caps-heading text-2xl font-bold mb-2">Threat Intelligence</h2>
+                      <p>Threat Intelligence (Threat-Intel) is the strategic and tactical cyber domain dedicated to collecting, analyzing, and synthesizing raw data about emerging digital hazards, threat actors, and adversarial methodologies into actionable security insights. Rather than operating in a reactive vacuum, this discipline equips organizations with a predictive understanding of the threat landscape by evaluating the specific motives, capabilities, targets, and history of malicious entities. Threat-Intel operates across three distinct levels: Strategic, which tracks global geopolitical shifts and macroeconomic cyber trends for executive decision-making; Operational, which investigates the specific campaigns and behaviors of threat groups; and Tactical, which identifies real-time technical indicators of compromise (IoCs)—such as malicious IP addresses, file hashes, and domain names. By continuously feeding structured intelligence feeds (like STIX/TAXII format) directly into firewalls, SIEM platforms, and EDR systems, this domain transforms raw global threat data into proactive, systemic perimeters that neutralize attacks before they strike internal enterprise infrastructure.</p>
+                      <p class="mb-3">Properties and methods of the event object:</p>
+
+                      <div class="bg-gray-50 dark:bg-gray-800 p-4 rounded-lg mb-4">
+                        <pre><code>// Work</code></pre>
+                      </div>
+                    </div>
+
+                    <div id="vulnerability-research" class="mb-12">
+                      <h2 class="small-caps-heading text-2xl font-bold mb-2">Vulnerability Management & Research</h2>
+                      <p>Vulnerability Management and Research is the proactive cyber domain dedicated to continuously identifying, analyzing, prioritizing, and remediating security weaknesses across an organization's entire digital footprint. This discipline shifts security from a reactive response to a strategic lifecycle, utilizing automated network scanners, asset discovery tools, and configuration audits to map out systemic flaws before attackers can exploit them. The Research aspect of this domain involves deeply technical analysis to understand the root causes of security flaws, tracking zero-day exploits, and monitoring global intelligence feeds like the National Vulnerability Database (NVD). By translating raw technical flaws into structured risk metrics using frameworks like the Common Vulnerability Scoring System (CVSS), this domain ensures that patch management and engineering teams can efficiently deploy updates and mitigate threats where the organization is most exposed.</p>
+                      <p class="mb-3">Pattern to handle events for multiple elements with a single listener:</p>
+
+                      <div class="bg-gray-50 dark:bg-gray-800 p-4 rounded-lg mb-4">
+                        <pre><code>// Event</code></pre>
+                      </div>
+
+                      <p class="mt-3">Advantages of event delegation:</p>
+                      <ul class="list-disc pl-5 mt-2 mb-4 space-y-1">
+                        <li>Memory-efficient for large number of elements</li>
+                        <li>Works for dynamically added elements</li>
+                        <li>Less code to manage</li>
+                        <li>No need to add/remove listeners when elements are added/removed</li>
+                      </ul>
+                    </div>
+
+                    <div id="interesting-sites" class="mb-12">
+                      <h2 class="small-caps-heading text-2xl font-bold mb-2">Interesting Sites</h2>
+
+                      <div class="table-container">
+                        <table class="purple-table">
+                          <thead>
+                            <tr>
+                              <th>Interesting Site</th>
+                              <th>Details & Description</th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            <tr>
+                              <td><strong><a href="https://absoluteappsec.com/">Absolute AppSec</a></strong></td>
+                              <td>Absolute AppSec is an educational and community platform dedicated entirely to application security, this website serves as a central hub for developers and cybersecurity practitioners looking to master secure software practices.</td>
+                            </tr>
+                            <tr>
+                              <td><strong><a href="https://www.beyondtrust.com/podcastComponent Design">Adventures of Alice and Bob by BeyondTrust</a></strong></td>
+                              <td>Building blurredstudy cards with centered hover hints.</td>
+                            </tr>
+                            <tr>
+                              <td><strong>Typography</strong></td>
+                              <td>Adding dynamically sized heart emojis around left-aligned h2 elements.</td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+
+                      <p class="mb-3">Pattern to handle events for multiple elements with a single listener:</p>
+
+                      <div class="bg-gray-50 dark:bg-gray-800 p-4 rounded-lg mb-4">
+                        <pre><code>// Event</code></pre>
+                      </div>
+
+                      <p class="mt-3">Advantages of event delegation:</p>
+                      <ul class="list-disc pl-5 mt-2 mb-4 space-y-1">
+                        <li>Memory-efficient for large number of elements</li>
+                        <li>Works for dynamically added elements</li>
+                        <li>Less code to manage</li>
+                        <li>No need to add/remove listeners when elements are added/removed</li>
+                      </ul>
+                    </div>
+
+                    </section>
+                    <!-- Wrap your grid inside your existing content container class -->
+                    <div class="content">
+
+                      <div class="book-grid">
+                        <!-- Book 1 -->
+                        <article class="book-card">
+                          <div class="book-cover-wrap">
+                            <img class="book-cover" src="https://placeholder.com" alt="Book Cover 1">
+                          </div>
+                          <div class="book-details">
+                            <span class="book-title">The Great Gatsby</span>
+                            <p class="book-description">A classic story exploring themes of wealth, love, and disillusionment set against the backdrop of Long Island during the Roaring Twenties.</p>
+                          </div>
+                        </article>
+
+                        <!-- Book 2 -->
+                        <article class="book-card">
+                          <div class="book-cover-wrap">
+                            <img class="book-cover" src="https://placeholder.com" alt="Book Cover 2">
+                          </div>
+                          <div class="book-details">
+                            <span class="book-title">To Kill a Mockingbird</span>
+                            <p class="book-description">An unforgettable narrative examining racial injustice and the destruction of innocence in a small Southern town during the Great Depression.</p>
+                          </div>
+                        </article>
+
+                        <!-- Book 3 -->
+                        <article class="book-card">
+                          <div class="book-cover-wrap">
+                            <img class="book-cover" src="https://placeholder.com" alt="Book Cover 3">
+                          </div>
+                          <div class="book-details">
+                            <span class="book-title">1984</span>
+                            <p class="book-description">A haunting, dystopian projection of a totalitarian society where surveillance is omnipresent and independent thought is fiercely policed.</p>
+                          </div>
+                        </article>
+                      </div>
+                      <div class="accordion">
+                        <div class="accordion-item">
+                          <button class="accordion-header">
+                            <span>Section Title</span>
+                            <span class="accordion-icon">▼</span>
+                          </button>
+                          <div class="accordion-content">
+                            <p>Your content here...</p>
+                          </div>
+                        </div>
+
+                        <div class="accordion-item">
+                          <button class="accordion-header">
+                            <span>Another Section</span>
+                            <span class="accordion-icon">▼</span>
+                          </button>
+                          <div class="accordion-content">
+                            <p>More content...</p>
+                          </div>
+                        </div>
+                      </div>
+        </main>
+      </div>
+    </div>
+    </div>
+    <footer class="app-footer">
+  <!-- Line 1: Copyright + Links -->
+  <div class="footer-content">
+    <p class="footer-copyright">&copy; 1996-2026 hackherway</p>
+    <ul class="footer-links">
+      <li><a href="#top">Back to Top</a></li>
+      <li><a href="#">Privacy Policy</a></li>
+      <li><a href="#">Terms of Service</a></li>
+    </ul>
+  </div>
+
+  <!-- Line 2: Additional page links -->
+  <div class="footer-content footer-line-2">
+    <ul class="footer-links">
+      <li><a href="glossary.html">Glossary</a></li>
+      <li><a href="resources.html">Resources</a></li>
+      <li><a href="quantum.html">Quantum</a></li>
+      <!-- Add more page links as needed -->
+    </ul>
+  </div>
+<center><p class="footer-tagline">&bull; <span style="color: #ff4ea8;">a08</span>🩷<span style="color: #7f82bb;">s02</span>&bull;<span style="color: #337bf9;">j10</span>💙<span style="color: #38c283;">b25</span>&bull;<span style="color: #38c283;">d08</span>💚<span style="color: #337bf9;">k14</span> &bull;</p></center>    
+  <!-- Y2K Icons - Evenly Spaced -->
+  <div class="footer-icons">
+    <img src="https://github.com/d0midigi/hackherway/blob/master/images/stripe4.gif?raw=true" alt="stripe divider">
+    <img src="https://github.com/d0midigi/hackherway/blob/master/images/dnb-trance-your-music.gif?raw=true" alt="dnb music">
+    <img src="https://github.com/d0midigi/hackherway/blob/master/images/powered-by-a-mouse-in-a-wheel.gif?raw=true" alt="powered by mouse">
+    <img src="https://github.com/d0midigi/hackherway/blob/master/images/y2k-compliant.png?raw=true" alt="y2k compliant">
+    <img src="https://github.com/d0midigi/hackherway/blob/master/images/built-with-ms-notepad.png?raw=true" alt="built with notepad">
+  </div>
+
+  <!-- Tagline -->
+  <div class="footer-tagline-bottom">
+    <span style="color: #fe0942;">&bull;</span>
+    <span style="color: #ffffff;"><strong>built with curiosity, caffeine, and controlled paranoia</strong></span>
+    <span style="color: #fe0942;">&bull;</span>
+  </div>
+</footer>
+                              <script>
+
+
+                                // Set up dark mode
+if (
+  window.matchMedia &&
+  window.matchMedia("(prefers-color-scheme: dark)").matches
+) {
+  document.documentElement.classList.add("dark");
+}
+window
+  .matchMedia("(prefers-color-scheme: dark)")
+  .addEventListener("change", (event) => {
+    if (event.matches) {
+      document.documentElement.classList.add("dark");
+    } else {
+      document.documentElement.classList.remove("dark");
+    }
+  });
+// Dark mode toggle
+document.getElementById("theme-toggle").addEventListener("click", () => {
+  document.documentElement.classList.toggle("dark");
+});
+// Search functionality
+document.addEventListener("DOMContentLoaded", () => {
+  const searchInput = document.getElementById("search-input");
+  const searchResults = document.getElementById("search-results");
+  const searchButton = document.getElementById("search-button");
+  const contentElements = document.querySelectorAll(
+    "main section h2, main section h3, main section p, main section pre, main table tbody tr td:nth-child(1)"
+  );
+  // Create the search index for efficient searching
+  const searchIndex = new Map();
+  // Hash function for text normalization and indexing
+  function hashText(text) {
+    return text
+      .toLowerCase()
+      .replace(/[^\w\s]/g, "") // Remove punctuation
+      .replace(/\s+/g, " ") // Normalize whitespace
+      .trim();
+  }
+  // Build the search index
+  contentElements.forEach((element, index) => {
+    const text = element.textContent;
+    const hashedText = hashText(text);
+    // Skip very short text
+    if (hashedText.length < 3) return;
+    // Store the element with the text for retrieval
+    searchIndex.set(hashedText, {
+      element,
+      originalText: text,
+      index
+    });
+    // Also index words individually for better matching
+    const words = hashedText.split(" ");
+    words.forEach((word) => {
+      if (word.length > 3) {
+        if (!searchIndex.has(word)) {
+          searchIndex.set(word, []);
+        }
+        if (Array.isArray(searchIndex.get(word))) {
+          searchIndex.get(word).push({
+            element,
+            originalText: text,
+            index
+          });
+        }
+      }
+    });
+  });
+  // Search function
+  function performSearch(query) {
+    const results = [];
+    const seenElements = new Set();
+    const normalizedQuery = hashText(query);
+    if (normalizedQuery.length < 2) return results;
+    // Exact matches first
+    if (
+      searchIndex.has(normalizedQuery) &&
+      !Array.isArray(searchIndex.get(normalizedQuery))
+    ) {
+      const result = searchIndex.get(normalizedQuery);
+      results.push(result);
+      seenElements.add(result.element);
+    }
+    // Partial matches
+    searchIndex.forEach((value, key) => {
+      if (key.includes(normalizedQuery)) {
+        if (Array.isArray(value)) {
+          value.forEach((item) => {
+            if (!seenElements.has(item.element)) {
+              results.push(item);
+              seenElements.add(item.element);
+            }
+          });
+        } else if (!seenElements.has(value.element)) {
+          results.push(value);
+          seenElements.add(value.element);
+        }
+      }
+    });
+    // Sort by relevance (exact matches first, then by original order)
+    results.sort((a, b) => {
+      const aExact = hashText(a.originalText) === normalizedQuery;
+      const bExact = hashText(b.originalText) === normalizedQuery;
+      if (aExact && !bExact) return -1;
+      if (!aExact && bExact) return 1;
+      return a.index - b.index;
+    });
+    return results.slice(0, 10); // Limit to 10 results
+  }
+  // Display search results
+  function displayResults(results) {
+    searchResults.innerHTML = "";
+    if (results.length === 0) {
+      searchResults.innerHTML =
+        '<div class="p-3 text-gray-500 dark:text-gray-400">No results found</div>';
+      return;
+    }
+    results.forEach((result) => {
+      const div = document.createElement("div");
+      div.className =
+        "p-3 border-b border-gray-200 dark:border-gray-700 hover:bg-gray-100 dark:hover:bg-gray-700 cursor-pointer";
+      let displayText = result.originalText;
+      if (displayText.length > 100) {
+        displayText = displayText.substring(0, 100) + "...";
+      }
+      div.textContent = displayText;
+      div.addEventListener("click", () => {
+        // Scroll to the element
+        result.element.scrollIntoView({
+          behavior: "smooth"
+        });
+        // Highlight the element temporarily
+        result.element.classList.add("search-result");
+        setTimeout(() => {
+          result.element.classList.remove("search-result");
+        }, 2000);
+        // Hide search results
+        searchResults.style.display = "none";
+        searchInput.value = "";
+      });
+      searchResults.appendChild(div);
+    });
+  }
+  // Search input event handler
+  searchInput.addEventListener("input", () => {
+    const query = searchInput.value.trim();
+    if (query.length < 2) {
+      searchResults.style.display = "none";
+      return;
+    }
+    const results = performSearch(query);
+    displayResults(results);
+    searchResults.style.display = "block";
+  });
+  // Handle search button click
+  searchButton.addEventListener("click", () => {
+    const query = searchInput.value.trim();
+    if (query.length < 2) {
+      return;
+    }
+    const results = performSearch(query);
+    displayResults(results);
+    searchResults.style.display = "block";
+  });
+  // Hide search results when clicking outside
+  document.addEventListener("click", (event) => {
+    if (
+      !searchInput.contains(event.target) &&
+      !searchResults.contains(event.target) &&
+      !searchButton.contains(event.target)
+    ) {
+      searchResults.style.display = "none";
+    }
+  });
+  // Handle Enter key in search input
+  searchInput.addEventListener("keydown", (event) => {
+    if (event.key === "Enter") {
+      const query = searchInput.value.trim();
+      if (query.length < 2) {
+        return;
+      }
+      const results = performSearch(query);
+      if (results.length > 0) {
+        // Navigate to the first result
+        results[0].element.scrollIntoView({
+          behavior: "smooth"
+        });
+        results[0].element.classList.add("search-result");
+        setTimeout(() => {
+          results[0].element.classList.remove("search-result");
+        }, 2000);
+        searchResults.style.display = "none";
+      }
+    }
+  });
+});
+// Accordion Toggle - FIXED
+document.addEventListener("DOMContentLoaded", () => {
+  const accordionHeaders = document.querySelectorAll(".accordion-header");
+
+  accordionHeaders.forEach((header) => {
+    header.addEventListener("click", (e) => {
+      e.preventDefault();
+      const accordionItem = header.parentElement;
+      const isActive = accordionItem.classList.contains("active");
+
+      // Close all accordion items
+      document.querySelectorAll(".accordion-item").forEach((item) => {
+        item.classList.remove("active");
+      });
+
+      // Toggle the clicked item
+      if (!isActive) {
+        accordionItem.classList.add("active");
+      }
+    });
+  });
+
+  // Debug: Log if accordions found
+  console.log("Accordions found:", accordionHeaders.length);
+});
+
+                              </script>
+  </body>
+
+</html>
