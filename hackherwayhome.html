@@ -1084,10 +1084,14 @@ section[id] {
   height: var(--size);
   background: radial-gradient(
     circle at 30% 30%,
-    rgba(255, 255, 255, 0.15) 0%,
-    rgba(255, 255, 255, 0.05) 40%,
-    rgba(93, 92, 222, 0.1) 100%
+    rgba(130, 129, 232, 0.4) 0%,
+    rgba(93, 92, 222, 0.25) 40%,
+    rgba(58, 58, 158, 0.1) 100%
   );
+  box-shadow: 
+    0 0 20px rgba(130, 129, 232, 0.3),
+    0 0 40px rgba(93, 92, 222, 0.2),
+    inset 0 0 20px rgba(130, 129, 232, 0.2);
   border-radius: 50%;
   animation: rise var(--duration) infinite ease-in;
   animation-delay: var(--delay);
@@ -1117,10 +1121,14 @@ section[id] {
 .dark .bubble {
   background: radial-gradient(
     circle at 30% 30%,
-    rgba(93, 92, 222, 0.2) 0%,
-    rgba(130, 129, 232, 0.1) 40%,
-    rgba(254, 9, 66, 0.05) 100%
+    rgba(130, 129, 232, 0.5) 0%,
+    rgba(93, 92, 222, 0.3) 40%,
+    rgba(254, 9, 66, 0.15) 100%
   );
+  box-shadow: 
+    0 0 25px rgba(130, 129, 232, 0.4),
+    0 0 50px rgba(93, 92, 222, 0.3),
+    inset 0 0 25px rgba(130, 129, 232, 0.3);
 }
 
 /* Ensure content stays above bubbles */
@@ -1269,7 +1277,19 @@ body > div:not(.bg-animation) {
     height: 50px;
   }
 }
+/* Force text colors */
+.dark, .dark * {
+  color: #f3f4f6 !important;
+}
 
+/* Keep links purple/pink */
+.dark a {
+  color: #8281e8 !important;
+}
+
+.dark a:hover {
+  color: #fe0942 !important;
+}
   
 </style>
 
@@ -1313,39 +1333,7 @@ body > div:not(.bg-animation) {
         <i class="fas fa-sun hidden dark:block"></i>
       </button>
     </div>
-  </header>  <!-- Your existing header starts here -->
-  <header class="sticky top-0 z-50...
-    <header class="sticky top-0 z-50 bg-white dark:bg-gray-900 shadow-md">
-      <div class="w-full max-w-none mx-0 px-2 py-3 flex flex-col lg:flex-row items-center">
-        <h1 class="small-caps-heading whitespace-nowrap shrink-0 text-2xl lg:text-3xl font-bold text-primary text-left inline-block border-r-2 border-primary pr-1 blink-cursor">
-
-          🖤 hackherway cyberspace 🖤
-
-        </h1>
-        <div class="mt-3 lg:mt-0 lg:ml-auto w-full lg:w-2/5 relative">
-          <div class="relative">
-
-            <input type="text" id="search-input" placeholder=" 🔍  Search hackherway..." class="w-full px-4 py-2 pr-10 rounded-lg border border-gray-300 dark:border-gray-700 
-                           dark:bg-gray-800 focus:outline-none focus:ring-2 focus:ring-primary text-base" autocomplete="off">
-
-            <button id="search-button" class="absolute right-3 top-1/2 transform -translate-y-1/2 text-primary">
-              <i class="fas fa-search"></i>
-            </button>
-          </div>
-          <div id="search-results" class="absolute w-full mt-1 max-h-60 overflow-y-auto bg-white dark:bg-gray-800 
-                  border border-gray-300 dark:border-gray-700 rounded-lg shadow-lg z-50 hidden">
-
-          </div>
-
-        </div>
-        <button id="theme-toggle" class="ml-4 text-gray-600 dark:text-gray-300 hover:text-primary dark:hover:text-primary">
-          <i class="fas fa-moon dark:hidden"></i>
-          <i class="fas fa-sun hidden dark:block"></i>
-        </button>
-      </div>
-
-    </header>
-
+  </header> 
     <div class="w-full max-w-none mx-0 px-2 pt-6 pb-20">
       <div class="flex flex-col lg:flex-row gap-8">
         <!-- Sidebar with Security Categories -->
