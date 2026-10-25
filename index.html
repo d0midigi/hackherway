@@ -1,743 +1,807 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>· hackherway cyberepo — an offensive & defensive cybersecurity repository ·</title>
- <meta name="description" content="computer and network security enthusiasts">
-  <meta name="keywords"
-    content="hacker tools, hacker crew, computer security, network security, penetration test, exploit, web application security, cross-site scripting, sql injection, file inclusion, security scanner, 0day, zeroday, buffer overflow, stack overflow, heap overflow, formatstring, rop, stackshield, aslr, dep, auth bypass">
-    <meta name="author" content="mindhackdiva">
-    <meta name="robots" content="index,follow,noodp,noydir">
-    <meta name="page-topic" content="hacker tools, computer and network security, exploits">
-    <meta itemprop="name" content="hackherway">
-  <link rel="stylesheet" href="styles.css">
-    <link rel="shortcut icon" href="https://i.imgur.com/pheSvKs.png">  
-
-    <style>
-        * {
-          /*  cursor: none !important; /* Hides the real mouse */
-        }
-
-</style>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta awareness="low" timestamp="2026-10-24 12:03 -07:00" />
+  <title>hackherway cyberspace</title>
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+  
+  <!-- External Resources -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap" rel="stylesheet"> 
+  <link rel="stylesheet" href="style.css">
 </head>
-<body>
-    <!--  <script src="https://cdn.jsdelivr.net/gh/iamashruu/cursorly.js@latest/dist/cursorly.min.js"></script> -->
-  <!-- Mobile Overlay -->
-  <div class="mobile-overlay"></div>
 
-  <!-- Sidebar -->
-   <aside class="sidebar">
-    <div class="sidebar__header">
-      <div class="sidebar__logo">
-      <img src="https://i.imgur.com/pheSvKs.png" alt="hhw logo"></div
-  <div>
-        <div class="sidebar__title">hackherway</div>
-        <div class="sidebar__subtitle">A Cybersecurity Repo</div>
-      </div>
-</div>
-    <nav class="sidebar__nav">
-      <!-- Section 1 -->
-      <div class="sidebar__section">
-        <button class="sidebar__toggle hidden">
-          <span class="section-icon">📚</span>
-                <a href="blog-bibliotech.html">· BiblioTech ·</a>
-
-        <!--  <span class="chevron">&#9654;</span> -->
-        </button>
-                <div class="sidebar__submenu">
-        <button class="sidebar__toggle active">
-          <span class="section-icon">📚</span>
-          · TEST ·
-          <span class="chevron">&#9654;</span>
-        </button>
-      
-                            <a href="blog-test.html" class="current">TEST</a></div></div>
-<!--                <div class="sidebar__submenu"> -->
-
-          <a href="blog-aaa.html" class="current">AAA</a>
-          <a href="blog-active-directory.html">Active Directory (AD)</a>
-          <a href="blog-algorithms.html">Algorithms</a>
-          <a href="blog-android.html">Android</a>
-          <a href="blog-anomaly-detection.html">Anomaly Detection</a>
-          <a href="blog-ansible.html">Ansible</a>
-          <a href="blog-appsec.html">Application Security</a>
-          <a href="blog-artificial-intelligence-ai.html">Artificial Intelligence - AI</a>
-          <a href="blog-assembly-language.html">Assembly Language</a>
-          <a href="blog-attack-simulation.html">Attack Simulation/a>
-          <a href="blog-bash.html">Bash</a>
-          <a href="blog-buffer-overflow.html">Buffer Overflow</a>
-          <a href="blog-bug-bounty.html">Bug Bounty</a>
-          <a href="blog-ceh.html">Certified Ethical Hacker - CEH</a>
-          <a href="blog-certification-study-guides.html">Certification Study Guides</a>
-          <a href="blog-chatgpt.html">ChatGPT</a>
-          <a href="blog-cheatsheets.html">Cheatsheets</a>
-          <a href="blog-cloud.html">Cloud</a>
-          <a href="blog-computer-architecture.html">Computer Architecture</a>
-          <a href="blog-computer-graphics.html">Computer Graphics</a>
-          <a href="blog-computer-history.html">Computer History</a>
-          <a href="blog-computer-networks.html">Computer Networks</a>
-          <a href="blog-container-security.html">Container Security</a>
-          <a href="blog-cryptography.html">Cryptography</a>
-          <a href="blog-cyber-attacks.html">Cyber Attacks</a>
-          <a href="blog-cyber-exposure.html">Cyber Exposure</a>
-          <a href="blog-cyber-intelligence.html">Cyber Intelligence</a>
-          <a href="blog-data-analysis.html">Data Analysis</a>
-          <a href="blog-data-structure.html">Data Structure</a>
-          <a href="blog-databases.html">Databases</a>
-          <a href="blog-demystified-series.html">Demystified Series</a>
-          <a href="blog-digital-engineering.html">Digital Engineering</a>
-          <a href="blog-information-retrieval.html">Information Retrieval</a>
-          <a href="blog-mathematics.html">Mathematics</a>
-          <a href="blog-penetration-testing.html">Penetration Testing</a>
-          <a href="blog-python.html">Python</a>
-          <a href="blog-reverse-engineering.html">Reverse Engineering</a>
-          <a href="blog-scripting-and-automation.html">Scripting and Automation</a>
-          <a href="blog-cryptography.html">Cryptography</a>
-          <a href="blog-cryptography.html">Cryptography</a>
-          <a href="blog-cryptography.html">Cryptography</a>
-          <a href="blog-cryptography.html">Cryptography</a>
-          <a href="blog-cryptography.html">Cryptography</a>
-          <a href="blog-cryptography.html">Cryptography</a>
-          <a href="blog-cryptography.html">Cryptography</a>
-          <a href="blog-cryptography.html">Cryptography</a>
-          <a href="blog-cryptography.html">Cryptography</a>
-          <a href="blog-cryptography.html">Cryptography</a>
-          <a href="blog-cryptography.html">Cryptography</a>
-          <a href="blog-cryptography.html">Cryptography</a>
-          <a href="blog-cryptography.html">Cryptography</a>
-          <a href="blog-cryptography.html">Cryptography</a>
-          <a href="blog-cryptography.html">Cryptography</a>
-          <a href="blog-cryptography.html">Cryptography</a>
-          <a href="blog-cryptography.html">Cryptography</a>
-          <a href="blog-cryptography.html">Cryptography</a>
-          <a href="blog-cryptography.html">Cryptography</a>
-          <a href="blog-cryptography.html">Cryptography</a>
-
-      </div>      
-    </div>
-
-      <!-- Section -->
-      <div class="sidebar__section">
-        <button class="sidebar__toggle">
-          <span class="section-icon">⚔️</span>
-          · Active Directory Attacks ·
-          <span class="chevron">&#9654;</span>
-        </button>
-        <div class="sidebar__submenu">
-          · Most Common Attack Vectors for AD Compromise ·
-          <a href="blog-ms14-068.html" class="current">Microsoft Kerberos Checksum Validation Vulnerability</a>
-          <a href="blog-open-shares-and-vulnerable-smb.html">Open Shares & Vulnerable SMB</a>
-          <a href="blog-gpo-pivoting.html">GPO - Pivoting with Local Admin & Passwords in SYSVOL</a>
-          <a href="blog-credential-dumping.html">Credential Dumping</a>
-          <a href="blog-golden-ticket-attacks.html">Golden Ticket Attacks</a>
-          <a href="blog-silver-ticket-attacks.html">Silver Ticket Attacks</a>
-          <a href="blog-sapphire-ticket-attacks.html">Sapphire Ticket Attacks</a>
-          <a href="blog-diamond-ticket-attacks.html">Diamond Ticket Attacks</a>
-          <a href="blog-trust-ticket-attacks.html">Trust Ticket Attacks</a>
-          <a href="blog-kerberoasting.html">Kerberoasting</a>
-          <a href="blog-asrep-roasting.html">ASREP-Roasting</a>
-          <a href="blog-pass-the-hash-pth.html">Pass-the-Hash (PtH)</a>
-          <a href="blog-pass-the-ticket-ptt.html">Pass-the-Ticket (PtT)</a>
-          <a href="blog-overpass-the-hash-pass-the-key.html">Overpass-the-Hash (Pass-the-Key)</a>
-          <a href="blog-pass-the-certificate-ptc.html">Pass-the-Certificate (PtC)</a>
-          <a href="blog-golden-samlv2-abuse.html">Golden SAMLv2 Abuse</a>
-          <a href="blog-group-policy-object-gpo-misconfigurations.html">Group Policy Object (GPO) Misconfigurations</a>
-          <a href="blog-offline-cracking-of-ntlmv2-hashes.html">Offline Cracking of NTLMv2 Hashes</a>
-          <a href="blog-ntlmv2-hash-relay-attacks.html">NTLMv2 Hash Relay Attacks</a>
-          <a href="blog-living-off-the-land-lotl-attacks.html">Living Off The Land (LOTL) Attacks</a>
-          <a href="blog-windows-privilege-escalation.html">Windows Privilege Escalation</a>
-          <a href="blog-token-impersonation-rottenpotato.html">&nbsp;&nbsp;PrivEsc Local Admin - Token Impersonation (RottenPotato)</a>
-          <a href="blog-ms16-032.html">&nbsp;&nbsp;PrivEsc Local Admin - MS16-032</a>
-          <a href="blog-ms17-010-eternal-blue.html">&nbsp;&nbsp;PrivEsc Local Admin - MS17-010 (EternalBlue)Golden Ticket Attacks</a>
-          <a href="blog-from-local-admin-to-domain-admin.html">From Local Admin to Domain Admin</a>
-          <a href="blog-skeleton-key-attacks.html">Skeleton Key Attacks</a>
-          <a href="blog-petitpotam-and-s4u2-and-s4u2proxy-attacks.html">PetitPotam, S4U2Self & S4U2Proxy Attacks</a>
-        </div>
-      </div>
-
-      <!-- Section -->
-      <div class="sidebar__section">
-      <button class="sidebar__toggle">
-          <span class="section-icon">🛠️</span>
-          · Active Directory Tools ·
-          <span class="chevron">&#9654;</span>
-        </button>
-        <div class="sidebar__submenu">
-          <a href="blog-impacket-tool-suite.html" class="current">Impacket Tool Suite</a>
-          <a href="blog-responder.html">Responder</a>
-          <a href="blog-mimikatz.html">Mimikatz</a>
-          <a href="blog-ranger.html">Ranger</a>
-          <a href="blog-bloodhound.html">BloodHound</a>
-          <a href="blog-powershell-ad-module-and-cmdlets.html">PowerShell AD Module & cmdlets</a>
-          <a href="blog-powerview.html">PowerView</a>
-          <a href="blog-ntlmrelayx.html">ntlmrelayx</a>
-          <a href="blog-mitm6.html">mitm6</a>
-          <a href="blog-pingcastle.html">Ping Castle</a>
-          <a href="blog-crackmapexec.html">CrackMapExec</a>
-          <a href="blog-rubeus.html">Rubeus</a>
-        </div>
-      </div>
-
-      <!-- Section -->
-      <div class="sidebar__section">
-        <button class="sidebar__toggle">
-          <span class="section-icon">⚔️</span>
-          · Active Directory Attacks ·
-          <span class="chevron">&#9654;</span>
-        </button>
-        <div class="sidebar__submenu">
-          · Most Common Attack Vectors for AD Compromise ·
-          <a href="blog-ms14-068.html" class="current">Microsoft Kerberos Checksum Validation Vulnerability</a>
-          <a href="blog-open-shares-and-vulnerable-smb.html">Open Shares & Vulnerable SMB</a>
-          <a href="blog-gpo-pivoting.html">GPO - Pivoting with Local Admin & Passwords in SYSVOL</a>
-          <a href="blog-credential-dumping.html">Credential Dumping</a>
-          <a href="blog-golden-ticket-attacks.html">Golden Ticket Attacks</a>
-          <a href="blog-silver-ticket-attacks.html">Silver Ticket Attacks</a>
-          <a href="blog-sapphire-ticket-attacks.html">Sapphire Ticket Attacks</a>
-          <a href="blog-diamond-ticket-attacks.html">Diamond Ticket Attacks</a>
-          <a href="blog-trust-ticket-attacks.html">Trust Ticket Attacks</a>
-          <a href="blog-kerberoasting.html">Kerberoasting</a>
-          <a href="blog-asrep-roasting.html">ASREP-Roasting</a>
-          <a href="blog-pass-the-hash-pth.html">Pass-the-Hash (PtH)</a>
-          <a href="blog-pass-the-ticket-ptt.html">Pass-the-Ticket (PtT)</a>
-          <a href="blog-overpass-the-hash-pass-the-key.html">Overpass-the-Hash (Pass-the-Key)</a>
-          <a href="blog-pass-the-certificate-ptc.html">Pass-the-Certificate (PtC)</a>
-          <a href="blog-golden-samlv2-abuse.html">Golden SAMLv2 Abuse</a>
-          <a href="blog-group-policy-object-gpo-misconfigurations.html">Group Policy Object (GPO) Misconfigurations</a>
-          <a href="blog-offline-cracking-of-ntlmv2-hashes.html">Offline Cracking of NTLMv2 Hashes</a>
-          <a href="blog-ntlmv2-hash-relay-attacks.html">NTLMv2 Hash Relay Attacks</a>
-          <a href="blog-living-off-the-land-lotl-attacks.html">Living Off The Land (LOTL) Attacks</a>
-          <a href="blog-windows-privilege-escalation.html">Windows Privilege Escalation</a>
-          <a href="blog-token-impersonation-rottenpotato.html">&nbsp;&nbsp;PrivEsc Local Admin - Token Impersonation (RottenPotato)</a>
-          <a href="blog-ms16-032.html">&nbsp;&nbsp;PrivEsc Local Admin - MS16-032</a>
-          <a href="blog-ms17-010-eternal-blue.html">&nbsp;&nbsp;PrivEsc Local Admin - MS17-010 (EternalBlue)Golden Ticket Attacks</a>
-          <a href="blog-from-local-admin-to-domain-admin.html">From Local Admin to Domain Admin</a>
-          <a href="blog-skeleton-key-attacks.html">Skeleton Key Attacks</a>
-          <a href="blog-petitpotam-and-s4u2-and-s4u2proxy-attacks.html">PetitPotam, S4U2Self & S4U2Proxy Attacks</a>
-        </div>
-      </div>
-      
-      <!-- Section 2 -->
-       <div class="sidebar__section">
-       <button class="sidebar__toggle">
-       <span class="section-icon">🛠️</span>
-          · Pentesting Active Directory ·
-          <span class="chevron">&#9654;</span>
-        </button>
-        <div class="sidebar__submenu">
-          <a href="blog-intro-to-active-directory.html" class="current">Introduction to Active Directory</a>
-          <a href="blog-attack-technique-1-pth.html">Attack Technique 1: Pass-the-Hash - Use of Alternate Authentication Material (T1550)</a>
-          <a href="blog-attack-technique-2-ptt.html">Attack Technique 2: Pass-the-Ticket - Use of Alterate Authentication Material (T1550)</a>
-          <a href="blog-attack-technique-3-kerberoasting.html">Attack Technique 3: Kerberoasting</a>
-          <a href="blog-attack-technique-4-golden-ticket.html">Attack Technique 4: Golden Ticket</a>
-          <a href="blog-attack-technique-5-dcshadow.html">Attack Technique 5: DCShadow</a>
-          <a href="blog-attack-technique-6-as-rep-roasting.html">Attack Technique 6: AS-REP Roasting</a>
-          <a href="blog-attack-technique-7-ldap-injection.html">Attack Technique 7: LDAP Injection</a>
-          <a href="blog-attack-technique-8-petitpotam.html">Attack Technique 8: PetitPotam NTLM Relay Attack on AD CS</a>
-          <a href="blog-pingcastle.html">Ping Castle</a>
-          <a href="blog-crackmapexec.html">CrackMapExec</a>
-          <a href="blog-rubeus.html">Rubeus</a>
-        </div>
-      </div>
-     
-      <!-- Section 3 -->
-      <div class="sidebar__section">
-        <button class="sidebar__toggle">
-          <span class="section-icon">⚔️</span>
-          · Active Directory Attacks ·
-          <span class="chevron">&#9654;</span>
-        </button>
-        <div class="sidebar__submenu">
-          · Most Common Attack Vectors for AD Compromise ·
-          <a href="blog-ms14-068.html" class="current">Microsoft Kerberos Checksum Validation Vulnerability</a>
-          <a href="blog-open-shares-and-vulnerable-smb.html">Open Shares & Vulnerable SMB</a>
-          <a href="blog-gpo-pivoting.html">GPO - Pivoting with Local Admin & Passwords in SYSVOL</a>
-          <a href="blog-credential-dumping.html">Credential Dumping</a>
-          <a href="blog-golden-ticket-attacks.html">Golden Ticket Attacks</a>
-          <a href="blog-silver-ticket-attacks.html">Silver Ticket Attacks</a>
-          <a href="blog-sapphire-ticket-attacks.html">Sapphire Ticket Attacks</a>
-          <a href="blog-diamond-ticket-attacks.html">Diamond Ticket Attacks</a>
-          <a href="blog-trust-ticket-attacks.html">Trust Ticket Attacks</a>
-          <a href="blog-kerberoasting.html">Kerberoasting</a>
-          <a href="blog-asrep-roasting.html">ASREP-Roasting</a>
-          <a href="blog-pass-the-hash-pth.html">Pass-the-Hash (PtH)</a>
-          <a href="blog-pass-the-ticket-ptt.html">Pass-the-Ticket (PtT)</a>
-          <a href="blog-overpass-the-hash-pass-the-key.html">Overpass-the-Hash (Pass-the-Key)</a>
-          <a href="blog-pass-the-certificate-ptc.html">Pass-the-Certificate (PtC)</a>
-          <a href="blog-golden-samlv2-abuse.html">Golden SAMLv2 Abuse</a>
-          <a href="blog-group-policy-object-gpo-misconfigurations.html">Group Policy Object (GPO) Misconfigurations</a>
-          <a href="blog-offline-cracking-of-ntlmv2-hashes.html">Offline Cracking of NTLMv2 Hashes</a>
-          <a href="blog-ntlmv2-hash-relay-attacks.html">NTLMv2 Hash Relay Attacks</a>
-          <a href="blog-living-off-the-land-lotl-attacks.html">Living Off The Land (LOTL) Attacks</a>
-          <a href="blog-windows-privilege-escalation.html">Windows Privilege Escalation</a>
-          <a href="blog-token-impersonation-rottenpotato.html">&nbsp;&nbsp;PrivEsc Local Admin - Token Impersonation (RottenPotato)</a>
-          <a href="blog-ms16-032.html">&nbsp;&nbsp;PrivEsc Local Admin - MS16-032</a>
-          <a href="blog-ms17-010-eternal-blue.html">&nbsp;&nbsp;PrivEsc Local Admin - MS17-010 (EternalBlue)Golden Ticket Attacks</a>
-          <a href="blog-from-local-admin-to-domain-admin.html">From Local Admin to Domain Admin</a>
-          <a href="blog-skeleton-key-attacks.html">Skeleton Key Attacks</a>
-          <a href="blog-petitpotam-and-s4u2-and-s4u2proxy-attacks.html">PetitPotam, S4U2Self & S4U2Proxy Attacks</a>
-        </div>
-      </div>
-      <!-- Section 3 -->
-      <div class="sidebar__section">
-        <button class="sidebar__toggle">
-          <span class="section-icon">🔧</span>
-          · Hacking Tools ·
-          <span class="chevron">&#9654;</span>
-        </button>
-        <div class="sidebar__submenu">
-          <a href="blog-nmap.html">Nmap</a>
-          <a href="blog-nmap.html">Metasploit</a>
-          <a href="blog-nmap.html">Burp Suite</a>
-          <a href="blog-nmap.html">Wireshark</a>
-          <a href="blog-nmap.html">John the Ripper</a>
-        </div>
-      </div>
-      <!-- Section 4 -->
-      <div class="sidebar__section">
-        <button class="sidebar__toggle">
-          <span class="section-icon">🎯</span>
-          · MITRE ATT&amp;CK ·
-          <span class="chevron">&#9654;</span>
-        </button>
-        <div class="sidebar__submenu">
-          <a href="blog-mitre-attck-tactics.html">MITRE ATT&amp;CK Tactics</a>
-          <a href="blog-reconnaissance.html">Reconnaissance</a>
-          <a href="blog-resource-development.html">Resource Development</a>
-          <a href="blog-initial-access.html">Initial Access</a>
-          <a href="blog-execution.html">Execution</a>
-          <a href="blog-persistence.html">Persistence</a>
-          <a href="blog-kerberoasting.html">Privilege Escalation</a>
-          <a href="blog-kerberoasting.html">Defense Evasion</a>
-        </div>
-      </div>
-      <!-- Section 5 -->
-      <div class="sidebar__section">
-        <button class="sidebar__toggle">
-          <span class="section-icon">📋</span>
-          · Pentesting Methodologies ·
-          <span class="chevron">&#9654;</span>
-        </button>
-        <div class="sidebar__submenu">
-          <a href="blog-kerberoasting.html">OWASP Testing Guide</a>
-          <a href="blog-kerberoasting.html">PTES</a>
-          <a href="blog-kerberoasting.html">OSSTMM</a>
-          <a href="blog-kerberoasting.html">Bug Bounty Workflow</a>
-          <a href="blog-kerberoasting.html">Reporting</a>
-        </div>
-      </div>
-      <!-- Section 6 -->
-      <div class="sidebar__section">
-        <button class="sidebar__toggle">
-          <span class="section-icon">🌐</span>
-          · Cyber Domains ·
-          <span class="chevron">&#9654;</span>
-        </button>
-        <div class="sidebar__submenu">
-          <a href="blog-core-concepts.html">· Core Concepts ·</a>
-          <a href="blog-blue-team.html">Blue Team</a>
-          <a href="blog-career-pathways.html">Career Pathways</a>
-          <a href="blog-cloud-security.html">Cloud Security</a>
-          <a href="blog-cyber-defense.html">Cyber Defense</a>
-          <a href="blog-cybersecurity-regulations.html">Cybersecurity Regulations, Standards & Frameworks</a>
-          <a href="blog-defensive-security-operations.html">Defensive Security Operations (DefSecOps)</a>
-          <a href="blog-devsecops.html">DevSecOps</a>
-          <a href="blog-digital-forensics.html">Digital Forensics</a>
-          <a href="blog-esdr.html">Endpoint Security, Detection & Response</a>
-          <a href="blog-grc.html">Governance, Risk & Compliance</a>
-          <a href="blog-incident-response.html">Incident Response</a>
-          <a href="blog-information-security.html">Information Security</a>
-          <a href="blog-network-security.html">Network Security</a>
-          <a href="blog-offensive-security-operations.html">Offensive Security Operations (OffSecOps)</a>
-          <a href="blog-osint.html">Open-Source Intelligence (OSINT)</a>
-          <a href="blog-penetration-testing.html">Penetration Testing</a>
-          <a href="blog-privacy-and-anonymity.html">Privacy and Anonymity</a>
-          <a href="blog-purple-team.html">Purple Team</a>
-          <a href="blog-red-team.html">Red Team</a>
-          <a href="blog-reverse-engineering.html">Reverse Engineering</a>
-          <a href="blog-secure-software-development.html">Secure Software Development</a>
-          <a href="blog-threat-hunting.html">Threat Hunting</a>
-          <a href="blog-threat-intelligence.html">Threat Intelligence</a>
-          <a href="blog-federal-government-cybersecurity.html">U.S. Federal Government Cybersecurity</a>
-          <a href="blog-vulnerability-research.html">Vulnerability Research</a>
-          <a href="blog-webappsec.html">Web Application Security</a>
-          <a href="blog-zero-trust.html">Zero Trust</a>
-        </div>
-      </div>
-       <!-- Section 7 -->
-      <div class="sidebar__section">
-        <button class="sidebar__toggle">
-        <span class="section-icon">💉</span>
-          · WebApp Attacks ·
-          <span class="chevron">&#9654;</span>
-        </button>
-        <div class="sidebar__submenu">
-          <a href="blog-abuse-of-functionality.html">Abuse of Functionality</a>
-          <a href="blog-binary-planting.html">Binary Planting</a>
-          <a href="blog-blind-sql-injection.html">Blind SQL Injection (SQLi)</a>
-          <a href="blog-blind-xpath-injection.html">Blind XPath Injection</a>
-          <a href="blog-brute-force-attack.html">Brute-Force Attack</a>
-          <a href="blog-buffer-overflow-via-environment-variables.html">Buffer Overflow via Environment Variables</a>
-          <a href="blog-buffer-overflow-attack.html">Buffer Overflow Attack</a>
-          <a href="blog-cors-originheaderscrutiny.html">CORS <code>OriginHeaderScrutiny</code></a>
-          <a href="blog-cors-requestpreflightscrutiny.html">CORS <code>RequestPreflightScrutiny</code></a>
-          <a href="blog-cache-overflow.html">Cache Overflow</a>
-          <a href="blog-cache-poisoning.html">Cache Poisoning Attack</a>
-          <a href="blog-clickjacking.html">Clickjacking</a>
-          <a href="blog-code-injection.html">Code Injection</a>
-          <a href="blog-csv-injection.html">Comma Separated Value (CSV) Injection</a>
-          <a href="blog-command-injection.html">Command Injection</a>
-          <a href="blog-comment-injection-attack.html">Comment Injection Attack</a>
-          <a href="blog-content-spoofing.html">Content Spoofing</a>
-          <a href="blog-credential-stuffing.html">Credential Stuffing</a>
-          <a href="blog-cross-site-scripting-xss.html">Cross-Site Scripting (XSS)</a>
-          <a href="blog-cross-site-history-manipulation-xshm.html">Cross-Site History Manipulation (XSHM)</a>
-          <a href="blog-cross-site-request-forgery-xsrf.html">Cross-Site Request Forgery (XSRF)</a>
-          <a href="blog-cross-site-tracing.html">Cross-Site Tracing</a>
-          <a href="blog-cross-user-defacement.html">Cross-User Defacement</a>
-          <a href="blog-cryptanalysis.html">Cryptanalysis</a>
-          <a href="blog-custom-special-character-injection.html">Custom Special Character Injection</a>
-          <a href="blog-denial-of-service-dos.html">Denial of Service (DoS)</a>
-          <a href="blog-direct-dynamic-code-evaluation-eval-injection.html">Direct Dynamic Code Evaluation - Eval Injection</a>
-          <a href="blog-embedding-null-code.html">Embedding Null Code</a>
-          <a href="blog-execution-after-redirect-ear.html">Execution After Redirect (EAR)</a>
-          <a href="blog-forced-browsing.html">Forced Browsing</a>
-          <a href="blog-form-action-hijacking.html">Form Action Hijacking</a>
-          <a href="blog-format-string-attack.html">Format String Attack</a>
-          <a href="blog-full-path-disclosure.html">Full Path Disclosure</a>
-          <a href="blog-function-injection.html">Function Injection</a>
-          <a href="blog-hitl-dialog-forgig-lies-in-the-loop.html">HITL Dialog Forging (Lies-in-the-Loop)</a>
-          <a href="blog-http2-reset-attack.html">HTTP/2 Reset Attack</a>
-          <a href="blog-http-response-splitting.html">HTTP Response Splitting</a>
-          <a href="blog-insecure-direct-object-reference-idor.html">Insecure Direct Object Reference (IDOR)</a>
-          <a href="blog-ip-spoofing-via-http-headers.html">IP Spoofing via HTTP Headers</a>
-          <a href="blog-ldap-injection.html">LDAP Injection</a>
-          <a href="blog-log-injection.html">Log Injection</a>
-          <a href="blog-man-in-the-browser-attack.html">Man-in-the-Browser Attack</a>
-          <a href="blog-manipulator-in-the-middle-attack.html">Manipulator-in-the-Middle Attack</a>
-          <a href="blog-open-redirect.html">Open Redirect</a>
-          <a href="blog-parameter-delimiter.html">Parameter Delimiter</a>
-          <a href="blog-password-spraying.html">Password Spraying</a>
-          <a href="blog-path-traversal.html">Path Traversal</a>
-          <a href="blog-qrljacking.html">Qrljacking</a>
-          <a href="blog-rsql-injection.html">RSQL Injection</a>
-          <a href="blog-reflected-dom-injection.html">Reflected DOM Injection</a>
-          <a href="blog-regular-expression-denial-of-service-redos.html">Regular Expression Denial of Service (ReDoS)</a>
-          <a href="blog-resource-injection.html">Resource Injection</a>
-          <a href="blog-reverse-tabnabbing.html">Reverse Tabnabbing</a>
-          <a href="blog-sql-injection-sqli.html">SQL Injection (SQLi)</a>
-          <a href="blog-server-side-includes-ssi-injection.html">Server-Side Includes (SSI) Injecion</a>
-          <a href="blog-server-side-request-forgery-ssrf.html">Server-Side Request Forgery (SSRF)</a>
-          <a href="blog-session-prediction.html">Session Prediction</a>
-          <a href="blog-session-fixation.html">Session Fixation</a>
-          <a href="blog-session-hijacking.html">Session Hijacking</a>
-          <a href="blog-settings-manipulation.html">Settings Manipulation</a>
-          <a href="blog-special-element-injection.html">Special Element Injection</a>
-          <a href="blog-spyware.html">Spyware</a>
-          <a href="blog-traffic-flood.html">Traffic Flood</a>
-          <a href="blog-trojan-horse.html">Trojan Horse</a>
-          <a href="blog-unicode-encoding.html">Unicode Encoding</a>
-          <a href="blog-web-parameter-tampering.html">Web Parameter Tampering</a>
-          <a href="blog-web-service-amplification-attack.html">Web Service Amplification Attack</a>
-          <a href="blog-windows-data-alternate-data-stream.html">Windows ::DATA Alternate Data Stream</a>
-          <a href="blog-xpath-injection.html">XPath Injection</a>
-          <a href="blog-xss-in-converting-file-content-to-text.html">XSS in Converting File Content to Text</a>
-          <a href="blog-xss-in-subtitle.html">XSS in Subtitle</a>
-        </div>
-      </div>
-      <!-- Section 8 -->
-      <div class="sidebar__section">
-        <button class="sidebar__toggle">
-        <span class="section-icon">🏛️</span>
-          · Security Framework Policies ·
-          <span class="chevron">&#9654;</span>
-        </button>
-        <div class="sidebar__submenu">
-          · Critical Infrastructure: ·
-          <a href="blog-nist-csf-2.0.html">NIST Cybersecurity Framework (NIST CSF) 2.0</a>
-          · Global / Enterprise: ·
-          <a href="blog-iso-iec-27001-27002.html">ISO/IEC 27001 & 27002</a>
-          <a href="blog-cis-csc.html">Center for Internet Security (CIS) - Critical Security Controls (CSC)</a>
-          · Healthcare: ·
-          <a href="blog-hipaa.html">Health Insurance Portability Accountability Act (HIPAA)</a>
-          <a href="blog-gdpr.html">General Data Protection Regulation (GDPR)</a>
-          <a href="blog-fisma.html">FISMA</a>
-          <a href="blog-ditscap.html">DITSCAP</a>
-          <a href="blog-nispom.html">NISPOM</a>
-          <a href="blog-ccpa.html">CCPA</a>
-          · U.S. Defense Contractors: ·
-          <a href="blog-dod-cmmc-2.0.html">DoD Cybersecurity Maturity Model Certification (CMMC) 2.0</a>
-          <a href="blog-nist-sp-800-171">NIST SP 800-171</a>
-          <a href="blog-rmf.html">Risk Management Framework (RMF)</a>
-          <a href="blog-fedramp.html">FedRAMP</a>
-          <a href="blog-csa.html">Cloud Security Alliance (CSA)</a>
-          <a href="blog-sox.html">Sarbanes-Oxley (SOX)</a>
-          <a href="blog-soc2.html">System and Organization Controls (SOC) 2</a>
-          · Financial / Payment Processing: ·
-          <a href="blog-pci-dss.html">Payment Card Industry Data Security Standard (PCI DSS)</a>
-          <a href="blog-ffiec.html">FFIEC</a>
-          <a href="blog-hitrust.html">HITRUST</a>
-          <a href="blog-cobit.html">Control Objectives for Information and Related Technology (COBIT)</a>
-          <a href="blog-nist-sp-800-53.html">NIST SP 800-53</a>
-          <a href="blog-essential-eight.html">Essential Eight</a>
-          <a href="blog-gdpr.html">GDPR</a>
-          <a href="blog-gdpr.html">GDPR</a>
-          <a href="blog-gdpr.html">GDPR</a>
-
-        </div>
-      </div>
-
-    </nav>
-    <div class="sidebar__footer">
-   <center><span>v13.3.7 &middot; loPSEC</span></center>
-    </div>
-  </aside>
-
-  <!-- Navbar -->
-  <header class="navbar">
-    <button class="hamburger" aria-label="Toggle menu">
-      <span></span><span></span><span></span>
-    </button>
-   <!-- HTML (replace your navbar brand block with this) -->
-<div class="navbar__brand">
-  <div class="helix-icon">🖤</div>
-  <span class="navbar__tagline">to learn is to live</span>
-</div>
-    <div class="navbar__search">
-      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="color:var(--text-muted)"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg>
-      <input type="text" placeholder=" 🔍 Query...">
-      <kbd>/</kbd>
-    </div>
-    <nav class="navbar__links">
-      <a href="index.html" class="active">127.0.0.1</a>
-      <a href="blog-kerberoasting.html">Security Ramblings</a>
-      <a href="blog-gitbook.html">GitBook</a>
-      <a href="whoami.html">Whoami</a>
-      <a href="#">411</a> 
-    </nav>
-  </header>   
-
-  <!-- Main Content -->
-  <main class="main">
-    <div class="main__content">
-
-      <!-- Hero -->
-      <section class="hero fade-up">
-        <div class="hero__bg"></div>
-        <div class="hero__grid-overlay"></div>
-        <div class="hero__content">
-          <div class="hero__tag">
-            <span class="pulse"></span>
-            · Stay Safe · Stay Vigilant · Stay Informed ·
-          </div>
-          <h1 class="hero__title">
-            <span class="glitch" data-text="hackherway">hackherway</span> <span class="pink">cyberepo</span>
-          </h1>
-          <p class="hero__desc">
-            · Offensive and defensive cybersecurity repository ·<br>
-            <br>· A living reference to tackle complex security topics for red teamers, purple and blue teamers, ethical hackers, penetration testers, network security engineers, information security analysts, cybersecurity specialists, and everyone else in between like a boss ·
-          </p>
-          <div class="hero__actions">
-            <a href="blog-kerberoasting.html" class="btn btn--primary">Start Reading &#8594;</a>
-            <a href="#topics" class="btn btn--ghost"> 🖤 Browse Topics</a>
-          </div>
-        </div>
-      </section>
-
-      <!-- Card Grid -->
-      <section id="topics" class="fade-up">
-        <h2 class="section-heading">Research Domains</h2>
-        <p class="section-sub">Core knowledge areas covering offensive and defensive security disciplines.</p>
-        <div class="card-grid">
-          <div class="card">
-            <span class="card__icon">&#x1f3f0;</span>
-            <h3 class="card__title">Active Directory Attacks &amp; Defense</h3>
-            <p class="card__desc">Kerberoasting, Pass-the-Hash, Golden Tickets, AD enumeration techniques, and defensive hardening strategies for enterprise environments.</p>
-            <a href="blog-kerberoasting.html" class="card__link">Explore &#8594;</a>
-          </div>
-          <div class="card">
-            <span class="card__icon">&#x1f527;</span>
-            <h3 class="card__title">Hacking Tools</h3>
-            <p class="card__desc">Deep dives into Nmap, Metasploit, Burp Suite, Wireshark, John the Ripper, and the broader offensive toolkit landscape.</p>
-            <a href="blog-nmap.html" class="card__link">Explore &#8594;</a>
-          </div>
-          <div class="card">
-            <span class="card__icon">&#x1f6e1;</span>
-            <h3 class="card__title">MITRE ATT&amp;CK Framework</h3>
-            <p class="card__desc">Mapping adversary behavior across tactics from Initial Access through Exfiltration, with real-world technique references.</p>
-            <a href="blog-kerberoasting.html" class="card__link">Explore &#8594;</a>
-          </div>
-          <div class="card">
-            <span class="card__icon">&#x1f4cb;</span>
-            <h3 class="card__title">Pentest Methodologies</h3>
-            <p class="card__desc">OWASP Testing Guide, PTES, OSSTMM, bug bounty workflows, and professional reporting standards for engagements.</p>
-            <a href="blog-kerberoasting.html" class="card__link">Explore &#8594;</a>
-          </div>
-          <div class="card">
-            <span class="card__icon">&#x1f310;</span>
-            <h3 class="card__title">Cybersecurity Domains</h3>
-            <p class="card__desc">Network security, application security, cloud security, incident response, and threat intelligence fundamentals.</p>
-            <a href="blog-kerberoasting.html" class="card__link">Explore &#8594;</a>
-          </div>
-        </div>
-      </section>
-
-      <!-- Accordion -->
-      <section class="accordion fade-up">
-        <h2 class="section-heading">Quick Reference</h2>
-        <p class="section-sub">Essential security concepts for practitioners at every level.</p>
-        <div class="accordion__item">
-          <button class="accordion__header">
-            <span>What is a Zero-Day Vulnerability?</span>
-            <span class="accordion__icon">+</span>
-          </button>
-          <div class="accordion__body">
-            <div class="accordion__body-inner">A zero-day vulnerability is a software security flaw unknown to the vendor or developer. The term "zero-day" refers to the fact that the developer has had zero days to fix the issue since it was not previously known. These vulnerabilities are highly valued by attackers and on exploit markets because no patch exists. Defense involves layered security, behavioral detection, and rapid incident response capabilities. Notable examples include EternalBlue (CVE-2017-0144) and Log4Shell (CVE-2021-44228).</div>
-          </div>
-        </div>
-        <div class="accordion__item">
-          <button class="accordion__header">
-            <span>Understanding CVEs and CVSS Scoring</span>
-            <span class="accordion__icon">+</span>
-          </button>
-          <div class="accordion__body">
-            <div class="accordion__body-inner">Common Vulnerabilities and Exposures (CVE) is a standardized identifier system for publicly known security flaws. Each CVE entry includes an ID (e.g., CVE-2024-1234), a description, and references. The Common Vulnerability Scoring System (CVSS) rates severity from 0.0 to 10.0 across metrics like Attack Vector, Attack Complexity, Privileges Required, and Impact. Scores of 9.0+ are considered Critical. Security teams use CVE databases (NVD, MITRE) for vulnerability management and patch prioritization.</div>
-          </div>
-        </div>
-        <div class="accordion__item">
-          <button class="accordion__header">
-            <span>Red Team vs Blue Team vs Purple Team</span>
-            <span class="accordion__icon">+</span>
-          </button>
-          <div class="accordion__body">
-            <div class="accordion__body-inner"><strong>Red Team</strong> simulates real-world adversaries to test an organization's defenses through offensive operations including social engineering, exploitation, and lateral movement. <strong>Blue Team</strong> focuses on defensive operations: monitoring, detection, incident response, and hardening. <strong>Purple Team</strong> bridges both by facilitating collaboration between red and blue, ensuring attack simulations directly improve detection capabilities. Modern security programs leverage all three for a comprehensive security posture through continuous adversary emulation exercises.</div>
-          </div>
-        </div>
-        <div class="accordion__item">
-          <button class="accordion__header">
-            <span>Common Attack Vectors and Entry Points</span>
-            <span class="accordion__icon">+</span>
-          </button>
-          <div class="accordion__body">
-            <div class="accordion__body-inner">The most prevalent attack vectors include: <strong>Phishing</strong> (spear phishing emails with malicious attachments or credential harvesting links), <strong>Exposed Services</strong> (unpatched web applications, RDP, SSH, VPN endpoints), <strong>Supply Chain</strong> (compromised third-party software or dependencies), <strong>Credential Abuse</strong> (password spraying, credential stuffing from data breaches), and <strong>Insider Threats</strong> (malicious or negligent insiders with legitimate access). Understanding these vectors is foundational for both penetration testing scoping and defensive architecture.</div>
-          </div>
-        </div>
-        <div class="accordion__item">
-          <button class="accordion__header">
-            <span>Security Frameworks Overview (NIST, ISO, CIS)</span>
-            <span class="accordion__icon">+</span>
-          </button>
-          <div class="accordion__body">
-            <div class="accordion__body-inner"><strong>NIST Cybersecurity Framework</strong> organizes security into five functions: Identify, Protect, Detect, Respond, Recover. <strong>ISO 27001</strong> provides requirements for an Information Security Management System (ISMS) with Annex A controls. <strong>CIS Controls</strong> offer a prioritized set of 18 security actions mapped to common attack patterns. <strong>MITRE ATT&CK</strong> catalogs adversary tactics and techniques based on real-world observations. These frameworks are complementary — organizations often map between them for comprehensive coverage across governance, operations, and technical controls.</div>
-          </div>
-        </div>
-      </section>
-
-      <!-- Code Block -->
-      <section class="code-section fade-up">
-        <h2 class="section-heading">Example: Nmap Reconnaissance</h2>
-        <p class="section-sub">A typical network discovery and service enumeration scan.</p>
-        <div class="code-block">
-          <div class="code-block__header">
-            <div class="code-block__dots"><span></span><span></span><span></span></div>
-            <span class="code-block__lang">bash</span>
-            <button class="code-block__copy">Copy</button>
-          </div>
-<pre><span class="c-comment"># Network discovery and aggressive service scan</span>
-<span class="c-prompt">$</span> <span class="c-cmd">nmap</span> <span class="c-flag">-sC -sV -A -T4</span> <span class="c-ip">192.168.1.0/24</span>
-
-<span class="c-output">Starting Nmap 7.94 ( https://nmap.org )</span>
-<span class="c-output">Nmap scan report for</span> <span class="c-ip">192.168.1.10</span>
-<span class="c-output">Host is up (0.0032s latency).</span>
-
-<span class="c-output">PORT     STATE SERVICE       VERSION</span>
-<span class="c-success">22/tcp   open  ssh           OpenSSH 8.9p1</span>
-<span class="c-success">80/tcp   open  http          Apache httpd 2.4.54</span>
-<span class="c-success">443/tcp  open  ssl/https     nginx 1.24.0</span>
-<span class="c-success">3389/tcp open  ms-wbt-server Microsoft Terminal Services</span>
-<span class="c-success">8080/tcp open  http-proxy    Squid 5.7</span>
-
-<span class="c-comment"># NSE script results</span>
-<span class="c-output">| http-title: Corporate Intranet Portal</span>
-<span class="c-output">| ssl-cert: Subject: CN=corp.example.com</span>
-<span class="c-output">| smb-os-discovery: Windows Server 2019 Build 17763</span>
-
-<span class="c-output">Nmap done:</span> <span class="c-string">256 IP addresses (12 hosts up)</span> <span class="c-output">scanned in 48.32 seconds</span></pre>
-        </div>
-      </section>
-
-      <!-- Terminal -->
-      <section class="terminal-section fade-up">
-        <h2 class="section-heading">Live Terminal</h2>
-        <p class="section-sub">Interactive framework initialization sequence.</p>
-        <div class="terminal">
-          <div class="terminal__header">
-            <div class="code-block__dots"><span></span><span></span><span></span></div>
-            <div class="terminal__title">mindhackdiva@hackherway:~</div>
-            <div></div>
-          </div>
-          <div class="terminal__body"></div>
-        </div>
-      </section>
-
-      <!-- Stats -->
-      <section class="stats-section fade-up">
-        <div class="stat-card">
-          <div class="stat__number" data-target="527" data-suffix="+">0</div>
-          <div class="stat__label">Techniques Documented</div>
-        </div>
-        <div class="stat-card">
-          <div class="stat__number" data-target="156" data-suffix="+">0</div>
-          <div class="stat__label">Tools Cataloged</div>
-        </div>
-        <div class="stat-card">
-          <div class="stat__number" data-target="63" data-suffix="+">0</div>
-          <div class="stat__label">Attack Paths Mapped</div>
-        </div>
-      </section>
-    </div>
-  </main>
-
-<!-- Footer -->
-<footer class="footer">
-    <img src="https://pixelsafari.neocities.org/dividers/rainbowstars4.gif" alt="">
-  <div class="footer__inner">
-    <div>&copy; 1996-2026 <strong>hackherway cybersecurity</strong> | Educational content only · No warranties implied</div>
-    <div>· Built with curiosity, caffeine, and controlled paranoia ·</div>
-   </div>
-      </div>
+<body class="font-sans bg-light-background text-light-text dark:bg-dark-background dark:text-dark-text transition-colors">
+  
+  <div class="bg-animation">
+    <div class="bubbles">
+      <div class="bubble" style="--size: 60px; --left: 10%; --delay: 0s; --duration: 22s;"></div>
+      <div class="bubble" style="--size: 50px; --left: 20%; --delay: 2s; --duration: 26s;"></div>
+      <div class="bubble" style="--size: 80px; --left: 35%; --delay: 4s; --duration: 24s;"></div>
+      <div class="bubble" style="--size: 40px; --left: 50%; --delay: 1s; --duration: 20s;"></div>
+      <div class="bubble" style="--size: 55px; --left: 65%; --delay: 3s; --duration: 25s;"></div>
+      <div class="bubble" style="--size: 70px; --left: 80%; --delay: 5s; --duration: 23s;"></div>
+      <div class="bubble" style="--size: 35px; --left: 90%; --delay: 2.5s; --duration: 21s;"></div>
+      <div class="bubble" style="--size: 50px; --left: 5%; --delay: 6s; --duration: 24s;"></div>
+      <div class="bubble" style="--size: 45px; --left: 45%; --delay: 7s; --duration: 27s;"></div>
+      <div class="bubble" style="--size: 60px; --left: 70%; --delay: 4.5s; --duration: 22s;"></div>
     </div>
   </div>
-<footer>
-  <!-- <div class="footer__inner">
-  </div> -->
-    <div id="center" style="margin:14px auto 0; width:130px;">
-      <div style="border:1px solid white; width:130px; height:35px; margin:10px auto;">
-        <div style="font-size:11px">
-          Visitor since November 2011
-          <a target="_blank" href="https://www.hitwebcounter.com/counterresources.php">
-            <img border="0" alt="" src="https://hitwebcounter.com/counter/counter.php?page=320569&amp;style=0038&amp;nbdigits=8&amp;type=ip&amp;initCount=0">
-          </a>
+
+  <!-- ========== MAIN PAGE ========== -->
+  <div id="main-page">
+    
+    <!-- Header -->
+    <header class="sticky top-0 z-50 bg-white dark:bg-gray-900 shadow-md">
+      <div class="w-full max-w-none mx-0 px-3 py-2 flex flex-col lg:flex-row items-center gap-2">
+        <h1 class="small-caps-heading whitespace-nowrap shrink-0 text-xl lg:text-2xl font-bold text-primary text-left inline-block border-r-2 border-primary pr-2 blink-cursor">
+          🖤 hackherway cyberspace 🖤
+        </h1>
+        
+        <!-- Header Dropdown -->
+        <div class="header-dropdown">
+          <details>
+            <summary>
+              <span>🌐 My Sites</span>
+              <span class="dropdown-arrow">▼</span>
+            </summary>
+            <ul class="dropdown-menu">
+              <li><a href="#" onclick="showLinksPage(); return false;">All My Sites</a></li>
+              <li><a href="https://d0midigi.github.io/hackherway" target="_blank">hackherway Main</a></li>
+              <li><a href="https://hackherway.neocities.org" target="_blank">Neocities Mirror</a></li>
+              <li><a href="https://github.com/d0midigi" target="_blank">GitHub</a></li>
+              <li><a href="https://hackherway.rocks" target="_blank">hackherway.rocks</a></li>
+            </ul>
+          </details>
         </div>
-        </footer>
+
+        <div class="lg:ml-auto w-full lg:w-2/5 relative">
+          <div class="relative">
+            <input type="text" id="search-input" placeholder="🔍 Search hackherway..." class="w-full px-3 py-2 pr-10 rounded-lg border border-gray-300 dark:border-gray-700 dark:bg-gray-800 focus:outline-none focus:ring-2 focus:ring-primary text-sm" autocomplete="off">
+            <button id="search-button" class="absolute right-3 top-1/2 transform -translate-y-1/2 text-primary">
+              <i class="fas fa-search"></i>
+            </button>
+          </div>
+          <div id="search-results" class="absolute w-full mt-1 max-h-60 overflow-y-auto bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-700 rounded-lg shadow-lg z-50 hidden"></div>
+        </div>
+        
+        <button id="theme-toggle" class="text-gray-600 dark:text-gray-300 hover:text-primary dark:hover:text-primary">
+          <i class="fas fa-moon dark:hidden"></i>
+          <i class="fas fa-sun hidden dark:block"></i>
+        </button>
+      </div>
+    </header>
+
+    <div class="content-wrapper">
+      <!-- Sidebar -->
+      <aside>
+        <div class="sidebar-inner">
+          <h2 class="small-caps-heading border-b border-pink-200 dark:border-pink-700 pb-2">
+            <strong>Security Categories</strong>
+          </h2>
+          
+          <nav class="table-of-contents mt-3">
+            <ul>
+              <li><a href="#introduction">👋🏼 Introduction & Welcome</a></li>
+              <li><a href="#keeping-it-real">⭐ Keeping It Real For Newcomers</a></li>
+              <li><a href="#cybersecurity-domains">🌐 Cybersecurity Domains</a></li>
+
+              <li class="sidebar-dropdown">
+                <details>
+                  <summary><span>🔒 Advanced Threat Protection</span><span class="dropdown-arrow">▼</span></summary>
+                  <ul class="dropdown-menu"><li><a href="#advanced-threat-protection">Overview</a></li></ul>
+                </details>
+              </li>
+              
+              <li class="sidebar-dropdown">
+                <details>
+                  <summary><span>🔒 Application Security</span><span class="dropdown-arrow">▼</span></summary>
+                  <ul class="dropdown-menu"><li><a href="#appsec">Overview</a></li></ul>
+                </details>
+              </li>
+              
+              <li class="sidebar-dropdown">
+                <details>
+                  <summary><span>🔒 AI & ML Security</span><span class="dropdown-arrow">▼</span></summary>
+                  <ul class="dropdown-menu"><li><a href="#ai">Overview</a></li></ul>
+                </details>
+              </li>
+              
+              <li class="sidebar-dropdown">
+                <details>
+                  <summary><span>🔒 Blue Teaming</span><span class="dropdown-arrow">▼</span></summary>
+                  <ul class="dropdown-menu"><li><a href="#blue-team">Overview</a></li></ul>
+                </details>
+              </li>
+              
+              <li class="sidebar-dropdown">
+                <details>
+                  <summary><span>🔒 Cloud Security</span><span class="dropdown-arrow">▼</span></summary>
+                  <ul class="dropdown-menu"><li><a href="#cloud-security">Overview</a></li></ul>
+                </details>
+              </li>
+              
+              <li class="sidebar-dropdown">
+                <details>
+                  <summary><span>🔒 Cyber Defense</span><span class="dropdown-arrow">▼</span></summary>
+                  <ul class="dropdown-menu"><li><a href="#cyber-defense">Overview</a></li></ul>
+                </details>
+              </li>
+              
+              <li class="sidebar-dropdown">
+                <details>
+                  <summary><span>🔒 Data Security</span><span class="dropdown-arrow">▼</span></summary>
+                  <ul class="dropdown-menu"><li><a href="#datasec">Overview</a></li></ul>
+                </details>
+              </li>
+              
+              <li class="sidebar-dropdown">
+                <details>
+                  <summary><span>🔒 DevSecOps</span><span class="dropdown-arrow">▼</span></summary>
+                  <ul class="dropdown-menu"><li><a href="#devsecops">Overview</a></li></ul>
+                </details>
+              </li>
+              
+              <li class="sidebar-dropdown">
+                <details>
+                  <summary><span>🔒 DFIR</span><span class="dropdown-arrow">▼</span></summary>
+                  <ul class="dropdown-menu"><li><a href="#dfir">Overview</a></li></ul>
+                </details>
+              </li>
+              
+              <li class="sidebar-dropdown">
+                <details>
+                  <summary><span>🔒 GRC</span><span class="dropdown-arrow">▼</span></summary>
+                  <ul class="dropdown-menu"><li><a href="#grc">Overview</a></li></ul>
+                </details>
+              </li>
+              
+              <li class="sidebar-dropdown">
+                <details>
+                  <summary><span>🔒 HBSS</span><span class="dropdown-arrow">▼</span></summary>
+                  <ul class="dropdown-menu"><li><a href="#hbss">Overview</a></li></ul>
+                </details>
+              </li>
+              
+              <li class="sidebar-dropdown">
+                <details>
+                  <summary><span>🔒 IAM</span><span class="dropdown-arrow">▼</span></summary>
+                  <ul class="dropdown-menu"><li><a href="#iam">Overview</a></li></ul>
+                </details>
+              </li>
+              
+              <li class="sidebar-dropdown">
+                <details>
+                  <summary><span>🔒 Infrastructure Security</span><span class="dropdown-arrow">▼</span></summary>
+                  <ul class="dropdown-menu"><li><a href="#infrasec">Overview</a></li></ul>
+                </details>
+              </li>
+              
+              <li class="sidebar-dropdown">
+                <details>
+                  <summary><span>🔒 Mobile Security</span><span class="dropdown-arrow">▼</span></summary>
+                  <ul class="dropdown-menu"><li><a href="#mobile-sec">Overview</a></li></ul>
+                </details>
+              </li>
+              
+              <li class="sidebar-dropdown">
+                <details>
+                  <summary><span>🔒 Network Security</span><span class="dropdown-arrow">▼</span></summary>
+                  <ul class="dropdown-menu"><li><a href="#netsec">Overview</a></li></ul>
+                </details>
+              </li>
+              
+              <li class="sidebar-dropdown">
+                <details>
+                  <summary><span>🔒 OSINT</span><span class="dropdown-arrow">▼</span></summary>
+                  <ul class="dropdown-menu"><li><a href="#osint">Overview</a></li></ul>
+                </details>
+              </li>
+              
+              <li class="sidebar-dropdown">
+                <details>
+                  <summary><span>🔒 Penetration Testing</span><span class="dropdown-arrow">▼</span></summary>
+                  <ul class="dropdown-menu"><li><a href="#pentesting">Overview</a></li></ul>
+                </details>
+              </li>
+              
+              <li class="sidebar-dropdown">
+                <details>
+                  <summary><span>🔒 Quantum Readiness</span><span class="dropdown-arrow">▼</span></summary>
+                  <ul class="dropdown-menu">
+                    <li><a href="quantum.html">Dedicated Quantum Page →</a></li>
+                  </ul>
+                </details>
+              </li>
+              
+              <li class="sidebar-dropdown">
+                <details>
+                  <summary><span>🔒 Red Teaming</span><span class="dropdown-arrow">▼</span></summary>
+                  <ul class="dropdown-menu"><li><a href="#red-team">Overview</a></li></ul>
+                </details>
+              </li>
+              
+              <li class="sidebar-dropdown">
+                <details>
+                  <summary><span>🔒 Reverse Engineering</span><span class="dropdown-arrow">▼</span></summary>
+                  <ul class="dropdown-menu"><li><a href="#rev-eng">Overview</a></li></ul>
+                </details>
+              </li>
+              
+              <li class="sidebar-dropdown">
+                <details>
+                  <summary><span>🔒 Secure Software Dev</span><span class="dropdown-arrow">▼</span></summary>
+                  <ul class="dropdown-menu"><li><a href="#software-dev">Overview</a></li></ul>
+                </details>
+              </li>
+              
+              <li class="sidebar-dropdown">
+                <details>
+                  <summary><span>🔒 Threat Hunting</span><span class="dropdown-arrow">▼</span></summary>
+                  <ul class="dropdown-menu"><li><a href="#threat-hunting">Overview</a></li></ul>
+                </details>
+              </li>
+              
+              <li class="sidebar-dropdown">
+                <details>
+                  <summary><span>🔒 Threat Intelligence</span><span class="dropdown-arrow">▼</span></summary>
+                  <ul class="dropdown-menu"><li><a href="#threat-intel">Overview</a></li></ul>
+                </details>
+              </li>
+              
+              <li class="sidebar-dropdown">
+                <details>
+                  <summary><span>🔒 Vulnerability Management</span><span class="dropdown-arrow">▼</span></summary>
+                  <ul class="dropdown-menu"><li><a href="#vulnerability-research">Overview</a></li></ul>
+                </details>
+              </li>
+
+              <li><a href="#interesting-sites">👩‍💻 Interesting Sites</a></li>
+
+              <li class="sidebar-dropdown">
+                <details>
+                  <summary><span>🛠️ Security Tools</span><span class="dropdown-arrow">▼</span></summary>
+                  <ul class="dropdown-menu">
+                    <li><a href="#security-tools">Overview</a></li>
+                    <li><a href="#anti-forensic">Anti-Forensic</a></li>
+                    <li><a href="#automobile">Automobile</a></li>
+                    <li><a href="#backdoor">Backdoors</a></li>
+                    <li><a href="#binary">Binary</a></li>
+                    <li><a href="#bluetooth">Bluetooth</a></li>
+                    <li><a href="#code-audit">Code Audit</a></li>
+                    <li><a href="#crackers">Crackers</a></li>
+                    <li><a href="#crypto">Crypto</a></li>
+                    <li><a href="#database">Database</a></li>
+                    <li><a href="#debuggers">Debuggers</a></li>
+                    <li><a href="#decompilers">Decompilers</a></li>
+                    <li><a href="#defensive-tools">Defensive Tools</a></li>
+                    <li><a href="#disassemblers">Disassemblers</a></li>
+                    <li><a href="#dos-stress-test">DoS|Stress Test</a></li>
+                    <li><a href="#drones">Drones</a></li>
+                    <li><a href="#exploitation">Exploitation</a></li>
+                    <li><a href="#fingerprint">Fingerprinting</a></li>
+                    <li><a href="#firmware">Firmware</a></li>
+                    <li><a href="#forensic">Forensic (DFIR)</a></li>
+                    <li><a href="#fuzzers">Fuzzers|Fuzzing</a></li>
+                    <li><a href="#hardware">Hardware</a></li>
+                    <li><a href="#honeypots-deception">Honeypots|Deception</a></li>
+                    <li><a href="#ids">IDS</a></li>
+                    <li><a href="#keyloggers-jammers">Keyloggers|Jammers</a></li>
+                    <li><a href="#malware">Malware</a></li>
+                    <li><a href="#misc">Miscellaneous</a></li>
+                    <li><a href="#mobile">Mobile</a></li>
+                    <li><a href="#networking">Networking</a></li>
+                    <li><a href="#nfc">NFC</a></li>
+                    <li><a href="#packers">Packers</a></li>
+                    <li><a href="#proxies">Proxies</a></li>
+                    <li><a href="#radio-rfid">Radio|RFID</a></li>
+                    <li><a href="#recon">Recon|Info Gathering</a></li>
+                    <li><a href="#reversing">Reversing</a></li>
+                    <li><a href="#scanners">Scanners</a></li>
+                    <li><a href="#sniffers">Sniffers</a></li>
+                    <li><a href="#social-engineering">Social Engineering</a></li>
+                    <li><a href="#spoofers-spoofing">Spoofers|Spoofing</a></li>
+                    <li><a href="#stego">Stego</a></li>
+                    <li><a href="#tunnels-tunneling">Tunnels|Tunneling</a></li>
+                    <li><a href="#voip">VoIP</a></li>
+                    <li><a href="#webapp">Webapp</a></li>
+                    <li><a href="#windows">Windows</a></li>
+                    <li><a href="#wireless">Wireless</a></li>
+                  </ul>
+                </details>
+              </li>
+
+              <li class="sidebar-dropdown">
+                <details>
+                  <summary><span>🏰 Active Directory</span><span class="dropdown-arrow">▼</span></summary>
+                  <ul class="dropdown-menu">
+                    <li><a href="#active-directory">Overview</a></li>
+                  </ul>
+                </details>
+              </li>
+            </ul>
+          </nav>
+        </div>
+      </aside>
+
+      <!-- Main Content -->
+      <main class="content">
+        
+        <!-- Introduction -->
+        <section id="introduction">
+          <center><p class="all-caps-text">hackherway cyberspace</p></center>
+          <center><p class="all-caps-text">A Total Cybersecurity Reference for You, Me, and Everyone-In-Between</p></center>
+          <center><img src="https://github.com/d0midigi/hackherway/blob/master/images/to-learn-is-to-live-spaced.gif?raw=true" alt="To learn is to live"></center>
+
+          <h1 class="small-caps-heading">Introduction and Welcome!</h1>
+          <h2 class="small-caps-heading">What Is this Cyberspace About?</h2>
+          <p>This cyberspace is essentially a dumping ground for offensive + defensive cybersecurity and Active Directory practical notes and resources I've developed throughout my 20 year history in the field of cybersecurity and in various roles I've achieved as a cybersecurity professional.</p>
+
+          <center><p><strong>💗 Be sure to check out my other cybersecurity resources at <a href="https://d0midigi.github.io/hackherway">hackherway</a>. 💗</strong></p></center>
+          
+          <div class="disclaimer">
+            <div class="disclaimer-title">⚠ Disclaimer</div>
+            <p><strong>The hackherway Cyberspace contains field notes compiled from practical cybersecurity training platforms - including HackTheBox (HTB) Academy, TryHackMe, and the OWASP Web Security Testing Guide - alongside proprietary, real-world projects.</strong></p>
+            <p>🚫 This content is provided strictly for <strong>educational and informational purposes</strong> on an "as-is" basis. The authors and publishers make no warranties regarding the accuracy, completeness, or reliability of this information. Any reliance the you place on these materials is strictly at your own risk. Under no circumstances will the authors or publishers be liable for any loss, damage, or data profit loss resulting from your use of them content contained within this space.</p>
+            <p>🚫 Misuse of the techniques described herein must <strong>not be used for malicious or illegal activities and is strictly prohibited.</strong> The creators do not condone unethical behaviors or illegal actions; all actions taken based on this book and the information provided are the sole responsibility of the user. Readers should always seek professional guidance before implementing these techniques.</p>
+            <p>🚫 Users assume all risk and are solely responsible compliance with applicable laws.</p>
+          </div>
+          
+          <div class="bg-gray-50 dark:bg-gray-800 p-4 rounded-lg mb-4">
+            <h2 class="small-caps-heading">Some Awesome GitHub Sites</h2>
+            <pre><code>// The document object is the main entry point to the DOM
+console.log(document.title); // Outputs the document title
+console.log(document.URL);   // Outputs the document URL</code></pre>
+          </div>
+        </section>
+
+        <!-- Keeping It Real -->
+        <section id="keeping-it-real">
+          <h2 class="small-caps-heading"><span class="heart-emoji">❤️</span> Keeping It Real for Newcomers & Beginners <span class="heart-emoji">❤️</span></h2>
+          
+          <center><p><strong><span style="color: #fe0942;">&bull;</span> Below are some of my key considerations and recommendations for being successful in the security space. <span style="color: #fe0942;">&bull;</span></strong></p></center>
+          <center><p><span style="color: #fe0942;">&bull; &bull; &bull;</span></p></center>
+          
+          <p>First, understand that <strong>succeeding in cybersecurity requires a shift from passive learning to relentless execution, and filtering out industry noise.</strong> Navigating a career in cybersecurity requires a blueprint built on practical ability, consistency, and a healthy dose of skepticism.</p>
+          
+          <p><strong>Run your own race</strong> and stop comparing yourself to others. Everyone's career trajectory is unique. Comparing yourself to hyper-visible industry figures or peers will only cause quick burnout - especially since many online personas are just simply inflated. The tech industry is full of curated highlight reels, and many highly publicized figures aren't as skilled as they may appear. Focus on building a path that is one you can call your own and identify your core skill sets you need and master them on your own timeline.</p>
+          
+          <p><strong>Match your adversary's consistency</strong> because threat actors are some dedicated mofo's, they're persistent as all hell, and are constantly evolving. Defenders must be just as disciplined as the adversaries they fight. To defend against them, your commitment to training must match their consistencies. Consistency in your training and daily routine is what bridges the gap between a novice and a practitioner. Stay disciplined and ensure your efforts align with reputable, high-quality material.</p>
+          
+          <p>You will be surprised by how much insights you can gain simply by just <strong>asking.</strong> True experts who are passionate about security LOVE sharing knowledge with aspiring learners and are usually eager to mentor. Asking direct questions will also helps you to gauge and better evaluate a speaker's actual expertise, helping you to filter out those who "talk the talk, but can't walk the walk", so-to-speak. Never hesitate to reach out to veterans in the field.</p>
+          
+          <p><strong>Question. Everything. 🤔</strong></p>
+          
+          <p>The industry is currently saturated with content creators who have never worked a day in a security operations center or engineering role. They trade practical insights for viral engagement, spreading surface-level bullshit and disinformation for financial payout. Look for knowledge shared by quiet practitioners, not loud influencers.</p>
+          
+          <p>And finally, understand that (in "real-world" cybersecurity) it's best that you prioritize your skill sets over certificates. Multiple-choice exams like CompTIA do not prove you can adequately defend a network - they only prove that you are good at memorization. This is a huge reason why so many certified candidates fail technical interviews. <strong>Theory is only half the battle.</strong> In security, we don't just discuss problems - we build and implement solutions. Put your knowledge into practice through hands-on lab and real-world projects; build, configure, break things, question how they work, why they work, what their sole purpose or objective is, put back together and prove what you can actually do.</p>
+
+          <div class="blur-card" onclick="this.classList.toggle('revealed')">
+            <div class="blur-card-hint">&bull; click to read <span style="color: #ffffff;">about me</span> &bull;</div>
+            <div class="blur-card-content">
+              <h3>About Me</h3>
+              <p>I'm Evo, an information security engineer, ethical hacker, author, and life-long technologist with more than two decades of experience in cybersecurity offense/defense and information technology.</p>
+              <p>My background spans federal, Department of Defense (DoD), and commercial environments, with a strong focus on cybersecurity and network engineering, vulnerability, threat, and risk assessment, penetration testing, identity and access management, Active Directory, risk management, security compliance, and offensive / defensive operations. I've worked across highly regulated and mission-critical networks where security is not theoretical. It has (strikethrough) must work.</p>
+              <p>A major part of my work has centered on securing identity infrastructure and understanding how attackers abuse it. That experience eventually grew into a much larger personal project: writing a technical book focused on offensive and defensive Active Directory, federal Identity, Credential, and Access Management (FICAM), and the realities of securing enterprise identity systems in government environments.</p>
+              <p>I also created hackherway as a place to document what I learn, teach practical cybersecurity concepts, and share technical material without burying it under unnecessary jargon. I believe security professionals should understand both sides of the equation: how systems are attacked and how they are actually defended.</p>
+              <p>Outside of cybersecurity, I'm a life-long learner, a mother of three, and a I like to create electronic music, particularly drum and bass. I like to think that I approach music-making the same way I approach technology: experiment, break things, venture out, figure out why things work, question everything, learn how it works from all angles, what pisses it off, what makes it happy, and go build something better from the pieces in the end.</p>
+              <p>I've spent most of my career learning systems deeply enough to understand where they fail. Now I'm focused on turning that experience into something useful - a tool for the next generation of engineers, defenders, ethical hackers, and security professionals.</p>
+              <p>Be safe out there and always remember to stay safe, stay vigilant, and stay informed.</p>
+              <p>🫶✌️</p>
+              <blockquote>
+                <p><em>"If you think you know everything about cybersecurity, it was probably ill-explained to you."</em></p>
+                <cite>— Stéphane Nappo</cite>
+              </blockquote>
+            </div>
+          </div>
+        </section>
+
+        <!-- Cybersecurity Domains -->
+        <section id="cybersecurity-domains">
+          <h1 class="small-caps-heading">Cybersecurity Domains</h1>
+          <p>Cyber domains are the foundational structural categories used to organize and divide the vast cybersecurity landscape into distinct, logical areas of technical focus and expertise. Rather than treating information security as a single, overwhelming topic, this domain-based approach segments the field into specialized pillars—such as Network Security, Identity & Access Management, Incident Response, Cloud Security, and Governance, Risk, and Compliance (GRC). By categorizing cybersecurity concepts and documentation into these structured boundaries, researchers and security practitioners can instantly isolate their specific operational scope, bypass irrelevant data, and quickly locate the exact standards, blueprints, and threat frameworks needed for their technical environment.</p>
+
+          <!-- Advanced Threat Protection -->
+          <div id="advanced-threat-protection" class="mb-8">
+            <h3 class="small-caps-heading">Advanced Threat Protection</h3>
+            <p>Advanced Threat Protection (ATP) is a specialized cyber domain focused on defending organizations against highly sophisticated, stealthy, and targeted cyberattacks—such as Advanced Persistent Threats (APTs), zero-day exploits, and polymorphic malware. While traditional security rely on static signatures to block known threats, ATP implements a proactive, multi-layered defensive strategy that combines continuous network monitoring, real-time behavioral analysis, machine learning algorithms, and isolated sandbox environments to detect and detonate suspicious files before they can execute. By correlating telemetry across endpoints, email channels, and cloud networks, this domain equips security operations teams with the deep visibility, automated threat hunting, and rapid response capabilities necessary to contain complex, multi-stage attacks before data exfiltration occurs.</p>
+            <ul>
+              <li>Botnet & Zombie Protection</li>
+              <li>Malware Analysis & Anti-Malware</li>
+              <li>Sandboxing & Threat Emulation</li>
+              <li>Application Exceptions & Allowlisting / Denylisting</li>
+              <li>Network Incident Forensics & Analysis</li>
+              <li>Automated Security</li>
+            </ul>
+          </div>
+
+          <!-- AppSec -->
+          <div id="appsec" class="mb-8">
+            <h3 class="small-caps-heading">Application Security (AppSec)</h3>
+            <p>Application Security (AppSec) is the critical cyber domain dedicated entirely to ensuring that software applications are designed, developed, and maintained to resist malicious attacks and unauthorized exploitation throughout their lifecycle. Unlike network or infrastructure security which protect the perimeter, AppSec builds security directly into the software fabric itself, addressing vulnerabilities where code is written and data is processed. This domain encompasses a mature ecosystem of automated testing methodologies—such as Static Application Security Testing (SAST), Dynamic Application Security Testing (DAST), and Software Composition Analysis (SCA)—alongside human-centric protocols like threat modeling, secure code reviews, and the establishment of "secure by design" development guardrails. By integrating these practices seamlessly into modern continuous deployment pipelines (DevSecOps), organizations can detect architectural flaws and code-level vulnerabilities early, effectively neutralizing risks before production software ever reaches an end-user.</p>
+            <ul>
+              <li>Secure Code Review</li>
+              <li>Application Pentesting</li>
+              <li>Vulnerability Validation</li>
+              <li>Web Application Firewall (WAF)</li>
+              <li>Web Application Security (WebAppSec)</li>
+              <li>OWASP Top 10 / SANS CWE Top 25</li>
+              <li>Database Activity Monitoring</li>
+              <li>Content Security & Filtering</li>
+              <li>Secure File Transfer</li>
+            </ul>
+          </div>
+
+          <!-- AI Security -->
+          <div id="ai" class="mb-8">
+            <h3 class="small-caps-heading">AI & Machine Learning Security (AI-Sec)</h3>
+            <p>AI and Machine Learning Security (AI-Sec) is the cutting-edge cyber domain focused on a critical, dual-pronged challenge: securing artificial intelligence systems from exploitation while safely leveraging machine learning to automate enterprise defense. The first facet, Security for AI, establishes technical guardrails to protect large language models (LLMs) and neural networks from sophisticated adversarial attacks—such as prompt injection, training data poisoning, model inversion, and algorithmic bias manipulation. The second facet, AI for Security, focuses on deploying advanced machine learning pipelines and agentic AI models to analyze massive telemetry logs, accelerate threat hunting, and predict complex adversarial behaviors at machine speed. This domain ensures organizations can confidently scale automated intelligence without introducing catastrophic vulnerabilities into their core software fabric.</p>
+          </div>
+
+          <!-- Blue Team -->
+          <div id="blue-team" class="mb-8">
+            <h3 class="small-caps-heading">Blue Teaming & Defensive Security</h3>
+            <p>Blue Teaming and Defensive Security is the dedicated cyber domain focused on maintaining an organization's internal operational resilience by continuously monitoring, protecting, and hardening digital infrastructure against active adversarial threats. Unlike offensive practitioners who seek out systemic vulnerabilities, the Blue Team serves as the frontline defense, deploying a unified layer of tactical controls that includes Security Information and Event Management (SIEM) systems, endpoint detection architecture, and granular network traffic analysis. This domain bridges the gap between proactive system hardening—such as asset configuration management, threat intelligence ingestion, and identity verification—and active tactical response, ensuring that security operations centers (SOCs) can instantly detect anomalies, contain lateral network movement, and execute rapid incident response playbooks to neutralize attackers in real-time.</p>
+          </div>
+
+          <!-- Cloud Security -->
+          <div id="cloud-security" class="mb-8">
+            <h3 class="small-caps-heading">Cloud Security</h3>
+            <p>Cloud Security (CloudSec) is the specialized cyber domain focused on safeguarding cloud computing environments, underlying infrastructure, applications, and data from unauthorized access, leakage, and targeted digital threats. Operating on a model of shared responsibility between cloud providers and customers, this domain addresses the unique risks introduced by rapid digital transformation, highly dynamic virtualized architectures, and multi-tenant systems. CloudSec encompasses a broad set of programmatic controls and visibility frameworks, including Cloud Security Posture Management (CSPM) to catch misconfigurations, Cloud Workload Protection Platforms (CWPP) to monitor running containers and servers, and strict Identity and Access Management (IAM) permissions based on least privilege. By enforcing continuous cryptographic encryption for data at rest and in transit, alongside micro-segmentation and automated compliance tracking, this discipline ensures organizations can safely scale global public, private, or hybrid cloud operations without risking data exposure.</p>
+          </div>
+
+          <!-- Cyber Defense -->
+          <div id="cyber-defense" class="mb-8">
+            <h3 class="small-caps-heading">Cyber Defense & Defensive Security</h3>
+            <p>Cyber Defense and Defensive Security is the tactical cyber domain dedicated to establishing, maintaining, and hardening an organization's internal technical perimeters to continuously resist, detect, and neutralize active digital threats. Operating as a real-time shield for digital assets, this discipline focuses on minimizing an organization's overall attack surface through proactive system configurations, network micro-segmentation, and strict firewalls, alongside the deployment of continuous monitoring architectures like Security Information and Event Management (SIEM) platforms. By combining proactive defense-in-depth measures with automated incident response workflows, this domain ensures that security operations teams can immediately isolate anomalous network behavior, block lateral threat movement, and rapidly contain exploits before they compromise core enterprise infrastructure.</p>
+          </div>
+
+          <!-- Data Security -->
+          <div id="datasec" class="mb-8">
+            <h3 class="small-caps-heading">Data Security (DataSec)</h3>
+            <p>Data Security (DataSec) is the core cyber domain dedicated entirely to protecting digital assets from unauthorized access, corruption, modification, or exfiltration throughout their entire lifecycle. Recognizing that data is an organization's most critical currency, this discipline shifts focus away from infrastructure perimeters to secure the information itself, whether it is structured inside databases, moving across networks, or residing on physical endpoints. DataSec implements a rigorous layered defense combining robust cryptographic encryption protocols for data at rest and in transit, continuous automated data discovery and classification mapping, and strict data loss prevention (DLP) guardrails. By enforcing granular, identity-centric access control policies alongside tamper-proof audit logging, this domain ensures business continuity and regulatory compliance while maintaining absolute data confidentiality, availability, and structural integrity.</p>
+            <ul>
+              <li>Data Encryption</li>
+              <li>Data Leakage Prevention</li>
+              <li>Data Loss Prevention (DLP)</li>
+            </ul>
+          </div>
+
+          <!-- DevSecOps -->
+          <div id="devsecops" class="mb-8">
+            <h3 class="small-caps-heading">DevSecOps</h3>
+            <p>DevSecOps (Development, Security, and Operations) is the pragmatic cyber domain focused on integrating automated security controls directly into every phase of the traditional software development lifecycle (SDLC). Rather than treating security as an isolated, manual review phase at the very end of production, DevSecOps shifts security "left" by embedding continuous testing mechanisms directly into developer code repositories and build pipelines. This domain implements a robust toolkit of automated guardrails—such as static and dynamic code scanning (SAST/DAST), dependency vulnerability tracking, and automated infrastructure provisioning policies—ensuring that vulnerabilities are caught and remediated in real time before deployment. By blending engineering agility with systemic defense, DevSecOps fosters a shared-responsibility model where development, operations, and security teams collaborate to release reliable, secure software at scale.</p>
+          </div>
+
+          <!-- DFIR -->
+          <div id="dfir" class="mb-8">
+            <h3 class="small-caps-heading">Digital Forensics & Incident Response (DFIR)</h3>
+            <p>Digital Forensics and Incident Response (DFIR) is the specialized, highly tactical cyber domain focused on rapidly detecting, containing, and analyzing active cyberattacks, while meticulously investigating digital footprints to uncover the root cause of a breach. Operating as the emergency response team of cybersecurity, DFIR blends two critical operational disciplines: Incident Response (IR), which deploys real-time mitigation playbooks to isolate infected endpoints, evict threat actors, and restore business operations; and Digital Forensics (DF), which preserves, extracts, and analyzes volatile memory, system artifacts, and network logs in a forensically sound manner. By combining technical forensic science with rapid system triage, this domain enables organizations to thoroughly document an attacker's timeline and techniques, fulfill legal and regulatory notification requirements, and fortify systemic defenses to prevent future compromises.</p>
+          </div>
+
+          <!-- GRC -->
+          <div id="grc" class="mb-8">
+            <h3 class="small-caps-heading">Governance, Risk & Compliance (GRC)</h3>
+            <p>Governance, Risk, and Compliance (GRC) is the strategic cyber domain that aligns an organization's security initiatives with its overall business objectives, regulatory obligations, and risk management frameworks. Rather than focusing on hands-on technical configurations, this discipline acts as the steering and administrative backbone of cybersecurity. It is divided into three critical areas: Governance establishes the organizational policies, leadership structures, and strategic direction for data protection; Risk Management proactively identifies, analyzes, and mitigates operational and third-party vulnerabilities that could impact business continuity; and Compliance ensures the enterprise continuously satisfies strict legal, industry, and contractual mandates—such as HIPAA, GDPR, PCI-DSS, or federal NIST frameworks. By bridging the gap between executive leadership and technical teams, GRC ensures that security investments are legally sound, structurally organized, and tailored to the organization's risk tolerance.</p>
+            <ul>
+              <li>ISO 27001 / HIPAA / PCI SOC</li>
+              <li>Firewall Compliance</li>
+              <li>Physical & Logical Security Posture Assessment and Reviews</li>
+              <li>Configuration Compliance and Change Management Processes</li>
+              <li>Audit & Compliance Analysis</li>
+              <li>Risk & Security Gap Assessment</li>
+            </ul>
+          </div>
+
+          <!-- HBSS -->
+          <div id="hbss" class="mb-8">
+            <h3 class="small-caps-heading">Host-Based Systems Security (HBSS) & Administration</h3>
+            <p>Host-Based Security System (HBSS) and Administration is a specialized cyber domain focused on the deployment, management, and continuous orchestration of endpoint security suites across enterprise networks, most notably within United States Department of Defense (DoD) environments. Rather than managing perimeter firewalls, this domain centers on securing individual host devices—such as servers, workstations, and laptops—using a centrally managed commercial-off-the-shelf (COTS) application platform, typically powered by the McAfee ePolicy Orchestrator (ePO) engine. HBSS Administration involves configuring and maintaining a highly integrated matrix of core security modules, including Host Intrusion Prevention Systems (HIPS), rogue system detection, Data Loss Prevention (DLP) flash-media blocks, and automated policy auditors used to enforce rigid compliance baselines like STIGs. By actively overseeing system agent deployments, managing the ePO policy tree structure, and tuning custom behavioral signatures, administrators in this domain provide security operations teams with the real-time visibility, automated threat containment, and configuration control required to safeguard critical, large-scale enterprise assets.</p>
+            <ul>
+              <li>Windows Operating System (OS) Security</li>
+              <li>*nix Operating System (OS) Security</li>
+              <li>Continuous Monitoring (ConMon)</li>
+              <li>Threat Containment, Quarantine & Eradication</li>
+              <li>Automated Vulnerability Scanning</li>
+              <li>Vulnerability Compliance Metrics Reporting</li>
+              <li>Threat, Risk & Vulnerability POA&M Management & Compliance Tracking</li>
+            </ul>
+          </div>
+
+          <!-- IAM -->
+          <div id="iam" class="mb-8">
+            <h3 class="small-caps-heading">Identity & Access Management (IAM)</h3>
+            <p>Identity and Access Management (IAM) is the foundational, identity-centric cyber domain dedicated to ensuring that only authenticated and authorized individuals, devices, and automated services can access specific enterprise resources at the exact right time for the right reasons. Frequently referred to as the "new perimeter" of modern decentralized architectures, this discipline governs the entire lifecycle of a digital identity, from initial provisioning to offboarding. IAM implements a robust framework of technical controls—including Multi-Factor Authentication (MFA), Single Sign-On (SSO), Role-Based Access Control (RBAC), and Privileged Access Management (PAM)—to enforce strict least-privilege guardrails. By continuously validating identities and mapping permissions across cloud and on-premise environments, this domain completely neutralizes credential-stuffing attacks and prevents unauthorized privilege escalation.</p>
+            <ul>
+              <li>Domain Name Service (DNS) Security (DNSSEC)</li>
+              <li>Email Server & Endpoint Agent Security</li>
+              <li>Unified Communications</li>
+              <li>Security Information & Events Management (SIEM)</li>
+              <li>Security Orchestration & Automated Response (SOAR)</li>
+              <li>Security Log Correlation & False Positive Analysis</li>
+              <li>Zero-Day (0day) Vulnerability Tracking</li>
+            </ul>
+          </div>
+
+          <!-- Infrastructure Security -->
+          <div id="infrasec" class="mb-8">
+            <h3 class="small-caps-heading">Infrastructure Security (InfraSec)</h3>
+            <p>Infrastructure Security (InfraSec) is the foundational cyber domain dedicated to protecting the critical hardware, software, physical networks, and core operational platforms that underpin an enterprise's entire digital ecosystem. This discipline focuses on securing the underlying structural assets of an organization—such as physical data centers, core networking components (routers, switches, and load balancers), server operating systems, storage networks, and utility facilities—against physical damage, insider threats, and external digital exploitation. InfraSec implements a rigorous, layered defense model combining physical access barriers, strict network segmentation, hardware-root-of-trust authentications, and continuous configuration baseline auditing. By proactively hardening the foundational architecture upon which applications and data repositories run, this domain ensures systemic resilience, high availability, and absolute operational continuity for the enterprise.</p>
+            <ul>
+              <li>Domain Name Service (DNS) Security (DNSSEC)</li>
+            </ul>
+          </div>
+
+          <!-- Mobile Security -->
+          <div id="mobile-sec" class="mb-8">
+            <h3 class="small-caps-heading">Mobile Devices Security</h3>
+            <p>Mobile Device and Handheld Security is the specialized cyber domain dedicated to protecting enterprise data, corporate networks, and individual user privacy across portable, wireless communication hardware—such as smartphones, tablets, and ruggedized handheld scanners. Because mobile devices frequently operate outside traditional enterprise perimeters on untrusted public networks, this discipline addresses unique threats like malicious mobile applications, network eavesdropping, device theft, and physical tampering. This domain relies heavily on Unified Endpoint Management (UEM) and Mobile Device Management (MDM) platforms to enforce centralized corporate security policies, mandate strong biometric authentication, isolate enterprise data via secure application containerization, and enable immediate remote data wiping for lost or stolen hardware. By combining these active device controls with data-at-rest encryption and Mobile Threat Defense (MTD) software, this discipline ensures organizations can safely enable modern telework models and Bring Your Own Device (BYOD) programs without compromising core network infrastructure.</p>
+            <ul>
+              <li>Authentication & Onboarding</li>
+              <li>Rogue Access Point Detection</li>
+              <li>Wireless Security Protocols</li>
+              <li>OWASP Mobile Top 10</li>
+              <li>Automated Mobile App Scanning</li>
+              <li>Dynamic Mobile App Analysis</li>
+              <li>Secure Coding Practices</li>
+              <li>Mobile Penetration Testing</li>
+              <li>Secure Code Reviews</li>
+            </ul>
+          </div>
+
+          <!-- Network Security -->
+          <div id="netsec" class="mb-8">
+            <h3 class="small-caps-heading">Network Security (NetSec)</h3>
+            <p>Network Security (NetSec) is the foundational cyber domain dedicated to protecting the integrity, confidentiality, and availability of data as it moves across local, enterprise, and global communication channels. This discipline focuses on securing the underlying transmission infrastructure against unauthorized access, structural intercept, and malicious disruptions like Denial-of-Service (DoS) attacks. NetSec combines physical controls and software-driven architectural defenses, deploying tools such as Next-Generation Firewalls (NGFW), Intrusion Detection and Prevention Systems (IDPS), Secure Web Gateways (SWG), and micro-segmentation boundaries. By enforcing robust network access controls, continuous traffic monitoring, and mandatory cryptographic protocols (such as IPsec and TLS tunnels), this domain ensures that only authorized entities can connect to corporate environments while completely neutralizing malicious lateral threat movement.</p>
+            <ul>
+              <li>Firewall Management</li>
+              <li>Network Access Control (NAC)</li>
+              <li>Secure Network Design</li>
+              <li>Defense-In-Depth / Layered Security Strategies</li>
+              <li>Unified Threat Management (UTM) & Threat-Informed Response</li>
+              <li>WAN & LAN Remote Access Management Security</li>
+              <li>Intrusion Detection & Intrusion Prevention Systems (IDS/IPS)</li>
+              <li>Router Access Control Lists (RACLs)</li>
+              <li>Switches and Virtual Local Area Networks (VLAN) Security</li>
+              <li>Virtual Private Networks (VPNs) & Secure TLS Tunnels</li>
+            </ul>
+          </div>
+
+          <!-- OSINT -->
+          <div id="osint" class="mb-8">
+            <h3 class="small-caps-heading">Open-Source Intelligence (OSINT)</h3>
+            <p>Open Source Intelligence (OSINT) is the specialized cyber domain focused on the lawful collection, analysis, and synthesis of publicly available information to uncover actionable security insights and intelligence. Operating primarily as a reconnaissance discipline, OSINT involves gathering data from diverse, unclassified sources—including public search engines, social media platforms, code repositories, domain registration records, and deep web directories. Within cybersecurity, this domain is used dualistically: offensive teams use it during footprinting phases to map an organization's exposed assets and employee details, while defensive teams utilize it to monitor the dark web for leaked corporate credentials, track emerging global threat actors, and assess an organization's external attack surface. By transforming raw, public data into structured intelligence, this domain enables security teams to identify vulnerabilities and mitigate threats before they can be exploited.</p>
+          </div>
+
+          <!-- Penetration Testing -->
+          <div id="pentesting" class="mb-8">
+            <h3 class="small-caps-heading">Penetration Testing & Ethical Hacking</h3>
+            <p>Penetration Testing and Ethical Hacking is the proactive, offensive cyber domain dedicated to evaluating the security posture of an organization's digital ecosystem by safely simulating real-world cyberattacks. Rather than relying solely on automated vulnerability scans, this discipline utilizes authorized security professionals—known as ethical hackers—to manually identify, verify, and exploit architectural flaws, software vulnerabilities, and configuration weaknesses across networks, applications, and physical perimeters. Operating under strict, pre-defined rules of engagement, penetration testers mimic the exact Tactics, Techniques, and Procedures (TTPs) of malicious threat actors to determine the true exploitability of a system and assess the effectiveness of internal defensive teams. By translating these authorized intrusions into comprehensive technical reports and remediation roadmaps, this domain provides organizations with the critical visibility required to patch security gaps before they can be exploited by actual adversaries.</p>
+          </div>
+
+          <!-- Quantum Readiness - LINK TO DEDICATED PAGE -->
+          <div id="quantum-readiness" class="mb-8">
+            <h3 class="small-caps-heading">Quantum Readiness & Cryptographic Agility</h3>
+            <p><strong>Quantum Readiness and Cryptographic Agility</strong> is the forward-looking cyber domain focused on preparing enterprise networks for the systemic cryptographic vulnerabilities introduced by the advent of quantum computing. Because future quantum processors will be capable of breaking the foundational asymmetric encryption algorithms (such as RSA and ECC) that currently safeguard global finance, communications, and data storage, this domain actively spearheads the migration to Post-Quantum Cryptography (PQC).</p>
+            <p style="margin-top: 1rem;">
+              <a href="quantum.html" style="display: inline-flex; align-items: center; gap: 0.5rem; padding: 0.6rem 1.2rem; background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%); color: white; border-radius: 8px; text-decoration: none; font-weight: 600; font-size: 0.85rem;">
+                <i class="fas fa-atom"></i>
+                Explore Quantum Resources →
+              </a>
+            </p>
+          </div>
+
+          <!-- Red Team -->
+          <div id="red-team" class="mb-8">
+            <h3 class="small-caps-heading">Red Teaming & Offensive Security</h3>
+            <p><strong>Red Teaming and Offensive Security</strong> is the specialized cyber domain that actively challenges an organization's overall defensive posture by simulating highly realistic, multi-layered adversarial attacks. Unlike standard penetration testing, which focuses on identifying specific vulnerabilities within an isolated scope, Red Teaming adopts the exact mindsets, covert tactics, and timeline-free methodologies of real-world threat actors to test an organization's actual detection and response capabilities. This domain orchestrates complex, multi-vector operations that span digital networks, physical perimeters, and human elements through social engineering or phishing campaigns. By providing an authentic, adversarial stress-test against internal defensive teams (Blue Teams), Red Teaming exposes hidden security gaps, uncovers systemic blind spots, and equips organizations with the raw, evidence-based insights needed to build a resilient defense-in-depth perimeter.</p>
+          </div>
+
+          <!-- Reverse Engineering -->
+          <div id="rev-eng" class="mb-8">
+            <h3 class="small-caps-heading">Reverse Engineering</h3>
+            <p><strong>Reverse Engineering</strong> is the deeply technical cyber domain dedicated to deconstructing compiled software, firmware, or hardware components to understand their internal mechanics, logic, and core functionality without access to the original source code. Operating primarily at the assembly and binary level, this discipline acts as the ultimate diagnostic and analytical toolkit within cybersecurity. Specialists in this domain utilize specialized tools—such as disassemblers (e.g., IDA Pro, Ghidra) and debuggers (e.g., x64dbg, WinDbg)—to trace CPU execution paths, reconstruct data structures, and map programmatic logic. Within the security ecosystem, reverse engineering serves dual purposes: defensive analysts rely on it to dissect sophisticated malware, identify zero-day vulnerabilities, and uncover hidden cryptographic keys, while hardware engineers apply it to analyze legacy components and verify that proprietary hardware roots-of-trust remain uncompromised by malicious firmware modifications.</p>
+          </div>
+
+          <!-- Secure Software Dev -->
+          <div id="software-dev" class="mb-8">
+            <h3 class="small-caps-heading">Secure Software Development & Safe Coding Practices</h3>
+            <p><strong>Secure Software Development and Safe Coding Practices</strong> is the proactive cyber domain focused on integrating defensive engineering principles directly into the source code from the very first line written. Rather than relying on post-development testing or network firewalls to catch flaws after a product is compiled, this discipline treats security as a fundamental engineering requirement throughout the development lifecycle. It mandates strict adherence to established coding standards—such as the OWASP Top 10 guidelines or SEI CERT secure coding standards—to prevent pervasive vulnerabilities like SQL injections, Cross-Site Scripting (XSS), and buffer overflows. By enforcing continuous automated line-by-line linting, input sanitization boundaries, memory-safe data operations, and peer-reviewed code verification, this domain empowers developers to eliminate architectural weaknesses early, producing resilient, stable software that is structurally "secure by design."</p>
+          </div>
+
+          <!-- Threat Hunting -->
+          <div id="threat-hunting" class="mb-8">
+            <h3 class="small-caps-heading">Threat Hunting</h3>
+            <p>Threat Hunting is the proactive, analyst-led cyber domain dedicated to searching across an organization's network endpoints, cloud environments, and internal data stores to isolate and neutralize covert malicious activity that has bypassed automated security controls. Rather than waiting for a Security Information and Event Management (SIEM) system or antivirus software to trigger an alert, threat hunters operate under the assumption that a breach has already occurred. This discipline blends deep technical expertise with advanced analytics, threat intelligence, and behavioral monitoring to discover hidden adversaries, such as advanced persistent threats (APTs) executing fileless malware or living-off-the-land attacks. By continuously formulating hypotheses based on the latest adversarial tactics, Techniques, and procedures (TTPs), threat hunting teams actively shrink an attacker's dwell time, evict intruders before they can cause damage, and provide defensive engineers with the exact insights needed to harden internal detection rules.</p>
+          </div>
+
+          <!-- Threat Intelligence -->
+          <div id="threat-intel" class="mb-8">
+            <h3 class="small-caps-heading">Threat Intelligence</h3>
+            <p>Threat Intelligence (Threat-Intel) is the strategic and tactical cyber domain dedicated to collecting, analyzing, and synthesizing raw data about emerging digital hazards, threat actors, and adversarial methodologies into actionable security insights. Rather than operating in a reactive vacuum, this discipline equips organizations with a predictive understanding of the threat landscape by evaluating the specific motives, capabilities, targets, and history of malicious entities. Threat-Intel operates across three distinct levels: Strategic, which tracks global geopolitical shifts and macroeconomic cyber trends for executive decision-making; Operational, which investigates the specific campaigns and behaviors of threat groups; and Tactical, which identifies real-time technical indicators of compromise (IoCs)—such as malicious IP addresses, file hashes, and domain names. By continuously feeding structured intelligence feeds (like STIX/TAXII format) directly into firewalls, SIEM platforms, and EDR systems, this domain transforms raw global threat data into proactive, systemic perimeters that neutralize attacks before they strike internal enterprise infrastructure.</p>
+          </div>
+
+          <!-- Vulnerability Management -->
+          <div id="vulnerability-research" class="mb-8">
+            <h3 class="small-caps-heading">Vulnerability Management & Research</h3>
+            <p>Vulnerability Management and Research is the proactive cyber domain dedicated to continuously identifying, analyzing, prioritizing, and remediating security weaknesses across an organization's entire digital footprint. This discipline shifts security from a reactive response to a strategic lifecycle, utilizing automated network scanners, asset discovery tools, and configuration audits to map out systemic flaws before attackers can exploit them. The Research aspect of this domain involves deeply technical analysis to understand the root causes of security flaws, tracking zero-day exploits, and monitoring global intelligence feeds like the National Vulnerability Database (NVD). By translating raw technical flaws into structured risk metrics using frameworks like the Common Vulnerability Scoring System (CVSS), this domain ensures that patch management and engineering teams can efficiently deploy updates and mitigate threats where the organization is most exposed.</p>
+          </div>
+
+          <!-- Interesting Sites -->
+          <div id="interesting-sites" class="mb-8">
+            <h3 class="small-caps-heading">Interesting Sites</h3>
+            <div class="table-container">
+              <table class="purple-table">
+                <thead>
+                  <tr><th>Interesting Site</th><th>Details & Description</th></tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><strong><a href="https://absoluteappsec.com/">Absolute AppSec</a></strong></td>
+                    <td>Absolute AppSec is an educational and community platform dedicated entirely to application security, this website serves as a central hub for developers and cybersecurity practitioners looking to master secure software practices.</td>
+                  </tr>
+                  <tr>
+                    <td><strong><a href="https://www.beyondtrust.com/podcast">Adventures of Alice and Bob by BeyondTrust</a></strong></td>
+                    <td>A podcast series exploring cybersecurity concepts through storytelling.</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          <!-- Security Tools Accordion -->
+          <div id="security-tools" class="accordion">
+            <div class="accordion-item">
+              <button class="accordion-header">
+                <span>Security Tools</span>
+                <span class="accordion-icon">▼</span>
+              </button>
+              <div class="accordion-content">
+                <ul>
+                  <li><a href="#anti-forensic">Anti-Forensics</a></li>
+                  <li><a href="#automation">Automation</a></li>
+                  <li><a href="#automobile">Automobile</a></li>
+                  <li><a href="#backdoors">Backdoors</a></li>
+                  <li><a href="#binary">Binary</a></li>
+                  <li><a href="#bluetooth">Bluetooth</a></li>
+                  <li><a href="#code-audit">Code Audit</a></li>
+                  <li><a href="#crackers">Crackers</a></li>
+                  <li><a href="#crypto">Crypto</a></li>
+                  <li><a href="#database">Database</a></li>
+                  <li><a href="#debuggers">Debuggers</a></li>
+                  <li><a href="#decompilers">Decompilers</a></li>
+                  <li><a href="#defensive-tools">Defensive Tools</a></li>
+                  <li><a href="#disassemblers">Disassemblers</a></li>
+                  <li><a href="#dos">Denial of Service (DoS)|Stress Test</a></li>
+                  <li><a href="#drone">Drone</a></li>
+                  <li><a href="#exploitation">Exploitation</a></li>
+                  <li><a href="#fingerprinting">Fingerprinting</a></li>
+                  <li><a href="#firmware">Firmware</a></li>
+                  <li><a href="#forensics">Forensics|DFIR</a></li>
+                  <li><a href="#fuzzers">Fuzzers|Fuzzing</a></li>
+                  <li><a href="#hardware">Hardware</a></li>
+                  <li><a href="#honeypots-deception">Honeypots|Deception</a></li>
+                  <li><a href="#ids">Intrusion Detection System (IDS)</a></li>
+                  <li><a href="#keyloggers">Keyloggers|Keylogging</a></li>
+                  <li><a href="#malware">Malware</a></li>
+                  <li><a href="#misc-tools">Miscellaneous Tools</a></li>
+                  <li><a href="#mobile">Mobile</a></li>
+                  <li><a href="#networking">Networking</a></li>
+                  <li><a href="#nfc">NFC</a></li>
+                  <li><a href="#packers">Packers</a></li>
+                  <li><a href="#proxies">Proxies</a></li>
+                  <li><a href="#radio-rfid">Radio|RFID</a></li>
+                  <li><a href="#recon">Recon</a></li>
+                  <li><a href="#reversing">Reversing</a></li>
+                  <li><a href="#scanners">Scanners|Scanning</a></li>
+                  <li><a href="#sniffers">Sniffers|Sniffing</a></li>
+                  <li><a href="#social-engineering">Social Engineering</a></li>
+                  <li><a href="#spoofing">Spoofers|Spoofing</a></li>
+                  <li><a href="#stego">Stego</a></li>
+                  <li><a href="#tunnels-tunneling">Tunnels|Tunneling</a></li>
+                  <li><a href="#voip">VoIP</a></li>
+                  <li><a href="#webapp">Webapps</a></li>
+                  <li><a href="#windows">Windows</a></li>
+                  <li><a href="#wireless">Wireless</a></li>
+                </ul>
+              </div>
+            </div>
+          </div>
+
+        </section>
+      </main>
+    </div>
+
+    <!-- Footer -->
+    <footer class="app-footer">
+      <div class="footer-content">
+        <p class="footer-copyright">&copy; 1996-2026 hackherway</p>
+        <ul class="footer-links">
+          <li><a href="#top">Back to Top</a></li>
+          <li><a href="#">Privacy Policy</a></li>
+          <li><a href="#">Terms of Service</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-content footer-line-2">
+        <ul class="footer-links">
+          <li><a href="#" onclick="showLinksPage(); return false;">All My Sites</a></li>
+          <li><a href="glossary.html">Glossary</a></li>
+          <li><a href="resources.html">Resources</a></li>
+          <li><a href="quantum.html">Quantum</a></li>
+        </ul>
+      </div>
+      
+      <center><p class="footer-tagline">&bull; <span style="color: #ff4ea8;">a08</span>🩷<span style="color: #7f82bb;">s02</span>&bull;<span style="color: #337bf9;">j10</span>💙<span style="color: #38c283;">b25</span>&bull;<span style="color: #38c283;">d08</span>💚<span style="color: #337bf9;">k14</span> &bull;</p></center>
+      
+      <div class="footer-icons">
+        <img src="https://github.com/d0midigi/hackherway/blob/master/images/stripe4.gif?raw=true" alt="stripe divider">
+        <img src="https://github.com/d0midigi/hackherway/blob/master/images/dnb-trance-your-music.gif?raw=true" alt="dnb music">
+        <img src="https://github.com/d0midigi/hackherway/blob/master/images/powered-by-a-mouse-in-a-wheel.gif?raw=true" alt="powered by mouse">
+        <img src="https://github.com/d0midigi/hackherway/blob/master/images/y2k-compliant.png?raw=true" alt="y2k compliant">
+        <img src="https://github.com/d0midigi/hackherway/blob/master/images/built-with-ms-notepad.png?raw=true" alt="built with notepad">
+      </div>
+
+      <div class="footer-tagline-bottom">
+        <span style="color: #fe0942;">&bull;</span>
+        <span style="color: #ffffff;"><strong>built with curiosity, caffeine, and controlled paranoia</strong></span>
+        <span style="color: #fe0942;">&bull;</span>
+      </div>
+    </footer>
+  </div>
+
+  <!-- ========== CONNECTING PAGE ========== -->
+  <div id="links-page" class="links-page">
+    <div class="links-container">
+      <div class="links-header">
+        <h1>🖤 hackherway 🖤</h1>
+        <p>Find me across the interwebs</p>
+      </div>
+
+      <div class="link-list">
+        <a href="https://d0midigi.github.io/hackherway" target="_blank" class="link-button">
+          <i class="fas fa-home" style="color: var(--primary);"></i>
+          <span>hackherway Main</span>
+          <i class="fas fa-arrow-right arrow"></i>
+        </a>
+
+        <a href="https://hackherway.neocities.org" target="_blank" class="link-button">
+          <i class="fas fa-globe" style="color: #ff66cc;"></i>
+          <span>Neocities Mirror</span>
+          <i class="fas fa-arrow-right arrow"></i>
+        </a>
+
+        <a href="https://github.com/d0midigi" target="_blank" class="link-button">
+          <i class="fab fa-github" style="color: #333;"></i>
+          <span>GitHub</span>
+          <i class="fas fa-arrow-right arrow"></i>
+        </a>
+
+        <a href="https://hackherway.rocks" target="_blank" class="link-button">
+          <i class="fas fa-rocket" style="color: var(--pink);"></i>
+          <span>hackherway.rocks</span>
+          <i class="fas fa-arrow-right arrow"></i>
+        </a>
+
+        <a href="#" onclick="showMainPage(); return false;" class="link-button">
+          <i class="fas fa-shield-alt" style="color: var(--secondary);"></i>
+          <span>Cybersecurity Notes</span>
+          <i class="fas fa-arrow-right arrow"></i>
+        </a>
+      </div>
+
+      <button class="back-button" onclick="showMainPage()">
+        <i class="fas fa-arrow-left"></i>
+        Back to Cybersecurity Notes
+      </button>
+    </div>
+  </div>
+
   <script src="script.js"></script>
-  <script>
-        // Wait for the window to load to ensure the library is ready
-        window.onload = () => {
-            const cursor = Cursorly.init({
-                cursor: 4,
-                effect: { 
-                    name: "trail", 
-                    color: "rainbow",
-                    density: 6,
-                    size: [2, 8],
-                    decay: .98,
-                    hueStep: 3,
-                    type: "default"
-                } 
-            });
-        };
-    </script>
 </body>
+
 </html>
