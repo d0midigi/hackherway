@@ -1,0 +1,469 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta awareness="low" timestamp="2026-10-25 00:27 -07:00" />
+  <title>Quantum Readiness - hackherway</title>
+  
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap" rel="stylesheet">
+  
+  <!-- Your CSS -->
+  <link rel="stylesheet" href="style.css">
+  
+  <style>
+    /* Quantum-specific accordion styles */
+    .quantum-accordion {
+      width: 100%;
+      margin: 1rem 0;
+    }
+
+    .quantum-accordion-item {
+      margin-bottom: 0.75rem;
+      border-radius: 12px;
+      overflow: hidden;
+      border: 1px solid var(--color-border);
+      background: var(--color-bg);
+      transition: all 0.3s ease;
+    }
+
+    .quantum-accordion-item:hover {
+      border-color: var(--primary);
+      box-shadow: 0 4px 15px rgba(93, 92, 222, 0.15);
+    }
+
+    .quantum-accordion-header {
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1rem 1.25rem;
+      background: linear-gradient(135deg, rgba(93, 92, 222, 0.05) 0%, rgba(130, 129, 232, 0.03) 100%);
+      border: none;
+      cursor: pointer;
+      font-family: "Open Sans", sans-serif;
+      font-size: 0.9rem;
+      font-weight: 600;
+      color: var(--color-text);
+      text-align: left;
+      transition: all 0.2s ease;
+    }
+
+    .quantum-accordion-header:hover {
+      background: linear-gradient(135deg, rgba(93, 92, 222, 0.1) 0%, rgba(130, 129, 232, 0.08) 100%);
+      color: var(--primary);
+    }
+
+    .quantum-accordion-icon {
+      font-size: 0.8rem;
+      color: #9ca3af;
+      transition: transform 0.3s ease;
+    }
+
+    .quantum-accordion-item.active {
+      border-color: var(--primary);
+      box-shadow: 0 8px 25px rgba(93, 92, 222, 0.2);
+    }
+
+    .quantum-accordion-item.active .quantum-accordion-header {
+      background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+      color: white;
+    }
+
+    .quantum-accordion-item.active .quantum-accordion-icon {
+      transform: rotate(180deg);
+      color: white;
+    }
+
+    .quantum-accordion-content {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.4s ease, padding 0.4s ease;
+      padding: 0 1.25rem;
+    }
+
+    .quantum-accordion-item.active .quantum-accordion-content {
+      max-height: 3000px;
+      padding: 1rem 1.25rem 1.25rem;
+    }
+
+    .quantum-accordion-content ul {
+      list-style: none !important;
+      padding: 0 !important;
+      margin: 0 !important;
+    }
+
+    .quantum-accordion-content li {
+      margin-bottom: 0.5rem;
+      font-size: 0.85rem;
+      padding-left: 1rem;
+      position: relative;
+    }
+
+    .quantum-accordion-content li::before {
+      content: "▸";
+      position: absolute;
+      left: 0;
+      color: var(--pink);
+    }
+
+    .quantum-accordion-content a {
+      color: var(--primary);
+      text-decoration: none;
+      font-weight: 500;
+    }
+
+    .quantum-accordion-content a:hover {
+      color: var(--pink);
+    }
+
+    /* Color coding */
+    .quantum-accordion-item.green .quantum-accordion-header:hover,
+    .quantum-accordion-item.green.active .quantum-accordion-header {
+      background: linear-gradient(135deg, #22c55e 0%, #16a34a 100%);
+    }
+
+    .quantum-accordion-item.yellow .quantum-accordion-header:hover,
+    .quantum-accordion-item.yellow.active .quantum-accordion-header {
+      background: linear-gradient(135deg, #eab308 0%, #ca8a04 100%);
+    }
+
+    .quantum-accordion-item.blue .quantum-accordion-header:hover,
+    .quantum-accordion-item.blue.active .quantum-accordion-header {
+      background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
+    }
+
+    .quantum-accordion-item.orange .quantum-accordion-header:hover,
+    .quantum-accordion-item.orange.active .quantum-accordion-header {
+      background: linear-gradient(135deg, #f97316 0%, #ea580c 100%);
+    }
+
+    .quantum-accordion-item.red .quantum-accordion-header:hover,
+    .quantum-accordion-item.red.active .quantum-accordion-header {
+      background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
+    }
+
+    .dark .quantum-accordion-item {
+      background: rgba(24, 24, 24, 0.8);
+      border-color: #374151;
+    }
+
+    .dark .quantum-accordion-header {
+      background: rgba(37, 37, 53, 0.5);
+      color: #f3f4f6;
+    }
+
+    .back-to-main {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      margin-bottom: 1.5rem;
+      padding: 0.5rem 1rem;
+      background: transparent;
+      border: 2px solid var(--color-border);
+      border-radius: 25px;
+      color: var(--color-text);
+      text-decoration: none;
+      font-size: 0.85rem;
+      font-weight: 500;
+      transition: all 0.2s ease;
+    }
+
+    .back-to-main:hover {
+      border-color: var(--pink);
+      color: var(--pink);
+      transform: translateX(-3px);
+    }
+  </style>
+</head>
+
+<body class="font-sans bg-light-background text-light-text dark:bg-dark-background dark:text-dark-text transition-colors">
+  
+  <!-- Bubbles -->
+  <div class="bg-animation">
+    <div class="bubbles">
+      <div class="bubble" style="--size: 60px; --left: 10%; --delay: 0s; --duration: 22s;"></div>
+      <div class="bubble" style="--size: 50px; --left: 20%; --delay: 2s; --duration: 26s;"></div>
+      <div class="bubble" style="--size: 80px; --left: 35%; --delay: 4s; --duration: 24s;"></div>
+      <div class="bubble" style="--size: 40px; --left: 50%; --delay: 1s; --duration: 20s;"></div>
+      <div class="bubble" style="--size: 55px; --left: 65%; --delay: 3s; --duration: 25s;"></div>
+      <div class="bubble" style="--size: 70px; --left: 80%; --delay: 5s; --duration: 23s;"></div>
+    </div>
+  </div>
+
+  <div class="content-wrapper" style="max-width: 900px; margin: 0 auto; padding: 2rem 1rem;">
+    
+    <a href="index.html" class="back-to-main">
+      <i class="fas fa-arrow-left"></i>
+      Back to Main Page
+    </a>
+
+    <h1 class="small-caps-heading" style="font-size: 2rem; margin-bottom: 1rem;">Quantum Readiness & Cryptographic Agility</h1>
+    
+    <p style="margin-bottom: 2rem; font-size: 0.9rem; line-height: 1.6;">
+      <strong>Quantum Readiness and Cryptographic Agility</strong> is the forward-looking cyber domain focused on preparing enterprise networks for the systemic cryptographic vulnerabilities introduced by the advent of quantum computing. Because future quantum processors will be capable of breaking the foundational asymmetric encryption algorithms (such as RSA and ECC) that currently safeguard global finance, communications, and data storage, this domain actively spearheads the migration to Post-Quantum Cryptography (PQC).
+    </p>
+
+    <!-- Documentation Table -->
+    <div class="table-container" style="margin-bottom: 2rem;">
+      <table class="purple-table">
+        <thead>
+          <tr><th>Resources</th><th>Details & Description</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong><a href="https://www.cisa.gov/sites/default/files/2023-08/Quantum-Readiness_Migration%20to%20Post-Quantum%20Cryptography_508.pdf">Quantum-Readiness: Migration to Post-Quantum Cryptography</a></strong></td>
+            <td><p><strong>Publisher:</strong> CISA/NSA/NIST</p><p>A critical joint factsheet for organizations managing critical national infrastructure. Details actionable blueprints for setting up an internal Quantum-Readiness Roadmap, carrying out a comprehensive cryptographic asset inventory, and mapping vendor supply-chain timelines.</p></td>
+          </tr>
+          <tr>
+            <td><strong><a href="https://nvlpubs.nist.gov/nistpubs/ir/2024/NIST.IR.8547.ipd.pdf">NIST IR 8547: Transition to Post-Quantum Cryptography Standards</a></strong></td>
+            <td><p><strong>Publisher:</strong> NIST</p><p>Foundational internal report detailing operational steps organizations must execute to move cleanly toward newly finalized FIPS standards (FIPS 203, 204, and 205). Covers cryptographic algorithm lifecycles and deprecation intervals.</p></td>
+          </tr>
+          <tr>
+            <td><strong><a href="https://messervices.cyber.gouv.fr/documents-guides/ANSSI-views-on-crypto-agility.pdf">ANSSI's Views on Crypto-Agility</a></strong></td>
+            <td><p><strong>Publisher:</strong> ANSSI (France)</p><p>Official position paper categorizing crypto-agility into Parameterization and Algorithmic replacement. Provides technical controls to prevent replay and downgrade attacks during network migrations.</p></td>
+          </tr>
+          <tr>
+            <td><strong><a href="https://dodcio.defense.gov/Portals/0/Documents/Library/DoW-PQC-Strategy.pdf">DoD Post-Quantum Cryptography Strategy</a></strong></td>
+            <td><p><strong>Publisher:</strong> U.S. DoD CIO</p><p>High-assurance defense document defining how military networks must prepare C2 systems for quantum warfare. Focuses on modernizing HA-ECUs and embedding dynamic agility.</p></td>
+          </tr>
+          <tr>
+            <td><strong><a href="https://www.digicert.com/content/dam/digicert/pdfs/ebook/post-quantum-cryptography-practical-guide-en.pdf">The Ultimate Practical Guide to Post-Quantum Cryptography</a></strong></td>
+            <td><p><strong>Publisher:</strong> DigiCert</p><p>Architecture-level eBook breaking down how Shor's algorithm deconstructs PKI, asymmetric keys, and digital certificates. Details hybrid deployment structures combining classical and PQC signatures.</p></td>
+          </tr>
+          <tr>
+            <td><strong><a href="https://www.cisa.gov/sites/default/files/publications/cisa_insight_post_quantum_cryptography_508.pdf">CISA Insights: Preparing Critical Infrastructure for PQC</a></strong></td>
+            <td><p><strong>Publisher:</strong> CISA</p><p>Advisory brief tracking the "Harvest Now, Decrypt Later" (HNDL) threat model targeting high-secrecy federal networks. Identifies four essential communications capabilities requiring immediate remediation.</p></td>
+          </tr>
+          <tr>
+            <td><strong><a href="https://www.nccoe.nist.gov/sites/default/files/legacy-files/pqc-migration-project-description-final.pdf">Migration to Post-Quantum Cryptography Project Framework</a></strong></td>
+            <td><p><strong>Publisher:</strong> NCCoE/NIST</p><p>Technical overview summarizing multi-vendor project space mapping real-world complexities encountered when replacing legacy public keys in commercial software, databases, and continuous delivery systems.</p></td>
+          </tr>
+          <tr>
+            <td><strong><a href="https://nvlpubs.nist.gov/nistpubs/ir/2016/NIST.IR.8105.pdf">NISTIR 8105: Report on Post-Quantum Cryptography</a></strong></td>
+            <td><p><strong>Publisher:</strong> NIST</p><p>Historic foundational roadmap that initiated the global PQC standardization process. Provides deep mathematical context on why lattice-based cryptography resists quantum-level computer factoring.</p></td>
+          </tr>
+          <tr>
+            <td><strong><a href="https://qramm.org/toolkit/QRAMM_Executive_Brief.pdf">QRAMM: Quantum Readiness Assurance Maturity Model</a></strong></td>
+            <td><p><strong>Publisher:</strong> QRAMM Consortium</p><p>Strategic self-assessment manual providing 120 targeted auditing questions across four domains: Governance, Technical Readiness, Operational Monitoring, and Supply Chain Security.</p></td>
+          </tr>
+          <tr>
+            <td><strong><a href="https://cpl.thalesgroup.com/sites/default/files/content/solution_briefs/post-quantum-readiness-begins-with-crypto-agility-sb.pdf">Post-Quantum Readiness Begins with Crypto Agility</a></strong></td>
+            <td><p><strong>Publisher:</strong> Thales Group</p><p>Engineering brief explaining practical implementation of high-speed network encryption hardware appliances. Breaks down how to construct hybrid cryptographic tunnels leveraging out-of-band key distributions and QRNGs.</p></td>
+          </tr>
+          <tr>
+            <td><strong><a href="https://www.cyber.gc.ca/sites/default/files/ITSAP40018-guidance-on-becoming-cryptographically-agile.pdf">ITSAP.40.018: Guidance on Becoming Cryptographically Agile</a></strong></td>
+            <td><p><strong>Publisher:</strong> CCCS (Canada)</p><p>Tactical engineering guide outlining how to design architectures where algorithms can be seamlessly interchanged through configuration files rather than hardcoded rewrites.</p></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- Quantum Tools Accordions -->
+    <h2 style="font-size: 1.3rem; margin-bottom: 1rem;">Quantum Computing & Cryptographic Agility Tools</h2>
+    <p style="font-size: 0.85rem; margin-bottom: 1.5rem;">Click each section to expand and explore resources.</p>
+
+    <div class="quantum-accordion">
+      
+      <!-- Beginner Friendly -->
+      <div class="quantum-accordion-item green">
+        <button class="quantum-accordion-header">
+          <span>🟢 Conceptual & Beginner-Friendly (No Physics Required)</span>
+          <span class="quantum-accordion-icon">▼</span>
+        </button>
+        <div class="quantum-accordion-content">
+          <ul>
+            <li><a href="https://davidbkemp.github.io/QuantumComputingArticle/">An Interactive Introduction to Quantum Computing</a> - A conceptual, math-light guide by David Kemp that uses visual animations to break down qubits, phases, and quantum interference.</li>
+            <li><a href="https://q-ctrl.com/black-opal">Black Opal</a> - An interactive, visually-driven learning platform built to master the fundamental building blocks of quantum mechanics.</li>
+            <li><a href="https://cnot.io/">CNOT</a> - A clear, step-by-step primer that deconstructs complex quantum computing concepts into easily digestible milestones.</li>
+            <li>Chris Ferrie - Engaging <a href="https://csferrie.medium.com/">Medium</a> articles and lectures by a Sydney university professor known for translating deep quantum mechanics into simple terms (and author of <em>"Quantum Computing for Babies"</em>).</li>
+            <li><a href="https://quantum.country/qcvc">Quantum Computing for the Very Curious</a> - A highly praised, mnemonic-driven interactive essay by Michael Nielsen and Andy Matuschak designed for long-term retention.</li>
+            <li><a href="https://www.quantum-inspire.com/kbase/introduction-to-quantum-computing">Quantum Inspire Knowledge Base</a> - A cleanly structured, accessible library breaking down core definitions and hardware concepts.</li>
+            <li><a href="https://www.quantum-quest.nl/">The Quantum Quest</a> - A web-based introductory course custom-tailored to teach high school students the core logic of quantum properties.</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Guided Tutorials -->
+      <div class="quantum-accordion-item yellow">
+        <button class="quantum-accordion-header">
+          <span>🟡 Guided Tutorials & Platform Introductions</span>
+          <span class="quantum-accordion-icon">▼</span>
+        </button>
+        <div class="quantum-accordion-content">
+          <ul>
+            <li><a href="https://quantumexperience.ng.bluemix.net/qx/tutorial?sectionId=full-user-guide&page=introduction">IBM Q Full User Guide</a> - A gentle, beginner-friendly collection of introductory tutorials covering the essentials of the IBM Q ecosystem.</li>
+            <li><a href="https://home.cern/news/announcement/computing/online-introductory-lectures-quantum-computing-6-november">Introduction to Quantum Computing</a> - High-quality introductory lectures and online tutorials curated by the computing experts at CERN.</li>
+            <li><a href="https://docs.microsoft.com/en-us/learn/paths/quantum-computing-fundamentals/">Quantum Computing Foundations</a> - A structured Microsoft Learn path detailing the fundamentals of quantum hardware alongside Azure Quantum tools.</li>
+            <li><a href="https://www.dwavesys.com/take-leap">D-Wave Leap</a> - A cloud portal that offers interactive demos, learning materials, and live developer access to D-Wave's quantum annealing systems.</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Sandboxes -->
+      <div class="quantum-accordion-item blue">
+        <button class="quantum-accordion-header">
+          <span>🔵 Interactive Sandboxes & Simulators</span>
+          <span class="quantum-accordion-icon">▼</span>
+        </button>
+        <div class="quantum-accordion-content">
+          <ul>
+            <li><a href="http://algassert.com/quirk">Quirk</a> - A real-time, drag-and-drop circuit simulator built directly for the browser, offering instant visual feedback on state changes.</li>
+            <li><a href="http://www.quantumplayground.net/#/home">Quantum Computing Playground</a> - A browser-based engine featuring 3D visualizations capable of simulating quantum states up to 22 qubits.</li>
+            <li><a href="http://cnotmz.appspot.com/#">Quantum in the Cloud</a> - An accessible hardware platform giving users remote access to a real 4-qubit photonic simulator and computer.</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- SDKs -->
+      <div class="quantum-accordion-item orange">
+        <button class="quantum-accordion-header">
+          <span>🟠 Intermediate & Developer-Focused (Coding & SDKs)</span>
+          <span class="quantum-accordion-icon">▼</span>
+        </button>
+        <div class="quantum-accordion-content">
+          <ul>
+            <li><a href="https://github.com/Qiskit/qiskit-tutorial">Qiskit Tutorials</a> - A collection of Jupyter notebooks demonstrating how to build and execute circuits using IBM's open-source Python SDK.</li>
+            <li><a href="https://quantumcomputinguk.org/">Quantum Computing UK</a> - A community repository offering free Qiskit programming tutorials, code templates, and practical guides.</li>
+            <li><a href="https://gitlab.com/qworld/bronze-qiskit">QWorld's Bronze-Qiskit</a> - An ultra-accessible programming series with companion videos, tracking from basic linear algebra up to Grover's search algorithm.</li>
+            <li><a href="https://github.com/Microsoft/QuantumKatas/">Quantum Katas</a> - A collection of self-paced programming exercises designed to teach Microsoft Q# and quantum algorithms via test-driven learning.</li>
+            <li><a href="https://cs269q.stanford.edu/syllabus.html">Quantum Computer Programming</a> - A hands-on, practical Stanford syllabus tailored for developers entering the field without a background in physics.</li>
+            <li><a href="http://pyquil.readthedocs.io/en/latest/">Documentation for Forest and pyQuil</a> - Practical programming tutorials and references for Rigetti Computing's software development kit.</li>
+            <li><a href="https://strawberryfields.readthedocs.io/en/latest/">Documentation for Strawberry Fields</a> - Comprehensive tutorials for Xanadu's SDK alongside foundational theory on photonic continuous-variable quantum computing.</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Advanced -->
+      <div class="quantum-accordion-item red">
+        <button class="quantum-accordion-header">
+          <span>🔴 Advanced Algorithms & Academic Resources</span>
+          <span class="quantum-accordion-icon">▼</span>
+        </button>
+        <div class="quantum-accordion-content">
+          <ul>
+            <li><a href="https://arxiv.org/pdf/1804.03719.pdf">Quantum Algorithm Implementations for Beginners</a> - A compact research survey mapping out and testing 20 fundamental quantum algorithms inside Qiskit.</li>
+            <li><a href="http://math.nist.gov/quantum/zoo/">Quantum Algorithm Zoo</a> - An exhaustive, highly cited comprehensive library cataloging all known quantum algorithms and their speedups.</li>
+            <li><a href="https://arxiv.org/pdf/1804.10068.pdf">Quantum Machine Learning for Data Scientists</a> - A clear math-to-code translation guide explaining quantum machine learning models for data professionals.</li>
+            <li><a href="https://workedproblems.wordpress.com/category/nielsenchuang/">Nielsen and Chuang</a> - Step-by-step solutions and worked-out examples for problems from the definitive "bible" of quantum computing.</li>
+            <li><a href="http://www.theory.caltech.edu/~preskill/ph219/index.html#lecture">John Preskill's Notes on Quantum Computation</a> - Celebrated, rigorous academic lecture notes from Caltech's premier Physics/Computer Science 219 course.</li>
+            <li><a href="https://quantumalgorithms.org/">Quantum Algorithms</a> - Open-source set of lectures and notes exploring quantum algorithms with a specialized focus on machine learning and data analysis.</li>
+            <li><a href="https://www.manning.com/liveprojectseries/quantum-computing-with-amazon-braket-sdk-ser">Quantum Computing with Amazon Braket SDK</a> - A project-based Manning training series that guides you through building real-world algorithms using Amazon's cloud SDK.</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Interactive & Academic -->
+      <div class="quantum-accordion-item">
+        <button class="quantum-accordion-header">
+          <span>🎓 Interactive & Academic Programs</span>
+          <span class="quantum-accordion-icon">▼</span>
+        </button>
+        <div class="quantum-accordion-content">
+          <ul>
+            <li><a href="https://brilliant.org/courses/quantum-computing/">Brilliant.org Quantum Computing</a> - An interactive, problem-driven learning module built in collaboration with Microsoft and Alphabet X.</li>
+            <li><a href="https://www.arturekert.org/iqis">Introduction to Quantum Information Science</a> - A comprehensive Oxford University course taught by Professor Artur Ekert.</li>
+            <li><a href="https://ocw.mit.edu/courses/media-arts-and-sciences/mas-865j-quantum-information-science-spring-2006/lecture-notes/">MIT Quantum Information Sciences</a> - A robust repository of open-access lecture notes.</li>
+            <li><a href="https://www.edx.org/course/quantum-information-science-i">Quantum Information Science I, Part I</a> - A foundational academic course exploring the baseline mechanics of quantum info systems.</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Hands-On -->
+      <div class="quantum-accordion-item">
+        <button class="quantum-accordion-header">
+          <span>💻 Practical Programming & Hands-On Coding</span>
+          <span class="quantum-accordion-icon">▼</span>
+        </button>
+        <div class="quantum-accordion-content">
+          <ul>
+            <li><a href="https://www.coursera.org/projects/programming-quantum-computer-qiskit">Programming a Quantum Computer with Qiskit</a> - An intensive 2-hour guided lab course focused on teaching engineers how to code for real quantum processors.</li>
+            <li><a href="https://www.udemy.com/course/quantum-computing/">Quantum Computing</a> - Theory to Simulation and Programming: An operational development guide for the D-Wave Quantum Annealer architecture.</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Conceptual Introductions -->
+      <div class="quantum-accordion-item">
+        <button class="quantum-accordion-header">
+          <span>📚 Conceptual & Beginner-Friendly Introductions</span>
+          <span class="quantum-accordion-icon">▼</span>
+        </button>
+        <div class="quantum-accordion-content">
+          <ul>
+            <li><a href="https://www.udemy.com/qc101-introduction-to-quantum-computing-quantum-physics-for-beginners/">QC101 Quantum Computing & Quantum Physics for Beginners</a> - An accessible entry point detailing the fundamental principles of quantum cryptography.</li>
+            <li><a href="https://www.edx.org/course/quantum-mechanics-quantum-computation-uc-berkeleyx-cs-191x">Quantum Mechanics and Quantum Computation</a> - A conceptual primer explaining the fundamental physics principles that power modern quantum computing units.</li>
+            <li><a href="https://www.coursera.org/learn/quantum-computing-algorithms">The Introduction To Quantum Computing</a> - A structured technical overview tracing the evolution of classical computational math into its quantum counterparts.</li>
+            <li><a href="https://www.coursera.org/learn/quantum-computing-lfmu">Quantum Computing: Less Formulas - More Understanding</a> - A conceptually driven course designed to demystify quantum processing.</li>
+            <li><a href="https://www.futurelearn.com/courses/intro-to-quantum-computing">Understanding Quantum Computers</a> - A high-level, minimal-math guide built to introduce absolute beginners to the core mechanics of quantum systems.</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Future Tech -->
+      <div class="quantum-accordion-item">
+        <button class="quantum-accordion-header">
+          <span>🔮 Specialized & Future Tech Domains</span>
+          <span class="quantum-accordion-icon">▼</span>
+        </button>
+        <div class="quantum-accordion-content">
+          <ul>
+            <li><a href="https://www.edx.org/course/quantum-machine-learning">Quantum Machine Learning</a> - A forward-looking look into how quantum information processing can accelerate, optimize, and transform classical machine learning algorithms.</li>
+            <li><a href="https://www.edx.org/course/quantum-internet-quantum-computers-how-delftx-qtm1x">The Quantum Internet and Quantum Computers</a> - A comprehensive roadmap detailing the mechanics, networking principles, and societal implications of quantum-encrypted communication channels.</li>
+          </ul>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Footer -->
+    <footer class="app-footer" style="margin-top: 3rem;">
+      <div class="footer-content">
+        <p class="footer-copyright">&copy; 1996-2026 hackherway</p>
+        <ul class="footer-links">
+          <li><a href="index.html">Back to Main</a></li>
+        </ul>
+      </div>
+    </footer>
+  </div>
+
+  <script>
+    // Dark Mode
+    if (window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches) {
+      document.documentElement.classList.add("dark");
+    }
+    window.matchMedia("(prefers-color-scheme: dark)").addEventListener("change", (event) => {
+      if (event.matches) {
+        document.documentElement.classList.add("dark");
+      } else {
+        document.documentElement.classList.remove("dark");
+      }
+    });
+
+    // Quantum Accordion Toggle
+    document.addEventListener('DOMContentLoaded', () => {
+      const headers = document.querySelectorAll('.quantum-accordion-header');
+      
+      headers.forEach(header => {
+        header.addEventListener('click', () => {
+          const item = header.parentElement;
+          const isActive = item.classList.contains('active');
+          
+          // Close all items
+          document.querySelectorAll('.quantum-accordion-item').forEach(i => {
+            i.classList.remove('active');
+          });
+          
+          // Toggle clicked item
+          if (!isActive) {
+            item.classList.add('active');
+          }
+        });
+      });
+    });
+  </script>
+</body>
+</html>
