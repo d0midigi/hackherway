@@ -1199,33 +1199,30 @@ section[id] {
   }
 }
 
-.background-gif {
+/* Glitchy GIF as body background */
+body {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  position: relative;
+}
+
+body::before {
+  content: '';
   position: fixed;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
+  background: url('https://i.imgur.com/g3rdpAo.gif') center/cover no-repeat;
+  opacity: 0.15;
   z-index: 0;
-  pointer-events: none; 
+  pointer-events: none;
 }
 
-.background-gif img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  opacity: 0.15; /* Dim it way down */
-}
-
-#main-page {
+/* Ensure content is above */
+body > * {
   position: relative;
   z-index: 1;
 }
-
-header, footer, .content-wrapper {
-  position: relative;
-  z-index: 2;
-}
-
   
 
  
@@ -1234,11 +1231,6 @@ header, footer, .content-wrapper {
 </head>
 
 <body class="font-sans bg-light-background text-light-text dark:bg-dark-background dark:text-dark-text transition-colors">
-  
-  <!-- BACKGROUND GIF -->
-  <div class="background-gif">
-<img src="https://i.imgur.com/g3rdpAo.gif" alt="background">
-  </div>
   
   <!-- Bubbles -->
   <div class="bg-animation">
