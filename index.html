@@ -1210,7 +1210,13 @@ section[id] {
   overflow: hidden;
   pointer-events: none;
 }
-
+.background-gif img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover; /* Covers entire screen, crops if needed */
+  /* Remove filters for full color, or add for effect: */
+  /* filter: hue-rotate(45deg) saturate(1.5); */
+}
 /* Dark mode adjustment */
 .dark .background-gif img {
   opacity: 0.7; /* Slightly dim in dark mode so text is readable */
