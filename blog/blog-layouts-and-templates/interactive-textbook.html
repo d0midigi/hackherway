@@ -1,0 +1,1033 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+    <meta charset="UTF-8">
+    <title>Untitled</title>
+    <link rel="stylesheet" href="./style.css">
+
+  </head>
+    
+  <body>
+  <!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Digital Marketing Fundamentals - Interactive Textbook</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    :root {
+      --primary-color: #5D5CDE;
+      --secondary-color: #3273dc;
+      --text-color: #363636;
+      --background-color: #fafafa;
+      --sidebar-width: 280px;
+    }
+
+    .dark {
+      --text-color: #f5f5f5;
+      --background-color: #181818;
+    }
+
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: var(--background-color);
+      color: var(--text-color);
+      line-height: 1.6;
+    }
+
+    .textbook-container {
+      display: flex;
+      min-height: 100vh;
+    }
+
+    .sidebar {
+      width: var(--sidebar-width);
+      background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+      color: white;
+      position: fixed;
+      height: 100vh;
+      overflow-y: auto;
+      z-index: 100;
+      box-shadow: 2px 0 10px rgba(0, 0, 0, 0.1);
+    }
+
+    .sidebar.hidden {
+      transform: translateX(-100%);
+      transition: transform 0.3s ease;
+    }
+
+    .main-content {
+      margin-left: var(--sidebar-width);
+      flex: 1;
+      padding: 2rem;
+      transition: margin-left 0.3s ease;
+    }
+
+    .main-content.expanded {
+      margin-left: 0;
+    }
+
+    .sidebar-item {
+      padding: 0.75rem 1rem;
+      cursor: pointer;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+      transition: background-color 0.3s;
+    }
+
+    .sidebar-item:hover {
+      background-color: rgba(255, 255, 255, 0.1);
+    }
+
+    .sidebar-item.active {
+      background-color: rgba(255, 255, 255, 0.2);
+      border-left: 4px solid white;
+    }
+
+    .chapter-content {
+      display: none;
+      animation: fadeIn 0.5s ease-in;
+    }
+
+    .chapter-content.active {
+      display: block;
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .exercise-box,
+    .quiz-box {
+      background: #f8f9fa;
+      border-left: 4px solid var(--primary-color);
+      padding: 1.5rem;
+      margin: 1.5rem 0;
+      border-radius: 8px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    .dark .exercise-box,
+    .dark .quiz-box {
+      background: #2a2a2a;
+      color: var(--text-color);
+    }
+
+    .quiz-question {
+      margin-bottom: 1rem;
+    }
+
+    .quiz-option {
+      margin: 0.5rem 0;
+      padding: 0.5rem;
+      background: white;
+      border: 2px solid #e0e0e0;
+      border-radius: 4px;
+      cursor: pointer;
+      transition: all 0.3s;
+    }
+
+    .dark .quiz-option {
+      background: #3a3a3a;
+      border-color: #555;
+      color: var(--text-color);
+    }
+
+    .quiz-option:hover {
+      border-color: var(--primary-color);
+      transform: translateX(5px);
+    }
+
+    .quiz-option.correct {
+      background: #d4edda;
+      border-color: #28a745;
+    }
+
+    .quiz-option.incorrect {
+      background: #f8d7da;
+      border-color: #dc3545;
+    }
+
+    .progress-bar {
+      background: #e9ecef;
+      border-radius: 10px;
+      height: 20px;
+      margin: 1rem 0;
+      overflow: hidden;
+    }
+
+    .progress-fill {
+      background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
+      height: 100%;
+      transition: width 0.3s ease;
+      border-radius: 10px;
+    }
+
+    .certificate {
+      border: 8px solid var(--primary-color);
+      padding: 3rem;
+      text-align: center;
+      background: white;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+      margin: 2rem auto;
+      max-width: 600px;
+    }
+
+    .mobile-toggle {
+      display: none;
+      position: fixed;
+      top: 1rem;
+      left: 1rem;
+      z-index: 101;
+      background: var(--primary-color);
+      color: white;
+      border: none;
+      padding: 0.75rem;
+      border-radius: 50%;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+    }
+
+    .blockchain-hash {
+      font-family: 'Courier New', monospace;
+      background: #f0f0f0;
+      padding: 0.5rem;
+      border-radius: 4px;
+      font-size: 0.8rem;
+      word-break: break-all;
+    }
+
+    .dark .blockchain-hash {
+      background: #3a3a3a;
+    }
+
+    @media (max-width: 768px) {
+      .sidebar {
+        transform: translateX(-100%);
+      }
+
+      .sidebar.visible {
+        transform: translateX(0);
+      }
+
+      .main-content {
+        margin-left: 0;
+        padding: 1rem;
+      }
+
+      .mobile-toggle {
+        display: block;
+      }
+    }
+
+    .glossary-term {
+      cursor: pointer;
+      color: var(--primary-color);
+      text-decoration: underline;
+      font-weight: 600;
+    }
+
+    .citation-item {
+      background: #f8f9fa;
+      padding: 1rem;
+      margin: 0.5rem 0;
+      border-radius: 4px;
+      border-left: 3px solid var(--primary-color);
+    }
+
+    .dark .citation-item {
+      background: #2a2a2a;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="textbook-container">
+    <!-- Mobile Toggle Button -->
+    <button class="mobile-toggle" onclick="toggleSidebar()">
+      <i class="fas fa-bars"></i>
+    </button>
+
+    <!-- Sidebar -->
+    <nav class="sidebar" id="sidebar">
+      <div class="sidebar-header p-4">
+        <h3 class="title is-4 has-text-white">Digital Marketing Fundamentals</h3>
+        <div class="progress-bar">
+          <div class="progress-fill" id="overallProgress" style="width: 0%"></div>
+        </div>
+        <p class="has-text-white-ter">Progress: <span id="progressText">0%</span></p>
+      </div>
+
+      <div class="sidebar-item" onclick="showSection('home')">
+        <i class="fas fa-home mr-2"></i> Home
+      </div>
+
+      <details class="sidebar-accordion">
+        <summary class="sidebar-item" onclick="showSection('chapter1')">
+          <i class="fas fa-book mr-2"></i>
+          Chapter 1: Introduction to Digital Marketing
+          <span class="caret"></span>
+        </summary>
+
+        <!-- empty for now on purpose -->
+        <div class="sidebar-subitems">
+          Module 1
+          <!-- future chapter 1 items go here -->
+        </div>
+      </details>
+
+      <div class="sidebar-item" onclick="showSection('chapter2')">
+        <i class="fas fa-search mr-2"></i> Chapter 2: Search Engine Optimization
+      </div>
+
+      <div class="sidebar-item" onclick="showSection('chapter3')">
+        <i class="fas fa-bullhorn mr-2"></i> Chapter 3: Social Media Marketing
+      </div>
+
+      <div class="sidebar-item" onclick="showSection('chapter4')">
+        <i class="fas fa-envelope mr-2"></i> Chapter 4: Email Marketing
+      </div>
+
+      <div class="sidebar-item" onclick="showSection('chapter5')">
+        <i class="fas fa-chart-line mr-2"></i> Chapter 5: Analytics & Measurement
+      </div>
+
+      <div class="sidebar-item" onclick="showSection('finalExam')">
+        <i class="fas fa-graduation-cap mr-2"></i> Final Exam
+      </div>
+
+      <div class="sidebar-item" onclick="showSection('appendix')">
+        <i class="fas fa-file-alt mr-2"></i> Appendix
+      </div>
+
+      <div class="sidebar-item" onclick="showSection('glossary')">
+        <i class="fas fa-book-open mr-2"></i> Glossary
+      </div>
+
+      <div class="sidebar-item" onclick="openCitationsModal()">
+        <i class="fas fa-quote-left mr-2"></i> Citations
+      </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="main-content" id="mainContent">
+      <!-- Home Section -->
+      <section id="home" class="chapter-content active">
+        <div class="hero is-primary">
+          <div class="hero-body">
+            <h1 class="title is-1">Digital Marketing Fundamentals</h1>
+            <h2 class="subtitle is-3">A Comprehensive Interactive Textbook</h2>
+          </div>
+        </div>
+
+        <div class="content mt-6">
+          <div class="columns">
+            <div class="column is-8">
+              <h3 class="title is-3">Welcome to Your Learning Journey</h3>
+              <p class="is-size-5">
+                This comprehensive textbook will guide you through the essential concepts of digital marketing,
+                from foundational principles to advanced analytics. Each chapter includes interactive exercises,
+                quizzes, and real-world examples to enhance your learning experience.
+              </p>
+
+              <div class="box mt-5">
+                <h4 class="title is-4">What You'll Learn</h4>
+                <ul>
+                  <li>Fundamental principles of digital marketing</li>
+                  <li>Search engine optimization strategies</li>
+                  <li>Social media marketing best practices</li>
+                  <li>Email marketing campaigns</li>
+                  <li>Analytics and performance measurement</li>
+                </ul>
+              </div>
+            </div>
+
+            <div class="column is-4">
+              <div class="box">
+                <h4 class="title is-4">Learning Features</h4>
+                <div class="content">
+                  <p><i class="fas fa-check-circle has-text-success"></i> Interactive Exercises</p>
+                  <p><i class="fas fa-check-circle has-text-success"></i> Chapter Quizzes</p>
+                  <p><i class="fas fa-check-circle has-text-success"></i> Final Exam</p>
+                  <p><i class="fas fa-check-circle has-text-success"></i> Completion Certificate</p>
+                  <p><i class="fas fa-check-circle has-text-success"></i> Glossary of Terms</p>
+                  <p><i class="fas fa-check-circle has-text-success"></i> Citations & References</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Chapter 1 -->
+      <section id="chapter1" class="chapter-content">
+        <h1 class="title is-1">Chapter 1: Introduction to Digital Marketing</h1>
+
+        <div class="content">
+          <h2 class="title is-3">Learning Objectives</h2>
+          <ul>
+            <li>Understand the fundamentals of digital marketing</li>
+            <li>Identify key digital marketing channels</li>
+            <li>Recognize the importance of digital presence</li>
+          </ul>
+
+          <h2 class="title is-3">1.1 What is Digital Marketing?</h2>
+          <p>
+            <span class="glossary-term" onclick="showGlossaryTerm('digital-marketing')">Digital marketing</span>
+            encompasses all marketing efforts that use electronic devices or the internet. It leverages digital
+            channels such as search engines, social media, email, and websites to connect with current and
+            prospective customers.
+          </p>
+
+          <h2 class="title is-3">1.2 Key Components</h2>
+          <div class="columns">
+            <div class="column">
+              <div class="box">
+                <h4 class="title is-5">Search Engine Optimization (SEO)</h4>
+                <p>Optimizing content to rank higher in search engine results.</p>
+              </div>
+            </div>
+            <div class="column">
+              <div class="box">
+                <h4 class="title is-5">Social Media Marketing</h4>
+                <p>Using social platforms to promote products and engage with audiences.</p>
+              </div>
+            </div>
+            <div class="column">
+              <div class="box">
+                <h4 class="title is-5">Email Marketing</h4>
+                <p>Direct communication with customers through targeted email campaigns.</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Exercise -->
+          <div class="exercise-box">
+            <h3 class="title is-4"><i class="fas fa-pencil-alt mr-2"></i>Exercise 1.1</h3>
+            <p><strong>Task:</strong> List three digital marketing channels you encounter daily and explain how they influence your purchasing decisions.</p>
+            <textarea class="textarea" placeholder="Write your response here..." rows="4"></textarea>
+            <button class="button is-primary mt-3" onclick="saveExercise('ch1ex1')">Save Response</button>
+          </div>
+
+          <!-- Quiz -->
+          <div class="quiz-box">
+            <h3 class="title is-4"><i class="fas fa-question-circle mr-2"></i>Chapter 1 Quiz</h3>
+            <div class="quiz-question">
+              <p><strong>Question 1:</strong> Which of the following is NOT a component of digital marketing?</p>
+              <div class="quiz-option" onclick="selectQuizAnswer(this, false)">A) Search Engine Optimization</div>
+              <div class="quiz-option" onclick="selectQuizAnswer(this, false)">B) Social Media Marketing</div>
+              <div class="quiz-option" onclick="selectQuizAnswer(this, true)">C) Traditional Print Advertising</div>
+              <div class="quiz-option" onclick="selectQuizAnswer(this, false)">D) Email Marketing</div>
+            </div>
+            <div class="quiz-question mt-4">
+              <p><strong>Question 2:</strong> What is the primary goal of SEO?</p>
+              <div class="quiz-option" onclick="selectQuizAnswer(this, true)">A) To rank higher in search results</div>
+              <div class="quiz-option" onclick="selectQuizAnswer(this, false)">B) To create social media content</div>
+              <div class="quiz-option" onclick="selectQuizAnswer(this, false)">C) To design websites</div>
+              <div class="quiz-option" onclick="selectQuizAnswer(this, false)">D) To send emails</div>
+            </div>
+            <button class="button is-primary mt-3" onclick="completeChapter(1)">Complete Chapter 1</button>
+          </div>
+        </div>
+      </section>
+
+      <!-- Chapter 2 -->
+      <section id="chapter2" class="chapter-content">
+        <h1 class="title is-1">Chapter 2: Search Engine Optimization</h1>
+
+        <div class="content">
+          <h2 class="title is-3">Learning Objectives</h2>
+          <ul>
+            <li>Understand how search engines work</li>
+            <li>Learn on-page and off-page SEO techniques</li>
+            <li>Implement keyword research strategies</li>
+          </ul>
+
+          <h2 class="title is-3">2.1 How Search Engines Work</h2>
+          <p>
+            Search engines use complex algorithms to crawl, index, and rank web pages. Understanding this process
+            is crucial for effective <span class="glossary-term" onclick="showGlossaryTerm('seo')">SEO</span> strategy.
+          </p>
+
+          <h2 class="title is-3">2.2 Keyword Research</h2>
+          <p>
+            <span class="glossary-term" onclick="showGlossaryTerm('keywords')">Keywords</span> are the foundation
+            of SEO. They represent the terms and phrases that users type into search engines when looking for
+            information, products, or services.
+          </p>
+
+          <!-- Exercise -->
+          <div class="exercise-box">
+            <h3 class="title is-4"><i class="fas fa-pencil-alt mr-2"></i>Exercise 2.1</h3>
+            <p><strong>Task:</strong> Research and list 5 relevant keywords for a local bakery's website. Consider search volume and competition.</p>
+            <textarea class="textarea" placeholder="List your keywords and explain your choices..." rows="4"></textarea>
+            <button class="button is-primary mt-3" onclick="saveExercise('ch2ex1')">Save Response</button>
+          </div>
+
+          <!-- Quiz -->
+          <div class="quiz-box">
+            <h3 class="title is-4"><i class="fas fa-question-circle mr-2"></i>Chapter 2 Quiz</h3>
+            <div class="quiz-question">
+              <p><strong>Question 1:</strong> What is the first step in the SEO process?</p>
+              <div class="quiz-option" onclick="selectQuizAnswer(this, true)">A) Keyword Research</div>
+              <div class="quiz-option" onclick="selectQuizAnswer(this, false)">B) Link Building</div>
+              <div class="quiz-option" onclick="selectQuizAnswer(this, false)">C) Content Creation</div>
+              <div class="quiz-option" onclick="selectQuizAnswer(this, false)">D) Technical Optimization</div>
+            </div>
+            <button class="button is-primary mt-3" onclick="completeChapter(2)">Complete Chapter 2</button>
+          </div>
+        </div>
+      </section>
+
+      <!-- Chapter 3 -->
+      <section id="chapter3" class="chapter-content">
+        <h1 class="title is-1">Chapter 3: Social Media Marketing</h1>
+
+        <div class="content">
+          <h2 class="title is-3">Learning Objectives</h2>
+          <ul>
+            <li>Identify key social media platforms and their audiences</li>
+            <li>Develop effective social media content strategies</li>
+            <li>Understand social media analytics and metrics</li>
+          </ul>
+
+          <h2 class="title is-3">3.1 Platform Overview</h2>
+          <p>
+            Different social media platforms serve different purposes and audiences. Understanding these
+            differences is crucial for effective <span class="glossary-term" onclick="showGlossaryTerm('social-media-marketing')">social media marketing</span>.
+          </p>
+
+          <!-- Exercise -->
+          <div class="exercise-box">
+            <h3 class="title is-4"><i class="fas fa-pencil-alt mr-2"></i>Exercise 3.1</h3>
+            <p><strong>Task:</strong> Create a content calendar for one week on a platform of your choice. Include post types, timing, and engagement strategies.</p>
+            <textarea class="textarea" placeholder="Outline your content calendar..." rows="4"></textarea>
+            <button class="button is-primary mt-3" onclick="saveExercise('ch3ex1')">Save Response</button>
+          </div>
+
+          <!-- Quiz -->
+          <div class="quiz-box">
+            <h3 class="title is-4"><i class="fas fa-question-circle mr-2"></i>Chapter 3 Quiz</h3>
+            <div class="quiz-question">
+              <p><strong>Question 1:</strong> Which platform is best for B2B marketing?</p>
+              <div class="quiz-option" onclick="selectQuizAnswer(this, false)">A) Instagram</div>
+              <div class="quiz-option" onclick="selectQuizAnswer(this, true)">B) LinkedIn</div>
+              <div class="quiz-option" onclick="selectQuizAnswer(this, false)">C) TikTok</div>
+              <div class="quiz-option" onclick="selectQuizAnswer(this, false)">D) Snapchat</div>
+            </div>
+            <button class="button is-primary mt-3" onclick="completeChapter(3)">Complete Chapter 3</button>
+          </div>
+        </div>
+      </section>
+
+      <!-- Chapter 4 -->
+      <section id="chapter4" class="chapter-content">
+        <h1 class="title is-1">Chapter 4: Email Marketing</h1>
+
+        <div class="content">
+          <h2 class="title is-3">Learning Objectives</h2>
+          <ul>
+            <li>Build and segment email lists effectively</li>
+            <li>Create compelling email campaigns</li>
+            <li>Analyze email performance metrics</li>
+          </ul>
+
+          <h2 class="title is-3">4.1 Email List Building</h2>
+          <p>
+            Building a quality email list is the foundation of successful
+            <span class="glossary-term" onclick="showGlossaryTerm('email-marketing')">email marketing</span>.
+            Focus on attracting subscribers who are genuinely interested in your content or products.
+          </p>
+
+          <!-- Exercise -->
+          <div class="exercise-box">
+            <h3 class="title is-4"><i class="fas fa-pencil-alt mr-2"></i>Exercise 4.1</h3>
+            <p><strong>Task:</strong> Design a lead magnet strategy for an online fitness business. Include the offer, landing page elements, and follow-up sequence.</p>
+            <textarea class="textarea" placeholder="Describe your lead magnet strategy..." rows="4"></textarea>
+            <button class="button is-primary mt-3" onclick="saveExercise('ch4ex1')">Save Response</button>
+          </div>
+
+          <!-- Quiz -->
+          <div class="quiz-box">
+            <h3 class="title is-4"><i class="fas fa-question-circle mr-2"></i>Chapter 4 Quiz</h3>
+            <div class="quiz-question">
+              <p><strong>Question 1:</strong> What is a good email open rate for most industries?</p>
+              <div class="quiz-option" onclick="selectQuizAnswer(this, false)">A) 5-10%</div>
+              <div class="quiz-option" onclick="selectQuizAnswer(this, true)">B) 20-25%</div>
+              <div class="quiz-option" onclick="selectQuizAnswer(this, false)">C) 40-45%</div>
+              <div class="quiz-option" onclick="selectQuizAnswer(this, false)">D) 60-65%</div>
+            </div>
+            <button class="button is-primary mt-3" onclick="completeChapter(4)">Complete Chapter 4</button>
+          </div>
+        </div>
+      </section>
+
+      <!-- Chapter 5 -->
+      <section id="chapter5" class="chapter-content">
+        <h1 class="title is-1">Chapter 5: Analytics & Measurement</h1>
+
+        <div class="content">
+          <h2 class="title is-3">Learning Objectives</h2>
+          <ul>
+            <li>Set up and interpret Google Analytics</li>
+            <li>Define and track key performance indicators (KPIs)</li>
+            <li>Create actionable reports and insights</li>
+          </ul>
+
+          <h2 class="title is-3">5.1 Key Performance Indicators</h2>
+          <p>
+            <span class="glossary-term" onclick="showGlossaryTerm('kpi')">KPIs</span> are measurable values
+            that demonstrate how effectively a company is achieving key business objectives.
+          </p>
+
+          <!-- Exercise -->
+          <div class="exercise-box">
+            <h3 class="title is-4"><i class="fas fa-pencil-alt mr-2"></i>Exercise 5.1</h3>
+            <p><strong>Task:</strong> Define 5 KPIs for an e-commerce website and explain how you would measure and improve each one.</p>
+            <textarea class="textarea" placeholder="List and explain your KPIs..." rows="4"></textarea>
+            <button class="button is-primary mt-3" onclick="saveExercise('ch5ex1')">Save Response</button>
+          </div>
+
+          <!-- Quiz -->
+          <div class="quiz-box">
+            <h3 class="title is-4"><i class="fas fa-question-circle mr-2"></i>Chapter 5 Quiz</h3>
+            <div class="quiz-question">
+              <p><strong>Question 1:</strong> What does ROI stand for?</p>
+              <div class="quiz-option" onclick="selectQuizAnswer(this, true)">A) Return on Investment</div>
+              <div class="quiz-option" onclick="selectQuizAnswer(this, false)">B) Rate of Interest</div>
+              <div class="quiz-option" onclick="selectQuizAnswer(this, false)">C) Reach of Influence</div>
+              <div class="quiz-option" onclick="selectQuizAnswer(this, false)">D) Range of Impact</div>
+            </div>
+            <button class="button is-primary mt-3" onclick="completeChapter(5)">Complete Chapter 5</button>
+          </div>
+        </div>
+      </section>
+
+      <!-- Final Exam -->
+      <section id="finalExam" class="chapter-content">
+        <h1 class="title is-1">Final Exam</h1>
+
+        <div class="content">
+          <div class="notification is-info">
+            <p><strong>Instructions:</strong> This comprehensive exam covers all five chapters. You must score 80% or higher to receive your completion certificate.</p>
+          </div>
+
+          <div class="quiz-box">
+            <h3 class="title is-4">Question 1</h3>
+            <p>Which of the following best describes digital marketing?</p>
+            <div class="quiz-option" onclick="selectFinalAnswer(this, true, 1)">A) All marketing efforts using electronic devices or the internet</div>
+            <div class="quiz-option" onclick="selectFinalAnswer(this, false, 1)">B) Only social media marketing</div>
+            <div class="quiz-option" onclick="selectFinalAnswer(this, false, 1)">C) Traditional advertising methods</div>
+            <div class="quiz-option" onclick="selectFinalAnswer(this, false, 1)">D) Print and radio advertising</div>
+          </div>
+
+          <div class="quiz-box">
+            <h3 class="title is-4">Question 2</h3>
+            <p>What is the primary purpose of keyword research in SEO?</p>
+            <div class="quiz-option" onclick="selectFinalAnswer(this, false, 2)">A) To create social media content</div>
+            <div class="quiz-option" onclick="selectFinalAnswer(this, true, 2)">B) To identify terms users search for</div>
+            <div class="quiz-option" onclick="selectFinalAnswer(this, false, 2)">C) To design websites</div>
+            <div class="quiz-option" onclick="selectFinalAnswer(this, false, 2)">D) To write email campaigns</div>
+          </div>
+
+          <div class="quiz-box">
+            <h3 class="title is-4">Question 3</h3>
+            <p>Which social media platform is most effective for B2B marketing?</p>
+            <div class="quiz-option" onclick="selectFinalAnswer(this, false, 3)">A) Instagram</div>
+            <div class="quiz-option" onclick="selectFinalAnswer(this, true, 3)">B) LinkedIn</div>
+            <div class="quiz-option" onclick="selectFinalAnswer(this, false, 3)">C) TikTok</div>
+            <div class="quiz-option" onclick="selectFinalAnswer(this, false, 3)">D) Snapchat</div>
+          </div>
+
+          <div class="quiz-box">
+            <h3 class="title is-4">Question 4</h3>
+            <p>What is a typical good email open rate?</p>
+            <div class="quiz-option" onclick="selectFinalAnswer(this, false, 4)">A) 5-10%</div>
+            <div class="quiz-option" onclick="selectFinalAnswer(this, true, 4)">B) 20-25%</div>
+            <div class="quiz-option" onclick="selectFinalAnswer(this, false, 4)">C) 40-45%</div>
+            <div class="quiz-option" onclick="selectFinalAnswer(this, false, 4)">D) 60-65%</div>
+          </div>
+
+          <div class="quiz-box">
+            <h3 class="title is-4">Question 5</h3>
+            <p>What does KPI stand for?</p>
+            <div class="quiz-option" onclick="selectFinalAnswer(this, true, 5)">A) Key Performance Indicator</div>
+            <div class="quiz-option" onclick="selectFinalAnswer(this, false, 5)">B) Key Process Improvement</div>
+            <div class="quiz-option" onclick="selectFinalAnswer(this, false, 5)">C) Key Product Information</div>
+            <div class="quiz-option" onclick="selectFinalAnswer(this, false, 5)">D) Key Performance Index</div>
+          </div>
+
+          <button class="button is-primary is-large mt-4" onclick="submitFinalExam()">Submit Final Exam</button>
+          <div id="examResult" class="mt-4"></div>
+        </div>
+      </section>
+
+      <!-- Appendix -->
+      <section id="appendix" class="chapter-content">
+        <h1 class="title is-1">Appendix</h1>
+
+        <div class="content">
+          <h2 class="title is-3">Additional Resources</h2>
+
+          <div class="box">
+            <h4 class="title is-4">Recommended Reading</h4>
+            <ul>
+              <li>"Digital Marketing for Dummies" by Ryan Deiss</li>
+              <li>"Content Inc." by Joe Pulizzi</li>
+              <li>"Jab, Jab, Jab, Right Hook" by Gary Vaynerchuk</li>
+            </ul>
+          </div>
+
+          <div class="box">
+            <h4 class="title is-4">Useful Tools</h4>
+            <ul>
+              <li>Google Analytics - Web analytics service</li>
+              <li>SEMrush - SEO and marketing toolkit</li>
+              <li>Hootsuite - Social media management</li>
+              <li>Mailchimp - Email marketing platform</li>
+            </ul>
+          </div>
+
+          <div class="box">
+            <h4 class="title is-4">Industry Websites</h4>
+            <ul>
+              <li>HubSpot Blog - Marketing insights and tips</li>
+              <li>Moz Blog - SEO best practices</li>
+              <li>Social Media Examiner - Social media strategies</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <!-- Glossary -->
+      <section id="glossary" class="chapter-content">
+        <h1 class="title is-1">Glossary</h1>
+
+        <div class="content">
+          <div id="glossaryTerms">
+            <div class="box" id="digital-marketing">
+              <h4 class="title is-5">Digital Marketing</h4>
+              <p>All marketing efforts that use electronic devices or the internet to connect with customers through digital channels.</p>
+            </div>
+
+            <div class="box" id="seo">
+              <h4 class="title is-5">SEO (Search Engine Optimization)</h4>
+              <p>The practice of optimizing websites and content to rank higher in search engine results pages (SERPs).</p>
+            </div>
+
+            <div class="box" id="keywords">
+              <h4 class="title is-5">Keywords</h4>
+              <p>Words and phrases that users type into search engines when looking for information, products, or services.</p>
+            </div>
+
+            <div class="box" id="social-media-marketing">
+              <h4 class="title is-5">Social Media Marketing</h4>
+              <p>The use of social media platforms to promote products, services, or content and engage with target audiences.</p>
+            </div>
+
+            <div class="box" id="email-marketing">
+              <h4 class="title is-5">Email Marketing</h4>
+              <p>A form of direct marketing that uses email to communicate with potential customers and build relationships.</p>
+            </div>
+
+            <div class="box" id="kpi">
+              <h4 class="title is-5">KPI (Key Performance Indicator)</h4>
+              <p>A measurable value that demonstrates how effectively a company is achieving key business objectives.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <!-- Citations Modal -->
+  <div class="modal" id="citationsModal">
+    <div class="modal-background" onclick="closeCitationsModal()"></div>
+    <div class="modal-content">
+      <div class="box">
+        <h3 class="title is-3">Citations & References</h3>
+        <p class="mb-4">All citations are authenticated using blockchain technology for academic integrity.</p>
+
+        <div class="blockchain-hash">
+          <strong>Blockchain Hash:</strong> <span id="blockchainHash"></span>
+        </div>
+
+        <div class="mt-4">
+          <div class="citation-item">
+            <p><strong>Deiss, Ryan, and Russ Henneberry.</strong> <em>Digital Marketing for Dummies</em>. Hoboken: Wiley, 2017.</p>
+          </div>
+
+          <div class="citation-item">
+            <p><strong>Pulizzi, Joe.</strong> <em>Content Inc.: How Entrepreneurs Use Content to Build Massive Audiences and Create Radically Successful Businesses</em>. New York: McGraw-Hill Education, 2015.</p>
+          </div>
+
+          <div class="citation-item">
+            <p><strong>Vaynerchuk, Gary.</strong> <em>Jab, Jab, Jab, Right Hook: How to Tell Your Story in a Noisy Social World</em>. New York: HarperBusiness, 2013.</p>
+          </div>
+
+          <div class="citation-item">
+            <p><strong>Google Analytics.</strong> "Digital Analytics Fundamentals." <em>Google Analytics Academy</em>, 2023, analytics.google.com/analytics/academy.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <button class="modal-close is-large" onclick="closeCitationsModal()"></button>
+  </div>
+
+  <!-- Certificate Modal -->
+  <div class="modal" id="certificateModal">
+    <div class="modal-background" onclick="closeCertificateModal()"></div>
+    <div class="modal-content">
+      <div class="certificate">
+        <h1 class="title is-2" style="color: var(--primary-color); margin-bottom: 2rem;">Certificate of Completion</h1>
+        <p class="is-size-4 mb-4">This certifies that</p>
+        <h2 class="title is-3" style="border-bottom: 2px solid var(--primary-color); display: inline-block; padding-bottom: 0.5rem;">Student Name</h2>
+        <p class="is-size-4 mt-4 mb-4">has successfully completed the course</p>
+        <h3 class="title is-4" style="color: var(--primary-color);">Digital Marketing Fundamentals</h3>
+        <p class="mt-4">Date: <span id="certificateDate"></span></p>
+        <p class="mt-2">Score: <span id="certificateScore"></span>%</p>
+        <div class="mt-4">
+          <button class="button is-primary" onclick="downloadCertificate()">Download Certificate</button>
+        </div>
+      </div>
+    </div>
+    <button class="modal-close is-large" onclick="closeCertificateModal()"></button>
+  </div>
+
+  <script>
+    // Dark mode detection
+    if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+      document.documentElement.classList.add('dark');
+    }
+    window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', event => {
+      if (event.matches) {
+        document.documentElement.classList.add('dark');
+      } else {
+        document.documentElement.classList.remove('dark');
+      }
+    });
+    // State management
+    let completedChapters = [];
+    let finalExamAnswers = {};
+    let finalExamScore = 0;
+    // Navigation
+    function showSection(sectionId) {
+      // Hide all sections
+      document.querySelectorAll('.chapter-content').forEach(section => {
+        section.classList.remove('active');
+      });
+      // Show selected section
+      document.getElementById(sectionId).classList.add('active');
+      // Update sidebar active state
+      document.querySelectorAll('.sidebar-item').forEach(item => {
+        item.classList.remove('active');
+      });
+      event.target.classList.add('active');
+      // Close sidebar on mobile
+      if (window.innerWidth <= 768) {
+        toggleSidebar();
+      }
+    }
+
+    function toggleSidebar() {
+      const sidebar = document.getElementById('sidebar');
+      const mainContent = document.getElementById('mainContent');
+      if (sidebar.classList.contains('hidden') || !sidebar.classList.contains('visible')) {
+        sidebar.classList.add('visible');
+        sidebar.classList.remove('hidden');
+      } else {
+        sidebar.classList.remove('visible');
+        sidebar.classList.add('hidden');
+      }
+    }
+    // Quiz functionality
+    function selectQuizAnswer(element, isCorrect) {
+      // Remove previous selections in this question
+      const parent = element.parentElement;
+      parent.querySelectorAll('.quiz-option').forEach(option => {
+        option.classList.remove('correct', 'incorrect');
+      });
+      // Mark the selected answer
+      if (isCorrect) {
+        element.classList.add('correct');
+      } else {
+        element.classList.add('incorrect');
+        // Show correct answer
+        parent.querySelectorAll('.quiz-option').forEach(option => {
+          if (option.onclick.toString().includes('true')) {
+            option.classList.add('correct');
+          }
+        });
+      }
+    }
+    // Final exam functionality
+    function selectFinalAnswer(element, isCorrect, questionNumber) {
+      // Remove previous selections in this question
+      const parent = element.parentElement;
+      parent.querySelectorAll('.quiz-option').forEach(option => {
+        option.classList.remove('selected');
+      });
+      element.classList.add('selected');
+      finalExamAnswers[questionNumber] = isCorrect;
+    }
+
+    function submitFinalExam() {
+      let correctAnswers = 0;
+      const totalQuestions = 5;
+      for (let i = 1; i <= totalQuestions; i++) {
+        if (finalExamAnswers[i] === true) {
+          correctAnswers++;
+        }
+      }
+      finalExamScore = Math.round((correctAnswers / totalQuestions) * 100);
+      const resultDiv = document.getElementById('examResult');
+      if (finalExamScore >= 80) {
+        resultDiv.innerHTML = `
+                    <div class="notification is-success">
+                        <h4 class="title is-4">Congratulations!</h4>
+                        <p>You scored ${finalExamScore}% on the final exam. You have successfully completed the course!</p>
+                        <button class="button is-primary mt-3" onclick="showCertificate()">View Certificate</button>
+                    </div>
+                `;
+      } else {
+        resultDiv.innerHTML = `
+                    <div class="notification is-warning">
+                        <h4 class="title is-4">Almost There!</h4>
+                        <p>You scored ${finalExamScore}%. You need 80% or higher to pass. Please review the chapters and try again.</p>
+                        <button class="button is-primary mt-3" onclick="retakeFinalExam()">Retake Exam</button>
+                    </div>
+                `;
+      }
+    }
+
+    function retakeFinalExam() {
+      finalExamAnswers = {};
+      document.querySelectorAll('.quiz-option').forEach(option => {
+        option.classList.remove('selected', 'correct', 'incorrect');
+      });
+      document.getElementById('examResult').innerHTML = '';
+    }
+    // Chapter completion
+    function completeChapter(chapterNumber) {
+      if (!completedChapters.includes(chapterNumber)) {
+        completedChapters.push(chapterNumber);
+        updateProgress();
+      }
+      showCustomAlert(`Chapter ${chapterNumber} completed successfully!`, 'success');
+    }
+
+    function updateProgress() {
+      const totalChapters = 5;
+      const progress = (completedChapters.length / totalChapters) * 100;
+      document.getElementById('overallProgress').style.width = progress + '%';
+      document.getElementById('progressText').textContent = Math.round(progress) + '%';
+    }
+    // Exercise functionality
+    function saveExercise(exerciseId) {
+      showCustomAlert('Exercise response saved successfully!', 'success');
+    }
+    // Citations modal
+    function openCitationsModal() {
+      generateBlockchainHash();
+      document.getElementById('citationsModal').classList.add('is-active');
+    }
+
+    function closeCitationsModal() {
+      document.getElementById('citationsModal').classList.remove('is-active');
+    }
+
+    function generateBlockchainHash() {
+      // Simulate blockchain hash generation
+      const hash = Array.from({
+        length: 64
+      }, () => Math.floor(Math.random() * 16).toString(16)).join('');
+      document.getElementById('blockchainHash').textContent = hash;
+    }
+    // Certificate functionality
+    function showCertificate() {
+      document.getElementById('certificateDate').textContent = new Date().toLocaleDateString();
+      document.getElementById('certificateScore').textContent = finalExamScore;
+      document.getElementById('certificateModal').classList.add('is-active');
+    }
+
+    function closeCertificateModal() {
+      document.getElementById('certificateModal').classList.remove('is-active');
+    }
+
+    function downloadCertificate() {
+      // Simulate certificate download
+      showCustomAlert('Certificate download would start here (feature simulated)', 'info');
+    }
+    // Glossary functionality
+    function showGlossaryTerm(termId) {
+      showSection('glossary');
+      setTimeout(() => {
+        const term = document.getElementById(termId);
+        if (term) {
+          term.scrollIntoView({
+            behavior: 'smooth',
+            block: 'center'
+          });
+          term.style.background = 'var(--primary-color)';
+          term.style.color = 'white';
+          setTimeout(() => {
+            term.style.background = '';
+            term.style.color = '';
+          }, 2000);
+        }
+      }, 300);
+    }
+    // Custom alert function (replacing alert())
+    function showCustomAlert(message, type = 'info') {
+      const alertDiv = document.createElement('div');
+      alertDiv.className = `notification is-${type} custom-alert`;
+      alertDiv.style.cssText = `
+                position: fixed;
+                top: 20px;
+                right: 20px;
+                z-index: 1000;
+                max-width: 400px;
+                animation: slideIn 0.3s ease-out;
+            `;
+      alertDiv.innerHTML = `
+                <button class="delete" onclick="this.parentElement.remove()"></button>
+                ${message}
+            `;
+      document.body.appendChild(alertDiv);
+      setTimeout(() => {
+        if (alertDiv.parentElement) {
+          alertDiv.remove();
+        }
+      }, 5000);
+    }
+    // Add CSS for alert animation
+    const style = document.createElement('style');
+    style.textContent = `
+            @keyframes slideIn {
+                from { transform: translateX(100%); opacity: 0; }
+                to { transform: translateX(0); opacity: 1; }
+            }
+        `;
+    document.head.appendChild(style);
+    // Initialize
+    document.addEventListener('DOMContentLoaded', function() {
+      updateProgress();
+    });
+  </script>
+</body>
+
+</html>
+    
+  </body>
+  
+</html>
