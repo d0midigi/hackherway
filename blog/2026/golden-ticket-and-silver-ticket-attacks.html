@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Active Directory Golden Ticket and Silver Ticket Attacks</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body class="blog-layout">
+
+  <!-- Navbar -->
+  <header class="navbar">
+    <div class="navbar__brand">
+      <div class="helix-icon">🖤</div>
+      hackherway security
+    </div>
+    <div class="navbar__search">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="color:var(--text-muted)"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg>
+      <input type="text" placeholder="Search documentation...">
+      <kbd>/</kbd>
+    </div>
+    <nav class="navbar__links">
+      <a href="index.html">127.0.0.1</a>
+      <a href="#" class="active">Blog</a>
+      <a href="#">whoami</a>
+      <a href="#">Contact</a>
+    </nav>
+  </header>
+
+  <div class="blog-container">
+    <!-- Main Article -->
+    <article class="blog-main">
+      <div class="blog-header">
+        <a href="index.html" class="blog-header__back">&#8592; Back to 127.0.0.1</a>
+        <h1 class="blog-header__title">Active Directory Golden Ticket and Silver Ticket Attacks</h1>
+        <div class="blog-header__meta">
+          <span>&#128100; mindhackdiva</span>
+          <span>&#128197; July 19, 2026</span>
+          <span>&#9201; 10 min read</span>
+        </div>
+        <div class="blog-header__tags">
+          <span class="blog-tag">Active Directory</span>
+          <span class="blog-tag">Kerberos</span>
+          <span class="blog-tag">Credential Access</span>
+          <span class="blog-tag">AD Hardening</span>
+        </div>
+      </div>
+
+      <div class="blog-content">
+        <h2 id="overview">Overview</h2>
+        <p>Kerberos attacks are old news. But they still work on every engagement I do. Specifically, Golden Ticket and Silver Ticket attacks—where attackers forge Kerberos tickets to move laterally or escalate privileges.</p>
+        <p>If you're doing IR work, you need to understand these attacks. Not because they're clever—but because they're simple and effective. The attacker doesn't exploit a vulnerability in Active Directory. They exploit your misconfigurations, your forgotten service accounts, and the fact that you haven't monitored or restricted ticket granting.</p>
+     <p>Let me break down what these attacks look like in practice, how they actually work technically, and what you can do about them.</p>
+<h2 id="tgt">The Kerberos Ticket Granting Ticket (TGT) — Your Golden Ticket Source</h2>
+<p>Every domain user gets a Kerberos TGT when they log in. The TGT validity period is 10 hours by default, renewable for up to 7 days. The KDC (Key Distribution Center) signs this TGT with the KRBTGT account's NTLM hash.</p>
+<p>The <code>KRBTGT</code> account is special. It exists solely to sign Kerberos tickets. Two hashes: one for the current key, one for the previous key (for replication safety). If an attacker gets these hashes, they can create fake TGTs that the domain will accept as valid.</p><p>That's a Golden Ticket attack.</p>
+<h2 id="golden-ticket-attack-workflow">Golden Ticket Attack Workflow</h2>
+<p><strong>1. Gain access to the <code>KRBTGT</code> hash</strong>. This usually happens after DCSync (using <code>SeBackupPrivilege</code>, VSS copy of <code>NTDS.dit</code>, or other methods to extract domain controller data).</p>
+<p><strong>2. Forge a TGT</strong>. The attacker creates a Kerberos TGT for any user they want (including Enterprise Admins or Domain Admins). They sign it with the <code>KRBTGT</code> hash, making it cryptographically valid.</p>
+<p><strong>3. Inject into memory</strong>. Using tools like Mimikatz or Impacket's <code>goldenPass.py</code>, the attacker injects this forged TGT into their current session.</p>
+<p><strong>4. Access anything</strong>. With a valid TGT, the attacker can request service tickets for any service in the domain: CIFS (file shares), LDAP, RPC, WinRM, whatever they need.</p>
+<p>The Golden Ticket doesn't expire when the legitimate TGT expires. It lasts for the duration specified in the ticket (up to 10 hours), and can be renewed within the 7-day window. The attacker controls the timing.</p>
+<h1 id="silver-ticket">Silver Ticket: Targeted Service Access</h1>
+<p>A Silver Ticket attack is more surgical. Instead of forging a TGT, the attacker forges a service ticket for a specific service.</p>
+<p>Every Windows service runs as a principal (user or computer account). The service's NTLM hash is used to sign its Kerberos service tickets. If you have that hash, you can forge a service ticket and present it directly to the service.</p>
+<h2 id="silver-ticket-attack-workflow">Silver Ticket Attack Workflow</h2>
+<p><strong>1. Get the target service's NTLM hash</strong>. This is usually a computer account (like <code>DC01$</code>) or a domain user running a service. You get this through DCSync, password spray, or credential dumping.</p>
+<p><strong>2. Forge a Service Ticket</strong>. Create a TGS (Ticket Granting Service) request for the specific service you want (like <code>CIFS\DC01</code>, RPCSS, LDAP). Sign it with the service account's hash.</p>
+<p><strong>3. Connect directly</strong>. Present the forged ticket to the target service. The service validates it against its own hash and grants access.</p>
+<p>No TGT needed. No interaction with the KDC. The attacker goes straight to the target service.</p>
+<h2 id="detection-challenges">Real-World Detection Challenges</h2><p>Here's where it gets tricky: these attacks often leave minimal traces in your logs.</p>
+<h3 id="golden-ticket-detection-issues">Golden Ticket Detection Issues</h3>
+<p><strong>→ No KDC Interaction</strong>. Since the attacker creates the TGT locally with a copied hash, there's no communication with the domain controller during forging or ticket usage.</p>
+<p><strong>→ Event ID 4768 (TGT Request)</strong>. You might see legitimate TGT requests from the attacker's machine, but you can't distinguish them from the forged ones without deep packet inspection.</p>
+<p><strong>→ Event ID 4624 (Logon)</strong>. You'll see successful logons, but Kerberos authentication (type 3) doesn't distinguish between real and forged tickets in the event log.</p>
+<p>The only reliable detection path is monitoring for anomalous Kerberos ticket usage patterns—like a user requesting tickets for services they've never accessed before, or unusual service logons from atypical locations.</p>
+<h2 id="defensive-countermeasures">Defensive Countermeasures</h2>
+<p>You can't eliminate these attacks entirely. If an attacker has domain admin access or DCSync rights, they can always get the <code>KRBTGT</code> hash. But you can make it harder and detect faster.</p>
+<h2 id="restrict-dcsync">1. Restrict DCSync Rights</h2>
+<p>DCSync is the gateway to both Golden and Silver Ticket attacks. It requires <code>SeBackupPrivilege</code> or equivalent.</p>
+<h2 id="sebackupprivileges">2. Limit who has <code>SeBackupPrivilege</code></h2>
+<p>Only domain admins should have it by default. Audit any non-admin accounts with this right.</p>
+<h2 id="monitor-dcsync">3. Monitor DCSync Attempts</h2>
+<p>Look for Event ID 4662 with properties containing <code>"ds-Replication-Sync"</code> or <code>"ds-Get-Changes"</code>. This is often the first sign of compromise.</p>
+<h2 id="monitor-krbtgt">4. Monitor <code>KRBTGT</code> Hash Changes</h2>
+<p>The <code>KRBTGT</code> hash should never change outside of scheduled rotation. Set up alerts for Event ID 4769 with service <code>"krbtgt"</code> - Actual <code>KRBTGT</code> ticket requests are rare. If you see them, investigate. Rotate <code>KRBTGT</code> passwords periodically - Microsoft recommends every 90 days. This invalidates any stolen <code>KRBTGT</code> hashes.</p>
+<h2 id="kerberos-audit-logging">5. Enable Kerberos Audit Logging</h2>
+<p>Windows has detailed Kerberos logging you probably aren't using.</p>
+<ul>
+<li><strong>Event ID 4768 (TGT requested)</strong>: Log Username, Client Address, Service Name.</li>
+<li><strong>Event ID 4769 (TGS requested)</strong>: Log Target Server, Client Address, Service Name.</li>
+<li><strong>Event ID 4770 (TGT renewed)</strong>: Monitor for unusual renewal patterns.</li>
+<li><strong>Event ID 4675 (SIDs filtered)</strong>: Indicates potential privilege escalation attempts.</li></ul>
+<p>Combine these with SIEM correlation: if a user requests tickets for services outside their normal pattern, flag it.</p>
+
+<h2 id="protected-groups">6. Use Protected Users Group</h2>
+<p>Members of the Protected Users group have enhanced Kerberos protections:</p>
+<ul>
+<li>No TGT caching beyond 8 hours</li>
+<li>No delegation (constrained or unconstrained)</li>
+<li>NTLM authentication disabled</li></ul>
+<p>This doesn't prevent Golden Ticket attacks (the attacker has the hash), but it does limit what happens after compromise. Protected Users can't be pass-the-hash attacked, and their tickets can't be cached as long.</p>
+<h2 id="constrained-delegation">7. Implement Constrained Delegation Carefully</h2>
+<p>Unconstrained delegation is a Golden Ticket enabler. If a server has unconstrained delegation, any service ticket presented to that server can be forwarded to any other service.</p>
+<p>Use constrained delegation instead — Specify exactly which services the delegated server can impersonate users to.</p>
+<p>Audit delegation settings — Run <code>Set-ADUser -Identity user -PrincipalsAllowedToDelegateToAccount $null</code> to reset delegation rights on critical accounts.</p>
+<h2 id="experience">A Real-World Example from My Latest Engagement</h2>
+<p>Last month, I inherited a compromised environment where the attacker had been present for 6 months.</p>
+<p>How did they get in? A service account with password <code>"Service2023!"</code> on a file server. That account had domain read access.</p>
+<p>Once they had that password, they used it to bind to LDAP and extract the <code>KRBTGT</code> hash via DCSync. Then they created a Golden Ticket for "Administrator" and started moving laterally.</p>
+<p>The indicators were subtle:</p>
+<ul>
+<li>Event ID 4624 with Logon Type 3 (network logons) from internal IPs to file servers</li>
+<li>Unusual service tickets requested for <code>CIFS\FILE01</code> from workstations that don't normally access file shares</li>
+<li>Kerberos ticket requests at odd hours (2 AM - 4 AM)</li></ul>
+<p>The smoking gun was Event ID 4768 showing a TGT request for "krbtgt" service—a normal user shouldn't ever request tickets for the KRBTGT service.</p>
+<p>We disabled the compromised service account, rotated KRBTGT passwords, reset all admin passwords, and implemented better Kerberos monitoring.</p>
+<h2 id="final-thoughts">Final Thoughts</h2>
+<p>Golden Ticket and Silver Ticket attacks aren't sophisticated. They're basic Kerberos exploitation against environments that haven't been hardened or monitored.</p>
+<p>Your defense isn't about finding exotic detection rules. It's about:</p>
+<ul>
+<li>Preventing DCSync — Restrict who can read <code>NTDS.dit</code></li>
+<li>Monitoring Kerberos activity — Look for anomalous patterns, not just specific events</li>
+<li>Rotating critical passwords — <code>KRBTGT</code>, service accounts, admin accounts</li>
+<li>Limiting privileges — Constrained delegation instead of unconstrained, Protected Users for critical accounts</li></ul>
+<p>If you can do these four things, you'll catch most attackers before they get to the point of forging tickets. And if they do forge one, you'll detect it quickly.</p>
+<h3 id="critical-misconception">Critical Misconception</h3>
+<p>Many people think Golden Ticket attacks require domain admin access. They don't. Once you have the <code>KRBTGT</code> hash (via DCSync), you can forge tickets for any user—including domain admins—without needing current admin rights. The hash is the key.</p>
+<p>Stay Safe. Stay Vigilant. Stay Informed</p>
+<p>|ove|ight\peace</p>
+        <div class="callout callout--info">
+          <span class="callout__icon">&#x2139;&#xFE0F;</span>
+          <div>20+ years in IT and cybersecurity. Currently doing IR with a focus on identity-based intrusions, AD eviction, Entra ID compromise, and post-breach hardening. SSCP, CC, Security+.</div></div></div>
+    </article>
+
+    <!-- Right TOC -->
+    <aside class="toc-sidebar">
+      <nav class="toc">
+        <div class="toc__title">On this page</div>
+        <a href="#overview" class="active">Overview</a>
+        <a href="#tgt">The Kerberos Ticket Granting Ticket (TGT) — Your Golden Ticket Source</a>
+        <a href="#golden-ticket-attack-workflow">Golden Ticket Attack Workflow</a>
+        <a href="#silver-ticket">Silver Ticket: Targeted Service Access</a>
+        <a href="#silver-ticket-attack-workflow">Silver Ticket Attack Workflow</a>
+        <a href="#detection-challenges">Real-World Detection Challenges</a>
+        <a href="#golden-ticket-detection-issues">Golden Ticket Detection Issues</a>
+        <a href="#defensive-countermeasures">Defensive Countermeasures</a>
+        <a href="#restrict-dcsync">Restricting DCSync Rights</a>
+        <a href="#sebackupprivileges">Limiting Who Has seBackupPrivilege Permissions</a>
+        <a href="#monitor-dcsync">Monitoring DCSync Attempts</a>
+        <a href="#monitor-krbtgt">Monitoring <code>KRBTGT</code> Hash Changes</a>
+        <a href="#kerberos-audit-logging">Kerberos Audit Logging</a>
+        <a href="#protected-groups">Using the Protected Users Group</a>
+        <a href="#constrained-delegation">Implement Constrained Delegation</a>
+        <a href="#experience">A Real-World Example from My Latest Engagement</a>
+        <a href="#final-thoughts">Final Thoughts</a>
+        <a href="#critical-misconception">Critical Misconception</a>
+      </nav>
+    </aside>
+  </div>
+
+  <footer class="blog-footer">
+    <div class="blog-footer__inner">&copy; 2004-2026 hackherway. Null bytes reserved. | <a href="index.html">Back to 127.0.0.1</a></div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
