@@ -1,0 +1,107 @@
+:root {
+  /*primary colors*/
+  --cherry: #BA0C2F;
+  --silver: #A7A8AA;
+  --turquoise: #;
+  --lobo-gray: #63666A;
+  /*secondary colors*/
+  --high-noon: #FFC600;
+  --sandia-sunset: #ED8B00;
+  --terra: #C05131;
+  --mesa: #D6A461;
+  --green-chile: #A8AA19;
+  --deep-dusk: #8A387C;
+  --white: #FFFFFF;
+  --secondary-white: #F5F5F5;
+  --black: #222222;
+  
+}
+
+.cardBox{
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  padding-top: 1%;
+  
+}
+.accordionCard{
+  width: 300px;
+  margin: 10px;
+  transition: all 0.3s cubic-bezier(0,0,.78,2.5);
+}
+.accordionCard:hover {
+  transform: scale(1.05);
+}
+.accordion:focus-visible {
+  outline: 2px solid var(--black);
+background: var(--white);
+background: linear-gradient(45deg, rgba(186, 12, 47, 1) 90%, rgba(255, 255, 255, 1) 90.1%);
+}
+
+.accordion {
+  background-color: var(--cherry);
+  color: var(--white);
+  cursor: pointer;
+  padding: 18px;
+  width: 100%;
+  border: none;
+  text-align: left;
+  font-size: 15px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border-radius: 5px;
+}
+
+
+.active{
+  border-radius: 5px 5px 0 0 ;
+}
+
+.accordion:after {
+  content: '	\25BC';
+  color: white;
+  transition: all 0.3s ease-in-out;
+}
+
+.active:after {
+  transform: rotate(180deg);
+  transition: all 0.3s ease-in-out;
+}
+  
+
+.accordionPanel {
+    margin-top: -2px;
+    background: rgb(136,104,61);
+    background: linear-gradient(180deg, var(--cherry) 10%, #75071E 100%);
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.1s ease-out;
+    -webkit-box-shadow: none !important;
+    -moz-box-shadow: none !important;
+    box-shadow: none !important;
+    color: white;
+    border-radius: 0 0 5px 5px;
+
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+}
+
+
+.expandedAccordionButton{
+  background-color: var(--white);
+  color: var(--lobo-gray);
+  border-radius: 5px;
+  width: 90%;
+  height: 40px;
+  padding: 10px 0;
+  font-weight: 700;
+  border: none;
+  margin: 10px 0;
+}
+.expandedAccordionButton:focus-visible {
+  outline: none;
+background: var(--turquoise);
+background: linear-gradient(45deg, rgba(255, 255, 255, 1) 90%, rgba(0, 122, 134, 1) 90.1%);
+}
