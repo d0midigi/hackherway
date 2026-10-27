@@ -1,0 +1,117 @@
+.accordion {
+  border: 2px solid var(--theme-trim-dark);
+}
+
+.accordion > div + div {
+  border-top: 1px solid var(--theme-trim-dark);
+}
+
+.accordion button {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: var(--gutter-text-50);
+  width: 100%;
+  padding: var(--gutter-text-50);
+  background: none;
+  font-size: 1.8rem;
+  border: 0;
+  cursor: pointer;
+  outline-offset: calc(var(--gutter-text-25) * -1);
+}
+
+.accordion svg {
+  width: 1.5em;
+  height: 1.5em;
+  transition: transform ease-in-out var(--transition-duration-short);
+}
+
+.accordion button[aria-expanded=\"true\"] svg {
+  transform: scaleY(-1);
+}
+
+.accordion [role=\"region\"] {
+  padding: var(--gutter-text-50);
+  border-top: 1px solid var(--theme-trim-faint);
+}
+
+.accordion .collapsed {
+  display: none;
+}
+
+
+
+/* 
+  Boilerplate
+*/
+.data-table table {
+  border-collapse: collapse;
+  margin: auto;
+}
+
+.data-table th,
+.data-table td {
+  padding: var(--gutter-text-50) var(--gutter-text)
+}
+
+.readings-table {
+  overflow: auto;
+}
+
+.readings-table table {
+  width: 60rem;
+  max-width: 100%;
+}
+
+.readings-table tbody tr + tr {
+  border-top: 1px solid var(--theme-trim-faint);
+}
+
+.readings-table tbody th {
+  text-align: left;
+  font-family: monospace;
+}
+
+.readings-table td {
+  text-align: center;
+  font-weight: bold;
+}
+
+.readings-table .normal td {
+  font-weight: normal;
+}
+
+.readings-table .elevated td {
+  background-color: var(--theme-notice-warning-background);
+  color: var(--theme-notice-warning-color);
+}
+
+.readings-table .hypertension td {
+  background-color: var(--theme-notice-error-background);
+  color: var(--theme-notice-error-color);
+}
+
+.readings-table .hypertension.stage-crisis td {
+  background-color: var(--theme-notice-error-color);
+  color: var(--theme-notice-error-background);
+}
+
+.readings-table .short {
+  display: var(--display-readings-table-short);
+}
+
+.readings-table .long {
+  display: var(--display-readings-table-long);
+}
+
+:root {
+  --display-readings-table-short: block;
+  --display-readings-table-long: none;
+}
+
+@media (min-width: 600px) {
+  :root {
+    --display-readings-table-short: none;
+    --display-readings-table-long: block; 
+  }
+}
