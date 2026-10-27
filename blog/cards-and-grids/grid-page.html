@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+    <meta charset="UTF-8">
+    <title>Blog Design </title>
+    <link rel="stylesheet" href="./style.css">
+<style>
+@import url(https://fonts.googleapis.com/css?family=Lato:300,400,600,800); html, body { background: #f5f5f8; font-family: Lato, sans-serif; height: 100%; padding: 1em; } *, *:before, *:after { -moz-box-sizing: border-box; -webkit-box-sizing: border-box; box-sizing: border-box; } .hide { display: none; } .show { display: block; } .blog { width: 30%; max-width: 24em; background: white; overflow-y: scroll; margin-right: 1em; float: left; -moz-box-shadow: 0px 0 2px 0 rgba(0, 0, 0, 0.1); -webkit-box-shadow: 0px 0 2px 0 rgba(0, 0, 0, 0.1); box-shadow: 0px 0 2px 0 rgba(0, 0, 0, 0.1); -moz-transition: all 0.5s ease; -o-transition: all 0.5s ease; -webkit-transition: all 0.5s ease; transition: all 0.5s ease; } .blog-type div { color: white; background: black; display: inline-block; cursor: pointer; padding: 1em 0; width: calc(50% - 0.05px); text-align: center; } .blog-type div:hover { background: #1abc9c; color: white; } .blog-type div:last-child { margin-left: -3px; } .blog-type .active { background: white; color: black; } .recent-posts, .popular-posts { overflow-y: auto; } .post { padding: 1em; overflow: hidden; border-bottom: 1px dashed #ccc; cursor: pointer; } .post:hover { background: #f9f9f9; } .post:hover h1 { color: #1abc9c; } .post .post-meta { font-size: 0.7em; line-height: 2; } .post .post-meta div { display: inline-block; } .post .post-meta .category { font-style: italic; font-weight: lighter; } .post .post-meta .tag { color: #1abc9c; font-weight: bolder; } .post img { float: left; margin-right: 0.75em; } .post h1 { font-weight: bolder; font-size: 0.9em; line-height: 1.5; } img { max-width: 100%; height: auto; } .content { max-width: 900px; margin: 0 auto; overflow: hidden; padding: 2em; background: white; -moz-box-shadow: 0 0 2px 0 rgba(0, 0, 0, 0.1); -webkit-box-shadow: 0 0 2px 0 rgba(0, 0, 0, 0.1); box-shadow: 0 0 2px 0 rgba(0, 0, 0, 0.1); -moz-transition: all 400ms ease; -o-transition: all 400ms ease; -webkit-transition: all 400ms ease; transition: all 400ms ease; } .content h1 { font-weight: 800; margin-top: 1em; line-height: 2; } .content p { line-height: 1.8; margin: 1em 0; font-size: 0.9em; font-weight: 400; } @media screen and (max-width: 900px) { .blog img { display: none; } } @media screen and (max-width: 800px) { .blog { display: none; } }
+@import url('https://fonts.googleapis.com/css?family=Libre+Baskerville|Libre+Franklin'); /********* Fonts font-family: 'Libre Franklin', sans-serif; font-family: 'Libre Baskerville', serif; ***************/ *{margin: 0px; } html{ background-color: #fefefe; color: #292929; font-family: 'Libre Franklin', sans-serif; width: 100vw; min-width: 1000px; } span{margin-right: 12px;} body{ width: 100%; display: flex; flex-direction: column; justify-content: space-around; align-items: center; } /***** special elements ******/ a{ text-decoration: none; color: #267ABD; } h1{ font-family: 'Libre Baskerville', serif; } img{ width: 100%; height: 100%; background-size: cover; background-repeat: norepeat; } /*********** Everything Related to the Nav ********/ nav{ width: 90%; max-width: 1420px; display: flex; flex-direction: column; flex-wrap: wrap; align-items: center; } .main-nav{ width: 100%; display: flex; flex-direction: row; flex-wrap: nowrap; justify-content : space-between; align-items: baseline; padding: 40px; position: relative; } .upgrade{ padding: 6px; border: 1px solid #267ABD; border-radius: 2px; } .title{ width: 90%; position: absolute; display: flex; flex-direction: column; justify-content: center; align-items: center; } .title h1{ font-size: 40px; text-align: center; } .title p{ position: absolute; text-align: center; top: 74px; } .nav-icons a{ font-size: 18px; padding-left: 12px; color: #c7c7c7; -webkit-transition: 1s ease-in-out; } .nav-icons a:hover{ color: #267ABD; -webkit-transition: 1s ease-in-out; } .nav-subline{ width: 100%; display: flex; flex-direction: row; justify-content: space-between; align-items: baseline; padding: 0px 26px 12px 26px; border-bottom: 1px solid; margin-bottom: 12px; font-size: 18px } .nav-date{ font-size: 14px; font-weight: 900; } .nav-tagline{ align-self: center; font-style: italic; font-size: 14px; } .nav-editions{ font-size: 14px; } .nav-editions span{ margin: 6px; } .nav-bottomline{ width: 100%; display: flex; flex-direction: row; justify-content: space-between; } .nav-bottomline a { margin-left: 6px; margin-right: 6px; color: #c7c7c7; -webkit-transition: 1s ease-in-out; } .nav-bottomline a:hover { color: #267ABD; -webkit-transition: .2s ease-in-out; } /************ Main content related *********/ .main-container{ margin-top: 50px; width: 95%; max-width: 1420px; display: flex; flex-direction: row; flex-wrap: nowrap; justify-content: space-between; align-items: flex-start; } .divider{ width: 100%; margin: 26px 0px 60px 0px; display: flex; flex-direction: row; justify-content: space-between; align-items: baseline; } .divider a { font-size: 12px;} .headlines{ width: 60%; min-width: 600px; padding-right: 6px; border-right : 1px solid #c7c7c7; } .aside{ width: 38%; display: in-block; margin-left: 12px; } .blog-headline{ margin-top: 60px; width: 100%; display: flex; flex-direction: row; flex-wrap: nowrap; position: relative; justify-content: flex-start; } .topic{ position: absolute; top: -30px; width: 100%; display: flex; flex-direction: row; justify-content: space-between; } .topic a { color: #c7c7c7; margin-right: 0px; -webkit-transition: 1s ease-in-out; } .topic a:hover { color: #267ABD; -webkit-transition: 1s ease-in-out; } .imgs{ width: 40%; position: relative; overflow: hidden; } .tags{ opacity: 0; left: -200px; position: absolute; display: flex; flex-direction: column; flex-wrap: nowrap; height: 100%; width: 100%; color: white; background: rgba( 0,0,0, .6); -webkit-transition: 1s ease-in-out; } .imgs:hover .tags{ left:0px; -webkit-transition: .5s ease-in-out; } .tags p{ width: 40px; font-size: 14px; margin: 12px 0px 12px 12px; padding-bottom: 6px; border-bottom: 1px solid white; } .tags a{ color: white; font-size: 12px; margin-top: 12px; margin-left: 12px; } .tags a:hover{ color: #accce5; } .tags:hover{ opacity: 1; -webkit-transition: 1s ease-in-out; } .blog-info{ padding: 12px; width: 60%; } .blog-info-h1{ font-family: 'Libre Baskerville', serif; font-size: 24px; color: #292929; -webkit-transition: 1s ease-in-out; } .blog-info-h1:hover{ color: #267ABD; -webkit-transition: 1s ease-in-out; } .blog-info-subline{ position: absolute; bottom: 0px; right: 0px; width: 60%; display: flex; flex-direction: row; justify-content: space-between; align-items : baseline; } .blog-info-h4{ margin-bottom: 4px; font-size: 12px; } .blog-info-p{ margin-top : 26px; margin-bottom: 12px; font-size: 14px; } .bookmark{ font-size: 18px; color: #c7c7c7; -webkit-transition: .2s ease-in-out; } .chevron{ font-size: 14px; color: #c7c7c7; -webkit-transition: .2s ease-in-out; } /********* Your Network Posts Sections ***********/ .aside-blog-headline{ padding: 0px, 0px, 50px, 0px; } .aside-blog-info-p{ margin-top: 26px; font-size: 14px; margin-bottom: 12px; } .aside-blog-info-subline{ width: 100%; display: flex; flex-direction: row; justify-content: space-between; align-items: baseline; padding-bottom: 12px; border-bottom: 0px solid #c7c7c7; margin-bottom: 60px; } .border{ padding-bottom: 12px; border-bottom: 1px solid #c7c7c7; } /************* Bookmarks section *****************/ .bookmarks-section{ display: flex; flex-direction: row; } .bookmarks-icon{ width: 100px; height: 100px; } .bookmarks-icon a i { font-size: 30px; border: 2px solid #c7c7c7; padding: 15px 20px 15px 20px; border-radius: 50%; } /****************** Footer Section ******************/ footer{ width: 95%; display: flex; flex-direction: column; justify-content: space-between; align-items: baseline; } .footer-icons{ display: flex; flex-direction: row; justify-content: space-between; align-items: baseline; } .footer-icons a{ margin-right: 12px; color: #c7c7c7; -webkit-transition: 1s ease-in-out; } .footer-icons a:hover{ color: #267ABD; -webkit-transition: 1s ease-in-out; } .mini-title{ font-family: 'Libre Baskerville', serif; } .footer-actions span a{ color: #c7c7c7; -webkit-transition: 1s ease-in-out; } .footer-actions span a:hover{ color: #267ABD; -webkit-transition: 1s ease-in-out; } .footer-topline{ width: 100%; display: flex; flex-direction: row; justify-content: space-between; align-items: baseline; padding: 12px 0px 12px 0px; border-top: 1px solid #c7c7c7; margin: 100px 0px 50px 0px; border-bottom: 1px solid #c7c7c7; } .footer-bottomline{ width: 100%; display: flex; flex-direction: row; justify-content: space-between; align-items: baseline; padding-bottom: 50px; } .footer-bottomline span a{ color: #c7c7c7; -webkit-transition: 1s ease-in-out; } .footer-bottomline span a:hover{ color: #267ABD; -webkit-transition: 1s ease-in-out; }
+</style>
+  </head>
+    
+  <body>
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.1.0/css/all.css" integrity="sha384-lKuwvrZot6UHsBSfcMvOkWwlCMgc0TaWr+30HWe3a4ltaBwTZhyTEggF5tJv8tbt" crossorigin="anonymous">
+<body>
+  
+  <nav>
+    <div class="main-nav">
+      <div class="upgrade">
+        <a href="#"> Upgrade</a>
+      </div>
+      <div class="title"> 
+        <h1> Le Blogger</h1>
+        <p class="nav-tagline"> Read, Watch, Write, Film and Tell Stories That Matter</p>
+      </div>
+      <div class="nav-icons">
+        <a href="#"> <i class="fas fa-search"></i></a>
+        <a href="#"> <i class="far fa-bell"></i> </a>
+        <a href="#"> <i class="fas fa-bookmark"></i></a>
+        <a href="#"> <i class="far fa-user"></i></a>
+      </div>
+      
+    </div>
+    <div class="nav-subline">
+      <p class="nav-date">June 22nd, 2018</p>
+      
+      <p class="nav-editions">Edition: <span><a href="#">US</a></span> | <span><a href="#"> Canada</a></span> | <span href="#"><a href="#">World</a></span> | <span><a href="#">Region</a></span></p>
+    </div>
+    <div class="nav-bottomline">
+      <a href="#"> Politics</a>
+       <a href="#"> Sports</a>
+       <a href="#"> Business</a>
+       <a href="#"> Tech</a>
+       <a href="#">Design</a>
+       <a href="#">Lifestyle</a>
+       <a href="#"> Music</a>
+       <a href="#"> Entertainment</a>
+       <a href="#">Entrepreneurship</a>
+       <a href="#"> Culture</a>
+       <a href="#">Science</a>
+       <a href="#"> More</a>
+    </div>
+  </nav>
+  
+ 
+  
+  <section class="main-container">
+    
+    <div class="headlines">
+      <div class="divider border">
+        <h1 class="section-header"> Today's Headlines </h1>
+        <a href="#"> SEE ALL </a>
+      </div>
+      
+      <!--- Start of "Today's Headlines" Entries---->
+      <div class="blog-headline">
+        <div class="topic">
+        <a href="#" > Design </a>
+        </div>
+        
+        <div class="imgs">
+          <!----do last in container -->
+          <div class="tags">
+            <p> Tags</p>
+            <a href="#">
+              <span> 
+                <i class="fas fa-tag"></i>
+              </span> Graphic Design
+            </a>
+            <a href="#">
+              <span> 
+                <i class="fas fa-tag"></i>
+              </span> Illustration
+            </a>
+          </div>
+          <img  src="https://images.unsplash.com/photo-1518349619113-03114f06ac3a?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=619d961cdefa53c694595af8c409839e&auto=format&fit=crop&w=2250&q=80" alt="random_image"/>
+        </div>
+        <div class="blog-info">
+          <a href="#" class="blog-info-h1"> A Year Of UX, Straight Out Of College</a>
+         
+          <div class="blog-info-p"> <p> Lorem ipsum dolor sit amet, consectetur adipiscing elit. In eros ante, imperdiet efficitur venenatis eu, imperdiet non odio. Nunc ornare eu ipsum ac porta.<p></div>
+          
+          <div class="blog-info-subline">
+            <h4 class="blog-info-h4"> <span><a href="#">Jane  Doe</a></span> <span>•</span> <span>4 min read</span></h4>
+            <h4 class="blog-info-h4"><span>Jun 22, 2018</span><span> <a class="bookmark" href="#" ><i class="thisbookmark far fa-bookmark"></i> </a> </span> <span><a class="chevron" href="#" > <i class=" fas fa-chevron-down"></i> </a></span></h4>
+         </div>
+        </div>
+      </div>
+      
+       <div class="blog-headline">
+        <div class="topic">
+        <a href="#" > Entertainment </a>
+        </div>
+        
+        <div class="imgs">
+          <!----do last in container -->
+          <div class="tags">
+            <p> Tags</p>
+            <a href="#">
+              <span> 
+                <i class="fas fa-tag"></i>
+              </span> Christopher Pratt
+            </a>
+            <a href="#">
+              <span> 
+                <i class="fas fa-tag"></i>
+              </span> Dinosaurs
+            </a>
+          </div>
+          <img  src="https://78.media.tumblr.com/2751ed3251b8727eafea857baffb8dbf/tumblr_nq3zattMun1u47gvjo1_1280.jpg" alt="random_image"/>
+        </div>
+        <div class="blog-info">
+          <a href="#" class="blog-info-h1">Jurassic World, An Ending You Didn't See Coming.</a>
+         
+          <div class="blog-info-p"> <p> Lorem ipsum dolor sit amet, consectetur adipiscing elit. In eros ante, imperdiet efficitur venenatis eu, imperdiet non odio. Nunc ornare eu ipsum ac porta.<p></div>
+          
+          <div class="blog-info-subline">
+            <h4 class="blog-info-h4"> <span><a href="#">Dana Hayes</a></span> <span>•</span> <span>3 min read</span></h4>
+            <h4 class="blog-info-h4"><span>Jun 22, 2018</span><span> <a class="bookmark" href="#" ><i class="thisbookmark far fa-bookmark"></i> </a> </span> <span><a class="chevron" href="#" > <i class=" fas fa-chevron-down"></i> </a></span></h4>
+         </div>
+        </div>
+      </div>
+      
+       <div class="blog-headline">
+        <div class="topic">
+        <a href="#" > Tech </a>
+        </div>
+        
+        <div class="imgs">
+          <!----do last in container -->
+          <div class="tags">
+            <p> Tags</p>
+            <a href="#">
+              <span> 
+                <i class="fas fa-tag"></i>
+              </span> Aduino
+            </a>
+            <a href="#">
+              <span> 
+                <i class="fas fa-tag"></i>
+              </span> DIY
+            </a>
+          </div>
+          <img  src="https://images.unsplash.com/photo-1517420704952-d9f39e95b43e?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=b2a93380e2d61894168230dfdb6e99f1&auto=format&fit=crop&w=2250&q=80" alt="random_image"/>
+        </div>
+        <div class="blog-info">
+          <a href="#" class="blog-info-h1"> Make Your Own Robot With This Simple Kit</a>
+         
+          <div class="blog-info-p"> <p> Lorem ipsum dolor sit amet, consectetur adipiscing elit. In eros ante, imperdiet efficitur venenatis eu, imperdiet non odio. Nunc ornare eu ipsum ac porta.<p></div>
+          
+          <div class="blog-info-subline">
+            <h4 class="blog-info-h4"> <span><a href="#">Erik Voss</a></span> <span>•</span> <span>12 min read</span></h4>
+            <h4 class="blog-info-h4"><span>Jun 21, 2018</span><span> <a class="bookmark" href="#" ><i class="thisbookmark far fa-bookmark"></i> </a> </span> <span><a class="chevron" href="#" > <i class=" fas fa-chevron-down"></i> </a></span></h4>
+         </div>
+        </div>
+      </div>
+      
+       <div class="blog-headline">
+        <div class="topic">
+        <a href="#" > Music </a>
+        </div>
+        
+        <div class="imgs">
+          <!----do last in container -->
+          <div class="tags">
+            <p> Tags</p>
+            <a href="#">
+              <span> 
+                <i class="fas fa-tag"></i>
+              </span> Hip Hop
+            </a>
+            <a href="#">
+              <span> 
+                <i class="fas fa-tag"></i>
+              </span> RB&B
+            </a>
+          </div>
+          <img  src="https://cdn.cnn.com/cnnnext/dam/assets/180617012056-beyonce-jayz-apes--t-screengrab.jpg" alt="random_image"/>
+        </div>
+        <div class="blog-info">
+          <a href="#" class="blog-info-h1"> Beyonce Is Back At It Again, Beehive Rejoice!!!!</a>
+         
+          <div class="blog-info-p"> <p> Lorem ipsum dolor sit amet, consectetur adipiscing elit. In eros ante, imperdiet efficitur venenatis eu, imperdiet non odio. Nunc ornare eu ipsum ac porta.<p></div>
+          
+          <div class="blog-info-subline">
+            <h4 class="blog-info-h4"> <span><a href="#">Carly  Johanneson</a></span> <span>•</span> <span>8 min read</span></h4>
+            <h4 class="blog-info-h4"><span>Jun 20, 2018</span><span> <a class="bookmark" href="#" ><i class="thisbookmark far fa-bookmark"></i> </a> </span> <span><a class="chevron" href="#" > <i class=" fas fa-chevron-down"></i> </a></span></h4>
+         </div>
+        </div>
+      </div>
+      
+      <!----- End of "Today's Headlines Container" --->
+    </div>
+    
+    
+    
+    
+    
+    <div class="aside">
+      <div class="divider border">
+        <h1 class="section-header">Recent Posts </h1>
+        <a href="#"> MORE</a>
+      </div>
+      
+      <!-- Beginning of "Your Network" posts section -->
+      
+       <div class="aside-blog-headline">
+       
+        
+        <div class="aside-blog-info">
+          <a href="#" class="blog-info-h1"> Why You Should Start Playing Fortnite Right Now. It's Amazing.</a>
+         
+          <div class="aside-blog-info-p"> <p> Lorem ipsum dolor sit amet, consectetur adipiscing elit. In eros ante, imperdiet efficitur venenatis eu, imperdiet non odio. Nunc ornare eu ipsum ac porta.<p></div>
+          
+          <div class="aside-blog-info-subline">
+            <h4 class="blog-info-h4"> <span><a href="#">Gibson  Snipes</a></span> <span>•</span> <span>9 min read</span></h4>
+            <h4 class="blog-info-h4"><span>Jun 22, 2018</span><span> <a class="bookmark" href="#" ><i class="thisbookmark far fa-bookmark"></i> </a> </span> <span><a class="chevron" href="#" > <i class=" fas fa-chevron-down"></i> </a></span></h4>
+         </div>
+        </div>
+      </div>
+      
+      <div class="aside-blog-headline">
+        
+        
+        <div class="aside-blog-info">
+          <a href="#" class="blog-info-h1"> Learning To Dance By Yourself And Why It's Important For Your Self Esteem</a>
+         
+          <div class="aside-blog-info-p"> <p> Lorem ipsum dolor sit amet, consectetur adipiscing elit. In eros ante, imperdiet efficitur venenatis eu, imperdiet non odio. Nunc ornare eu ipsum ac porta.<p></div>
+          
+          <div class="aside-blog-info-subline">
+            <h4 class="blog-info-h4"> <span><a href="#">Milicent  Lynn</a></span> <span>•</span> <span>7 min read</span></h4>
+            <h4 class="blog-info-h4"><span>Jun 22, 2018</span><span> <a class="bookmark" href="#" ><i class="thisbookmark far fa-bookmark"></i> </a> </span> <span><a class="chevron" href="#" > <i class=" fas fa-chevron-down"></i> </a></span></h4>
+         </div>
+        </div>
+      </div>
+            
+      <!---- End of "Your Network" posts section --->
+      
+      <div class="divider border">
+        <h1 class="section-header">Your Bookmarks </h1>
+        <a href="#"> MORE</a>
+      </div>
+      
+      <!--- Start of Bookmarks section ----->
+      <div class="bookmarks-section">
+        
+         <div class="aside-blog-headline">
+        <div class="topic">
+        <a href="#" > Entertainment </a>
+        </div>
+        
+        <div class="aside-blog-info">
+          
+          <p> <span class="bookmarks-icon"> 
+           <a class="bookmark" href="#" ><i class="footerbookmark fas fa-bookmark"></i> </a>
+        </span><a href="#" class="blog-info-h1">From Draft to Full-time Novelist in 6 months</a></p>
+         
+          <div class="aside-blog-info-p"> <p> Lorem ipsum dolor sit amet, consectetur adipiscing elit. In eros ante, imperdiet efficitur venenatis eu, imperdiet non odio. Nunc ornare eu ipsum ac porta.<p></div>
+          
+          <div class="aside-blog-info-subline">
+            <h4 class="blog-info-h4"> <span><a href="#">Vacys Mane</a></span> <span>•</span> <span>14 min read</span></h4>
+            <h4 class="blog-info-h4"><span>Jun 22, 2018</span> <span><a class="chevron" href="#" > <i class=" fas fa-chevron-down"></i> </a></span></h4>
+         </div>
+        </div>
+      </div>
+      </div>
+                  
+        <div class="aside-blog-headline">
+        <div class="topic">
+        <a href="#" > Entertainment </a>
+        </div>
+        
+        <div class="aside-blog-info">
+          
+          <p> <span class="bookmarks-icon"> 
+           <a class="bookmark" href="#" ><i class="footerbookmark fas fa-bookmark"></i> </a>
+        </span><a href="#" class="blog-info-h1">Thinking About Starting A T-Shirt Business? Here's What You Should Know. </a></p>
+         
+          <div class="aside-blog-info-p"> <p> Lorem ipsum dolor sit amet, consectetur adipiscing elit. In eros ante, imperdiet efficitur venenatis eu, imperdiet non odio. Nunc ornare eu ipsum ac porta.<p></div>
+          
+          <div class="aside-blog-info-subline">
+            <h4 class="blog-info-h4"> <span><a href="#">JiJi Bernard</a></span> <span>•</span> <span>21 min read</span></h4>
+            <h4 class="blog-info-h4"><span>Jun 22, 2018</span> <span><a class="chevron" href="#" > <i class=" fas fa-chevron-down"></i> </a></span></h4>
+         </div>
+        </div>
+      </div>
+      </div>
+    
+      
+      <!------ End of BookMarks Section ----->
+    </div>
+  
+    
+    
+  </section>
+  <footer>
+    
+     <div class="footer-topline">
+        <div class="footer-icons">
+          <a href="#"> <i class="fab fa-facebook-f"></i> </a>
+          <a href="#"> <i class="fab fa-twitter"></i> </a>
+          <a href="#"> <i class="fas fa-rss"></i> </a>
+        </div>
+        
+       <p><span> leblogger.com</span><span> &copy; 2018 </span><span class="mini-title">Le Blogger</span></p>
+       
+      <div class="footer-actions">
+        <span><a href="#"> Subscribe </a></span>
+        <span><a href="#"> Log In </a></span>
+    </div>
+       
+  </div>
+    
+    <div class="footer-bottomline">
+      <span> <a href="#"> Home </a> </span>
+      <span> <a href="#"> Help </a> </span>
+      <span> <a href="#"> Status </a> </span>
+      <span> <a href="#"> Writers </a> </span>
+      <span> <a href="#"> Blogs </a> </span>
+      <span> <a href="#"> Careers </a> </span>
+      <span> <a href="#"> Privacy </a> </span>
+      <span> <a href="#"> Terms </a> </span>
+      <span> <a href="#"> About </a> </span>
+
+
+
+    </div>
+    
+  </footer>
+  
+</body>
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js'></script><script  src="./script.js"></script>
+<script>$('.popular').click(function(){ $('.active').removeClass('active'); $(this).addClass('active'); $('.recent-posts').hide(); $('.popular-posts').show(); }); $('.recent').click(function(){ $('.active').removeClass('active'); $(this).addClass('active'); $('.popular-posts').hide(); $('.recent-posts').show(); });</script>
+<script>
+/* bookmark toggle for articles */ $(".thisbookmark").click(function(){ $(this).toggleClass("fas"); }); $(".footerbookmark").click(function(){ $(this).toggleClass("far"); });
+
+
+</script>
+  </body>
+  
+</html>
