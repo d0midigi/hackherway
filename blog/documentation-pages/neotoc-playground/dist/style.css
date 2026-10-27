@@ -1,0 +1,112 @@
+:root {
+  scroll-behavior: smooth;
+  scroll-padding-top: 1rem;
+  font-family: system-ui, sans-serif;
+}
+
+.wrapper {
+  display: grid;
+  grid-template-columns: 1fr minmax(0, 596px) 20px 320px 1fr;
+}
+
+article {
+  padding-inline: 0.5rem;
+  grid-column-start: 2;
+}
+
+nav {
+  position: relative;
+  grid-column-start: 4;
+}
+
+@media (max-width: 767px) {
+  .wrapper {
+    grid-template-columns: 1fr;
+  }
+
+  article {
+    grid-column-start: 1;
+  }
+
+  nav {
+    position: fixed;
+    width: 70vw;
+    top: 0;
+    right: 0;
+  }
+}
+
+.nt-widget {
+  --body-height: calc(100vh - 8rem);
+  position: sticky;
+  top: 2rem;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+  border-bottom-left-radius: 10px;
+  overflow: hidden;
+  font-size: 0.85em;
+  
+  /* This class is applied to the building blocks of indent lines */
+  .nt-indent-block {
+    transition: opacity 0.15s;
+    opacity: 0;
+  }
+}
+
+.nt-widget:hover .nt-indent-block {
+  opacity: 1;
+}
+
+@media (max-width: 767px) {
+  .nt-widget {
+    --body-height: calc(50vh);
+    border: 1px solid gray;
+    border-radius: 0;
+    border-top: none;
+    border-right: none;
+    border-bottom-left-radius: 10px;
+  }
+}
+.code-block {
+  background: #1e1e1e;
+  border-radius: 8px;
+  padding: 1.5rem;
+  overflow-x: auto;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+}
+
+.code-block pre {
+  margin: 0;
+  font-family: 'Fira Code', 'Consolas', 'Monaco', monospace;
+  font-size: 14px;
+  line-height: 1.6;
+}
+
+.code-block code {
+  color: #d4d4d4;
+}
+
+/* Syntax highlighting colors */
+.tag {
+  color: #569cd6; /* Blue for tags */
+}
+
+.attr {
+  color: #9cdcfe; /* Light blue for attributes */
+}
+
+.value {
+  color: #ce9178; /* Orange for values */
+}
+
+.text {
+  color: #d4d4d4; /* Light gray for text content */
+}
+.code-block {
+  background: #282a36;
+}
+
+.tag { color: #ff79c6; }      /* Pink */
+.attr { color: #50fa7b; }     /* Green */
+.value { color: #f1fa8c; }    /* Yellow */
+.text { color: #f8f8f2; }     /* White */
