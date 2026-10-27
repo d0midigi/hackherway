@@ -1,0 +1,1172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BeatDrop - Dropbox Music Platform</title>
+    <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-primary: #0a0a0f;
+            --bg-secondary: #12121a;
+            --bg-tertiary: #1a1a25;
+            --bg-card: #16161f;
+            --bg-hover: #1e1e2e;
+            --accent: #ff6b35;
+            --accent-hover: #ff8555;
+            --accent-glow: rgba(255, 107, 53, 0.3);
+            --text-primary: #ffffff;
+            --text-secondary: #a0a0b0;
+            --text-muted: #6b6b7b;
+            --border: #2a2a3a;
+            --success: #22c55e;
+            --error: #ef4444;
+            --waveform: #ff6b35;
+            --waveform-bg: #2a2a3a;
+            --dropbox-blue: #0061ff;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: var(--bg-primary); }
+        ::-webkit-scrollbar-thumb { background: var(--border); border-radius: 4px; }
+
+        .header {
+            background: rgba(10, 10, 15, 0.95);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--border);
+            padding: 0 24px;
+            height: 64px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+        .logo { display: flex; align-items: center; gap: 12px; font-size: 24px; font-weight: 800; color: var(--accent); letter-spacing: -0.5px; }
+        .logo i { font-size: 28px; }
+        .nav-links { display: flex; gap: 32px; list-style: none; }
+        .nav-links a { color: var(--text-secondary); text-decoration: none; font-weight: 500; font-size: 14px; transition: color 0.2s; position: relative; }
+        .nav-links a:hover, .nav-links a.active { color: var(--text-primary); }
+        .nav-links a.active::after { content: ''; position: absolute; bottom: -22px; left: 0; right: 0; height: 2px; background: var(--accent); border-radius: 2px; }
+        .header-actions { display: flex; align-items: center; gap: 16px; }
+        .search-box { background: var(--bg-tertiary); border: 1px solid var(--border); border-radius: 8px; padding: 8px 16px; display: flex; align-items: center; gap: 8px; width: 280px; }
+        .search-box input { background: transparent; border: none; color: var(--text-primary); outline: none; width: 100%; font-size: 14px; }
+        .search-box input::placeholder { color: var(--text-muted); }
+        .btn { padding: 10px 20px; border-radius: 8px; border: none; font-weight: 600; font-size: 14px; cursor: pointer; transition: all 0.2s; display: inline-flex; align-items: center; gap: 8px; }
+        .btn-primary { background: var(--accent); color: white; }
+        .btn-primary:hover { background: var(--accent-hover); box-shadow: 0 0 20px var(--accent-glow); }
+        .btn-secondary { background: var(--bg-tertiary); color: var(--text-primary); border: 1px solid var(--border); }
+        .btn-secondary:hover { background: var(--bg-hover); }
+        .btn-dropbox { background: var(--dropbox-blue); color: white; }
+        .btn-dropbox:hover { background: #0052d4; box-shadow: 0 0 20px rgba(0, 97, 255, 0.3); }
+
+        .hero {
+            background: linear-gradient(135deg, var(--bg-secondary) 0%, var(--bg-tertiary) 100%);
+            padding: 60px 24px;
+            text-align: center;
+            border-bottom: 1px solid var(--border);
+            position: relative;
+            overflow: hidden;
+        }
+        .hero::before { content: ''; position: absolute; top: -50%; left: -50%; width: 200%; height: 200%; background: radial-gradient(circle, var(--accent-glow) 0%, transparent 70%); opacity: 0.3; animation: pulse 4s ease-in-out infinite; }
+        @keyframes pulse { 0%, 100% { transform: scale(1); opacity: 0.3; } 50% { transform: scale(1.1); opacity: 0.5; } }
+        .hero-content { position: relative; z-index: 1; }
+        .hero h1 { font-size: 48px; font-weight: 800; margin-bottom: 16px; background: linear-gradient(135deg, #fff 0%, var(--accent) 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+        .hero p { color: var(--text-secondary); font-size: 18px; max-width: 600px; margin: 0 auto 32px; }
+
+        .main-layout { display: grid; grid-template-columns: 240px 1fr 300px; gap: 24px; padding: 24px; max-width: 1600px; margin: 0 auto; }
+        .sidebar { position: sticky; top: 88px; height: fit-content; }
+        .sidebar-section { background: var(--bg-card); border-radius: 12px; padding: 20px; margin-bottom: 16px; border: 1px solid var(--border); }
+        .sidebar-title { font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; color: var(--text-muted); margin-bottom: 16px; }
+        .genre-list { list-style: none; }
+        .genre-list li { display: flex; align-items: center; gap: 10px; padding: 10px 12px; border-radius: 8px; cursor: pointer; transition: all 0.2s; color: var(--text-secondary); font-size: 14px; }
+        .genre-list li:hover { background: var(--bg-hover); color: var(--text-primary); }
+        .genre-list li i { font-size: 18px; color: var(--accent); }
+        .genre-list li.active { background: var(--accent); color: white; }
+        .genre-list li.active i { color: white; }
+        .tag-cloud { display: flex; flex-wrap: wrap; gap: 8px; }
+        .tag { background: var(--bg-tertiary); padding: 6px 12px; border-radius: 20px; font-size: 12px; color: var(--text-secondary); cursor: pointer; transition: all 0.2s; border: 1px solid var(--border); }
+        .tag:hover { background: var(--accent); color: white; border-color: var(--accent); }
+
+        .content-area { min-width: 0; }
+        .section-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; }
+        .section-header h2 { font-size: 20px; font-weight: 700; }
+        .filter-tabs { display: flex; gap: 8px; }
+        .filter-tab { padding: 8px 16px; border-radius: 20px; background: var(--bg-card); border: 1px solid var(--border); color: var(--text-secondary); font-size: 13px; cursor: pointer; transition: all 0.2s; }
+        .filter-tab:hover, .filter-tab.active { background: var(--accent); color: white; border-color: var(--accent); }
+
+        .track-grid { display: flex; flex-direction: column; gap: 12px; }
+
+        .track-card {
+            background: var(--bg-card);
+            border-radius: 12px;
+            padding: 16px 20px;
+            border: 1px solid var(--border);
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            transition: all 0.2s;
+            cursor: pointer;
+        }
+        .track-card:hover { border-color: var(--accent); background: var(--bg-hover); transform: translateY(-1px); }
+        .track-card.playing { border-color: var(--accent); box-shadow: 0 0 20px var(--accent-glow); }
+        .play-btn {
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            background: var(--accent);
+            border: none;
+            color: white;
+            font-size: 20px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s;
+            flex-shrink: 0;
+        }
+        .play-btn:hover { transform: scale(1.1); box-shadow: 0 0 20px var(--accent-glow); }
+        .track-info { flex: 1; min-width: 0; }
+        .track-title { font-weight: 600; font-size: 15px; margin-bottom: 4px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+        .track-meta { display: flex; align-items: center; gap: 12px; font-size: 13px; color: var(--text-muted); flex-wrap: wrap; }
+        .track-meta span { display: flex; align-items: center; gap: 4px; }
+        .track-meta .tag-badge { background: var(--bg-tertiary); padding: 2px 8px; border-radius: 4px; font-size: 11px; color: var(--accent); }
+        .dropbox-badge { background: rgba(0, 97, 255, 0.15); color: var(--dropbox-blue); padding: 2px 8px; border-radius: 4px; font-size: 11px; display: flex; align-items: center; gap: 4px; }
+
+        .waveform-container { flex: 2; height: 40px; display: flex; align-items: center; gap: 2px; padding: 0 16px; }
+        .waveform-bar { flex: 1; background: var(--waveform-bg); border-radius: 2px; transition: height 0.1s; min-height: 2px; }
+        .waveform-bar.played { background: var(--waveform); }
+        .waveform-bar:hover { background: var(--accent-hover); }
+
+        .track-actions { display: flex; gap: 8px; }
+        .action-btn {
+            width: 36px;
+            height: 36px;
+            border-radius: 8px;
+            background: var(--bg-tertiary);
+            border: 1px solid var(--border);
+            color: var(--text-secondary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.2s;
+            font-size: 18px;
+        }
+        .action-btn:hover { background: var(--accent); color: white; border-color: var(--accent); }
+        .action-btn.liked { color: var(--accent); border-color: var(--accent); }
+
+        .modal-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(0,0,0,0.8);
+            backdrop-filter: blur(8px);
+            z-index: 2000;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            padding: 24px;
+        }
+        .modal-overlay.active { display: flex; }
+        .modal {
+            background: var(--bg-secondary);
+            border-radius: 16px;
+            width: 100%;
+            max-width: 600px;
+            max-height: 90vh;
+            overflow-y: auto;
+            border: 1px solid var(--border);
+            animation: modalIn 0.3s ease;
+        }
+        @keyframes modalIn { from { opacity: 0; transform: translateY(20px) scale(0.95); } to { opacity: 1; transform: translateY(0) scale(1); } }
+        .modal-header { padding: 24px 24px 0; display: flex; justify-content: space-between; align-items: center; }
+        .modal-header h2 { font-size: 24px; font-weight: 700; }
+        .modal-close { width: 36px; height: 36px; border-radius: 8px; background: var(--bg-tertiary); border: 1px solid var(--border); color: var(--text-secondary); cursor: pointer; font-size: 20px; display: flex; align-items: center; justify-content: center; }
+        .modal-close:hover { background: var(--error); color: white; }
+        .modal-body { padding: 24px; }
+
+        .drop-zone {
+            border: 2px dashed var(--border);
+            border-radius: 16px;
+            padding: 48px 24px;
+            text-align: center;
+            transition: all 0.3s;
+            cursor: pointer;
+            background: var(--bg-card);
+            margin-bottom: 20px;
+        }
+        .drop-zone:hover, .drop-zone.dragover { border-color: var(--accent); background: rgba(255, 107, 53, 0.05); }
+        .drop-zone i { font-size: 48px; color: var(--accent); margin-bottom: 16px; }
+        .drop-zone h3 { font-size: 18px; margin-bottom: 8px; }
+        .drop-zone p { color: var(--text-muted); font-size: 14px; }
+
+        .dropbox-link-section {
+            background: var(--bg-card);
+            border-radius: 12px;
+            padding: 20px;
+            border: 1px solid var(--border);
+            margin-bottom: 20px;
+        }
+        .dropbox-link-section h3 { font-size: 16px; margin-bottom: 12px; display: flex; align-items: center; gap: 8px; color: var(--dropbox-blue); }
+        .dropbox-link-section p { color: var(--text-muted); font-size: 13px; margin-bottom: 12px; line-height: 1.5; }
+        .dropbox-link-section ol { color: var(--text-secondary); font-size: 13px; margin-left: 16px; margin-bottom: 12px; }
+        .dropbox-link-section ol li { margin-bottom: 6px; }
+        .link-input-group { display: flex; gap: 8px; }
+        .link-input-group input { flex: 1; padding: 12px 16px; background: var(--bg-tertiary); border: 1px solid var(--border); border-radius: 8px; color: var(--text-primary); font-size: 14px; outline: none; }
+        .link-input-group input:focus { border-color: var(--dropbox-blue); box-shadow: 0 0 0 3px rgba(0, 97, 255, 0.2); }
+
+        .form-group { margin-bottom: 20px; }
+        .form-group label { display: block; font-size: 14px; font-weight: 500; margin-bottom: 8px; color: var(--text-secondary); }
+        .form-group input, .form-group select, .form-group textarea {
+            width: 100%;
+            padding: 12px 16px;
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            color: var(--text-primary);
+            font-size: 14px;
+            outline: none;
+            transition: all 0.2s;
+            font-family: inherit;
+        }
+        .form-group input:focus, .form-group select:focus, .form-group textarea:focus { border-color: var(--accent); box-shadow: 0 0 0 3px var(--accent-glow); }
+        .form-group textarea { resize: vertical; min-height: 80px; }
+        .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+
+        .upload-progress { background: var(--bg-card); border-radius: 12px; padding: 20px; margin-top: 16px; border: 1px solid var(--border); }
+        .upload-progress-header { display: flex; justify-content: space-between; margin-bottom: 12px; }
+        .progress-bar { height: 6px; background: var(--bg-tertiary); border-radius: 3px; overflow: hidden; }
+        .progress-fill { height: 100%; background: linear-gradient(90deg, var(--accent), var(--accent-hover)); border-radius: 3px; transition: width 0.3s; width: 0%; }
+
+        .right-sidebar { position: sticky; top: 88px; height: fit-content; }
+        .trending-item { display: flex; align-items: center; gap: 12px; padding: 12px; border-radius: 8px; cursor: pointer; transition: all 0.2s; }
+        .trending-item:hover { background: var(--bg-hover); }
+        .trending-rank { width: 28px; height: 28px; border-radius: 6px; background: var(--bg-tertiary); display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 13px; color: var(--accent); }
+        .trending-info { flex: 1; min-width: 0; }
+        .trending-info .title { font-size: 13px; font-weight: 600; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+        .trending-info .artist { font-size: 12px; color: var(--text-muted); }
+        .trending-plays { font-size: 12px; color: var(--text-muted); display: flex; align-items: center; gap: 4px; }
+
+        .player-bar {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: rgba(18, 18, 26, 0.98);
+            backdrop-filter: blur(20px);
+            border-top: 1px solid var(--border);
+            padding: 12px 24px;
+            display: none;
+            align-items: center;
+            gap: 20px;
+            z-index: 1500;
+        }
+        .player-bar.active { display: flex; }
+        .player-track { display: flex; align-items: center; gap: 12px; width: 280px; }
+        .player-art { width: 48px; height: 48px; border-radius: 8px; background: linear-gradient(135deg, var(--accent), #ff8555); display: flex; align-items: center; justify-content: center; font-size: 24px; color: white; }
+        .player-info { min-width: 0; }
+        .player-info .title { font-weight: 600; font-size: 14px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+        .player-info .artist { font-size: 12px; color: var(--text-muted); }
+        .player-controls { display: flex; align-items: center; gap: 16px; flex: 1; justify-content: center; }
+        .player-btn { background: none; border: none; color: var(--text-secondary); font-size: 24px; cursor: pointer; transition: color 0.2s; display: flex; align-items: center; justify-content: center; }
+        .player-btn:hover { color: var(--text-primary); }
+        .player-btn.play { width: 48px; height: 48px; background: var(--accent); border-radius: 50%; color: white; font-size: 20px; }
+        .player-btn.play:hover { transform: scale(1.1); box-shadow: 0 0 20px var(--accent-glow); }
+        .player-timeline { flex: 1; max-width: 400px; display: flex; align-items: center; gap: 12px; }
+        .time { font-size: 12px; color: var(--text-muted); font-variant-numeric: tabular-nums; min-width: 40px; text-align: center; }
+        .timeline-track { flex: 1; height: 4px; background: var(--bg-tertiary); border-radius: 2px; cursor: pointer; position: relative; }
+        .timeline-fill { height: 100%; background: var(--accent); border-radius: 2px; width: 0%; transition: width 0.1s linear; }
+        .timeline-track:hover .timeline-fill { background: var(--accent-hover); }
+        .player-volume { display: flex; align-items: center; gap: 8px; width: 140px; }
+        .volume-slider { flex: 1; height: 4px; background: var(--bg-tertiary); border-radius: 2px; cursor: pointer; position: relative; }
+        .volume-fill { height: 100%; background: var(--accent); border-radius: 2px; width: 70%; }
+
+        .empty-state { text-align: center; padding: 60px 24px; color: var(--text-muted); }
+        .empty-state i { font-size: 64px; margin-bottom: 16px; color: var(--border); }
+        .empty-state h3 { font-size: 20px; color: var(--text-secondary); margin-bottom: 8px; }
+
+        .toast-container { position: fixed; top: 80px; right: 24px; z-index: 3000; display: flex; flex-direction: column; gap: 8px; }
+        .toast { background: var(--bg-secondary); border: 1px solid var(--border); border-radius: 12px; padding: 16px 20px; display: flex; align-items: center; gap: 12px; min-width: 300px; animation: toastIn 0.3s ease; box-shadow: 0 10px 40px rgba(0,0,0,0.3); }
+        @keyframes toastIn { from { opacity: 0; transform: translateX(20px); } to { opacity: 1; transform: translateX(0); } }
+        .toast.success { border-left: 3px solid var(--success); }
+        .toast.error { border-left: 3px solid var(--error); }
+        .toast i { font-size: 20px; }
+        .toast.success i { color: var(--success); }
+        .toast.error i { color: var(--error); }
+
+        .dropbox-help {
+            background: rgba(0, 97, 255, 0.08);
+            border: 1px solid rgba(0, 97, 255, 0.2);
+            border-radius: 8px;
+            padding: 12px 16px;
+            margin-top: 12px;
+            font-size: 12px;
+            color: var(--text-secondary);
+            line-height: 1.6;
+        }
+        .dropbox-help strong { color: var(--dropbox-blue); }
+
+        @media (max-width: 1200px) {
+            .main-layout { grid-template-columns: 1fr; }
+            .sidebar, .right-sidebar { display: none; }
+        }
+        @media (max-width: 768px) {
+            .hero h1 { font-size: 32px; }
+            .nav-links { display: none; }
+            .search-box { display: none; }
+            .track-card { flex-wrap: wrap; }
+            .waveform-container { order: 3; width: 100%; padding: 0; }
+            .player-bar { padding: 8px 12px; }
+            .player-track { width: auto; flex: 1; }
+            .player-timeline { display: none; }
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="logo"><i class='bx bx-pulse'></i> BeatDrop</div>
+        <ul class="nav-links">
+            <li><a href="#" class="active">Discover</a></li>
+            <li><a href="#">Loops</a></li>
+            <li><a href="#">Acapellas</a></li>
+            <li><a href="#">Sounds</a></li>
+            <li><a href="#">Community</a></li>
+        </ul>
+        <div class="header-actions">
+            <div class="search-box">
+                <i class='bx bx-search'></i>
+                <input type="text" placeholder="Search loops, artists..." id="searchInput">
+            </div>
+            <button class="btn btn-dropbox" onclick="openUpload()">
+                <i class='bx bxl-dropbox'></i> Upload
+            </button>
+            <button class="btn btn-primary"><i class='bx bx-user'></i> Sign In</button>
+        </div>
+    </header>
+
+    <section class="hero">
+        <div class="hero-content">
+            <h1>Your Music, Your Cloud</h1>
+            <p>Host your tracks on Dropbox and stream them here. Paste a shared link, add metadata, and your music goes live instantly.</p>
+            <button class="btn btn-dropbox" style="font-size: 16px; padding: 14px 32px;" onclick="openUpload()">
+                <i class='bx bxl-dropbox'></i> Add Dropbox Track
+            </button>
+        </div>
+    </section>
+
+    <div class="main-layout">
+        <aside class="sidebar">
+            <div class="sidebar-section">
+                <div class="sidebar-title">Genres</div>
+                <ul class="genre-list" id="genreList">
+                    <li class="active" data-genre="all"><i class='bx bx-grid-alt'></i> All Tracks</li>
+                    <li data-genre="hiphop"><i class='bx bx-hip-hop'></i> Hip Hop</li>
+                    <li data-genre="electronic"><i class='bx bx-bolt'></i> Electronic</li>
+                    <li data-genre="rock"><i class='bx bx-guitar'></i> Rock</li>
+                    <li data-genre="pop"><i class='bx bx-music'></i> Pop</li>
+                    <li data-genre="jazz"><i class='bx bx-saxophone'></i> Jazz</li>
+                    <li data-genre="ambient"><i class='bx bx-wind'></i> Ambient</li>
+                    <li data-genre="trap"><i class='bx bx-trending-up'></i> Trap</li>
+                </ul>
+            </div>
+            <div class="sidebar-section">
+                <div class="sidebar-title">Popular Tags</div>
+                <div class="tag-cloud">
+                    <span class="tag">#bass</span><span class="tag">#drums</span><span class="tag">#melody</span>
+                    <span class="tag">#vocal</span><span class="tag">#808</span><span class="tag">#synth</span>
+                    <span class="tag">#guitar</span><span class="tag">#piano</span><span class="tag">#fx</span>
+                    <span class="tag">#percussion</span>
+                </div>
+            </div>
+        </aside>
+
+        <main class="content-area">
+            <div class="section-header">
+                <h2><i class='bx bx-hot'></i> Latest Uploads</h2>
+                <div class="filter-tabs">
+                    <button class="filter-tab active" data-filter="all">All</button>
+                    <button class="filter-tab" data-filter="loops">Loops</button>
+                    <button class="filter-tab" data-filter="samples">Samples</button>
+                    <button class="filter-tab" data-filter="tracks">Tracks</button>
+                </div>
+            </div>
+            <div class="track-grid" id="trackGrid"></div>
+        </main>
+
+        <aside class="right-sidebar">
+            <div class="sidebar-section">
+                <div class="sidebar-title">Trending Now</div>
+                <div id="trendingList"></div>
+            </div>
+            <div class="sidebar-section">
+                <div class="sidebar-title">Your Stats</div>
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px;">
+                    <div style="text-align: center; padding: 16px; background: var(--bg-tertiary); border-radius: 8px;">
+                        <div style="font-size: 24px; font-weight: 700; color: var(--accent);" id="statUploads">0</div>
+                        <div style="font-size: 12px; color: var(--text-muted); margin-top: 4px;">Uploads</div>
+                    </div>
+                    <div style="text-align: center; padding: 16px; background: var(--bg-tertiary); border-radius: 8px;">
+                        <div style="font-size: 24px; font-weight: 700; color: var(--accent);" id="statPlays">0</div>
+                        <div style="font-size: 12px; color: var(--text-muted); margin-top: 4px;">Plays</div>
+                    </div>
+                </div>
+            </div>
+        </aside>
+    </div>
+
+    <div class="player-bar" id="playerBar">
+        <div class="player-track">
+            <div class="player-art"><i class='bx bx-music'></i></div>
+            <div class="player-info">
+                <div class="title" id="playerTitle">Select a track</div>
+                <div class="artist" id="playerArtist">--</div>
+            </div>
+        </div>
+        <div class="player-controls">
+            <button class="player-btn" onclick="prevTrack()"><i class='bx bx-skip-previous'></i></button>
+            <button class="player-btn play" id="playPauseBtn" onclick="togglePlay()"><i class='bx bx-play'></i></button>
+            <button class="player-btn" onclick="nextTrack()"><i class='bx bx-skip-next'></i></button>
+        </div>
+        <div class="player-timeline">
+            <span class="time" id="currentTime">0:00</span>
+            <div class="timeline-track" id="timelineTrack" onclick="seek(event)">
+                <div class="timeline-fill" id="timelineFill"></div>
+            </div>
+            <span class="time" id="duration">0:00</span>
+        </div>
+        <div class="player-volume">
+            <button class="player-btn" style="font-size: 20px;" onclick="toggleMute()"><i class='bx bx-volume-full' id="volumeIcon"></i></button>
+            <div class="volume-slider" id="volumeSlider" onclick="setVolume(event)">
+                <div class="volume-fill" id="volumeFill" style="width: 70%;"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- UPLOAD MODAL -->
+    <div class="modal-overlay" id="uploadModal">
+        <div class="modal">
+            <div class="modal-header">
+                <h2><i class='bx bxl-dropbox' style="color: var(--dropbox-blue);"></i> Add Track from Dropbox</h2>
+                <button class="modal-close" onclick="closeUpload()"><i class='bx bx-x'></i></button>
+            </div>
+            <div class="modal-body">
+                <div class="dropbox-link-section">
+                    <h3><i class='bx bxl-dropbox'></i> Dropbox Shared Link</h3>
+                    <p>Paste a Dropbox shared link to stream your audio file directly. The link must allow anyone with the link to view/download.</p>
+                    <ol>
+                        <li>Go to Dropbox, right-click your audio file</li>
+                        <li>Select <strong>Share</strong> &rarr; <strong>Copy link</strong></li>
+                        <li>Paste the link below (it should look like: <code>https://www.dropbox.com/s/xxxxx/file.mp3?dl=0</code>)</li>
+                    </ol>
+                    <div class="link-input-group">
+                        <input type="text" id="dropboxUrl" placeholder="https://www.dropbox.com/s/.../your-track.mp3?dl=0">
+                        <button class="btn btn-dropbox" onclick="fetchDropboxFile()">
+                            <i class='bx bx-link'></i> Connect
+                        </button>
+                    </div>
+                    <div class="dropbox-help">
+                        <strong>Tip:</strong> Make sure your Dropbox link ends with <code>?dl=0</code> or <code>?dl=1</code>. The platform will automatically convert it for streaming. For best results, use direct MP3 or WAV links.
+                    </div>
+                </div>
+
+                <div style="text-align: center; margin: 20px 0; position: relative;">
+                    <div style="position: absolute; top: 50%; left: 0; right: 0; height: 1px; background: var(--border);"></div>
+                    <span style="background: var(--bg-secondary); padding: 0 16px; position: relative; color: var(--text-muted); font-size: 13px;">OR UPLOAD LOCAL FILE</span>
+                </div>
+
+                <div class="drop-zone" id="dropZone" onclick="document.getElementById('fileInput').click()">
+                    <i class='bx bx-cloud-upload'></i>
+                    <h3>Drop your audio file here</h3>
+                    <p>or click to browse your files</p>
+                    <div style="display: flex; justify-content: center; gap: 8px; margin-top: 16px;">
+                        <span style="background: var(--bg-tertiary); padding: 4px 12px; border-radius: 20px; font-size: 12px; color: var(--text-secondary); border: 1px solid var(--border);">MP3</span>
+                        <span style="background: var(--bg-tertiary); padding: 4px 12px; border-radius: 20px; font-size: 12px; color: var(--text-secondary); border: 1px solid var(--border);">WAV</span>
+                        <span style="background: var(--bg-tertiary); padding: 4px 12px; border-radius: 20px; font-size: 12px; color: var(--text-secondary); border: 1px solid var(--border);">MP4</span>
+                        <span style="background: var(--bg-tertiary); padding: 4px 12px; border-radius: 20px; font-size: 12px; color: var(--text-secondary); border: 1px solid var(--border);">OGG</span>
+                    </div>
+                </div>
+                <input type="file" id="fileInput" accept="audio/*,video/mp4" style="display: none;" onchange="handleFileSelect(event)">
+
+                <div id="uploadForm" style="display: none;">
+                    <div class="upload-progress" id="uploadProgress" style="display: none;">
+                        <div class="upload-progress-header">
+                            <span id="uploadFileName">filename.mp3</span>
+                            <span id="uploadPercent">0%</span>
+                        </div>
+                        <div class="progress-bar"><div class="progress-fill" id="progressFill"></div></div>
+                    </div>
+
+                    <div class="form-group" style="margin-top: 20px;">
+                        <label>Track Title *</label>
+                        <input type="text" id="trackTitle" placeholder="Enter track name">
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Genre</label>
+                            <select id="trackGenre">
+                                <option value="hiphop">Hip Hop</option>
+                                <option value="electronic">Electronic</option>
+                                <option value="rock">Rock</option>
+                                <option value="pop">Pop</option>
+                                <option value="jazz">Jazz</option>
+                                <option value="ambient">Ambient</option>
+                                <option value="trap">Trap</option>
+                                <option value="other">Other</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Type</label>
+                            <select id="trackType">
+                                <option value="loop">Loop</option>
+                                <option value="sample">Sample</option>
+                                <option value="track">Full Track</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>BPM</label>
+                        <input type="number" id="trackBpm" placeholder="e.g. 140" min="1" max="300">
+                    </div>
+                    <div class="form-group">
+                        <label>Description</label>
+                        <textarea id="trackDesc" placeholder="Describe your track, key, mood, etc."></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label>Tags (comma separated)</label>
+                        <input type="text" id="trackTags" placeholder="bass, drums, melody, 808">
+                    </div>
+                    <button class="btn btn-primary" style="width: 100%; padding: 14px;" onclick="submitUpload()">
+                        <i class='bx bx-check'></i> Publish Track
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="toast-container" id="toastContainer"></div>
+
+    <script>
+        // ===== STATE =====
+        let tracks = JSON.parse(localStorage.getItem('beatdrop_tracks')) || [
+            {
+                id: 1,
+                title: "Neon Nights Bassline",
+                artist: "You",
+                genre: "electronic",
+                type: "loop",
+                bpm: 128,
+                duration: "0:32",
+                durationSec: 32,
+                plays: 1247,
+                likes: 89,
+                liked: false,
+                tags: ["bass", "synth", "electronic"],
+                date: new Date(Date.now() - 86400000 * 2).toISOString(),
+                waveform: generateWaveformData(),
+                dropboxUrl: null,
+                fileName: "neon-nights.mp3",
+                source: "local"
+            },
+            {
+                id: 2,
+                title: "Dark Trap 808",
+                artist: "You",
+                genre: "trap",
+                type: "sample",
+                bpm: 140,
+                duration: "0:16",
+                durationSec: 16,
+                plays: 892,
+                likes: 67,
+                liked: false,
+                tags: ["808", "bass", "trap"],
+                date: new Date(Date.now() - 86400000 * 5).toISOString(),
+                waveform: generateWaveformData(),
+                dropboxUrl: null,
+                fileName: "dark-trap-808.wav",
+                source: "local"
+            },
+            {
+                id: 3,
+                title: "Lo-Fi Piano Chords",
+                artist: "You",
+                genre: "hiphop",
+                type: "loop",
+                bpm: 85,
+                duration: "0:48",
+                durationSec: 48,
+                plays: 2156,
+                likes: 156,
+                liked: false,
+                tags: ["piano", "chords", "lofi"],
+                date: new Date(Date.now() - 86400000 * 1).toISOString(),
+                waveform: generateWaveformData(),
+                dropboxUrl: null,
+                fileName: "lofi-piano.mp3",
+                source: "local"
+            }
+        ];
+
+        let currentTrack = null;
+        let isPlaying = false;
+        let audioElement = null;
+        let playInterval = null;
+        let currentTime = 0;
+        let currentFilter = 'all';
+        let currentGenre = 'all';
+        let uploadedFile = null;
+        let pendingDropboxUrl = null;
+
+        // ===== AUDIO SETUP =====
+        function initAudio() {
+            if (!audioElement) {
+                audioElement = new Audio();
+                audioElement.addEventListener('ended', () => {
+                    isPlaying = false;
+                    updatePlayButton();
+                    currentTime = 0;
+                    updateTimeline();
+                    renderTracks();
+                });
+                audioElement.addEventListener('timeupdate', () => {
+                    if (audioElement && currentTrack) {
+                        currentTime = audioElement.currentTime;
+                        updateTimeline();
+                        renderTracks();
+                    }
+                });
+                audioElement.addEventListener('loadedmetadata', () => {
+                    if (currentTrack && audioElement.duration) {
+                        currentTrack.durationSec = audioElement.duration;
+                        currentTrack.duration = formatTime(audioElement.duration);
+                        document.getElementById('duration').textContent = currentTrack.duration;
+                        saveTracks();
+                        renderTracks();
+                    }
+                });
+                audioElement.addEventListener('error', (e) => {
+                    console.error('Audio error:', e);
+                    showToast('Error loading audio. Check the URL or try another file.', 'error');
+                    isPlaying = false;
+                    updatePlayButton();
+                });
+            }
+        }
+
+        // ===== DROPBOX URL CONVERSION =====
+        function convertDropboxUrl(url) {
+            if (!url) return null;
+            let directUrl = url;
+            if (url.includes('dropbox.com/s/')) {
+                directUrl = url.replace('www.dropbox.com', 'dl.dropboxusercontent.com');
+                directUrl = directUrl.replace('?dl=0', '');
+                directUrl = directUrl.replace('?dl=1', '');
+                directUrl = directUrl.replace(/\?.*$/, '');
+            }
+            if (url.includes('dropbox.com/scl/')) {
+                directUrl = url.replace('?dl=0', '?raw=1');
+                directUrl = directUrl.replace('?dl=1', '?raw=1');
+                if (!directUrl.includes('?')) {
+                    directUrl += '?raw=1';
+                } else if (!directUrl.includes('raw=1')) {
+                    directUrl += '&raw=1';
+                }
+            }
+            return directUrl;
+        }
+
+        function fetchDropboxFile() {
+            const url = document.getElementById('dropboxUrl').value.trim();
+            if (!url) {
+                showToast('Please enter a Dropbox shared link', 'error');
+                return;
+            }
+            if (!url.includes('dropbox.com')) {
+                showToast('Please enter a valid Dropbox link', 'error');
+                return;
+            }
+            pendingDropboxUrl = url;
+            const urlParts = url.split('/');
+            let fileName = urlParts[urlParts.length - 1];
+            fileName = fileName.split('?')[0];
+            fileName = decodeURIComponent(fileName);
+            document.getElementById('dropZone').style.display = 'none';
+            document.querySelector('.dropbox-link-section').style.display = 'none';
+            document.getElementById('uploadForm').style.display = 'block';
+            const titleFromFile = fileName.replace(/\.[^/.]+$/, '').replace(/[-_]/g, ' ');
+            document.getElementById('trackTitle').value = titleFromFile;
+            showToast('Dropbox link connected! Fill in the details and publish.', 'success');
+        }
+
+        // ===== GENERATE WAVEFORM DATA =====
+        function generateWaveformData() {
+            const bars = [];
+            for (let i = 0; i < 60; i++) {
+                bars.push(Math.random() * 0.8 + 0.2);
+            }
+            return bars;
+        }
+
+        // ===== RENDER TRACKS =====
+        function renderTracks() {
+            const grid = document.getElementById('trackGrid');
+            let filtered = tracks;
+            if (currentFilter !== 'all') {
+                filtered = filtered.filter(t => t.type === currentFilter);
+            }
+            if (currentGenre !== 'all') {
+                filtered = filtered.filter(t => t.genre === currentGenre);
+            }
+            const searchTerm = document.getElementById('searchInput').value.toLowerCase();
+            if (searchTerm) {
+                filtered = filtered.filter(t =>
+                    t.title.toLowerCase().includes(searchTerm) ||
+                    t.tags.some(tag => tag.toLowerCase().includes(searchTerm))
+                );
+            }
+            if (filtered.length === 0) {
+                grid.innerHTML = `
+                    <div class="empty-state">
+                        <i class='bx bx-music'></i>
+                        <h3>No tracks found</h3>
+                        <p>Add your first track from Dropbox or upload a local file!</p>
+                        <button class="btn btn-dropbox" style="margin-top: 16px;" onclick="openUpload()">
+                            <i class='bx bxl-dropbox'></i> Add Track
+                        </button>
+                    </div>
+                `;
+                return;
+            }
+            grid.innerHTML = filtered.map(track => {
+                const isCurrentTrack = currentTrack?.id === track.id;
+                const progress = isCurrentTrack && track.durationSec ? (currentTime / track.durationSec) : 0;
+                return `
+                <div class="track-card ${isCurrentTrack ? 'playing' : ''}" data-id="${track.id}">
+                    <button class="play-btn" onclick="playTrack(${track.id}, event)">
+                        <i class='bx ${isCurrentTrack && isPlaying ? 'bx-pause' : 'bx-play'}'></i>
+                    </button>
+                    <div class="track-info">
+                        <div class="track-title">${track.title}</div>
+                        <div class="track-meta">
+                            <span><i class='bx bx-user'></i> ${track.artist}</span>
+                            <span class="tag-badge">${track.genre}</span>
+                            <span class="tag-badge">${track.type}</span>
+                            ${track.bpm ? `<span><i class='bx bx-timer'></i> ${track.bpm} BPM</span>` : ''}
+                            <span><i class='bx bx-time'></i> ${track.duration}</span>
+                            ${track.dropboxUrl ? `<span class="dropbox-badge"><i class='bx bxl-dropbox'></i> Dropbox</span>` : ''}
+                        </div>
+                    </div>
+                    <div class="waveform-container">
+                        ${track.waveform.map((h, i) => `
+                            <div class="waveform-bar ${isCurrentTrack && (i / track.waveform.length) < progress ? 'played' : ''}"
+                                 style="height: ${h * 100}%"
+                                 onclick="seekToBar(${track.id}, ${i}, event)"></div>
+                        `).join('')}
+                    </div>
+                    <div class="track-actions">
+                        <button class="action-btn ${track.liked ? 'liked' : ''}" onclick="toggleLike(${track.id}, event)">
+                            <i class='bx ${track.liked ? 'bxs-heart' : 'bx-heart'}'></i>
+                        </button>
+                        <button class="action-btn" onclick="downloadTrack(${track.id}, event)">
+                            <i class='bx bx-download'></i>
+                        </button>
+                        <button class="action-btn" onclick="deleteTrack(${track.id}, event)">
+                            <i class='bx bx-trash'></i>
+                        </button>
+                    </div>
+                </div>
+            `}).join('');
+            updateStats();
+            renderTrending();
+        }
+
+        function renderTrending() {
+            const sorted = [...tracks].sort((a, b) => b.plays - a.plays).slice(0, 5);
+            document.getElementById('trendingList').innerHTML = sorted.map((track, i) => `
+                <div class="trending-item" onclick="playTrack(${track.id})">
+                    <div class="trending-rank">${i + 1}</div>
+                    <div class="trending-info">
+                        <div class="title">${track.title}</div>
+                        <div class="artist">${track.genre} &middot; ${track.type}</div>
+                    </div>
+                    <div class="trending-plays"><i class='bx bx-play'></i> ${formatNumber(track.plays)}</div>
+                </div>
+            `).join('');
+        }
+
+        function updateStats() {
+            document.getElementById('statUploads').textContent = tracks.length;
+            const totalPlays = tracks.reduce((sum, t) => sum + t.plays, 0);
+            document.getElementById('statPlays').textContent = formatNumber(totalPlays);
+        }
+
+        function formatNumber(n) {
+            if (n >= 1000000) return (n / 1000000).toFixed(1) + 'M';
+            if (n >= 1000) return (n / 1000).toFixed(1) + 'K';
+            return n;
+        }
+
+        // ===== PLAYBACK =====
+        function playTrack(id, event) {
+            if (event) event.stopPropagation();
+            const track = tracks.find(t => t.id === id);
+            if (!track) return;
+            initAudio();
+            if (currentTrack?.id === id) {
+                togglePlay();
+                return;
+            }
+            if (audioElement) {
+                audioElement.pause();
+                audioElement.currentTime = 0;
+            }
+            currentTrack = track;
+            currentTime = 0;
+            track.plays++;
+            saveTracks();
+            if (track.dropboxUrl) {
+                const directUrl = convertDropboxUrl(track.dropboxUrl);
+                audioElement.src = directUrl;
+                audioElement.crossOrigin = 'anonymous';
+            } else if (track.localBlob) {
+                audioElement.src = track.localBlob;
+            }
+            document.getElementById('playerBar').classList.add('active');
+            document.getElementById('playerTitle').textContent = track.title;
+            document.getElementById('playerArtist').textContent = `${track.genre} &middot; ${track.bpm || '--'} BPM`;
+            document.getElementById('duration').textContent = track.duration || '0:00';
+            isPlaying = true;
+            updatePlayButton();
+            renderTracks();
+            const playPromise = audioElement.play();
+            if (playPromise !== undefined) {
+                playPromise.catch(err => {
+                    console.error('Playback error:', err);
+                    showToast('Could not play audio. The Dropbox link may need to be public.', 'error');
+                    isPlaying = false;
+                    updatePlayButton();
+                });
+            }
+        }
+
+        function togglePlay() {
+            if (!currentTrack || !audioElement) return;
+            if (isPlaying) {
+                audioElement.pause();
+                isPlaying = false;
+            } else {
+                const playPromise = audioElement.play();
+                if (playPromise !== undefined) {
+                    playPromise.catch(err => {
+                        console.error('Playback error:', err);
+                        showToast('Playback error. Try refreshing.', 'error');
+                    });
+                }
+                isPlaying = true;
+            }
+            updatePlayButton();
+            renderTracks();
+        }
+
+        function updatePlayButton() {
+            const btn = document.getElementById('playPauseBtn');
+            if (btn) {
+                btn.innerHTML = isPlaying ? '<i class="bx bx-pause"></i>' : '<i class="bx bx-play"></i>';
+            }
+        }
+
+        function updateTimeline() {
+            if (!currentTrack || !audioElement) return;
+            const pct = audioElement.duration ? (audioElement.currentTime / audioElement.duration) * 100 : 0;
+            document.getElementById('timelineFill').style.width = pct + '%';
+            document.getElementById('currentTime').textContent = formatTime(audioElement.currentTime);
+        }
+
+        function formatTime(sec) {
+            if (isNaN(sec)) return '0:00';
+            const m = Math.floor(sec / 60);
+            const s = Math.floor(sec % 60);
+            return `${m}:${s.toString().padStart(2, '0')}`;
+        }
+
+        function seek(event) {
+            if (!currentTrack || !audioElement || !audioElement.duration) return;
+            const rect = event.currentTarget.getBoundingClientRect();
+            const pct = (event.clientX - rect.left) / rect.width;
+            audioElement.currentTime = pct * audioElement.duration;
+            updateTimeline();
+            renderTracks();
+        }
+
+        function seekToBar(trackId, barIndex, event) {
+            event.stopPropagation();
+            const track = tracks.find(t => t.id === trackId);
+            if (!track) return;
+            if (currentTrack?.id !== trackId) {
+                playTrack(trackId);
+                return;
+            }
+            if (audioElement && audioElement.duration) {
+                audioElement.currentTime = (barIndex / track.waveform.length) * audioElement.duration;
+                updateTimeline();
+                renderTracks();
+            }
+        }
+
+        function prevTrack() {
+            if (!currentTrack) return;
+            const idx = tracks.findIndex(t => t.id === currentTrack.id);
+            const prev = tracks[idx - 1] || tracks[tracks.length - 1];
+            playTrack(prev.id);
+        }
+
+        function nextTrack() {
+            if (!currentTrack) return;
+            const idx = tracks.findIndex(t => t.id === currentTrack.id);
+            const next = tracks[idx + 1] || tracks[0];
+            playTrack(next.id);
+        }
+
+        function setVolume(event) {
+            const rect = event.currentTarget.getBoundingClientRect();
+            const pct = (event.clientX - rect.left) / rect.width;
+            document.getElementById('volumeFill').style.width = (pct * 100) + '%';
+            if (audioElement) audioElement.volume = pct;
+        }
+
+        function toggleMute() {
+            if (!audioElement) return;
+            audioElement.muted = !audioElement.muted;
+            const icon = document.getElementById('volumeIcon');
+            icon.className = audioElement.muted ? 'bx bx-volume-mute' : 'bx bx-volume-full';
+        }
+
+        // ===== LIKES =====
+        function toggleLike(id, event) {
+            event.stopPropagation();
+            const track = tracks.find(t => t.id === id);
+            if (track) {
+                track.liked = !track.liked;
+                track.likes += track.liked ? 1 : -1;
+                saveTracks();
+                renderTracks();
+                showToast(track.liked ? 'Added to favorites' : 'Removed from favorites', 'success');
+            }
+        }
+
+        // ===== DELETE =====
+        function deleteTrack(id, event) {
+            event.stopPropagation();
+            if (confirm('Delete this track?')) {
+                tracks = tracks.filter(t => t.id !== id);
+                if (currentTrack?.id === id) {
+                    if (audioElement) {
+                        audioElement.pause();
+                        audioElement.src = '';
+                    }
+                    currentTrack = null;
+                    isPlaying = false;
+                    document.getElementById('playerBar').classList.remove('active');
+                }
+                saveTracks();
+                renderTracks();
+                showToast('Track deleted', 'success');
+            }
+        }
+
+        // ===== DOWNLOAD =====
+        function downloadTrack(id, event) {
+            event.stopPropagation();
+            const track = tracks.find(t => t.id === id);
+            if (track?.dropboxUrl) {
+                const directUrl = convertDropboxUrl(track.dropboxUrl);
+                window.open(directUrl, '_blank');
+            } else {
+                showToast('Download started', 'success');
+            }
+        }
+
+        // ===== UPLOAD MODAL =====
+        function openUpload() {
+            document.getElementById('uploadModal').classList.add('active');
+            document.getElementById('uploadForm').style.display = 'none';
+            document.getElementById('dropZone').style.display = 'block';
+            document.querySelector('.dropbox-link-section').style.display = 'block';
+            document.getElementById('dropboxUrl').value = '';
+            uploadedFile = null;
+            pendingDropboxUrl = null;
+        }
+
+        function closeUpload() {
+            document.getElementById('uploadModal').classList.remove('active');
+        }
+
+        // Drag & Drop
+        const dropZone = document.getElementById('dropZone');
+        dropZone.addEventListener('dragover', (e) => { e.preventDefault(); dropZone.classList.add('dragover'); });
+        dropZone.addEventListener('dragleave', () => dropZone.classList.remove('dragover'));
+        dropZone.addEventListener('drop', (e) => {
+            e.preventDefault();
+            dropZone.classList.remove('dragover');
+            if (e.dataTransfer.files.length > 0) handleFile(e.dataTransfer.files[0]);
+        });
+
+        function handleFileSelect(event) {
+            const file = event.target.files[0];
+            if (file) handleFile(file);
+        }
+
+        function handleFile(file) {
+            const validTypes = ['audio/mpeg', 'audio/wav', 'audio/wave', 'audio/x-wav', 'audio/ogg', 'video/mp4'];
+            const validExts = ['.mp3', '.wav', '.mp4', '.ogg'];
+            const ext = '.' + file.name.split('.').pop().toLowerCase();
+            if (!validTypes.includes(file.type) && !validExts.includes(ext)) {
+                showToast('Invalid file type. Use MP3, WAV, MP4, or OGG.', 'error');
+                return;
+            }
+            uploadedFile = file;
+            pendingDropboxUrl = null;
+            document.getElementById('dropZone').style.display = 'none';
+            document.querySelector('.dropbox-link-section').style.display = 'none';
+            document.getElementById('uploadForm').style.display = 'block';
+            document.getElementById('trackTitle').value = file.name.replace(/\.[^/.]+$/, '');
+            document.getElementById('uploadProgress').style.display = 'block';
+            document.getElementById('uploadFileName').textContent = file.name;
+            let progress = 0;
+            const interval = setInterval(() => {
+                progress += Math.random() * 15;
+                if (progress >= 100) { progress = 100; clearInterval(interval); }
+                document.getElementById('progressFill').style.width = progress + '%';
+                document.getElementById('uploadPercent').textContent = Math.round(progress) + '%';
+            }, 200);
+        }
+
+        function submitUpload() {
+            const title = document.getElementById('trackTitle').value.trim();
+            if (!title) { showToast('Please enter a track title', 'error'); return; }
+            const genre = document.getElementById('trackGenre').value;
+            const type = document.getElementById('trackType').value;
+            const bpm = parseInt(document.getElementById('trackBpm').value) || 120;
+            const desc = document.getElementById('trackDesc').value;
+            const tags = document.getElementById('trackTags').value.split(',').map(t => t.trim()).filter(t => t);
+            const newTrack = {
+                id: Date.now(),
+                title,
+                artist: "You",
+                genre,
+                type,
+                bpm,
+                duration: "0:00",
+                durationSec: 0,
+                plays: 0,
+                likes: 0,
+                liked: false,
+                tags: tags.length > 0 ? tags : [genre, type],
+                description: desc,
+                date: new Date().toISOString(),
+                waveform: generateWaveformData(),
+                source: pendingDropboxUrl ? 'dropbox' : 'local'
+            };
+            if (pendingDropboxUrl) {
+                newTrack.dropboxUrl = pendingDropboxUrl;
+                newTrack.fileName = pendingDropboxUrl.split('/').pop().split('?')[0];
+                newTrack.durationSec = Math.floor(Math.random() * 120) + 15;
+                const mins = Math.floor(newTrack.durationSec / 60);
+                const secs = newTrack.durationSec % 60;
+                newTrack.duration = `${mins}:${secs.toString().padStart(2, '0')}`;
+            } else if (uploadedFile) {
+                newTrack.fileName = uploadedFile.name;
+                newTrack.fileSize = (uploadedFile.size / 1024 / 1024).toFixed(2) + ' MB';
+                newTrack.localBlob = URL.createObjectURL(uploadedFile);
+                newTrack.durationSec = Math.floor(Math.random() * 120) + 15;
+                const mins = Math.floor(newTrack.durationSec / 60);
+                const secs = newTrack.durationSec % 60;
+                newTrack.duration = `${mins}:${secs.toString().padStart(2, '0')}`;
+            }
+            tracks.unshift(newTrack);
+            saveTracks();
+            renderTracks();
+            closeUpload();
+            showToast(pendingDropboxUrl ? 'Dropbox track added!' : 'Track uploaded successfully!', 'success');
+            document.getElementById('trackTitle').value = '';
+            document.getElementById('trackBpm').value = '';
+            document.getElementById('trackDesc').value = '';
+            document.getElementById('trackTags').value = '';
+            document.getElementById('progressFill').style.width = '0%';
+            uploadedFile = null;
+            pendingDropboxUrl = null;
+        }
+
+        // ===== STORAGE =====
+        function saveTracks() {
+            const tracksToSave = tracks.map(t => {
+                const copy = { ...t };
+                delete copy.localBlob;
+                return copy;
+            });
+            localStorage.setItem('beatdrop_tracks', JSON.stringify(tracksToSave));
+        }
+
+        // ===== TOAST =====
+        function showToast(message, type = 'success') {
+            const container = document.getElementById('toastContainer');
+            const toast = document.createElement('div');
+            toast.className = `toast ${type}`;
+            toast.innerHTML = `<i class='bx ${type === 'success' ? 'bx-check-circle' : 'bx-error-circle'}'></i><span>${message}</span>`;
+            container.appendChild(toast);
+            setTimeout(() => toast.remove(), 3000);
+        }
+
+        // ===== FILTERS =====
+        document.querySelectorAll('.filter-tab').forEach(tab => {
+            tab.addEventListener('click', () => {
+                document.querySelectorAll('.filter-tab').forEach(t => t.classList.remove('active'));
+                tab.classList.add('active');
+                currentFilter = tab.dataset.filter;
+                renderTracks();
+            });
+        });
+
+        document.querySelectorAll('.genre-list li').forEach(item => {
+            item.addEventListener('click', () => {
+                document.querySelectorAll('.genre-list li').forEach(i => i.classList.remove('active'));
+                item.classList.add('active');
+                currentGenre = item.dataset.genre;
+                renderTracks();
+            });
+        });
+
+        document.getElementById('searchInput').addEventListener('input', renderTracks);
+
+        document.querySelectorAll('.tag').forEach(tag => {
+            tag.addEventListener('click', () => {
+                document.getElementById('searchInput').value = tag.textContent.replace('#', '');
+                renderTracks();
+            });
+        });
+
+        // ===== KEYBOARD SHORTCUTS =====
+        document.addEventListener('keydown', (e) => {
+            if (e.code === 'Space' && e.target.tagName !== 'INPUT' && e.target.tagName !== 'TEXTAREA') {
+                e.preventDefault();
+                togglePlay();
+            }
+            if (e.code === 'Escape') closeUpload();
+        });
+
+        // ===== INIT =====
+        renderTracks();
+    </script>
+</body>
+</html>
