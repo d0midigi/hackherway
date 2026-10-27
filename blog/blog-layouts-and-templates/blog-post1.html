@@ -1,0 +1,433 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>hackherway</title>
+  <style>
+    :root {
+      --hot-pink: #ff1493;
+      --pink: #ff7abf;
+      --muted-pink: #f5b6d2;
+      --black: #09090b;
+      --dark: #16161a;
+      --grey: #8f8f99;
+      --light: #fff7fb;
+      --white: #ffffff;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: Inter, system-ui, sans-serif;
+      background: linear-gradient(135deg, #fff, #ffe3f2);
+      color: var(--black);
+    }
+
+    header {
+      height: 72px;
+      background: var(--black);
+      color: var(--white);
+      display: flex;
+      align-items: center;
+      padding: 0 24px;
+      border-bottom: 3px solid var(--hot-pink);
+      position: sticky;
+      top: 0;
+      z-index: 10;
+    }
+
+    .logo {
+      font-family: "Courier New", monospace;
+      color: var(--hot-pink);
+      font-size: 1.4rem;
+      font-weight: bold;
+      letter-spacing: 2px;
+    }
+
+    .layout {
+      display: grid;
+      grid-template-columns: 260px 1fr 260px;
+      gap: 24px;
+      max-width: 1500px;
+      margin: 0 auto;
+      padding: 24px;
+    }
+
+    aside {
+      background: rgba(255,255,255,0.85);
+      border: 1px solid var(--muted-pink);
+      border-radius: 18px;
+      padding: 18px;
+      height: fit-content;
+      position: sticky;
+      top: 96px;
+      box-shadow: 0 10px 30px rgba(255, 20, 147, 0.12);
+    }
+
+    main {
+      background: var(--white);
+      border-radius: 24px;
+      padding: 32px;
+      border: 1px solid var(--muted-pink);
+      box-shadow: 0 16px 40px rgba(0,0,0,0.08);
+    }
+
+    h1 {
+      font-size: clamp(2rem, 5vw, 4rem);
+      margin: 0;
+    }
+
+    h2 {
+      margin-top: 40px;
+    }
+
+    .hero {
+      padding: 36px;
+      background: linear-gradient(135deg, var(--black), #3a1028);
+      color: white;
+      border-radius: 24px;
+    }
+
+    .hero span {
+      color: var(--hot-pink);
+    }
+
+    .accordion-item {
+      border-bottom: 1px solid #ffd1e8;
+    }
+
+    .accordion-btn {
+      width: 100%;
+      background: none;
+      border: none;
+      padding: 14px 0;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-weight: 700;
+      cursor: pointer;
+      color: var(--black);
+    }
+
+    .accordion-content {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.3s ease;
+      color: var(--grey);
+      font-size: 0.95rem;
+    }
+
+    .accordion-content a,
+    .accordion-content p {
+      display: block;
+      margin: 0 0 12px;
+      color: #555;
+      text-decoration: none;
+    }
+
+    .accordion-item.active .accordion-content {
+      max-height: 200px;
+    }
+
+    .accordion-item.active .caret {
+      transform: rotate(90deg);
+    }
+
+    .caret {
+      transition: transform 0.25s ease;
+      color: var(--hot-pink);
+    }
+
+    .code-box {
+      background: #101014;
+      color: #ffaad6;
+      border-radius: 16px;
+      padding: 20px;
+      overflow-x: auto;
+      border: 1px solid var(--hot-pink);
+      font-family: "Courier New", monospace;
+    }
+
+    .blog-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 18px;
+      margin-top: 20px;
+    }
+
+    .blog-card {
+      background: #fff7fb;
+      border: 1px solid var(--muted-pink);
+      border-radius: 18px;
+      padding: 20px;
+      transition: 0.25s;
+    }
+
+    .blog-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 12px 25px rgba(255,20,147,0.2);
+    }
+
+    .blog-card a {
+      color: var(--hot-pink);
+      font-weight: bold;
+      text-decoration: none;
+    }
+
+    .tag {
+      display: inline-block;
+      background: var(--black);
+      color: var(--pink);
+      padding: 5px 10px;
+      border-radius: 999px;
+      font-size: 0.75rem;
+      margin-bottom: 10px;
+    }
+
+    footer {
+      text-align: center;
+      padding: 40px;
+      color: var(--grey);
+    }
+
+    .blog-post {
+      display: none;
+    }
+
+    .blog-post.active,
+    .home.active {
+      display: block;
+    }
+
+    .home.hidden {
+      display: none;
+    }
+
+    .back-link {
+      color: var(--hot-pink);
+      cursor: pointer;
+      font-weight: bold;
+    }
+
+    @media (max-width: 1000px) {
+      .layout {
+        grid-template-columns: 1fr;
+      }
+
+      aside {
+        position: static;
+      }
+
+      .blog-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <header>
+    <div class="logo" id="logo">decrypting...</div>
+  </header>
+
+  <div class="layout">
+    <aside>
+      <h3>Docs Menu</h3>
+
+      <div class="accordion-item">
+        <button class="accordion-btn">Getting Started <span class="caret">›</span></button>
+        <div class="accordion-content">
+          <a href="#">Install Notes</a>
+          <a href="#">Theme Setup</a>
+          <a href="#">Writing Flow</a>
+        </div>
+      </div>
+
+      <div class="accordion-item">
+        <button class="accordion-btn">Components <span class="caret">›</span></button>
+        <div class="accordion-content">
+          <a href="#">Accordions</a>
+          <a href="#">Code Blocks</a>
+          <a href="#">Blog Cards</a>
+        </div>
+      </div>
+
+      <div class="accordion-item">
+        <button class="accordion-btn">Resources <span class="caret">›</span></button>
+        <div class="accordion-content">
+          <a href="#">Guides</a>
+          <a href="#">Templates</a>
+          <a href="#">Updates</a>
+        </div>
+      </div>
+    </aside>
+
+    <main>
+      <section class="home active" id="home">
+        <div class="hero">
+          <h1>Welcome to <span>hackherway</span></h1>
+          <p>A dramatic personal blog for notes, code, tutorials, ideas, and digital experiments.</p>
+        </div>
+
+        <h2>Code Snippet</h2>
+        <pre class="code-box"><code>function hackHerWay() {
+  const voice = "bold";
+  const path = "creative";
+  return `Write your own ${path} code.`;
+}</code></pre>
+
+        <h2>FAQ</h2>
+
+        <div class="accordion-item">
+          <button class="accordion-btn">What is this blog about? <span class="caret">›</span></button>
+          <div class="accordion-content">
+            <p>Personal essays, technical notes, creative coding, and digital self-expression.</p>
+          </div>
+        </div>
+
+        <div class="accordion-item">
+          <button class="accordion-btn">Can I share tutorials here? <span class="caret">›</span></button>
+          <div class="accordion-content">
+            <p>Yes. This layout is ideal for walkthroughs, snippets, documentation, and blog posts.</p>
+          </div>
+        </div>
+
+        <h2>Latest Posts</h2>
+        <div class="blog-grid">
+          <div class="blog-card">
+            <span class="tag">Code</span>
+            <h3>Decrypting Your First Blog</h3>
+            <p>A starter post about building a bold writing space.</p>
+            <a onclick="showPost()">Read post →</a>
+          </div>
+
+          <div class="blog-card"><span class="tag">Design</span><h3>Pink Terminal Energy</h3><p>How color creates attitude online.</p><a href="#">Read more →</a></div>
+          <div class="blog-card"><span class="tag">CSS</span><h3>Grid Layout Notes</h3><p>Stacked layouts for blog collections.</p><a href="#">Read more →</a></div>
+          <div class="blog-card"><span class="tag">JS</span><h3>Accordion Logic</h3><p>Simple toggles for clean navigation.</p><a href="#">Read more →</a></div>
+          <div class="blog-card"><span class="tag">Writing</span><h3>Digital Journaling</h3><p>Turning notes into useful pages.</p><a href="#">Read more →</a></div>
+          <div class="blog-card"><span class="tag">UI</span><h3>Sidebars That Work</h3><p>Organizing complex content simply.</p><a href="#">Read more →</a></div>
+          <div class="blog-card"><span class="tag">HTML</span><h3>Semantic Structure</h3><p>Better markup for better reading.</p><a href="#">Read more →</a></div>
+          <div class="blog-card"><span class="tag">Mood</span><h3>Dramatic Web Styling</h3><p>Black, white, grey, and hot pink.</p><a href="#">Read more →</a></div>
+          <div class="blog-card"><span class="tag">Notes</span><h3>Build in Public</h3><p>Documenting the process as you go.</p><a href="#">Read more →</a></div>
+        </div>
+      </section>
+
+      <section class="blog-post" id="post">
+        <p class="back-link" onclick="showHome()">← Back to homepage</p>
+
+        <div class="hero">
+          <h1>Decrypting Your First Blog</h1>
+          <p>Published in Code · 5 min read</p>
+        </div>
+
+        <h2>The idea</h2>
+        <p>
+          A personal blog can feel like a command center: part journal, part documentation hub,
+          part creative archive.
+        </p>
+
+        <h2>Example snippet</h2>
+        <pre class="code-box"><code>const blog = {
+  name: "hackherway",
+  mood: "dramatic",
+  color: "hot pink"
+};</code></pre>
+
+        <h2>Final thoughts</h2>
+        <p>
+          Build your space like it belongs to you. Make it readable, expressive, and useful.
+        </p>
+      </section>
+    </main>
+
+    <aside>
+      <h3>Categories</h3>
+
+      <div class="accordion-item">
+        <button class="accordion-btn">Topics <span class="caret">›</span></button>
+        <div class="accordion-content">
+          <a href="#">Code</a>
+          <a href="#">Design</a>
+          <a href="#">Writing</a>
+        </div>
+      </div>
+
+      <div class="accordion-item">
+        <button class="accordion-btn">Archives <span class="caret">›</span></button>
+        <div class="accordion-content">
+          <a href="#">June 2026</a>
+          <a href="#">May 2026</a>
+          <a href="#">April 2026</a>
+        </div>
+      </div>
+
+      <div class="accordion-item">
+        <button class="accordion-btn">Extras <span class="caret">›</span></button>
+        <div class="accordion-content">
+          <a href="#">Newsletter</a>
+          <a href="#">Resources</a>
+          <a href="#">Contact</a>
+        </div>
+      </div>
+    </aside>
+  </div>
+
+  <footer>
+    © 2026 hackherway · coded with hot pink energy
+  </footer>
+
+  <script>
+    const buttons = document.querySelectorAll(".accordion-btn");
+
+    buttons.forEach(button => {
+      button.addEventListener("click", () => {
+        button.parentElement.classList.toggle("active");
+      });
+    });
+
+    function showPost() {
+      document.getElementById("home").classList.remove("active");
+      document.getElementById("home").classList.add("hidden");
+      document.getElementById("post").classList.add("active");
+      window.scrollTo(0, 0);
+    }
+
+    function showHome() {
+      document.getElementById("post").classList.remove("active");
+      document.getElementById("home").classList.remove("hidden");
+      document.getElementById("home").classList.add("active");
+      window.scrollTo(0, 0);
+    }
+
+    const finalText = "hackherway";
+    const chars = "!<>-_\\/[]{}—=+*^?#________";
+    const logo = document.getElementById("logo");
+    let frame = 0;
+
+    function decryptLogo() {
+      const output = finalText
+        .split("")
+        .map((letter, index) => {
+          if (index < frame) return finalText[index];
+          return chars[Math.floor(Math.random() * chars.length)];
+        })
+        .join("");
+
+      logo.textContent = output;
+
+      if (frame <= finalText.length) {
+        frame += 0.25;
+        requestAnimationFrame(decryptLogo);
+      } else {
+        logo.textContent = finalText;
+      }
+    }
+
+    decryptLogo();
+  </script>
+</body>
+</html>
