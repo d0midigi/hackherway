@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<title>Blog Post Card</title>
+	<link rel="stylesheet" href="./style.css">
+	<style>
+	body {
+		background-color: #E4E6EB;
+	}
+
+	body::-webkit-scrollbar {
+		display: none;
+	}
+
+	.main {
+		margin-bottom: 50px;
+	}
+
+	.card {
+		width: 525px;
+		height: 250px;
+		background: rgb(255, 255, 255);
+		background: linear-gradient(90deg, rgba(255, 255, 255, 1) 0%, rgba(242, 245, 248, 1) 35%, rgba(236, 236, 237, 1) 100%);
+		box-shadow: 0 13px 15px rgba(0, 0, 0, 0.3);
+		border-radius: 10px;
+		margin-left: 5%;
+		margin-top: 30px;
+		transition: background-color .5s, box-shadow .5s, margin-left .5s;
+	}
+
+	.card:hover {
+		margin-left: 8%;
+		background-color: #ffff;
+		box-shadow: 0 30px 30px rgba(0, 0, 0, 0.3);
+		transition: background-color .5s, box-shadow .5s, margin-left .5s;
+	}
+
+	.post-image {
+		width: 200px;
+		height: 220px;
+		margin-top: 15px;
+		margin-left: 15px;
+		border-radius: 10px 10px 10px;
+		float: left;
+	}
+
+	.post-content {
+		width: 55%;
+		height: 250px;
+		float: left;
+		margin-left: 5px;
+		overflow: hidden;
+	}
+
+	a:link {
+		font-size: 28px;
+		font-family: 'Roboto', sans-serif;
+		color: #3B3C3F;
+		text-decoration: none;
+	}
+
+	.post-header {
+		font-size: 28px;
+		font-family: 'Roboto', sans-serif;
+		margin-top: 15px;
+		color: #3B3C3F;
+		margin-left: 10px;
+		text-align: center;
+	}
+
+	.post-text {
+		font-size: 15px;
+		padding-left: 20px;
+		color: #768CA4;
+		font-family: 'Roboto', sans-serif;
+	}
+
+	.author {
+		widt: 100%;
+		height: 60px;
+		background-color: #F2F5F8;
+		margin-left: 20px;
+		margin-top: 5px;
+		border-radius: 10px;
+	}
+
+	.author-content {
+		width: 60%;
+		height: 60px;
+		margin-left: 10px;
+		float: left;
+	}
+
+	.author-image {
+		width: 50px;
+		height: 50px;
+		border-radius: 100%;
+		float: left;
+		margin-left: 10px;
+		margin-top: 5px;
+	}
+
+	.author-name {
+		font-size: 20px;
+		color: #3B3C3F;
+		font-family: 'Roboto', sans-serif;
+		font-weight: bold;
+		margin-top: 10px;
+		padding-left: 10px;
+	}
+
+	.date {
+		font-size: 13px;
+		font-family: 'Roboto', sans-serif;
+		margin-top: -15px;
+		padding-left: 10px;
+	}
+	</style>
+</head>
+
+<body>
+	<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap" rel="stylesheet">
+	<div class="main">
+		<div class="card">
+			<div class="post">
+				<img class="post-image" src="https://images.unsplash.com/photo-1513506003901-1e6a229e2d15?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1050&q=80" />
+				<div class="post-content">
+					<p class="post-header"> <a href="#">Lorem Ipsum</a> </p>
+					<p class="post-text"> Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolore, sunt asperiores quaerat doloremque commodi facere dolor. Velit pariatur, enim veniam! </p>
+					<div class="author">
+						<img src="https://assets.codepen.io/2642098/internal/avatars/users/default.png?format=auto&height=80&version=1543776877&width=80" alt="" class="author-image">
+						<div class="author-content">
+							<p class="author-name">Özgür Kurucan</p>
+							<p class="date">Jun 20, 2020</p>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="card">
+			<div class="post">
+				<img style="float:right; margin-right: 15px;" class="post-image" src="https://images.unsplash.com/photo-1574103188526-4faaa363a358?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=334&q=80" />
+				<div class="post-content">
+					<p class="post-header"> <a href="#">Lorem Ipsum</a> </p>
+					<p class="post-text"> Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolore, sunt asperiores quaerat doloremque commodi facere dolor. Velit pariatur, enim veniam! </p>
+					<div class="author">
+						<img src="https://assets.codepen.io/2642098/internal/avatars/users/default.png?format=auto&height=80&version=1543776877&width=80" alt="" class="author-image">
+						<div class="author-content">
+							<p class="author-name">Özgür Kurucan</p>
+							<p class="date">Jun 20, 2020</p>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="card">
+			<div class="post">
+				<img class="post-image" src="https://images.unsplash.com/photo-1558435186-d31d126391fa?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=675&q=80" />
+				<div class="post-content">
+					<p class="post-header"> <a href="#"> Lorem Ipsum</a> </p>
+					<p class="post-text"> Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolore, sunt asperiores quaerat doloremque commodi facere dolor. Velit pariatur, enim veniam! </p>
+					<div class="author">
+						<img src="https://assets.codepen.io/2642098/internal/avatars/users/default.png?format=auto&height=80&version=1543776877&width=80" alt="" class="author-image">
+						<div class="author-content">
+							<p class="author-name">Özgür Kurucan</p>
+							<p class="date">Jun 20, 2020</p>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+
+</html>
