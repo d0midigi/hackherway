@@ -1,3 +1,99 @@
+<style>
+* { box-sizing: border-box; }
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background-color: #f4f7f6;
+  color: #333;
+  margin: 0;
+  padding: 20px;
+  line-height: 1.6;
+}
+.glossary-wrapper {
+  max-width: 900px;
+  margin: 0 auto;
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+  border: 1px solid #c8d6e5;
+  overflow: hidden;
+}
+.header {
+  background: #0b3d91;
+  color: white;
+  padding: 30px 20px;
+  text-align: center;
+}
+.header h1 { margin: 0 0 10px 0; font-size: 2.2em; }
+.header p { margin: 0; font-size: 1.1em; color: #eafaf1; }
+
+.search-container {
+  padding: 25px;
+  background: #e8f6f3;
+  border-bottom: 2px solid #27ae60;
+  text-align: center;
+}
+#searchInput {
+  width: 100%;
+  max-width: 600px;
+  padding: 15px 20px;
+  font-size: 1.2em;
+  border: 2px solid #c8d6e5;
+  border-radius: 30px;
+  outline: none;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+}
+#searchInput:focus {
+  border-color: #27ae60;
+  box-shadow: 0 4px 8px rgba(39, 174, 96, 0.2);
+}
+.result-count {
+  margin-top: 10px;
+  font-size: 0.95em;
+  color: #2c3e50;
+  font-weight: bold;
+}
+
+.glossary-list {
+  padding: 25px;
+  max-height: 600px;
+  overflow-y: auto;
+}
+.term-card {
+  background: #fdfdfd;
+  border: 1px solid #e0e0e0;
+  border-left: 5px solid #0b3d91;
+  padding: 15px 20px;
+  margin-bottom: 15px;
+  border-radius: 6px;
+  transition: transform 0.2s;
+}
+.term-card:hover {
+  transform: translateX(5px);
+  box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+}
+.term-title {
+  color: #0b3d91;
+  font-size: 1.25em;
+  font-weight: bold;
+  margin: 0 0 8px 0;
+}
+.term-def {
+  margin: 0;
+  color: #444;
+  font-size: 1.05em;
+}
+.no-results {
+  text-align: center;
+  color: #c0392b;
+  font-size: 1.2em;
+  font-weight: bold;
+  padding: 30px;
+}
+
+  
+</style>
+
 <div class="glossary-wrapper">
   <div class="header">
     <h1>APES Master Vocabulary Glossary</h1>
@@ -12,3 +108,745 @@
   <div class="glossary-list" id="glossaryList">
     </div>
 </div>
+<script>
+// MASTER GLOSSARY DATA ARRAY
+// Add terms using the format { t: "Term", d: "Definition" }
+const masterGlossary = [
+// --- STUDYING THE STATE OF OUR EARTH ---
+  { t: "abiotic", d: "nonliving" },
+  { t: "accuracy", d: "how close a measured value is to the actual or true value" },
+  { t: "anthropogenic", d: "derived from human activities" },
+  { t: "background extinction rate", d: "the average rate at which species become extinct over the long term" },
+  { t: "biodiversity", d: "the diversity of life forms in an environment" },
+  { t: "biophilia", d: "love of life" },
+  { t: "biotic", d: "living" },
+  { t: "control group", d: "in a scientific investigation, a group that experiences exactly the same conditions as the experimental group, except for the single variable under study" },
+  { t: "development", d: "improvement in human well-being through economic advancement" },
+  { t: "ecological footprint", d: "a measure of how much an individual consumes, expressed in area of land" },
+  { t: "ecosystem", d: "a particular location on Earth with interacting biotic and abiotic components" },
+  { t: "ecosystem services", d: "the processes by which life-supporting resources such as clean water, timber, fisheries, and agricultural crops are produced" },
+  { t: "environment", d: "the sum of all the conditions surrounding us that influence life" },
+  { t: "environmental indicator", d: "an indicator that describes the current state of an environmental system" },
+  { t: "environmental science", d: "the field of study that looks at interactions among human systems and those found in nature" },
+  { t: "environmental studies", d: "the field of study that includes environmental science and additional subjects such as environmental policy, economics, literature, and ethics" },
+  { t: "environmentalist", d: "a person who participates in environmentalism, a social movement that seeks to protect the environment through lobbying, activism, and education" },
+  { t: "fracking", d: "hydraulic fracturing, a method of oil and gas extraction that uses high-pressure fluids to force open cracks in rocks deep underground" },
+  { t: "genetic diversity", d: "a measure of the genetic variation among individuals in a population" },
+  { t: "greenhouse gases", d: "gases in Earth’s atmosphere that trap heat near the surface" },
+  { t: "hypothesis", d: "a testable conjecture about how something works" },
+  { t: "natural experiment", d: "a natural event that acts as an experimental treatment in an ecosystem" },
+  { t: "null hypothesis", d: "a prediction that there is no difference between groups or conditions, or a statement or an idea that can be falsified, or proved wrong" },
+  { t: "precision", d: "how close the repeated measurements of a sample are to one another" },
+  { t: "replication", d: "the data collection procedure of taking repeated measurements" },
+  { t: "sample size", d: "the number of times a measurement is replicated in data collection" },
+  { t: "scientific method", d: "an objective method to explore the natural world, draw inferences from it, and predict the outcome of certain events, processes, or changes" },
+  { t: "speciation", d: "the evolution of new species" },
+  { t: "species", d: "a group of organisms that is distinct from other groups in its morphology, behavior, or biochemical properties" },
+  { t: "species diversity", d: "the number of species in a region or in a particular type of habitat" },
+  { t: "sustainability", d: "living on Earth in a way that allows humans to use its resources without depriving future generations of those resources" },
+  { t: "sustainable development", d: "development that balances current human well-being and economic advancement with resource management for the benefit of future generations" },
+  { t: "theory", d: "a hypothesis that has been repeatedly tested and confirmed by multiple groups of researchers and has reached wide acceptance" },
+  { t: "uncertainty", d: "an estimate of how much a measured or calculated value differs from a true value" },
+
+  // --- ENVIRONMENTAL SYSTEMS ---
+  { t: "acid", d: "a substance that contributes hydrogen ions to a solution" },
+  { t: "atom", d: "the smallest particle that can contain the chemical properties of an element" },
+  { t: "atomic number", d: "the number of protons in the nucleus of a particular element" },
+  { t: "base", d: "a substance that contributes hydroxide ions to a solution" },
+  { t: "capillary action", d: "a property of water that occurs when adhesion of water molecules to a surface is stronger than cohesion between the molecules" },
+  { t: "carbohydrate", d: "a compound composed of carbon, hydrogen, and oxygen atoms" },
+  { t: "cell", d: "a highly organized living entity that consists of the four types of macromolecules and other substances in a watery solution, surrounded by a membrane" },
+  { t: "chemical energy", d: "potential energy stored in chemical bonds" },
+  { t: "chemical reaction", d: "a reaction that occurs when atoms separate from molecules or recombine with other molecules" },
+  { t: "closed system", d: "a system in which matter and energy exchanges do not occur across boundaries" },
+  { t: "compound", d: "a molecule containing more than one element" },
+  { t: "covalent bond", d: "the bond formed when elements share electrons" },
+  { t: "DNA", d: "a nucleic acid, the genetic material that contains the code for reproducing the components of the next generation, and which organisms pass on to their offspring" },
+  { t: "electromagnetic radiation", d: "a form of energy emitted by the Sun that includes, but is not limited to, visible light, ultraviolet light, and infrared energy" },
+  { t: "element", d: "a substance composed of atoms that cannot be broken down into smaller, simpler components" },
+  { t: "energy", d: "the ability to do work or transfer heat" },
+  { t: "energy efficiency", d: "the ratio of the amount of energy expended in the form you want to the total amount of energy that is introduced into the system" },
+  { t: "energy quality", d: "the ease with which an energy source can be used for work" },
+  { t: "entropy", d: "randomness in a system" },
+  { t: "first law of thermodynamics", d: "a physical law which states that energy can neither be created nor destroyed but can change from one form to another" },
+  { t: "half-life", d: "the time it takes for one-half of an original radioactive parent atom to decay" },
+  { t: "hydrogen bond", d: "a weak chemical bond that forms when hydrogen atoms that are covalently bonded to one atom are attracted to another atom on another molecule" },
+  { t: "inorganic compound", d: "a compound that does not contain the element carbon or contains carbon bound to elements other than hydrogen" },
+  { t: "input", d: "an addition to a system" },
+  { t: "ionic bond", d: "a chemical bond between two ions of opposite charges" },
+  { t: "isotopes", d: "atoms of the same element with different numbers of neutrons" },
+  { t: "joule", d: "the amount of energy used when a 1-watt electrical device is turned on for 1 second" },
+  { t: "kinetic energy", d: "the energy of motion" },
+  { t: "law of conservation of matter", d: "a law of nature stating that matter cannot be created or destroyed; it can only change form" },
+  { t: "lipid", d: "a smaller organic biological molecule that does not mix with water" },
+  { t: "mass", d: "a measurement of the amount of matter an object contains" },
+  { t: "mass number", d: "a measurement of the total number of protons and neutrons in an element" },
+  { t: "matter", d: "anything that occupies space and has mass" },
+  { t: "molecule", d: "a particle that contains more than one atom" },
+  { t: "negative feedback loop", d: "a feedback loop in which a system responds to a change by returning to its original state, or by decreasing the rate at which the change is occurring" },
+  { t: "nucleic acid", d: "organic compounds found in all living cells" },
+  { t: "open system", d: "a system in which exchanges of matter or energy occur across system boundaries" },
+  { t: "organic compound", d: "a compound that contains carbon-carbon and carbon-hydrogen bonds" },
+  { t: "output", d: "a loss from a system" },
+  { t: "periodic table", d: "a chart of all chemical elements currently known, organized by their properties" },
+  { t: "pH", d: "a measure of the acidity or alkalinity of a solution" },
+  { t: "photon", d: "a massless packet of energy that carries electromagnetic radiation at the speed of light" },
+  { t: "polar molecule", d: "a molecule in which one side is more positive and the other side is more negative" },
+  { t: "positive feedback loop", d: "a feedback loop in which change in a system is amplified" },
+  { t: "potential energy", d: "stored energy that has not been released" },
+  { t: "power", d: "the rate at which work is done" },
+  { t: "protein", d: "a critical component of living organisms made up of a long chain of nitrogen-containing organic molecules known as amino acids" },
+  { t: "radioactive decay", d: "the spontaneous release of material from the nucleus of radioactive isotopes" },
+  { t: "RNA", d: "a nucleic acid that translates the code stored in DNA, which makes possible the synthesis of proteins" },
+  { t: "second law of thermodynamics", d: "the physical law stating that when energy is transformed, the quantity of energy remains the same, but its ability to do work diminishes" },
+  { t: "steady state", d: "a state in which inputs equal outputs, so that the system is not changing over time" },
+  { t: "surface tension", d: "a property of water that results from the cohesion of water molecules at the surface of a body of water and that creates a sort of skin on the water’s surface" },
+  { t: "systems analysis", d: "an analysis to determine inputs, outputs, and changes in a system under various conditions" },
+  { t: "temperature", d: "the measure of the average kinetic energy of a substance" },
+
+  // --- ECOSYSTEM ECOLOGY ---
+  { t: "aerobic respiration", d: "the process by which cells convert glucose and oxygen into energy, carbon dioxide, and water" },
+  { t: "algal bloom", d: "a rapid increase in the algal population of a waterway" },
+  { t: "ammonification", d: "the process by which fungal and bacterial decomposers break down the organic nitrogen found in dead bodies and waste products and convert it into inorganic ammonium" },
+  { t: "anaerobic respiration", d: "the process by which cells convert glucose into energy in the absence of oxygen" },
+  { t: "assimilation", d: "the process by which producers incorporate elements into their tissues" },
+  { t: "autotroph", d: "an organism that uses the energy of the Sun to produce usable forms of energy; also known as a producer" },
+  { t: "biogeochemical cycle", d: "the movements of matter within and between ecosystems" },
+  { t: "biomass", d: "the total mass of all living matter in a specific area" },
+  { t: "biosphere", d: "the region of our planet where life resides, the combination of all ecosystems on Earth" },
+  { t: "carbon cycle", d: "the movement of carbon around the biosphere" },
+  { t: "carnivore", d: "a consumer that eats other consumers" },
+  { t: "cellular respiration", d: "the process by which cells unlock the energy of chemical compounds" },
+  { t: "consumer", d: "an organism that is incapable of photosynthesis and must obtain its energy by consuming other organisms; also known as an heterotroph" },
+  { t: "decomposer", d: "fungi or bacteria that converts organic matter into small elements and molecules that can be recycled back into the ecosystem" },
+  { t: "denitrification", d: "the conversion of nitrate in a series of steps into the gases nitrous oxide and, eventually, nitrogen gas" },
+  { t: "detritivore", d: "an animal that obtains nutrients by consuming detritus" },
+  { t: "disturbance", d: "an event, caused by physical, chemical, or biological agents, resulting in changes in population size or community composition" },
+  { t: "ecological efficiency", d: "the proportion of consumed energy that can be passed from one tropic level to another" },
+  { t: "evapotranspiration", d: "the combined amount of evaporation and transpiration" },
+  { t: "food chain", d: "the sequence of consumption from producers through tertiary consumers" },
+  { t: "food web", d: "a complex model of how energy and matter move between trophic levels" },
+  { t: "gross primary productivity (GPP)", d: "the total amount of solar energy that producers in an ecosystem capture via photosynthesis over a given amount of time" },
+  { t: "herbivore", d: "a consumer that eats producers; also known as a primary consumer" },
+  { t: "heterotroph", d: "an organism that is incapable of photosynthesis and must obtain its energy by consuming other organisms; also known as a consumer" },
+  { t: "hydrologic cycle", d: "the movement of water through the biosphere" },
+  { t: "hypoxic", d: "low in oxygen" },
+  { t: "intermediate disturbance hypothesis", d: "the hypothesis that ecosystems experiencing intermediate levels of disturbance are more diverse than those with high or low disturbance levels" },
+  { t: "leaching", d: "the transportation of dissolved molecules through the soil via groundwater" },
+  { t: "limiting nutrient", d: "a nutrient required for the growth of an organism but available in a lower quantity than other nutrients" },
+  { t: "macronutrient", d: "one of six key elements that organisms need in relatively large amounts: nitrogen, phosphorus, potassium, calcium, magnesium, and sulfur" },
+  { t: "mineralization", d: "the process by which fungal and bacterial decomposers break down the organic matter found in dead bodies and waste products and convert it into inorganic compounds" },
+  { t: "net primary productivity (NPP)", d: "the energy captured by producers in an ecosystem minus the energy producers respire" },
+  { t: "nitrification", d: "the conversion of ammonia into nitrite and then into nitrate" },
+  { t: "nitrogen cycle", d: "the movement of nitrogen around the biosphere" },
+  { t: "nitrogen fixation", d: "a process by which some organisms can convert nitrogen gas molecules directly into ammonia" },
+  { t: "phosphorus cycle", d: "the movement of phosphorous around the biosphere" },
+  { t: "photosynthesis", d: "the process by which producers use solar energy to convert carbon dioxide and water into glucose" },
+  { t: "primary consumer", d: "a consumer that eats producers; also known as an herbivore" },
+  { t: "producer", d: "an organism that uses the energy of the Sun to produce usable forms of energy; also known as an autotroph" },
+  { t: "resilience", d: "the rate at which an ecosystem returns to its original state after a disturbance" },
+  { t: "resistance", d: "a measure of how much a disturbance can affect flows of energy and matter in an ecosystem" },
+  { t: "restoration ecology", d: "the study and implementation of restoring damaged ecosystems" },
+  { t: "runoff", d: "water that moves across the land surface and into streams and rivers" },
+  { t: "scavenger", d: "an organism that consumes dead animals" },
+  { t: "secondary consumer", d: "a carnivore that eats primary consumers" },
+  { t: "standing crop", d: "the amount of biomass present in an ecosystem at a particular time" },
+  { t: "sulfur cycle", d: "the movement of sulfur around the biosphere" },
+  { t: "tertiary consumer", d: "a carnivore that eats secondary consumers" },
+  { t: "transpiration", d: "the release of water from leaves during photosynthesis" },
+  { t: "trophic levels", d: "the successive levels of organisms consuming one another" },
+  { t: "trophic pyramid", d: "a representation of the distribution of biomass, numbers, or energy among trophic levels" },
+  { t: "watershed", d: "all land in a given landscape that drains into a particular stream, river, lake, or wetland" },
+
+  // --- GLOBAL CLIMATES AND BIOMES ---
+  { t: "adiabatic cooling", d: "the cooling effect of reduced pressure on air as it rises higher in the atmosphere and expands" },
+  { t: "adiabatic heating", d: "the heating effect of increased pressure on air as it sinks toward the surface of Earth and decreases in volume" },
+  { t: "albedo", d: "the percentage of incoming sunlight reflected from a surface" },
+  { t: "aphotic zone", d: "the deeper layer of ocean water that lacks sufficient sunlight for photosynthesis" },
+  { t: "aquatic biome", d: "an aquatic region characterized by a particular combination of salinity, depth, and water flow" },
+  { t: "atmospheric convection current", d: "global patterns of air movement that are initiated by the unequal heating of Earth" },
+  { t: "benthic zone", d: "the muddy bottom of a lake, pond, or ocean" },
+  { t: "boreal forest", d: "a forest biome made up primarily of coniferous evergreen trees that can tolerate cold winters and short growing seasons" },
+  { t: "chemosynthesis", d: "a process used by some bacteria in the ocean to generate energy with methane and hydrogen sulfide" },
+  { t: "climate", d: "the average weather that occurs in a given region over a long period of time" },
+  { t: "coral bleaching", d: "a phenomenon in which algae inside corals die, causing the corals to turn white" },
+  { t: "coral reef", d: "the most diverse marine biome on Earth, found in warm, shallow waters beyond the shoreline" },
+  { t: "Coriolis effect", d: "the deflection of an object’s path due to the rotation of Earth" },
+  { t: "El Nino-Southern Oscillation (ENSO)", d: "a reversal of wind and water currents in the South Pacific" },
+  { t: "eutrophic", d: "describes a lake with a high level of productivity" },
+  { t: "Ferrell cell", d: "a convection current in the atmosphere that lies between Hadley cells and polar cells" },
+  { t: "freshwater wetland", d: "an aquatic biome that is submerged or saturated by water for at least part of each year, but shallow enough to support emergent vegetation" },
+  { t: "gyre", d: "a large-scale pattern of water circulation that moves clockwise in the Northern Hemisphere and counterclockwise in the Southern Hemisphere" },
+  { t: "Hadley cell", d: "a convection current in the atmosphere that cycles between the equator and 30°N and 30°S" },
+  { t: "intertidal zone", d: "the narrow band of coastline between the levels of high tide and low tide" },
+  { t: "Intertropical Convergence Zone (ITCZ)", d: "the latitude that receives the most intense sunlight, which causes the ascending branches of the two Hadley cells to converge" },
+  { t: "latent heat release", d: "the release of energy when water vapor in the atmosphere condenses into liquid water" },
+  { t: "limnetic zone", d: "a zone of open water in lakes and ponds" },
+  { t: "littoral zone", d: "the shallow zone of soil and water in lakes and ponds where most algae and emergent plants grow" },
+  { t: "mangrove swamp", d: "a swamp that occurs along tropical and subtropical coasts and contains salt-tolerant trees with roots submerged in water" },
+  { t: "mesotrophic", d: "describes a lake with a moderate level of productivity" },
+  { t: "oligotrophic", d: "describes a lake with a low level of productivity" },
+  { t: "open ocean", d: "deep ocean water located away from the shoreline where sunlight can no longer reach the ocean bottom" },
+  { t: "permafrost", d: "an impermeable, permanently frozen layer of soil" },
+  { t: "photic zone", d: "the upper layer of ocean water in the ocean that receives enough sunlight for photosynthesis" },
+  { t: "phytoplankton", d: "floating algae" },
+  { t: "polar cell", d: "a convection current in the atmosphere, formed by air that rises at 60°N and 60°S and sinks at the poles, 90°N and 90°S" },
+  { t: "profundal zone", d: "a region of water below the limnetic zone in very deep lakes where sunlight does not reach" },
+  { t: "rain shadow", d: "a region with dry conditions found on the leeward side of a mountain range as a result of humid winds from the ocean causing precipitation on the windward side" },
+  { t: "salt marsh", d: "a marsh containing non-woody emergent vegetation, found along the coast in temperate climates" },
+  { t: "saturation point", d: "the maximum amount of water vapor in the air at a given temperature" },
+  { t: "stratosphere", d: "the layer of the atmosphere above the troposphere, extending roughly 16 to 50 km above the surface of Earth" },
+  { t: "subtropical desert", d: "a biome prevailing at approximately 30°N and 30°S, with hot temperatures, extremely dry conditions, and sparse vegetation" },
+  { t: "temperate grassland/cold desert", d: "biome characterized by cold, harsh winters and hot, dry summers" },
+  { t: "temperate rainforest", d: "a coastal biome typified by moderate temperatures and high precipitation" },
+  { t: "temperate seasonal forest", d: "a biome with warm summers and cold winters with over 1 m of precipitation annually" },
+  { t: "terrestrial biome", d: "a geographic region categorized by a particular combination of average annual temperature, annual precipitation, and distinctive plant growth forms on land" },
+  { t: "thermohaline circulation", d: "an oceanic circulation pattern that drives the mixing of surface water and deep water" },
+  { t: "tropical rainforest", d: "a warm and wet biome found between 20°N and 20°S of the equator with little seasonal temperature variation and high precipitation" },
+  { t: "tropical seasonal forest/savanna", d: "a biome marked by warm temperatures and distinct wet and dry seasons" },
+  { t: "troposphere", d: "a layer of the atmosphere closest to the surface of Earth, extending up to approximately 16 km" },
+  { t: "tundra", d: "a cold and treeless biome with low-growing vegetation" },
+  { t: "upwelling", d: "the upward movement of ocean water toward the surface as a result of diverging currents" },
+  { t: "weather", d: "the short-term conditions of the atmosphere in a local area which include temperature, humidity, clouds, precipitation, and wind speed" },
+  { t: "woodland/shrubland", d: "a biome characterized by hot, dry summers and mild, rainy winters" },
+
+  // --- EVOLUTION ---
+  { t: "adaptation", d: "a trait that improves an individual’s fitness" },
+  { t: "allopatric speciation", d: "the process of speciation that occurs with geographic isolation" },
+  { t: "bottleneck effect", d: "a reduction in the genetic diversity of a population caused by a reduction in its size" },
+  { t: "distribution", d: "areas of the world in which a species lives" },
+  { t: "evolution", d: "a change in the genetic composition of a population over time" },
+  { t: "evolution by artificial selection", d: "the process in which humans determine which individuals breed, typically with a preconceived set of traits in mind" },
+  { t: "evolution by natural selection", d: "the process in which the environment determines which individuals survive and reproduce" },
+  { t: "extinction", d: "the death of the last member of a species" },
+  { t: "fitness", d: "an individual’s ability to survive and reproduce" },
+  { t: "founder effect", d: "a change in the genetic composition of a population as a result of descending from a small number of colonizing individuals" },
+  { t: "fundamental niche", d: "the suite of abiotic conditions under which a species can survive, grow, and reproduce" },
+  { t: "gene", d: "a physical location on the chromosomes within each cell of an organism" },
+  { t: "gene flow", d: "the process by which individuals move from one population to another and thereby alter the genetic composition of both populations" },
+  { t: "genetic drift", d: "a change in the genetic composition of a population over time as a result of random mating" },
+  { t: "genetically modified organism (GMO)", d: "an organism produced by copying genes from a species with a desirable trait and inserting them into another species" },
+  { t: "genotype", d: "the complete set of genes in an individual" },
+  { t: "geographic isolation", d: "physical separation of a group of individuals from others of the same species" },
+  { t: "macroevolution", d: "evolution that gives rise to new species, genera, families, classes, or phyla" },
+  { t: "mass extinction", d: "a large extinction of species in a relatively short period of time" },
+  { t: "microevolution", d: "evolution below the species level" },
+  { t: "mutation", d: "a random change in the genetic code produced by a mistake in the copying process" },
+  { t: "niche generalist", d: "a species that can live under a wide range of abiotic or biotic conditions" },
+  { t: "niche specialist", d: "a species that is specialized to live in a specific habitat or to feed on a small group of species" },
+  { t: "phenotype", d: "a set of traits expressed by an individual" },
+  { t: "phylogeny", d: "the branching pattern of evolutionary relationships" },
+  { t: "range of tolerance", d: "the limits to the abiotic conditions that a species can tolerate" },
+  { t: "realized niche", d: "the range of abiotic and biotic conditions under which a species actually lives" },
+  { t: "recombination", d: "the genetic process by which one chromosome breaks off and attaches to another chromosome during reproductive cell division" },
+  { t: "reproductive isolation", d: "the result of two populations within a species evolving separately to the point that they can no longer interbreed and produce viable offspring" },
+  { t: "species evenness", d: "the relative proportion of individuals within the different species in a given area" },
+  { t: "species richness", d: "the number of species in a given area" },
+  { t: "sympatric speciation", d: "the evolution of one species into two without geographic isolation" },
+// --- POPULATION AND COMMUNITY ECOLOGY ---
+  { t: "age structure", d: "a description of how many individuals fit into particular age categories in a population" },
+  { t: "carrying capacity (K)", d: "the limit of how many individuals in a population the environment can sustain" },
+  { t: "commensalism", d: "a relationship between species in which one species benefits and the other species is neither harmed nor helped" },
+  { t: "community", d: "all of the populations of organisms within a given area" },
+  { t: "community ecology", d: "the study of interactions between species" },
+  { t: "competition", d: "the struggle of individuals to obtain a shared limiting resource" },
+  { t: "competitive exclusion principle", d: "the principle stating that two species competing for the same limiting resource cannot coexist" },
+  { t: "corridor", d: "strips of natural habitat that connect populations" },
+  { t: "density-dependent factor", d: "a factor that influences an individual’s probability of survival and reproduction in a manner that depends on the size of the population" },
+  { t: "density-independent factor", d: "a factor that has the same effect on an individual’s probability of survival and the amount of reproduction at any population size" },
+  { t: "die-off", d: "a rapid decline in a population due to death" },
+  { t: "ecological succession", d: "the predictable replacement of one group of species by another group of species over time" },
+  { t: "ecosystem engineer", d: "a keystone species that creates or maintains habitat for other species" },
+  { t: "exponential growth model", d: "a growth model that estimates a population’s future size after a period of time, based on the intrinsic growth rate and the number of reproducing individuals" },
+  { t: "herbivory", d: "an interaction in which an animal consumes a producer" },
+  { t: "inbreeding depression", d: "when individuals with similar genotypes—typically relatives—breed with each other and produce offspring that have an impaired ability to survive and reproduce" },
+  { t: "intrinsic growth rate (r)", d: "the maximum potential for growth of a population under ideal conditions with unlimited resources" },
+  { t: "J-shaped curve", d: "the curve of the exponential growth model when graphed" },
+  { t: "K-selected species", d: "a species with a low intrinsic growth rate that causes the population to increase slowly until it reaches carrying capacity" },
+  { t: "keystone species", d: "a species that plays a far more important role in its community than its relative abundance might suggest" },
+  { t: "limiting resource", d: "a resource that a population cannot live without and that occurs in quantities lower than the population would require to increase in size" },
+  { t: "logistic growth model", d: "a growth model that describes a population whose growth is initially exponential, but slows as the population approaches the carrying capacity of the environment" },
+  { t: "metapopulation", d: "a group of spatially distinct populations that are connected by occasional movements of individuals between them" },
+  { t: "mutualism", d: "an interaction between two species that increases the chances of survival or reproduction for both species" },
+  { t: "overshoot", d: "when a population becomes larger than the environment’s carrying capacity" },
+  { t: "parasitism", d: "an interaction in which one organism lives on or in another organism" },
+  { t: "parasitoid", d: "a specialized type of predator that lays eggs inside other organisms—referred to as its host" },
+  { t: "pathogen", d: "parasite that causes disease in their host" },
+  { t: "pioneer species", d: "a species that can colonize new areas rapidly and grow well in full sunshine" },
+  { t: "population", d: "the individuals that belong to the same species and live in a given area at a particular time" },
+  { t: "population density", d: "the number of individuals per unit area at a given time" },
+  { t: "population distribution", d: "a description of how individuals are distributed with respect to one another" },
+  { t: "population ecology", d: "the study of factors that cause populations to increase or decrease" },
+  { t: "population growth model", d: "mathematical equations that can be used to predict population size at any moment in time" },
+  { t: "population growth rate", d: "the number of offspring an individual can produce in a given time period, minus the deaths of the individual or its offspring during the same period" },
+  { t: "population size (N)", d: "the total number of individuals within a defined area at a given time" },
+  { t: "predation", d: "an interaction in which one animal typically kills and consumes another animal" },
+  { t: "primary succession", d: "ecological succession occurring on surfaces that are initially devoid of soil" },
+  { t: "r-selected species", d: "a species that has a high intrinsic growth rate, which often leads to population overshoots and die-offs" },
+  { t: "resource partitioning", d: "when two species divide a resource based on differences in their behavior or morphology" },
+  { t: "S-shaped curve", d: "the shape of the logistic growth model when graphed" },
+  { t: "secondary succession", d: "the succession of plant life that occurs in areas that have been disturbed but have not lost their soil" },
+  { t: "sex ratio", d: "the ratio of males to females in a population" },
+  { t: "survivorship curve", d: "a graph that represents the distinct patterns of species survival as a function of age" },
+  { t: "symbiotic relationship", d: "the relationship between two species that live in close association with each other" },
+  { t: "theory of island biogeography", d: "a theory that demonstrates the dual importance of habitat size and distance in determining species richness" },
+  { t: "Type I survivorship curve", d: "a pattern of survival over time in which there is high survival throughout most of the life span, but then individuals start to die in large numbers as they approach old age" },
+  { t: "Type II survivorship curve", d: "a pattern of survival over time in which there is a relatively constant decline in survivorship throughout most of the life span" },
+
+  // --- THE HUMAN POPULATION ---
+  { t: "affluence", d: "the state of having plentiful wealth including the possession of money, goods, or property" },
+  { t: "age structure diagram", d: "a visual representation of the number of individuals within specific age groups for a country, typically expressed for males and females" },
+  { t: "child mortality", d: "the number of deaths of children under age 5 per 1,000 live births" },
+  { t: "crude birth rate (CBR)", d: "the number of births per 1,000 individuals per year" },
+  { t: "crude death rate (CDR)", d: "the number of deaths per 1,000 individuals per year" },
+  { t: "demographer", d: "a scientist in the field of demography who studies human populations and population trends" },
+  { t: "demography", d: "the study of human populations and population trends" },
+  { t: "developed country", d: "a country with relatively high levels of industrialization and income" },
+  { t: "developing country", d: "a country with relatively low levels of industrialization and income" },
+  { t: "doubling time", d: "the number of years it takes a population to double" },
+  { t: "emigration", d: "the movement of people out of a country or region" },
+  { t: "family planning", d: "the practice of regulating the number or spacing of offspring through the use of birth control" },
+  { t: "gross domestic product (GDP)", d: "a measure of the value of all products and services produced in one country in one year" },
+  { t: "immigration", d: "the movement of people into a country or region, from another country or region" },
+  { t: "infant mortality", d: "the number of deaths of children under 1 year of age per 1,000 live births" },
+  { t: "IPAT equation", d: "an equation used to estimate the impact of the human lifestyle on the environment; impact = population x affluence x technology" },
+  { t: "life expectancy", d: "the average number of years that an infant born in a particular year in a particular country can be expected to live" },
+  { t: "net migration rate", d: "the difference between immigration and emigration in a given year per 1,000 people in a country" },
+  { t: "population momentum", d: "continued population growth after growth reduction measures have been implemented" },
+  { t: "population pyramid", d: "an age structure diagram that is widest at the bottom and smallest at the top, typical of developing countries" },
+  { t: "replacement-level fertility", d: "the total fertility rate required to offset the average number of deaths in a population in order to maintain the current population size" },
+  { t: "theory of demographic transition", d: "the theory that as a country moves from a subsistence economy to industrialization and increased affluence, it undergoes a predictable shift in population growth" },
+  { t: "total fertility rate (TFR)", d: "an estimate of the average number of children that each woman in a population will bear throughout her childbearing years" },
+  { t: "urban area", d: "an area that contains more than 1,000 people per square mile" },
+
+  // --- EARTH SYSTEMS ---
+  { t: "A horizon", d: "frequently the top layer of soil, a zone of organic material and minerals that have been mixed together; also known as topsoil" },
+  { t: "acid precipitation / acid rain", d: "precipitation high in sulfuric acid and nitric acid from reactions between water vapor and sulfur and nitrogen oxides in the atmosphere" },
+  { t: "asthenosphere", d: "the layer of Earth located in the outer part of the mantle, composed of semi-molten rock" },
+  { t: "B horizon", d: "a soil horizon composed primarily of mineral material with very little organic matter" },
+  { t: "base saturation", d: "the proportion of soil bases to soil acids, expressed as a percentage" },
+  { t: "C horizon", d: "the least-weathered soil horizon which always occurs beneath the B horizon and is similar to the parent material" },
+  { t: "cation exchange capacity (CEC)", d: "the ability to absorb and release cations" },
+  { t: "chemical weathering", d: "the breakdown of rocks and minerals by chemical reactions, the dissolving of chemical elements from rocks, or both" },
+  { t: "convergent plate boundary", d: "an area where plates move toward one another and collide" },
+  { t: "core", d: "the innermost zone of Earth’s interior, composed mostly of iron and nickel" },
+  { t: "crust", d: "in geology, the chemically distinct outermost layer of the lithosphere" },
+  { t: "crustal abundance", d: "the average concentration of an element in Earth’s crust" },
+  { t: "divergent plate boundary", d: "an area beneath the ocean where tectonic plates move away from each other" },
+  { t: "E horizon", d: "a zone of leaching, or eluviation, found in some acidic soils under the O horizon or, less often, the A horizon" },
+  { t: "earthquake", d: "the sudden movement of Earth’s crust caused by a release of potential energy along a geologic fault" },
+  { t: "epicenter", d: "the exact point on the surface of Earth directly above the location where rock ruptures during an earthquake" },
+  { t: "erosion", d: "the physical removal of rock fragments from a landscape or ecosystem" },
+  { t: "extrusive igneous rock", d: "rock that forms when magma cools above the surface of Earth" },
+  { t: "fault", d: "a fracture in rock caused by a movement of Earth’s crust" },
+  { t: "fault zone", d: "a large expanse of rock where a fault has occurred" },
+  { t: "fracture", d: "in geology, a crack that occurs in rock as it cools" },
+  { t: "horizon", d: "a horizontal layer in a soil defined by distinctive physical features such as texture and color" },
+  { t: "hot spot", d: "in geology, a place where molten material from Earth’s mantle reaches the lithosphere" },
+  { t: "igneous rock", d: "rock formed directly from magma" },
+  { t: "intrusive igneous rock", d: "igneous rock that forms when magma rises up and cools in a place underground" },
+  { t: "lithosphere", d: "the outermost layer of Earth, including the mantle and crust" },
+  { t: "magma", d: "molten rock" },
+  { t: "mantle", d: "the layer of Earth above the core, containing magma" },
+  { t: "metal", d: "an element with properties that allow it to conduct electricity and heat energy, and to perform other important functions" },
+  { t: "metamorphic rock", d: "rock that forms when sedimentary rock, igneous rock, or other metamorphic rock is subjected to high temperature and pressure" },
+  { t: "mining spoils / tailings", d: "unwanted waste material created during mining" },
+  { t: "mountaintop removal", d: "a mining technique in which the entire top of a mountain is removed with explosives" },
+  { t: "O horizon", d: "the organic horizon at the surface of many soils, composed of organic detritus in various stages of decomposition" },
+  { t: "open-pit mining", d: "a mining technique that uses a large visible pit or hole in the ground" },
+  { t: "ore", d: "a concentrated accumulation of minerals from which economically valuable materials can be extracted" },
+  { t: "parent material", d: "the rock material from which the inorganic components of a soil are derived" },
+  { t: "physical weathering", d: "the mechanical breakdown of rocks and minerals" },
+  { t: "placer mining", d: "the process of looking for minerals, metals, and precious stones in river sediments" },
+  { t: "plate tectonics", d: "the theory that the lithosphere of Earth is divided into plates, most of which are in constant motion" },
+  { t: "reserve", d: "in resource management, the known quantity of a resource that can be economically recovered" },
+  { t: "Richter scale", d: "a scale that measures the largest ground movement that occurs during an earthquake" },
+  { t: "rock cycle", d: "the geologic cycle governing the constant formation, alteration, and destruction of rock material" },
+  { t: "seafloor spreading", d: "the formation of new ocean crust as a result of magma pushing upward and outward from Earth’s mantle to the surface" },
+  { t: "sedimentary rock", d: "rock that forms when sediments such as muds, sands, or gravels are compressed by overlying sediments" },
+  { t: "seismic activity", d: "the frequency and intensity of earthquakes experienced over time" },
+  { t: "soil degradation", d: "the loss of some or all of a soil’s ability to support plant growth" },
+  { t: "strip mining", d: "the removal of strips of soil and rock to expose ore" },
+  { t: "subduction", d: "the process of one crustal plate passing under another" },
+  { t: "subsurface mining", d: "mining techniques used when the desired resource is more than 100 m below the surface of Earth" },
+  { t: "tectonic cycle", d: "the sum of the processes that build up and break down the lithosphere" },
+  { t: "topsoil", d: "frequently the top layer of soil, a zone of organic material and minerals that have been mixed together" },
+  { t: "transform fault boundary", d: "an area where tectonic plates move sideways past each other" },
+  { t: "volcano", d: "a vent in the surface of Earth that emits ash, gases, or molten lava" },
+
+  // --- WATER RESOURCES ---
+  { t: "aqueduct", d: "a canal or ditch used to carry water from one location to another" },
+  { t: "aquifer", d: "a permeable layer of rock and sediment that contains groundwater" },
+  { t: "artesian well", d: "a well created by drilling a hole into a confined aquifer" },
+  { t: "cone of depression", d: "an area lacking groundwater due to rapid withdrawal by a well" },
+  { t: "confined aquifer", d: "an aquifer surrounded by a layer of impermeable rock or clay that impedes water flow" },
+  { t: "contaminated water", d: "wastewater from toilets, kitchen sinks, and dishwashers" },
+  { t: "dam", d: "a barrier that runs across a river or stream to control the flow of water" },
+  { t: "desalination / desalinization", d: "the process of removing the salt from salt water" },
+  { t: "dike", d: "a structure built to prevent ocean waters from flooding adjacent land" },
+  { t: "distillation", d: "a process of desalinization in which water is boiled and the resulting steam is captured and condensed to yield pure water" },
+  { t: "fish ladder", d: "a stair like structure that allows migrating fish to get around a dam" },
+  { t: "floodplain", d: "the land adjacent to a river" },
+  { t: "gray water", d: "wastewater from baths, showers, bathrooms, and washing machines" },
+  { t: "groundwater recharge", d: "a process by which water percolates through the soil and works its way into an aquifer" },
+  { t: "hydroponic agriculture", d: "the cultivation of plants in greenhouse conditions by immersing roots in a nutrient-rich solution" },
+  { t: "impermeable surface", d: "pavement or buildings that do not allow water penetration" },
+  { t: "levee", d: "an enlarged bank built up on each side of a river" },
+  { t: "reservoir", d: "the body of water created by damming a river or stream" },
+  { t: "reverse osmosis", d: "a process of desalination in which water is forced through a thin semipermeable membrane at high pressure" },
+  { t: "saltwater intrusion", d: "an infiltration of salt water in an area where groundwater pressure has been reduced from extensive drilling of wells" },
+  { t: "spring", d: "a natural source of water formed when water from an aquifer percolates up to the ground surface" },
+  { t: "unconfined aquifer", d: "an aquifer made of porous rock covered by soil out of which water can easily flow" },
+  { t: "water footprint", d: "the total daily per capita use of fresh water" },
+  { t: "water table", d: "the uppermost level at which the water in a given area fully saturates rock or soil" },
+
+  // --- LAND, PUBLIC AND PRIVATE ---
+  { t: "clear-cutting", d: "a method of harvesting trees that involves removing all or almost all of the trees within an area" },
+  { t: "ecologically sustainable forestry", d: "an approach to removing trees from forests in ways that do not unduly affect the viability of other trees" },
+  { t: "eminent domain", d: "a principle that grants government the power to acquire a property at fair market value even if the owner does not wish to sell it" },
+  { t: "Endangered Species Act", d: "a 1973 U.S. act designed to protect species from extinction" },
+  { t: "environmental impact statement (EIS)", d: "a document outlining the scope and purpose of a development project describing the environmental context, suggesting alternative approaches to the project, and analyzing the environmental impact of each alternative" },
+  { t: "environmental mitigation plan", d: "a plan that outlines how a developer will address concerns raised by a project’s impact on the environment" },
+  { t: "externality", d: "the cost or benefit of a good or service that is not included in the purchase price of that good or service" },
+  { t: "exurb", d: "an area similar to a suburb, but unconnected to any central city or densely populated area" },
+  { t: "forest", d: "land dominated by trees and other woody vegetation and sometimes used for commercial logging" },
+  { t: "Highway Trust Fund", d: "a U.S. federal fund that pays for the construction and maintenance of roads and highways" },
+  { t: "induced demand", d: "the phenomenon in which an increase in the supply of a good causes demand to grow" },
+  { t: "infill", d: "development that fills in vacant lots within existing communities" },
+  { t: "maximum sustainable yield (MSY)", d: "the maximum amount of a renewable resource that can be harvested without compromising the future availability of that resource" },
+  { t: "multi-use zoning", d: "a zoning classification that allows retail and high-density residential development to co-exist in the same area" },
+  { t: "multiple-use lands", d: "a U.S. classification used to designate lands that may be used for recreation, grazing, timber harvesting, and mineral extraction" },
+  { t: "National Environmental Policy Act (NEPA)", d: "a 1969 U.S. federal act that mandates an environmental assessment of all projects involving federal money or federal permits" },
+  { t: "national wilderness area", d: "an area set aside with the intent of preserving a large tract of intact ecosystem or a landscape" },
+  { t: "national wildlife refuge", d: "a federal public land managed for the primary purpose of protecting wildlife" },
+  { t: "prescribed burn", d: "a fire deliberately set under controlled conditions in order to reduce the accumulation of dead biomass on a forest floor" },
+  { t: "rangeland", d: "a dry open grassland" },
+  { t: "resource conservation ethic", d: "the belief that people should maximize use of resources based on the greatest good for everyone" },
+  { t: "selective cutting", d: "the method of harvesting trees that involves the removal of single trees or a relatively small number of trees from among many in a forest" },
+  { t: "sense of place", d: "the feeling that an area has a distinct and meaningful character" },
+  { t: "smart growth", d: "a set of principles for community planning that focuses on strategies to encourage the development of sustainable, healthy communities" },
+  { t: "stakeholder", d: "a person or organization with an interest in a particular place or issue" },
+  { t: "suburb", d: "an area surrounding a metropolitan center with a comparatively low population density" },
+  { t: "tragedy of the commons", d: "the tendency of a shared, limited resource to become depleted because people act from self-interest for short-term gain" },
+  { t: "transit-oriented development (TOD)", d: "development that attempts to focus dense residential and retail development around stops for public transportation, a component of smart growth" },
+  { t: "tree plantation", d: "a large area typically planted with a single rapidly growing tree species" },
+  { t: "urban blight", d: "the degradation of the built and social environments of the city that often accompanies and accelerates migration to the suburbs" },
+  { t: "urban growth boundary", d: "a restriction on development outside a designated area" },
+  { t: "urban sprawl", d: "urbanized areas that spread into rural areas, removing clear boundaries between the two" },
+  { t: "zoning", d: "a planning tool used to separate industry and business from residential neighborhoods" },
+
+  // --- FEEDING THE WORLD ---
+  { t: "agribusiness / industrial agriculture", d: "agriculture that applies the techniques of mechanization and standardization" },
+  { t: "agroforestry", d: "an agricultural technique in which trees and vegetables are intercropped" },
+  { t: "anemia", d: "a deficiency of iron" },
+  { t: "annual plant", d: "a plant that lives only one season" },
+  { t: "aquaculture", d: "farming aquatic organisms such as fish, shellfish, and seaweeds" },
+  { t: "broad-spectrum pesticide", d: "a pesticide that kills many different types of pest" },
+  { t: "bycatch", d: "the unintentional catch of nontarget species while fishing" },
+  { t: "concentrated animal feeding operation (CAFO)", d: "a large indoor or outdoor structure designed for maximum output" },
+  { t: "contour plowing", d: "an agricultural technique in which plowing and harvesting are done parallel to the topographic contours of the land" },
+  { t: "crop rotation", d: "an agricultural technique in which crop species in a field are rotated from season to season" },
+  { t: "desertification", d: "the transformation of arable, productive land to desert or unproductive land due to climate change or destructive land use" },
+  { t: "economies of scale", d: "the observation that average costs of production fall as output increases" },
+  { t: "energy subsidy", d: "the fossil fuel energy and human energy input per calorie of food produced" },
+  { t: "famine", d: "the condition in which food insecurity is so extreme that large numbers of deaths occur in a given area over a relatively short period" },
+  { t: "fishery", d: "a commercially harvestable population of fish within a particular ecological region" },
+  { t: "fishery collapse", d: "the decline of a fish population by 90 percent or more" },
+  { t: "food insecurity", d: "a condition in which people do not have adequate access to food" },
+  { t: "food security", d: "a condition in which people have access to sufficient, safe, and nutritious food that meets their dietary needs for an active and healthy life" },
+  { t: "Green Revolution", d: "a shift in agricultural practices in the 20th century that included new management techniques, mechanization, fertilization, irrigation, and improved crop varieties" },
+  { t: "herbicide", d: "a pesticide that targets plant species that compete with crops" },
+  { t: "individual transferable quota (ITQ)", d: "a fishery management program in which individual fishers are given a total allowable catch of fish in a season that they can either catch or sell" },
+  { t: "inorganic fertilizer / synthetic fertilizer", d: "fertilizer produced commercially, normally with the use of fossil fuels" },
+  { t: "insecticide", d: "a pesticide that targets species of insects and other invertebrates that consume crops" },
+  { t: "integrated pest management (IPM)", d: "an agricultural practice that uses a variety of techniques designed to minimize pesticide inputs" },
+  { t: "intercropping", d: "an agricultural method in which two or more crop species are planted in the same field at the same time to promote a synergistic interaction" },
+  { t: "malnourished", d: "having a diet that lacks the correct balance of proteins, carbohydrates, vitamins, and minerals" },
+  { t: "meat", d: "livestock or poultry consumed as food" },
+  { t: "monocropping", d: "an agricultural method that utilizes large plantings of a single species or variety" },
+  { t: "no-till agriculture", d: "an agricultural method in which farmers do not turn the soil between seasons as a means of reducing topsoil erosion" },
+  { t: "nomadic grazing", d: "the feeding of herds of animals by moving them to seasonally productive feeding grounds, often over long distances" },
+  { t: "nonpersistent pesticide", d: "a pesticide that breaks down rapidly, usually in weeks or months" },
+  { t: "organic agriculture", d: "production of crops without the use of synthetic pesticides or fertilizers" },
+  { t: "organic fertilizer", d: "fertilizer composed of organic matter from plants and animals" },
+  { t: "overnutrition", d: "ingestion of too many calories and a lack of balance of foods and nutrients" },
+  { t: "perennial plant", d: "a plant that lives for multiple years" },
+  { t: "persistent pesticide", d: "a pesticide that remains in the environment for a long time" },
+  { t: "pesticide resistance", d: "a trait possessed by certain individuals that are exposed to a pesticide and survive" },
+  { t: "pesticide treadmill", d: "a cycle of pesticide development, followed by pest resistance, followed by new pesticide development" },
+  { t: "pesticides", d: "a substance, either natural or synthetic, that kills or controls organisms that people consider pests" },
+  { t: "salinization", d: "a form of soil degradation that occurs when the small amount of salts in irrigation water becomes highly concentrated on the soil surface through evaporation" },
+  { t: "selective pesticide", d: "a pesticide that targets a narrow range of organisms" },
+  { t: "shifting agriculture", d: "an agricultural method in which land is cleared and used for a few years until the soil is depleted of nutrients" },
+  { t: "sustainable agriculture", d: "agriculture that fulfills the need for food and fiber while enhancing the quality of the soil, minimizing the use of nonrenewable resources, and allowing economic viability for the farmer" },
+  { t: "undernutrition", d: "the condition in which not enough calories are ingested to maintain health" },
+  { t: "waterlogging", d: "a form of soil degradation that occurs when soil remains under water for prolonged periods" },
+{ t: "watershed", d: "all land in a given landscape that drains into a particular stream, river, lake, or wetland" },
+  { t: "weather", d: "the short-term conditions of the atmosphere in a local area which include temperature, humidity, clouds, precipitation, and wind speed" },
+  { t: "well-being", d: "the status of being healthy, happy, and prosperous" },
+  { t: "West Nile virus", d: "a virus that lives in hundreds of species of birds and is transmitted among birds by mosquitoes" },
+  { t: "wind energy", d: "energy generated from the kinetic energy of moving air" },
+  { t: "wind turbine", d: "turbine that converts wind energy into electricity" },
+  { t: "woodland/shrubland", d: "a biome characterized by hot, dry summers and mild, rainy winters" },
+  { t: "World Bank", d: "a global institution that provides technical and financial assistance to developing countries with the objectives of reducing poverty and promoting growth, especially in the poorest countries" },
+  { t: "World Health Organization (WHO)", d: "a global institution dedicated to the improvement of human health by monitoring and assessing health trends and providing medical advice to countries" },
+  { t: "zoning", d: "a planning tool used to separate industry and business from residential neighborhoods" },
+  // --- NONRENEWABLE ENERGY RESOURCES ---
+  { t: "becquerel (Bq)", d: "unit that measures the rate at which a sample of radioactive material decays; 1 Bq = decay of 1 atom or nucleus per second" },
+  { t: "bitumen", d: "a degraded petroleum that forms when petroleum migrates to the surface of Earth and is modified by bacteria" },
+  { t: "capacity", d: "in reference to an electricity-generating plant, the maximum electrical output" },
+  { t: "capacity factor", d: "the fraction of time a power plant operates in a year" },
+  { t: "coal", d: "a solid fuel formed primarily from the remains of trees, ferns, and other plant materials preserved 280 million to 360 million years ago" },
+  { t: "combined cycle", d: "a power plant that uses both exhaust gases and steam turbines to generate electricity" },
+  { t: "combined heat and power", d: "the use of a fuel to generate electricity and produce heat; also known as cogeneration" },
+  { t: "commercial energy source", d: "an energy source that is bought and sold" },
+  { t: "control rod", d: "a cylindrical device inserted between the fuel rods in a nuclear reactor to absorb excess neutrons and slow or stop the fission reaction" },
+  { t: "crude oil", d: "liquid petroleum removed from the ground" },
+  { t: "CTL (coal to liquid)", d: "the process of converting solid coal into liquid fuel" },
+  { t: "curie", d: "a unit of measure for radiation; 1 curie = 37 billion decays per second" },
+  { t: "electrical grid", d: "a network of interconnected transmission lines that joins power plants together and links them with end users of electricity" },
+  { t: "energy carrier", d: "something that can move and deliver energy in a convenient, usable form to end users" },
+  { t: "energy intensity", d: "the energy use per unit of gross domestic product" },
+  { t: "fuel rod", d: "a cylindrical tube that encloses nuclear fuel within a nuclear reactor" },
+  { t: "nonrenewable energy resource", d: "an energy source with a finite supply, primarily the fossil fuels and nuclear fuels" },
+  { t: "nuclear fuel", d: "fuel derived from radioactive materials that give off energy" },
+  { t: "nuclear fusion", d: "a reaction that occurs when lighter nuclei are forced together to produce heavier nuclei" },
+  { t: "oil sands", d: "slow-flowing, viscous deposits of bitumen mixed with sand, water, and clay" },
+  { t: "petroleum", d: "a fossil fuel that occurs in underground deposits, composed of a liquid mixture of hydrocarbons, water, and sulfur" },
+  { t: "radioactive waste", d: "nuclear fuel that can no longer produce enough heat to be useful in a power plant but continues to emit radioactivity" },
+  { t: "subsistence energy source", d: "an energy source gathered by individuals for their own immediate needs" },
+  { t: "turbine", d: "a device with blades that can be turned by water, wind, steam, or exhaust gas from combustion that turns a generator in an electricity-producing plant" },
+
+  // --- ENERGY SUSTAINABILITY ---
+  { t: "carbon neutral", d: "an activity that does not change atmospheric CO2 concentrations" },
+  { t: "cellulosic ethanol", d: "an ethanol derived from cellulose, the cell wall materials in plants" },
+  { t: "electrolysis", d: "the application of an electric current to water molecules to split them into hydrogen and oxygen" },
+  { t: "energy conservation", d: "finding and implementing ways to use less energy" },
+  { t: "ethanol", d: "alcohol made by converting starches and sugars from plant material into alcohol and CO2" },
+  { t: "flex-fuel vehicle", d: "a vehicle that runs on either gasoline or a gasoline/ethanol mixture" },
+  { t: "fossil carbon", d: "carbon in fossil fuels" },
+  { t: "fuel cell", d: "an electrical-chemical device that converts fuel, such as hydrogen, into an electrical current" },
+  { t: "ground source heat pump", d: "a technology that transfers heat from the ground to a building" },
+  { t: "modern carbon", d: "carbon in biomass that was recently in the atmosphere" },
+  { t: "net removal", d: "the process of removing more than is replaced by growth, typically used when referring to carbon" },
+  { t: "nondepletable", d: "an energy source that cannot be used up" },
+  { t: "oxygenated fuel", d: "a fuel with oxygen as part of the molecule" },
+  { t: "peak demand", d: "the greatest quantity of energy used at any one time" },
+  { t: "potentially renewable", d: "an energy source that can be regenerated indefinitely as long as it is not overharvested" },
+  { t: "renewable", d: "in energy management, an energy source that is either potentially renewable or nondepletable" },
+  { t: "run-of-the-river", d: "hydroelectricity generation in which water is retained behind a low dam or no dam" },
+  { t: "siltation", d: "the accumulation of sediments, primarily silt, on the bottom of a reservoir" },
+  { t: "smart grid", d: "an efficient, self-regulating electricity distribution network that accepts any source of electricity and distributes it automatically to end users" },
+  { t: "thermal mass", d: "a property of a building material that allows it to maintain heat or cold" },
+  { t: "tidal energy", d: "energy that comes from the movement of water driven by the gravitational pull of the moon" },
+  { t: "tiered rate system", d: "a billing system used by some electric companies in which customers pay higher rates as their use goes up" },
+  { t: "water impoundment", d: "the storage of water in a reservoir behind a dam" },
+  { t: "wind turbine", d: "turbine that converts wind energy into electricity" },
+
+  // --- WATER POLLUTION ---
+  { t: "acid deposition", d: "acids deposited on Earth as rain and snow or as gases and particles that attach to the surfaces of plants, soil, and water" },
+  { t: "biochemical oxygen demand (BOD)", d: "the amount of oxygen a quantity of water uses over a period of time at specific temperatures" },
+  { t: "Clean Water Act", d: "legislation that supports the protection and propagation of fish, shellfish, and wildlife and recreation in and on the water by maintaining and restoring the chemical, physical, and biological properties of surface waters" },
+  { t: "eutrophication", d: "a phenomenon in which a body of water becomes rich in nutrients" },
+  { t: "fecal coliform bacteria", d: "a group of generally harmless microorganisms in human intestines that can serve as an indicator species for potentially harmful microorganisms associated with contaminated sewage" },
+  { t: "indicator species", d: "a species that indicates whether or not disease causing pathogens are likely to be present" },
+  { t: "leach field", d: "a component of a septic system, made up of underground pipes laid out below the surface of the ground" },
+  { t: "manure lagoon", d: "human-made pond lined with rubber built to handle large quantities of manure produced by livestock" },
+  { t: "maximum contaminant level (MCL)", d: "the standard for safe drinking water established by the EPA under the Safe Drinking Water Act" },
+  { t: "perchlorates", d: "a group of harmful chemicals used for rocket fuel" },
+  { t: "polychlorinated biphenyls (PCBs)", d: "a group of industrial compounds used to manufacture plastics and insulate electrical transformers, and responsible for many environmental problems" },
+  { t: "Safe Drinking Water Act", d: "legislation that sets the national standards for safe drinking water" },
+  { t: "septage", d: "a layer of fairly clear water found in the middle of a septic tank" },
+  { t: "septic system", d: "a relatively small and simple sewage treatment system, made up of a septic tank and a leach field, often used for homes in rural areas" },
+  { t: "septic tank", d: "a large container that receives wastewater from a house as part of a septic system" },
+  { t: "sludge", d: "solid waste material from wastewater" },
+  { t: "thermal pollution", d: "nonchemical water pollution that occurs when human activities cause a substantial change in the temperature of water" },
+  { t: "thermal shock", d: "a dramatic change in water temperature that can kill organisms" },
+  { t: "wastewater", d: "water produced by livestock operations and human activities, including human sewage from toilets and gray water from bathing and washing of clothes and dishes" },
+  { t: "water pollution", d: "the contamination of streams, rivers, lakes, oceans, or groundwater with substances produced through human activities" },
+
+  // --- AIR POLLUTION AND STRATOSPHERIC OZONE DEPLETION ---
+  { t: "air pollution", d: "the introduction of chemicals, particulate matter, or microorganisms into the atmosphere at concentrations high enough to harm plants, animals, and materials such as buildings, or to alter ecosystems" },
+  { t: "asbestos", d: "a long, thin, fibrous silicate mineral with insulating properties which can cause cancer when inhaled" },
+  { t: "brown smog", d: "smog that is dominated by oxidants such as ozone; also known as photochemical smog" },
+  { t: "gray smog", d: "smog dominated by sulfur dioxide and sulfate compounds; also known as sulfurous smog" },
+  { t: "haze", d: "reduced visibility" },
+  { t: "industrial smog", d: "smog dominated by sulfur dioxide and sulfate compounds; also known as sulfurous smog" },
+  { t: "inversion layer", d: "the layer of warm air that traps emissions in a thermal inversion" },
+  { t: "London-type smog", d: "smog dominated by sulfur dioxide and sulfate compounds; also known as sulfurous smog" },
+  { t: "Los Angeles-type smog", d: "smog that is dominated by oxidants such as ozone; also known as photochemical smog" },
+  { t: "particles / particulates", d: "solid or liquid particulars suspended in air; also known as particulate matter" },
+  { t: "particulate matter (PM)", d: "solid or liquid particulars suspended in air; also known as particulates, particles" },
+  { t: "photochemical oxidant", d: "a class of air pollutants formed as a result of sunlight acting on compounds such as nitrogen oxides" },
+  { t: "sick building syndrome", d: "a buildup of toxic pollutants in an airtight space, seen in newer buildings" },
+  { t: "smog", d: "a type of air pollution that is a mixture of oxidants and particulate matter" },
+
+  // --- WASTE GENERATION AND WASTE DISPOSAL ---
+  { t: "ash", d: "the residual nonorganic material that does not combust during incineration" },
+  { t: "bottom ash", d: "residue collected at the bottom of the combustion chamber in a furnace" },
+  { t: "brownfields", d: "contaminated industrial or commercial sites that may require environmental cleanup before they can be redeveloped or expanded" },
+  { t: "closed-loop recycling", d: "recycling a product into the same product" },
+  { t: "cradle-to-grave analysis", d: "a systems tool that looks at the materials used and released throughout the lifetime of a product—from the procurement of raw materials through their manufacture, use, and disposal; also known as life-cycle analysis" },
+  { t: "fly ash", d: "the residue collected from the chimney or exhaust pipe of a furnace" },
+  { t: "incineration", d: "the process of burning waste materials to reduce volume and mass, sometimes to generate electricity or heat" },
+  { t: "integrated waste management", d: "an approach to waste disposal that employs several waste reduction, management, and disposal strategies in order to reduce the environmental impact of MSW" },
+  { t: "open-loop recycling", d: "recycling one product into a different product" },
+  { t: "recycling", d: "the process by which materials destined to become municipal solid waste (MSW) are collected and converted into raw material that is then used to produce new objects" },
+  { t: "reduce", d: "to lower the amount of materials used by purchasing in bulk, buying items with less packaging, and switching to reusable instead of single-use items" },
+  { t: "reuse", d: "using a product or material that was intended to be discarded" },
+  { t: "siting", d: "the designation of a landfill location, typically through a regulatory process involving studies, written reports, and public hearings" },
+  { t: "source reduction", d: "an approach to waste management that seeks to cut waste by reducing the use of potential waste materials in the early stages of design and manufacture" },
+  { t: "the three rs", d: "a popular phrase promoting the idea of diverting materials from the waste stream by reducing, reusing, and recycling" },
+  { t: "tipping fee", d: "a fee charged for disposing of material in a landfill or incinerator" },
+  { t: "waste material", d: "outputs from a system that are not useful or consumed" },
+  { t: "waste stream", d: "the flow of solid waste that is recycled, incinerated, placed in a solid waste landfill, or disposed of in another way" },
+  { t: "waste-to-energy", d: "a system in which heat generated by incineration is used as an energy source rather than released into the atmosphere" },
+
+  // --- HUMAN HEALTH AND ENVIRONMENTAL RISKS ---
+  { t: "Acquired Immune Deficiency Syndrome (AIDS)", d: "an infectious disease caused by the human immunodeficiency virus (HIV)" },
+  { t: "acute disease", d: "a disease that rapidly impairs the functioning of an organism" },
+  { t: "acute study", d: "an experiment that exposes organisms to an environmental hazard for a short duration" },
+  { t: "allergen", d: "a chemical that causes allergic reactions" },
+  { t: "bird flu", d: "a type of flu caused by the H5N1 virus" },
+  { t: "chronic disease", d: "a disease that slowly impairs the functioning of an organism" },
+  { t: "chronic study", d: "an experiment that exposes organisms to an environmental hazard for a long duration" },
+  { t: "disease", d: "any impaired function of the body with a characteristic set of symptoms" },
+  { t: "Ebola hemorrhagic fever", d: "an infectious disease with high death rates, caused by the Ebola virus" },
+  { t: "ED50", d: "the effective dose of a chemical that causes 50 percent of the individuals in a dose-response study to display a harmful, but nonlethal, effect" },
+  { t: "emergent infectious disease", d: "an infectious disease that has not been previously described or has not been common for at least 20 years" },
+  { t: "environmental hazard", d: "anything in the environment that can potentially cause harm" },
+  { t: "epidemic", d: "a situation in which a pathogen causes a rapid increase in disease" },
+  { t: "Human Immunodeficiency Virus (HIV)", d: "a type of virus that causes Acquired Immune Deficiency Syndrome (AIDS)" },
+  { t: "infectious disease", d: "a disease caused by a pathogen" },
+  { t: "innocent-until-proven-guilty principle", d: "a principle based on the belief that a potential hazard should not be considered an actual hazard until the scientific data definitively demonstrate that it actually causes harm" },
+  { t: "mad cow disease", d: "a disease in which prions mutate into deadly pathogens and slowly damage a cow’s nervous system" },
+  { t: "malaria", d: "a fever caused by a protozoan parasite that invades the red blood cells; transmitted by mosquitoes in many tropical and subtropical regions" },
+  { t: "mutagen", d: "a type of carcinogen that causes damage to the genetic material of a cell" },
+  { t: "neurotoxin", d: "a chemical that disrupts the nervous systems of animals" },
+  { t: "pandemic", d: "an epidemic that occurs over a large geographic region" },
+  { t: "persistence", d: "the length of time a chemical remains in the environment" },
+  { t: "plague", d: "an infectious disease caused by a bacterium (Yersinia pestis) that is carried by fleas" },
+  { t: "prion", d: "a small, beneficial protein that occasionally mutates into a pathogen" },
+  { t: "prospective study", d: "a study that monitors people who might become exposed to harmful chemicals in the future" },
+  { t: "REACH", d: "a 2007 agreement among the nations of the European Union about regulation of chemicals; the acronym stands for registration, evaluation, authorization, and restriction of chemicals" },
+  { t: "retrospective study", d: "a study that monitors people who have been exposed to an environmental hazard at some time in the past" },
+  { t: "route of exposure", d: "the way in which an individual might come into contact with an environmental hazard" },
+  { t: "severe acute respiratory syndrome (SARS)", d: "a type of flu caused by a coronavirus" },
+  { t: "solubility", d: "how well a chemical dissolves in a liquid" },
+  { t: "Stockholm Convention", d: "a 2001 agreement among 127 nations concerning 12 chemicals to be banned, phased out, or reduced" },
+  { t: "sublethal effect", d: "the effect of an environmental hazard that is not lethal, but which may impair an organism’s behavior, physiology, or reproduction" },
+  { t: "swine flu", d: "a type of flu caused by the H1N1 virus" },
+  { t: "teratogen", d: "a chemical that interferes with the normal development of embryos or fetuses" },
+  { t: "tuberculosis", d: "a highly contagious disease caused by the bacterium Mycobacterium tuberculosis that primarily infects the lungs" },
+  { t: "West Nile virus", d: "a virus that lives in hundreds of species of birds and is transmitted among birds by mosquitoes" },
+
+  // --- BIODIVERSITY AND CONSERVATION BIOLOGY ---
+  { t: "biosphere reserve", d: "protected area consisting of zones that vary in the amount of permissible human impact" },
+  { t: "Convention on Biological Diversity", d: "an international treaty to help protect biodiversity" },
+  { t: "edge habitat", d: "habitat that occurs where two different communities come together, typically forming an abrupt transition, such as where a grassy field meets a forest" },
+  { t: "endangered species", d: "a species that is in danger of extinction within the foreseeable future throughout all or a significant portion of its range" },
+  { t: "exotic species", d: "a species living outside its historical range; also known as alien species" },
+  { t: "instrumental value", d: "worth as an instrument or a tool that can be used to accomplish a goal" },
+  { t: "intrinsic value", d: "value independent of any benefit to humans" },
+  { t: "Lacey Act", d: "a U.S. act that prohibits interstate shipping of all illegally harvested plants and animals" },
+  { t: "least concern species", d: "species that are widespread and abundant" },
+  { t: "Marine Mammal Protection Act", d: "a 1972 U.S. act to protect declining populations of marine mammals" },
+  { t: "native species", d: "species that live in their historical range, typically where they have lived for thousands or millions of years" },
+  { t: "near-threatened species", d: "species that are very likely to become threatened in the future" },
+  { t: "provision", d: "a good that humans can use directly" },
+  { t: "Red List", d: "a list of worldwide threatened species" },
+  { t: "threatened species (IUCN)", d: "according to the International Union for Conservation of Nature (ICUN), species that have a high risk of extinction in the future" },
+  { t: "threatened species (U.S.)", d: "according to U.S. legislation, any species that is likely to become an endangered species within the foreseeable future throughout all or a significant portion of its range" },
+
+  // --- GLOBAL CHANGE ---
+  { t: "global change", d: "change that occurs in the chemical, biological, and physical properties of the planet" },
+  { t: "global warming", d: "the warming of the oceans, land masses, and atmosphere of Earth" },
+  { t: "greenhouse warming potential", d: "an estimate of how much a molecule of any compound can contribute to global warming over a period of 100 years relative to a molecule of CO2" },
+  { t: "Kyoto Protocol", d: "an international agreement that sets a goal for global emissions of greenhouse gases from all industrialized countries to be reduced by 5.2 percent below their 1990 levels by 2012" },
+
+  // --- SUSTAINABILITY, ECONOMICS, AND EQUITY ---
+  { t: "anthropocentric worldview", d: "a worldview that focuses on human welfare and well-being" },
+  { t: "biocentric worldview", d: "a worldview that holds that humans are just one of many species on Earth, all of which have equal intrinsic value" },
+  { t: "carbon offsets", d: "methods of promoting global CO2 reduction that do not involve a direct reduction in the amount of CO2 actually emitted by a company" },
+  { t: "command-and-control approach", d: "a strategy for pollution control that involves regulations and enforcement mechanisms" },
+  { t: "Department of Energy (DOE)", d: "the U.S. organization that advances the energy and economic security of the United States" },
+  { t: "ecocentric worldview", d: "a worldview that places equal value on all living organisms and the ecosystems in which they live" },
+  { t: "ecological economics", d: "the study of economics as a component of ecological systems" },
+  { t: "economics", d: "the study of how humans allocate scarce resources in the production, distribution, and consumption of goods and services" },
+  { t: "environmental economics", d: "a subfield of economics that examines the costs and benefits of various policies and regulations that seek to regulate or limit air and water pollution and other causes of environmental degradation" },
+  { t: "environmental worldview", d: "a worldview that encompasses how one thinks the world works, how one views one’s role in the world, and what one believes to be proper environmental behavior" },
+  { t: "green tax", d: "a tax placed on environmentally harmful activities or emissions in an attempt to internalize some of the externalities that may be involved in the life cycle of those activities or products" },
+  { t: "human capital", d: "human knowledge and abilities" },
+  { t: "human development index (HDI)", d: "a measurement index that combines three basic measures of human status: life expectancy, knowledge, and education" },
+  { t: "human poverty index (HPI)", d: "a measurement index developed by the United Nations to investigate the proportion of a population suffering from deprivation in a country with a high HDI" },
+  { t: "incentive-based approach", d: "a strategy for pollution control that constructs financial and other incentives for lowering emissions based on profits and benefits" },
+  { t: "leapfrogging", d: "the phenomenon of less developed countries using new technology without first using precursor technology" },
+  { t: "manufactured capital", d: "all goods and services that humans produce" },
+  { t: "market failure", d: "when the economic system does not account for all costs" },
+  { t: "natural capital", d: "the resources of the planet, such as air, water, and minerals" },
+  { t: "Occupational Safety and Health Administration (OSHA)", d: "an agency of the U.S. Department of Labor, responsible for the enforcement of health and safety regulations" },
+  { t: "technology transfer", d: "the phenomenon of less developed countries adopting technological innovations developed in wealthy countries" },
+  { t: "United Nations (UN)", d: "a global institution dedicated to promoting dialogue among countries with the goal of maintaining world peace" },
+  { t: "United Nations Development Program (UNDP)", d: "an international program that works in 166 countries around the world to advocate change that will help people obtain a better life through development" },
+  { t: "United Nations Environment Program (UNEP)", d: "a program of the United Nations responsible for gathering environmental information, conducting research, and assessing environmental problems" },
+  { t: "valuation", d: "the practice of assigning monetary value to intangible benefits and natural capital" },
+  { t: "well-being", d: "the status of being healthy, happy, and prosperous" },
+  { t: "World Bank", d: "a global institution that provides technical and financial assistance to developing countries with the objectives of reducing poverty and promoting growth, especially in the poorest countries" },
+  { t: "World Health Organization (WHO)", d: "a global institution dedicated to the improvement of human health by monitoring and assessing health trends and providing medical advice to countries" }
+];
+
+// Sort the glossary alphabetically by term
+masterGlossary.sort((a, b) => a.t.localeCompare(b.t));
+
+const listContainer = document.getElementById('glossaryList');
+const countContainer = document.getElementById('resultCount');
+
+// Function to render the terms to the screen
+function renderGlossary(terms) {
+  listContainer.innerHTML = ''; // Clear current list
+  
+  if (terms.length === 0) {
+    listContainer.innerHTML = '<div class="no-results">No terms or definitions matched your search. Try another keyword!</div>';
+    countContainer.innerText = "0 results found";
+    return;
+  }
+
+  countContainer.innerText = `Showing ${terms.length} term(s)`;
+
+  terms.forEach(item => {
+    const card = document.createElement('div');
+    card.className = 'term-card';
+    
+    const title = document.createElement('h3');
+    title.className = 'term-title';
+    title.innerText = item.t;
+    
+    const def = document.createElement('p');
+    def.className = 'term-def';
+    def.innerText = item.d;
+    
+    card.appendChild(title);
+    card.appendChild(def);
+    listContainer.appendChild(card);
+  });
+}
+
+// Function to filter terms based on search input
+function filterGlossary() {
+  const query = document.getElementById('searchInput').value.toLowerCase();
+  
+  const filteredTerms = masterGlossary.filter(item => {
+    // Search checks BOTH the term name and the definition text!
+    return item.t.toLowerCase().includes(query) || item.d.toLowerCase().includes(query);
+  });
+  
+  renderGlossary(filteredTerms);
+}
+
+// Initial render of all terms on page load
+window.onload = () => {
+  renderGlossary(masterGlossary);
+};
+
+  
+</script>
