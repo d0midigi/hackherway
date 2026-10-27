@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>HackHerWay Dashboard</title>
+ <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;700&display=swap" rel="stylesheet" />
+
+<style>
+* {box-sizing: border-box} body {font-family: system-ui; margin: 0} p { font-size: 1.1rem; line-height: 150%; font-weight: 300; margin-top: 0; margin-bottom: 0; line-clamp: initial; -webkit-line-clamp: initial; transition-property: -webkit-line-clamp, line-clamp; transition-duration: 300; transition-timing-function: ease-out; overflow: hidden } .wrapper { display: flex; height: 100vh; justify-content: center; align-items: center; background: hsl(160, 50%, 90%); } .card { background: #fff; padding: 24px; border-radius: 13px; position: relative; max-width: 380px; margin: 0 12px; box-shadow: 0 10px 16px 0 hsl(160, 30%, 85%); & .img-wrap { padding-bottom: 85%; background-image: url("https://images.unsplash.com/photo-1630236189300-f882d24be40d?crop=entropy&cs=srgb&fm=jpg&ixid=MnwxNDU4OXwwfDF8cmFuZG9tfHx8fHx8fHx8MTYzMTY4MjU3NQ&ixlib=rb-1.2.1&q=85"); background-repeat: no-repeat; background-size: cover; background-position-y: 30%; margin-bottom: 1rem; border-radius: 5px; }; & button { background: none; border: none; padding: 0; margin-top: 12px; color: teal; transition: opacity .2s ease-out; cursor: pointer; }; & a { display: inline-block; font-size: 1.3rem; line-height: 1; text-decoration-line: none; font-weight: 700; text-transform: uppercase; letter-spacing: 3px; margin-bottom: 12px; color: inherit; transition: color .2s ease-out; &:hover { color: teal; } } } .clamp-two { display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: 2; overflow: hidden; }
+
+</style>
+</head>
+<body>
+
+<div class="wrapper"> <div class="card"> <div class="img-wrap"></div> <a href="#">Travel Log .22</a> <p class="text" data-config='{ "type": "text", "element": "div", "limit": 80, "more": "show more ↓", "less": "show less ↑"}'> Lorem ipsum dolor sit amet consect adipis elit. Sapiente ipsa est nulla dolorum cum modi, iste sit quia incidunt iusto suscipit totam nihil vero eaque nobis dignissimos repellat magni culpa! </p> <!--<button class="reveal">Show more</button>--> </div> <div class="card"> <div class="img-wrap"></div> <a href="#">Travel Log .22</a> <p class="text" data-config='{ "type": "text", "element": "div", "limit": 80, "more": "show more ↓", "less": "show less ↑"}'> Lorem ipsum dolor sit amet consect adipis elit. Sapiente ipsa est nulla dolorum cum modi, iste sit quia incidunt iusto suscipit totam nihil vero eaque nobis dignissimos repellat magni culpa! </p> <!--<button class="reveal">Show more</button>--> </div> </div> <script src="https://cdn.jsdelivr.net/gh/tomik23/show-more@master/docs/showMore.min.js"></script>
+
+<script>
+// const revealButtons = document.querySelectorAll(".reveal") // const revealButtonsArray = Array.from(revealButtons) // const revealButtonSibling = revealButtonsArray[0].previousElementSibling // revealButtonsArray.forEach( () => { // revealButtonsArray[0].addEventListener("click", () => { // if(revealButtonSibling.classList.contains("clamp-two")) { // revealButtonSibling.classList.remove("clamp-two"); // revealButtonsArray.textContent = "Show less" // } else { // revealButtonSibling.classList.add("clamp-two"); // revealButtonsArray.textContent = "Show more" // } // }) // }) new ShowMore('.text');
+</script>
+
+</body>
+</html>
