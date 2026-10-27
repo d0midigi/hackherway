@@ -1,0 +1,64 @@
+body {
+	/* Set "section" to 0 */
+	counter-reset: section;
+	padding: 0 5vmin;
+}
+
+h2 {
+	line-height: 1.3;
+	counter-reset: subsection;
+}
+
+section {
+	width: 100%;
+}
+
+.izq {
+	width: 50%;
+	float: left;
+}
+
+.der {
+	margin-top: 2em;
+}
+
+p,
+ol,
+pre {
+	-webkit-overflow-scrolling: touch;
+	font-weight: bold;
+	font-size: 0.98rem;
+	font-family: "Courier New", monospace;
+	tab-size: 12;
+	-o-tab-size: 12;
+	-moz-tab-size: 12;
+}
+
+ol li {
+	/* Set "subsection" to 0 */
+	counter-increment: section;
+}
+
+pre {
+	margin-left: 0;
+}
+
+ol ol {
+	margin: 0 0 1.5em -10px;
+}
+
+@media (max-width: 1050px) {
+	.izq {
+		width: 100%;
+	}
+	p {
+		font-size: 0.9rem;
+		word-spacing: -25%;
+	}
+}
+
+hr.shadow {
+	height: 10px;
+	border: 0;
+	box-shadow: 0 10px 10px -10px #808080 inset;
+}
