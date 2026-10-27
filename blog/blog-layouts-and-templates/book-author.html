@@ -1,0 +1,937 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BookForge — Authoring Workarea</title>
+<style>
+  :root{
+    --bg:#f7f7f8; --panel:#ffffff; --ink:#1f2328; --muted:#6b7280;
+    --line:#e3e5e8; --accent:#2563eb; --accent-soft:#eaf1fe;
+    --sidebar-w:320px; --toolbar-h:52px; --statusbar-h:30px;
+    --mono:"SF Mono",Menlo,Consolas,"Liberation Mono",monospace;
+  }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  html,body{height:100%;}
+  body{font-family:-apple-system,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+       background:var(--bg); color:var(--ink); overflow:hidden;}
+
+  /* ============ TOP BAR ============ */
+  #topbar{height:46px; background:#111827; color:#fff; display:flex; align-items:center;
+          gap:12px; padding:0 14px; }
+  #topbar .logo{font-weight:700; letter-spacing:.4px; font-size:15px;}
+  #topbar .logo span{color:#60a5fa;}
+  #bookTitle{background:transparent; border:1px solid transparent; color:#fff; font-size:14px;
+             padding:5px 9px; border-radius:6px; width:340px; outline:none;}
+  #bookTitle:hover{border-color:#374151;}
+  #bookTitle:focus{border-color:#60a5fa; background:#1f2937;}
+  #topbar .spacer{flex:1;}
+  .tb-btn{background:#1f2937; color:#e5e7eb; border:1px solid #374151; border-radius:6px;
+          padding:6px 12px; font-size:12.5px; cursor:pointer;}
+  .tb-btn:hover{background:#374151;}
+  #saveState{font-size:12px; color:#9ca3af; min-width:110px;}
+
+  #workspace{display:flex; height:calc(100% - 46px);}
+
+  /* ============ SIDEBAR ============ */
+  #sidebar{width:var(--sidebar-w); background:var(--panel); border-right:1px solid var(--line);
+           display:flex; flex-direction:column; flex-shrink:0;}
+  #sidebar header{padding:12px 14px 8px; display:flex; align-items:center; justify-content:space-between;
+                  border-bottom:1px solid var(--line);}
+  #sidebar header h2{font-size:13px; font-weight:700; text-transform:uppercase; letter-spacing:.8px;
+                     color:var(--muted);}
+  #collapseToggle{font-size:11.5px; border:1px solid var(--line); background:#fff; color:var(--muted);
+                  border-radius:14px; padding:4px 10px; cursor:pointer; white-space:nowrap;}
+  #collapseToggle:hover{color:var(--ink); border-color:#c9ccd1;}
+
+  .side-actions{display:flex; gap:6px; padding:10px 12px; border-bottom:1px solid var(--line);}
+  .side-actions button{flex:1; font-size:12px; padding:6px 4px; border:1px solid var(--line); background:#fff;
+                       border-radius:6px; cursor:pointer; color:#374151;}
+  .side-actions button:hover{border-color:var(--accent); color:var(--accent); background:var(--accent-soft);}
+
+  #outline{flex:1; overflow-y:auto; padding:8px 6px 40px;}
+  .outline-item{display:flex; align-items:center; gap:4px; border-radius:6px; padding:2px 4px;
+                cursor:pointer; position:relative;}
+  .outline-item:hover{background:#f1f2f4;}
+  .outline-item.active{background:var(--accent-soft);}
+  .outline-item.active .oi-title{color:var(--accent); font-weight:600;}
+  .outline-item.hidden-by-filter{display:none;}
+  .oi-caret{width:16px; height:16px; flex-shrink:0; display:flex; align-items:center; justify-content:center;
+            color:var(--muted); font-size:10px; user-select:none;}
+  .oi-caret.placeholder{visibility:hidden;}
+  .oi-num{font-family:var(--mono); font-size:11px; color:var(--muted); width:34px; flex-shrink:0;
+          text-align:right; padding-right:4px;}
+  .oi-title{flex:1; font-size:13.5px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;
+            padding:5px 2px; border:1px solid transparent; border-radius:4px;}
+  .outline-item input.oi-title{background:#fff; border-color:var(--accent); outline:none;}
+  .oi-tools{display:none; gap:2px; flex-shrink:0; padding-right:2px;}
+  .outline-item:hover .oi-tools{display:flex;}
+  .oi-tools button{width:22px; height:22px; border:none; background:transparent; border-radius:4px;
+                   cursor:pointer; font-size:12px; color:var(--muted); line-height:1;}
+  .oi-tools button:hover{background:#e2e5e9; color:var(--ink);}
+  .oi-tools button.danger:hover{background:#fee2e2; color:#dc2626;}
+  .outline-item.is-section{padding-left:26px;}
+  .outline-children.collapsed{display:none;}
+
+  /* ============ MAIN / EDITOR ============ */
+  #main{flex:1; display:flex; flex-direction:column; min-width:0;}
+
+  #toolbar{height:var(--toolbar-h); background:var(--panel); border-bottom:1px solid var(--line);
+           display:flex; align-items:center; gap:4px; padding:0 12px; flex-wrap:nowrap; overflow-x:auto;}
+  #toolbar select,#toolbar button{font-size:12.5px; border:1px solid var(--line); background:#fff;
+        color:var(--ink); border-radius:6px; padding:5px 8px; cursor:pointer; height:32px;}
+  #toolbar button{min-width:32px; font-weight:600;}
+  #toolbar button:hover,#toolbar select:hover{border-color:#c3c7cd;}
+  #toolbar button.on{background:var(--accent-soft); border-color:var(--accent); color:var(--accent);}
+  #toolbar .sep{width:1px; height:20px; background:var(--line); margin:0 5px; flex-shrink:0;}
+  #toolbar .spacer{flex:1;}
+  #codeLang{font-family:var(--mono); font-size:11.5px;}
+
+  #scrollWrap{flex:1; overflow-y:auto; scroll-behavior:smooth; background:#ececee;}
+  #page{width:820px; max-width:94%; margin:28px auto 90px; background:#fff; min-height:1100px;
+        box-shadow:0 2px 14px rgba(0,0,0,.10); border-radius:4px; padding:70px 84px 120px;}
+  #editor{outline:none; font-size:16px; line-height:1.75; color:#24292f;}
+  #editor:empty::before{content:"Start writing your book…"; color:#b6bac2;}
+
+  /* document elements */
+  #editor h1.chapter{font-size:27px; font-weight:700; margin:34px 0 12px; padding-bottom:8px;
+                     border-bottom:2px solid #1f2328; outline:none;}
+  #editor h2.section{font-size:20px; font-weight:700; margin:30px 0 8px; outline:none;}
+  #editor h1.chapter:focus,#editor h2.section:focus{background:linear-gradient(transparent 92%, #dbe7fd 92%);}
+  .hnum{font-family:var(--mono); font-size:.62em; color:#8a919c; font-weight:500; margin-right:10px;
+        vertical-align:2px; user-select:none;}
+  #editor p{margin:0 0 14px;}
+  #editor ul,#editor ol{margin:0 0 14px 28px;}
+  #editor blockquote{border-left:3px solid #d0d7de; margin:0 0 14px; padding:2px 16px; color:#57606a;}
+
+  /* code box */
+  .codebox{margin:18px 0; border:1px solid #d0d7de; border-radius:8px; overflow:hidden;
+           background:#0d1117; box-shadow:0 1px 3px rgba(0,0,0,.12);}
+  .codebox-header{display:flex; align-items:center; background:#161b22; padding:5px 12px;
+                  border-bottom:1px solid #30363d; user-select:none;}
+  .codebox-lang{font-family:var(--mono); font-size:11px; color:#79c0ff; letter-spacing:.5px;
+                text-transform:uppercase;}
+  .codebox-header .fill{flex:1;}
+  .codebox-copy,.codebox-del{background:transparent; border:none; color:#8b949e; font-size:11.5px;
+        cursor:pointer; padding:2px 6px; border-radius:4px; font-family:inherit;}
+  .codebox-copy:hover,.codebox-del:hover{background:#21262d; color:#c9d1d9;}
+  .codebox pre{padding:14px 16px; overflow-x:auto;}
+  .codebox code{font-family:var(--mono); font-size:13px; line-height:1.6; color:#e6edf3; white-space:pre;
+                outline:none; display:block; min-height:1.6em;}
+  .codebox code:empty::before{content:"// write code here…"; color:#484f58;}
+
+  /* status bar */
+  #statusbar{height:var(--statusbar-h); background:var(--panel); border-top:1px solid var(--line);
+             display:flex; align-items:center; gap:18px; padding:0 14px; font-size:12px; color:var(--muted);}
+  #statusbar .right{margin-left:auto; display:flex; gap:18px;}
+
+  ::selection{background:#b6d2fb;}
+  /* ============ RIGHT TOC RAIL ============ */
+  #tocRail{width:250px; background:var(--panel); border-left:1px solid var(--line);
+           display:flex; flex-direction:column; flex-shrink:0;}
+  #tocRail header{padding:12px 14px 8px; border-bottom:1px solid var(--line);
+                  display:flex; align-items:center; justify-content:space-between;}
+  #tocRail header h2{font-size:13px; font-weight:700; text-transform:uppercase; letter-spacing:.8px; color:var(--muted);}
+  #tocToggle{font-size:14px; border:1px solid var(--line); background:#fff; color:var(--muted);
+             border-radius:5px; width:24px; height:24px; cursor:pointer; line-height:1;}
+  #tocToggle:hover{color:var(--ink);}
+  #tocList{flex:1; overflow-y:auto; padding:10px 8px 40px;}
+  #tocRail.collapsed{width:0; border-left:none; overflow:hidden;}
+  .toc-item{display:block; font-size:12.5px; color:#4b5563; padding:4px 8px; border-radius:5px;
+            cursor:pointer; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;
+            border-left:2px solid transparent;}
+  .toc-item:hover{background:#f1f2f4;}
+  .toc-item.active{color:var(--accent); background:var(--accent-soft); font-weight:600;
+                   border-left-color:var(--accent);}
+  .toc-item.toc-chapter{font-weight:600; color:var(--ink); margin-top:4px;}
+  .toc-item.toc-section{padding-left:22px; font-weight:400;}
+
+  /* blog launcher in sidebar */
+  #blogEntry{margin:10px 12px 2px; padding:10px 12px; border:1px dashed #c3c7cd; border-radius:8px;
+             cursor:pointer; background:#fbfcfd; transition:all .15s;}
+  #blogEntry:hover{border-color:var(--accent); background:var(--accent-soft);}
+  #blogEntry .be-title{font-size:13px; font-weight:600; color:#374151;}
+  #blogEntry:hover .be-title{color:var(--accent);}
+  #blogEntry .be-sub{font-size:11px; color:var(--muted); margin-top:2px;}
+
+  #outline::-webkit-scrollbar,#scrollWrap::-webkit-scrollbar,#toolbar::-webkit-scrollbar{width:9px;height:9px;}
+  #outline::-webkit-scrollbar-thumb,#scrollWrap::-webkit-scrollbar-thumb,#toolbar::-webkit-scrollbar-thumb{
+      background:#cfD3d9; border-radius:5px;}
+</style>
+</head>
+<body>
+
+<div id="topbar">
+  <div class="logo">Book<span>Forge</span></div>
+  <input id="bookTitle" value="The Reader's Guide to Federal Identity" spellcheck="false">
+  <div class="spacer"></div>
+  <span id="saveState">All changes saved</span>
+  <select id="exportFmt" style="background:#1f2937;color:#e5e7eb;border:1px solid #374151;border-radius:6px;padding:6px 8px;font-size:12.5px;">
+    <option value="html">HTML</option>
+    <option value="md">Markdown (.md)</option>
+    <option value="docx">Word (.docx)</option>
+    <option value="pdf">PDF (.pdf)</option>
+  </select>
+  <button class="tb-btn" id="exportBtn">⬇ Export</button>
+</div>
+
+<div id="workspace">
+
+  <!-- ================= SIDEBAR ================= -->
+  <aside id="sidebar">
+    <header>
+      <h2>Outline</h2>
+      <button id="collapseToggle">⊟ Collapse All Levels</button>
+    </header>
+    <div class="side-actions">
+      <button id="addChapterBtn" title="Add a new chapter">+ Chapter</button>
+      <button id="addSectionBtn" title="Add a section after the current selection">+ Section</button>
+    </div>
+    <div id="blogEntry" title="Opens the author's blog in a new tab">
+      <div class="be-title">✍ Author's Blog</div>
+      <div class="be-sub">Opens in a new tab ↗</div>
+    </div>
+    <nav id="outline"></nav>
+  </aside>
+
+  <!-- ================= MAIN ================= -->
+  <div id="main">
+    <div id="toolbar">
+      <select id="fontName" title="Font">
+        <option value="Default" selected>Font</option>
+        <option value="Georgia, serif">Georgia</option>
+        <option value="'Times New Roman', serif">Times New Roman</option>
+        <option value="Arial, sans-serif">Arial</option>
+        <option value="Calibri, sans-serif">Calibri</option>
+        <option value="'Courier New', monospace">Courier New</option>
+        <option value="Verdana, sans-serif">Verdana</option>
+      </select>
+      <select id="fontSize" title="Font size">
+        <option value="3" selected>Size</option>
+        <option value="1">Small</option>
+        <option value="2">Normal</option>
+        <option value="4">Large</option>
+        <option value="5">XL</option>
+        <option value="6">XXL</option>
+        <option value="7">Huge</option>
+      </select>
+      <div class="sep"></div>
+      <button data-cmd="bold" title="Bold (Ctrl+B)"><b>B</b></button>
+      <button data-cmd="italic" title="Italic (Ctrl+I)"><i>I</i></button>
+      <button data-cmd="underline" title="Underline (Ctrl+U)"><u>U</u></button>
+      <button data-cmd="strikeThrough" title="Strikethrough"><s>S</s></button>
+      <div class="sep"></div>
+      <button data-cmd="indent" title="Increase indent">⇥</button>
+      <button data-cmd="outdent" title="Decrease indent">⇤</button>
+      <div class="sep"></div>
+      <button data-cmd="justifyLeft" title="Align left">⯇</button>
+      <button data-cmd="justifyCenter" title="Align center">≡</button>
+      <button data-cmd="justifyRight" title="Align right">⯈</button>
+      <div class="sep"></div>
+      <button data-cmd="insertUnorderedList" title="Bullet list">•≡</button>
+      <button data-cmd="insertOrderedList" title="Numbered list">1≡</button>
+      <button data-cmd="removeFormat" title="Clear formatting">⌫A</button>
+      <div class="sep"></div>
+      <select id="codeLang" title="Code box language">
+        <option>Python</option><option>JavaScript</option><option>Java</option>
+        <option>C</option><option>C++</option><option>C#</option><option>Go</option>
+        <option>Rust</option><option>Ruby</option><option>PHP</option><option>Swift</option>
+        <option>Kotlin</option><option>TypeScript</option><option>SQL</option>
+        <option>Bash</option><option>PowerShell</option><option>YAML</option>
+        <option>JSON</option><option>HTML</option><option>CSS</option>
+        <option>Markdown</option><option>Plain Text</option>
+      </select>
+      <button id="codeBoxBtn" title="Insert a code box">&lt;/&gt; Code Box</button>
+      <div class="spacer"></div>
+      <button data-cmd="undo" title="Undo">↩</button>
+      <button data-cmd="redo" title="Redo">↪</button>
+    </div>
+
+    <div id="scrollWrap">
+      <div id="page">
+        <div id="editor" contenteditable="true" spellcheck="true"></div>
+      </div>
+    </div>
+
+    <div id="statusbar">
+      <span id="wordCount">0 words</span>
+      <span id="nodeInfo">—</span>
+      <div class="right">
+        <span id="cursorPos">Ln 1, Col 1</span>
+        <span id="structCount">0 chapters · 0 sections</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ================= RIGHT TOC ================= -->
+  <aside id="tocRail">
+    <header><h2>On This Page</h2><button id="tocToggle" title="Collapse / expand TOC">⇥</button></header>
+    <nav id="tocList"></nav>
+  </aside>
+</div>
+
+<script>
+/* =====================================================================
+   BookForge — single-file book authoring workarea
+   ===================================================================== */
+(function(){
+"use strict";
+const $  = s => document.querySelector(s);
+const editor = $('#editor'), outline = $('#outline'), scrollWrap = $('#scrollWrap');
+const LS_KEY = 'bookforge.doc.v1', LS_TITLE = 'bookforge.title.v1';
+
+const uid = () => 'n' + Math.random().toString(36).slice(2,10);
+let activeId = null;
+let suppressScroll = false;
+
+/* ---------------- default sample content (mirrors screenshot) -------- */
+const DEFAULT_DOC = `
+<h1 class="chapter" data-id="c-abs"><span class="hnum"></span>Abstract</h1>
+<p>Federal identity security sits at an awkward intersection of cybersecurity practice: taught, implemented, assessed, and defended separately. This book unifies those perspectives into a single operating picture for engineers, assessors, and offensive security professionals.</p>
+<h1 class="chapter" data-id="c-obj"><span class="hnum"></span>Learning Objectives</h1>
+<p>By the end of this book you will be able to reason about identity proofing, credentialing, federation, and access policy as one system — and explain how a single control weakness becomes an authorization path.</p>
+<h1 class="chapter" data-id="c-1"><span class="hnum"></span>Why This Book Exists: The Federal Identity Ecosystem</h1>
+<h2 class="section" data-id="s-1-1"><span class="hnum"></span>One Environment, Three Perspectives</h2>
+<p>Architects understand domain controllers, Group Policy Objects (GPOs), and Access Protocol (LDAP) delegation; enterprise administrators hold limited exposure to the federal framework; assessors see credentialing and federation without understanding domain control.</p>
+<h2 class="section" data-id="s-1-2"><span class="hnum"></span>Identity Security as a Discipline</h2>
+<p>Identity is rarely contained within a single directory. Personal card (CAC) issuance establishes cryptographic trust that Active Directory represents as a principal — and every authorization decision flows from that mapping.</p>
+<h2 class="section" data-id="s-1-3"><span class="hnum"></span>Active Directory in the Federal Context</h2>
+<p>Active Directory is both the enforcement point and the liability. A Security Control Assessor who treats the directory as an interconnected graph of principals, credentials, relationships, and reachable authority will find what others miss.</p>
+<h2 class="section" data-id="s-1-4"><span class="hnum"></span>Federal Government Identity Ecosystem</h2>
+<p>Three credential types anchor the federal model: the PIV card, the PIV-I card, and the CAC. Each establishes a chain of trust from a certificate authority to an individual person.</p>
+<h2 class="section" data-id="s-1-5"><span class="hnum"></span>Offensive Security Relevance</h2>
+<p>Offensive operators live inside this graph. Kerberoasting, delegation abuse, and golden tickets are not tricks — they are the predictable output of a graph whose edges were never audited.</p>
+<div class="codebox" contenteditable="false"><div class="codebox-header"><span class="codebox-lang">PowerShell</span><span class="fill"></span><button class="codebox-copy">Copy</button><button class="codebox-del">✕</button></div><pre><code contenteditable="true"># Enumerate Kerberoastable accounts
+Get-ADUser -Filter {ServicePrincipalName -like "*"} -Properties ServicePrincipalName |
+  Select-Object SamAccountName, ServicePrincipalName</code></pre></div>
+<h2 class="section" data-id="s-1-6"><span class="hnum"></span>Offensive and Defensive Convergence</h2>
+<p>Apply the reasoning model that translates a technical weakness statement — technical condition, reachable path, acquired authorization, mission consequence — into an assessable finding.</p>
+<h2 class="section" data-id="s-1-7"><span class="hnum"></span>Federal and Department of Defense (DoD) Specifics</h2>
+<p>That problem becomes more significant in federal and Department of Defense environments because identity is rarely contained within a single directory. Persona Sponsorship processes establish relationships between a person and an authoritative source.</p>
+<h2 class="section" data-id="s-1-8"><span class="hnum"></span>Active Directory Delegation</h2>
+<p>Delegation converts a technical configuration into an authorization decision. Constrained, unconstrained, and resource-based delegation each create a different class of reachable authority.</p>
+<h2 class="section" data-id="s-1-9"><span class="hnum"></span>Identity Compromise Pathways</h2>
+<p>All three perspectives — architect, administrator, assessor — can be individually correct while still producing an incomplete picture of the security problem.</p>
+<h2 class="section" data-id="s-1-10"><span class="hnum"></span>The Gap Between Compliance and Security</h2>
+<p>A control can be fully compliant and still leave a reachable path from an anonymous network connection to domain dominance. The gap is not in the checklist — it is in the graph.</p>
+<h2 class="section" data-id="s-1-11"><span class="hnum"></span>Architecture Diagram</h2>
+<p>A directory is not a list of users. It is a graph where credentials are edges, delegation is a transitive relation, and every reachable object is an authority boundary waiting to be crossed.</p>
+<div class="codebox" contenteditable="false"><div class="codebox-header"><span class="codebox-lang">Python</span><span class="fill"></span><button class="codebox-copy">Copy</button><button class="codebox-del">✕</button></div><pre><code contenteditable="true"># Reachability: does a path exist from principal A to object B?
+def reachable(graph, start, target, seen=None):
+    seen = seen or set()
+    if start == target:
+        return True
+    seen.add(start)
+    return any(reachable(graph, nxt, target, seen)
+               for nxt in graph.get(start, []) if nxt not in seen)</code></pre></div>
+<h2 class="section" data-id="s-1-12"><span class="hnum"></span>An Authority to Examine the Full Attack Path</h2>
+<p>This book grants the reader that authority: a complete model of federal identity as an attack surface, and the vocabulary to describe compromise as a consequence rather than an event.</p>
+`;
+
+/* ---------------- persistence ---------------------------------------- */
+let saveTimer = null;
+function save(){
+  clearTimeout(saveTimer);
+  saveTimer = setTimeout(()=>{
+    localStorage.setItem(LS_KEY, editor.innerHTML);
+    localStorage.setItem(LS_TITLE, $('#bookTitle').value);
+    $('#saveState').textContent = 'All changes saved · ' + new Date().toLocaleTimeString();
+  }, 400);
+}
+function load(){
+  const doc = localStorage.getItem(LS_KEY);
+  const title = localStorage.getItem(LS_TITLE);
+  if (title) $('#bookTitle').value = title;
+  editor.innerHTML = doc || DEFAULT_DOC;
+  editor.querySelectorAll('[data-id]').forEach(el=>{ if(!el.dataset.id) el.dataset.id = uid(); });
+}
+$('#bookTitle').addEventListener('input', save);
+
+/* ---------------- outline model -------------------------------------- */
+function chapterOf(el){ return el.closest ? null : null; }
+function structure(){
+  /* flatten document into chapters with their sections */
+  const nodes = [...editor.children];
+  const chapters = [];
+  let cur = null;
+  for (const n of nodes){
+    if (n.nodeType !== 1) continue;
+    if (n.classList.contains('chapter')){
+      cur = { el:n, id:n.dataset.id, sections:[] };
+      chapters.push(cur);
+    } else if (n.classList.contains('section')){
+      if (!cur){ // orphan section — synthesize a wrapper chapter entry
+        cur = { el:null, id:null, sections:[], virtual:true };
+        chapters.push(cur);
+      }
+      cur.sections.push({ el:n, id:n.dataset.id });
+    }
+  }
+  return chapters;
+}
+
+function ensureIds(){
+  editor.querySelectorAll('h1.chapter, h2.section').forEach(h=>{
+    if (!h.dataset.id) h.dataset.id = uid();
+  });
+}
+
+/* ---------------- numbering ------------------------------------------ */
+function renumber(){
+  let ci = 0;
+  for (const ch of structure()){
+    if (ch.virtual){ /* sections without chapter keep flat numbering */ }
+    else {
+      ci++;
+      setNum(ch.el, String(ci));
+    }
+    let si = 0;
+    for (const sec of ch.sections){
+      si++;
+      setNum(sec.el, ch.virtual ? String(si) : `${ci}.${si}`);
+    }
+  }
+  updateStatusCounts();
+}
+function setNum(el, txt){
+  let badge = el.querySelector(':scope > .hnum');
+  if (!badge){
+    badge = document.createElement('span');
+    badge.className = 'hnum';
+    el.prepend(badge);
+  }
+  badge.textContent = txt;
+}
+
+/* ---------------- outline rendering ---------------------------------- */
+let collapsedChapters = new Set();
+
+function renderOutline(){
+  ensureIds();
+  renumber();
+  outline.innerHTML = '';
+  structure().forEach((ch, i)=>{
+    if (ch.el){
+      outline.appendChild(makeItem(ch.el, i === 0 && false));
+      const kids = document.createElement('div');
+      kids.className = 'outline-children' + (collapsedChapters.has(ch.id) ? ' collapsed' : '');
+      ch.sections.forEach(sec => kids.appendChild(makeItem(sec.el)));
+      outline.appendChild(kids);
+    } else {
+      ch.sections.forEach(sec => outline.appendChild(makeItem(sec.el)));
+    }
+  });
+  highlightActive();
+}
+
+function makeItem(h, isChapter){
+  const wrap = document.createElement('div');
+  wrap.className = 'outline-item ' + (h.classList.contains('section') ? 'is-section' : 'is-chapter');
+  wrap.dataset.target = h.dataset.id;
+
+  const caret = document.createElement('span');
+  caret.className = 'oi-caret' + (h.classList.contains('chapter') ? '' : ' placeholder');
+  caret.textContent = collapsedChapters.has(h.dataset.id) ? '▸' : '▾';
+  caret.addEventListener('click', e=>{
+    e.stopPropagation();
+    if (h.classList.contains('chapter')){
+      collapsedChapters.has(h.dataset.id) ? collapsedChapters.delete(h.dataset.id) : collapsedChapters.add(h.dataset.id);
+      renderOutline();
+    }
+  });
+
+  const num = document.createElement('span');
+  num.className = 'oi-num';
+  num.textContent = (h.querySelector(':scope > .hnum')||{textContent:''}).textContent;
+
+  const title = document.createElement('span');
+  title.className = 'oi-title';
+  title.textContent = h.textContent.trim();
+  title.title = 'Click to jump · double-click to rename';
+
+  const tools = document.createElement('span');
+  tools.className = 'oi-tools';
+  tools.appendChild(toolBtn('↑','Move up', ()=>moveNode(h,-1)));
+  tools.appendChild(toolBtn('↓','Move down', ()=>moveNode(h,+1)));
+  if (h.classList.contains('chapter'))
+    tools.appendChild(toolBtn('＋','Add section here', ()=>addSection(h)));
+  tools.appendChild(toolBtn('✎','Rename', ()=>startRename(title,h)));
+  tools.appendChild(toolBtn('✕','Delete', ()=>deleteNode(h), 'danger'));
+
+  wrap.append(caret, num, title, tools);
+  wrap.addEventListener('click', ()=> scrollToHeading(h));
+  title.addEventListener('dblclick', ()=> startRename(title, h));
+  return wrap;
+}
+
+function toolBtn(txt, tip, fn, cls){
+  const b = document.createElement('button');
+  b.textContent = txt; b.title = tip;
+  if (cls) b.classList.add(cls);
+  b.addEventListener('click', e=>{ e.stopPropagation(); fn(); });
+  return b;
+}
+
+function startRename(titleEl, h){
+  const input = document.createElement('input');
+  input.className = 'oi-title';
+  input.value = h.textContent.trim();
+  titleEl.replaceWith(input);
+  input.focus(); input.select();
+  const commit = ()=>{
+    h.textContent = input.value.trim() || h.textContent.trim();
+    const badge = document.createElement('span'); badge.className='hnum';
+    badge.textContent = (h.querySelector(':scope > .hnum')||{textContent:''}).textContent;
+    h.prepend(badge);
+    afterDocChange();
+  };
+  input.addEventListener('blur', commit);
+  input.addEventListener('keydown', e=>{
+    if (e.key === 'Enter'){ e.preventDefault(); input.blur(); }
+    if (e.key === 'Escape'){ input.value = h.textContent.trim(); input.blur(); }
+    e.stopPropagation();
+  });
+}
+
+/* ---------------- navigation / scrollspy ------------------------------ */
+function scrollToHeading(h){
+  suppressScroll = false;
+  activeId = h.dataset.id;
+  highlightActive();
+  const y = h.getBoundingClientRect().top + scrollWrap.scrollTop - scrollWrap.clientTop - 70;
+  scrollWrap.scrollTo({top:y, behavior:'smooth'});
+  setTimeout(()=>{ h.focusEditorSelection = true; placeCaretAtEnd(h); }, 350);
+}
+function placeCaretAtEnd(el){
+  const r = document.createRange(); r.selectNodeContents(el); r.collapse(false);
+  const s = getSelection(); s.removeAllRanges(); s.addRange(r);
+}
+function highlightActive(){
+  outline.querySelectorAll('.outline-item').forEach(it=>{
+    it.classList.toggle('active', it.dataset.target === activeId);
+  });
+}
+
+const spy = new IntersectionObserver(entries=>{
+  if (suppressScroll) return;
+  for (const e of entries){
+    if (e.isIntersecting){
+      const id = e.target.dataset.id;
+      if (id){ activeId = id; highlightActive();
+        const el = outline.querySelector(`[data-target="${id}"]`);
+        if (el) el.scrollIntoView({block:'nearest'});
+      }
+      break;
+    }
+  }
+},{root:scrollWrap, rootMargin:'-70px 0px -65% 0px'});
+function observeHeadings(){ editor.querySelectorAll('h1.chapter,h2.section').forEach(h=>spy.observe(h)); }
+
+/* ---------------- structural operations ------------------------------- */
+function chapterParent(){ return editor; }
+
+function addChapter(afterEl){
+  const h = document.createElement('h1');
+  h.className = 'chapter'; h.dataset.id = uid();
+  h.innerHTML = '<span class="hnum"></span>New Chapter';
+  const p = document.createElement('p'); p.innerHTML = '<br>';
+  if (afterEl){ afterEl.after(h); }
+  else editor.appendChild(h);
+  h.after(p);
+  afterDocChange();
+  scrollToHeading(h); placeCaretAtEnd(h);
+}
+function addSection(chapterH){
+  const ch = structure().find(c=>c.el === chapterH) || structure()[structure().length-1];
+  let anchor = ch && ch.sections.length ? ch.sections[ch.sections.length-1].el
+             : (ch && ch.el) || null;
+  const h = document.createElement('h2');
+  h.className = 'section'; h.dataset.id = uid();
+  h.innerHTML = '<span class="hnum"></span>New Section';
+  const p = document.createElement('p'); p.innerHTML = '<br>';
+  if (anchor){ anchor.after(h); }
+  else if (ch && ch.el){ ch.el.after(h); }
+  else editor.appendChild(h);
+  h.after(p);
+  afterDocChange();
+  scrollToHeading(h); placeCaretAtEnd(h);
+}
+function deleteNode(h){
+  const label = h.classList.contains('chapter') ? 'chapter (and its sections stay, becoming unfiled)'
+                                                : 'section';
+  if (!confirm(`Delete this ${label}? Content under it will be removed only if it belongs to the heading block itself.`)) return;
+  /* remove heading + immediately following content until next heading of same-or-higher level */
+  const level = h.tagName === 'H1' ? 1 : 2;
+  let n = h.nextElementSibling;
+  const toRemove = [h];
+  while (n){
+    const isH = n.matches && n.matches('h1.chapter,h2.section');
+    if (isH){
+      const nl = n.tagName === 'H1' ? 1 : 2;
+      if (nl <= level) break;
+    }
+    toRemove.push(n);
+    n = n.nextElementSibling;
+  }
+  toRemove.forEach(x=>x.remove());
+  if (activeId === h.dataset.id) activeId = null;
+  afterDocChange();
+}
+function moveNode(h, dir){
+  if (h.tagName === 'H1'){
+    const sibs = [...editor.children].filter(n=>n.classList && n.classList.contains('chapter'));
+    const i = sibs.indexOf(h);
+    const j = i + dir;
+    if (j < 0 || j >= sibs.length) return;
+    /* move chapter + its block */
+    const block = collectBlock(h);
+    const ref = collectBlock(sibs[j]);
+    if (dir < 0) ref[0].before(...block);
+    else { const last = ref[ref.length-1]; last.after(...block); }
+  } else {
+    /* move within flat section flow, may cross chapter boundary */
+    const secs = [...editor.querySelectorAll('h2.section')];
+    const i = secs.indexOf(h);
+    const j = i + dir;
+    if (j < 0 || j >= secs.length) return;
+    const ref = secs[j];
+    /* move heading + its content block */
+    const block = collectBlock(h);
+    if (dir < 0) ref.before(...block);
+    else { const last = collectBlock(ref).pop(); last.after(...block); }
+  }
+  afterDocChange();
+  activeId = h.dataset.id; highlightActive();
+}
+function collectBlock(h){
+  const level = h.tagName === 'H1' ? 1 : 2;
+  const out = [h];
+  let n = h.nextElementSibling;
+  while (n){
+    const isH = n.matches && n.matches('h1.chapter,h2.section');
+    if (isH){
+      const nl = n.tagName === 'H1' ? 1 : 2;
+      if (nl <= level) break;
+    }
+    out.push(n);
+    n = n.nextElementSibling;
+  }
+  return out;
+}
+
+/* ---------------- toolbar --------------------------------------------- */
+$('#toolbar').addEventListener('mousedown', e=>{ if (e.target.closest('button,select')) e.preventDefault(); });
+$('#toolbar').addEventListener('click', e=>{
+  const b = e.target.closest('button[data-cmd]');
+  if (!b) return;
+  editor.focus();
+  document.execCommand(b.dataset.cmd, false, null);
+  save();
+});
+$('#fontName').addEventListener('change', e=>{
+  if (e.target.value === 'Default') return;
+  editor.focus(); document.execCommand('fontName', false, e.target.value); save();
+  e.target.selectedIndex = 0;
+});
+$('#fontSize').addEventListener('change', e=>{
+  if (e.target.value === '3') return;
+  editor.focus(); document.execCommand('fontSize', false, e.target.value); save();
+  e.target.selectedIndex = 0;
+});
+
+/* ---------------- code boxes ------------------------------------------ */
+$('#codeBoxBtn').addEventListener('click', ()=>{
+  editor.focus();
+  const lang = $('#codeLang').value;
+  const box = document.createElement('div');
+  box.className = 'codebox'; box.setAttribute('contenteditable','false');
+  box.innerHTML =
+    `<div class="codebox-header"><span class="codebox-lang"></span><span class="fill"></span>`+
+    `<button class="codebox-copy">Copy</button><button class="codebox-del">✕</button></div>`+
+    `<pre><code contenteditable="true"></code></pre>`;
+  box.querySelector('.codebox-lang').textContent = lang;
+
+  /* insert at caret, splitting current paragraph if needed */
+  const sel = getSelection();
+  if (sel.rangeCount && editor.contains(sel.anchorNode)){
+    const r = sel.getRangeAt(0);
+    r.collapse(false);
+    r.insertNode(box);
+    /* ensure an editable paragraph after the box */
+    const p = document.createElement('p'); p.innerHTML='<br>';
+    box.after(p);
+  } else {
+    editor.appendChild(box);
+    const p = document.createElement('p'); p.innerHTML='<br>';
+    box.after(p);
+  }
+  const code = box.querySelector('code');
+  placeCaretAtEnd(code);
+  afterDocChange();
+});
+
+editor.addEventListener('click', e=>{
+  if (e.target.classList.contains('codebox-del')){
+    e.target.closest('.codebox').remove(); afterDocChange();
+  }
+  if (e.target.classList.contains('codebox-copy')){
+    const code = e.target.closest('.codebox').querySelector('code').innerText;
+    navigator.clipboard && navigator.clipboard.writeText(code);
+    e.target.textContent = 'Copied ✓';
+    setTimeout(()=>e.target.textContent='Copy', 1200);
+  }
+});
+
+/* ---------------- collapsible outline --------------------------------- */
+let allCollapsed = false;
+$('#collapseToggle').addEventListener('click', ()=>{
+  allCollapsed = !allCollapsed;
+  collapsedChapters = new Set();
+  if (allCollapsed) structure().forEach(c=>{ if(c.el) collapsedChapters.add(c.id); });
+  $('#collapseToggle').textContent = allCollapsed ? '⊞ Expand All Levels' : '⊟ Collapse All Levels';
+  renderOutline();
+});
+
+/* ---------------- sidebar buttons -------------------------------------- */
+$('#addChapterBtn').addEventListener('click', ()=> addChapter());
+$('#addSectionBtn').addEventListener('click', ()=>{
+  const cur = activeId && editor.querySelector(`[data-id="${activeId}"]`);
+  if (cur && cur.classList.contains('chapter')) addSection(cur);
+  else {
+    const chs = structure();
+    const ch = cur ? chs.find(c=>c.sections.some(s=>s.el===cur)) : chs[chs.length-1];
+    if (ch && ch.el){
+      const h = document.createElement('h2');
+      h.className='section'; h.dataset.id = uid();
+      h.innerHTML = '<span class="hnum"></span>New Section';
+      const p = document.createElement('p'); p.innerHTML='<br>';
+      const last = ch.sections.length ? ch.sections[ch.sections.length-1].el : ch.el;
+      /* insert after the last section's block */
+      const block = ch.sections.length ? collectBlock(ch.sections[ch.sections.length-1].el) : [ch.el];
+      block[block.length-1].after(h); h.after(p);
+      afterDocChange(); scrollToHeading(h); placeCaretAtEnd(h);
+    } else addChapter();
+  }
+});
+
+/* ---------------- editor events ---------------------------------------- */
+function afterDocChange(){
+  renderOutline();
+  buildTOC();
+  observeHeadings();
+  save();
+}
+let debounce = null;
+editor.addEventListener('input', e=>{
+  /* keep headings structural: if user hits enter inside a heading, split into new paragraph */
+  clearTimeout(debounce);
+  debounce = setTimeout(afterDocChange, 500);
+  updateWordCount();
+  save();
+});
+editor.addEventListener('keydown', e=>{
+  const h = e.target.closest && e.target.closest('h1.chapter,h2.section');
+  if (h && e.key === 'Enter'){
+    e.preventDefault();
+    const p = document.createElement('p'); p.innerHTML='<br>';
+    h.after(p); placeCaretAtEnd(p); afterDocChange();
+  }
+});
+editor.addEventListener('keyup', updateCursorPos);
+editor.addEventListener('click', updateCursorPos);
+
+/* ---------------- status bar ------------------------------------------- */
+function updateWordCount(){
+  const txt = editor.innerText.trim();
+  const wc = txt ? txt.split(/\s+/).length : 0;
+  $('#wordCount').textContent = wc.toLocaleString() + ' words';
+}
+function updateStatusCounts(){
+  const ch = editor.querySelectorAll('h1.chapter').length;
+  const se = editor.querySelectorAll('h2.section').length;
+  $('#structCount').textContent = `${ch} chapter${ch===1?'':'s'} · ${se} section${se===1?'':'s'}`;
+}
+function updateCursorPos(){
+  const sel = getSelection();
+  if (!sel.rangeCount) return;
+  const r = sel.getRangeAt(0);
+  if (!editor.contains(r.startContainer)) return;
+  const pre = r.cloneRange(); pre.selectNodeContents(editor); pre.setEnd(r.startContainer, r.startContainer.nodeType===3 ? r.startOffset : 0);
+  const lines = pre.toString().split('\n').length;
+  const col = (r.startContainer.nodeType===3 ? r.startOffset : 0) + 1;
+  const ch = r.startContainer.closest && r.startContainer.closest('h1.chapter,h2.section');
+  $('#nodeInfo').textContent = ch ? 'In: ' + ch.textContent.trim().slice(0,42) : 'Body text';
+  $('#cursorPos').textContent = `Ln ${lines}, Col ${col}`;
+}
+
+/* ---------------- export ----------------------------------------------- */
+function slug(t){ return (t||'book').replace(/[^\w\- ]+/g,'').trim().replace(/\s+/g,'-'); }
+function downloadBlob(blob, filename){
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = filename;
+  a.click();
+  setTimeout(()=>URL.revokeObjectURL(a.href), 2000);
+}
+function exportHTML(title){
+  const blob = new Blob(
+    [`<!DOCTYPE html><html><head><meta charset="utf-8"><title>${title}</title>`,
+     `<style>body{font-family:Georgia,serif;max-width:760px;margin:40px auto;line-height:1.7;color:#222;padding:0 20px}`,
+     `h1{border-bottom:2px solid #222;padding-bottom:6px}h2{margin-top:32px}`,
+     `.codebox{border:1px solid #ccc;border-radius:8px;margin:14px 0}`,
+     `.codebox-header{background:#161b22;color:#79c0ff;font:11px Menlo,monospace;padding:5px 12px;text-transform:uppercase;border-bottom:1px solid #30363d}`,
+     `pre{background:#0d1117;color:#e6edf3;padding:14px;border-radius:0 0 8px 8px;overflow-x:auto;font-size:13px;margin:0}`,
+     `code{font-family:Menlo,Consolas,monospace}</style></head><body>`,
+     `<h1>${title}</h1>`, editor.innerHTML, `</body></html>`],
+    {type:'text/html'});
+  downloadBlob(blob, slug(title) + '.html');
+}
+
+/* ---- Markdown conversion (pure JS, always works) ---- */
+function inlineMD(node){
+  let out = '';
+  node.childNodes.forEach(n=>{
+    if (n.nodeType === 3){ out += n.textContent; return; }
+    const tag = (n.tagName||'').toLowerCase();
+    if (tag === 'br'){ out += '  \n'; return; }
+    if (tag === 'b' || tag === 'strong'){ out += '**' + inlineMD(n) + '**'; return; }
+    if (tag === 'i' || tag === 'em'){ out += '*' + inlineMD(n) + '*'; return; }
+    if (tag === 's' || tag === 'strike' || tag === 'del'){ out += '~~' + inlineMD(n) + '~~'; return; }
+    if (tag === 'code'){ out += '`' + n.textContent + '`'; return; }
+    if (tag === 'a'){ out += '[' + inlineMD(n) + '](' + (n.getAttribute('href')||'') + ')'; return; }
+    out += inlineMD(n);
+  });
+  return out;
+}
+function toMarkdown(root){
+  const lines = [];
+  const num = el => (el.querySelector(':scope > .hnum')||{textContent:''}).textContent.trim();
+  root.childNodes.forEach(n=>{
+    if (n.nodeType !== 1) return;
+    const cls = n.classList || {}, tag = (n.tagName||'').toLowerCase();
+    if (cls.contains('chapter')){
+      lines.push('\n# ' + (num(n) ? num(n) + ' ' : '') + n.textContent.trim(), '');
+    } else if (cls.contains('section')){
+      lines.push('\n## ' + (num(n) ? num(n) + ' ' : '') + n.textContent.trim(), '');
+    } else if (cls.contains('codebox')){
+      const lang = (n.querySelector('.codebox-lang')||{textContent:''}).textContent.trim().toLowerCase();
+      const code = n.querySelector('code').innerText.replace(/\n+$/,'');
+      lines.push('```' + lang, code, '```', '');
+    } else if (tag === 'ul' || tag === 'ol'){
+      let i = 0;
+      n.querySelectorAll(':scope > li').forEach(li=>{
+        i++;
+        lines.push((tag === 'ol' ? i + '.' : '-') + ' ' + inlineMD(li).trim());
+      });
+      lines.push('');
+    } else if (tag === 'blockquote'){
+      lines.push('> ' + inlineMD(n).trim(), '');
+    } else if (tag === 'p' || tag === 'div' || tag === 'span'){
+      const t = inlineMD(n).trim();
+      if (t) lines.push(t, '');
+    }
+  });
+  return lines.join('\n').replace(/\n{3,}/g, '\n\n').trim() + '\n';
+}
+function exportMD(title){
+  const md = '# ' + title + '\n\n' + toMarkdown(editor);
+  downloadBlob(new Blob([md], {type:'text/markdown'}), slug(title) + '.md');
+}
+
+/* ---- DOCX ---- */
+function exportDOCX(title){
+  const body = `
+    <h1>${title}</h1>
+    <style>
+      h1{font-size:24pt;border-bottom:2px solid #000;padding-bottom:4px}
+      h2{font-size:16pt;margin-top:24px}
+      p{font-size:11pt;line-height:1.6}
+      pre{background:#f2f2f2;padding:10px;font-family:Consolas,monospace;font-size:9.5pt}
+    </style>` + editor.innerHTML;
+  if (window.htmlDocx && htmlDocx.asBlob){
+    try {
+      downloadBlob(htmlDocx.asBlob(body), slug(title) + '.docx');
+      return;
+    } catch(err){ /* fall through */ }
+  }
+  /* offline fallback: Word-compatible .doc (HTML) */
+  const html = `<html xmlns:o="urn:schemas-microsoft-com:office:office" xmlns:w="urn:schemas-microsoft-com:office:word">
+    <head><meta charset="utf-8"><title>${title}</title></head><body>${body}</body></html>`;
+  downloadBlob(new Blob(['﻿' + html], {type:'application/msword'}), slug(title) + '.doc');
+  $('#saveState').textContent = 'Saved as .doc (offline fallback)';
+}
+
+/* ---- PDF ---- */
+function exportPDF(title){
+  if (!window.html2pdf){
+    alert('PDF library not loaded — check your internet connection and try again.');
+    return;
+  }
+  const el = document.createElement('div');
+  el.style.cssText = 'width:700px;padding:30px 40px;background:#fff;font-family:Georgia,serif;line-height:1.7;color:#222;font-size:12pt';
+  el.innerHTML = `<h1 style="border-bottom:2px solid #222;padding-bottom:6px">${title}</h1>` + editor.innerHTML;
+  document.body.appendChild(el);
+  html2pdf().set({
+    margin: [12,12,12,12],
+    filename: slug(title) + '.pdf',
+    image: {type:'jpeg', quality:0.95},
+    html2canvas: {scale:2, useCORS:true},
+    jsPDF: {unit:'mm', format:'a4', orientation:'portrait'}
+  }).from(el).save().then(()=> el.remove()).catch(()=> el.remove());
+}
+
+$('#exportBtn').addEventListener('click', ()=>{
+  const title = $('#bookTitle').value || 'Untitled Book';
+  const fmt = $('#exportFmt').value;
+  if (fmt === 'md') exportMD(title);
+  else if (fmt === 'docx') exportDOCX(title);
+  else if (fmt === 'pdf') exportPDF(title);
+  else exportHTML(title);
+});
+
+/* ---------------- right-hand TOC rail --------------------------------- */
+function buildTOC(){
+  const list = $('#tocList');
+  const scrollPos = list.scrollTop;
+  list.innerHTML = '';
+  [...editor.querySelectorAll('h1.chapter, h2.section')].forEach(h=>{
+    const a = document.createElement('a');
+    a.className = 'toc-item ' + (h.classList.contains('chapter') ? 'toc-chapter' : 'toc-section');
+    a.dataset.target = h.dataset.id;
+    const num = (h.querySelector(':scope > .hnum')||{textContent:''}).textContent;
+    a.textContent = (num ? num + ' ' : '') + h.textContent.trim();
+    a.title = a.textContent;
+    a.addEventListener('click', ()=> scrollToHeading(h));
+    list.appendChild(a);
+  });
+  list.scrollTop = scrollPos;
+  highlightActive();
+}
+$('#tocToggle').addEventListener('click', ()=>{
+  const rail = $('#tocRail');
+  rail.classList.toggle('collapsed');
+  $('#tocToggle').textContent = rail.classList.contains('collapsed') ? '⇤' : '⇥';
+});
+
+/* ---------------- blog launcher (opens separate page, no scrollspy) ---- */
+$('#blogEntry').addEventListener('click', ()=>{
+  window.open('bookforge_blog.html', '_blank', 'noopener');
+});
+
+/* ---------------- boot ------------------------------------------------- */
+load();
+renderOutline();
+observeHeadings();
+updateWordCount();
+editor.addEventListener('paste', e=>{
+  /* paste as plain text to keep structure clean */
+  e.preventDefault();
+  const t = (e.clipboardData||window.clipboardData).getData('text/plain');
+  document.execCommand('insertText', false, t);
+});
+})();
+</script>
+<script src="https://unpkg.com/html-docx-js@0.3.1/dist/html-docx.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+</body>
+</html>
