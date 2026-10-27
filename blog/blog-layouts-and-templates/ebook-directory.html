@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#f5f6f8">
+  <title>Hackherway Directory — Project Files</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Funnel+Display:wght@400..800&family=Funnel+Sans:ital,wght@0,400..700;1,400..700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="./style.css">
+</head>
+<body>
+  <svg class="icon-library" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+    <defs>
+      <symbol id="folder" viewBox="0 0 24 24"><path d="M3 7V5.5A1.5 1.5 0 0 1 4.5 4H9l2 2h8.5A1.5 1.5 0 0 1 21 7.5V18a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2Z"/><path d="M3 9h18"/></symbol>
+      <symbol id="file" viewBox="0 0 24 24"><path d="M14 3H6a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9Z"/><path d="M14 3v6h6M8 13h8M8 17h5"/></symbol>
+      <symbol id="code" viewBox="0 0 24 24"><path d="M14 3H6a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9Z"/><path d="M14 3v6h6M9 12l-2 3 2 3m6-6 2 3-2 3"/></symbol>
+      <symbol id="image" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8" cy="8" r="1.5"/><path d="m3 17 5-5 4 4 4-6 5 7"/></symbol>
+      <symbol id="chevron" viewBox="0 0 24 24"><path d="m9 6 6 6-6 6"/></symbol>
+      <symbol id="directory-mark" viewBox="0 0 24 24"><rect x="3" y="3" width="6" height="5" rx="1"/><rect x="15" y="10" width="6" height="5" rx="1"/><rect x="15" y="18" width="6" height="4" rx="1"/><path d="M6 8v12h9M6 12.5h9"/></symbol>
+    </defs>
+  </svg>
+
+  <div class="page">
+    <header class="page-header">
+      <a class="brand" href="./index.html"><span class="brand-mark"><svg aria-hidden="true"><use href="#directory-mark"/></svg></span>Hackherway Directory</a>
+      <span class="demo-label">A little structure goes a long way.</span>
+    </header>
+
+    <main>
+      <div class="page-intro">
+        <h1>Project Files</h1>
+        <p>Everything in its place. Explore the folders below.</p>
+      </div>
+      <section class="directory" aria-label="Example website directory">
+        <div class="path-bar">
+          <svg class="icon" aria-hidden="true"><use href="#directory-mark"/></svg>
+          <span>workspace</span><span class="path-divider">/</span><strong>website</strong>
+          <span class="example-label">Example directory</span>
+        </div>
+        <div class="column-headings" aria-hidden="true"><span>Name</span><span>Size</span></div>
+
+        <div class="tree-body">
+          <div class="root-row"><svg class="icon folder-icon" aria-hidden="true"><use href="#folder"/></svg><span>website</span><span class="root-label">root</span></div>
+          <ul class="file-tree">
+            <li>
+              <details open>
+                <summary><svg class="chevron" aria-hidden="true"><use href="#chevron"/></svg><svg class="icon folder-icon" aria-hidden="true"><use href="#folder"/></svg><span>aaa</span><span class="item-count">1 item</span></summary>
+                <ul>
+                  <li>
+                    <a href="https://www.dropbox.com/s/example/authorization.pdf?dl=1" target="_blank" class="file-row" style="text-decoration: none;">
+                      <svg class="icon pdf-icon" aria-hidden="true"><use href="#file-pdf"/></svg>
+                      <span>authorization.pdf</span>
+                      <span class="file-size">1.2 MB</span>
+                    </a>
+                  </li>
+                  <li>
+                    <details>
+                      <summary><svg class="chevron" aria-hidden="true"><use href="#chevron"/></svg><svg class="icon folder-icon" aria-hidden="true"><use href="#folder"/></svg><span>images</span><span class="item-count">3 items</span></summary>
+                      <ul>
+                        <li><div class="file-row"><svg class="icon image-icon" aria-hidden="true"><use href="#image"/></svg><span>hero.webp</span><span class="file-size">124 KB</span></div></li>
+                        <li><div class="file-row"><svg class="icon image-icon" aria-hidden="true"><use href="#image"/></svg><span>team.webp</span><span class="file-size">86 KB</span></div></li>
+                        <li><div class="file-row"><svg class="icon image-icon" aria-hidden="true"><use href="#image"/></svg><span>cover.png</span><span class="file-size">248 KB</span></div></li>
+                      </ul>
+                    </details>
+                  </li>
+                </ul>
+              </details>
+            </li>
+            <li>
+              <details open>
+                <summary><svg class="chevron" aria-hidden="true"><use href="#chevron"/></svg><svg class="icon folder-icon" aria-hidden="true"><use href="#folder"/></svg><span>src</span><span class="item-count">3 items</span></summary>
+                <ul>
+                  <li>
+                    <details>
+                      <summary><svg class="chevron" aria-hidden="true"><use href="#chevron"/></svg><svg class="icon folder-icon" aria-hidden="true"><use href="#folder"/></svg><span>components</span><span class="item-count">2 items</span></summary>
+                      <ul>
+                        <li><div class="file-row"><svg class="icon code-icon" aria-hidden="true"><use href="#code"/></svg><span>header.js</span><span class="file-size">2 KB</span></div></li>
+                        <li><div class="file-row"><svg class="icon code-icon" aria-hidden="true"><use href="#code"/></svg><span>navigation.js</span><span class="file-size">3 KB</span></div></li>
+                      </ul>
+                    </details>
+                  </li>
+                  <li><div class="file-row"><svg class="icon code-icon" aria-hidden="true"><use href="#code"/></svg><span>script.js</span><span class="file-size">4 KB</span></div></li>
+                  <li><div class="file-row"><svg class="icon code-icon" aria-hidden="true"><use href="#code"/></svg><span>style.css</span><span class="file-size">8 KB</span></div></li>
+                </ul>
+              </details>
+            </li>
+            <li>
+              <details>
+                <summary><svg class="chevron" aria-hidden="true"><use href="#chevron"/></svg><svg class="icon folder-icon" aria-hidden="true"><use href="#folder"/></svg><span>docs</span><span class="item-count">1 item</span></summary>
+                <ul>
+                  <li><div class="file-row"><svg class="icon" aria-hidden="true"><use href="#file"/></svg><span>getting-started.md</span><span class="file-size">3 KB</span></div></li>
+                </ul>
+              </details>
+            </li>
+            <li><div class="file-row"><svg class="icon code-icon" aria-hidden="true"><use href="#code"/></svg><span>index.html</span><span class="file-size">6 KB</span></div></li>
+            <li><div class="file-row"><svg class="icon" aria-hidden="true"><use href="#file"/></svg><span>README.md</span><span class="file-size">2 KB</span></div></li>
+            <li><div class="file-row"><svg class="icon" aria-hidden="true"><use href="#file"/></svg><span>package.json</span><span class="file-size">1 KB</span></div></li>
+          </ul>
+        </div>
+      </section>
+
+        <footer class="directory-footer"><span>5 folders<span class="separator">·</span>12 files</span><span>Click a folder to explore</span></footer>
+      </section>
+      <p class="keyboard-hint"><span class="hint-mark" aria-hidden="true">↳</span> Made for exploring. Use <kbd>Tab</kbd> to move and <kbd>Enter</kbd> to open a folder.</p>
+    </main>
+    <footer class="page-footer">A simple view of how everything fits together.</footer>
+  </div>
+</body>
+</html>
