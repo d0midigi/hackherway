@@ -1,0 +1,891 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>API Reference - TechDocs</title>
+    
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    
+    <!-- Bootstrap Icons -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css" rel="stylesheet">
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    
+    <!-- Anime.js -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js"></script>
+    
+    <!-- Custom CSS -->
+    <style>
+        :root {
+            --primary-bg: #FFFFFF;
+            --secondary-bg: #F8F9FA;
+            --text-primary: #2C3E50;
+            --text-secondary: #6C757D;
+            --accent-color: #1ABC9C;
+            --border-color: #E9ECEF;
+            --code-bg: #F4F4F4;
+            --success-color: #28A745;
+            --warning-color: #FFC107;
+            --error-color: #DC3545;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            color: var(--text-primary);
+            background-color: var(--primary-bg);
+            line-height: 1.6;
+        }
+
+        /* Typography */
+        h1, h2, h3, h4, h5, h6 {
+            font-family: 'Playfair Display', serif;
+            font-weight: 600;
+            line-height: 1.2;
+            margin-bottom: 1rem;
+        }
+
+        h1 { font-size: 2.5rem; }
+        h2 { font-size: 2rem; }
+        h3 { font-size: 1.5rem; }
+        h4 { font-size: 1.25rem; }
+
+        /* Layout */
+        .wrapper {
+            display: flex;
+            min-height: 100vh;
+        }
+
+        /* Sidebar */
+        .sidebar {
+            width: 320px;
+            background-color: var(--secondary-bg);
+            border-right: 1px solid var(--border-color);
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 100vh;
+            overflow-y: auto;
+            z-index: 1000;
+            transition: transform 0.3s ease;
+        }
+
+        .sidebar-header {
+            padding: 1.5rem;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .sidebar-header h1 {
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+            color: var(--accent-color);
+        }
+
+        .sidebar-header p {
+            font-size: 0.875rem;
+            color: var(--text-secondary);
+            margin: 0;
+        }
+
+        .search-container {
+            padding: 1rem 1.5rem;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .search-input {
+            width: 100%;
+            padding: 0.75rem 1rem;
+            border: 1px solid var(--border-color);
+            border-radius: 4px;
+            font-size: 0.875rem;
+            transition: border-color 0.2s ease;
+        }
+
+        .search-input:focus {
+            outline: none;
+            border-color: var(--accent-color);
+            box-shadow: 0 0 0 2px rgba(26, 188, 156, 0.2);
+        }
+
+        /* Navigation */
+        .nav-container {
+            padding: 1rem 0;
+        }
+
+        .nav-item {
+            position: relative;
+        }
+
+        .nav-link {
+            display: flex;
+            align-items: center;
+            padding: 0.75rem 1.5rem;
+            text-decoration: none;
+            color: var(--text-primary);
+            font-size: 0.875rem;
+            transition: all 0.2s ease;
+            cursor: pointer;
+            border-left: 3px solid transparent;
+        }
+
+        .nav-link:hover {
+            background-color: rgba(26, 188, 156, 0.1);
+            color: var(--accent-color);
+        }
+
+        .nav-link.active {
+            background-color: var(--accent-color);
+            color: white;
+            border-left-color: var(--accent-color);
+        }
+
+        .nav-link.has-children::after {
+            content: '';
+            display: inline-block;
+            width: 0;
+            height: 0;
+            margin-left: auto;
+            border-left: 4px solid transparent;
+            border-right: 4px solid transparent;
+            border-top: 4px solid currentColor;
+            transition: transform 0.2s ease;
+        }
+
+        .nav-link.has-children.expanded::after {
+            transform: rotate(180deg);
+        }
+
+        /* Nested Navigation Levels */
+        .level-1 { padding-left: 1.5rem; }
+        .level-2 { padding-left: 3rem; }
+        .level-3 { padding-left: 4.5rem; }
+        .level-4 { padding-left: 6rem; }
+        .level-5 { padding-left: 7.5rem; }
+
+        .nav-children {
+            display: none;
+            overflow: hidden;
+        }
+
+        .nav-children.show {
+            display: block;
+        }
+
+        /* Main Content */
+        .main-content {
+            flex: 1;
+            margin-left: 320px;
+            min-height: 100vh;
+        }
+
+        /* Header */
+        .header {
+            background-color: var(--primary-bg);
+            border-bottom: 1px solid var(--border-color);
+            padding: 1rem 2rem;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .header-content {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .mobile-toggle {
+            display: none;
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            color: var(--text-primary);
+            cursor: pointer;
+        }
+
+        .breadcrumb {
+            margin: 0;
+            padding: 0;
+            list-style: none;
+            display: flex;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        .breadcrumb-item {
+            font-size: 0.875rem;
+            color: var(--text-secondary);
+        }
+
+        .breadcrumb-item + .breadcrumb-item::before {
+            content: '/';
+            margin: 0 0.5rem;
+            color: var(--border-color);
+        }
+
+        .breadcrumb-item a {
+            color: var(--accent-color);
+            text-decoration: none;
+        }
+
+        .breadcrumb-item a:hover {
+            text-decoration: underline;
+        }
+
+        /* Content */
+        .content {
+            padding: 3rem 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .page-header {
+            margin-bottom: 3rem;
+            padding-bottom: 2rem;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .page-header h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+
+        .page-header p {
+            font-size: 1.25rem;
+            color: var(--text-secondary);
+            margin: 0;
+        }
+
+        /* API Endpoint Cards */
+        .endpoint-card {
+            background-color: var(--primary-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            transition: all 0.3s ease;
+        }
+
+        .endpoint-card:hover {
+            border-color: var(--accent-color);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+
+        .endpoint-header {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .http-method {
+            padding: 0.25rem 0.75rem;
+            border-radius: 4px;
+            font-size: 0.875rem;
+            font-weight: 600;
+            font-family: 'JetBrains Mono', monospace;
+        }
+
+        .http-method.get { background-color: #E8F5E8; color: var(--success-color); }
+        .http-method.post { background-color: #FFF3CD; color: var(--warning-color); }
+        .http-method.put { background-color: #CCE5FF; color: #0066CC; }
+        .http-method.delete { background-color: #F8D7DA; color: var(--error-color); }
+
+        .endpoint-path {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 1rem;
+            color: var(--text-primary);
+        }
+
+        /* Code Example */
+        .code-example {
+            background-color: var(--code-bg);
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin: 2rem 0;
+            overflow-x: auto;
+            position: relative;
+        }
+
+        .code-example pre {
+            margin: 0;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.875rem;
+            line-height: 1.5;
+        }
+
+        .code-example code {
+            color: var(--text-primary);
+        }
+
+        /* Parameter Table */
+        .parameter-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1.5rem 0;
+            background-color: var(--primary-bg);
+            border-radius: 8px;
+            overflow: hidden;
+            border: 1px solid var(--border-color);
+        }
+
+        .parameter-table th,
+        .parameter-table td {
+            padding: 1rem;
+            text-align: left;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .parameter-table th {
+            background-color: var(--secondary-bg);
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+
+        .parameter-table tr:hover {
+            background-color: rgba(26, 188, 156, 0.05);
+        }
+
+        .param-type {
+            display: inline-block;
+            padding: 0.25rem 0.5rem;
+            background-color: var(--secondary-bg);
+            border-radius: 4px;
+            font-size: 0.75rem;
+            font-family: 'JetBrains Mono', monospace;
+            color: var(--text-secondary);
+        }
+
+        .param-required {
+            color: var(--error-color);
+            font-weight: 600;
+            font-size: 0.75rem;
+        }
+
+        .param-optional {
+            color: var(--text-secondary);
+            font-weight: 600;
+            font-size: 0.75rem;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .sidebar {
+                transform: translateX(-100%);
+            }
+
+            .sidebar.show {
+                transform: translateX(0);
+            }
+
+            .main-content {
+                margin-left: 0;
+            }
+
+            .mobile-toggle {
+                display: block;
+            }
+
+            .page-header h1 {
+                font-size: 2rem;
+            }
+
+            .content {
+                padding: 2rem 1rem;
+            }
+
+            .endpoint-header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 0.5rem;
+            }
+        }
+
+        /* Animation Classes */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(20px);
+        }
+
+        .slide-in-left {
+            opacity: 0;
+            transform: translateX(-20px);
+        }
+
+        .slide-in-right {
+            opacity: 0;
+            transform: translateX(20px);
+        }
+    </style>
+</head>
+<body>
+    <div class="wrapper">
+        <!-- Sidebar -->
+        <nav class="sidebar" id="sidebar">
+            <div class="sidebar-header">
+                <h1><i class="bi bi-book"></i> TechDocs</h1>
+                <p>Comprehensive Documentation Platform</p>
+            </div>
+
+            <div class="search-container">
+                <input type="text" class="search-input" placeholder="Search documentation..." id="searchInput">
+            </div>
+
+            <div class="nav-container">
+                <!-- Level 1 Navigation -->
+                <div class="nav-item">
+                    <a href="index.html" class="nav-link">
+                        <i class="bi bi-house-door"></i> Home
+                    </a>
+                </div>
+
+                <div class="nav-item">
+                    <div class="nav-link has-children" data-toggle="collapse" data-target="getting-started">
+                        <i class="bi bi-rocket"></i> Getting Started
+                    </div>
+                    <div class="nav-children" id="getting-started">
+                        <div class="nav-item">
+                            <a href="getting-started.html" class="nav-link level-1">
+                                <i class="bi bi-play-circle"></i> Quick Start Guide
+                            </a>
+                        </div>
+                        <div class="nav-item">
+                            <div class="nav-link has-children level-1" data-toggle="collapse" data-target="installation">
+                                <i class="bi bi-download"></i> Installation
+                            </div>
+                            <div class="nav-children" id="installation">
+                                <div class="nav-item">
+                                    <a href="getting-started.html#npm" class="nav-link level-2">
+                                        <i class="bi bi-box"></i> NPM Package
+                                    </a>
+                                </div>
+                                <div class="nav-item">
+                                    <a href="getting-started.html#cdn" class="nav-link level-2">
+                                        <i class="bi bi-cloud"></i> CDN Setup
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="nav-item">
+                    <div class="nav-link has-children expanded" data-toggle="collapse" data-target="api-reference">
+                        <i class="bi bi-code-square"></i> API Reference
+                    </div>
+                    <div class="nav-children show" id="api-reference">
+                        <!-- Level 2: Authentication -->
+                        <div class="nav-item">
+                            <div class="nav-link has-children level-1 expanded" data-toggle="collapse" data-target="authentication">
+                                <i class="bi bi-key"></i> Authentication
+                            </div>
+                            <div class="nav-children show" id="authentication">
+                                <div class="nav-item">
+                                    <a href="#oauth" class="nav-link level-2 active">
+                                        <i class="bi bi-shield-check"></i> OAuth 2.0
+                                    </a>
+                                </div>
+                                <div class="nav-item">
+                                    <a href="#api-keys" class="nav-link level-2">
+                                        <i class="bi bi-key-fill"></i> API Keys
+                                    </a>
+                                </div>
+                                <div class="nav-item">
+                                    <div class="nav-link has-children level-2" data-toggle="collapse" data-target="jwt-auth">
+                                        <i class="bi bi-ticket"></i> JWT Tokens
+                                    </div>
+                                    <div class="nav-children" id="jwt-auth">
+                                        <div class="nav-item">
+                                            <a href="#jwt-setup" class="nav-link level-3">
+                                                <i class="bi bi-gear-fill"></i> JWT Configuration
+                                            </a>
+                                        </div>
+                                        <div class="nav-item">
+                                            <a href="#jwt-refresh" class="nav-link level-3">
+                                                <i class="bi bi-arrow-clockwise"></i> Token Refresh
+                                            </a>
+                                        </div>
+                                        <div class="nav-item">
+                                            <div class="nav-link has-children level-3" data-toggle="collapse" data-target="jwt-advanced">
+                                                <i class="bi bi-gear"></i> Advanced JWT
+                                            </div>
+                                            <div class="nav-children" id="jwt-advanced">
+                                                <div class="nav-item">
+                                                    <a href="#jwt-custom-claims" class="nav-link level-4">
+                                                        <i class="bi bi-tags"></i> Custom Claims
+                                                    </a>
+                                                </div>
+                                                <div class="nav-item">
+                                                    <a href="#jwt-validation" class="nav-link level-4">
+                                                        <i class="bi bi-check-circle"></i> Token Validation
+                                                    </a>
+                                                </div>
+                                                <div class="nav-item">
+                                                    <div class="nav-link has-children level-4" data-toggle="collapse" data-target="jwt-security">
+                                                        <i class="bi bi-shield-lock"></i> JWT Security
+                                                    </div>
+                                                    <div class="nav-children" id="jwt-security">
+                                                        <div class="nav-item">
+                                                            <a href="#jwt-algorithms" class="nav-link level-5">
+                                                                <i class="bi bi-gear-fill"></i> Signing Algorithms
+                                                            </a>
+                                                        </div>
+                                                        <div class="nav-item">
+                                                            <a href="#jwt-key-rotation" class="nav-link level-5">
+                                                                <i class="bi bi-arrow-repeat"></i> Key Rotation
+                                                            </a>
+                                                        </div>
+                                                        <div class="nav-item">
+                                                            <a href="#jwt-blacklisting" class="nav-link level-5">
+                                                                <i class="bi bi-ban"></i> Token Blacklisting
+                                                            </a>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Level 2: Users API -->
+                        <div class="nav-item">
+                            <div class="nav-link has-children level-1" data-toggle="collapse" data-target="users-api">
+                                <i class="bi bi-people"></i> Users API
+                            </div>
+                            <div class="nav-children" id="users-api">
+                                <div class="nav-item">
+                                    <div class="nav-link has-children level-2" data-toggle="collapse" data-target="user-management">
+                                        <i class="bi bi-person-plus"></i> User Management
+                                    </div>
+                                    <div class="nav-children" id="user-management">
+                                        <div class="nav-item">
+                                            <a href="#create-user" class="nav-link level-3">
+                                                <i class="bi bi-person-plus-fill"></i> Create User
+                                            </a>
+                                        </div>
+                                        <div class="nav-item">
+                                            <a href="#get-user" class="nav-link level-3">
+                                                <i class="bi bi-person"></i> Get User
+                                            </a>
+                                        </div>
+                                        <div class="nav-item">
+                                            <a href="#update-user" class="nav-link level-3">
+                                                <i class="bi bi-pencil"></i> Update User
+                                            </a>
+                                        </div>
+                                        <div class="nav-item">
+                                            <a href="#delete-user" class="nav-link level-3">
+                                                <i class="bi bi-trash"></i> Delete User
+                                            </a>
+                                        </div>
+                                        <div class="nav-item">
+                                            <div class="nav-link has-children level-3" data-toggle="collapse" data-target="user-bulk">
+                                                <i class="bi bi-people-fill"></i> Bulk Operations
+                                            </div>
+                                            <div class="nav-children" id="user-bulk">
+                                                <div class="nav-item">
+                                                    <a href="#bulk-create" class="nav-link level-4">
+                                                        <i class="bi bi-upload"></i> Bulk Create
+                                                    </a>
+                                                </div>
+                                                <div class="nav-item">
+                                                    <a href="#bulk-update" class="nav-link level-4">
+                                                        <i class="bi bi-pencil-square"></i> Bulk Update
+                                                    </a>
+                                                </div>
+                                                <div class="nav-item">
+                                                    <a href="#bulk-delete" class="nav-link level-4">
+                                                        <i class="bi bi-trash-fill"></i> Bulk Delete
+                                                    </a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="nav-item">
+                                    <div class="nav-link has-children level-2" data-toggle="collapse" data-target="user-profiles">
+                                        <i class="bi bi-person-badge"></i> User Profiles
+                                    </div>
+                                    <div class="nav-children" id="user-profiles">
+                                        <div class="nav-item">
+                                            <a href="#profile-fields" class="nav-link level-3">
+                                                <i class="bi bi-list-check"></i> Profile Fields
+                                            </a>
+                                        </div>
+                                        <div class="nav-item">
+                                            <a href="#profile-validation" class="nav-link level-3">
+                                                <i class="bi bi-check-lg"></i> Profile Validation
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Level 2: Data API -->
+                        <div class="nav-item">
+                            <div class="nav-link has-children level-1" data-toggle="collapse" data-target="data-api">
+                                <i class="bi bi-database"></i> Data API
+                            </div>
+                            <div class="nav-children" id="data-api">
+                                <div class="nav-item">
+                                    <a href="#crud-operations" class="nav-link level-2">
+                                        <i class="bi bi-arrows-move"></i> CRUD Operations
+                                    </a>
+                                </div>
+                                <div class="nav-item">
+                                    <a href="#data-queries" class="nav-link level-2">
+                                        <i class="bi bi-search"></i> Data Queries
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="nav-item">
+                    <div class="nav-link has-children" data-toggle="collapse" data-target="guides">
+                        <i class="bi bi-compass"></i> Guides
+                    </div>
+                    <div class="nav-children" id="guides">
+                        <div class="nav-item">
+                            <div class="nav-link has-children level-1" data-toggle="collapse" data-target="integration-guides">
+                                <i class="bi bi-puzzle"></i> Integration Guides
+                            </div>
+                            <div class="nav-children" id="integration-guides">
+                                <div class="nav-item">
+                                    <a href="guides.html#web-integration" class="nav-link level-2">
+                                        <i class="bi bi-globe"></i> Web Integration
+                                    </a>
+                                </div>
+                                <div class="nav-item">
+                                    <a href="guides.html#mobile-integration" class="nav-link level-2">
+                                        <i class="bi bi-phone"></i> Mobile Integration
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="nav-item">
+                    <a href="#" class="nav-link">
+                        <i class="bi bi-life-preserver"></i> Support
+                    </a>
+                </div>
+            </div>
+        </nav>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Header -->
+            <header class="header">
+                <div class="header-content">
+                    <button class="mobile-toggle" id="mobileToggle">
+                        <i class="bi bi-list"></i>
+                    </button>
+                    <nav aria-label="breadcrumb">
+                        <ol class="breadcrumb">
+                            <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+                            <li class="breadcrumb-item"><a href="api-reference.html">API Reference</a></li>
+                            <li class="breadcrumb-item"><a href="#authentication">Authentication</a></li>
+                            <li class="breadcrumb-item active" aria-current="page">OAuth 2.0</li>
+                        </ol>
+                    </nav>
+                </div>
+            </header>
+
+            <!-- Content -->
+            <div class="content">
+                <div class="page-header fade-in">
+                    <h1>API Reference</h1>
+                    <p>Complete reference for all TechDocs API endpoints, parameters, and response formats</p>
+                </div>
+
+                <!-- OAuth 2.0 Section -->
+                <section class="fade-in">
+                    <h2 id="oauth">OAuth 2.0 Authentication</h2>
+                    <p>TechDocs supports OAuth 2.0 for secure authentication and authorization.</p>
+
+                    <div class="endpoint-card slide-in-left">
+                        <div class="endpoint-header">
+                            <span class="http-method post">POST</span>
+                            <span class="endpoint-path">/oauth/authorize</span>
+                        </div>
+                        <p>Initiate the OAuth authorization flow</p>
+                        
+                        <h4>Request Parameters</h4>
+                        <table class="parameter-table">
+                            <thead>
+                                <tr>
+                                    <th>Parameter</th>
+                                    <th>Type</th>
+                                    <th>Required</th>
+                                    <th>Description</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><code>client_id</code></td>
+                                    <td><span class="param-type">string</span></td>
+                                    <td><span class="param-required">required</span></td>
+                                    <td>Your application's client ID</td>
+                                </tr>
+                                <tr>
+                                    <td><code>response_type</code></td>
+                                    <td><span class="param-type">string</span></td>
+                                    <td><span class="param-required">required</span></td>
+                                    <td>Must be <code>code</code></td>
+                                </tr>
+                                <tr>
+                                    <td><code>redirect_uri</code></td>
+                                    <td><span class="param-type">string</span></td>
+                                    <td><span class="param-required">required</span></td>
+                                    <td>URL to redirect after authorization</td>
+                                </tr>
+                                <tr>
+                                    <td><code>scope</code></td>
+                                    <td><span class="param-type">string</span></td>
+                                    <td><span class="param-optional">optional</span></td>
+                                    <td>Requested permissions (space-separated)</td>
+                                </tr>
+                            </tbody>
+                        </table>
+
+                        <h4>Example Request</h4>
+                        <div class="code-example">
+                            <pre><code>const params = new URLSearchParams({
+  client_id: 'your-client-id',
+  response_type: 'code',
+  redirect_uri: 'https://your-app.com/callback',
+  scope: 'read write'
+});
+
+window.location.href = `https://api.techdocs.com/oauth/authorize?${params}`;</code></pre>
+                        </div>
+                    </div>
+
+                    <div class="endpoint-card slide-in-right">
+                        <div class="endpoint-header">
+                            <span class="http-method post">POST</span>
+                            <span class="endpoint-path">/oauth/token</span>
+                        </div>
+                        <p>Exchange authorization code for access token</p>
+                        
+                        <h4>Request Parameters</h4>
+                        <table class="parameter-table">
+                            <thead>
+                                <tr>
+                                    <th>Parameter</th>
+                                    <th>Type</th>
+                                    <th>Required</th>
+                                    <th>Description</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><code>grant_type</code></td>
+                                    <td><span class="param-type">string</span></td>
+                                    <td><span class="param-required">required</span></td>
+                                    <td>Must be <code>authorization_code</code></td>
+                                </tr>
+                                <tr>
+                                    <td><code>client_id</code></td>
+                                    <td><span class="param-type">string</span></td>
+                                    <td><span class="param-required">required</span></td>
+                                    <td>Your application's client ID</td>
+                                </tr>
+                                <tr>
+                                    <td><code>client_secret</code></td>
+                                    <td><span class="param-type">string</span></td>
+                                    <td><span class="param-required">required</span></td>
+                                    <td>Your application's client secret</td>
+                                </tr>
+                                <tr>
+                                    <td><code>code</code></td>
+                                    <td><span class="param-type">string</span></td>
+                                    <td><span class="param-required">required</span></td>
+                                    <td>Authorization code from callback</td>
+                                </tr>
+                            </tbody>
+                        </table>
+
+                        <h4>Example Response</h4>
+                        <div class="code-example">
+                            <pre><code>{
+  "access_token": "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9...",
+  "token_type": "Bearer",
+  "expires_in": 3600,
+  "refresh_token": "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9...",
+  "scope": "read write"
+}</code></pre>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- API Keys Section -->
+                <section class="fade-in">
+                    <h2 id="api-keys">API Key Authentication</h2>
+                    <p>For simpler use cases, you can use API key authentication instead of OAuth.</p>
+
+                    <div class="endpoint-card slide-in-left">
+                        <div class="endpoint-header">
+                            <span class="http-method get">GET</span>
+                            <span class="endpoint-path">/api/v1/account</span>
+                        </div>
+                        <p>Get account information using API key authentication</p>
+                        
+                        <h4>Headers</h4>
+                        <table class="parameter-table">
+                            <thead>
+                                <tr>
+                                    <th>Header</th>
+                                    <th>Type</th>
+                                    <th>Required</th>
+                                    <th>Description</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><code>Authorization</code></td>
+                                    <td><span class="param-type">string</span></td>
+                                    <td><span class="param-required">required</span></td>
+                                    <td>API key in format: <code>Bearer your-api-key</code></td>
+                                </tr>
+                            </tbody>
+                        </table>
+
+                        <h4>Example Request</h4>
+                        <div class="code-example">
+                            <pre><code>const response = await fetch('https://api.techdocs.com/v1/account', {
+  headers: {
+    'Authorization': 'Bearer your-api-key-here'
+  }
+});
+
+const account = await response.json();
+console.log(account);</code></pre>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </main>
+    </div>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <!-- Custom JavaScript -->
+    <script src="main.js"></script>
+</body>
+</html>
