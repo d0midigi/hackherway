@@ -2202,6 +2202,21 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 });
 </script>
+<script>
+// Fix initial page load
+window.addEventListener('load', () => {
+  // Scroll to top
+  window.scrollTo(0, 0);
+  
+  // Ensure sidebar is visible on desktop
+  if (window.innerWidth > 1024) {
+    document.querySelector('.content-wrapper').style.display = 'flex';
+    document.querySelector('aside').style.display = 'block';
+  }
+});
+
+  
+</script>
   <script src="script.js"></script>
 </body>
 
