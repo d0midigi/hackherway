@@ -1,0 +1,2270 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="color-scheme" content="light dark" />
+  <title>hackherway cyberspace</title>
+  <link rel="stylesheet" href="./style.css">
+  <link rel="shortcut icon" href="https://i.imgur.com/pheSvKs.png">
+  
+  <!-- External Resources -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@300..700&display=swap" rel="stylesheet">
+<!--
+/* ==========================================
+   hackherway cyberspace - Styles
+   ========================================== */
+
+:root {
+  :root {
+  --primary: #5d5cde;
+  --secondary: #8281e8;
+  --accent: #3a3a9e;
+  --pink: #fe0942;
+  --pink-light: #ea3680;
+  
+  /* ADD THESE MISSING VARIABLES */
+  --bg-secondary: #111118;
+  --bg-tertiary: #16161f;
+  --text-primary: #e5e7eb;
+  --text-secondary: #9ca3af;
+  --text-muted: #6b7280;
+  --border: #1f1f2e;
+  --radius: 8px;
+  --radius-lg: 12px;
+
+}
+
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 5rem;
+}
+
+.dark {
+  --color-bg: #181818;
+  --color-text: #f3f4f6;
+  --color-border: #374151;
+}
+
+.light {
+  --color-bg: #ffffff;
+  --color-text: #1f2937;
+  --color-border: #e5e7eb;
+}
+
+body {
+  font-family: "Open Sans", sans-serif;
+  font-size: 0.95rem;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  min-height: 100vh;
+  margin: 0;
+  overflow-x: hidden;
+}
+
+/* Main container */
+body > div:not(.bg-animation) {
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(10px);
+  border-radius: 20px;
+  margin: 1rem;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+  position: relative;
+  z-index: 1;
+}
+
+.dark body > div:not(.bg-animation) {
+  background: rgba(24, 24, 24, 0.95);
+}
+
+
+.search-result {
+  animation: highlight 2s ease-in-out;
+}
+
+@keyframes highlight {
+  0% { background-color: rgba(93, 92, 222, 0.2); }
+  100% { background-color: transparent; }
+}
+
+/* ==========================================
+   HEADER
+   ========================================== */
+
+header {
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.95) 0%, rgba(248, 247, 255, 0.95) 100%) !important;
+  backdrop-filter: blur(20px);
+  border-bottom: 2px solid rgba(93, 92, 222, 0.1);
+}
+
+.dark header {
+  background: linear-gradient(135deg, rgba(24, 24, 24, 0.95) 0%, rgba(37, 37, 53, 0.95) 100%) !important;
+}
+
+
+
+#theme-toggle {
+  width: 36px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  transition: all 0.3s ease;
+}
+
+#theme-toggle:hover {
+  background: rgba(93, 92, 222, 0.1);
+  transform: rotate(20deg);
+}
+
+
+/* ==========================================
+   LAYOUT
+   ========================================== */
+
+.content-wrapper {
+  display: flex;
+  gap: 1.5rem;
+  padding: 1.5rem;
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+
+/* Main Content */
+main {
+  flex: 1;
+  min-width: 0;
+  max-width: calc(100% - 280px);
+}
+
+.content {
+  max-width: 100%;
+  overflow-wrap: break-word;
+  word-wrap: break-word;
+}
+
+
+.content p {
+  font-size: 0.85rem !important;
+  line-height: 1.6 !important;
+  margin-bottom: 0.75rem;
+  color: var(--color-text);
+  max-width: 100% !important;
+  overflow-wrap: break-word;
+}
+
+.content a {
+  color: var(--primary);
+  text-decoration: none;
+  font-weight: 400;
+  position: relative;
+  transition: color 0.2s ease;
+}
+
+.content a:hover {
+  color: var(--pink);
+}
+
+.content ul:not(.dropdown-menu) {
+  list-style: none !important;
+  margin-left: 0 !important;
+  padding-left: 0 !important;
+}
+
+.content ul:not(.dropdown-menu) li {
+  position: relative;
+  padding-left: 1.2rem;
+  margin-bottom: 0.4rem;
+  list-style: none !important;
+  font-size: 0.85rem;
+}
+
+.content ul:not(.dropdown-menu) li::before {
+  content: "▸";
+  position: absolute;
+  left: 0;
+  color: var(--pink);
+  font-weight: bold;
+}
+
+/* Sections */
+section {
+  margin-bottom: 2rem;
+}
+
+section[id] {
+  scroll-margin-top: 5rem;
+}
+
+
+/* Images */
+.centered-image-container {
+  max-width: 100%;
+  overflow: hidden;
+  margin: 1rem 0;
+}
+
+.centered-image {
+  max-width: 100% !important;
+  height: auto !important;
+  display: block;
+  margin: 0 auto;
+  border-radius: 8px;
+}
+
+#introduction img {
+  max-width: 250px !important;
+  height: auto !important;
+}
+
+
+/* Text styles */
+.all-caps-text {
+  font-variant-caps: all-small-caps;
+  font-size: 1rem;
+  letter-spacing: 0.08em;
+}
+
+.small-caps-heading {
+  font-variant-caps: all-small-caps;
+  font-size: 1.4rem;
+  line-height: 1.4;
+  letter-spacing: 0.06em;
+}
+
+
+.heart-emoji {
+  font-size: 0.6em;
+  filter: drop-shadow(0 2px 4px rgba(254, 9, 66, 0.3));
+}
+
+/* Glitchy GIF as body background */
+body {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  position: relative;
+}
+
+body::before {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: url('https://i.imgur.com/g3rdpAo.gif') center/cover no-repeat;
+  z-index: 0;
+  pointer-events: none;
+}
+
+/* Ensure content is above */
+body > * {
+  position: relative;
+  z-index: 1;
+}
+  
+* {
+  box-sizing: border-box;
+}
+
+body {
+  min-height: 100vh;
+  padding: 36px 24px;
+  color: #222;
+  background-color: #ececec;
+  font-size: clamp(1rem, 2vw, 2rem + 0.5rem);
+  font-family: "Space Grotesk", sans-serif;
+  
+  --bdrs: 36px;
+  --p: 12px;
+}
+
+.card {
+  width: 300px;
+  padding: var(--p);
+  border-radius: var(--bdrs);
+  border: 1px solid #0003;
+  box-shadow: 0 3px 12px #0003;
+ 
+  .inner {
+    aspect-ratio: 16/9;
+    background-image: url(https://images.unsplash.com/photo-1773556812239-f50114c62235?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wzMjM4NDZ8MHwxfHJhbmRvbXx8fHx8fHx8fDE3NzUyNTE3OTl8&ixlib=rb-4.1.0&q=80&w=400);
+    background-size: cover;
+    background-position: center;
+  }
+  
+  &.original .inner {
+    --inner-bdrs: calc(var(--bdrs) - var(--p));
+    border-radius: var(--inner-bdrs) var(--inner-bdrs) 0 0;
+  }
+  
+  &.new {
+    overflow: clip;
+    overflow-clip-margin: content-box;
+  }
+  
+  .title {
+    font-weight: bold;
+    margin: 12px 0 6px;
+  }
+  .content {
+    line-height: 1.8;
+    text-wrap: balance;
+    margin-bottom: 12px;
+    font-size: 14px;
+    white-space: normal;
+    
+  <!-- ========== MAIN PAGE ========== -->
+  <div id="main-page">
+    
+    <!-- Header -->
+    <header class="sticky top-0 z-50 bg-white dark:bg-gray-900 shadow-md">
+      <div class="w-full max-w-none mx-0 px-3 py-2 flex flex-col lg:flex-row items-center gap-2">
+        <h1 class="small-caps-heading whitespace-nowrap shrink-0 text-xl lg:text-2xl font-bold text-primary text-left inline-block border-r-2 border-primary pr-2 blink-cursor">
+          🖤 hackherway cyberspace 🖤
+        </h1>
+        
+        <!-- Header Dropdown -->
+        <div class="header-dropdown">
+          <details>
+            <summary>
+              <span>🌐 My Sites</span>
+              <span class="dropdown-arrow">▼</span>
+            </summary>
+            <ul class="dropdown-menu">
+              <li><a href="#" onclick="showLinksPage(); return false;"></a></li>
+              <li><a href="https://d0midigi.github.io/hackherway" target="_blank"><p class="all-caps-text">• hackherway•main •</a></li>
+              <li><a href="https://hackherway.neocities.org" target="_blank"><p class="all-caps-text">• hackherway•y2k •</a></li>
+              <li><a href="https://github.com/d0midigi" target="_blank"><p class="all-caps-text">• hackherway•github •</a></li>
+              <li><a href="https://hackherway.rocks" target="_blank"><p class="all-caps-text">• hackherway•rocks •</a></li>
+              <li><a href="https://hackherway.substack" target="_blank"><p class="all-caps-text">• hackherway•substack •</a></li>
+            </ul>
+          </details>
+        </div>
+
+        <div class="lg:ml-auto w-full lg:w-2/5 relative">
+          <div class="relative">
+            <input type="text" id="search-input" placeholder="🔍 Search hackherway..." class="w-full px-3 py-2 pr-10 rounded-lg border border-gray-300 dark:border-gray-700 dark:bg-gray-800 focus:outline-none focus:ring-2 focus:ring-primary text-sm" autocomplete="off">
+            <button id="search-button" class="absolute right-3 top-1/2 transform -translate-y-1/2 text-primary">
+              <i class="fas fa-search"></i>
+            </button>
+          </div>
+          <div id="search-results" class="absolute w-full mt-1 max-h-60 overflow-y-auto bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-700 rounded-lg shadow-lg z-50 hidden"></div>
+        </div>
+        
+        <button id="theme-toggle" aria-label="Switch between light and dark theme" class="text-gray-600 dark:text-gray-300 hover:text-primary dark:hover:text-primary">
+          <i class="fas fa-moon dark:hidden"></i>
+          <i class="fas fa-sun hidden dark:block"></i>
+        </button>
+      </div>
+    </header>
+
+    <p class="header-tagline"><span class="header-tagline-text">Learn how to hackherway - the hacker way...</span></p>
+
+    <div class="content-wrapper">
+     
+      <!-- Main Content -->
+      <main class="content">
+        
+        <!-- Introduction -->
+        <section id="introduction">  
+        </section>
+
+        
+
+          
+<div id="infrasec-tabs" class="container mt-4">
+  <div class="security-tab-list" role="tablist" aria-label="Infrastructure security topics">
+    <button class="security-tab-button" id="tab-home" type="button" data-tab="home" role="tab" aria-controls="home" aria-selected="true" tabindex="0"><p class="all-caps-text">• Baseline hardening •</button>
+    <button class="security-tab-button" id="tab-profile" type="button" data-tab="profile" role="tab" aria-controls="profile" aria-selected="false" tabindex="-1"><p class="all-caps-text">• Network visibility •</button>
+    <button class="security-tab-button" id="tab-messages" type="button" data-tab="messages" role="tab" aria-controls="messages" aria-selected="false" tabindex="-1"><p class="all-caps-text">• Resilience and recovery •</button>
+  </div>
+  <div class="tab-content responsive">
+    <div class="security-tab-panel" id="home" role="tabpanel" aria-labelledby="tab-home" tabindex="0">
+      <div class="security-tab-layout">
+        <img class="security-tab-image" alt="laptop_from_side_925x" src="https://preview.ibb.co/jjt8iF/laptop_from_side_925x.jpg">
+        <div class="security-tab-copy">
+          <h3 class="h3">Baseline hardening</h3>
+          <p>Start with an accurate inventory of servers, network devices, and exposed services. Apply a documented secure baseline, remove services the system does not need, and review configuration changes so exceptions stay visible and intentional.</p>
+        </div>
+      </div>
+    </div>
+    <div class="security-tab-panel" id="profile" role="tabpanel" aria-labelledby="tab-profile" tabindex="0" hidden>
+      <div class="security-tab-layout">
+        <img class="security-tab-image" alt="macbook_air_on_desk_925x" src="https://preview.ibb.co/f2foiF/macbook_air_on_desk_925x.jpg">
+        <div class="security-tab-copy">
+          <h3 class="h3">Network visibility</h3>
+          <p>Useful infrastructure monitoring connects asset ownership with network and system logs. Keep timestamps consistent, retain the events needed for investigations, and make sure alerts give responders enough context to validate unusual activity.</p>
+        </div>
+      </div>
+    </div>
+    <div class="security-tab-panel" id="messages" role="tabpanel" aria-labelledby="tab-messages" tabindex="0" hidden>
+      <div class="security-tab-layout">
+        <div class="security-tab-copy">
+          <h3 class="h3">Resilience and recovery</h3>
+          <p>Plan for failures as well as intrusions. Maintain tested backups, document recovery priorities, and rehearse how infrastructure teams isolate affected systems and restore trusted services.</p>
+          <ul>
+            <li>Keep recovery procedures current and accessible.</li>
+            <li>Test backup restoration on a regular schedule.</li>
+            <li>Record ownership and escalation paths for critical services.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+          <section>
+  <div class="card-grid">
+    <article class="card">
+      
+            
+      <img class="card-image" src="https://codepen.io/Yvonne-Angelica/pen/KwmqYzO/image/large.png" width="800" height="450" alt="nested tree root directory structure">
+      <h3 class="security-resource-title">Nested Tree Root Directory Structure</h3>
+      <div class="content">
+        <p>An interactive, collapsible file-tree navigation built with semantic HTML, CSS, and vanilla JavaScript (JS). Features smooth folder toggling and dynamic active-state highlighting for nested directories.</p>
+        <a href="#netsec">Explore in Codepen!</a>
+      </div>
+    </article>
+
+    <article class="card">
+      <img class="card-image" src="https://codepen.io/Yvonne-Angelica/pen/gbWmPpN/image/large.png" width="800" height="450" alt="pure css scorbunny">
+      <h3 class="security-resource-title">Pure CSS Scorbunny</h3>
+      <div class="content">
+        <p>A Pokémon illustration of Scorbunny crafted entirely with HTML and pure CSS. Built without SVGs or external images, relying solely on layered shapes, gradients, and positioning. </p>
+        <a href="#iam">Explore in Codepen!</a>
+      </div>
+    </article>
+
+    <article class="card">
+      <img class="card-image" src="https://codepen.io/Yvonne-Angelica/pen/XJRMmdX/image/large.png" width="800" height="450" alt="i see you eye movement effect">
+      <h3 class="security-resource-title">I See You! Eye Movement Effect</h3>
+      <div class="content">
+        <p>An interactive UI micro-interaction featuring a cute character peering over form field whose eyes dynamically track the mouse cursor in real time. Built with HTML, CSS, and JS.</p>
+        <a href="#dfir">Explore in Codepen!</a>
+      </div>
+    </article>
+  </div>
+            <!-- grid 02 -->
+  <div class="card-grid">
+    <article class="card">
+      <img class="card-image" src="https://codepen.io/Yvonne-Angelica/pen/MYmeRbP/image/large.png" width="800" height="450" alt="css staggered cube animation">
+      <h3 class="security-resource-title">CSS Staggered Cube Animation</h3>
+      <div class="content">
+        <p>A hypnotic 3D geometric motion piece featuring an array of isometric cubes tumbling over one another in a seamless, staggered square-sequence.</p>
+        <a href="#netsec">Explore in Codepen!</a>
+      </div>
+    </article>
+
+    <article class="card">
+      <img class="card-image" src="https://codepen.io/Yvonne-Angelica/pen/PwmzVLv/image/large.png" width="800" height="450" alt="retro nes-like typography">
+      <h3 class="security-resource-title">Retro NES-Like Typography</h3>
+      <div class="content">
+        <p>A nostalgic 8-bit typography showcase inspired by classic NES game titles. Built with HTML and CSS to recreate crisp pixel styling bold gradients, and retro arcade framing.</p>
+        <a href="#iam">Explore in Codepen!</a>
+      </div>
+    </article>
+
+    <article class="card">
+      <img class="card-image" src="https://codepen.io/Yvonne-Angelica/pen/ramLoPN/image/large.png" width="800" height="450" alt="accessible text color based on the background element">
+      <h3 class="security-resource-title">Accessible Text Color Based on the Background Element</h3>
+      <div class="content">
+        <p>A set of card with color contrast in HTML, CSS, and JS. Parses background RGB/hex values to compute relative luminance. (WCAG standards) and dynamically toggles light or dark foreground text.</p>
+        <a href="#dfir">Explore in Codepen!</a>
+      </div>
+    </article>
+  </div>
+  
+            <!-- grid 03-->
+  <div class="card-grid">
+    <article class="card">
+      <img class="card-image" src="https://codepen.io/Yvonne-Angelica/pen/dPWXZEP/image/large.png" width="800" height="450" alt="shadowy text upon hover effect">
+      <h3 class="security-resource-title">Shadowy Text Upon Hover Effect</h3>
+      <div class="content">
+        <p>A sleep typography micro-interaction that reveals layered drop shadows and subtle elevation on hover. Built with HTML and pure CSS for smooth, lightweight visual repeated effect.</p>
+        <a href="#netsec">Explore in Codepen!</a>
+      </div>
+    </article>
+
+    <article class="card">
+      <img class="card-image" src="https://codepen.io/Yvonne-Angelica/pen/myWabdP/02b2f279f91295bbefb66aaaa88aec42/image/large.png" width="800" height="450" alt="simple admin menu">
+      <h3 class="security-resource-title">Simple Admin Menu</h3>
+      <div class="content">
+        <p>A clean, responsive admin menu that features smooth dropdown toggles, active route states, and intuitive iconography.</p>
+        <a href="#iam">Explore in Codepen!</a>
+      </div>
+    </article>
+
+    <article class="card">
+      <img class="card-image" src="https://codepen.io/Yvonne-Angelica/pen/myWzoOz/image/large.png" width="800" height="450" alt="responsive pure css tabs and accordion">
+      <h3 class="security-resource-title">Responsive Pure CSS Tabs & Accordion</h3>
+      <div class="content">
+        <p>A zero-JavaScript UI component that  seamlessly morphs from horizontal tabs on desktop into a stacked accordion on mobile. Built entirely with semantic HTML and pure CSS.</p>
+        <a href="#dfir">Explore in Codepen!</a>
+      </div>
+    </article>
+  </div>
+
+            <!-- grid 04 -->
+  <div class="card-grid">
+    <article class="card">
+      <img class="card-image" src="https://codepen.io/Yvonne-Angelica/pen/gbmxrLz/image/large.png" width="800" height="450" alt="Network equipment representing network defense">
+      <h3 class="security-resource-title">Scrollspy Using Target-Current & Anchor-Positioning</h3>
+      <div class="content">
+        <p>Review segmentation, firewall rules, and exposed services as one system. Keep the intended traffic paths documented so unexpected access stands out.</p>
+        <a href="#netsec">Explore network security</a>
+      </div>
+    </article>
+
+    <article class="card">
+      <img class="card-image" src="https://codepen.io/Yvonne-Angelica/pen/01a0a0d6-2c1a-7307-bd87-1e73d5ee815a/image/large.png" width="800" height="450" alt="Secure access credentials representing identity and access management">
+      <h3 class="security-resource-title">Iframe Browser Pro</h3>
+      <div class="content">
+        <p>Map privileged accounts to their owners, limit standing access, and review authentication events for changes that do not match expected use.</p>
+        <a href="#iam">Explore identity security</a>
+      </div>
+    </article>
+
+    <article class="card">
+      <img class="card-image" src="https://codepen.io/Yvonne-Angelica/pen/01a0a0b9-b307-782b-a4ce-55cac666513f/image/large.png" width="800" height="450" alt="Incident response workspace representing incident readiness">
+      <h3 class="security-resource-title">ViDiary: AI Voice & Video Journal Showcase (Decoy Vault & Zero-Typing)</h3>
+      <div class="content">
+        <p>Prepare response roles, preserve the logs needed to investigate, and test recovery steps before an incident makes them urgent.</p>
+        <a href="#dfir">Explore incident response</a>
+      </div>
+    </article>
+  </div>
+
+            
+            <!-- grid 05 -->
+  <div class="card-grid">
+    <article class="card">
+      <img class="card-image" src="https://codepen.io/Yvonne-Angelica/pen/wBJKydN/image/large.png" width="800" height="450" alt="Network equipment representing network defense">
+      <h3 class="security-resource-title">Command, Control, and Communication (C3) Animation</h3>
+      <div class="content">
+        <p>Review segmentation, firewall rules, and exposed services as one system. Keep the intended traffic paths documented so unexpected access stands out.</p>
+        <a href="#netsec">Explore network security</a>
+      </div>
+    </article>
+
+    <article class="card">
+      <img class="card-image" src="https://codepen.io/Yvonne-Angelica/pen/019fe835-3ee3-7e6c-a957-2611c529e4f4/image/large.png" width="800" height="450" alt="Secure access credentials representing identity and access management">
+      <h3 class="security-resource-title">Soft Lush UI Button Tab</h3>
+      <div class="content">
+        <p>Map privileged accounts to their owners, limit standing access, and review authentication events for changes that do not match expected use.</p>
+        <a href="#iam">Explore identity security</a>
+      </div>
+    </article>
+
+    <article class="card">
+      <img class="card-image" src="https://codepen.io/Yvonne-Angelica/pen/bNgZjKw/image/large.png" width="800" height="450" alt="Incident response workspace representing incident readiness">
+      <h3 class="security-resource-title">Modern Gradient Wave Background (Mouse Effect)</h3>
+      <div class="content">
+        <p>Prepare response roles, preserve the logs needed to investigate, and test recovery steps before an incident makes them urgent.</p>
+        <a href="#dfir">Explore incident response</a>
+      </div>
+    </article>
+  </div>
+
+            
+            <!-- grid 06 -->
+  <div class="card-grid">
+    <article class="card">
+      <img class="card-image" src="https://codepen.io/Yvonne-Angelica/pen/EaZMpLp/image/large.png" width="800" height="450" alt="Network equipment representing network defense">
+      <h3 class="security-resource-title">Interactive Gradient & Glassmorphism (Mouse Effect)</h3>
+      <div class="content">
+        <p>Review segmentation, firewall rules, and exposed services as one system. Keep the intended traffic paths documented so unexpected access stands out.</p>
+        <a href="#netsec">Explore network security</a>
+      </div>
+    </article>
+
+    <article class="card">
+      <img class="card-image" src="https://codepen.io/Yvonne-Angelica/pen/KwaGQVm/image/large.png" width="800" height="450" alt="Secure access credentials representing identity and access management">
+      <h3 class="security-resource-title">SVG Particles Encoded in a CSS Background</h3>
+      <div class="content">
+        <p>Map privileged accounts to their owners, limit standing access, and review authentication events for changes that do not match expected use.</p>
+        <a href="#iam">Explore identity security</a>
+      </div>
+    </article>
+
+    <article class="card">
+      <img class="card-image" src="https://codepen.io/Yvonne-Angelica/pen/NPdwEwy/image/large.png" width="800" height="450" alt="Incident response workspace representing incident readiness">
+      <h3 class="security-resource-title">Offensive Security Knowledge Base</h3>
+      <div class="content">
+        <p>Prepare response roles, preserve the logs needed to investigate, and test recovery steps before an incident makes them urgent.</p>
+        <a href="#dfir">Explore incident response</a>
+      </div>
+    </article>
+  </div>
+
+            
+            <!-- grid 07 -->
+  <div class="card-grid">
+    <article class="card">
+      <img class="card-image" src="https://codepen.io/Yvonne-Angelica/pen/bNgYQpr/image/large.png" width="800" height="450" alt="Network equipment representing network defense">
+      <h3 class="security-resource-title">Book Architect | Manuscript Organizer</h3>
+      <div class="content">
+        <p>Review segmentation, firewall rules, and exposed services as one system. Keep the intended traffic paths documented so unexpected access stands out.</p>
+        <a href="#netsec">Explore network security</a>
+      </div>
+    </article>
+
+    <article class="card">
+      <img class="card-image" src="https://codepen.io/Yvonne-Angelica/pen/myRqQVP/image/large.png" width="800" height="450" alt="Secure access credentials representing identity and access management">
+      <h3 class="security-resource-title">Docs & Field Notes Layout</h3>
+      <div class="content">
+        <p>Map privileged accounts to their owners, limit standing access, and review authentication events for changes that do not match expected use.</p>
+        <a href="#iam">Explore identity security</a>
+      </div>
+    </article>
+
+    <article class="card">
+      <img class="card-image" src="https://codepen.io/Yvonne-Angelica/pen/PwWOxwG/image/large.png" width="800" height="450" alt="Incident response workspace representing incident readiness">
+      <h3 class="security-resource-title">Glossary | Terms | Definitions</h3>
+      <div class="content">
+        <p>Prepare response roles, preserve the logs needed to investigate, and test recovery steps before an incident makes them urgent.</p>
+        <a href="#dfir">Explore incident response</a>
+      </div>
+    </article>
+  </div>
+
+            
+            <!-- grid 08 -->
+  <div class="card-grid">
+    <article class="card">
+      <img class="card-image" src="https://codepen.io/Yvonne-Angelica/pen/jEyabwp/image/large.png" width="800" height="450" alt="Network equipment representing network defense">
+      <h3 class="security-resource-title">Encrypted Admin Console-Unencrypted Ciphertext Reveals Plaintext</h3>
+      <div class="content">
+        <p>Review segmentation, firewall rules, and exposed services as one system. Keep the intended traffic paths documented so unexpected access stands out.</p>
+        <a href="#netsec">Explore network security</a>
+      </div>
+    </article>
+
+    <article class="card">
+      <img class="card-image" src="https://codepen.io/Yvonne-Angelica/pen/emgEomz/image/large.png" width="800" height="450" alt="Secure access credentials representing identity and access management">
+      <h3 class="security-resource-title">Pro Sidebar Template</h3>
+      <div class="content">
+        <p>Map privileged accounts to their owners, limit standing access, and review authentication events for changes that do not match expected use.</p>
+        <a href="#iam">Explore identity security</a>
+      </div>
+    </article>
+
+    <article class="card">
+      <img class="card-image" src="https://codepen.io/Yvonne-Angelica/pen/qERRONM/image/large.png" width="800" height="450" alt="Incident response workspace representing incident readiness">
+      <h3 class="security-resource-title">My Half-Ass Attempt of a Pure CSS Nyan Kitteh 🤣
+</h3>
+      <div class="content">
+        <p>Prepare response roles, preserve the logs needed to investigate, and test recovery steps before an incident makes them urgent.</p>
+        <a href="#dfir">Explore incident response</a>
+      </div>
+    </article>
+  </div>
+
+            
+            <!-- grid 09 -->
+  <div class="card-grid">
+    <article class="card">
+      <img class="card-image" src="https://codepen.io/Yvonne-Angelica/pen/myRRdxy/image/large.png" width="800" height="450" alt="Network equipment representing network defense">
+      <h3 class="security-resource-title">CPC-Puzzle-Play | Cryptogram Codex</h3>
+      <div class="content">
+        <p>Review segmentation, firewall rules, and exposed services as one system. Keep the intended traffic paths documented so unexpected access stands out.</p>
+        <a href="#netsec">Explore network security</a>
+      </div>
+    </article>
+
+    <article class="card">
+      <img class="card-image" src="https://codepen.io/Yvonne-Angelica/pen/EaZgpmG/image/large.png" width="800" height="450" alt="Secure access credentials representing identity and access management">
+      <h3 class="security-resource-title">Interactvie Malware Terrarium - Analysis Through a Microscope</h3>
+      <div class="content">
+        <p>Map privileged accounts to their owners, limit standing access, and review authentication events for changes that do not match expected use.</p>
+        <a href="#iam">Explore identity security</a>
+      </div>
+    </article>
+
+    <article class="card">
+      <img class="card-image" src="https://codepen.io/Yvonne-Angelica/pen/YPNGvYd/image/large.png" width="800" height="450" alt="Incident response workspace representing incident readiness">
+      <h3 class="security-resource-title">Reorder List | Drag and Drop List</h3>
+      <div class="content">
+        <p>Prepare response roles, preserve the logs needed to investigate, and test recovery steps before an incident makes them urgent.</p>
+        <a href="#dfir">Explore incident response</a>
+      </div>
+    </article>
+  </div>
+
+            
+            <!-- grid 10 -->
+  <div class="card-grid">
+    <article class="card">
+      <img class="card-image" src="https://codepen.io/Yvonne-Angelica/pen/pvRbgXE/image/large.png" width="800" height="450" alt="Network equipment representing network defense">
+      <h3 class="security-resource-title">SCSS & Babel JS Sidebar</h3>
+      <div class="content">
+        <p>Review segmentation, firewall rules, and exposed services as one system. Keep the intended traffic paths documented so unexpected access stands out.</p>
+        <a href="#netsec">Explore network security</a>
+      </div>
+    </article>
+
+    <article class="card">
+      <img class="card-image" src="https://codepen.io/Yvonne-Angelica/pen/JobpLap/image/large.png" width="800" height="450" alt="Secure access credentials representing identity and access management">
+      <h3 class="security-resource-title">Scroll-Driven Indicator with Animation Timeline Template</h3>
+      <div class="content">
+        <p>Map privileged accounts to their owners, limit standing access, and review authentication events for changes that do not match expected use.</p>
+        <a href="#iam">Explore identity security</a>
+      </div>
+    </article>
+
+    <article class="card">
+      <img class="card-image" src="https://codepen.io/Yvonne-Angelica/pen/LEbQyXx/image/large.png" width="800" height="450" alt="Incident response workspace representing incident readiness">
+      <h3 class="security-resource-title">Notebook Tabs | Tablist | Notebook Sections Template with Moving Clouds</h3>
+      <div class="content">
+        <p>Prepare response roles, preserve the logs needed to investigate, and test recovery steps before an incident makes them urgent.</p>
+        <a href="#dfir">Explore incident response</a>
+      </div>
+    </article>
+  </div>
+
+       
+            <!-- grid 12 -->
+  <div class="card-grid">
+    <article class="card">
+      <img class="card-image" src="https://codepen.io/Yvonne-Angelica/pen/dPOZZvQ/image/large.png" width="800" height="450" alt="Network equipment representing network defense">
+      <h3 class="security-resource-title">File Download Library Template</h3>
+      <div class="content">
+        <p>Review segmentation, firewall rules, and exposed services as one system. Keep the intended traffic paths documented so unexpected access stands out.</p>
+        <a href="#netsec">Explore network security</a>
+      </div>
+    </article>
+
+    <article class="card">
+      <img class="card-image" src="https://codepen.io/Yvonne-Angelica/pen/OPbOObL/image/large.png" width="800" height="450" alt="Secure access credentials representing identity and access management">
+      <h3 class="security-resource-title">Gemini 3 Decompiler-Seven-Type Codex Analysis Template</h3>
+      <div class="content">
+        <p>Map privileged accounts to their owners, limit standing access, and review authentication events for changes that do not match expected use.</p>
+        <a href="#iam">Explore identity security</a>
+      </div>
+    </article>
+
+    <article class="card">
+      <img class="card-image" src="https://codepen.io/Yvonne-Angelica/pen/azBVVZq/image/large.png" width="800" height="450" alt="Incident response workspace representing incident readiness">
+      <h3 class="security-resource-title">Study Guide Template</h3>
+      <div class="content">
+        <p>Prepare response roles, preserve the logs needed to investigate, and test recovery steps before an incident makes them urgent.</p>
+        <a href="#dfir">Explore incident response</a>
+      </div>
+    </article>
+  </div>
+
+            
+            <!-- grid 13 -->
+  <div class="card-grid">
+    <article class="card">
+      <img class="card-image" src="https://codepen.io/Yvonne-Angelica/pen/dPOZZGq/image/large.png" width="800" height="450" alt="Network equipment representing network defense">
+      <h3 class="security-resource-title">Risk Assessment Template</h3>
+      <div class="content">
+        <p>Review segmentation, firewall rules, and exposed services as one system. Keep the intended traffic paths documented so unexpected access stands out.</p>
+        <a href="#netsec">Explore network security</a>
+      </div>
+    </article>
+
+    <article class="card">
+      <img class="card-image" src="https://codepen.io/Yvonne-Angelica/pen/azBVVdE/image/large.png" width="800" height="450" alt="Secure access credentials representing identity and access management">
+      <h3 class="security-resource-title">Anthropic Risk Deep Dive: Jailbreak & Safety Alignment Failure Template</h3>
+      <div class="content">
+        <p>Map privileged accounts to their owners, limit standing access, and review authentication events for changes that do not match expected use.</p>
+        <a href="#iam">Explore identity security</a>
+      </div>
+    </article>
+
+    <article class="card">
+      <img class="card-image" src="https://codepen.io/Yvonne-Angelica/pen/bNBYYEN/image/large.png" width="800" height="450" alt="Incident response workspace representing incident readiness">
+      <h3 class="security-resource-title">Interactive Dossier | P3 Glassmorphic UI Template</h3>
+      <div class="content">
+        <p>Prepare response roles, preserve the logs needed to investigate, and test recovery steps before an incident makes them urgent.</p>
+        <a href="#dfir">Explore incident response</a>
+      </div>
+    </article>
+  </div>
+
+
+            <!-- grid 14 -->
+  <div class="card-grid">
+    <article class="card">
+      <img class="card-image" src="https://codepen.io/Yvonne-Angelica/pen/LEbOOpr/image/large.png" width="800" height="450" alt="Network equipment representing network defense">
+      <h3 class="security-resource-title">Operations Codex Template</h3>
+      <div class="content">
+        <p>Review segmentation, firewall rules, and exposed services as one system. Keep the intended traffic paths documented so unexpected access stands out.</p>
+        <a href="#netsec">Explore network security</a>
+      </div>
+    </article>
+
+    <article class="card">
+      <img class="card-image" src="https://codepen.io/Yvonne-Angelica/pen/jEVaabq/image/large.png" width="800" height="450" alt="Secure access credentials representing identity and access management">
+      <h3 class="security-resource-title">3-Column Operations Codex Template</h3>
+      <div class="content">
+        <p>Map privileged accounts to their owners, limit standing access, and review authentication events for changes that do not match expected use.</p>
+        <a href="#iam">Explore identity security</a>
+      </div>
+    </article>
+
+    <article class="card">
+      <img class="card-image" src="https://codepen.io/Yvonne-Angelica/pen/YPpEEXR/image/large.png" width="800" height="450" alt="Incident response workspace representing incident readiness">
+      <h3 class="security-resource-title">Temporal Drill-Down Table Template</h3>
+      <div class="content">
+        <p>Prepare response roles, preserve the logs needed to investigate, and test recovery steps before an incident makes them urgent.</p>
+        <a href="#dfir">Explore incident response</a>
+      </div>
+    </article>
+  </div>
+
+
+              <!-- grid 15 -->
+  <div class="card-grid">
+    <article class="card">
+      <img class="card-image" src="https://codepen.io/Yvonne-Angelica/pen/LEbOOVr/image/large.png" width="800" height="450" alt="Network equipment representing network defense">
+      <h3 class="security-resource-title">Interactive Cheat Sheet Template</h3>
+      <div class="content">
+        <p>Review segmentation, firewall rules, and exposed services as one system. Keep the intended traffic paths documented so unexpected access stands out.</p>
+        <a href="#netsec">Explore network security</a>
+      </div>
+    </article>
+
+    <article class="card">
+      <img class="card-image" src="https://codepen.io/Yvonne-Angelica/pen/emBeeYv/image/large.png" width="800" height="450" alt="Secure access credentials representing identity and access management">
+      <h3 class="security-resource-title">3-Column Study Guide Template</h3>
+      <div class="content">
+        <p>Map privileged accounts to their owners, limit standing access, and review authentication events for changes that do not match expected use.</p>
+        <a href="#iam">Explore identity security</a>
+      </div>
+    </article>
+
+    <article class="card">
+      <img class="card-image" src="https://codepen.io/Yvonne-Angelica/pen/PwbOOYv/image/large.png" width="800" height="450" alt="Incident response workspace representing incident readiness">
+      <h3 class="security-resource-title">Statistical Dossier Template</h3>
+      <div class="content">
+        <p>Prepare response roles, preserve the logs needed to investigate, and test recovery steps before an incident makes them urgent.</p>
+        <a href="#dfir">Explore incident response</a>
+      </div>
+    </article>
+  </div>
+
+            
+          
+
+          
+
+            <!-- grid 20 -->
+  <div class="card-grid">
+    <article class="card">
+      <img class="card-image" src="https://codepen.io/Yvonne-Angelica/pen/dPOZZbj/image/large.png" width="800" height="450" alt="Network equipment representing network defense">
+      <h3 class="security-resource-title">3x3 Grid Pattern Showcase</h3>
+      <div class="content">
+        <p>Review segmentation, firewall rules, and exposed services as one system. Keep the intended traffic paths documented so unexpected access stands out.</p>
+        <a href="#netsec">Explore network security</a>
+      </div>
+    </article>
+
+    <article class="card">
+      <img class="card-image" src="https://codepen.io/Yvonne-Angelica/pen/MYbOOgj/image/large.png" width="800" height="450" alt="Secure access credentials representing identity and access management">
+      <h3 class="security-resource-title">General Dossier Template</h3>
+      <div class="content">
+        <p>Map privileged accounts to their owners, limit standing access, and review authentication events for changes that do not match expected use.</p>
+        <a href="#iam">Explore identity security</a>
+      </div>
+    </article>
+
+    <article class="card">
+      <img class="card-image" src="https://codepen.io/Yvonne-Angelica/pen/EaNbwqv/image/large.png" width="800" height="450" alt="Incident response workspace representing incident readiness">
+      <h3 class="security-resource-title">Interactive Fact Sheet | Information Pamphlet Template</h3>     <div class="content">
+        <p>Prepare response roles, preserve the logs needed to investigate, and test recovery steps before an incident makes them urgent.</p>
+        <a href="#dfir">Explore incident response</a>
+      </div>
+    </article>
+  </div>
+
+            
+            <!-- grid 21 -->
+  <div class="card-grid">
+    <article class="card">
+      <img class="card-image" src="https://codepen.io/Yvonne-Angelica/pen/QwGOqeb/image/large.png" width="800" height="450" alt="Network equipment representing network defense">
+      <h3 class="security-resource-title">Study Guide Template</h3>
+      <div class="content">
+        <p>Review segmentation, firewall rules, and exposed services as one system. Keep the intended traffic paths documented so unexpected access stands out.</p>
+        <a href="#netsec">Explore network security</a>
+      </div>
+    </article>
+
+    <article class="card">
+      <img class="card-image" src="https://codepen.io/Yvonne-Angelica/pen/EaNbwBv/image/large.png" width="800" height="450" alt="Secure access credentials representing identity and access management">
+      <h3 class="security-resource-title">Documentation Template</h3>
+      <div class="content">
+        <p>Map privileged accounts to their owners, limit standing access, and review authentication events for changes that do not match expected use.</p>
+        <a href="#iam">Explore identity security</a>
+      </div>
+    </article>
+
+    <article class="card">
+      <img class="card-image" src="https://codepen.io/Yvonne-Angelica/pen/myOqBgQ/image/large.png" width="800" height="450" alt="Incident response workspace representing incident readiness">
+      <h3 class="security-resource-title">JSON LD Menu System Template</h3>
+      <div class="content">
+        <p>Prepare response roles, preserve the logs needed to investigate, and test recovery steps before an incident makes them urgent.</p>
+        <a href="#dfir">Explore incident response</a>
+      </div>
+    </article>
+  </div>
+
+            
+            <!-- grid 22 -->
+  <div class="card-grid">
+    <article class="card">
+      <img class="card-image" src="https://codepen.io/Yvonne-Angelica/pen/pvNdWBg/image/large.png" width="800" height="450" alt="Network equipment representing network defense">
+      <h3 class="security-resource-title">Live Dynamic Menu Template</h3>
+      <div class="content">
+        <p>Review segmentation, firewall rules, and exposed services as one system. Keep the intended traffic paths documented so unexpected access stands out.</p>
+        <a href="#netsec">Explore network security</a>
+      </div>
+    </article>
+
+    <article class="card">
+      <img class="card-image" src="https://codepen.io/Yvonne-Angelica/pen/RNooMLY/image/large.png" width="800" height="450" alt="Secure access credentials representing identity and access management">
+      <h3 class="security-resource-title">Purple Starfield Using starCanvas</h3>
+      <div class="content">
+        <p>Map privileged accounts to their owners, limit standing access, and review authentication events for changes that do not match expected use.</p>
+        <a href="#iam">Explore identity security</a>
+      </div>
+    </article>
+
+    <article class="card">
+      <img class="card-image" src="https://codepen.io/Yvonne-Angelica/pen/bNBBexG/image/large.png" width="800" height="450" alt="Incident response workspace representing incident readiness">
+      <h3 class="security-resource-title">Randomized Decode Text Effect</h3>
+      <div class="content">
+        <p>Prepare response roles, preserve the logs needed to investigate, and test recovery steps before an incident makes them urgent.</p>
+        <a href="#dfir">Explore incident response</a>
+      </div>
+    </article>
+  </div>
+
+            
+            <!-- grid 23 -->
+  <div class="card-grid">
+    <article class="card">
+      <img class="card-image" src="https://codepen.io/Yvonne-Angelica/pen/RNoRqEb/image/large.png" width="800" height="450" alt="Network equipment representing network defense">
+      <h3 class="security-resource-title">GitHub Awesome List</h3>
+      <div class="content">
+        <p>Review segmentation, firewall rules, and exposed services as one system. Keep the intended traffic paths documented so unexpected access stands out.</p>
+        <a href="#netsec">Explore network security</a>
+      </div>
+    </article>
+
+    <article class="card">
+      <img class="card-image" src="https://codepen.io/Yvonne-Angelica/pen/yyVevaO/image/large.png" width="800" height="450" alt="Secure access credentials representing identity and access management">
+      <h3 class="security-resource-title">Get Your Dopamine Fix-Reward Your Brain with a Y2K-Fueled Landing Page</h3>
+      <div class="content">
+        <p>Map privileged accounts to their owners, limit standing access, and review authentication events for changes that do not match expected use.</p>
+        <a href="#iam">Explore identity security</a>
+      </div>
+    </article>
+
+    <article class="card">
+      <img class="card-image" src="https://codepen.io/Yvonne-Angelica/pen/dPpLNEM/image/large.png" width="800" height="450" alt="Incident response workspace representing incident readiness">
+      <h3 class="security-resource-title">Card with Dynamic Light Effects</h3>
+      <div class="content">
+        <p>Prepare response roles, preserve the logs needed to investigate, and test recovery steps before an incident makes them urgent.</p>
+        <a href="#dfir">Explore incident response</a>
+      </div>
+    </article>
+  </div>
+
+            
+            <!-- grid 24 -->
+  <div class="card-grid">
+    <article class="card">
+      <img class="card-image" src="https://codepen.io/Yvonne-Angelica/pen/xbEBBZM/image/large.png" width="800" height="450" alt="Network equipment representing network defense">
+      <h3 class="security-resource-title">Basic Responsive Documentation Template</h3>
+      <div class="content">
+        <p>Review segmentation, firewall rules, and exposed services as one system. Keep the intended traffic paths documented so unexpected access stands out.</p>
+        <a href="#netsec">Explore network security</a>
+      </div>
+    </article>
+
+    <article class="card">
+      <img class="card-image" src="https://codepen.io/Yvonne-Angelica/pen/EagGQMz/image/large.png" width="800" height="450" alt="Secure access credentials representing identity and access management">
+      <h3 class="security-resource-title">BootStrap TreeView/h3>
+      <div class="content">
+        <p>Map privileged accounts to their owners, limit standing access, and review authentication events for changes that do not match expected use.</p>
+        <a href="#iam">Explore identity security</a>
+      </div>
+    </article>
+
+    <article class="card">
+      <img class="card-image" src="https://codepen.io/Yvonne-Angelica/pen/ogzaQRy/image/large.png" width="800" height="450" alt="Incident response workspace representing incident readiness">
+      <h3 class="security-resource-title">4-Digit Random PIN Generator in JavaScript</h3>
+      <div class="content">
+        <p>Prepare response roles, preserve the logs needed to investigate, and test recovery steps before an incident makes them urgent.</p>
+        <a href="#dfir">Explore incident response</a>
+      </div>
+    </article>
+  </div>
+
+            
+            <!-- grid 25 -->
+  <div class="card-grid">
+    <article class="card">
+      <img class="card-image" src="https://codepen.io/Yvonne-Angelica/pen/gbwKLNN/image/large.png" width="800" height="450" alt="Network equipment representing network defense">
+      <h3 class="security-resource-title">Just Another Royal Blue Cyberpunkish Dashboard</h3>
+      <div class="content">
+        <p>Review segmentation, firewall rules, and exposed services as one system. Keep the intended traffic paths documented so unexpected access stands out.</p>
+        <a href="#netsec">Explore network security</a>
+      </div>
+    </article>
+
+    <article class="card">
+      <img class="card-image" src="https://codepen.io/Yvonne-Angelica/pen/EagbWRR/image/large.png" width="800" height="450" alt="Secure access credentials representing identity and access management">
+      <h3 class="security-resource-title">˚˚ ｡˚ ｡˚🌈 Custom Cursor Library with Animated Particle Effects – Cursorly.js🌈˚˚ ｡˚ ｡˚</h3>
+      <div class="content">
+        <p>Map privileged accounts to their owners, limit standing access, and review authentication events for changes that do not match expected use.</p>
+        <a href="#iam">Explore identity security</a>
+      </div>
+    </article>
+
+    <article class="card">
+      <img class="card-image" src="https://codepen.io/Yvonne-Angelica/pen/PwGKzgw/image/large.png" width="800" height="450" alt="Incident response workspace representing incident readiness">
+      <h3 class="security-resource-title">Developer-Centric Minimalist Theme</h3>
+      <div class="content">
+        <p>Prepare response roles, preserve the logs needed to investigate, and test recovery steps before an incident makes them urgent.</p>
+        <a href="#dfir">Explore incident response</a>
+      </div>
+    </article>
+  </div>
+
+            
+            <!-- grid 26 -->
+  <div class="card-grid">
+    <article class="card">
+      <img class="card-image" src="https://codepen.io/Yvonne-Angelica/pen/MYjpMjE/image/large.png" width="800" height="450" alt="Network equipment representing network defense">
+      <h3 class="security-resource-title">Skeuomorphic Reversi Radio Buttons</h3>
+      <div class="content">
+        <p>Review segmentation, firewall rules, and exposed services as one system. Keep the intended traffic paths documented so unexpected access stands out.</p>
+        <a href="#netsec">Explore network security</a>
+      </div>
+    </article>
+
+    <article class="card">
+      <img class="card-image" src="https://codepen.io/Yvonne-Angelica/pen/emdvwzy/image/large.png" width="800" height="450" alt="Secure access credentials representing identity and access management">
+      <h3 class="security-resource-title">Neon 3D Seven-Segment Digital Clock</h3>
+      <div class="content">
+        <p>Map privileged accounts to their owners, limit standing access, and review authentication events for changes that do not match expected use.</p>
+        <a href="#iam">Explore identity security</a>
+      </div>
+    </article>
+
+    <article class="card">
+      <img class="card-image" src="https://codepen.io/Yvonne-Angelica/pen/YPGZoyM/image/large.png" width="800" height="450" alt="Incident response workspace representing incident readiness">
+      <h3 class="security-resource-title">Psyworm: CSS Motion-Path Animation Experiment</h3>
+      <div class="content">
+        <p>Prepare response roles, preserve the logs needed to investigate, and test recovery steps before an incident makes them urgent.</p>
+        <a href="#dfir">Explore incident response</a>
+      </div>
+    </article>
+  </div>
+
+            
+            <!-- grid 27 -->
+  <div class="card-grid">
+    <article class="card">
+      <img class="card-image" src="https://codepen.io/Yvonne-Angelica/pen/emdvwNe/image/large.png" width="800" height="450" alt="Network equipment representing network defense">
+      <h3 class="security-resource-title">Pure CSS Animated Details Accordion</h3>
+      <div class="content">
+        <p>Review segmentation, firewall rules, and exposed services as one system. Keep the intended traffic paths documented so unexpected access stands out.</p>
+        <a href="#netsec">Explore network security</a>
+      </div>
+    </article>
+
+    <article class="card">
+      <img class="card-image" src="https://codepen.io/Yvonne-Angelica/pen/xbEqoKz/image/large.png" width="800" height="450" alt="Secure access credentials representing identity and access management">
+      <h3 class="security-resource-title">Apple-Style Smooth Animated Accordion</h3>
+      <div class="content">
+        <p>Map privileged accounts to their owners, limit standing access, and review authentication events for changes that do not match expected use.</p>
+        <a href="#iam">Explore identity security</a>
+      </div>
+    </article>
+
+    <article class="card">
+      <img class="card-image" src="https://codepen.io/Yvonne-Angelica/pen/gbwmJeE/image/large.png" width="800" height="450" alt="Incident response workspace representing incident readiness">
+      <h3 class="security-resource-title">Sound Waveforms</h3>
+      <div class="content">
+        <p>Prepare response roles, preserve the logs needed to investigate, and test recovery steps before an incident makes them urgent.</p>
+        <a href="#dfir">Explore incident response</a>
+      </div>
+    </article>
+  </div>
+
+            
+            <!-- grid 28 -->
+  <div class="card-grid">
+    <article class="card">
+      <img class="card-image" src="https://codepen.io/Yvonne-Angelica/pen/019cc986-6320-7735-8192-d114967648b0/image/large.png" width="800" height="450" alt="Network equipment representing network defense">
+      <h3 class="security-resource-title">Blooming Night Garden</h3>
+      <div class="content">
+        <p>Review segmentation, firewall rules, and exposed services as one system. Keep the intended traffic paths documented so unexpected access stands out.</p>
+        <a href="#netsec">Explore network security</a>
+      </div>
+    </article>
+
+    <article class="card">
+      <img class="card-image" src="https://codepen.io/Yvonne-Angelica/pen/bNwEoWK/image/large.png" width="800" height="450" alt="Secure access credentials representing identity and access management">
+      <h3 class="security-resource-title">Blood Rain with White Lightning Effect</h3>
+      <div class="content">
+        <p>Map privileged accounts to their owners, limit standing access, and review authentication events for changes that do not match expected use.</p>
+        <a href="#iam">Explore identity security</a>
+      </div>
+    </article>
+
+    <article class="card">
+      <img class="card-image" src="https://codepen.io/Yvonne-Angelica/pen/MYjKbMw/image/large.png" width="800" height="450" alt="Incident response workspace representing incident readiness">
+      <h3 class="security-resource-title">Simple Rain Animation Effect</h3>
+      <div class="content">
+        <p>Prepare response roles, preserve the logs needed to investigate, and test recovery steps before an incident makes them urgent.</p>
+        <a href="#dfir">Explore incident response</a>
+      </div>
+    </article>
+  </div>
+
+            
+            <!-- grid 29 -->
+  <div class="card-grid">
+    <article class="card">
+      <img class="card-image" src="https://codepen.io/Yvonne-Angelica/pen/YPGwpbe/image/large.png" width="800" height="450" alt="Network equipment representing network defense">
+      <h3 class="security-resource-title">Gradient Blur Text Effect in Pure CSS</h3>
+      <div class="content">
+        <p>Review segmentation, firewall rules, and exposed services as one system. Keep the intended traffic paths documented so unexpected access stands out.</p>
+        <a href="#netsec">Explore network security</a>
+      </div>
+    </article>
+
+    <article class="card">
+      <img class="card-image" src="https://codepen.io/Yvonne-Angelica/pen/VYKemRr/image/large.png" width="800" height="450" alt="Secure access credentials representing identity and access management">
+      <h3 class="security-resource-title">Gradient Buttons with Glint on Hover</h3>
+      <div class="content">
+        <p>Map privileged accounts to their owners, limit standing access, and review authentication events for changes that do not match expected use.</p>
+        <a href="#iam">Explore identity security</a>
+      </div>
+    </article>
+
+    <article class="card">
+      <img class="card-image" src="https://codepen.io/Yvonne-Angelica/pen/yyaeVqm/image/large.png" width="800" height="450" alt="Incident response workspace representing incident readiness">
+      <h3 class="security-resource-title">Pure CSS Skeleton Screen Gleam Animation for Light, Dark and Grey Mode Card UI</h3>
+      <div class="content">
+        <p>Prepare response roles, preserve the logs needed to investigate, and test recovery steps before an incident makes them urgent.</p>
+        <a href="#dfir">Explore incident response</a>
+      </div>
+    </article>
+  </div>
+  
+            <!-- grid 30 -->
+  <div class="card-grid">
+    <article class="card">
+      <img class="card-image" src="https://codepen.io/Yvonne-Angelica/pen/QwKyGOz/image/large.png" width="800" height="450" alt="Network equipment representing network defense">
+      <h3 class="security-resource-title">CRT Screen Text Flicker Animation in Pure CSS-Distortion-Effect</h3>
+      <div class="content">
+        <p>Review segmentation, firewall rules, and exposed services as one system. Keep the intended traffic paths documented so unexpected access stands out.</p>
+        <a href="#netsec">Explore network security</a>
+      </div>
+    </article>
+
+    <article class="card">
+      <img class="card-image" src="https://codepen.io/Yvonne-Angelica/pen/yyaNjRw/image/large.png" width="800" height="450" alt="Secure access credentials representing identity and access management">
+      <h3 class="security-resource-title">Easy-Responsive-Tabs-to-Accordion</h3>
+      <div class="content">
+        <p>Map privileged accounts to their owners, limit standing access, and review authentication events for changes that do not match expected use.</p>
+        <a href="#iam">Explore identity security</a>
+      </div>
+    </article>
+
+    <article class="card">
+      <img class="card-image" src="https://codepen.io/Yvonne-Angelica/pen/QwKLzjo/image/large.png" width="800" height="450" alt="Incident response workspace representing incident readiness">
+      <h3 class="security-resource-title">OPIT - Open Program for Interface Training</h3>
+      <div class="content">
+        <p>Prepare response roles, preserve the logs needed to investigate, and test recovery steps before an incident makes them urgent.</p>
+        <a href="#dfir">Explore incident response</a>
+      </div>
+    </article>
+  </div>
+
+            
+            <!-- grid 31 -->
+  <div class="card-grid">
+    <article class="card">
+      <img class="card-image" src="https://codepen.io/Yvonne-Angelica/pen/JoRPdeV/image/large.png" width="800" height="450" alt="Network equipment representing network defense">
+      <h3 class="security-resource-title">Futuristic Car Dashboard - Quantum Drive HUD</h3>
+      <div class="content">
+        <p>Review segmentation, firewall rules, and exposed services as one system. Keep the intended traffic paths documented so unexpected access stands out.</p>
+        <a href="#netsec">Explore network security</a>
+      </div>
+    </article>
+
+    <article class="card">
+      <img class="card-image" src="https://codepen.io/Yvonne-Angelica/pen/qENevrO/image/large.png" width="800" height="450" alt="Secure access credentials representing identity and access management">
+      <h3 class="security-resource-title">Animated “x” Icon for the Bootstrap Navbar-Toggle</h3>
+      <div class="content">
+        <p>Map privileged accounts to their owners, limit standing access, and review authentication events for changes that do not match expected use.</p>
+        <a href="#iam">Explore identity security</a>
+      </div>
+    </article>
+
+    <article class="card">
+      <img class="card-image" src="https://codepen.io/Yvonne-Angelica/pen/gbMVwpQ/image/large.png" width="800" height="450" alt="Incident response workspace representing incident readiness">
+      <h3 class="security-resource-title">Magical Star Shower</h3>
+      <div class="content">
+        <p>Prepare response roles, preserve the logs needed to investigate, and test recovery steps before an incident makes them urgent.</p>
+        <a href="#dfir">Explore incident response</a>
+      </div>
+    </article>
+  </div>
+
+            
+            <!-- grid 32 -->
+  <div class="card-grid">
+    <article class="card">
+      <img class="card-image" src="https://codepen.io/Yvonne-Angelica/pen/vEKoKde/image/large.png" width="800" height="450" alt="Network equipment representing network defense">
+      <h3 class="security-resource-title">Javascript Metaprogramming Capabilities</h3>
+      <div class="content">
+        <p>Review segmentation, firewall rules, and exposed services as one system. Keep the intended traffic paths documented so unexpected access stands out.</p>
+        <a href="#netsec">Explore network security</a>
+      </div>
+    </article>
+
+    <article class="card">
+      <img class="card-image" src="https://codepen.io/Yvonne-Angelica/pen/ZYOgOyg/image/large.png" width="800" height="450" alt="Secure access credentials representing identity and access management">
+      <h3 class="security-resource-title">Nebula DMT-Generative Background</h3>
+      <div class="content">
+        <p>Map privileged accounts to their owners, limit standing access, and review authentication events for changes that do not match expected use.</p>
+        <a href="#iam">Explore identity security</a>
+      </div>
+    </article>
+
+    <article class="card">
+      <img class="card-image" src="https://codepen.io/Yvonne-Angelica/pen/YPqLwZv/image/large.png" width="800" height="450" alt="Incident response workspace representing incident readiness">
+      <h3 class="security-resource-title">Scroll-Driven Indicator Using Animation-Timeline</h3>
+      <div class="content">
+        <p>Prepare response roles, preserve the logs needed to investigate, and test recovery steps before an incident makes them urgent.</p>
+        <a href="#dfir">Explore incident response</a>
+      </div>
+    </article>
+  </div>
+
+            
+            <!-- grid 33 -->
+  <div class="card-grid">
+    <article class="card">
+      <img class="card-image" src="https://codepen.io/Yvonne-Angelica/pen/ZYWoWKx/image/large.png" width="800" height="450" alt="Network equipment representing network defense">
+      <h3 class="security-resource-title">'90's Inspired Layout with Triple-Nested Neobrutalism Sidebar & Card Grids</h3>
+      <div class="content">
+        <p>Review segmentation, firewall rules, and exposed services as one system. Keep the intended traffic paths documented so unexpected access stands out.</p>
+        <a href="#netsec">Explore network security</a>
+      </div>
+    </article>
+
+    <article class="card">
+      <img class="card-image" src="https://codepen.io/Yvonne-Angelica/pen/QwNrKMw/image/large.png" width="800" height="450" alt="Secure access credentials representing identity and access management">
+      <h3 class="security-resource-title">Responsive Sidebar Menu with Triple-Nest Dropdowns</h3>
+      <div class="content">
+        <p>Map privileged accounts to their owners, limit standing access, and review authentication events for changes that do not match expected use.</p>
+        <a href="#iam">Explore identity security</a>
+      </div>
+    </article>
+
+    <article class="card">
+      <img class="card-image" src="https://codepen.io/Yvonne-Angelica/pen/vEGjRmg/image/large.png" width="800" height="450" alt="Incident response workspace representing incident readiness">
+      <h3 class="security-resource-title">Untitled</h3>
+      <div class="content">
+        <p>Prepare response roles, preserve the logs needed to investigate, and test recovery steps before an incident makes them urgent.</p>
+        <a href="#dfir">Explore incident response</a>
+      </div>
+    </article>
+  </div>
+
+            
+            <!-- grid 34 -->
+  <div class="card-grid">
+    <article class="card">
+      <img class="card-image" src="https://codepen.io/Yvonne-Angelica/pen/xbVjzOJ/image/large.png" width="800" height="450" alt="Network equipment representing network defense">
+      <h3 class="security-resource-title">Responsive Site and Page Sidebars (SCSS only)-Part 2</h3>
+      <div class="content">
+        <p>Review segmentation, firewall rules, and exposed services as one system. Keep the intended traffic paths documented so unexpected access stands out.</p>
+        <a href="#netsec">Explore network security</a>
+      </div>
+    </article>
+
+    <article class="card">
+      <img class="card-image" src="https://codepen.io/Yvonne-Angelica/pen/qEZYKNJ/image/large.png" width="800" height="450" alt="Secure access credentials representing identity and access management">
+      <h3 class="security-resource-title">Responsive Site and Page Sidebars (SCSS Only)</h3>
+      <div class="content">
+        <p>Map privileged accounts to their owners, limit standing access, and review authentication events for changes that do not match expected use.</p>
+        <a href="#iam">Explore identity security</a>
+      </div>
+    </article>
+
+    <article class="card">
+      <img class="card-image" src="https://codepen.io/Yvonne-Angelica/pen/MYyGPNB/image/large.png" width="800" height="450" alt="Incident response workspace representing incident readiness">
+      <h3 class="security-resource-title">Classic About Us HTML CSS Card...this card rules.</h3>
+      <div class="content">
+        <p>Prepare response roles, preserve the logs needed to investigate, and test recovery steps before an incident makes them urgent.</p>
+        <a href="#dfir">Explore incident response</a>
+      </div>
+    </article>
+  </div>
+
+            
+            <!-- grid 35 -->
+  <div class="card-grid">
+    <article class="card">
+      <img class="card-image" src="https://codepen.io/Yvonne-Angelica/pen/MYyGzbz/image/large.png" width="800" height="450" alt="Network equipment representing network defense">
+      <h3 class="security-resource-title">Draggable Bottom Sheet Modal in HTML CSS & JavaScript</h3>
+      <div class="content">
+        <p>Review segmentation, firewall rules, and exposed services as one system. Keep the intended traffic paths documented so unexpected access stands out.</p>
+        <a href="#netsec">Explore network security</a>
+      </div>
+    </article>
+
+    <article class="card">
+      <img class="card-image" src="https://codepen.io/Yvonne-Angelica/pen/JoXverd/image/large.png" width="800" height="450" alt="Secure access credentials representing identity and access management">
+      <h3 class="security-resource-title">Podcast Episode Page Using HTML & CSS</h3>
+      <div class="content">
+        <p>Map privileged accounts to their owners, limit standing access, and review authentication events for changes that do not match expected use.</p>
+        <a href="#iam">Explore identity security</a>
+      </div>
+    </article>
+
+    <article class="card">
+      <img class="card-image" src="https://codepen.io/Yvonne-Angelica/pen/ZYWomrN/image/large.png" width="800" height="450" alt="Incident response workspace representing incident readiness">
+      <h3 class="security-resource-title">Electronics Website Using HTML, CSS, and JavaScript</h3>
+      <div class="content">
+        <p>Prepare response roles, preserve the logs needed to investigate, and test recovery steps before an incident makes them urgent.</p>
+        <a href="#dfir">Explore incident response</a>
+      </div>
+    </article>
+  </div>
+
+            
+            <!-- grid 36 -->
+  <div class="card-grid">
+    <article class="card">
+      <img class="card-image" src="https://codepen.io/Yvonne-Angelica/pen/RNayqvL/image/large.png" width="800" height="450" alt="Network equipment representing network defense">
+      <h3 class="security-resource-title">|ove|ight>peace</h3>
+      <div class="content">
+        <p>Review segmentation, firewall rules, and exposed services as one system. Keep the intended traffic paths documented so unexpected access stands out.</p>
+        <a href="#netsec">Explore network security</a>
+      </div>
+    </article>
+
+    <article class="card">
+      <img class="card-image" src="https://codepen.io/Yvonne-Angelica/pen/ZYWoVLQ/image/large.png" width="800" height="450" alt="Secure access credentials representing identity and access management">
+      <h3 class="security-resource-title">Pure CSS Glitch Text Effect</h3>
+      <div class="content">
+        <p>Map privileged accounts to their owners, limit standing access, and review authentication events for changes that do not match expected use.</p>
+        <a href="#iam">Explore identity security</a>
+      </div>
+    </article>
+
+    <article class="card">
+      <img class="card-image" src="https://codepen.io/Yvonne-Angelica/pen/PwNevJP/image/large.png" width="800" height="450" alt="Incident response workspace representing incident readiness">
+      <h3 class="security-resource-title">Pomodoro Timer with HTML, CSS, and JavaScript
+</h3>
+      <div class="content">
+        <p>Prepare response roles, preserve the logs needed to investigate, and test recovery steps before an incident makes them urgent.</p>
+        <a href="#dfir">Explore incident response</a>
+      </div>
+    </article>
+  </div>
+
+            
+            <!-- grid 37 -->
+  <div class="card-grid">
+    <article class="card">
+      <img class="card-image" src="https://codepen.io/Yvonne-Angelica/pen/XJdqwEY/image/large.png" width="800" height="450" alt="Network equipment representing network defense">
+      <h3 class="security-resource-title">bg4cd</h3>
+      <div class="content">
+        <p>Review segmentation, firewall rules, and exposed services as one system. Keep the intended traffic paths documented so unexpected access stands out.</p>
+        <a href="#netsec">Explore network security</a>
+      </div>
+    </article>
+
+    <article class="card">
+      <img class="card-image" src="https://codepen.io/Yvonne-Angelica/pen/ZYWogpG/image/large.png" width="800" height="450" alt="Secure access credentials representing identity and access management">
+      <h3 class="security-resource-title">Submarine</h3>
+      <div class="content">
+        <p>Map privileged accounts to their owners, limit standing access, and review authentication events for changes that do not match expected use.</p>
+        <a href="#iam">Explore identity security</a>
+      </div>
+    </article>
+
+    <article class="card">
+      <img class="card-image" src="https://codepen.io/Yvonne-Angelica/pen/PwNaobm/image/large.png" width="800" height="450" alt="Incident response workspace representing incident readiness">
+      <h3 class="security-resource-title">Table of Contents - Collapsed</h3>
+      <div class="content">
+        <p>Prepare response roles, preserve the logs needed to investigate, and test recovery steps before an incident makes them urgent.</p>
+        <a href="#dfir">Explore incident response</a>
+      </div>
+    </article>
+  </div>
+
+            
+            <!-- grid 38 -->
+  <div class="card-grid">
+    <article class="card">
+      <img class="card-image" src="https://codepen.io/Yvonne-Angelica/pen/WbwaPgq/image/large.png" width="800" height="450" alt="Network equipment representing network defense">
+      <h3 class="security-resource-title">Pixelated Heart ❤</h3>
+      <div class="content">
+        <p>Review segmentation, firewall rules, and exposed services as one system. Keep the intended traffic paths documented so unexpected access stands out.</p>
+        <a href="#netsec">Explore network security</a>
+      </div>
+    </article>
+
+    <article class="card">
+      <img class="card-image" src="https://codepen.io/Yvonne-Angelica/pen/jEqedRE/image/large.png" width="800" height="450" alt="Secure access credentials representing identity and access management">
+      <h3 class="security-resource-title">Pure CSS Text Loading Animation</h3>
+      <div class="content">
+        <p>Map privileged accounts to their owners, limit standing access, and review authentication events for changes that do not match expected use.</p>
+        <a href="#iam">Explore identity security</a>
+      </div>
+    </article>
+
+    <article class="card">
+      <img class="card-image" src="https://codepen.io/Yvonne-Angelica/pen/xbVyMoX/image/large.png" width="800" height="450" alt="Incident response workspace representing incident readiness">
+      <h3 class="security-resource-title">Dancing Dots</h3>
+      <div class="content">
+        <p>Prepare response roles, preserve the logs needed to investigate, and test recovery steps before an incident makes them urgent.</p>
+        <a href="#dfir">Explore incident response</a>
+      </div>
+    </article>
+  </div>
+
+            
+            <!-- grid 39 -->
+  <div class="card-grid">
+    <article class="card">
+      <img class="card-image" src="https://codepen.io/Yvonne-Angelica/pen/ZYWmEXy/image/large.png" width="800" height="450" alt="Network equipment representing network defense">
+      <h3 class="security-resource-title">HTML Tutorial Layout</h3>
+      <div class="content">
+        <p>Review segmentation, firewall rules, and exposed services as one system. Keep the intended traffic paths documented so unexpected access stands out.</p>
+        <a href="#netsec">Explore network security</a>
+      </div>
+    </article>
+
+    <article class="card">
+      <img class="card-image" src="https://codepen.io/Yvonne-Angelica/pen/WbwYQee/image/large.png" width="800" height="450" alt="Secure access credentials representing identity and access management">
+      <h3 class="security-resource-title">Your Inspired Page</h3>
+      <div class="content">
+        <p>Map privileged accounts to their owners, limit standing access, and review authentication events for changes that do not match expected use.</p>
+        <a href="#iam">Explore identity security</a>
+      </div>
+    </article>
+
+    <article class="card">
+      <img class="card-image" src="https://codepen.io/Yvonne-Angelica/pen/NPNmKgj/image/large.png" width="800" height="450" alt="Incident response workspace representing incident readiness">
+      <h3 class="security-resource-title">CSS Grid Modern Responsive Dashboard</h3>
+      <div class="content">
+        <p>Prepare response roles, preserve the logs needed to investigate, and test recovery steps before an incident makes them urgent.</p>
+        <a href="#dfir">Explore incident response</a>
+      </div>
+    </article>
+  </div>
+
+            
+            <!-- grid 40 -->
+  <div class="card-grid">
+    <article class="card">
+      <img class="card-image" src="https://codepen.io/Yvonne-Angelica/pen/emZoNGK/image/large.png" width="800" height="450" alt="Network equipment representing network defense">
+      <h3 class="security-resource-title">Happy Holidays 2025</h3>
+      <div class="content">
+        <p>Review segmentation, firewall rules, and exposed services as one system. Keep the intended traffic paths documented so unexpected access stands out.</p>
+        <a href="#netsec">Explore network security</a>
+      </div>
+    </article>
+
+    <article class="card">
+      <img class="card-image" src="https://codepen.io/Yvonne-Angelica/pen/emBeeYv/image/large.png" width="800" height="450" alt="Secure access credentials representing identity and access management">
+      <h3 class="security-resource-title">3-Column Study Guide Template</h3>
+      <div class="content">
+        <p>Map privileged accounts to their owners, limit standing access, and review authentication events for changes that do not match expected use.</p>
+        <a href="#iam">Explore identity security</a>
+      </div>
+    </article>
+
+    <article class="card">
+      <img class="card-image" src="https://codepen.io/Yvonne-Angelica/pen/PwbOOYv/image/large.png" width="800" height="450" alt="Incident response workspace representing incident readiness">
+      <h3 class="security-resource-title">Statistical Dossier Template</h3>
+      <div class="content">
+        <p>Prepare response roles, preserve the logs needed to investigate, and test recovery steps before an incident makes them urgent.</p>
+        <a href="#dfir">Explore incident response</a>
+      </div>
+    </article>
+  </div>
+
+            
+            <!-- grid 41 -->
+  <div class="card-grid">
+    <article class="card">
+      <img class="card-image" src="https://codepen.io/Yvonne-Angelica/pen/LEbOOVr/image/large.png" width="800" height="450" alt="Network equipment representing network defense">
+      <h3 class="security-resource-title">Interactive Cheat Sheet Template</h3>
+      <div class="content">
+        <p>Review segmentation, firewall rules, and exposed services as one system. Keep the intended traffic paths documented so unexpected access stands out.</p>
+        <a href="#netsec">Explore network security</a>
+      </div>
+    </article>
+
+    <article class="card">
+      <img class="card-image" src="https://codepen.io/Yvonne-Angelica/pen/emBeeYv/image/large.png" width="800" height="450" alt="Secure access credentials representing identity and access management">
+      <h3 class="security-resource-title">3-Column Study Guide Template</h3>
+      <div class="content">
+        <p>Map privileged accounts to their owners, limit standing access, and review authentication events for changes that do not match expected use.</p>
+        <a href="#iam">Explore identity security</a>
+      </div>
+    </article>
+
+    <article class="card">
+      <img class="card-image" src="https://codepen.io/Yvonne-Angelica/pen/PwbOOYv/image/large.png" width="800" height="450" alt="Incident response workspace representing incident readiness">
+      <h3 class="security-resource-title">Statistical Dossier Template</h3>
+      <div class="content">
+        <p>Prepare response roles, preserve the logs needed to investigate, and test recovery steps before an incident makes them urgent.</p>
+        <a href="#dfir">Explore incident response</a>
+      </div>
+    </article>
+  </div>
+
+            
+            <!-- grid 42 -->
+  <div class="card-grid">
+    <article class="card">
+      <img class="card-image" src="https://codepen.io/Yvonne-Angelica/pen/LEbOOVr/image/large.png" width="800" height="450" alt="Network equipment representing network defense">
+      <h3 class="security-resource-title">Interactive Cheat Sheet Template</h3>
+      <div class="content">
+        <p>Review segmentation, firewall rules, and exposed services as one system. Keep the intended traffic paths documented so unexpected access stands out.</p>
+        <a href="#netsec">Explore network security</a>
+      </div>
+    </article>
+
+    <article class="card">
+      <img class="card-image" src="https://codepen.io/Yvonne-Angelica/pen/emBeeYv/image/large.png" width="800" height="450" alt="Secure access credentials representing identity and access management">
+      <h3 class="security-resource-title">3-Column Study Guide Template</h3>
+      <div class="content">
+        <p>Map privileged accounts to their owners, limit standing access, and review authentication events for changes that do not match expected use.</p>
+        <a href="#iam">Explore identity security</a>
+      </div>
+    </article>
+
+    <article class="card">
+      <img class="card-image" src="https://codepen.io/Yvonne-Angelica/pen/PwbOOYv/image/large.png" width="800" height="450" alt="Incident response workspace representing incident readiness">
+      <h3 class="security-resource-title">Statistical Dossier Template</h3>
+      <div class="content">
+        <p>Prepare response roles, preserve the logs needed to investigate, and test recovery steps before an incident makes them urgent.</p>
+        <a href="#dfir">Explore incident response</a>
+      </div>
+    </article>
+  </div>
+
+            
+            <!-- grid 43 -->
+  <div class="card-grid">
+    <article class="card">
+      <img class="card-image" src="https://codepen.io/Yvonne-Angelica/pen/NPxwpzG/image/large.png" width="800" height="450" alt="Network equipment representing network defense">
+      <h3 class="security-resource-title">List Item Bullet Color Different List Text Color Demo</h3>
+      <div class="content">
+        <p>Review segmentation, firewall rules, and exposed services as one system. Keep the intended traffic paths documented so unexpected access stands out.</p>
+        <a href="#netsec">Explore network security</a>
+      </div>
+    </article>
+
+    <article class="card">
+      <img class="card-image" src="https://codepen.io/Yvonne-Angelica/pen/LEGOxQx/image/large.png" width="800" height="450" alt="Secure access credentials representing identity and access management">
+      <h3 class="security-resource-title">Quick Introduction to CSS Grid</h3>
+      <div class="content">
+        <p>Map privileged accounts to their owners, limit standing access, and review authentication events for changes that do not match expected use.</p>
+        <a href="#iam">Explore identity security</a>
+      </div>
+    </article>
+
+    <article class="card">
+      <img class="card-image" src="https://codepen.io/Yvonne-Angelica/pen/PwZKJKJ/image/large.png" width="800" height="450" alt="Incident response workspace representing incident readiness">
+      <h3 class="security-resource-title">Ant1k Attack 🐜 1024 Byte Clicking Game</h3>
+      <div class="content">
+        <p>Prepare response roles, preserve the logs needed to investigate, and test recovery steps before an incident makes them urgent.</p>
+        <a href="#dfir">Explore incident response</a>
+      </div>
+    </article>
+  </div>
+
+           
+            <!-- grid 44 -->
+  <div class="card-grid">
+    <article class="card">
+      <img class="card-image" src="https://codepen.io/Yvonne-Angelica/pen/RNrjVJa/image/large.png" width="800" height="450" alt="Network equipment representing network defense">
+      <h3 class="security-resource-title">TreeView - Unlimited Nested Levels</h3>
+      <div class="content">
+        <p>Review segmentation, firewall rules, and exposed services as one system. Keep the intended traffic paths documented so unexpected access stands out.</p>
+        <a href="#netsec">Explore network security</a>
+      </div>
+    </article>
+
+    <article class="card">
+      <img class="card-image" src="https://codepen.io/Yvonne-Angelica/pen/raxdENp/image/large.png" width="800" height="450" alt="Secure access credentials representing identity and access management">
+      <h3 class="security-resource-title">Admin Mockup Dashboard</h3>
+      <div class="content">
+        <p>Map privileged accounts to their owners, limit standing access, and review authentication events for changes that do not match expected use.</p>
+        <a href="#iam">Explore identity security</a>
+      </div>
+    </article>
+
+    <article class="card">
+      <img class="card-image" src="https://codepen.io/Yvonne-Angelica/pen/VYexGrK/image/large.png" width="800" height="450" alt="Incident response workspace representing incident readiness">
+      <h3 class="security-resource-title">Learn How to HackHerWay Neon Homepage</h3>
+      <div class="content">
+        <p>Prepare response roles, preserve the logs needed to investigate, and test recovery steps before an incident makes them urgent.</p>
+        <a href="#dfir">Explore incident response</a>
+      </div>
+    </article>
+  </div>
+
+            <!-- grid 45 -->
+  <div class="card-grid">
+    <article class="card">
+      <img class="card-image" src="https://codepen.io/Yvonne-Angelica/pen/YPwvrQE/image/large.png" width="800" height="450" alt="Network equipment representing network defense">
+      <h3 class="security-resource-title">TreeView🔮 hackherway Glow Card Grid 🔮</h3>
+      <div class="content">
+        <p>Review segmentation, firewall rules, and exposed services as one system. Keep the intended traffic paths documented so unexpected access stands out.</p>
+        <a href="#netsec">Explore network security</a>
+      </div>
+    </article>
+
+    <article class="card">
+      <img class="card-image" src="https://codepen.io/Yvonne-Angelica/pen/NPxzaYm/image/large.png" width="800" height="450" alt="Secure access credentials representing identity and access management">
+      <h3 class="security-resource-title">Responsive Blog Card Design Using CSS Flexbox</h3>
+      <div class="content">
+        <p>Map privileged accounts to their owners, limit standing access, and review authentication events for changes that do not match expected use.</p>
+        <a href="#iam">Explore identity security</a>
+      </div>
+    </article>
+
+    <article class="card">
+      <img class="card-image" src="https://codepen.io/Yvonne-Angelica/pen/EaKjGog/image/large.png" width="800" height="450" alt="Incident response workspace representing incident readiness">
+      <h3 class="security-resource-title">Interactive Cybersecurity Cheat Sheet Accordion Table</h3>
+      <div class="content">
+        <p>Prepare response roles, preserve the logs needed to investigate, and test recovery steps before an incident makes them urgent.</p>
+        <a href="#dfir">Explore incident response</a>
+      </div>
+    </article>
+  </div>
+
+            <!-- grid 46 -->
+  <div class="card-grid">
+    <article class="card">
+      <img class="card-image" src="https://codepen.io/Yvonne-Angelica/pen/xbVGmJq/image/large.png" width="800" height="450" alt="Network equipment representing network defense">
+      <h3 class="security-resource-title">Interactive 3-D Flip Card Grid</h3>
+      <div class="content">
+        <p>Review segmentation, firewall rules, and exposed services as one system. Keep the intended traffic paths documented so unexpected access stands out.</p>
+        <a href="#netsec">Explore network security</a>
+      </div>
+    </article>
+
+    <article class="card">
+      <img class="card-image" src="https://codepen.io/Yvonne-Angelica/pen/XJdbOKg/image/large.png" width="800" height="450" alt="Secure access credentials representing identity and access management">
+      <h3 class="security-resource-title">CSS Animation Interactive Glow Buttons</h3>
+      <div class="content">
+        <p>Map privileged accounts to their owners, limit standing access, and review authentication events for changes that do not match expected use.</p>
+        <a href="#iam">Explore identity security</a>
+      </div>
+    </article>
+
+    <article class="card">
+      <img class="card-image" src="https://codepen.io/Yvonne-Angelica/pen/MYywLbJ/image/large.png" width="800" height="450" alt="Incident response workspace representing incident readiness">
+      <h3 class="security-resource-title">CSS Glassmorphism Button Hover Effects</h3>
+      <div class="content">
+        <p>Prepare response roles, preserve the logs needed to investigate, and test recovery steps before an incident makes them urgent.</p>
+        <a href="#dfir">Explore incident response</a>
+      </div>
+    </article>
+  </div>
+
+            <!-- grid 47 -->
+  <div class="card-grid">
+    <article class="card">
+      <img class="card-image" src="https://codepen.io/Yvonne-Angelica/pen/VYaLgPE/image/large.png" width="800" height="450" alt="Network equipment representing network defense">
+      <h3 class="security-resource-title">CSS Animated Glowing Social Icons</h3>
+      <div class="content">
+        <p>Review segmentation, firewall rules, and exposed services as one system. Keep the intended traffic paths documented so unexpected access stands out.</p>
+        <a href="#netsec">Explore network security</a>
+      </div>
+    </article>
+
+    <article class="card">
+      <img class="card-image" src="https://codepen.io/Yvonne-Angelica/pen/WbwvPqp/image/large.png" width="800" height="450" alt="Secure access credentials representing identity and access management">
+      <h3 class="security-resource-title">JavaScript Accordion with Plus Minus</h3>
+      <div class="content">
+        <p>Map privileged accounts to their owners, limit standing access, and review authentication events for changes that do not match expected use.</p>
+        <a href="#iam">Explore identity security</a>
+      </div>
+    </article>
+
+    <article class="card">
+      <img class="card-image" src="https://codepen.io/Yvonne-Angelica/pen/jEqPJpK/image/large.png" width="800" height="450" alt="Incident response workspace representing incident readiness">
+      <h3 class="security-resource-title">Reveal Secret Code Using CSS
+</h3>
+      <div class="content">
+        <p>Prepare response roles, preserve the logs needed to investigate, and test recovery steps before an incident makes them urgent.</p>
+        <a href="#dfir">Explore incident response</a>
+      </div>
+    </article>
+  </div>
+
+            <!-- grid 48 -->
+  <div class="card-grid">
+    <article class="card">
+      <img class="card-image" src="https://codepen.io/Yvonne-Angelica/pen/raeVRPg/image/large.png" width="800" height="450" alt="Network equipment representing network defense">
+      <h3 class="security-resource-title">CSS3 Squishy Button With Smooth Transition</h3>
+      <div class="content">
+        <p>Review segmentation, firewall rules, and exposed services as one system. Keep the intended traffic paths documented so unexpected access stands out.</p>
+        <a href="#netsec">Explore network security</a>
+      </div>
+    </article>
+
+    <article class="card">
+      <img class="card-image" src="https://codepen.io/Yvonne-Angelica/pen/vEGOMXJ/image/large.png" width="800" height="450" alt="Secure access credentials representing identity and access management">
+      <h3 class="security-resource-title">Password Generator</h3>
+      <div class="content">
+        <p>Map privileged accounts to their owners, limit standing access, and review authentication events for changes that do not match expected use.</p>
+        <a href="#iam">Explore identity security</a>
+      </div>
+    </article>
+
+    <article class="card">
+      <img class="card-image" src="https://codepen.io/Yvonne-Angelica/pen/raeVXgM/image/large.png" width="800" height="450" alt="Incident response workspace representing incident readiness">
+      <h3 class="security-resource-title">Modern Neon FAQ Accordion with Glassmorphism & Gradient Effect</h3>
+      <div class="content">
+        <p>Prepare response roles, preserve the logs needed to investigate, and test recovery steps before an incident makes them urgent.</p>
+        <a href="#dfir">Explore incident response</a>
+      </div>
+    </article>
+  </div>
+
+            <!-- grid 49 -->
+  <div class="card-grid">
+    <article class="card">
+      <img class="card-image" src="https://codepen.io/Yvonne-Angelica/pen/GgZpKxV/image/large.png" width="800" height="450" alt="Network equipment representing network defense">
+      <h3 class="security-resource-title">Interactive Sticky Notes Board</h3>
+      <div class="content">
+        <p>Review segmentation, firewall rules, and exposed services as one system. Keep the intended traffic paths documented so unexpected access stands out.</p>
+        <a href="#netsec">Explore network security</a>
+      </div>
+    </article>
+
+    <article class="card">
+      <img class="card-image" src="https://codepen.io/Yvonne-Angelica/pen/zxqvOaR/image/large.png" width="800" height="450" alt="Secure access credentials representing identity and access management">
+      <h3 class="security-resource-title">Asteroid Mayhem-Interactive Space Game</h3>
+      <div class="content">
+        <p>Map privileged accounts to their owners, limit standing access, and review authentication events for changes that do not match expected use.</p>
+        <a href="#iam">Explore identity security</a>
+      </div>
+    </article>
+
+    <article class="card">
+      <img class="card-image" src="https://codepen.io/Yvonne-Angelica/pen/JoXYjjx/image/large.png" width="800" height="450" alt="Incident response workspace representing incident readiness">
+      <h3 class="security-resource-title">>💢 Binary Code Converter 💢</h3>
+      <div class="content">
+        <p>Prepare response roles, preserve the logs needed to investigate, and test recovery steps before an incident makes them urgent.</p>
+        <a href="#dfir">Explore incident response</a>
+      </div>
+    </article>
+  </div>            
+
+            <!-- grid 50 -->
+  <div class="card-grid">
+    <article class="card">
+      <img class="card-image" src="https://codepen.io/Yvonne-Angelica/pen/ByKoaKQ/image/large.png" width="800" height="450" alt="Network equipment representing network defense">
+      <h3 class="security-resource-title">Full Screen Video with Text Overlay</h3>
+      <div class="content">
+        <p>Review segmentation, firewall rules, and exposed services as one system. Keep the intended traffic paths documented so unexpected access stands out.</p>
+        <a href="#netsec">Explore network security</a>
+      </div>
+    </article>
+
+    <article class="card">
+      <img class="card-image" src="https://codepen.io/Yvonne-Angelica/pen/YPqyzpP/image/large.png" width="800" height="450" alt="Secure access credentials representing identity and access management">
+      <h3 class="security-resource-title">Find and Replace Tool</h3>
+      <div class="content">
+        <p>Map privileged accounts to their owners, limit standing access, and review authentication events for changes that do not match expected use.</p>
+        <a href="#iam">Explore identity security</a>
+      </div>
+    </article>
+
+    <article class="card">
+      <img class="card-image" src="https://codepen.io/Yvonne-Angelica/pen/dPMYyzP/image/large.png" width="800" height="450" alt="Incident response workspace representing incident readiness">
+      <h3 class="security-resource-title">>Custom Context Menu</h3>
+      <div class="content">
+        <p>Prepare response roles, preserve the logs needed to investigate, and test recovery steps before an incident makes them urgent.</p>
+        <a href="#dfir">Explore incident response</a>
+      </div>
+    </article>
+  </div>
+
+            <!-- grid 51 -->
+  <div class="card-grid">
+    <article class="card">
+      <img class="card-image" src="https://codepen.io/Yvonne-Angelica/pen/EaKVaXP/image/large.png" width="800" height="450" alt="Network equipment representing network defense">
+      <h3 class="security-resource-title">Cybersecurity Website Template</h3>
+      <div class="content">
+        <p>Review segmentation, firewall rules, and exposed services as one system. Keep the intended traffic paths documented so unexpected access stands out.</p>
+        <a href="#netsec">Explore network security</a>
+      </div>
+    </article>
+
+    <article class="card">
+      <img class="card-image" src="https://codepen.io/Yvonne-Angelica/pen/wBGKBbZ/image/large.png" width="800" height="450" alt="Secure access credentials representing identity and access management">
+      <h3 class="security-resource-title">Phishing Campaign Template-Microsoft Quarantined Email Phish Simulation</h3>
+      <div class="content">
+        <p>Map privileged accounts to their owners, limit standing access, and review authentication events for changes that do not match expected use.</p>
+        <a href="#iam">Explore identity security</a>
+      </div>
+    </article>
+
+    <article class="card">
+      <img class="card-image" src="https://codepen.io/Yvonne-Angelica/pen/KwzdwOw/image/large.png" width="800" height="450" alt="Incident response workspace representing incident readiness">
+      <h3 class="security-resource-title">>eBAY Confirm Details Phishing Campaign Template</h3>
+      <div class="content">
+        <p>Prepare response roles, preserve the logs needed to investigate, and test recovery steps before an incident makes them urgent.</p>
+        <a href="#dfir">Explore incident response</a>
+      </div>
+    </article>
+  </div>
+
+            <!-- grid 52 -->
+  <div class="card-grid">
+    <article class="card">
+      <img class="card-image" src="https://codepen.io/Yvonne-Angelica/pen/xbVwGVP/image/large.png" width="800" height="450" alt="Network equipment representing network defense">
+      <h3 class="security-resource-title">Glassmorphism Creative Purple Management Dashboard</h3>
+      <div class="content">
+        <p>Review segmentation, firewall rules, and exposed services as one system. Keep the intended traffic paths documented so unexpected access stands out.</p>
+        <a href="#netsec">Explore network security</a>
+      </div>
+    </article>
+
+    <article class="card">
+      <img class="card-image" src="https://codepen.io/Yvonne-Angelica/pen/azNvGjZ/image/large.png" width="800" height="450" alt="Secure access credentials representing identity and access management">
+      <h3 class="security-resource-title">Blog Page WIP</h3>
+      <div class="content">
+        <p>Map privileged accounts to their owners, limit standing access, and review authentication events for changes that do not match expected use.</p>
+        <a href="#iam">Explore identity security</a>
+      </div>
+    </article>
+
+    <article class="card">
+      <img class="card-image" src="https://codepen.io/Yvonne-Angelica/pen/jEqWPPg/image/large.png" width="800" height="450" alt="Incident response workspace representing incident readiness">
+      <h3 class="security-resource-title">>Animated Gradient Background</h3>
+      <div class="content">
+        <p>Prepare response roles, preserve the logs needed to investigate, and test recovery steps before an incident makes them urgent.</p>
+        <a href="#dfir">Explore incident response</a>
+      </div>
+    </article>
+  </div>
+
+            <!-- grid 53 -->
+  <div class="card-grid">
+    <article class="card">
+      <img class="card-image" src="https://codepen.io/Yvonne-Angelica/pen/XJddywY/image/large.png" width="800" height="450" alt="Network equipment representing network defense">
+      <h3 class="security-resource-title">Vertical Tab Step Bar to Responsive Accordion</h3>
+      <div class="content">
+        <p>Review segmentation, firewall rules, and exposed services as one system. Keep the intended traffic paths documented so unexpected access stands out.</p>
+        <a href="#netsec">Explore network security</a>
+      </div>
+    </article>
+
+    <article class="card">
+      <img class="card-image" src="https://codepen.io/Yvonne-Angelica/pen/jEqrwdy/image/large.png" width="800" height="450" alt="Secure access credentials representing identity and access management">
+      <h3 class="security-resource-title">React 0.2.0 - Article Cards
+</h3>
+      <div class="content">
+        <p>Map privileged accounts to their owners, limit standing access, and review authentication events for changes that do not match expected use.</p>
+        <a href="#iam">Explore identity security</a>
+      </div>
+    </article>
+
+    <article class="card">
+      <img class="card-image" src="https://codepen.io/Yvonne-Angelica/pen/PwNzajQ/image/large.png" width="800" height="450" alt="Incident response workspace representing incident readiness">
+      <h3 class="security-resource-title">>CSS Info Cards - Hover</h3>
+      <div class="content">
+        <p>Prepare response roles, preserve the logs needed to investigate, and test recovery steps before an incident makes them urgent.</p>
+        <a href="#dfir">Explore incident response</a>
+      </div>
+    </article>
+  </div>
+
+            <!-- grid 54 -->
+  <div class="card-grid">
+    <article class="card">
+      <img class="card-image" src="https://codepen.io/Yvonne-Angelica/pen/EaKyOBL/image/large.png" width="800" height="450" alt="Network equipment representing network defense">
+      <h3 class="security-resource-title">Blog Post Card - Long-Width</h3>
+      <div class="content">
+        <p>Review segmentation, firewall rules, and exposed services as one system. Keep the intended traffic paths documented so unexpected access stands out.</p>
+        <a href="#netsec">Explore network security</a>
+      </div>
+    </article>
+
+    <article class="card">
+      <img class="card-image" src="https://codepen.io/Yvonne-Angelica/pen/YPqGLBP/image/large.png" width="800" height="450" alt="Secure access credentials representing identity and access management">
+      <h3 class="security-resource-title">Sass | Technical Document</h3>
+      <div class="content">
+        <p>Map privileged accounts to their owners, limit standing access, and review authentication events for changes that do not match expected use.</p>
+        <a href="#iam">Explore identity security</a>
+      </div>
+    </article>
+
+    <article class="card">
+      <img class="card-image" src="https://codepen.io/Yvonne-Angelica/pen/emZWvNY/image/large.png" width="800" height="450" alt="Incident response workspace representing incident readiness">
+      <h3 class="security-resource-title">>3D Gradient Catalog Using Pure HTML</h3>
+      <div class="content">
+        <p>Prepare response roles, preserve the logs needed to investigate, and test recovery steps before an incident makes them urgent.</p>
+        <a href="#dfir">Explore incident response</a>
+      </div>
+    </article>
+  </div>
+
+            <!-- grid 55 -->
+  <div class="card-grid">
+    <article class="card">
+      <img class="card-image" src="https://codepen.io/Yvonne-Angelica/pen/jEqmBWR/image/large.png" width="800" height="450" alt="Network equipment representing network defense">
+      <h3 class="security-resource-title">Multiple Nest-Accordion / Index Using 'nilla HTML with Classic Cyber Aesthetic</h3>
+      <div class="content">
+        <p>Review segmentation, firewall rules, and exposed services as one system. Keep the intended traffic paths documented so unexpected access stands out.</p>
+        <a href="#netsec">Explore network security</a>
+      </div>
+    </article>
+
+    <article class="card">
+      <img class="card-image" src="https://codepen.io/Yvonne-Angelica/pen/ZYWJMqg/image/large.png" width="800" height="450" alt="Secure access credentials representing identity and access management">
+      <h3 class="security-resource-title">Fun YouTube Clone</h3>
+      <div class="content">
+        <p>Map privileged accounts to their owners, limit standing access, and review authentication events for changes that do not match expected use.</p>
+        <a href="#iam">Explore identity security</a>
+      </div>
+    </article>
+
+    <article class="card">
+      <img class="card-image" src="https://codepen.io/Yvonne-Angelica/pen/zxqPoXo/image/large.png" width="800" height="450" alt="Incident response workspace representing incident readiness">
+      <h3 class="security-resource-title">Marquee Container</h3>
+      <div class="content">
+        <p>Prepare response roles, preserve the logs needed to investigate, and test recovery steps before an incident makes them urgent.</p>
+        <a href="#dfir">Explore incident response</a>
+      </div>
+    </article>
+  </div>
+
+            <!-- grid 56 -->
+  <div class="card-grid">
+    <article class="card">
+      <img class="card-image" src="https://codepen.io/Yvonne-Angelica/pen/ogxowpP/image/large.png" width="800" height="450" alt="Network equipment representing network defense">
+      <h3 class="security-resource-title">Responsive Flexbox Image Card Grid</h3>
+      <div class="content">
+        <p>Review segmentation, firewall rules, and exposed services as one system. Keep the intended traffic paths documented so unexpected access stands out.</p>
+        <a href="#netsec">Explore network security</a>
+      </div>
+    </article>
+
+    <article class="card">
+      <img class="card-image" src="https://codepen.io/Yvonne-Angelica/pen/yyOpLMe/image/large.png" width="800" height="450" alt="Secure access credentials representing identity and access management">
+      <h3 class="security-resource-title">Page with Sidebar Bootstrap 3</h3>
+      <div class="content">
+        <p>Map privileged accounts to their owners, limit standing access, and review authentication events for changes that do not match expected use.</p>
+        <a href="#iam">Explore identity security</a>
+      </div>
+    </article>
+
+    <article class="card">
+      <img class="card-image" src="https://codepen.io/Yvonne-Angelica/pen/QwNawxO/image/large.png" width="800" height="450" alt="Incident response workspace representing incident readiness">
+      <h3 class="security-resource-title">Bootstrap4 Sidebar Accordion</h3>
+      <div class="content">
+        <p>Prepare response roles, preserve the logs needed to investigate, and test recovery steps before an incident makes them urgent.</p>
+        <a href="#dfir">Explore incident response</a>
+      </div>
+    </article>
+  </div>
+
+            <!-- grid 57 -->
+  <div class="card-grid">
+    <article class="card">
+      <img class="card-image" src="https://codepen.io/Yvonne-Angelica/pen/RNaxZKb/image/large.png" width="800" height="450" alt="Network equipment representing network defense">
+      <h3 class="security-resource-title">Neo-Brutalism Design - CSS</h3>
+      <div class="content">
+        <p>Review segmentation, firewall rules, and exposed services as one system. Keep the intended traffic paths documented so unexpected access stands out.</p>
+        <a href="#netsec">Explore network security</a>
+      </div>
+    </article>
+
+    <article class="card">
+      <img class="card-image" src="https://codepen.io/Yvonne-Angelica/pen/YPqYJRQ/image/large.png" width="800" height="450" alt="Secure access credentials representing identity and access management">
+      <h3 class="security-resource-title">Ethical Hacking Wiki 🦄</h3>
+      <div class="content">
+        <p>Map privileged accounts to their owners, limit standing access, and review authentication events for changes that do not match expected use.</p>
+        <a href="#iam">Explore identity security</a>
+      </div>
+    </article>
+
+    <article class="card">
+      <img class="card-image" src="https://codepen.io/Yvonne-Angelica/pen/bNpamPQ/image/large.png" width="800" height="450" alt="Incident response workspace representing incident readiness">
+      <h3 class="security-resource-title">Yet Another Ethical Hacking Wiki 🍀</h3>
+      <div class="content">
+        <p>Prepare response roles, preserve the logs needed to investigate, and test recovery steps before an incident makes them urgent.</p>
+        <a href="#dfir">Explore incident response</a>
+      </div>
+    </article>
+  </div>
+
+            <!-- grid 58 -->
+  <div class="card-grid">
+    <article class="card">
+      <img class="card-image" src="https://codepen.io/Yvonne-Angelica/pen/YPqYRZa/image/large.png" width="800" height="450" alt="Network equipment representing network defense">
+      <h3 class="security-resource-title">Responsive Social Platform UI</h3>
+      <div class="content">
+        <p>Review segmentation, firewall rules, and exposed services as one system. Keep the intended traffic paths documented so unexpected access stands out.</p>
+        <a href="#netsec">Explore network security</a>
+      </div>
+    </article>
+
+    <article class="card">
+      <img class="card-image" src="https://codepen.io/Yvonne-Angelica/pen/YPqYJRQ/image/large.png" width="800" height="450" alt="Secure access credentials representing identity and access management">
+      <h3 class="security-resource-title">Ethical Hacking Wiki 🦄</h3>
+      <div class="content">
+        <p>Map privileged accounts to their owners, limit standing access, and review authentication events for changes that do not match expected use.</p>
+        <a href="#iam">Explore identity security</a>
+      </div>
+    </article>
+
+    <article class="card">
+      <img class="card-image" src="https://codepen.io/Yvonne-Angelica/pen/bNpamPQ/image/large.png" width="800" height="450" alt="Incident response workspace representing incident readiness">
+      <h3 class="security-resource-title">Yet Another Ethical Hacking Wiki 🍀</h3>
+      <div class="content">
+        <p>Prepare response roles, preserve the logs needed to investigate, and test recovery steps before an incident makes them urgent.</p>
+        <a href="#dfir">Explore incident response</a>
+      </div>
+    </article>
+  </div>
+
+
+            
+        </section>
+       
+       
+      </main>
+    </div>
+
+   
+  </div>
+
+  <!-- ========== CONNECTING PAGE ========== -->
+ <script>
+// ==========================================
+// hackherway cyberspace - JavaScript
+// ==========================================
+
+// Page Navigation Functions
+function showLinksPage() {
+  document.getElementById('main-page').classList.add('hidden');
+  document.getElementById('links-page').classList.add('active');
+  window.scrollTo(0, 0);
+}
+
+function showMainPage() {
+  document.getElementById('main-page').classList.remove('hidden');
+  document.getElementById('links-page').classList.remove('active');
+  window.scrollTo(0, 0);
+}
+
+// Dark Mode
+if (window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches) {
+  document.documentElement.classList.add("dark");
+}
+
+window.matchMedia("(prefers-color-scheme: dark)").addEventListener("change", (event) => {
+  if (event.matches) {
+    document.documentElement.classList.add("dark");
+  } else {
+    document.documentElement.classList.remove("dark");
+  }
+});
+
+// Theme Toggle
+document.getElementById("theme-toggle").addEventListener("click", () => {
+  document.documentElement.classList.toggle("dark");
+});
+
+// Blur Card Toggle
+document.querySelectorAll(".blur-card").forEach(card => {
+  card.addEventListener("click", () => {
+    card.classList.toggle("revealed");
+  });
+});
+
+// Accordion Toggle
+document.addEventListener('DOMContentLoaded', () => {
+  const accordionHeaders = document.querySelectorAll(".accordion-header");
+  
+  accordionHeaders.forEach((header) => {
+    header.addEventListener("click", (e) => {
+      e.preventDefault();
+      const accordionItem = header.parentElement;
+      const isActive = accordionItem.classList.contains("active");
+      
+      // Close all accordion items
+      document.querySelectorAll(".accordion-item").forEach((item) => {
+        item.classList.remove("active");
+      });
+      
+      // Toggle clicked item
+      if (!isActive) {
+        accordionItem.classList.add("active");
+      }
+    });
+  });
+});
+
+// Search Functionality
+document.addEventListener("DOMContentLoaded", () => {
+  const searchInput = document.getElementById("search-input");
+  const searchResults = document.getElementById("search-results");
+  const searchButton = document.getElementById("search-button");
+  const contentElements = document.querySelectorAll("main h1, main h2, main h3, main h4, main h5, main p, main li");
+  
+  const searchIndex = new Map();
+  
+  function hashText(text) {
+    return text.toLowerCase().replace(/[^\w\s]/g, "").replace(/\s+/g, " ").trim();
+  }
+  
+  // Build search index
+  contentElements.forEach((element, index) => {
+    const text = element.textContent;
+    const hashedText = hashText(text);
+    if (hashedText.length < 3) return;
+    
+    searchIndex.set(hashedText, { element, originalText: text, index });
+    
+    const words = hashedText.split(" ");
+    words.forEach((word) => {
+      if (word.length > 3) {
+        if (!searchIndex.has(word)) searchIndex.set(word, []);
+        if (Array.isArray(searchIndex.get(word))) {
+          searchIndex.get(word).push({ element, originalText: text, index });
+        }
+      }
+    });
+  });
+  
+  function performSearch(query) {
+    const results = [];
+    const seenElements = new Set();
+    const normalizedQuery = hashText(query);
+    if (normalizedQuery.length < 2) return results;
+    
+    if (searchIndex.has(normalizedQuery) && !Array.isArray(searchIndex.get(normalizedQuery))) {
+      const result = searchIndex.get(normalizedQuery);
+      results.push(result);
+      seenElements.add(result.element);
+    }
+    
+    searchIndex.forEach((value, key) => {
+      if (key.includes(normalizedQuery)) {
+        if (Array.isArray(value)) {
+          value.forEach((item) => {
+            if (!seenElements.has(item.element)) {
+              results.push(item);
+              seenElements.add(item.element);
+            }
+          });
+        } else if (!seenElements.has(value.element)) {
+          results.push(value);
+          seenElements.add(value.element);
+        }
+      }
+    });
+    
+    results.sort((a, b) => {
+      const aExact = hashText(a.originalText) === normalizedQuery;
+      const bExact = hashText(b.originalText) === normalizedQuery;
+      if (aExact && !bExact) return -1;
+      if (!aExact && bExact) return 1;
+      return a.index - b.index;
+    });
+    
+    return results.slice(0, 10);
+  }
+  
+  function displayResults(results) {
+    searchResults.innerHTML = "";
+    if (results.length === 0) {
+      searchResults.innerHTML = '<div class="p-3 text-gray-500 dark:text-gray-400">No results found</div>';
+      return;
+    }
+    
+    results.forEach((result) => {
+      const div = document.createElement("div");
+      div.className = "p-3 border-b border-gray-200 dark:border-gray-700 hover:bg-gray-100 dark:hover:bg-gray-700 cursor-pointer text-sm";
+      let displayText = result.originalText;
+      if (displayText.length > 80) displayText = displayText.substring(0, 80) + "...";
+      div.textContent = displayText;
+      div.addEventListener("click", () => {
+        result.element.scrollIntoView({ behavior: "smooth" });
+        result.element.classList.add("search-result");
+        setTimeout(() => result.element.classList.remove("search-result"), 2000);
+        searchResults.style.display = "none";
+        searchInput.value = "";
+      });
+      searchResults.appendChild(div);
+    });
+  }
+  
+  searchInput.addEventListener("input", () => {
+    const query = searchInput.value.trim();
+    if (query.length < 2) {
+      searchResults.style.display = "none";
+      return;
+    }
+    const results = performSearch(query);
+    displayResults(results);
+    searchResults.style.display = "block";
+  });
+  
+  searchButton.addEventListener("click", () => {
+    const query = searchInput.value.trim();
+    if (query.length < 2) return;
+    const results = performSearch(query);
+    displayResults(results);
+    searchResults.style.display = "block";
+  });
+  
+  document.addEventListener("click", (event) => {
+    if (!searchInput.contains(event.target) && !searchResults.contains(event.target)) {
+      searchResults.style.display = "none";
+    }
+  });
+});
+</script>
+<script>
+// Fix initial page load
+window.addEventListener('load', () => {
+  // Scroll to top
+  window.scrollTo(0, 0);
+  
+  // Ensure sidebar is visible on desktop
+  if (window.innerWidth > 1024) {
+    document.querySelector('.content-wrapper').style.display = 'flex';
+    document.querySelector('aside').style.display = 'block';
+  }
+});
+
+  
+</script>
+  <script src="script.js"></script>
+</body>
+ 
+
+</html>
