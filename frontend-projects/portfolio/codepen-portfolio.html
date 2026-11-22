@@ -5,7 +5,7 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
   <meta name="color-scheme" content="light dark" />
-  <title>hackherway cyberspace</title>
+  <title>hackherway frontend sandbox & ui projects</title>
   <link rel="stylesheet" href="./style.css">
   <link rel="shortcut icon" href="https://i.imgur.com/pheSvKs.png">
   
@@ -325,8 +325,7 @@ body {
     <header class="sticky top-0 z-50 bg-white dark:bg-gray-900 shadow-md">
       <div class="w-full max-w-none mx-0 px-3 py-2 flex flex-col lg:flex-row items-center gap-2">
         <h1 class="small-caps-heading whitespace-nowrap shrink-0 text-xl lg:text-2xl font-bold text-primary text-left inline-block border-r-2 border-primary pr-2 blink-cursor">
-          🖤 hackherway cyberspace 🖤
-        </h1>
+          🖤 hackherway frontend sandbox & ui projects 🖤</h1>
         
         <!-- Header Dropdown -->
         <div class="header-dropdown">
@@ -348,7 +347,7 @@ body {
 
         <div class="lg:ml-auto w-full lg:w-2/5 relative">
           <div class="relative">
-            <input type="text" id="search-input" placeholder="🔍 Search hackherway..." class="w-full px-3 py-2 pr-10 rounded-lg border border-gray-300 dark:border-gray-700 dark:bg-gray-800 focus:outline-none focus:ring-2 focus:ring-primary text-sm" autocomplete="off">
+            <input type="text" id="search-input" placeholder="🔍 Search hackherway pens..." class="w-full px-3 py-2 pr-10 rounded-lg border border-gray-300 dark:border-gray-700 dark:bg-gray-800 focus:outline-none focus:ring-2 focus:ring-primary text-sm" autocomplete="off">
             <button id="search-button" class="absolute right-3 top-1/2 transform -translate-y-1/2 text-primary">
               <i class="fas fa-search"></i>
             </button>
@@ -363,7 +362,7 @@ body {
       </div>
     </header>
 
-    <p class="header-tagline"><span class="header-tagline-text">Learn how to hackherway - the hacker way...</span></p>
+    <p class="header-tagline"><span class="header-tagline-text">Hand-coded layouts, UI experiments, and interactive builds made from scratch and with<img src="https://pixelsafari.neocities.org/favicon/symbol/heart/sparkle.gif">in HTML, CSS, and JavaScript.</span></p>
 
     <div class="content-wrapper">
      
@@ -379,16 +378,16 @@ body {
           
 <div id="infrasec-tabs" class="container mt-4">
   <div class="security-tab-list" role="tablist" aria-label="Infrastructure security topics">
-    <button class="security-tab-button" id="tab-home" type="button" data-tab="home" role="tab" aria-controls="home" aria-selected="true" tabindex="0"><p class="all-caps-text">• Baseline hardening •</button>
-    <button class="security-tab-button" id="tab-profile" type="button" data-tab="profile" role="tab" aria-controls="profile" aria-selected="false" tabindex="-1"><p class="all-caps-text">• Network visibility •</button>
-    <button class="security-tab-button" id="tab-messages" type="button" data-tab="messages" role="tab" aria-controls="messages" aria-selected="false" tabindex="-1"><p class="all-caps-text">• Resilience and recovery •</button>
+    <button class="security-tab-button" id="tab-home" type="button" data-tab="home" role="tab" aria-controls="home" aria-selected="true" tabindex="0"><p class="all-caps-text">• What This Is •</button>
+    <button class="security-tab-button" id="tab-profile" type="button" data-tab="profile" role="tab" aria-controls="profile" aria-selected="false" tabindex="-1"><p class="all-caps-text">• Whoami •</button>
+    <button class="security-tab-button" id="tab-messages" type="button" data-tab="messages" role="tab" aria-controls="messages" aria-selected="false" tabindex="-1"><p class="all-caps-text">• What I Do •</button>
   </div>
   <div class="tab-content responsive">
     <div class="security-tab-panel" id="home" role="tabpanel" aria-labelledby="tab-home" tabindex="0">
       <div class="security-tab-layout">
         <img class="security-tab-image" alt="laptop_from_side_925x" src="https://preview.ibb.co/jjt8iF/laptop_from_side_925x.jpg">
         <div class="security-tab-copy">
-          <h3 class="h3">Baseline hardening</h3>
+          <h2 class="h2">What This Is</h2>
           <p>Start with an accurate inventory of servers, network devices, and exposed services. Apply a documented secure baseline, remove services the system does not need, and review configuration changes so exceptions stay visible and intentional.</p>
         </div>
       </div>
@@ -397,21 +396,24 @@ body {
       <div class="security-tab-layout">
         <img class="security-tab-image" alt="macbook_air_on_desk_925x" src="https://preview.ibb.co/f2foiF/macbook_air_on_desk_925x.jpg">
         <div class="security-tab-copy">
-          <h3 class="h3">Network visibility</h3>
+          <h3 class="h3">Whoami</h3>
           <p>Useful infrastructure monitoring connects asset ownership with network and system logs. Keep timestamps consistent, retain the events needed for investigations, and make sure alerts give responders enough context to validate unusual activity.</p>
         </div>
       </div>
     </div>
     <div class="security-tab-panel" id="messages" role="tabpanel" aria-labelledby="tab-messages" tabindex="0" hidden>
       <div class="security-tab-layout">
+        <img class="security-tab-image" alt="macbook_air_on_desk_925x" src="https://preview.ibb.co/f2foiF/macbook_air_on_desk_925x.jpg">
+
         <div class="security-tab-copy">
-          <h3 class="h3">Resilience and recovery</h3>
+          <h3 class="h3">What I Do</h3>
           <p>Plan for failures as well as intrusions. Maintain tested backups, document recovery priorities, and rehearse how infrastructure teams isolate affected systems and restore trusted services.</p>
           <ul>
             <li>Keep recovery procedures current and accessible.</li>
             <li>Test backup restoration on a regular schedule.</li>
             <li>Record ownership and escalation paths for critical services.</li>
           </ul>
+          <p>peep</p>
         </div>
       </div>
     </div>
